@@ -12,8 +12,10 @@ Allows to `mixin` functionality into an Android `Activity`. Just because we all 
 
 ## Inspiration
 
-- [Navi](https://github.com/trello/navi) of cause, but CompositeAndroid supports *all* methods.
-- [Lightcycle](https://github.com/soundcloud/lightcycle) which supports only basic lifecycle methods.
+- [Navi](https://github.com/trello/navi) of cause, but
+    - it doesn't support all methods (only methods without return value)
+    - it doesn't only support code execution before or after calling `super`, not very flexible
+- [Lightcycle](https://github.com/soundcloud/lightcycle) which only supports basic lifecycle methods.
 
 
 ## How will it work once it's done?
