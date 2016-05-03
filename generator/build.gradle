@@ -1,0 +1,30 @@
+group 'com.pascalwelsch.compositeandroid'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.1"
+    }
+}
+
+apply plugin: 'kotlin'
+
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+
+
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.1"
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.0.1"
+    compile 'com.squareup:javapoet:1.6.1'
+}
