@@ -1,6 +1,6 @@
 # CompositeAndroid
 
-![License](https://img.shields.io/badge/license-Apache%202-green.svg?style=flat)]
+![License](https://img.shields.io/badge/license-Apache%202-green.svg?style=flat)
 
 *Composition over inheritance*
 
@@ -60,7 +60,6 @@ Tray is available via [jcenter](http://blog.bintray.com/2015/02/09/android-studi
 ```java
 
 dependencies {
-    // stable
     compile 'com.pascalwelsch.compositeandroid:activity:0.1-alpha1'
 }
 
