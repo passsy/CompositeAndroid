@@ -12,8 +12,8 @@ fun main(args: Array<String>) {
     activity = activity.copy(methods = filteredMethods)
 
 
-    //createCompositeActivity(activity)
-    //createActivityDelegate(activity)
+    createCompositeActivity(activity)
+    createActivityDelegate(activity)
     createActivityPlugin(activity)
 }
 
@@ -184,7 +184,6 @@ fun createCompositeActivity(activity: AnalyzedJavaFile) {
     sb.appendln("@SuppressLint({\"MissingSuperCall\", \"NewApi\"})")
     sb.appendln("public class CompositeActivity extends CompositeActivityBase {")
     sb.appendln("")
-    sb.appendln("    final ActivityDelegate delegate = new ActivityDelegate(this);")
 
     for (method in activity.methods) with(method) {
         if (visibility.isNullOrBlank() && !visibility.contains("private")) {
