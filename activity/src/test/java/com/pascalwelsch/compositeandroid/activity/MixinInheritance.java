@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Java6Assertions.fail;
 
 public class MixinInheritance {
 
@@ -29,7 +30,7 @@ public class MixinInheritance {
 
         public PersonDelegate mDelegate;
 
-        ActivityDelegateBase.ActivitySuperFunction mSuperListener;
+        ActivitySuperFunction mSuperListener;
 
         public void say(String s) {
             mDelegate.say(s);
@@ -38,11 +39,16 @@ public class MixinInheritance {
         public void sayHello() {
             if (mSuperListener != null) {
                 mSuperListener.call();
+            } else {
+                throw new IllegalStateException(
+                        "Do not call this method on a ActivityPlugin directly. You have to call `mDelegate.sayHello()` or the call order of the plugins would be mixed up.");
             }
         }
     }
 
     public static class PersonDelegate {
+
+        public PersonPlugin mCallingPlugin;
 
         List<PersonPlugin> mPlugins = new ArrayList<>();
 
@@ -64,7 +70,7 @@ public class MixinInheritance {
                 public void call(final PersonPlugin plugin, final Object... args) {
                     plugin.sayHello();
                 }
-            }, new ActivityDelegateBase.ActivitySuperAction() {
+            }, new ActivitySuperAction() {
                 @Override
                 public void call(final Object... args) {
                     mCompositePerson.sayHello_super();
@@ -74,23 +80,26 @@ public class MixinInheritance {
 
         protected void callHook(
                 final PluginMethodAction methodCall,
-                final ActivityDelegateBase.ActivitySuperAction activitySuper,
+                final ActivitySuperAction activitySuper,
                 final Object... args) {
 
-            final ListIterator<PersonPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+            final ArrayList<PersonPlugin> plugins = new ArrayList<>(mPlugins);
+            plugins.remove(mCallingPlugin);
+
+            final ListIterator<PersonPlugin> iterator = plugins.listIterator(plugins.size());
             callHook(iterator, methodCall, activitySuper, args);
         }
 
 
         void callHook(final ListIterator<PersonPlugin> iterator,
                 final PluginMethodAction methodCall,
-                final ActivityDelegateBase.ActivitySuperAction activitySuper,
+                final ActivitySuperAction activitySuper,
                 final Object... args) {
 
             if (iterator.hasPrevious()) {
                 final PersonPlugin plugin = iterator.previous();
-                final ActivityDelegateBase.ActivitySuperFunction<Void> listener
-                        = new ActivityDelegateBase.ActivitySuperFunction<Void>() {
+                final ActivitySuperFunction<Void> listener
+                        = new ActivitySuperFunction<Void>("") {
                     @Override
                     public Void call(final Object... args) {
                         callHook(iterator, methodCall, activitySuper, args);
@@ -152,9 +161,86 @@ public class MixinInheritance {
         }
     }
 
+    public static class Surprise extends PersonPlugin {
+
+        @Override
+        public void sayHello() {
+            say("Surprise!");
+            super.sayHello();
+        }
+    }
+
     public interface PluginMethodAction {
 
         void call(PersonPlugin plugin, Object... args);
+    }
+
+    @Test
+    public void testCallMethodFromSuper() throws Exception {
+
+        final CompositePerson bossPerson = new CompositePerson();
+        final Boss boss = new Boss();
+        bossPerson.addPlugins(boss);
+        try {
+            boss.sayHello();
+            fail("Exception excepted");
+        } catch (IllegalStateException e) {
+            assertThat(e).hasMessageContaining("order");
+        }
+        bossPerson.sayHello();
+        assertThat(bossPerson.said)
+                .isEqualTo(Arrays.asList("Hello, I'm John", "I'm your boss"));
+
+        final CompositePerson paranoidPerson = new CompositePerson();
+        final Paranoid paranoid = new Paranoid();
+        paranoidPerson.addPlugins(paranoid);
+        try {
+            paranoid.sayHello();
+            fail("Exception excepted");
+        } catch (IllegalStateException e) {
+            assertThat(e).hasMessageContaining("order");
+        }
+        paranoidPerson.said.clear();
+        paranoidPerson.sayHello();
+        assertThat(paranoidPerson.said)
+                .isEqualTo(Arrays.asList("Is somebody listening?", "Hello, I'm John"));
+
+        final CompositePerson paranoidBoss = new CompositePerson();
+        paranoidBoss.addPlugins(paranoid);
+        paranoidBoss.addPlugins(boss);
+        try {
+            paranoid.sayHello();
+            fail("Exception excepted");
+        } catch (IllegalStateException e) {
+            assertThat(e).hasMessageContaining("order");
+        }
+        paranoidBoss.said.clear();
+        paranoidBoss.sayHello();
+        assertThat(paranoidBoss.said)
+                .isEqualTo(Arrays.asList("Is somebody listening?", "Hello, I'm John",
+                        "I'm your boss"));
+        try {
+            boss.sayHello();
+            fail("Exception excepted");
+        } catch (IllegalStateException e) {
+            assertThat(e).hasMessageContaining("order");
+        }
+
+        final CompositePerson goodBoss = new CompositePerson();
+        goodBoss.addPlugins(boss);
+        final Good good = new Good();
+        goodBoss.addPlugins(good);
+
+        goodBoss.sayHello();
+        assertThat(goodBoss.said)
+                .isEqualTo(Arrays.asList("Hello, I'm John", "I'm your boss", "How are you?"));
+        try {
+            good.sayHello();
+            fail("Exception excepted");
+        } catch (IllegalStateException e) {
+            assertThat(e).hasMessageContaining("order");
+        }
+
     }
 
     @Test
@@ -180,7 +266,6 @@ public class MixinInheritance {
                 .isEqualTo(Arrays.asList("Is somebody listening?", "Hello, I'm John",
                         "I'm your boss"));
 
-
         final CompositePerson goodBoss = new CompositePerson();
         goodBoss.addPlugins(new Boss());
         goodBoss.addPlugins(new Good());
@@ -188,6 +273,33 @@ public class MixinInheritance {
 
         assertThat(goodBoss.said)
                 .isEqualTo(Arrays.asList("Hello, I'm John", "I'm your boss", "How are you?"));
+    }
+
+    @Test
+    public void testThreePlugins() throws Exception {
+        final CompositePerson person = new CompositePerson();
+        final Paranoid paranoid = new Paranoid();
+
+        person.addPlugins(new Boss());
+        person.addPlugins(paranoid);
+        person.addPlugins(new Surprise());
+        person.sayHello();
+        assertThat(person.said)
+                .isEqualTo(Arrays.asList("Surprise!", "Is somebody listening?", "Hello, I'm John",
+                        "I'm your boss"));
+
+        // TODO think about how this could be solved
+        // this is the fun part. Real inheritance would call "Surprise!" first. this happens when
+        // code gets executed before calling super and there is nothing I can do against.
+        // at least nothing got called twice
+        person.said.clear();
+
+        try {
+            paranoid.sayHello();
+            fail("Exception excepted");
+        } catch (IllegalStateException e) {
+            assertThat(e).hasMessageContaining("order");
+        }
     }
 
 }

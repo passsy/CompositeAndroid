@@ -3,9 +3,11 @@ package com.pascalwelsch.compositeandroid.activity;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-public abstract class CompositeActivityBase extends AppCompatActivity {
+abstract class CompositeActivityBase extends AppCompatActivity {
 
-    protected ActivityDelegate delegate = new ActivityDelegate((CompositeActivity) this);
+    private CompositeActivity realThis = (CompositeActivity) this;
+
+    protected ActivityDelegate delegate = new ActivityDelegate(realThis);
 
     @Nullable
     @Override
@@ -14,6 +16,7 @@ public abstract class CompositeActivityBase extends AppCompatActivity {
     }
 
     public void mixin(ActivityPlugin plugin) {
+        plugin.setActivity(realThis);
         delegate.addPlugin(plugin);
     }
 

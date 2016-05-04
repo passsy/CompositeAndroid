@@ -8,27 +8,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public abstract class ActivityDelegateBase {
-
-    public interface ActivitySuperFunction<R> {
-
-        R call(Object... args);
-    }
-
-    public interface PluginMethodFunction<R> {
-
-        R call(ActivityPlugin plugin, Object... args);
-    }
-
-    public interface PluginMethodAction {
-
-        void call(ActivityPlugin plugin, Object... args);
-    }
-
-    public interface ActivitySuperAction {
-
-        void call(Object... args);
-    }
+abstract class ActivityDelegateBase {
 
     protected final CompositeActivity mActivity;
 
@@ -85,7 +65,7 @@ public abstract class ActivityDelegateBase {
     }
 
     @NonNull
-    protected <T> T callForwardFunction(
+    protected <T> T callForwardFunction(final String methodName,
             final PluginMethodFunction<T> methodCall, final ActivitySuperFunction<T> activitySuper,
             final Object... args) {
 
@@ -93,25 +73,27 @@ public abstract class ActivityDelegateBase {
         plugins.remove(mCallingPlugin);
 
         final ListIterator<ActivityPlugin> iterator = plugins.listIterator();
-        return callForwardFunction(iterator, methodCall, activitySuper, args);
+        return callForwardFunction(iterator, methodName, methodCall, activitySuper, args);
     }
 
     @NonNull
     protected <T> T callForwardFunction(final Iterator<ActivityPlugin> iterator,
+            final String methodName,
             final PluginMethodFunction<T> methodCall, final ActivitySuperFunction<T> activitySuper,
             final Object... args) {
 
         if (iterator.hasNext()) {
             final ActivityPlugin plugin = iterator.next();
-            final ActivitySuperFunction<T> listener = new ActivitySuperFunction<T>() {
+            final ActivitySuperFunction<T> listener = new ActivitySuperFunction<T>(methodName) {
                 @Override
                 public T call(final Object... args) {
-                    return callForwardFunction(iterator, methodCall, activitySuper, args);
+                    return callForwardFunction(iterator, methodName, methodCall, activitySuper,
+                            args);
                 }
             };
-            plugin.setSuperCallListener(listener);
+            plugin.pushSuperCallListener(listener);
             final T result = methodCall.call(plugin, args);
-            plugin.setSuperCallListener(null);
+            plugin.popSuperCallListener();
             return result;
         } else {
             return activitySuper.call(args);
@@ -119,7 +101,7 @@ public abstract class ActivityDelegateBase {
     }
 
     @NonNull
-    protected <T> T callFunction(
+    protected <T> T callFunction(final String methodName,
             final PluginMethodFunction<T> methodCall, final ActivitySuperFunction<T> activitySuper,
             final Object... args) {
 
@@ -127,32 +109,33 @@ public abstract class ActivityDelegateBase {
         plugins.remove(mCallingPlugin);
 
         final ListIterator<ActivityPlugin> iterator = plugins.listIterator(plugins.size());
-        return callFunction(iterator, methodCall, activitySuper, args);
+        return callFunction(iterator, methodName, methodCall, activitySuper, args);
     }
 
     @NonNull
     protected <T> T callFunction(final ListIterator<ActivityPlugin> iterator,
+            final String methodName,
             final PluginMethodFunction<T> methodCall, final ActivitySuperFunction<T> activitySuper,
             final Object... args) {
 
         if (iterator.hasPrevious()) {
             ActivityPlugin plugin = iterator.previous();
-            final ActivitySuperFunction<T> listener = new ActivitySuperFunction<T>() {
+            final ActivitySuperFunction<T> listener = new ActivitySuperFunction<T>(methodName) {
                 @Override
                 public T call(final Object... args) {
-                    return callFunction(iterator, methodCall, activitySuper, args);
+                    return callFunction(iterator, methodName, methodCall, activitySuper, args);
                 }
             };
-            plugin.setSuperCallListener(listener);
+            plugin.pushSuperCallListener(listener);
             final T result = methodCall.call(plugin, args);
-            plugin.setSuperCallListener(null);
+            plugin.popSuperCallListener();
             return result;
         } else {
             return activitySuper.call(args);
         }
     }
 
-    protected void callHook(
+    protected void callHook(final String methodName,
             final PluginMethodAction methodCall, final ActivitySuperAction activitySuper,
             final Object... args) {
 
@@ -160,25 +143,26 @@ public abstract class ActivityDelegateBase {
         plugins.remove(mCallingPlugin);
 
         final ListIterator<ActivityPlugin> iterator = plugins.listIterator(plugins.size());
-        callHook(iterator, methodCall, activitySuper, args);
+        callHook(iterator, methodName, methodCall, activitySuper, args);
     }
 
-    void callHook(final ListIterator<ActivityPlugin> iterator,
+    void callHook(final ListIterator<ActivityPlugin> iterator, final String methodName,
             final PluginMethodAction methodCall, final ActivitySuperAction activitySuper,
             final Object... args) {
 
         if (iterator.hasPrevious()) {
             final ActivityPlugin plugin = iterator.previous();
-            final ActivitySuperFunction<Void> listener = new ActivitySuperFunction<Void>() {
+            final ActivitySuperFunction<Void> listener = new ActivitySuperFunction<Void>(
+                    methodName) {
                 @Override
                 public Void call(final Object... args) {
-                    callHook(iterator, methodCall, activitySuper, args);
+                    callHook(iterator, methodName, methodCall, activitySuper, args);
                     return null;
                 }
             };
-            plugin.setSuperCallListener(listener);
+            plugin.pushSuperCallListener(listener);
             methodCall.call(plugin, args);
-            plugin.setSuperCallListener(null);
+            plugin.popSuperCallListener();
         } else {
             activitySuper.call(args);
         }

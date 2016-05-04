@@ -1,6 +1,7 @@
-package com.pascalwelsch.compositeandroid.activity;
 
-import android.app.Activity;
+    package com.pascalwelsch.compositeandroid.activity;
+
+    import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
@@ -75,3603 +76,1588 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 
 
-@SuppressWarnings("unused")
-public class ActivityPlugin extends ActivityPluginBase {
-
-
-    public void addContentView(final View view, final ViewGroup.LayoutParams params) {
-        if (mSuperListener != null) {
-            mSuperListener.call(view, params);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.addContentView(view, params);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void applyOverrideConfiguration(final Configuration overrideConfiguration) {
-        if (mSuperListener != null) {
-            mSuperListener.call(overrideConfiguration);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.applyOverrideConfiguration(overrideConfiguration);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void attachBaseContext(final Context newBase) {
-        if (mSuperListener != null) {
-            mSuperListener.call(newBase);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.attachBaseContext(newBase);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean bindService(final Intent service, final ServiceConnection conn,
-            final int flags) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(service, conn, flags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .bindService(service, conn, flags);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int checkCallingOrSelfPermission(final String permission) {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call(permission);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .checkCallingOrSelfPermission(permission);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int checkCallingOrSelfUriPermission(final Uri uri, final int modeFlags) {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call(uri, modeFlags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .checkCallingOrSelfUriPermission(uri, modeFlags);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int checkCallingPermission(final String permission) {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call(permission);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .checkCallingPermission(permission);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int checkCallingUriPermission(final Uri uri, final int modeFlags) {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call(uri, modeFlags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .checkCallingUriPermission(uri, modeFlags);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int checkPermission(final String permission, final int pid, final int uid) {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call(permission, pid, uid);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .checkPermission(permission, pid, uid);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int checkSelfPermission(final String permission) {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call(permission);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .checkSelfPermission(permission);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int checkUriPermission(final Uri uri, final int pid, final int uid,
-            final int modeFlags) {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call(uri, pid, uid, modeFlags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .checkUriPermission(uri, pid, uid, modeFlags);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int checkUriPermission(final Uri uri, final String readPermission,
-            final String writePermission, final int pid, final int uid, final int modeFlags) {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener
-                    .call(uri, readPermission, writePermission, pid, uid, modeFlags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .checkUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void clearWallpaper() throws IOException {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            try {
-                mActivityDelegate.clearWallpaper();
-            } catch (SuppressedException e) {
-                throw (IOException) e.getCause();
-            }
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void closeContextMenu() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.closeContextMenu();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void closeOptionsMenu() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.closeOptionsMenu();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public Context createConfigurationContext(final Configuration overrideConfiguration) {
-        if (mSuperListener != null) {
-            return (Context) mSuperListener.call(overrideConfiguration);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Context result = mActivityDelegate
-                    .createConfigurationContext(overrideConfiguration);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Context createDisplayContext(final Display display) {
-        if (mSuperListener != null) {
-            return (Context) mSuperListener.call(display);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Context result = mActivityDelegate
-                    .createDisplayContext(display);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Context createPackageContext(final String packageName, final int flags) {
-        if (mSuperListener != null) {
-            return (Context) mSuperListener.call(packageName, flags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Context result = mActivityDelegate
-                    .createPackageContext(packageName, flags);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public PendingIntent createPendingResult(final int requestCode, @NonNull final Intent data,
-            final int flags) {
-        if (mSuperListener != null) {
-            return (PendingIntent) mSuperListener.call(requestCode, data, flags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final PendingIntent result = mActivityDelegate
-                    .createPendingResult(requestCode, data, flags);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public String[] databaseList() {
-        if (mSuperListener != null) {
-            return (String[]) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final String[] result = mActivityDelegate
-                    .databaseList();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean deleteDatabase(final String name) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(name);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .deleteDatabase(name);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean deleteFile(final String name) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(name);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .deleteFile(name);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean dispatchGenericMotionEvent(final MotionEvent ev) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(ev);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .dispatchGenericMotionEvent(ev);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean dispatchKeyEvent(final KeyEvent event) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(event);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .dispatchKeyEvent(event);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean dispatchKeyShortcutEvent(final KeyEvent event) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(event);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .dispatchKeyShortcutEvent(event);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean dispatchPopulateAccessibilityEvent(final AccessibilityEvent event) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(event);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .dispatchPopulateAccessibilityEvent(event);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean dispatchTouchEvent(final MotionEvent ev) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(ev);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .dispatchTouchEvent(ev);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean dispatchTrackballEvent(final MotionEvent ev) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(ev);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .dispatchTrackballEvent(ev);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args) {
-        if (mSuperListener != null) {
-            mSuperListener.call(prefix, fd, writer, args);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.dump(prefix, fd, writer, args);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void enforceCallingOrSelfPermission(final String permission, final String message) {
-        if (mSuperListener != null) {
-            mSuperListener.call(permission, message);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.enforceCallingOrSelfPermission(permission, message);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void enforceCallingOrSelfUriPermission(final Uri uri, final int modeFlags,
-            final String message) {
-        if (mSuperListener != null) {
-            mSuperListener.call(uri, modeFlags, message);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.enforceCallingOrSelfUriPermission(uri, modeFlags, message);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void enforceCallingPermission(final String permission, final String message) {
-        if (mSuperListener != null) {
-            mSuperListener.call(permission, message);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.enforceCallingPermission(permission, message);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void enforceCallingUriPermission(final Uri uri, final int modeFlags,
-            final String message) {
-        if (mSuperListener != null) {
-            mSuperListener.call(uri, modeFlags, message);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.enforceCallingUriPermission(uri, modeFlags, message);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void enforcePermission(final String permission, final int pid, final int uid,
-            final String message) {
-        if (mSuperListener != null) {
-            mSuperListener.call(permission, pid, uid, message);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.enforcePermission(permission, pid, uid, message);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void enforceUriPermission(final Uri uri, final int pid, final int uid,
-            final int modeFlags, final String message) {
-        if (mSuperListener != null) {
-            mSuperListener.call(uri, pid, uid, modeFlags, message);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.enforceUriPermission(uri, pid, uid, modeFlags, message);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void enforceUriPermission(final Uri uri, final String readPermission,
-            final String writePermission, final int pid, final int uid, final int modeFlags,
-            final String message) {
-        if (mSuperListener != null) {
-            mSuperListener.call(uri, readPermission, writePermission, pid, uid, modeFlags, message);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate
-                    .enforceUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags,
-                            message);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public String[] fileList() {
-        if (mSuperListener != null) {
-            return (String[]) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final String[] result = mActivityDelegate
-                    .fileList();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public View findViewById(@IdRes final int id) {
-        if (mSuperListener != null) {
-            return (View) mSuperListener.call(id);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final View result = mActivityDelegate
-                    .findViewById(id);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void finish() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.finish();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void finishActivity(final int requestCode) {
-        if (mSuperListener != null) {
-            mSuperListener.call(requestCode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.finishActivity(requestCode);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void finishActivityFromChild(@NonNull final Activity child, final int requestCode) {
-        if (mSuperListener != null) {
-            mSuperListener.call(child, requestCode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.finishActivityFromChild(child, requestCode);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void finishAffinity() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.finishAffinity();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void finishAfterTransition() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.finishAfterTransition();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void finishAndRemoveTask() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.finishAndRemoveTask();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void finishFromChild(final Activity child) {
-        if (mSuperListener != null) {
-            mSuperListener.call(child);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.finishFromChild(child);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public android.app.ActionBar getActionBar() {
-        if (mSuperListener != null) {
-            return (android.app.ActionBar) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final android.app.ActionBar result = mActivityDelegate
-                    .getActionBar();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Context getApplicationContext() {
-        if (mSuperListener != null) {
-            return (Context) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Context result = mActivityDelegate
-                    .getApplicationContext();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public ApplicationInfo getApplicationInfo() {
-        if (mSuperListener != null) {
-            return (ApplicationInfo) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final ApplicationInfo result = mActivityDelegate
-                    .getApplicationInfo();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public AssetManager getAssets() {
-        if (mSuperListener != null) {
-            return (AssetManager) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final AssetManager result = mActivityDelegate
-                    .getAssets();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Context getBaseContext() {
-        if (mSuperListener != null) {
-            return (Context) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Context result = mActivityDelegate
-                    .getBaseContext();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File getCacheDir() {
-        if (mSuperListener != null) {
-            return (File) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File result = mActivityDelegate
-                    .getCacheDir();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public ComponentName getCallingActivity() {
-        if (mSuperListener != null) {
-            return (ComponentName) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final ComponentName result = mActivityDelegate
-                    .getCallingActivity();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public String getCallingPackage() {
-        if (mSuperListener != null) {
-            return (String) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final String result = mActivityDelegate
-                    .getCallingPackage();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int getChangingConfigurations() {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .getChangingConfigurations();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public ClassLoader getClassLoader() {
-        if (mSuperListener != null) {
-            return (ClassLoader) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final ClassLoader result = mActivityDelegate
-                    .getClassLoader();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File getCodeCacheDir() {
-        if (mSuperListener != null) {
-            return (File) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File result = mActivityDelegate
-                    .getCodeCacheDir();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public ComponentName getComponentName() {
-        if (mSuperListener != null) {
-            return (ComponentName) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final ComponentName result = mActivityDelegate
-                    .getComponentName();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public ContentResolver getContentResolver() {
-        if (mSuperListener != null) {
-            return (ContentResolver) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final ContentResolver result = mActivityDelegate
-                    .getContentResolver();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Scene getContentScene() {
-        if (mSuperListener != null) {
-            return (Scene) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Scene result = mActivityDelegate
-                    .getContentScene();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public TransitionManager getContentTransitionManager() {
-        if (mSuperListener != null) {
-            return (TransitionManager) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final TransitionManager result = mActivityDelegate
-                    .getContentTransitionManager();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public View getCurrentFocus() {
-        if (mSuperListener != null) {
-            return (View) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final View result = mActivityDelegate
-                    .getCurrentFocus();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File getDatabasePath(final String name) {
-        if (mSuperListener != null) {
-            return (File) mSuperListener.call(name);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File result = mActivityDelegate
-                    .getDatabasePath(name);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public AppCompatDelegate getDelegate() {
-        if (mSuperListener != null) {
-            return (AppCompatDelegate) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final AppCompatDelegate result = mActivityDelegate
-                    .getDelegate();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File getDir(final String name, final int mode) {
-        if (mSuperListener != null) {
-            return (File) mSuperListener.call(name, mode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File result = mActivityDelegate
-                    .getDir(name, mode);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public ActionBarDrawerToggle.Delegate getDrawerToggleDelegate() {
-        if (mSuperListener != null) {
-            return (ActionBarDrawerToggle.Delegate) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final ActionBarDrawerToggle.Delegate result = mActivityDelegate
-                    .getDrawerToggleDelegate();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File getExternalCacheDir() {
-        if (mSuperListener != null) {
-            return (File) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File result = mActivityDelegate
-                    .getExternalCacheDir();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File[] getExternalCacheDirs() {
-        if (mSuperListener != null) {
-            return (File[]) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File[] result = mActivityDelegate
-                    .getExternalCacheDirs();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File getExternalFilesDir(final String type) {
-        if (mSuperListener != null) {
-            return (File) mSuperListener.call(type);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File result = mActivityDelegate
-                    .getExternalFilesDir(type);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File[] getExternalFilesDirs(final String type) {
-        if (mSuperListener != null) {
-            return (File[]) mSuperListener.call(type);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File[] result = mActivityDelegate
-                    .getExternalFilesDirs(type);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File[] getExternalMediaDirs() {
-        if (mSuperListener != null) {
-            return (File[]) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File[] result = mActivityDelegate
-                    .getExternalMediaDirs();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File getFileStreamPath(final String name) {
-        if (mSuperListener != null) {
-            return (File) mSuperListener.call(name);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File result = mActivityDelegate
-                    .getFileStreamPath(name);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File getFilesDir() {
-        if (mSuperListener != null) {
-            return (File) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File result = mActivityDelegate
-                    .getFilesDir();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public android.app.FragmentManager getFragmentManager() {
-        if (mSuperListener != null) {
-            return (android.app.FragmentManager) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final android.app.FragmentManager result = mActivityDelegate
-                    .getFragmentManager();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Intent getIntent() {
-        if (mSuperListener != null) {
-            return (Intent) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Intent result = mActivityDelegate
-                    .getIntent();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public LayoutInflater getLayoutInflater() {
-        if (mSuperListener != null) {
-            return (LayoutInflater) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final LayoutInflater result = mActivityDelegate
-                    .getLayoutInflater();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public android.app.LoaderManager getLoaderManager() {
-        if (mSuperListener != null) {
-            return (android.app.LoaderManager) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final android.app.LoaderManager result = mActivityDelegate
-                    .getLoaderManager();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public String getLocalClassName() {
-        if (mSuperListener != null) {
-            return (String) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final String result = mActivityDelegate
-                    .getLocalClassName();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Looper getMainLooper() {
-        if (mSuperListener != null) {
-            return (Looper) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Looper result = mActivityDelegate
-                    .getMainLooper();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public MenuInflater getMenuInflater() {
-        if (mSuperListener != null) {
-            return (MenuInflater) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final MenuInflater result = mActivityDelegate
-                    .getMenuInflater();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File getNoBackupFilesDir() {
-        if (mSuperListener != null) {
-            return (File) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File result = mActivityDelegate
-                    .getNoBackupFilesDir();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File getObbDir() {
-        if (mSuperListener != null) {
-            return (File) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File result = mActivityDelegate
-                    .getObbDir();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public File[] getObbDirs() {
-        if (mSuperListener != null) {
-            return (File[]) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final File[] result = mActivityDelegate
-                    .getObbDirs();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public String getPackageCodePath() {
-        if (mSuperListener != null) {
-            return (String) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final String result = mActivityDelegate
-                    .getPackageCodePath();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public PackageManager getPackageManager() {
-        if (mSuperListener != null) {
-            return (PackageManager) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final PackageManager result = mActivityDelegate
-                    .getPackageManager();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public String getPackageName() {
-        if (mSuperListener != null) {
-            return (String) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final String result = mActivityDelegate
-                    .getPackageName();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public String getPackageResourcePath() {
-        if (mSuperListener != null) {
-            return (String) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final String result = mActivityDelegate
-                    .getPackageResourcePath();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Intent getParentActivityIntent() {
-        if (mSuperListener != null) {
-            return (Intent) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Intent result = mActivityDelegate
-                    .getParentActivityIntent();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public SharedPreferences getPreferences(final int mode) {
-        if (mSuperListener != null) {
-            return (SharedPreferences) mSuperListener.call(mode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final SharedPreferences result = mActivityDelegate
-                    .getPreferences(mode);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Uri getReferrer() {
-        if (mSuperListener != null) {
-            return (Uri) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Uri result = mActivityDelegate
-                    .getReferrer();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int getRequestedOrientation() {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .getRequestedOrientation();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Resources getResources() {
-        if (mSuperListener != null) {
-            return (Resources) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Resources result = mActivityDelegate
-                    .getResources();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public SharedPreferences getSharedPreferences(final String name, final int mode) {
-        if (mSuperListener != null) {
-            return (SharedPreferences) mSuperListener.call(name, mode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final SharedPreferences result = mActivityDelegate
-                    .getSharedPreferences(name, mode);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
+    @SuppressWarnings("unused")
+    public class ActivityPlugin extends ActivityPluginBase {
+    
+    public void onCreate(@Nullable final Bundle savedInstanceState)  {
+        verifyMethodCalledFromDelegate("onCreate(Bundle)");
+        mSuperListeners.peek().call(savedInstanceState);
+    }
+    
+    public void setTheme(@StyleRes final int resid)  {
+        verifyMethodCalledFromDelegate("setTheme(int)");
+        mSuperListeners.peek().call(resid);
+    }
+    
+    public void onPostCreate(@Nullable final Bundle savedInstanceState)  {
+        verifyMethodCalledFromDelegate("onPostCreate(Bundle)");
+        mSuperListeners.peek().call(savedInstanceState);
+    }
+    
     public ActionBar getSupportActionBar() {
-        if (mSuperListener != null) {
-            return (ActionBar) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final ActionBar result = mActivityDelegate
-                    .getSupportActionBar();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public FragmentManager getSupportFragmentManager() {
-        if (mSuperListener != null) {
-            return (FragmentManager) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final FragmentManager result = mActivityDelegate
-                    .getSupportFragmentManager();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public LoaderManager getSupportLoaderManager() {
-        if (mSuperListener != null) {
-            return (LoaderManager) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final LoaderManager result = mActivityDelegate
-                    .getSupportLoaderManager();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Intent getSupportParentActivityIntent() {
-        if (mSuperListener != null) {
-            return (Intent) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Intent result = mActivityDelegate
-                    .getSupportParentActivityIntent();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Object getSystemService(@NonNull final String name) {
-        if (mSuperListener != null) {
-            return (Object) mSuperListener.call(name);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Object result = mActivityDelegate
-                    .getSystemService(name);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public String getSystemServiceName(final Class<?> serviceClass) {
-        if (mSuperListener != null) {
-            return (String) mSuperListener.call(serviceClass);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final String result = mActivityDelegate
-                    .getSystemServiceName(serviceClass);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int getTaskId() {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .getTaskId();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Resources.Theme getTheme() {
-        if (mSuperListener != null) {
-            return (Resources.Theme) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Resources.Theme result = mActivityDelegate
-                    .getTheme();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public VoiceInteractor getVoiceInteractor() {
-        if (mSuperListener != null) {
-            return (VoiceInteractor) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final VoiceInteractor result = mActivityDelegate
-                    .getVoiceInteractor();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Drawable getWallpaper() {
-        if (mSuperListener != null) {
-            return (Drawable) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Drawable result = mActivityDelegate
-                    .getWallpaper();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int getWallpaperDesiredMinimumHeight() {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .getWallpaperDesiredMinimumHeight();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public int getWallpaperDesiredMinimumWidth() {
-        if (mSuperListener != null) {
-            return (Integer) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final int result = mActivityDelegate
-                    .getWallpaperDesiredMinimumWidth();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Window getWindow() {
-        if (mSuperListener != null) {
-            return (Window) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Window result = mActivityDelegate
-                    .getWindow();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public WindowManager getWindowManager() {
-        if (mSuperListener != null) {
-            return (WindowManager) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final WindowManager result = mActivityDelegate
-                    .getWindowManager();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void grantUriPermission(final String toPackage, final Uri uri, final int modeFlags) {
-        if (mSuperListener != null) {
-            mSuperListener.call(toPackage, uri, modeFlags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.grantUriPermission(toPackage, uri, modeFlags);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean hasWindowFocus() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .hasWindowFocus();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void invalidateOptionsMenu() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.invalidateOptionsMenu();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean isChangingConfigurations() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .isChangingConfigurations();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean isDestroyed() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .isDestroyed();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean isFinishing() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .isFinishing();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean isImmersive() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .isImmersive();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean isRestricted() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .isRestricted();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean isTaskRoot() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .isTaskRoot();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean isVoiceInteraction() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .isVoiceInteraction();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean isVoiceInteractionRoot() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .isVoiceInteractionRoot();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean moveTaskToBack(final boolean nonRoot) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(nonRoot);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .moveTaskToBack(nonRoot);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean navigateUpTo(final Intent upIntent) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(upIntent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .navigateUpTo(upIntent);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean navigateUpToFromChild(final Activity child, final Intent upIntent) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(child, upIntent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .navigateUpToFromChild(child, upIntent);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onActionModeFinished(final android.view.ActionMode mode) {
-        if (mSuperListener != null) {
-            mSuperListener.call(mode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onActionModeFinished(mode);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onActionModeStarted(final android.view.ActionMode mode) {
-        if (mSuperListener != null) {
-            mSuperListener.call(mode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onActionModeStarted(mode);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onActivityReenter(final int resultCode, final Intent data) {
-        if (mSuperListener != null) {
-            mSuperListener.call(resultCode, data);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onActivityReenter(resultCode, data);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        if (mSuperListener != null) {
-            mSuperListener.call(requestCode, resultCode, data);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onActivityResult(requestCode, resultCode, data);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onApplyThemeResource(final Resources.Theme theme, final int resid,
-            final boolean first) {
-        if (mSuperListener != null) {
-            mSuperListener.call(theme, resid, first);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onApplyThemeResource(theme, resid, first);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onAttachFragment(final Fragment fragment) {
-        if (mSuperListener != null) {
-            mSuperListener.call(fragment);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onAttachFragment(fragment);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onAttachFragment(final android.app.Fragment fragment) {
-        if (mSuperListener != null) {
-            mSuperListener.call(fragment);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onAttachFragment(fragment);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onAttachedToWindow() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onAttachedToWindow();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onBackPressed() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onBackPressed();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onChildTitleChanged(final Activity childActivity, final CharSequence title) {
-        if (mSuperListener != null) {
-            mSuperListener.call(childActivity, title);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onChildTitleChanged(childActivity, title);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onConfigurationChanged(final Configuration newConfig) {
-        if (mSuperListener != null) {
-            mSuperListener.call(newConfig);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onConfigurationChanged(newConfig);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onContentChanged() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onContentChanged();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean onContextItemSelected(final MenuItem item) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(item);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onContextItemSelected(item);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onContextMenuClosed(final Menu menu) {
-        if (mSuperListener != null) {
-            mSuperListener.call(menu);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onContextMenuClosed(menu);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
-        if (mSuperListener != null) {
-            mSuperListener.call(savedInstanceState);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onCreate(savedInstanceState);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
-        if (mSuperListener != null) {
-            mSuperListener.call(savedInstanceState, persistentState);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onCreate(savedInstanceState, persistentState);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo) {
-        if (mSuperListener != null) {
-            mSuperListener.call(menu, v, menuInfo);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onCreateContextMenu(menu, v, menuInfo);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public CharSequence onCreateDescription() {
-        if (mSuperListener != null) {
-            return (CharSequence) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final CharSequence result = mActivityDelegate
-                    .onCreateDescription();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Dialog onCreateDialog(final int id) {
-        if (mSuperListener != null) {
-            return (Dialog) mSuperListener.call(id);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Dialog result = mActivityDelegate
-                    .onCreateDialog(id);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Dialog onCreateDialog(final int id, final Bundle args) {
-        if (mSuperListener != null) {
-            return (Dialog) mSuperListener.call(id, args);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Dialog result = mActivityDelegate
-                    .onCreateDialog(id, args);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onCreateNavigateUpTaskStack(final TaskStackBuilder builder) {
-        if (mSuperListener != null) {
-            mSuperListener.call(builder);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onCreateNavigateUpTaskStack(builder);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(menu);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onCreateOptionsMenu(menu);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onCreatePanelMenu(final int featureId, final Menu menu) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(featureId, menu);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onCreatePanelMenu(featureId, menu);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public View onCreatePanelView(final int featureId) {
-        if (mSuperListener != null) {
-            return (View) mSuperListener.call(featureId);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final View result = mActivityDelegate
-                    .onCreatePanelView(featureId);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onCreateSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
-        if (mSuperListener != null) {
-            mSuperListener.call(builder);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onCreateSupportNavigateUpTaskStack(builder);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean onCreateThumbnail(final Bitmap outBitmap, final Canvas canvas) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(outBitmap, canvas);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onCreateThumbnail(outBitmap, canvas);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public View onCreateView(final View parent, final String name, final Context context,
-            final AttributeSet attrs) {
-        if (mSuperListener != null) {
-            return (View) mSuperListener.call(parent, name, context, attrs);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final View result = mActivityDelegate
-                    .onCreateView(parent, name, context, attrs);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public View onCreateView(final String name, final Context context, final AttributeSet attrs) {
-        if (mSuperListener != null) {
-            return (View) mSuperListener.call(name, context, attrs);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final View result = mActivityDelegate
-                    .onCreateView(name, context, attrs);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onDestroy() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onDestroy();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onDetachedFromWindow() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onDetachedFromWindow();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onEnterAnimationComplete() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onEnterAnimationComplete();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean onGenericMotionEvent(final MotionEvent event) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(event);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onGenericMotionEvent(event);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onKeyDown(final int keyCode, final KeyEvent event) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(keyCode, event);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onKeyDown(keyCode, event);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onKeyLongPress(final int keyCode, final KeyEvent event) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(keyCode, event);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onKeyLongPress(keyCode, event);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onKeyMultiple(final int keyCode, final int repeatCount, final KeyEvent event) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(keyCode, repeatCount, event);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onKeyMultiple(keyCode, repeatCount, event);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onKeyShortcut(final int keyCode, final KeyEvent event) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(keyCode, event);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onKeyShortcut(keyCode, event);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onKeyUp(final int keyCode, final KeyEvent event) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(keyCode, event);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onKeyUp(keyCode, event);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onLowMemory() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onLowMemory();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean onMenuOpened(final int featureId, final Menu menu) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(featureId, menu);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onMenuOpened(featureId, menu);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onNavigateUp() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onNavigateUp();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onNavigateUpFromChild(final Activity child) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(child);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onNavigateUpFromChild(child);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onNewIntent(final Intent intent) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onNewIntent(intent);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(item);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onOptionsItemSelected(item);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onOptionsMenuClosed(final Menu menu) {
-        if (mSuperListener != null) {
-            mSuperListener.call(menu);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onOptionsMenuClosed(menu);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onPanelClosed(final int featureId, final Menu menu) {
-        if (mSuperListener != null) {
-            mSuperListener.call(featureId, menu);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onPanelClosed(featureId, menu);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onPause() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onPause();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onPostCreate(@Nullable final Bundle savedInstanceState) {
-        if (mSuperListener != null) {
-            mSuperListener.call(savedInstanceState);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onPostCreate(savedInstanceState);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onPostCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
-        if (mSuperListener != null) {
-            mSuperListener.call(savedInstanceState, persistentState);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onPostCreate(savedInstanceState, persistentState);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onPostResume() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onPostResume();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onPrepareDialog(final int id, final Dialog dialog) {
-        if (mSuperListener != null) {
-            mSuperListener.call(id, dialog);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onPrepareDialog(id, dialog);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onPrepareDialog(final int id, final Dialog dialog, final Bundle args) {
-        if (mSuperListener != null) {
-            mSuperListener.call(id, dialog, args);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onPrepareDialog(id, dialog, args);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onPrepareNavigateUpTaskStack(final TaskStackBuilder builder) {
-        if (mSuperListener != null) {
-            mSuperListener.call(builder);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onPrepareNavigateUpTaskStack(builder);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean onPrepareOptionsMenu(final Menu menu) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(menu);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onPrepareOptionsMenu(menu);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onPrepareOptionsPanel(final View view, final Menu menu) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(view, menu);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onPrepareOptionsPanel(view, menu);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onPreparePanel(final int featureId, final View view, final Menu menu) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(featureId, view, menu);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onPreparePanel(featureId, view, menu);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onPrepareSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
-        if (mSuperListener != null) {
-            mSuperListener.call(builder);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onPrepareSupportNavigateUpTaskStack(builder);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onProvideAssistContent(final AssistContent outContent) {
-        if (mSuperListener != null) {
-            mSuperListener.call(outContent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onProvideAssistContent(outContent);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onProvideAssistData(final Bundle data) {
-        if (mSuperListener != null) {
-            mSuperListener.call(data);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onProvideAssistData(data);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public Uri onProvideReferrer() {
-        if (mSuperListener != null) {
-            return (Uri) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Uri result = mActivityDelegate
-                    .onProvideReferrer();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onRequestPermissionsResult(final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        if (mSuperListener != null) {
-            mSuperListener.call(requestCode, permissions, grantResults);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onRestart() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onRestart();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onRestoreInstanceState(final Bundle savedInstanceState) {
-        if (mSuperListener != null) {
-            mSuperListener.call(savedInstanceState);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onRestoreInstanceState(savedInstanceState);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onRestoreInstanceState(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
-        if (mSuperListener != null) {
-            mSuperListener.call(savedInstanceState, persistentState);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onRestoreInstanceState(savedInstanceState, persistentState);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onResume() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onResume();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onResumeFragments() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onResumeFragments();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onSaveInstanceState(final Bundle outState) {
-        if (mSuperListener != null) {
-            mSuperListener.call(outState);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onSaveInstanceState(outState);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onSaveInstanceState(final Bundle outState,
-            final PersistableBundle outPersistentState) {
-        if (mSuperListener != null) {
-            mSuperListener.call(outState, outPersistentState);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onSaveInstanceState(outState, outPersistentState);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean onSearchRequested(final SearchEvent searchEvent) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(searchEvent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onSearchRequested(searchEvent);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onSearchRequested() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onSearchRequested();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onStart() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onStart();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onStateNotSaved() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onStateNotSaved();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onStop() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onStop();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onSupportActionModeFinished(@NonNull final ActionMode mode) {
-        if (mSuperListener != null) {
-            mSuperListener.call(mode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onSupportActionModeFinished(mode);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onSupportActionModeStarted(@NonNull final ActionMode mode) {
-        if (mSuperListener != null) {
-            mSuperListener.call(mode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onSupportActionModeStarted(mode);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onSupportContentChanged() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onSupportContentChanged();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean onSupportNavigateUp() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onSupportNavigateUp();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onTitleChanged(final CharSequence title, final int color) {
-        if (mSuperListener != null) {
-            mSuperListener.call(title, color);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onTitleChanged(title, color);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean onTouchEvent(final MotionEvent event) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(event);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onTouchEvent(event);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean onTrackballEvent(final MotionEvent event) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(event);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .onTrackballEvent(event);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void onTrimMemory(final int level) {
-        if (mSuperListener != null) {
-            mSuperListener.call(level);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onTrimMemory(level);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onUserInteraction() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onUserInteraction();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onUserLeaveHint() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onUserLeaveHint();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onVisibleBehindCanceled() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onVisibleBehindCanceled();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onWindowAttributesChanged(final WindowManager.LayoutParams params) {
-        if (mSuperListener != null) {
-            mSuperListener.call(params);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onWindowAttributesChanged(params);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void onWindowFocusChanged(final boolean hasFocus) {
-        if (mSuperListener != null) {
-            mSuperListener.call(hasFocus);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.onWindowFocusChanged(hasFocus);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public android.view.ActionMode onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback) {
-        if (mSuperListener != null) {
-            return (android.view.ActionMode) mSuperListener.call(callback);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final android.view.ActionMode result = mActivityDelegate
-                    .onWindowStartingActionMode(callback);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public android.view.ActionMode onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback, final int type) {
-        if (mSuperListener != null) {
-            return (android.view.ActionMode) mSuperListener.call(callback, type);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final android.view.ActionMode result = mActivityDelegate
-                    .onWindowStartingActionMode(callback, type);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public ActionMode onWindowStartingSupportActionMode(
-            @NonNull final ActionMode.Callback callback) {
-        if (mSuperListener != null) {
-            return (ActionMode) mSuperListener.call(callback);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final ActionMode result = mActivityDelegate
-                    .onWindowStartingSupportActionMode(callback);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void openContextMenu(final View view) {
-        if (mSuperListener != null) {
-            mSuperListener.call(view);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.openContextMenu(view);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public FileInputStream openFileInput(final String name) {
-        if (mSuperListener != null) {
-            return (FileInputStream) mSuperListener.call(name);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final FileInputStream result = mActivityDelegate
-                    .openFileInput(name);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public FileOutputStream openFileOutput(final String name, final int mode) {
-        if (mSuperListener != null) {
-            return (FileOutputStream) mSuperListener.call(name, mode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final FileOutputStream result = mActivityDelegate
-                    .openFileOutput(name, mode);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void openOptionsMenu() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.openOptionsMenu();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory) {
-        if (mSuperListener != null) {
-            return (SQLiteDatabase) mSuperListener.call(name, mode, factory);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final SQLiteDatabase result = mActivityDelegate
-                    .openOrCreateDatabase(name, mode, factory);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler) {
-        if (mSuperListener != null) {
-            return (SQLiteDatabase) mSuperListener.call(name, mode, factory, errorHandler);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final SQLiteDatabase result = mActivityDelegate
-                    .openOrCreateDatabase(name, mode, factory, errorHandler);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void overridePendingTransition(final int enterAnim, final int exitAnim) {
-        if (mSuperListener != null) {
-            mSuperListener.call(enterAnim, exitAnim);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.overridePendingTransition(enterAnim, exitAnim);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public Drawable peekWallpaper() {
-        if (mSuperListener != null) {
-            return (Drawable) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Drawable result = mActivityDelegate
-                    .peekWallpaper();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void postponeEnterTransition() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.postponeEnterTransition();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void recreate() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.recreate();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void registerComponentCallbacks(final ComponentCallbacks callback) {
-        if (mSuperListener != null) {
-            mSuperListener.call(callback);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.registerComponentCallbacks(callback);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void registerForContextMenu(final View view) {
-        if (mSuperListener != null) {
-            mSuperListener.call(view);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.registerForContextMenu(view);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter) {
-        if (mSuperListener != null) {
-            return (Intent) mSuperListener.call(receiver, filter);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Intent result = mActivityDelegate
-                    .registerReceiver(receiver, filter);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
-            final String broadcastPermission, final Handler scheduler) {
-        if (mSuperListener != null) {
-            return (Intent) mSuperListener.call(receiver, filter, broadcastPermission, scheduler);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final Intent result = mActivityDelegate
-                    .registerReceiver(receiver, filter, broadcastPermission, scheduler);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean releaseInstance() {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .releaseInstance();
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void removeStickyBroadcast(final Intent intent) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.removeStickyBroadcast(intent);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void removeStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, user);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.removeStickyBroadcastAsUser(intent, user);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void reportFullyDrawn() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.reportFullyDrawn();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean requestVisibleBehind(final boolean visible) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(visible);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .requestVisibleBehind(visible);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void revokeUriPermission(final Uri uri, final int modeFlags) {
-        if (mSuperListener != null) {
-            mSuperListener.call(uri, modeFlags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.revokeUriPermission(uri, modeFlags);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void sendBroadcast(final Intent intent) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.sendBroadcast(intent);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void sendBroadcast(final Intent intent, final String receiverPermission) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, receiverPermission);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.sendBroadcast(intent, receiverPermission);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void sendBroadcastAsUser(final Intent intent, final UserHandle user) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, user);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.sendBroadcastAsUser(intent, user);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void sendBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, user, receiverPermission);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.sendBroadcastAsUser(intent, user, receiverPermission);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void sendOrderedBroadcast(final Intent intent, final String receiverPermission) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, receiverPermission);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.sendOrderedBroadcast(intent, receiverPermission);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void sendOrderedBroadcast(final Intent intent, final String receiverPermission,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, receiverPermission, resultReceiver, scheduler, initialCode,
-                    initialData, initialExtras);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate
-                    .sendOrderedBroadcast(intent, receiverPermission, resultReceiver, scheduler,
-                            initialCode, initialData, initialExtras);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void sendOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission, final BroadcastReceiver resultReceiver,
-            final Handler scheduler, final int initialCode, final String initialData,
-            final Bundle initialExtras) {
-        if (mSuperListener != null) {
-            mSuperListener
-                    .call(intent, user, receiverPermission, resultReceiver, scheduler, initialCode,
-                            initialData, initialExtras);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate
-                    .sendOrderedBroadcastAsUser(intent, user, receiverPermission, resultReceiver,
-                            scheduler, initialCode, initialData, initialExtras);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void sendStickyBroadcast(final Intent intent) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.sendStickyBroadcast(intent);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void sendStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, user);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.sendStickyBroadcastAsUser(intent, user);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void sendStickyOrderedBroadcast(final Intent intent,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, resultReceiver, scheduler, initialCode, initialData,
-                    initialExtras);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate
-                    .sendStickyOrderedBroadcast(intent, resultReceiver, scheduler, initialCode,
-                            initialData, initialExtras);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void sendStickyOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, user, resultReceiver, scheduler, initialCode, initialData,
-                    initialExtras);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate
-                    .sendStickyOrderedBroadcastAsUser(intent, user, resultReceiver, scheduler,
-                            initialCode, initialData, initialExtras);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setActionBar(final Toolbar toolbar) {
-        if (mSuperListener != null) {
-            mSuperListener.call(toolbar);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setActionBar(toolbar);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setContentTransitionManager(final TransitionManager tm) {
-        if (mSuperListener != null) {
-            mSuperListener.call(tm);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setContentTransitionManager(tm);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setContentView(@LayoutRes final int layoutResID) {
-        if (mSuperListener != null) {
-            mSuperListener.call(layoutResID);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setContentView(layoutResID);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setContentView(final View view) {
-        if (mSuperListener != null) {
-            mSuperListener.call(view);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setContentView(view);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setContentView(final View view, final ViewGroup.LayoutParams params) {
-        if (mSuperListener != null) {
-            mSuperListener.call(view, params);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setContentView(view, params);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setEnterSharedElementCallback(final SharedElementCallback callback) {
-        if (mSuperListener != null) {
-            mSuperListener.call(callback);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setEnterSharedElementCallback(callback);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setEnterSharedElementCallback(final android.app.SharedElementCallback callback) {
-        if (mSuperListener != null) {
-            mSuperListener.call(callback);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setEnterSharedElementCallback(callback);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setExitSharedElementCallback(final SharedElementCallback listener) {
-        if (mSuperListener != null) {
-            mSuperListener.call(listener);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setExitSharedElementCallback(listener);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setExitSharedElementCallback(final android.app.SharedElementCallback callback) {
-        if (mSuperListener != null) {
-            mSuperListener.call(callback);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setExitSharedElementCallback(callback);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setFinishOnTouchOutside(final boolean finish) {
-        if (mSuperListener != null) {
-            mSuperListener.call(finish);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setFinishOnTouchOutside(finish);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setImmersive(final boolean i) {
-        if (mSuperListener != null) {
-            mSuperListener.call(i);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setImmersive(i);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setIntent(final Intent newIntent) {
-        if (mSuperListener != null) {
-            mSuperListener.call(newIntent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setIntent(newIntent);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setRequestedOrientation(final int requestedOrientation) {
-        if (mSuperListener != null) {
-            mSuperListener.call(requestedOrientation);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setRequestedOrientation(requestedOrientation);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar) {
-        if (mSuperListener != null) {
-            mSuperListener.call(toolbar);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setSupportActionBar(toolbar);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setSupportProgress(final int progress) {
-        if (mSuperListener != null) {
-            mSuperListener.call(progress);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setSupportProgress(progress);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setSupportProgressBarIndeterminate(final boolean indeterminate) {
-        if (mSuperListener != null) {
-            mSuperListener.call(indeterminate);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setSupportProgressBarIndeterminate(indeterminate);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setSupportProgressBarIndeterminateVisibility(final boolean visible) {
-        if (mSuperListener != null) {
-            mSuperListener.call(visible);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setSupportProgressBarIndeterminateVisibility(visible);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setSupportProgressBarVisibility(final boolean visible) {
-        if (mSuperListener != null) {
-            mSuperListener.call(visible);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setSupportProgressBarVisibility(visible);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setTaskDescription(final ActivityManager.TaskDescription taskDescription) {
-        if (mSuperListener != null) {
-            mSuperListener.call(taskDescription);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setTaskDescription(taskDescription);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setTheme(@StyleRes final int resid) {
-        if (mSuperListener != null) {
-            mSuperListener.call(resid);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setTheme(resid);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setTitle(final CharSequence title) {
-        if (mSuperListener != null) {
-            mSuperListener.call(title);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setTitle(title);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setTitle(final int titleId) {
-        if (mSuperListener != null) {
-            mSuperListener.call(titleId);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setTitle(titleId);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setTitleColor(final int textColor) {
-        if (mSuperListener != null) {
-            mSuperListener.call(textColor);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setTitleColor(textColor);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setVisible(final boolean visible) {
-        if (mSuperListener != null) {
-            mSuperListener.call(visible);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.setVisible(visible);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setWallpaper(final Bitmap bitmap) throws IOException {
-        if (mSuperListener != null) {
-            mSuperListener.call(bitmap);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            try {
-                mActivityDelegate.setWallpaper(bitmap);
-            } catch (SuppressedException e) {
-                throw (IOException) e.getCause();
-            }
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void setWallpaper(final InputStream data) throws IOException {
-        if (mSuperListener != null) {
-            mSuperListener.call(data);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            try {
-                mActivityDelegate.setWallpaper(data);
-            } catch (SuppressedException e) {
-                throw (IOException) e.getCause();
-            }
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(permission);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .shouldShowRequestPermissionRationale(permission);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean shouldUpRecreateTask(final Intent targetIntent) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(targetIntent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .shouldUpRecreateTask(targetIntent);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean showAssist(final Bundle args) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(args);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .showAssist(args);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void showLockTaskEscapeMessage() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.showLockTaskEscapeMessage();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public android.view.ActionMode startActionMode(
-            final android.view.ActionMode.Callback callback) {
-        if (mSuperListener != null) {
-            return (android.view.ActionMode) mSuperListener.call(callback);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final android.view.ActionMode result = mActivityDelegate
-                    .startActionMode(callback);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public android.view.ActionMode startActionMode(final android.view.ActionMode.Callback callback,
-            final int type) {
-        if (mSuperListener != null) {
-            return (android.view.ActionMode) mSuperListener.call(callback, type);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final android.view.ActionMode result = mActivityDelegate
-                    .startActionMode(callback, type);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void startActivities(final Intent[] intents) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intents);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivities(intents);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startActivities(final Intent[] intents, final Bundle options) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intents, options);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivities(intents, options);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startActivity(final Intent intent) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivity(intent);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startActivity(final Intent intent, final Bundle options) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, options);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivity(intent, options);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startActivityForResult(final Intent intent, final int requestCode) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, requestCode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivityForResult(intent, requestCode);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startActivityForResult(final Intent intent, final int requestCode,
-            final Bundle options) {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, requestCode, options);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivityForResult(intent, requestCode, options);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startActivityFromChild(@NonNull final Activity child, final Intent intent,
-            final int requestCode) {
-        if (mSuperListener != null) {
-            mSuperListener.call(child, intent, requestCode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivityFromChild(child, intent, requestCode);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startActivityFromChild(@NonNull final Activity child, final Intent intent,
-            final int requestCode, final Bundle options) {
-        if (mSuperListener != null) {
-            mSuperListener.call(child, intent, requestCode, options);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivityFromChild(child, intent, requestCode, options);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode) {
-        if (mSuperListener != null) {
-            mSuperListener.call(fragment, intent, requestCode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivityFromFragment(fragment, intent, requestCode);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode, @Nullable final Bundle options) {
-        if (mSuperListener != null) {
-            mSuperListener.call(fragment, intent, requestCode, options);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivityFromFragment(fragment, intent, requestCode, options);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode) {
-        if (mSuperListener != null) {
-            mSuperListener.call(fragment, intent, requestCode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivityFromFragment(fragment, intent, requestCode);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode, final Bundle options) {
-        if (mSuperListener != null) {
-            mSuperListener.call(fragment, intent, requestCode, options);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startActivityFromFragment(fragment, intent, requestCode, options);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean startActivityIfNeeded(@NonNull final Intent intent, final int requestCode) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(intent, requestCode);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .startActivityIfNeeded(intent, requestCode);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean startActivityIfNeeded(@NonNull final Intent intent, final int requestCode,
-            final Bundle options) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(intent, requestCode, options);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .startActivityIfNeeded(intent, requestCode, options);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean startInstrumentation(final ComponentName className, final String profileFile,
-            final Bundle arguments) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(className, profileFile, arguments);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .startInstrumentation(className, profileFile, arguments);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags)
-            throws IntentSender.SendIntentException {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            try {
-                mActivityDelegate.startIntentSender(intent, fillInIntent, flagsMask, flagsValues,
-                        extraFlags);
-            } catch (SuppressedException e) {
-                throw (IntentSender.SendIntentException) e.getCause();
-            }
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
-            throws IntentSender.SendIntentException {
-        if (mSuperListener != null) {
-            mSuperListener.call(intent, fillInIntent, flagsMask, flagsValues, extraFlags, options);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            try {
-                mActivityDelegate
-                        .startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags,
-                                options);
-            } catch (SuppressedException e) {
-                throw (IntentSender.SendIntentException) e.getCause();
-            }
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException {
-        if (mSuperListener != null) {
-            mSuperListener
-                    .call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            try {
-                mActivityDelegate
-                        .startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
-                                flagsValues, extraFlags);
-            } catch (SuppressedException e) {
-                throw (IntentSender.SendIntentException) e.getCause();
-            }
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
-        if (mSuperListener != null) {
-            mSuperListener
-                    .call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
-                            options);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            try {
-                mActivityDelegate
-                        .startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
-                                flagsValues, extraFlags, options);
-            } catch (SuppressedException e) {
-                throw (IntentSender.SendIntentException) e.getCause();
-            }
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
-        if (mSuperListener != null) {
-            mSuperListener.call(child, intent, requestCode, fillInIntent, flagsMask, flagsValues,
-                    extraFlags);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            try {
-                mActivityDelegate
-                        .startIntentSenderFromChild(child, intent, requestCode, fillInIntent,
-                                flagsMask, flagsValues, extraFlags);
-            } catch (SuppressedException e) {
-                throw (IntentSender.SendIntentException) e.getCause();
-            }
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
-            throws IntentSender.SendIntentException {
-        if (mSuperListener != null) {
-            mSuperListener.call(child, intent, requestCode, fillInIntent, flagsMask, flagsValues,
-                    extraFlags, options);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            try {
-                mActivityDelegate
-                        .startIntentSenderFromChild(child, intent, requestCode, fillInIntent,
-                                flagsMask, flagsValues, extraFlags, options);
-            } catch (SuppressedException e) {
-                throw (IntentSender.SendIntentException) e.getCause();
-            }
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startLockTask() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startLockTask();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startManagingCursor(final Cursor c) {
-        if (mSuperListener != null) {
-            mSuperListener.call(c);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startManagingCursor(c);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean startNextMatchingActivity(@NonNull final Intent intent) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(intent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .startNextMatchingActivity(intent);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public boolean startNextMatchingActivity(@NonNull final Intent intent, final Bundle options) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(intent, options);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .startNextMatchingActivity(intent, options);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void startPostponedEnterTransition() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.startPostponedEnterTransition();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch) {
-        if (mSuperListener != null) {
-            mSuperListener.call(initialQuery, selectInitialQuery, appSearchData, globalSearch);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate
-                    .startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public ComponentName startService(final Intent service) {
-        if (mSuperListener != null) {
-            return (ComponentName) mSuperListener.call(service);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final ComponentName result = mActivityDelegate
-                    .startService(service);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
-        if (mSuperListener != null) {
-            return (ActionMode) mSuperListener.call(callback);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final ActionMode result = mActivityDelegate
-                    .startSupportActionMode(callback);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void stopLockTask() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.stopLockTask();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void stopManagingCursor(final Cursor c) {
-        if (mSuperListener != null) {
-            mSuperListener.call(c);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.stopManagingCursor(c);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public boolean stopService(final Intent name) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(name);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .stopService(name);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
-    }
-
-    public void supportFinishAfterTransition() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.supportFinishAfterTransition();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void supportInvalidateOptionsMenu() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.supportInvalidateOptionsMenu();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void supportNavigateUpTo(@NonNull final Intent upIntent) {
-        if (mSuperListener != null) {
-            mSuperListener.call(upIntent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.supportNavigateUpTo(upIntent);
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
-    public void supportPostponeEnterTransition() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.supportPostponeEnterTransition();
-            mActivityDelegate.callingPlugin(null);
-        }
-    }
-
+        verifyMethodCalledFromDelegate("getSupportActionBar()");
+        return (ActionBar) mSuperListeners.peek().call();
+    }
+    
+    public void setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar)  {
+        verifyMethodCalledFromDelegate("setSupportActionBar(android.support.v7.widget.Toolbar)");
+        mSuperListeners.peek().call(toolbar);
+    }
+    
+    public MenuInflater getMenuInflater() {
+        verifyMethodCalledFromDelegate("getMenuInflater()");
+        return (MenuInflater) mSuperListeners.peek().call();
+    }
+    
+    public void setContentView(@LayoutRes final int layoutResID)  {
+        verifyMethodCalledFromDelegate("setContentView(int)");
+        mSuperListeners.peek().call(layoutResID);
+    }
+    
+    public void setContentView(final View view)  {
+        verifyMethodCalledFromDelegate("setContentView(View)");
+        mSuperListeners.peek().call(view);
+    }
+    
+    public void setContentView(final View view, final ViewGroup.LayoutParams params)  {
+        verifyMethodCalledFromDelegate("setContentView(View, ViewGroup.LayoutParams)");
+        mSuperListeners.peek().call(view, params);
+    }
+    
+    public void addContentView(final View view, final ViewGroup.LayoutParams params)  {
+        verifyMethodCalledFromDelegate("addContentView(View, ViewGroup.LayoutParams)");
+        mSuperListeners.peek().call(view, params);
+    }
+    
+    public void onConfigurationChanged(final Configuration newConfig)  {
+        verifyMethodCalledFromDelegate("onConfigurationChanged(Configuration)");
+        mSuperListeners.peek().call(newConfig);
+    }
+    
+    public void onStop()  {
+        verifyMethodCalledFromDelegate("onStop()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void onPostResume()  {
+        verifyMethodCalledFromDelegate("onPostResume()");
+        mSuperListeners.peek().call();
+    }
+    
+    public View findViewById(@IdRes final int id) {
+        verifyMethodCalledFromDelegate("findViewById(int)");
+        return (View) mSuperListeners.peek().call(id);
+    }
+    
+    public void onDestroy()  {
+        verifyMethodCalledFromDelegate("onDestroy()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void onTitleChanged(final CharSequence title, final int color)  {
+        verifyMethodCalledFromDelegate("onTitleChanged(CharSequence, int)");
+        mSuperListeners.peek().call(title, color);
+    }
+    
     public boolean supportRequestWindowFeature(final int featureId) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(featureId);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .supportRequestWindowFeature(featureId);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
+        verifyMethodCalledFromDelegate("supportRequestWindowFeature(int)");
+        return (Boolean) mSuperListeners.peek().call(featureId);
     }
-
+    
+    public void supportInvalidateOptionsMenu()  {
+        verifyMethodCalledFromDelegate("supportInvalidateOptionsMenu()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void invalidateOptionsMenu()  {
+        verifyMethodCalledFromDelegate("invalidateOptionsMenu()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void onSupportActionModeStarted(@NonNull final ActionMode mode)  {
+        verifyMethodCalledFromDelegate("onSupportActionModeStarted(ActionMode)");
+        mSuperListeners.peek().call(mode);
+    }
+    
+    public void onSupportActionModeFinished(@NonNull final ActionMode mode)  {
+        verifyMethodCalledFromDelegate("onSupportActionModeFinished(ActionMode)");
+        mSuperListeners.peek().call(mode);
+    }
+    
+    public ActionMode onWindowStartingSupportActionMode(             @NonNull final ActionMode.Callback callback) {
+        verifyMethodCalledFromDelegate("onWindowStartingSupportActionMode(ActionMode.Callback)");
+        return (ActionMode) mSuperListeners.peek().call(callback);
+    }
+    
+    public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
+        verifyMethodCalledFromDelegate("startSupportActionMode(ActionMode.Callback)");
+        return (ActionMode) mSuperListeners.peek().call(callback);
+    }
+    
+    public void setSupportProgressBarVisibility(final boolean visible)  {
+        verifyMethodCalledFromDelegate("setSupportProgressBarVisibility(boolean)");
+        mSuperListeners.peek().call(visible);
+    }
+    
+    public void setSupportProgressBarIndeterminateVisibility(final boolean visible)  {
+        verifyMethodCalledFromDelegate("setSupportProgressBarIndeterminateVisibility(boolean)");
+        mSuperListeners.peek().call(visible);
+    }
+    
+    public void setSupportProgressBarIndeterminate(final boolean indeterminate)  {
+        verifyMethodCalledFromDelegate("setSupportProgressBarIndeterminate(boolean)");
+        mSuperListeners.peek().call(indeterminate);
+    }
+    
+    public void setSupportProgress(final int progress)  {
+        verifyMethodCalledFromDelegate("setSupportProgress(int)");
+        mSuperListeners.peek().call(progress);
+    }
+    
+    public void onCreateSupportNavigateUpTaskStack(             @NonNull final android.support.v4.app.TaskStackBuilder builder)  {
+        verifyMethodCalledFromDelegate("onCreateSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)");
+        mSuperListeners.peek().call(builder);
+    }
+    
+    public void onPrepareSupportNavigateUpTaskStack(             @NonNull final android.support.v4.app.TaskStackBuilder builder)  {
+        verifyMethodCalledFromDelegate("onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)");
+        mSuperListeners.peek().call(builder);
+    }
+    
+    public boolean onSupportNavigateUp() {
+        verifyMethodCalledFromDelegate("onSupportNavigateUp()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public Intent getSupportParentActivityIntent() {
+        verifyMethodCalledFromDelegate("getSupportParentActivityIntent()");
+        return (Intent) mSuperListeners.peek().call();
+    }
+    
     public boolean supportShouldUpRecreateTask(@NonNull final Intent targetIntent) {
-        if (mSuperListener != null) {
-            return (Boolean) mSuperListener.call(targetIntent);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final boolean result = mActivityDelegate
-                    .supportShouldUpRecreateTask(targetIntent);
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
+        verifyMethodCalledFromDelegate("supportShouldUpRecreateTask(Intent)");
+        return (Boolean) mSuperListeners.peek().call(targetIntent);
     }
-
-    public void supportStartPostponedEnterTransition() {
-        if (mSuperListener != null) {
-            mSuperListener.call();
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.supportStartPostponedEnterTransition();
-            mActivityDelegate.callingPlugin(null);
-        }
+    
+    public void supportNavigateUpTo(@NonNull final Intent upIntent)  {
+        verifyMethodCalledFromDelegate("supportNavigateUpTo(Intent)");
+        mSuperListeners.peek().call(upIntent);
     }
-
-    public void takeKeyEvents(final boolean get) {
-        if (mSuperListener != null) {
-            mSuperListener.call(get);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.takeKeyEvents(get);
-            mActivityDelegate.callingPlugin(null);
-        }
+    
+    public void onContentChanged()  {
+        verifyMethodCalledFromDelegate("onContentChanged()");
+        mSuperListeners.peek().call();
     }
-
-    public void triggerSearch(final String query, final Bundle appSearchData) {
-        if (mSuperListener != null) {
-            mSuperListener.call(query, appSearchData);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.triggerSearch(query, appSearchData);
-            mActivityDelegate.callingPlugin(null);
-        }
+    
+    public void onSupportContentChanged()  {
+        verifyMethodCalledFromDelegate("onSupportContentChanged()");
+        mSuperListeners.peek().call();
     }
-
-    public void unbindService(final ServiceConnection conn) {
-        if (mSuperListener != null) {
-            mSuperListener.call(conn);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.unbindService(conn);
-            mActivityDelegate.callingPlugin(null);
-        }
+    
+    public ActionBarDrawerToggle.Delegate getDrawerToggleDelegate() {
+        verifyMethodCalledFromDelegate("getDrawerToggleDelegate()");
+        return (ActionBarDrawerToggle.Delegate) mSuperListeners.peek().call();
     }
-
-    public void unregisterComponentCallbacks(final ComponentCallbacks callback) {
-        if (mSuperListener != null) {
-            mSuperListener.call(callback);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.unregisterComponentCallbacks(callback);
-            mActivityDelegate.callingPlugin(null);
-        }
+    
+    public boolean onMenuOpened(final int featureId, final Menu menu) {
+        verifyMethodCalledFromDelegate("onMenuOpened(int, Menu)");
+        return (Boolean) mSuperListeners.peek().call(featureId, menu);
     }
-
-    public void unregisterForContextMenu(final View view) {
-        if (mSuperListener != null) {
-            mSuperListener.call(view);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.unregisterForContextMenu(view);
-            mActivityDelegate.callingPlugin(null);
-        }
+    
+    public void onPanelClosed(final int featureId, final Menu menu)  {
+        verifyMethodCalledFromDelegate("onPanelClosed(int, Menu)");
+        mSuperListeners.peek().call(featureId, menu);
     }
-
-    public void unregisterReceiver(final BroadcastReceiver receiver) {
-        if (mSuperListener != null) {
-            mSuperListener.call(receiver);
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            mActivityDelegate.unregisterReceiver(receiver);
-            mActivityDelegate.callingPlugin(null);
-        }
+    
+    public void onSaveInstanceState(final Bundle outState)  {
+        verifyMethodCalledFromDelegate("onSaveInstanceState(Bundle)");
+        mSuperListeners.peek().call(outState);
     }
-}
+    
+    public AppCompatDelegate getDelegate() {
+        verifyMethodCalledFromDelegate("getDelegate()");
+        return (AppCompatDelegate) mSuperListeners.peek().call();
+    }
+    
+    public boolean dispatchKeyEvent(final KeyEvent event) {
+        verifyMethodCalledFromDelegate("dispatchKeyEvent(KeyEvent)");
+        return (Boolean) mSuperListeners.peek().call(event);
+    }
+    
+    public void onActivityResult(final int requestCode, final int resultCode,             final Intent data)  {
+        verifyMethodCalledFromDelegate("onActivityResult(int, int, Intent)");
+        mSuperListeners.peek().call(requestCode, resultCode, data);
+    }
+    
+    public void onBackPressed()  {
+        verifyMethodCalledFromDelegate("onBackPressed()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void supportFinishAfterTransition()  {
+        verifyMethodCalledFromDelegate("supportFinishAfterTransition()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void setEnterSharedElementCallback(final SharedElementCallback callback)  {
+        verifyMethodCalledFromDelegate("setEnterSharedElementCallback(SharedElementCallback)");
+        mSuperListeners.peek().call(callback);
+    }
+    
+    public void setExitSharedElementCallback(final SharedElementCallback listener)  {
+        verifyMethodCalledFromDelegate("setExitSharedElementCallback(SharedElementCallback)");
+        mSuperListeners.peek().call(listener);
+    }
+    
+    public void supportPostponeEnterTransition()  {
+        verifyMethodCalledFromDelegate("supportPostponeEnterTransition()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void supportStartPostponedEnterTransition()  {
+        verifyMethodCalledFromDelegate("supportStartPostponedEnterTransition()");
+        mSuperListeners.peek().call();
+    }
+    
+    public boolean onCreatePanelMenu(final int featureId, final Menu menu) {
+        verifyMethodCalledFromDelegate("onCreatePanelMenu(int, Menu)");
+        return (Boolean) mSuperListeners.peek().call(featureId, menu);
+    }
+    
+    public boolean onKeyDown(final int keyCode, final KeyEvent event) {
+        verifyMethodCalledFromDelegate("onKeyDown(int, KeyEvent)");
+        return (Boolean) mSuperListeners.peek().call(keyCode, event);
+    }
+    
+    public void onLowMemory()  {
+        verifyMethodCalledFromDelegate("onLowMemory()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void onPause()  {
+        verifyMethodCalledFromDelegate("onPause()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void onNewIntent(final Intent intent)  {
+        verifyMethodCalledFromDelegate("onNewIntent(Intent)");
+        mSuperListeners.peek().call(intent);
+    }
+    
+    public void onStateNotSaved()  {
+        verifyMethodCalledFromDelegate("onStateNotSaved()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void onResume()  {
+        verifyMethodCalledFromDelegate("onResume()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void onResumeFragments()  {
+        verifyMethodCalledFromDelegate("onResumeFragments()");
+        mSuperListeners.peek().call();
+    }
+    
+    public boolean onPreparePanel(final int featureId, final View view, final Menu menu) {
+        verifyMethodCalledFromDelegate("onPreparePanel(int, View, Menu)");
+        return (Boolean) mSuperListeners.peek().call(featureId, view, menu);
+    }
+    
+    public boolean onPrepareOptionsPanel(final View view, final Menu menu) {
+        verifyMethodCalledFromDelegate("onPrepareOptionsPanel(View, Menu)");
+        return (Boolean) mSuperListeners.peek().call(view, menu);
+    }
+    
+    public void onStart()  {
+        verifyMethodCalledFromDelegate("onStart()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,             final String[] args)  {
+        verifyMethodCalledFromDelegate("dump(String, FileDescriptor, PrintWriter, String[])");
+        mSuperListeners.peek().call(prefix, fd, writer, args);
+    }
+    
+    public void onAttachFragment(final Fragment fragment)  {
+        verifyMethodCalledFromDelegate("onAttachFragment(Fragment)");
+        mSuperListeners.peek().call(fragment);
+    }
+    
+    public FragmentManager getSupportFragmentManager() {
+        verifyMethodCalledFromDelegate("getSupportFragmentManager()");
+        return (FragmentManager) mSuperListeners.peek().call();
+    }
+    
+    public LoaderManager getSupportLoaderManager() {
+        verifyMethodCalledFromDelegate("getSupportLoaderManager()");
+        return (LoaderManager) mSuperListeners.peek().call();
+    }
+    
+    public void startActivityForResult(final Intent intent, final int requestCode)  {
+        verifyMethodCalledFromDelegate("startActivityForResult(Intent, int)");
+        mSuperListeners.peek().call(intent, requestCode);
+    }
+    
+    public void onRequestPermissionsResult(final int requestCode,             @NonNull final String[] permissions,             @NonNull final int[] grantResults)  {
+        verifyMethodCalledFromDelegate("onRequestPermissionsResult(int, String[], int[])");
+        mSuperListeners.peek().call(requestCode, permissions, grantResults);
+    }
+    
+    public void startActivityFromFragment(final Fragment fragment, final Intent intent,             final int requestCode)  {
+        verifyMethodCalledFromDelegate("startActivityFromFragment(Fragment, Intent, int)");
+        mSuperListeners.peek().call(fragment, intent, requestCode);
+    }
+    
+    public void startActivityFromFragment(final Fragment fragment, final Intent intent,             final int requestCode,             @Nullable final Bundle options)  {
+        verifyMethodCalledFromDelegate("startActivityFromFragment(Fragment, Intent, int, Bundle)");
+        mSuperListeners.peek().call(fragment, intent, requestCode, options);
+    }
+    
+    public View onCreateView(final View parent, final String name, final Context context,             final AttributeSet attrs) {
+        verifyMethodCalledFromDelegate("onCreateView(View, String, Context, AttributeSet)");
+        return (View) mSuperListeners.peek().call(parent, name, context, attrs);
+    }
+    
+    public View onCreateView(final String name, final Context context, final AttributeSet attrs) {
+        verifyMethodCalledFromDelegate("onCreateView(String, Context, AttributeSet)");
+        return (View) mSuperListeners.peek().call(name, context, attrs);
+    }
+    
+    public Intent getIntent() {
+        verifyMethodCalledFromDelegate("getIntent()");
+        return (Intent) mSuperListeners.peek().call();
+    }
+    
+    public void setIntent(final Intent newIntent)  {
+        verifyMethodCalledFromDelegate("setIntent(Intent)");
+        mSuperListeners.peek().call(newIntent);
+    }
+    
+    public WindowManager getWindowManager() {
+        verifyMethodCalledFromDelegate("getWindowManager()");
+        return (WindowManager) mSuperListeners.peek().call();
+    }
+    
+    public Window getWindow() {
+        verifyMethodCalledFromDelegate("getWindow()");
+        return (Window) mSuperListeners.peek().call();
+    }
+    
+    public android.app.LoaderManager getLoaderManager() {
+        verifyMethodCalledFromDelegate("getLoaderManager()");
+        return (android.app.LoaderManager) mSuperListeners.peek().call();
+    }
+    
+    public View getCurrentFocus() {
+        verifyMethodCalledFromDelegate("getCurrentFocus()");
+        return (View) mSuperListeners.peek().call();
+    }
+    
+    public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState)  {
+        verifyMethodCalledFromDelegate("onCreate(Bundle, PersistableBundle)");
+        mSuperListeners.peek().call(savedInstanceState, persistentState);
+    }
+    
+    public void onRestoreInstanceState(final Bundle savedInstanceState)  {
+        verifyMethodCalledFromDelegate("onRestoreInstanceState(Bundle)");
+        mSuperListeners.peek().call(savedInstanceState);
+    }
+    
+    public void onRestoreInstanceState(final Bundle savedInstanceState,             final PersistableBundle persistentState)  {
+        verifyMethodCalledFromDelegate("onRestoreInstanceState(Bundle, PersistableBundle)");
+        mSuperListeners.peek().call(savedInstanceState, persistentState);
+    }
+    
+    public void onPostCreate(final Bundle savedInstanceState,             final PersistableBundle persistentState)  {
+        verifyMethodCalledFromDelegate("onPostCreate(Bundle, PersistableBundle)");
+        mSuperListeners.peek().call(savedInstanceState, persistentState);
+    }
+    
+    public void onRestart()  {
+        verifyMethodCalledFromDelegate("onRestart()");
+        mSuperListeners.peek().call();
+    }
+    
+    public boolean isVoiceInteraction() {
+        verifyMethodCalledFromDelegate("isVoiceInteraction()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public boolean isVoiceInteractionRoot() {
+        verifyMethodCalledFromDelegate("isVoiceInteractionRoot()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public VoiceInteractor getVoiceInteractor() {
+        verifyMethodCalledFromDelegate("getVoiceInteractor()");
+        return (VoiceInteractor) mSuperListeners.peek().call();
+    }
+    
+    public void onSaveInstanceState(final Bundle outState,             final PersistableBundle outPersistentState)  {
+        verifyMethodCalledFromDelegate("onSaveInstanceState(Bundle, PersistableBundle)");
+        mSuperListeners.peek().call(outState, outPersistentState);
+    }
+    
+    public void onUserLeaveHint()  {
+        verifyMethodCalledFromDelegate("onUserLeaveHint()");
+        mSuperListeners.peek().call();
+    }
+    
+    public boolean onCreateThumbnail(final Bitmap outBitmap, final Canvas canvas) {
+        verifyMethodCalledFromDelegate("onCreateThumbnail(Bitmap, Canvas)");
+        return (Boolean) mSuperListeners.peek().call(outBitmap, canvas);
+    }
+    
+    public CharSequence onCreateDescription() {
+        verifyMethodCalledFromDelegate("onCreateDescription()");
+        return (CharSequence) mSuperListeners.peek().call();
+    }
+    
+    public void onProvideAssistData(final Bundle data)  {
+        verifyMethodCalledFromDelegate("onProvideAssistData(Bundle)");
+        mSuperListeners.peek().call(data);
+    }
+    
+    public void onProvideAssistContent(final AssistContent outContent)  {
+        verifyMethodCalledFromDelegate("onProvideAssistContent(AssistContent)");
+        mSuperListeners.peek().call(outContent);
+    }
+    
+    public boolean showAssist(final Bundle args) {
+        verifyMethodCalledFromDelegate("showAssist(Bundle)");
+        return (Boolean) mSuperListeners.peek().call(args);
+    }
+    
+    public void reportFullyDrawn()  {
+        verifyMethodCalledFromDelegate("reportFullyDrawn()");
+        mSuperListeners.peek().call();
+    }
+    
+    public int getChangingConfigurations() {
+        verifyMethodCalledFromDelegate("getChangingConfigurations()");
+        return (Integer) mSuperListeners.peek().call();
+    }
+    
+    public void onTrimMemory(final int level)  {
+        verifyMethodCalledFromDelegate("onTrimMemory(int)");
+        mSuperListeners.peek().call(level);
+    }
+    
+    public android.app.FragmentManager getFragmentManager() {
+        verifyMethodCalledFromDelegate("getFragmentManager()");
+        return (android.app.FragmentManager) mSuperListeners.peek().call();
+    }
+    
+    public void onAttachFragment(final android.app.Fragment fragment)  {
+        verifyMethodCalledFromDelegate("onAttachFragment(android.app.Fragment)");
+        mSuperListeners.peek().call(fragment);
+    }
+    
+    public void startManagingCursor(final Cursor c)  {
+        verifyMethodCalledFromDelegate("startManagingCursor(Cursor)");
+        mSuperListeners.peek().call(c);
+    }
+    
+    public void stopManagingCursor(final Cursor c)  {
+        verifyMethodCalledFromDelegate("stopManagingCursor(Cursor)");
+        mSuperListeners.peek().call(c);
+    }
+    
+    public android.app.ActionBar getActionBar() {
+        verifyMethodCalledFromDelegate("getActionBar()");
+        return (android.app.ActionBar) mSuperListeners.peek().call();
+    }
+    
+    public void setActionBar(final Toolbar toolbar)  {
+        verifyMethodCalledFromDelegate("setActionBar(Toolbar)");
+        mSuperListeners.peek().call(toolbar);
+    }
+    
+    public TransitionManager getContentTransitionManager() {
+        verifyMethodCalledFromDelegate("getContentTransitionManager()");
+        return (TransitionManager) mSuperListeners.peek().call();
+    }
+    
+    public void setContentTransitionManager(final TransitionManager tm)  {
+        verifyMethodCalledFromDelegate("setContentTransitionManager(TransitionManager)");
+        mSuperListeners.peek().call(tm);
+    }
+    
+    public Scene getContentScene() {
+        verifyMethodCalledFromDelegate("getContentScene()");
+        return (Scene) mSuperListeners.peek().call();
+    }
+    
+    public void setFinishOnTouchOutside(final boolean finish)  {
+        verifyMethodCalledFromDelegate("setFinishOnTouchOutside(boolean)");
+        mSuperListeners.peek().call(finish);
+    }
+    
+    public boolean onKeyLongPress(final int keyCode, final KeyEvent event) {
+        verifyMethodCalledFromDelegate("onKeyLongPress(int, KeyEvent)");
+        return (Boolean) mSuperListeners.peek().call(keyCode, event);
+    }
+    
+    public boolean onKeyUp(final int keyCode, final KeyEvent event) {
+        verifyMethodCalledFromDelegate("onKeyUp(int, KeyEvent)");
+        return (Boolean) mSuperListeners.peek().call(keyCode, event);
+    }
+    
+    public boolean onKeyMultiple(final int keyCode, final int repeatCount, final KeyEvent event) {
+        verifyMethodCalledFromDelegate("onKeyMultiple(int, int, KeyEvent)");
+        return (Boolean) mSuperListeners.peek().call(keyCode, repeatCount, event);
+    }
+    
+    public boolean onKeyShortcut(final int keyCode, final KeyEvent event) {
+        verifyMethodCalledFromDelegate("onKeyShortcut(int, KeyEvent)");
+        return (Boolean) mSuperListeners.peek().call(keyCode, event);
+    }
+    
+    public boolean onTouchEvent(final MotionEvent event) {
+        verifyMethodCalledFromDelegate("onTouchEvent(MotionEvent)");
+        return (Boolean) mSuperListeners.peek().call(event);
+    }
+    
+    public boolean onTrackballEvent(final MotionEvent event) {
+        verifyMethodCalledFromDelegate("onTrackballEvent(MotionEvent)");
+        return (Boolean) mSuperListeners.peek().call(event);
+    }
+    
+    public boolean onGenericMotionEvent(final MotionEvent event) {
+        verifyMethodCalledFromDelegate("onGenericMotionEvent(MotionEvent)");
+        return (Boolean) mSuperListeners.peek().call(event);
+    }
+    
+    public void onUserInteraction()  {
+        verifyMethodCalledFromDelegate("onUserInteraction()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void onWindowAttributesChanged(final WindowManager.LayoutParams params)  {
+        verifyMethodCalledFromDelegate("onWindowAttributesChanged(WindowManager.LayoutParams)");
+        mSuperListeners.peek().call(params);
+    }
+    
+    public void onWindowFocusChanged(final boolean hasFocus)  {
+        verifyMethodCalledFromDelegate("onWindowFocusChanged(boolean)");
+        mSuperListeners.peek().call(hasFocus);
+    }
+    
+    public void onAttachedToWindow()  {
+        verifyMethodCalledFromDelegate("onAttachedToWindow()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void onDetachedFromWindow()  {
+        verifyMethodCalledFromDelegate("onDetachedFromWindow()");
+        mSuperListeners.peek().call();
+    }
+    
+    public boolean hasWindowFocus() {
+        verifyMethodCalledFromDelegate("hasWindowFocus()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public boolean dispatchKeyShortcutEvent(final KeyEvent event) {
+        verifyMethodCalledFromDelegate("dispatchKeyShortcutEvent(KeyEvent)");
+        return (Boolean) mSuperListeners.peek().call(event);
+    }
+    
+    public boolean dispatchTouchEvent(final MotionEvent ev) {
+        verifyMethodCalledFromDelegate("dispatchTouchEvent(MotionEvent)");
+        return (Boolean) mSuperListeners.peek().call(ev);
+    }
+    
+    public boolean dispatchTrackballEvent(final MotionEvent ev) {
+        verifyMethodCalledFromDelegate("dispatchTrackballEvent(MotionEvent)");
+        return (Boolean) mSuperListeners.peek().call(ev);
+    }
+    
+    public boolean dispatchGenericMotionEvent(final MotionEvent ev) {
+        verifyMethodCalledFromDelegate("dispatchGenericMotionEvent(MotionEvent)");
+        return (Boolean) mSuperListeners.peek().call(ev);
+    }
+    
+    public boolean dispatchPopulateAccessibilityEvent(final AccessibilityEvent event) {
+        verifyMethodCalledFromDelegate("dispatchPopulateAccessibilityEvent(AccessibilityEvent)");
+        return (Boolean) mSuperListeners.peek().call(event);
+    }
+    
+    public View onCreatePanelView(final int featureId) {
+        verifyMethodCalledFromDelegate("onCreatePanelView(int)");
+        return (View) mSuperListeners.peek().call(featureId);
+    }
+    
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        verifyMethodCalledFromDelegate("onCreateOptionsMenu(Menu)");
+        return (Boolean) mSuperListeners.peek().call(menu);
+    }
+    
+    public boolean onPrepareOptionsMenu(final Menu menu) {
+        verifyMethodCalledFromDelegate("onPrepareOptionsMenu(Menu)");
+        return (Boolean) mSuperListeners.peek().call(menu);
+    }
+    
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        verifyMethodCalledFromDelegate("onOptionsItemSelected(MenuItem)");
+        return (Boolean) mSuperListeners.peek().call(item);
+    }
+    
+    public boolean onNavigateUp() {
+        verifyMethodCalledFromDelegate("onNavigateUp()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public boolean onNavigateUpFromChild(final Activity child) {
+        verifyMethodCalledFromDelegate("onNavigateUpFromChild(Activity)");
+        return (Boolean) mSuperListeners.peek().call(child);
+    }
+    
+    public void onCreateNavigateUpTaskStack(final TaskStackBuilder builder)  {
+        verifyMethodCalledFromDelegate("onCreateNavigateUpTaskStack(TaskStackBuilder)");
+        mSuperListeners.peek().call(builder);
+    }
+    
+    public void onPrepareNavigateUpTaskStack(final TaskStackBuilder builder)  {
+        verifyMethodCalledFromDelegate("onPrepareNavigateUpTaskStack(TaskStackBuilder)");
+        mSuperListeners.peek().call(builder);
+    }
+    
+    public void onOptionsMenuClosed(final Menu menu)  {
+        verifyMethodCalledFromDelegate("onOptionsMenuClosed(Menu)");
+        mSuperListeners.peek().call(menu);
+    }
+    
+    public void openOptionsMenu()  {
+        verifyMethodCalledFromDelegate("openOptionsMenu()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void closeOptionsMenu()  {
+        verifyMethodCalledFromDelegate("closeOptionsMenu()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void onCreateContextMenu(final ContextMenu menu, final View v,             final ContextMenu.ContextMenuInfo menuInfo)  {
+        verifyMethodCalledFromDelegate("onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)");
+        mSuperListeners.peek().call(menu, v, menuInfo);
+    }
+    
+    public void registerForContextMenu(final View view)  {
+        verifyMethodCalledFromDelegate("registerForContextMenu(View)");
+        mSuperListeners.peek().call(view);
+    }
+    
+    public void unregisterForContextMenu(final View view)  {
+        verifyMethodCalledFromDelegate("unregisterForContextMenu(View)");
+        mSuperListeners.peek().call(view);
+    }
+    
+    public void openContextMenu(final View view)  {
+        verifyMethodCalledFromDelegate("openContextMenu(View)");
+        mSuperListeners.peek().call(view);
+    }
+    
+    public void closeContextMenu()  {
+        verifyMethodCalledFromDelegate("closeContextMenu()");
+        mSuperListeners.peek().call();
+    }
+    
+    public boolean onContextItemSelected(final MenuItem item) {
+        verifyMethodCalledFromDelegate("onContextItemSelected(MenuItem)");
+        return (Boolean) mSuperListeners.peek().call(item);
+    }
+    
+    public void onContextMenuClosed(final Menu menu)  {
+        verifyMethodCalledFromDelegate("onContextMenuClosed(Menu)");
+        mSuperListeners.peek().call(menu);
+    }
+    
+    public Dialog onCreateDialog(final int id) {
+        verifyMethodCalledFromDelegate("onCreateDialog(int)");
+        return (Dialog) mSuperListeners.peek().call(id);
+    }
+    
+    public Dialog onCreateDialog(final int id, final Bundle args) {
+        verifyMethodCalledFromDelegate("onCreateDialog(int, Bundle)");
+        return (Dialog) mSuperListeners.peek().call(id, args);
+    }
+    
+    public void onPrepareDialog(final int id, final Dialog dialog)  {
+        verifyMethodCalledFromDelegate("onPrepareDialog(int, Dialog)");
+        mSuperListeners.peek().call(id, dialog);
+    }
+    
+    public void onPrepareDialog(final int id, final Dialog dialog, final Bundle args)  {
+        verifyMethodCalledFromDelegate("onPrepareDialog(int, Dialog, Bundle)");
+        mSuperListeners.peek().call(id, dialog, args);
+    }
+    
+    public boolean onSearchRequested(final SearchEvent searchEvent) {
+        verifyMethodCalledFromDelegate("onSearchRequested(SearchEvent)");
+        return (Boolean) mSuperListeners.peek().call(searchEvent);
+    }
+    
+    public boolean onSearchRequested() {
+        verifyMethodCalledFromDelegate("onSearchRequested()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public void startSearch(final String initialQuery, final boolean selectInitialQuery,             final Bundle appSearchData,             final boolean globalSearch)  {
+        verifyMethodCalledFromDelegate("startSearch(String, boolean, Bundle, boolean)");
+        mSuperListeners.peek().call(initialQuery, selectInitialQuery, appSearchData, globalSearch);
+    }
+    
+    public void triggerSearch(final String query, final Bundle appSearchData)  {
+        verifyMethodCalledFromDelegate("triggerSearch(String, Bundle)");
+        mSuperListeners.peek().call(query, appSearchData);
+    }
+    
+    public void takeKeyEvents(final boolean get)  {
+        verifyMethodCalledFromDelegate("takeKeyEvents(boolean)");
+        mSuperListeners.peek().call(get);
+    }
+    
+    public LayoutInflater getLayoutInflater() {
+        verifyMethodCalledFromDelegate("getLayoutInflater()");
+        return (LayoutInflater) mSuperListeners.peek().call();
+    }
+    
+    public void onApplyThemeResource(final Resources.Theme theme, final int resid,             final boolean first)  {
+        verifyMethodCalledFromDelegate("onApplyThemeResource(Resources.Theme, int, boolean)");
+        mSuperListeners.peek().call(theme, resid, first);
+    }
+    
+    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
+        verifyMethodCalledFromDelegate("shouldShowRequestPermissionRationale(String)");
+        return (Boolean) mSuperListeners.peek().call(permission);
+    }
+    
+    public void startActivityForResult(final Intent intent, final int requestCode,             final Bundle options)  {
+        verifyMethodCalledFromDelegate("startActivityForResult(Intent, int, Bundle)");
+        mSuperListeners.peek().call(intent, requestCode, options);
+    }
+    
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,             final Intent fillInIntent, final int flagsMask, final int flagsValues,             final int extraFlags)              throws IntentSender.SendIntentException {
+        verifyMethodCalledFromDelegate("startIntentSenderForResult(IntentSender, int, Intent, int, int, int)");
+        mSuperListeners.peek().call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
+    }
+    
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,             final Intent fillInIntent, final int flagsMask, final int flagsValues,             final int extraFlags, final Bundle options)              throws IntentSender.SendIntentException {
+        verifyMethodCalledFromDelegate("startIntentSenderForResult(IntentSender, int, Intent, int, int, int, Bundle)");
+        mSuperListeners.peek().call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags, options);
+    }
+    
+    public void startActivity(final Intent intent)  {
+        verifyMethodCalledFromDelegate("startActivity(Intent)");
+        mSuperListeners.peek().call(intent);
+    }
+    
+    public void startActivity(final Intent intent, final Bundle options)  {
+        verifyMethodCalledFromDelegate("startActivity(Intent, Bundle)");
+        mSuperListeners.peek().call(intent, options);
+    }
+    
+    public void startActivities(final Intent[] intents)  {
+        verifyMethodCalledFromDelegate("startActivities(Intent[])");
+        mSuperListeners.peek().call(intents);
+    }
+    
+    public void startActivities(final Intent[] intents, final Bundle options)  {
+        verifyMethodCalledFromDelegate("startActivities(Intent[], Bundle)");
+        mSuperListeners.peek().call(intents, options);
+    }
+    
+    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,             final int flagsMask,             final int flagsValues, final int extraFlags)  throws IntentSender.SendIntentException {
+        verifyMethodCalledFromDelegate("startIntentSender(IntentSender, Intent, int, int, int)");
+        mSuperListeners.peek().call(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
+    }
+    
+    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,             final int flagsMask,             final int flagsValues, final int extraFlags, final Bundle options)              throws IntentSender.SendIntentException {
+        verifyMethodCalledFromDelegate("startIntentSender(IntentSender, Intent, int, int, int, Bundle)");
+        mSuperListeners.peek().call(intent, fillInIntent, flagsMask, flagsValues, extraFlags, options);
+    }
+    
+    public boolean startActivityIfNeeded(@NonNull final Intent intent, final int requestCode) {
+        verifyMethodCalledFromDelegate("startActivityIfNeeded(Intent, int)");
+        return (Boolean) mSuperListeners.peek().call(intent, requestCode);
+    }
+    
+    public boolean startActivityIfNeeded(@NonNull final Intent intent, final int requestCode,             final Bundle options) {
+        verifyMethodCalledFromDelegate("startActivityIfNeeded(Intent, int, Bundle)");
+        return (Boolean) mSuperListeners.peek().call(intent, requestCode, options);
+    }
+    
+    public boolean startNextMatchingActivity(@NonNull final Intent intent) {
+        verifyMethodCalledFromDelegate("startNextMatchingActivity(Intent)");
+        return (Boolean) mSuperListeners.peek().call(intent);
+    }
+    
+    public boolean startNextMatchingActivity(@NonNull final Intent intent, final Bundle options) {
+        verifyMethodCalledFromDelegate("startNextMatchingActivity(Intent, Bundle)");
+        return (Boolean) mSuperListeners.peek().call(intent, options);
+    }
+    
+    public void startActivityFromChild(@NonNull final Activity child, final Intent intent,             final int requestCode)  {
+        verifyMethodCalledFromDelegate("startActivityFromChild(Activity, Intent, int)");
+        mSuperListeners.peek().call(child, intent, requestCode);
+    }
+    
+    public void startActivityFromChild(@NonNull final Activity child, final Intent intent,             final int requestCode,             final Bundle options)  {
+        verifyMethodCalledFromDelegate("startActivityFromChild(Activity, Intent, int, Bundle)");
+        mSuperListeners.peek().call(child, intent, requestCode, options);
+    }
+    
+    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment, final Intent intent,             final int requestCode)  {
+        verifyMethodCalledFromDelegate("startActivityFromFragment(android.app.Fragment, Intent, int)");
+        mSuperListeners.peek().call(fragment, intent, requestCode);
+    }
+    
+    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment, final Intent intent,             final int requestCode,             final Bundle options)  {
+        verifyMethodCalledFromDelegate("startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)");
+        mSuperListeners.peek().call(fragment, intent, requestCode, options);
+    }
+    
+    public void startIntentSenderFromChild(final Activity child, final IntentSender intent,             final int requestCode,             final Intent fillInIntent, final int flagsMask, final int flagsValues,             final int extraFlags)              throws IntentSender.SendIntentException {
+        verifyMethodCalledFromDelegate("startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int)");
+        mSuperListeners.peek().call(child, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
+    }
+    
+    public void startIntentSenderFromChild(final Activity child, final IntentSender intent,             final int requestCode,             final Intent fillInIntent, final int flagsMask, final int flagsValues,             final int extraFlags, final Bundle options)              throws IntentSender.SendIntentException {
+        verifyMethodCalledFromDelegate("startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int, Bundle)");
+        mSuperListeners.peek().call(child, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags, options);
+    }
+    
+    public void overridePendingTransition(final int enterAnim, final int exitAnim)  {
+        verifyMethodCalledFromDelegate("overridePendingTransition(int, int)");
+        mSuperListeners.peek().call(enterAnim, exitAnim);
+    }
+    
+    public Uri getReferrer() {
+        verifyMethodCalledFromDelegate("getReferrer()");
+        return (Uri) mSuperListeners.peek().call();
+    }
+    
+    public Uri onProvideReferrer() {
+        verifyMethodCalledFromDelegate("onProvideReferrer()");
+        return (Uri) mSuperListeners.peek().call();
+    }
+    
+    public String getCallingPackage() {
+        verifyMethodCalledFromDelegate("getCallingPackage()");
+        return (String) mSuperListeners.peek().call();
+    }
+    
+    public ComponentName getCallingActivity() {
+        verifyMethodCalledFromDelegate("getCallingActivity()");
+        return (ComponentName) mSuperListeners.peek().call();
+    }
+    
+    public void setVisible(final boolean visible)  {
+        verifyMethodCalledFromDelegate("setVisible(boolean)");
+        mSuperListeners.peek().call(visible);
+    }
+    
+    public boolean isFinishing() {
+        verifyMethodCalledFromDelegate("isFinishing()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public boolean isDestroyed() {
+        verifyMethodCalledFromDelegate("isDestroyed()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public boolean isChangingConfigurations() {
+        verifyMethodCalledFromDelegate("isChangingConfigurations()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public void recreate()  {
+        verifyMethodCalledFromDelegate("recreate()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void finish()  {
+        verifyMethodCalledFromDelegate("finish()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void finishAffinity()  {
+        verifyMethodCalledFromDelegate("finishAffinity()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void finishFromChild(final Activity child)  {
+        verifyMethodCalledFromDelegate("finishFromChild(Activity)");
+        mSuperListeners.peek().call(child);
+    }
+    
+    public void finishAfterTransition()  {
+        verifyMethodCalledFromDelegate("finishAfterTransition()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void finishActivity(final int requestCode)  {
+        verifyMethodCalledFromDelegate("finishActivity(int)");
+        mSuperListeners.peek().call(requestCode);
+    }
+    
+    public void finishActivityFromChild(@NonNull final Activity child, final int requestCode)  {
+        verifyMethodCalledFromDelegate("finishActivityFromChild(Activity, int)");
+        mSuperListeners.peek().call(child, requestCode);
+    }
+    
+    public void finishAndRemoveTask()  {
+        verifyMethodCalledFromDelegate("finishAndRemoveTask()");
+        mSuperListeners.peek().call();
+    }
+    
+    public boolean releaseInstance() {
+        verifyMethodCalledFromDelegate("releaseInstance()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public void onActivityReenter(final int resultCode, final Intent data)  {
+        verifyMethodCalledFromDelegate("onActivityReenter(int, Intent)");
+        mSuperListeners.peek().call(resultCode, data);
+    }
+    
+    public PendingIntent createPendingResult(final int requestCode, @NonNull final Intent data,             final int flags) {
+        verifyMethodCalledFromDelegate("createPendingResult(int, Intent, int)");
+        return (PendingIntent) mSuperListeners.peek().call(requestCode, data, flags);
+    }
+    
+    public void setRequestedOrientation(final int requestedOrientation)  {
+        verifyMethodCalledFromDelegate("setRequestedOrientation(int)");
+        mSuperListeners.peek().call(requestedOrientation);
+    }
+    
+    public int getRequestedOrientation() {
+        verifyMethodCalledFromDelegate("getRequestedOrientation()");
+        return (Integer) mSuperListeners.peek().call();
+    }
+    
+    public int getTaskId() {
+        verifyMethodCalledFromDelegate("getTaskId()");
+        return (Integer) mSuperListeners.peek().call();
+    }
+    
+    public boolean isTaskRoot() {
+        verifyMethodCalledFromDelegate("isTaskRoot()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public boolean moveTaskToBack(final boolean nonRoot) {
+        verifyMethodCalledFromDelegate("moveTaskToBack(boolean)");
+        return (Boolean) mSuperListeners.peek().call(nonRoot);
+    }
+    
+    public String getLocalClassName() {
+        verifyMethodCalledFromDelegate("getLocalClassName()");
+        return (String) mSuperListeners.peek().call();
+    }
+    
+    public ComponentName getComponentName() {
+        verifyMethodCalledFromDelegate("getComponentName()");
+        return (ComponentName) mSuperListeners.peek().call();
+    }
+    
+    public SharedPreferences getPreferences(final int mode) {
+        verifyMethodCalledFromDelegate("getPreferences(int)");
+        return (SharedPreferences) mSuperListeners.peek().call(mode);
+    }
+    
+    public Object getSystemService(@NonNull final String name) {
+        verifyMethodCalledFromDelegate("getSystemService(String)");
+        return (Object) mSuperListeners.peek().call(name);
+    }
+    
+    public void setTitle(final CharSequence title)  {
+        verifyMethodCalledFromDelegate("setTitle(CharSequence)");
+        mSuperListeners.peek().call(title);
+    }
+    
+    public void setTitle(final int titleId)  {
+        verifyMethodCalledFromDelegate("setTitle(int)");
+        mSuperListeners.peek().call(titleId);
+    }
+    
+    public void setTitleColor(final int textColor)  {
+        verifyMethodCalledFromDelegate("setTitleColor(int)");
+        mSuperListeners.peek().call(textColor);
+    }
+    
+    public void onChildTitleChanged(final Activity childActivity, final CharSequence title)  {
+        verifyMethodCalledFromDelegate("onChildTitleChanged(Activity, CharSequence)");
+        mSuperListeners.peek().call(childActivity, title);
+    }
+    
+    public void setTaskDescription(final ActivityManager.TaskDescription taskDescription)  {
+        verifyMethodCalledFromDelegate("setTaskDescription(ActivityManager.TaskDescription)");
+        mSuperListeners.peek().call(taskDescription);
+    }
+    
+    public boolean isImmersive() {
+        verifyMethodCalledFromDelegate("isImmersive()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public boolean requestVisibleBehind(final boolean visible) {
+        verifyMethodCalledFromDelegate("requestVisibleBehind(boolean)");
+        return (Boolean) mSuperListeners.peek().call(visible);
+    }
+    
+    public void onVisibleBehindCanceled()  {
+        verifyMethodCalledFromDelegate("onVisibleBehindCanceled()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void onEnterAnimationComplete()  {
+        verifyMethodCalledFromDelegate("onEnterAnimationComplete()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void setImmersive(final boolean i)  {
+        verifyMethodCalledFromDelegate("setImmersive(boolean)");
+        mSuperListeners.peek().call(i);
+    }
+    
+    public android.view.ActionMode startActionMode(             final android.view.ActionMode.Callback callback) {
+        verifyMethodCalledFromDelegate("startActionMode(android.view.ActionMode.Callback)");
+        return (android.view.ActionMode) mSuperListeners.peek().call(callback);
+    }
+    
+    public android.view.ActionMode startActionMode(final android.view.ActionMode.Callback callback,             final int type) {
+        verifyMethodCalledFromDelegate("startActionMode(android.view.ActionMode.Callback, int)");
+        return (android.view.ActionMode) mSuperListeners.peek().call(callback, type);
+    }
+    
+    public android.view.ActionMode onWindowStartingActionMode(             final android.view.ActionMode.Callback callback) {
+        verifyMethodCalledFromDelegate("onWindowStartingActionMode(android.view.ActionMode.Callback)");
+        return (android.view.ActionMode) mSuperListeners.peek().call(callback);
+    }
+    
+    public android.view.ActionMode onWindowStartingActionMode(             final android.view.ActionMode.Callback callback, final int type) {
+        verifyMethodCalledFromDelegate("onWindowStartingActionMode(android.view.ActionMode.Callback, int)");
+        return (android.view.ActionMode) mSuperListeners.peek().call(callback, type);
+    }
+    
+    public void onActionModeStarted(final android.view.ActionMode mode)  {
+        verifyMethodCalledFromDelegate("onActionModeStarted(android.view.ActionMode)");
+        mSuperListeners.peek().call(mode);
+    }
+    
+    public void onActionModeFinished(final android.view.ActionMode mode)  {
+        verifyMethodCalledFromDelegate("onActionModeFinished(android.view.ActionMode)");
+        mSuperListeners.peek().call(mode);
+    }
+    
+    public boolean shouldUpRecreateTask(final Intent targetIntent) {
+        verifyMethodCalledFromDelegate("shouldUpRecreateTask(Intent)");
+        return (Boolean) mSuperListeners.peek().call(targetIntent);
+    }
+    
+    public boolean navigateUpTo(final Intent upIntent) {
+        verifyMethodCalledFromDelegate("navigateUpTo(Intent)");
+        return (Boolean) mSuperListeners.peek().call(upIntent);
+    }
+    
+    public boolean navigateUpToFromChild(final Activity child, final Intent upIntent) {
+        verifyMethodCalledFromDelegate("navigateUpToFromChild(Activity, Intent)");
+        return (Boolean) mSuperListeners.peek().call(child, upIntent);
+    }
+    
+    public Intent getParentActivityIntent() {
+        verifyMethodCalledFromDelegate("getParentActivityIntent()");
+        return (Intent) mSuperListeners.peek().call();
+    }
+    
+    public void setEnterSharedElementCallback(final android.app.SharedElementCallback callback)  {
+        verifyMethodCalledFromDelegate("setEnterSharedElementCallback(android.app.SharedElementCallback)");
+        mSuperListeners.peek().call(callback);
+    }
+    
+    public void setExitSharedElementCallback(final android.app.SharedElementCallback callback)  {
+        verifyMethodCalledFromDelegate("setExitSharedElementCallback(android.app.SharedElementCallback)");
+        mSuperListeners.peek().call(callback);
+    }
+    
+    public void postponeEnterTransition()  {
+        verifyMethodCalledFromDelegate("postponeEnterTransition()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void startPostponedEnterTransition()  {
+        verifyMethodCalledFromDelegate("startPostponedEnterTransition()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void startLockTask()  {
+        verifyMethodCalledFromDelegate("startLockTask()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void stopLockTask()  {
+        verifyMethodCalledFromDelegate("stopLockTask()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void showLockTaskEscapeMessage()  {
+        verifyMethodCalledFromDelegate("showLockTaskEscapeMessage()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void attachBaseContext(final Context newBase)  {
+        verifyMethodCalledFromDelegate("attachBaseContext(Context)");
+        mSuperListeners.peek().call(newBase);
+    }
+    
+    public void applyOverrideConfiguration(final Configuration overrideConfiguration)  {
+        verifyMethodCalledFromDelegate("applyOverrideConfiguration(Configuration)");
+        mSuperListeners.peek().call(overrideConfiguration);
+    }
+    
+    public Resources getResources() {
+        verifyMethodCalledFromDelegate("getResources()");
+        return (Resources) mSuperListeners.peek().call();
+    }
+    
+    public Resources.Theme getTheme() {
+        verifyMethodCalledFromDelegate("getTheme()");
+        return (Resources.Theme) mSuperListeners.peek().call();
+    }
+    
+    public Context getBaseContext() {
+        verifyMethodCalledFromDelegate("getBaseContext()");
+        return (Context) mSuperListeners.peek().call();
+    }
+    
+    public AssetManager getAssets() {
+        verifyMethodCalledFromDelegate("getAssets()");
+        return (AssetManager) mSuperListeners.peek().call();
+    }
+    
+    public PackageManager getPackageManager() {
+        verifyMethodCalledFromDelegate("getPackageManager()");
+        return (PackageManager) mSuperListeners.peek().call();
+    }
+    
+    public ContentResolver getContentResolver() {
+        verifyMethodCalledFromDelegate("getContentResolver()");
+        return (ContentResolver) mSuperListeners.peek().call();
+    }
+    
+    public Looper getMainLooper() {
+        verifyMethodCalledFromDelegate("getMainLooper()");
+        return (Looper) mSuperListeners.peek().call();
+    }
+    
+    public Context getApplicationContext() {
+        verifyMethodCalledFromDelegate("getApplicationContext()");
+        return (Context) mSuperListeners.peek().call();
+    }
+    
+    public ClassLoader getClassLoader() {
+        verifyMethodCalledFromDelegate("getClassLoader()");
+        return (ClassLoader) mSuperListeners.peek().call();
+    }
+    
+    public String getPackageName() {
+        verifyMethodCalledFromDelegate("getPackageName()");
+        return (String) mSuperListeners.peek().call();
+    }
+    
+    public ApplicationInfo getApplicationInfo() {
+        verifyMethodCalledFromDelegate("getApplicationInfo()");
+        return (ApplicationInfo) mSuperListeners.peek().call();
+    }
+    
+    public String getPackageResourcePath() {
+        verifyMethodCalledFromDelegate("getPackageResourcePath()");
+        return (String) mSuperListeners.peek().call();
+    }
+    
+    public String getPackageCodePath() {
+        verifyMethodCalledFromDelegate("getPackageCodePath()");
+        return (String) mSuperListeners.peek().call();
+    }
+    
+    public SharedPreferences getSharedPreferences(final String name, final int mode) {
+        verifyMethodCalledFromDelegate("getSharedPreferences(String, int)");
+        return (SharedPreferences) mSuperListeners.peek().call(name, mode);
+    }
+    
+    public FileInputStream openFileInput(final String name) {
+        verifyMethodCalledFromDelegate("openFileInput(String)");
+        return (FileInputStream) mSuperListeners.peek().call(name);
+    }
+    
+    public FileOutputStream openFileOutput(final String name, final int mode) {
+        verifyMethodCalledFromDelegate("openFileOutput(String, int)");
+        return (FileOutputStream) mSuperListeners.peek().call(name, mode);
+    }
+    
+    public boolean deleteFile(final String name) {
+        verifyMethodCalledFromDelegate("deleteFile(String)");
+        return (Boolean) mSuperListeners.peek().call(name);
+    }
+    
+    public File getFileStreamPath(final String name) {
+        verifyMethodCalledFromDelegate("getFileStreamPath(String)");
+        return (File) mSuperListeners.peek().call(name);
+    }
+    
+    public String[] fileList() {
+        verifyMethodCalledFromDelegate("fileList()");
+        return (String[]) mSuperListeners.peek().call();
+    }
+    
+    public File getFilesDir() {
+        verifyMethodCalledFromDelegate("getFilesDir()");
+        return (File) mSuperListeners.peek().call();
+    }
+    
+    public File getNoBackupFilesDir() {
+        verifyMethodCalledFromDelegate("getNoBackupFilesDir()");
+        return (File) mSuperListeners.peek().call();
+    }
+    
+    public File getExternalFilesDir(final String type) {
+        verifyMethodCalledFromDelegate("getExternalFilesDir(String)");
+        return (File) mSuperListeners.peek().call(type);
+    }
+    
+    public File[] getExternalFilesDirs(final String type) {
+        verifyMethodCalledFromDelegate("getExternalFilesDirs(String)");
+        return (File[]) mSuperListeners.peek().call(type);
+    }
+    
+    public File getObbDir() {
+        verifyMethodCalledFromDelegate("getObbDir()");
+        return (File) mSuperListeners.peek().call();
+    }
+    
+    public File[] getObbDirs() {
+        verifyMethodCalledFromDelegate("getObbDirs()");
+        return (File[]) mSuperListeners.peek().call();
+    }
+    
+    public File getCacheDir() {
+        verifyMethodCalledFromDelegate("getCacheDir()");
+        return (File) mSuperListeners.peek().call();
+    }
+    
+    public File getCodeCacheDir() {
+        verifyMethodCalledFromDelegate("getCodeCacheDir()");
+        return (File) mSuperListeners.peek().call();
+    }
+    
+    public File getExternalCacheDir() {
+        verifyMethodCalledFromDelegate("getExternalCacheDir()");
+        return (File) mSuperListeners.peek().call();
+    }
+    
+    public File[] getExternalCacheDirs() {
+        verifyMethodCalledFromDelegate("getExternalCacheDirs()");
+        return (File[]) mSuperListeners.peek().call();
+    }
+    
+    public File[] getExternalMediaDirs() {
+        verifyMethodCalledFromDelegate("getExternalMediaDirs()");
+        return (File[]) mSuperListeners.peek().call();
+    }
+    
+    public File getDir(final String name, final int mode) {
+        verifyMethodCalledFromDelegate("getDir(String, int)");
+        return (File) mSuperListeners.peek().call(name, mode);
+    }
+    
+    public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,             final SQLiteDatabase.CursorFactory factory) {
+        verifyMethodCalledFromDelegate("openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory)");
+        return (SQLiteDatabase) mSuperListeners.peek().call(name, mode, factory);
+    }
+    
+    public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,             final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler) {
+        verifyMethodCalledFromDelegate("openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory, DatabaseErrorHandler)");
+        return (SQLiteDatabase) mSuperListeners.peek().call(name, mode, factory, errorHandler);
+    }
+    
+    public boolean deleteDatabase(final String name) {
+        verifyMethodCalledFromDelegate("deleteDatabase(String)");
+        return (Boolean) mSuperListeners.peek().call(name);
+    }
+    
+    public File getDatabasePath(final String name) {
+        verifyMethodCalledFromDelegate("getDatabasePath(String)");
+        return (File) mSuperListeners.peek().call(name);
+    }
+    
+    public String[] databaseList() {
+        verifyMethodCalledFromDelegate("databaseList()");
+        return (String[]) mSuperListeners.peek().call();
+    }
+    
+    public Drawable getWallpaper() {
+        verifyMethodCalledFromDelegate("getWallpaper()");
+        return (Drawable) mSuperListeners.peek().call();
+    }
+    
+    public Drawable peekWallpaper() {
+        verifyMethodCalledFromDelegate("peekWallpaper()");
+        return (Drawable) mSuperListeners.peek().call();
+    }
+    
+    public int getWallpaperDesiredMinimumWidth() {
+        verifyMethodCalledFromDelegate("getWallpaperDesiredMinimumWidth()");
+        return (Integer) mSuperListeners.peek().call();
+    }
+    
+    public int getWallpaperDesiredMinimumHeight() {
+        verifyMethodCalledFromDelegate("getWallpaperDesiredMinimumHeight()");
+        return (Integer) mSuperListeners.peek().call();
+    }
+    
+    public void setWallpaper(final Bitmap bitmap)  throws IOException {
+        verifyMethodCalledFromDelegate("setWallpaper(Bitmap)");
+        mSuperListeners.peek().call(bitmap);
+    }
+    
+    public void setWallpaper(final InputStream data)  throws IOException {
+        verifyMethodCalledFromDelegate("setWallpaper(InputStream)");
+        mSuperListeners.peek().call(data);
+    }
+    
+    public void clearWallpaper()  throws IOException {
+        verifyMethodCalledFromDelegate("clearWallpaper()");
+        mSuperListeners.peek().call();
+    }
+    
+    public void sendBroadcast(final Intent intent)  {
+        verifyMethodCalledFromDelegate("sendBroadcast(Intent)");
+        mSuperListeners.peek().call(intent);
+    }
+    
+    public void sendBroadcast(final Intent intent, final String receiverPermission)  {
+        verifyMethodCalledFromDelegate("sendBroadcast(Intent, String)");
+        mSuperListeners.peek().call(intent, receiverPermission);
+    }
+    
+    public void sendOrderedBroadcast(final Intent intent, final String receiverPermission)  {
+        verifyMethodCalledFromDelegate("sendOrderedBroadcast(Intent, String)");
+        mSuperListeners.peek().call(intent, receiverPermission);
+    }
+    
+    public void sendOrderedBroadcast(final Intent intent, final String receiverPermission,             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,             final String initialData, final Bundle initialExtras)  {
+        verifyMethodCalledFromDelegate("sendOrderedBroadcast(Intent, String, BroadcastReceiver, Handler, int, String, Bundle)");
+        mSuperListeners.peek().call(intent, receiverPermission, resultReceiver, scheduler, initialCode, initialData, initialExtras);
+    }
+    
+    public void sendBroadcastAsUser(final Intent intent, final UserHandle user)  {
+        verifyMethodCalledFromDelegate("sendBroadcastAsUser(Intent, UserHandle)");
+        mSuperListeners.peek().call(intent, user);
+    }
+    
+    public void sendBroadcastAsUser(final Intent intent, final UserHandle user,             final String receiverPermission)  {
+        verifyMethodCalledFromDelegate("sendBroadcastAsUser(Intent, UserHandle, String)");
+        mSuperListeners.peek().call(intent, user, receiverPermission);
+    }
+    
+    public void sendOrderedBroadcastAsUser(final Intent intent, final UserHandle user,             final String receiverPermission, final BroadcastReceiver resultReceiver,             final Handler scheduler,             final int initialCode, final String initialData, final Bundle initialExtras)  {
+        verifyMethodCalledFromDelegate("sendOrderedBroadcastAsUser(Intent, UserHandle, String, BroadcastReceiver, Handler, int, String, Bundle)");
+        mSuperListeners.peek().call(intent, user, receiverPermission, resultReceiver, scheduler, initialCode, initialData, initialExtras);
+    }
+    
+    public void sendStickyBroadcast(final Intent intent)  {
+        verifyMethodCalledFromDelegate("sendStickyBroadcast(Intent)");
+        mSuperListeners.peek().call(intent);
+    }
+    
+    public void sendStickyOrderedBroadcast(final Intent intent,             final BroadcastReceiver resultReceiver,             final Handler scheduler, final int initialCode, final String initialData,             final Bundle initialExtras)  {
+        verifyMethodCalledFromDelegate("sendStickyOrderedBroadcast(Intent, BroadcastReceiver, Handler, int, String, Bundle)");
+        mSuperListeners.peek().call(intent, resultReceiver, scheduler, initialCode, initialData, initialExtras);
+    }
+    
+    public void removeStickyBroadcast(final Intent intent)  {
+        verifyMethodCalledFromDelegate("removeStickyBroadcast(Intent)");
+        mSuperListeners.peek().call(intent);
+    }
+    
+    public void sendStickyBroadcastAsUser(final Intent intent, final UserHandle user)  {
+        verifyMethodCalledFromDelegate("sendStickyBroadcastAsUser(Intent, UserHandle)");
+        mSuperListeners.peek().call(intent, user);
+    }
+    
+    public void sendStickyOrderedBroadcastAsUser(final Intent intent, final UserHandle user,             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,             final String initialData, final Bundle initialExtras)  {
+        verifyMethodCalledFromDelegate("sendStickyOrderedBroadcastAsUser(Intent, UserHandle, BroadcastReceiver, Handler, int, String, Bundle)");
+        mSuperListeners.peek().call(intent, user, resultReceiver, scheduler, initialCode, initialData, initialExtras);
+    }
+    
+    public void removeStickyBroadcastAsUser(final Intent intent, final UserHandle user)  {
+        verifyMethodCalledFromDelegate("removeStickyBroadcastAsUser(Intent, UserHandle)");
+        mSuperListeners.peek().call(intent, user);
+    }
+    
+    public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter) {
+        verifyMethodCalledFromDelegate("registerReceiver(BroadcastReceiver, IntentFilter)");
+        return (Intent) mSuperListeners.peek().call(receiver, filter);
+    }
+    
+    public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,             final String broadcastPermission, final Handler scheduler) {
+        verifyMethodCalledFromDelegate("registerReceiver(BroadcastReceiver, IntentFilter, String, Handler)");
+        return (Intent) mSuperListeners.peek().call(receiver, filter, broadcastPermission, scheduler);
+    }
+    
+    public void unregisterReceiver(final BroadcastReceiver receiver)  {
+        verifyMethodCalledFromDelegate("unregisterReceiver(BroadcastReceiver)");
+        mSuperListeners.peek().call(receiver);
+    }
+    
+    public ComponentName startService(final Intent service) {
+        verifyMethodCalledFromDelegate("startService(Intent)");
+        return (ComponentName) mSuperListeners.peek().call(service);
+    }
+    
+    public boolean stopService(final Intent name) {
+        verifyMethodCalledFromDelegate("stopService(Intent)");
+        return (Boolean) mSuperListeners.peek().call(name);
+    }
+    
+    public boolean bindService(final Intent service, final ServiceConnection conn,             final int flags) {
+        verifyMethodCalledFromDelegate("bindService(Intent, ServiceConnection, int)");
+        return (Boolean) mSuperListeners.peek().call(service, conn, flags);
+    }
+    
+    public void unbindService(final ServiceConnection conn)  {
+        verifyMethodCalledFromDelegate("unbindService(ServiceConnection)");
+        mSuperListeners.peek().call(conn);
+    }
+    
+    public boolean startInstrumentation(final ComponentName className, final String profileFile,             final Bundle arguments) {
+        verifyMethodCalledFromDelegate("startInstrumentation(ComponentName, String, Bundle)");
+        return (Boolean) mSuperListeners.peek().call(className, profileFile, arguments);
+    }
+    
+    public String getSystemServiceName(final Class<?> serviceClass) {
+        verifyMethodCalledFromDelegate("getSystemServiceName(Class<?>)");
+        return (String) mSuperListeners.peek().call(serviceClass);
+    }
+    
+    public int checkPermission(final String permission, final int pid, final int uid) {
+        verifyMethodCalledFromDelegate("checkPermission(String, int, int)");
+        return (Integer) mSuperListeners.peek().call(permission, pid, uid);
+    }
+    
+    public int checkCallingPermission(final String permission) {
+        verifyMethodCalledFromDelegate("checkCallingPermission(String)");
+        return (Integer) mSuperListeners.peek().call(permission);
+    }
+    
+    public int checkCallingOrSelfPermission(final String permission) {
+        verifyMethodCalledFromDelegate("checkCallingOrSelfPermission(String)");
+        return (Integer) mSuperListeners.peek().call(permission);
+    }
+    
+    public int checkSelfPermission(final String permission) {
+        verifyMethodCalledFromDelegate("checkSelfPermission(String)");
+        return (Integer) mSuperListeners.peek().call(permission);
+    }
+    
+    public void enforcePermission(final String permission, final int pid, final int uid,             final String message)  {
+        verifyMethodCalledFromDelegate("enforcePermission(String, int, int, String)");
+        mSuperListeners.peek().call(permission, pid, uid, message);
+    }
+    
+    public void enforceCallingPermission(final String permission, final String message)  {
+        verifyMethodCalledFromDelegate("enforceCallingPermission(String, String)");
+        mSuperListeners.peek().call(permission, message);
+    }
+    
+    public void enforceCallingOrSelfPermission(final String permission, final String message)  {
+        verifyMethodCalledFromDelegate("enforceCallingOrSelfPermission(String, String)");
+        mSuperListeners.peek().call(permission, message);
+    }
+    
+    public void grantUriPermission(final String toPackage, final Uri uri, final int modeFlags)  {
+        verifyMethodCalledFromDelegate("grantUriPermission(String, Uri, int)");
+        mSuperListeners.peek().call(toPackage, uri, modeFlags);
+    }
+    
+    public void revokeUriPermission(final Uri uri, final int modeFlags)  {
+        verifyMethodCalledFromDelegate("revokeUriPermission(Uri, int)");
+        mSuperListeners.peek().call(uri, modeFlags);
+    }
+    
+    public int checkUriPermission(final Uri uri, final int pid, final int uid,             final int modeFlags) {
+        verifyMethodCalledFromDelegate("checkUriPermission(Uri, int, int, int)");
+        return (Integer) mSuperListeners.peek().call(uri, pid, uid, modeFlags);
+    }
+    
+    public int checkCallingUriPermission(final Uri uri, final int modeFlags) {
+        verifyMethodCalledFromDelegate("checkCallingUriPermission(Uri, int)");
+        return (Integer) mSuperListeners.peek().call(uri, modeFlags);
+    }
+    
+    public int checkCallingOrSelfUriPermission(final Uri uri, final int modeFlags) {
+        verifyMethodCalledFromDelegate("checkCallingOrSelfUriPermission(Uri, int)");
+        return (Integer) mSuperListeners.peek().call(uri, modeFlags);
+    }
+    
+    public int checkUriPermission(final Uri uri, final String readPermission,             final String writePermission, final int pid,             final int uid, final int modeFlags) {
+        verifyMethodCalledFromDelegate("checkUriPermission(Uri, String, String, int, int, int)");
+        return (Integer) mSuperListeners.peek().call(uri, readPermission, writePermission, pid, uid, modeFlags);
+    }
+    
+    public void enforceUriPermission(final Uri uri, final int pid, final int uid,             final int modeFlags, final String message)  {
+        verifyMethodCalledFromDelegate("enforceUriPermission(Uri, int, int, int, String)");
+        mSuperListeners.peek().call(uri, pid, uid, modeFlags, message);
+    }
+    
+    public void enforceCallingUriPermission(final Uri uri, final int modeFlags,             final String message)  {
+        verifyMethodCalledFromDelegate("enforceCallingUriPermission(Uri, int, String)");
+        mSuperListeners.peek().call(uri, modeFlags, message);
+    }
+    
+    public void enforceCallingOrSelfUriPermission(final Uri uri, final int modeFlags,             final String message)  {
+        verifyMethodCalledFromDelegate("enforceCallingOrSelfUriPermission(Uri, int, String)");
+        mSuperListeners.peek().call(uri, modeFlags, message);
+    }
+    
+    public void enforceUriPermission(final Uri uri, final String readPermission,             final String writePermission,             final int pid, final int uid, final int modeFlags, final String message)  {
+        verifyMethodCalledFromDelegate("enforceUriPermission(Uri, String, String, int, int, int, String)");
+        mSuperListeners.peek().call(uri, readPermission, writePermission, pid, uid, modeFlags, message);
+    }
+    
+    public Context createPackageContext(final String packageName, final int flags) {
+        verifyMethodCalledFromDelegate("createPackageContext(String, int)");
+        return (Context) mSuperListeners.peek().call(packageName, flags);
+    }
+    
+    public Context createConfigurationContext(final Configuration overrideConfiguration) {
+        verifyMethodCalledFromDelegate("createConfigurationContext(Configuration)");
+        return (Context) mSuperListeners.peek().call(overrideConfiguration);
+    }
+    
+    public Context createDisplayContext(final Display display) {
+        verifyMethodCalledFromDelegate("createDisplayContext(Display)");
+        return (Context) mSuperListeners.peek().call(display);
+    }
+    
+    public boolean isRestricted() {
+        verifyMethodCalledFromDelegate("isRestricted()");
+        return (Boolean) mSuperListeners.peek().call();
+    }
+    
+    public void registerComponentCallbacks(final ComponentCallbacks callback)  {
+        verifyMethodCalledFromDelegate("registerComponentCallbacks(ComponentCallbacks)");
+        mSuperListeners.peek().call(callback);
+    }
+    
+    public void unregisterComponentCallbacks(final ComponentCallbacks callback)  {
+        verifyMethodCalledFromDelegate("unregisterComponentCallbacks(ComponentCallbacks)");
+        mSuperListeners.peek().call(callback);
+    }
+    
+    }
+    

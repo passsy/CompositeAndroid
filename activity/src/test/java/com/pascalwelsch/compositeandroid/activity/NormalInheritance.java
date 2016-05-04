@@ -25,6 +25,10 @@ public class NormalInheritance {
 
     public static class Boss extends Person {
 
+        public final void callSayHello() {
+            sayHello();
+        }
+
         @Override
         public void sayHello() {
             super.sayHello();
@@ -33,6 +37,10 @@ public class NormalInheritance {
     }
 
     public static class ParanoidPerson extends Person {
+
+        public final void callSayHello() {
+            sayHello();
+        }
 
         @Override
         public void sayHello() {
@@ -59,6 +67,31 @@ public class NormalInheritance {
         }
     }
 
+    @Test
+    public void testCallMethodFromSuper() throws Exception {
+
+        final Boss boss = new Boss();
+        boss.callSayHello();
+        assertThat(boss.said)
+                .isEqualTo(Arrays.asList("Hello, I'm John", "I'm your boss"));
+
+        final ParanoidPerson person = new ParanoidPerson();
+        person.callSayHello();
+        assertThat(person.said)
+                .isEqualTo(Arrays.asList("Is somebody listening?", "Hello, I'm John"));
+
+        final ParanoidBoss paranoidBoss = new ParanoidBoss();
+        paranoidBoss.callSayHello();
+        assertThat(paranoidBoss.said)
+                .isEqualTo(Arrays.asList("Is somebody listening?", "Hello, I'm John",
+                        "I'm your boss"));
+
+        final GoodBoss goodBoss = new GoodBoss();
+        goodBoss.callSayHello();
+
+        assertThat(goodBoss.said)
+                .isEqualTo(Arrays.asList("Hello, I'm John", "I'm your boss", "How are you?"));
+    }
 
     @Test
     public void testNormalInheritance() throws Exception {
@@ -68,7 +101,6 @@ public class NormalInheritance {
         assertThat(boss.said)
                 .isEqualTo(Arrays.asList("Hello, I'm John", "I'm your boss"));
 
-
         final ParanoidPerson person = new ParanoidPerson();
         person.sayHello();
         assertThat(person.said)
@@ -77,7 +109,8 @@ public class NormalInheritance {
         final ParanoidBoss paranoidBoss = new ParanoidBoss();
         paranoidBoss.sayHello();
         assertThat(paranoidBoss.said)
-                .isEqualTo(Arrays.asList("Is somebody listening?", "Hello, I'm John", "I'm your boss"));
+                .isEqualTo(Arrays.asList("Is somebody listening?", "Hello, I'm John",
+                        "I'm your boss"));
 
         final GoodBoss goodBoss = new GoodBoss();
         goodBoss.sayHello();

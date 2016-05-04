@@ -12,49 +12,44 @@ fun main(args: Array<String>) {
     activity = activity.copy(methods = filteredMethods)
 
 
-    createCompositeActivity(activity)
-    createActivityDelegate(activity)
+    //createCompositeActivity(activity)
+    //createActivityDelegate(activity)
     createActivityPlugin(activity)
 }
 
 fun createActivityPlugin(activity: AnalyzedJavaFile) {
 
     val sb = StringBuilder()
-    sb.appendln("package com.pascalwelsch.compositeandroid.activity;")
-    sb.appendln("")
-    sb.appendln(activity.imports)
-    sb.appendln("")
-    sb.appendln("@SuppressWarnings(\"unused\")")
-    sb.appendln("public class ActivityPlugin extends ActivityPluginBase{")
-    sb.appendln("")
-
     for (method in activity.methods) with(method) {
         when (returnType) {
             "void" -> sb.append(method.callListener())
             else -> sb.append(method.returnSuperListener())
         }
     }
+    val methods = sb.toString()
 
-    sb.appendln("}")
+    val code = """
+    package com.pascalwelsch.compositeandroid.activity;
+
+    ${activity.imports}
+
+    @SuppressWarnings("unused")
+    public class ActivityPlugin extends ActivityPluginBase {
+    $methods
+    }
+    """
 
     val out = File(outPath + "ActivityPlugin.java")
     out.parentFile.mkdirs()
-    out.printWriter().use { it.write(sb.toString()) }
+    out.printWriter().use { it.write(code) }
     System.out.println("wrote ${out.absolutePath}")
 }
 
 fun AnalyzedJavaMethod.returnSuperListener(): String {
     return """
     public $returnType $name($rawParameters) {
-        if (mSuperListener != null) {
-            return ($boxedReturnType) mSuperListener.call(${parameterNames.joinToString()});
-        } else {
-            mActivityDelegate.callingPlugin(this);
-            final $returnType result = mActivityDelegate
-                    .$name(${parameterNames.joinToString()});
-            mActivityDelegate.callingPlugin(null);
-            return result;
-        }
+        verifyMethodCalledFromDelegate("$name(${parameterTypes.joinToString()})");
+        return ($boxedReturnType) mSuperListeners.peek().call(${parameterNames.joinToString()});
     }
     """
 }
@@ -62,13 +57,8 @@ fun AnalyzedJavaMethod.returnSuperListener(): String {
 fun AnalyzedJavaMethod.callListener(): String {
     return """
     public void $name($rawParameters) $exceptions{
-        if (mSuperListener != null) {
-            mSuperListener.call(${parameterNames.joinToString()});
-        } else {
-            mActivityDelegate.callingPlugin(this); ${if (throws) "\ntry{" else ""}
-            mActivityDelegate.$name(${parameterNames.joinToString()}); ${if (throws) "\n} catch(SuppressedException e){\n throw ($exceptionType) e.getCause();\n}" else ""}
-            mActivityDelegate.callingPlugin(null);
-        }
+        verifyMethodCalledFromDelegate("$name(${parameterTypes.joinToString()})");
+        mSuperListeners.peek().call(${parameterNames.joinToString()});
     }
     """
 }
@@ -117,12 +107,12 @@ fun AnalyzedJavaMethod.callFunction(): String {
 
     return """
     public $returnType $name($rawParameters) {
-        return callFunction(new PluginMethodFunction<$boxedReturnType>() {
+        return callFunction("$name(${parameterTypes.joinToString()})", new PluginMethodFunction<$boxedReturnType>() {
             @Override
             public $boxedReturnType call(final ActivityPlugin plugin, final Object... args) {
                 return plugin.$name($typedArgs);
             }
-        }, new ActivitySuperFunction<$boxedReturnType>() {
+        }, new ActivitySuperFunction<$boxedReturnType>("$name(${parameterTypes.joinToString()})") {
             @Override
             public $boxedReturnType call(final Object... args) { ${if (throws) "\ntry {" else ""}
                 return mActivity.${name}_super($typedArgs); ${if (throws) "\n} catch ($exceptionType e) {\n throw new SuppressedException(e);\n }" else ""}
@@ -151,7 +141,7 @@ fun AnalyzedJavaMethod.hook(): String {
 
     val sb = StringBuilder()
     sb.appendln("    public void $name($rawParameters) $exceptions {")
-    sb.appendln("        callHook(new PluginMethodAction() {")
+    sb.appendln("        callHook(\"$name(${parameterTypes.joinToString()})\",new PluginMethodAction() {")
     sb.appendln("            @Override")
     sb.appendln("            public void call(final ActivityPlugin plugin, final Object... args) {")
     if (throws) sb.appendln("                try {")

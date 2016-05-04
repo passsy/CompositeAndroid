@@ -7,10 +7,13 @@ import android.support.annotation.LayoutRes;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import static junit.framework.Assert.fail;
+import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class ActivityDelegateTest {
@@ -86,193 +89,49 @@ public class ActivityDelegateTest {
         delegate.addPlugin(c);
 
         final int layoutResID = android.R.layout.simple_list_item_1;
-        b.setContentView(layoutResID);
+        try {
+            b.setContentView(layoutResID);
+            fail("no exception thrown");
+        } catch (IllegalStateException e){
+            assertThat(e).hasMessageContaining("setContentView")
+                    .hasMessageContaining("Delegate");
+        }
+    }
+
+    @Test
+    public void testCallMethodFromPluginOverrideMethodNotCallingSuper() throws Exception {
+
+        final ActivityPlugin a = spy(new ActivityPlugin() {
+            @Override
+            public void setContentView(@LayoutRes final int layoutResID) {
+                // doing my on thing here, not calling super.setContentView(int)
+            }
+        });
+        final ActivityPlugin b = spy(new ActivityPlugin());
+        final ActivityPlugin c = spy(new ActivityPlugin());
+
+        final CompositeActivity activity = mock(CompositeActivity.class);
+        final ActivityDelegate delegate = new ActivityDelegate(activity);
+
+        delegate.addPlugin(a);
+        delegate.addPlugin(b);
+        delegate.addPlugin(c);
+
+        final int layoutResID = android.R.layout.simple_list_item_1;
+        try {
+            b.setContentView(layoutResID);
+            fail("no exception thrown");
+        } catch (IllegalStateException e){
+            assertThat(e).hasMessageContaining("setContentView")
+                    .hasMessageContaining("Delegate");
+        }
+
+        delegate.setContentView(layoutResID);
 
         verify(a).setContentView(layoutResID);
-        verify(b).setContentView(layoutResID);
+        // twice because of the error above
+        verify(b, times(2)).setContentView(layoutResID);
         verify(c).setContentView(layoutResID);
-        verify(activity).setContentView_super(layoutResID);
-        verify(activity, never()).setContentView(layoutResID);
-    }
-
-    @Test
-    public void testCallMethodFromPluginChangeParamInOther() throws Exception {
-
-        final int other_layoutResID = android.R.layout.simple_list_item_2;
-        final ActivityPlugin a = spy(new ActivityPlugin() {
-            @Override
-            public void setContentView(@LayoutRes final int layoutResID) {
-                super.setContentView(other_layoutResID);
-            }
-        });
-        final ActivityPlugin b = spy(new ActivityPlugin());
-        final ActivityPlugin c = spy(new ActivityPlugin());
-
-        final CompositeActivity activity = mock(CompositeActivity.class);
-        final ActivityDelegate delegate = new ActivityDelegate(activity);
-
-        delegate.addPlugin(a);
-        delegate.addPlugin(b);
-        delegate.addPlugin(c);
-
-        final int layoutResID = android.R.layout.simple_list_item_1;
-        b.setContentView(layoutResID);
-
-        verify(a).setContentView(layoutResID);
-        verify(b).setContentView(layoutResID);
-        verify(c).setContentView(layoutResID);
-        verify(activity).setContentView_super(other_layoutResID);
-        verify(activity, never()).setContentView(layoutResID);
-    }
-
-    @Test
-    public void testCallMethodFromPluginOverrideMethodNotCallingSuper1() throws Exception {
-
-        final ActivityPlugin a = spy(new ActivityPlugin() {
-            @Override
-            public void setContentView(@LayoutRes final int layoutResID) {
-                // doing my on thing here, not calling super.setContentView(int)
-            }
-        });
-        final ActivityPlugin b = spy(new ActivityPlugin());
-        final ActivityPlugin c = spy(new ActivityPlugin());
-
-        final CompositeActivity activity = mock(CompositeActivity.class);
-        final ActivityDelegate delegate = new ActivityDelegate(activity);
-
-        delegate.addPlugin(a);
-        delegate.addPlugin(b);
-        delegate.addPlugin(c);
-
-        final int layoutResID = android.R.layout.simple_list_item_1;
-        b.setContentView(layoutResID);
-
-        verify(a).setContentView(layoutResID);
-        verify(b).setContentView(layoutResID);
-        verify(c).setContentView(layoutResID);
-        verify(activity, never()).setContentView_super(layoutResID);
-        verify(activity, never()).setContentView(layoutResID);
-    }
-
-    @Test
-    public void testCallMethodFromPluginOverrideMethodNotCallingSuper2() throws Exception {
-
-        final ActivityPlugin a = spy(new ActivityPlugin() {
-            @Override
-            public void setContentView(@LayoutRes final int layoutResID) {
-                // doing my on thing here, not calling super.setContentView(int)
-            }
-        });
-        final ActivityPlugin b = spy(new ActivityPlugin());
-        final ActivityPlugin c = spy(new ActivityPlugin());
-
-        final CompositeActivity activity = mock(CompositeActivity.class);
-        final ActivityDelegate delegate = new ActivityDelegate(activity);
-
-        //different order
-        delegate.addPlugin(b);
-        delegate.addPlugin(c);
-        delegate.addPlugin(a);
-
-        final int layoutResID = android.R.layout.simple_list_item_1;
-        b.setContentView(layoutResID);
-
-        // once from line above
-        verify(b).setContentView(layoutResID);
-        verify(c, never()).setContentView(layoutResID);
-        verify(a).setContentView(layoutResID);
-        verify(activity, never()).setContentView_super(layoutResID);
-        verify(activity, never()).setContentView(layoutResID);
-    }
-
-    @Test
-    public void testCallMethodFromPluginOverrideMethodNotCallingSuper3() throws Exception {
-
-        final ActivityPlugin a = spy(new ActivityPlugin() {
-            @Override
-            public void setContentView(@LayoutRes final int layoutResID) {
-                // doing my on thing here, not calling super.setContentView(int)
-            }
-        });
-        final ActivityPlugin b = spy(new ActivityPlugin());
-        final ActivityPlugin c = spy(new ActivityPlugin());
-
-        final CompositeActivity activity = mock(CompositeActivity.class);
-        final ActivityDelegate delegate = new ActivityDelegate(activity);
-
-        //different order
-        delegate.addPlugin(c);
-        delegate.addPlugin(a);
-        delegate.addPlugin(b);
-
-        final int layoutResID = android.R.layout.simple_list_item_1;
-        b.setContentView(layoutResID);
-
-
-        verify(b).setContentView(layoutResID);
-        verify(c, never()).setContentView(layoutResID);
-        verify(a).setContentView(layoutResID);
-        verify(activity, never()).setContentView_super(layoutResID);
-        verify(activity, never()).setContentView(layoutResID);
-    }
-
-    @Test
-    public void testCallMethodFromPluginOverrideMethodNotCallingSuper4() throws Exception {
-
-        final ActivityPlugin a = spy(new ActivityPlugin() {
-            @Override
-            public void setContentView(@LayoutRes final int layoutResID) {
-                // doing my on thing here, not calling super.setContentView(int)
-            }
-        });
-        final ActivityPlugin b = spy(new ActivityPlugin());
-        final ActivityPlugin c = spy(new ActivityPlugin());
-
-        final CompositeActivity activity = mock(CompositeActivity.class);
-        final ActivityDelegate delegate = new ActivityDelegate(activity);
-
-        //different order
-        delegate.addPlugin(c);
-        delegate.addPlugin(b);
-        delegate.addPlugin(a);
-
-        final int layoutResID = android.R.layout.simple_list_item_1;
-        b.setContentView(layoutResID);
-
-        // once from line above
-        verify(b).setContentView(layoutResID);
-        verify(c, never()).setContentView(layoutResID);
-        verify(a).setContentView(layoutResID);
-        verify(activity, never()).setContentView_super(layoutResID);
-        verify(activity, never()).setContentView(layoutResID);
-    }
-
-    @Test
-    public void testCallMethodFromPluginOverrideMethodNotCallingSuper5() throws Exception {
-
-        final ActivityPlugin a = spy(new ActivityPlugin() {
-            @Override
-            public void setContentView(@LayoutRes final int layoutResID) {
-                // doing my on thing here, not calling super.setContentView(int)
-            }
-        });
-        final ActivityPlugin b = spy(new ActivityPlugin());
-        final ActivityPlugin c = spy(new ActivityPlugin());
-
-        final CompositeActivity activity = mock(CompositeActivity.class);
-        final ActivityDelegate delegate = new ActivityDelegate(activity);
-
-        //different order
-        delegate.addPlugin(a);
-        delegate.addPlugin(c);
-        delegate.addPlugin(b);
-
-        final int layoutResID = android.R.layout.simple_list_item_1;
-        b.setContentView(layoutResID);
-
-        verify(b).setContentView(layoutResID);
-        verify(c).setContentView(layoutResID);
-        verify(a).setContentView(layoutResID);
         verify(activity, never()).setContentView_super(layoutResID);
         verify(activity, never()).setContentView(layoutResID);
     }
