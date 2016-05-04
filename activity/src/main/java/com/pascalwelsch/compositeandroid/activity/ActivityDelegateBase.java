@@ -20,14 +20,6 @@ abstract class ActivityDelegateBase {
         mActivity = compositeActivity;
     }
 
-    /**
-     * addPlugin(a);
-     * addPlugin(b);
-     * addPlugin(c);
-     *
-     *
-     * c receives the first call.
-     */
     public void addPlugin(final ActivityPlugin plugin) {
         plugin.setActivityDelegate((ActivityDelegate) this);
         mPlugins.add(plugin);

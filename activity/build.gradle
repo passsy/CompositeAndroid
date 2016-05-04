@@ -1,4 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+def final String VERSION_NAME = "0.1-alpha1"
+def final int VERSION_CODE = 1
 
 android {
     compileSdkVersion 23
@@ -7,8 +11,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 1
-        versionName "0.1"
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
     }
     buildTypes {
         release {
@@ -16,6 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
     testOptions {
         unitTests.returnDefaultValues = true
     }
@@ -27,4 +36,17 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile 'org.assertj:assertj-core:2.4.1'
+}
+
+
+// usage:
+// ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=true
+publish {
+    userOrg = 'passsy'
+    groupId = 'com.pascalwelsch.compositeandroid'
+    artifactId = 'activity'
+    uploadName = 'CompositeActivity'
+    publishVersion = VERSION_NAME
+    description = 'CompositeAndroid - Composition over inheritance for Android'
+    website = 'https://github.com/passsy/CompositeAndroid'
 }
