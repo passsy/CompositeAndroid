@@ -55,7 +55,7 @@ I recommend not to move all logic of your `BaseActivity` into a single plugin. S
 
 ## Get it
 
-Tray is available via [jcenter](http://blog.bintray.com/2015/02/09/android-studio-migration-from-maven-central-to-jcenter/)
+CompositeAndroid is available via [jcenter](http://blog.bintray.com/2015/02/09/android-studio-migration-from-maven-central-to-jcenter/)
 
 ```java
 
