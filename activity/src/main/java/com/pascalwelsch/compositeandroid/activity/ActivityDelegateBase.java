@@ -83,9 +83,7 @@ abstract class ActivityDelegateBase {
                             args);
                 }
             };
-            plugin.pushSuperCallListener(listener);
-            final T result = methodCall.call(plugin, args);
-            plugin.popSuperCallListener();
+            final T result = methodCall.call(listener, plugin, args);
             return result;
         } else {
             return activitySuper.call(args);
@@ -118,10 +116,9 @@ abstract class ActivityDelegateBase {
                     return callFunction(iterator, methodName, methodCall, activitySuper, args);
                 }
             };
-            plugin.pushSuperCallListener(listener);
-            final T result = methodCall.call(plugin, args);
-            plugin.popSuperCallListener();
+            final T result = methodCall.call(listener, plugin, args);
             return result;
+
         } else {
             return activitySuper.call(args);
         }
@@ -152,9 +149,8 @@ abstract class ActivityDelegateBase {
                     return null;
                 }
             };
-            plugin.pushSuperCallListener(listener);
-            methodCall.call(plugin, args);
-            plugin.popSuperCallListener();
+            methodCall.call(listener, plugin, args);
+
         } else {
             activitySuper.call(args);
         }

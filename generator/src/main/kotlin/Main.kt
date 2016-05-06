@@ -12,9 +12,9 @@ fun main(args: Array<String>) {
     activity = activity.copy(methods = filteredMethods)
 
 
-    createCompositeActivity(activity)
+    //createCompositeActivity(activity)
     createActivityDelegate(activity)
-    createActivityPlugin(activity)
+    //createActivityPlugin(activity)
 }
 
 fun createActivityPlugin(activity: AnalyzedJavaFile) {
@@ -47,9 +47,16 @@ fun createActivityPlugin(activity: AnalyzedJavaFile) {
 
 fun AnalyzedJavaMethod.returnSuperListener(): String {
     return """
-    public $returnType $name($rawParameters) {
+    public $returnType $name($rawParameters) $exceptions{
         verifyMethodCalledFromDelegate("$name(${parameterTypes.joinToString()})");
-        return ($boxedReturnType) mSuperListeners.peek().call(${parameterNames.joinToString()});
+        return ($boxedReturnType) mSuperListeners.pop().call(${parameterNames.joinToString()});
+    }
+
+    $returnType $name(final ActivitySuperFunction superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return $name(${parameterNames.joinToString()});
+        }
     }
     """
 }
@@ -58,7 +65,14 @@ fun AnalyzedJavaMethod.callListener(): String {
     return """
     public void $name($rawParameters) $exceptions{
         verifyMethodCalledFromDelegate("$name(${parameterTypes.joinToString()})");
-        mSuperListeners.peek().call(${parameterNames.joinToString()});
+        mSuperListeners.pop().call(${parameterNames.joinToString()});
+    }
+
+    void $name(final ActivitySuperFunction superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            $name(${parameterNames.joinToString()});
+        }
     }
     """
 }
@@ -97,9 +111,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
 }
 
 fun AnalyzedJavaMethod.callFunction(): String {
-    val typedArgs = parameterTypes
-            .mapIndexed { i, type -> "($type) args[$i]" }
-            .joinToString()
+    val typedArgs = parameterTypes.mapIndexed { i, type -> "($type) args[$i]" }
 
     val varargs = if (parameterNames.size == 1 && parameterNames[0].contains("[]")) {
         "new Object[]{${parameterNames[0]}}"
@@ -109,13 +121,20 @@ fun AnalyzedJavaMethod.callFunction(): String {
     public $returnType $name($rawParameters) {
         return callFunction("$name(${parameterTypes.joinToString()})", new PluginMethodFunction<$boxedReturnType>() {
             @Override
-            public $boxedReturnType call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.$name($typedArgs);
+            public $boxedReturnType call(final ActivitySuperFunction<$boxedReturnType> superCall, final ActivityPlugin plugin, final Object... args) {
+            ${ if (throws) "                try {" else ""}
+                return plugin.$name(${listOf("superCall").plus(typedArgs).joinToString()});
+                ${if (throws) {
+                    val sb = StringBuilder()
+                    sb.appendln("            } catch ($exceptionType e) {")
+                    sb.appendln("                throw new SuppressedException(e);")
+                    sb.appendln("            }").toString()
+                } else ""}
             }
         }, new ActivitySuperFunction<$boxedReturnType>("$name(${parameterTypes.joinToString()})") {
             @Override
             public $boxedReturnType call(final Object... args) { ${if (throws) "\ntry {" else ""}
-                return mActivity.${name}_super($typedArgs); ${if (throws) "\n} catch ($exceptionType e) {\n throw new SuppressedException(e);\n }" else ""}
+                return mActivity.${name}_super(${typedArgs.joinToString()}); ${if (throws) "\n} catch ($exceptionType e) {\n throw new SuppressedException(e);\n }" else ""}
             }
         }${if (parameterNames.size > 0) ", " else ""}$varargs);
     }
@@ -132,7 +151,8 @@ fun AnalyzedJavaMethod.notImplemented(): String {
 }
 
 fun AnalyzedJavaMethod.hook(): String {
-    val typedArgs = parameterTypes.mapIndexed { i, type -> "($type) args[$i]" }.joinToString()
+
+    val typedArgs = parameterTypes.mapIndexed { i, type -> "($type) args[$i]" }
 
     val varargs = if (parameterTypes.size == 1
             && parameterTypes[0].contains("[]")) {
@@ -141,11 +161,14 @@ fun AnalyzedJavaMethod.hook(): String {
 
     val sb = StringBuilder()
     sb.appendln("    public void $name($rawParameters) $exceptions {")
-    sb.appendln("        callHook(\"$name(${parameterTypes.joinToString()})\",new PluginMethodAction() {")
+    sb.appendln(
+            "        callHook(\"$name(${parameterTypes.joinToString()})\",new PluginMethodAction() {")
     sb.appendln("            @Override")
-    sb.appendln("            public void call(final ActivityPlugin plugin, final Object... args) {")
+    sb.appendln(
+            "            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin, final Object... args) {")
     if (throws) sb.appendln("                try {")
-    sb.appendln("                plugin.$name($typedArgs);")
+    sb.appendln("                plugin.$name(${listOf("superCall").plus(
+            typedArgs).joinToString()});")
     if (throws) {
         sb.appendln("            } catch ($exceptionType e) {")
         sb.appendln("                throw new SuppressedException(e);")
@@ -156,7 +179,7 @@ fun AnalyzedJavaMethod.hook(): String {
     sb.appendln("            @Override")
     sb.appendln("            public void call(final Object... args) {")
     if (throws) sb.appendln("                try {")
-    sb.appendln("                mActivity.${name}_super($typedArgs);")
+    sb.appendln("                mActivity.${name}_super(${typedArgs.joinToString()});")
     if (throws) {
         sb.appendln("            } catch ($exceptionType e) {")
         sb.appendln("                throw new SuppressedException(e);")
