@@ -9,15 +9,23 @@ abstract class CompositeActivityBase extends AppCompatActivity {
 
     protected ActivityDelegate delegate = new ActivityDelegate(realThis);
 
+    public Removable addPlugin(final ActivityPlugin plugin) {
+        plugin.setActivity(realThis);
+        final Removable delegateRemovable = delegate.addPlugin(plugin);
+
+        return new Removable() {
+            @Override
+            public void remove() {
+                delegateRemovable.remove();
+                plugin.setActivity(null);
+            }
+        };
+    }
+
     @Nullable
     @Override
     final public Object getLastNonConfigurationInstance() {
         return super.getLastNonConfigurationInstance();
-    }
-
-    public void mixin(ActivityPlugin plugin) {
-        plugin.setActivity(realThis);
-        delegate.addPlugin(plugin);
     }
 
     @Override

@@ -7,8 +7,8 @@ import android.os.Bundle;
 public class MainActivity extends CompositeActivity {
 
     public MainActivity() {
-        mixin(new Tracking());
-        mixin(new Tracking2());
+        addPlugin(new Tracking());
+        addPlugin(new Tracking2());
     }
 
     @Override
