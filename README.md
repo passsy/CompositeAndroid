@@ -18,7 +18,8 @@ I successfully replaced a `BaseActivity` in a big grown project with a `Composit
 
 - [Navi](https://github.com/trello/navi) of cause, but
     - it doesn't support all methods (only methods without return value)
-    - it doesn't only support code execution before or after calling `super`, not very flexible
+    - it does only support code execution before or after calling `super`, not very flexible
+    - no plugin API
 - [Lightcycle](https://github.com/soundcloud/lightcycle) which only supports basic lifecycle methods.
 
 ## Possible Usecases
