@@ -1,25 +1,16 @@
 package com.pascalwelsch.compositeandroid.activity;
 
+import com.pascalwelsch.compositeandroid.core.Removable;
+
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 abstract class CompositeActivityBase extends AppCompatActivity {
 
-    private CompositeActivity realThis = (CompositeActivity) this;
-
-    protected ActivityDelegate delegate = new ActivityDelegate(realThis);
+    protected ActivityDelegate delegate = new ActivityDelegate((CompositeActivity) this);
 
     public Removable addPlugin(final ActivityPlugin plugin) {
-        plugin.setActivity(realThis);
-        final Removable delegateRemovable = delegate.addPlugin(plugin);
-
-        return new Removable() {
-            @Override
-            public void remove() {
-                delegateRemovable.remove();
-                plugin.setActivity(null);
-            }
-        };
+        return delegate.addPlugin(plugin);
     }
 
     @Nullable

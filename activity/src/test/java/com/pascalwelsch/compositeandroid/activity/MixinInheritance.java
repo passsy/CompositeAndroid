@@ -1,5 +1,8 @@
 package com.pascalwelsch.compositeandroid.activity;
 
+import com.pascalwelsch.compositeandroid.core.SuperCall;
+import com.pascalwelsch.compositeandroid.core.SuperCallVoid;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -30,7 +33,7 @@ public class MixinInheritance {
 
         public PersonDelegate mDelegate;
 
-        ActivitySuperFunction mSuperListener;
+        SuperCall mSuperListener;
 
         public void say(String s) {
             mDelegate.say(s);
@@ -70,7 +73,7 @@ public class MixinInheritance {
                 public void call(final PersonPlugin plugin, final Object... args) {
                     plugin.sayHello();
                 }
-            }, new ActivitySuperAction() {
+            }, new SuperCallVoid() {
                 @Override
                 public void call(final Object... args) {
                     mCompositePerson.sayHello_super();
@@ -80,7 +83,7 @@ public class MixinInheritance {
 
         protected void callHook(
                 final PluginMethodAction methodCall,
-                final ActivitySuperAction activitySuper,
+                final SuperCallVoid activitySuper,
                 final Object... args) {
 
             final ArrayList<PersonPlugin> plugins = new ArrayList<>(mPlugins);
@@ -93,13 +96,13 @@ public class MixinInheritance {
 
         void callHook(final ListIterator<PersonPlugin> iterator,
                 final PluginMethodAction methodCall,
-                final ActivitySuperAction activitySuper,
+                final SuperCallVoid activitySuper,
                 final Object... args) {
 
             if (iterator.hasPrevious()) {
                 final PersonPlugin plugin = iterator.previous();
-                final ActivitySuperFunction<Void> listener
-                        = new ActivitySuperFunction<Void>("") {
+                final SuperCall<Void> listener
+                        = new SuperCall<Void>() {
                     @Override
                     public Void call(final Object... args) {
                         callHook(iterator, methodCall, activitySuper, args);
