@@ -16,17 +16,21 @@ abstract class ActivityDelegateBase {
 
     protected List<ActivityPlugin> mPlugins = new CopyOnWriteArrayList<>();
 
+    private final ActivityDelegate realThis = (ActivityDelegate) this;
+
     public ActivityDelegateBase(final CompositeActivity compositeActivity) {
         mActivity = compositeActivity;
     }
 
-    public void addPlugin(final ActivityPlugin plugin) {
-        plugin.setActivityDelegate((ActivityDelegate) this);
+    public Removable addPlugin(final ActivityPlugin plugin) {
+        plugin.setActivityDelegate(realThis);
         mPlugins.add(plugin);
-    }
-
-    public void callingPlugin(final ActivityPluginBase plugin) {
-        mCallingPlugin = plugin;
+        return new Removable() {
+            @Override
+            public void remove() {
+                mPlugins.remove(plugin);
+            }
+        };
     }
 
     public Object getLastNonConfigurationInstance(final String key) {
@@ -50,10 +54,6 @@ abstract class ActivityDelegateBase {
         }
 
         return all;
-    }
-
-    public void removePlugin(final ActivityPluginBase plugin) {
-        mPlugins.remove(plugin);
     }
 
     @NonNull
@@ -154,5 +154,9 @@ abstract class ActivityDelegateBase {
         } else {
             activitySuper.call(args);
         }
+    }
+
+    private void removePlugin(final ActivityPlugin plugin) {
+        mPlugins.remove(plugin);
     }
 }
