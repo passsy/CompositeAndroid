@@ -8,7 +8,7 @@ abstract class ActivityPluginBase {
 
     CompositeActivity mCompositeActivity;
 
-    Stack<ActivitySuperFunction<?>> mSuperListeners = new Stack<>();
+    final Stack<ActivitySuperFunction<?>> mSuperListeners = new Stack<>();
 
     public CompositeActivity getActivity() {
         return mCompositeActivity;
@@ -22,16 +22,7 @@ abstract class ActivityPluginBase {
         return null;
     }
 
-    public void popSuperCallListener() {
-        mSuperListeners.pop();
-    }
-
-    public <T> void pushSuperCallListener(ActivitySuperFunction<T> listener) {
-        mSuperListeners.push(listener);
-    }
-
-    public void setActivity(
-            final CompositeActivity compositeActivity) {
+    public void setActivity(final CompositeActivity compositeActivity) {
         mCompositeActivity = compositeActivity;
     }
 

@@ -85,8 +85,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void addContentView(final View view, final ViewGroup.LayoutParams params) {
         callHook("addContentView(View, ViewGroup.LayoutParams)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.addContentView((View) args[0], (ViewGroup.LayoutParams) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.addContentView(superCall, (View) args[0], (ViewGroup.LayoutParams) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -99,8 +100,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void applyOverrideConfiguration(final Configuration overrideConfiguration) {
         callHook("applyOverrideConfiguration(Configuration)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.applyOverrideConfiguration((Configuration) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.applyOverrideConfiguration(superCall, (Configuration) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -113,8 +115,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void attachBaseContext(final Context newBase) {
         callHook("attachBaseContext(Context)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.attachBaseContext((Context) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.attachBaseContext(superCall, (Context) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -129,9 +132,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("bindService(Intent, ServiceConnection, int)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.bindService((Intent) args[0], (ServiceConnection) args[1],
-                                (int) args[2]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.bindService(superCall, (Intent) args[0],
+                                (ServiceConnection) args[1], (int) args[2]);
+
                     }
                 },
                 new ActivitySuperFunction<Boolean>("bindService(Intent, ServiceConnection, int)") {
@@ -148,8 +154,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("checkCallingOrSelfPermission(String)",
                 new PluginMethodFunction<Integer>() {
                     @Override
-                    public Integer call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.checkCallingOrSelfPermission((String) args[0]);
+                    public Integer call(final ActivitySuperFunction<Integer> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.checkCallingOrSelfPermission(superCall, (String) args[0]);
+
                     }
                 }, new ActivitySuperFunction<Integer>("checkCallingOrSelfPermission(String)") {
                     @Override
@@ -163,8 +172,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("checkCallingOrSelfUriPermission(Uri, int)",
                 new PluginMethodFunction<Integer>() {
                     @Override
-                    public Integer call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.checkCallingOrSelfUriPermission((Uri) args[0], (int) args[1]);
+                    public Integer call(final ActivitySuperFunction<Integer> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.checkCallingOrSelfUriPermission(superCall, (Uri) args[0],
+                                (int) args[1]);
+
                     }
                 }, new ActivitySuperFunction<Integer>("checkCallingOrSelfUriPermission(Uri, int)") {
                     @Override
@@ -178,8 +191,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public int checkCallingPermission(final String permission) {
         return callFunction("checkCallingPermission(String)", new PluginMethodFunction<Integer>() {
             @Override
-            public Integer call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.checkCallingPermission((String) args[0]);
+            public Integer call(final ActivitySuperFunction<Integer> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.checkCallingPermission(superCall, (String) args[0]);
+
             }
         }, new ActivitySuperFunction<Integer>("checkCallingPermission(String)") {
             @Override
@@ -193,8 +209,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("checkCallingUriPermission(Uri, int)",
                 new PluginMethodFunction<Integer>() {
                     @Override
-                    public Integer call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.checkCallingUriPermission((Uri) args[0], (int) args[1]);
+                    public Integer call(final ActivitySuperFunction<Integer> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .checkCallingUriPermission(superCall, (Uri) args[0], (int) args[1]);
+
                     }
                 }, new ActivitySuperFunction<Integer>("checkCallingUriPermission(Uri, int)") {
                     @Override
@@ -209,9 +229,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("checkPermission(String, int, int)",
                 new PluginMethodFunction<Integer>() {
                     @Override
-                    public Integer call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin
-                                .checkPermission((String) args[0], (int) args[1], (int) args[2]);
+                    public Integer call(final ActivitySuperFunction<Integer> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.checkPermission(superCall, (String) args[0], (int) args[1],
+                                (int) args[2]);
+
                     }
                 }, new ActivitySuperFunction<Integer>("checkPermission(String, int, int)") {
                     @Override
@@ -225,8 +248,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public int checkSelfPermission(final String permission) {
         return callFunction("checkSelfPermission(String)", new PluginMethodFunction<Integer>() {
             @Override
-            public Integer call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.checkSelfPermission((String) args[0]);
+            public Integer call(final ActivitySuperFunction<Integer> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.checkSelfPermission(superCall, (String) args[0]);
+
             }
         }, new ActivitySuperFunction<Integer>("checkSelfPermission(String)") {
             @Override
@@ -241,10 +267,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("checkUriPermission(Uri, int, int, int)",
                 new PluginMethodFunction<Integer>() {
                     @Override
-                    public Integer call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin
-                                .checkUriPermission((Uri) args[0], (int) args[1], (int) args[2],
-                                        (int) args[3]);
+                    public Integer call(final ActivitySuperFunction<Integer> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.checkUriPermission(superCall, (Uri) args[0], (int) args[1],
+                                (int) args[2], (int) args[3]);
+
                     }
                 }, new ActivitySuperFunction<Integer>("checkUriPermission(Uri, int, int, int)") {
                     @Override
@@ -260,9 +288,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("checkUriPermission(Uri, String, String, int, int, int)",
                 new PluginMethodFunction<Integer>() {
                     @Override
-                    public Integer call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.checkUriPermission((Uri) args[0], (String) args[1],
+                    public Integer call(final ActivitySuperFunction<Integer> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.checkUriPermission(superCall, (Uri) args[0], (String) args[1],
                                 (String) args[2], (int) args[3], (int) args[4], (int) args[5]);
+
                     }
                 }, new ActivitySuperFunction<Integer>(
                         "checkUriPermission(Uri, String, String, int, int, int)") {
@@ -277,9 +308,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void clearWallpaper() throws IOException {
         callHook("clearWallpaper()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
                 try {
-                    plugin.clearWallpaper();
+                    plugin.clearWallpaper(superCall);
                 } catch (IOException e) {
                     throw new SuppressedException(e);
                 }
@@ -299,8 +331,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void closeContextMenu() {
         callHook("closeContextMenu()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.closeContextMenu();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.closeContextMenu(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -313,8 +346,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void closeOptionsMenu() {
         callHook("closeOptionsMenu()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.closeOptionsMenu();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.closeOptionsMenu(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -328,8 +362,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("createConfigurationContext(Configuration)",
                 new PluginMethodFunction<Context>() {
                     @Override
-                    public Context call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.createConfigurationContext((Configuration) args[0]);
+                    public Context call(final ActivitySuperFunction<Context> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .createConfigurationContext(superCall, (Configuration) args[0]);
+
                     }
                 }, new ActivitySuperFunction<Context>("createConfigurationContext(Configuration)") {
                     @Override
@@ -342,8 +380,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Context createDisplayContext(final Display display) {
         return callFunction("createDisplayContext(Display)", new PluginMethodFunction<Context>() {
             @Override
-            public Context call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.createDisplayContext((Display) args[0]);
+            public Context call(final ActivitySuperFunction<Context> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.createDisplayContext(superCall, (Display) args[0]);
+
             }
         }, new ActivitySuperFunction<Context>("createDisplayContext(Display)") {
             @Override
@@ -357,8 +398,15 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("createPackageContext(String, int)",
                 new PluginMethodFunction<Context>() {
                     @Override
-                    public Context call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.createPackageContext((String) args[0], (int) args[1]);
+                    public Context call(final ActivitySuperFunction<Context> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        try {
+                            return plugin.createPackageContext(superCall, (String) args[0],
+                                    (int) args[1]);
+                        } catch (PackageManager.NameNotFoundException e) {
+                            throw new SuppressedException(e);
+                        }
+
                     }
                 }, new ActivitySuperFunction<Context>("createPackageContext(String, int)") {
                     @Override
@@ -378,9 +426,13 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("createPendingResult(int, Intent, int)",
                 new PluginMethodFunction<PendingIntent>() {
                     @Override
-                    public PendingIntent call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.createPendingResult((int) args[0], (Intent) args[1],
-                                (int) args[2]);
+                    public PendingIntent call(final ActivitySuperFunction<PendingIntent> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .createPendingResult(superCall, (int) args[0], (Intent) args[1],
+                                        (int) args[2]);
+
                     }
                 },
                 new ActivitySuperFunction<PendingIntent>("createPendingResult(int, Intent, int)") {
@@ -395,8 +447,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public String[] databaseList() {
         return callFunction("databaseList()", new PluginMethodFunction<String[]>() {
             @Override
-            public String[] call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.databaseList();
+            public String[] call(final ActivitySuperFunction<String[]> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.databaseList(superCall);
+
             }
         }, new ActivitySuperFunction<String[]>("databaseList()") {
             @Override
@@ -409,8 +464,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean deleteDatabase(final String name) {
         return callFunction("deleteDatabase(String)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.deleteDatabase((String) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.deleteDatabase(superCall, (String) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("deleteDatabase(String)") {
             @Override
@@ -423,8 +481,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean deleteFile(final String name) {
         return callFunction("deleteFile(String)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.deleteFile((String) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.deleteFile(superCall, (String) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("deleteFile(String)") {
             @Override
@@ -438,8 +499,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("dispatchGenericMotionEvent(MotionEvent)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.dispatchGenericMotionEvent((MotionEvent) args[0]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.dispatchGenericMotionEvent(superCall, (MotionEvent) args[0]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("dispatchGenericMotionEvent(MotionEvent)") {
                     @Override
@@ -452,8 +516,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean dispatchKeyEvent(final KeyEvent event) {
         return callFunction("dispatchKeyEvent(KeyEvent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.dispatchKeyEvent((KeyEvent) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.dispatchKeyEvent(superCall, (KeyEvent) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("dispatchKeyEvent(KeyEvent)") {
             @Override
@@ -467,8 +534,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("dispatchKeyShortcutEvent(KeyEvent)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.dispatchKeyShortcutEvent((KeyEvent) args[0]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.dispatchKeyShortcutEvent(superCall, (KeyEvent) args[0]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("dispatchKeyShortcutEvent(KeyEvent)") {
                     @Override
@@ -482,9 +552,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("dispatchPopulateAccessibilityEvent(AccessibilityEvent)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin
-                                .dispatchPopulateAccessibilityEvent((AccessibilityEvent) args[0]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.dispatchPopulateAccessibilityEvent(superCall,
+                                (AccessibilityEvent) args[0]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>(
                         "dispatchPopulateAccessibilityEvent(AccessibilityEvent)") {
@@ -499,8 +572,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean dispatchTouchEvent(final MotionEvent ev) {
         return callFunction("dispatchTouchEvent(MotionEvent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.dispatchTouchEvent((MotionEvent) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.dispatchTouchEvent(superCall, (MotionEvent) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("dispatchTouchEvent(MotionEvent)") {
             @Override
@@ -514,8 +590,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("dispatchTrackballEvent(MotionEvent)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.dispatchTrackballEvent((MotionEvent) args[0]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.dispatchTrackballEvent(superCall, (MotionEvent) args[0]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("dispatchTrackballEvent(MotionEvent)") {
                     @Override
@@ -529,9 +608,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final String[] args) {
         callHook("dump(String, FileDescriptor, PrintWriter, String[])", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.dump((String) args[0], (FileDescriptor) args[1], (PrintWriter) args[2],
-                        (String[]) args[3]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.dump(superCall, (String) args[0], (FileDescriptor) args[1],
+                        (PrintWriter) args[2], (String[]) args[3]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -545,8 +625,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void enforceCallingOrSelfPermission(final String permission, final String message) {
         callHook("enforceCallingOrSelfPermission(String, String)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.enforceCallingOrSelfPermission((String) args[0], (String) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.enforceCallingOrSelfPermission(superCall, (String) args[0],
+                        (String) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -560,8 +642,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final String message) {
         callHook("enforceCallingOrSelfUriPermission(Uri, int, String)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.enforceCallingOrSelfUriPermission((Uri) args[0], (int) args[1],
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.enforceCallingOrSelfUriPermission(superCall, (Uri) args[0], (int) args[1],
                         (String) args[2]);
             }
         }, new ActivitySuperAction() {
@@ -576,8 +659,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void enforceCallingPermission(final String permission, final String message) {
         callHook("enforceCallingPermission(String, String)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.enforceCallingPermission((String) args[0], (String) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.enforceCallingPermission(superCall, (String) args[0], (String) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -591,8 +675,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final String message) {
         callHook("enforceCallingUriPermission(Uri, int, String)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.enforceCallingUriPermission((Uri) args[0], (int) args[1], (String) args[2]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.enforceCallingUriPermission(superCall, (Uri) args[0], (int) args[1],
+                        (String) args[2]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -607,8 +693,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final String message) {
         callHook("enforcePermission(String, int, int, String)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.enforcePermission((String) args[0], (int) args[1], (int) args[2],
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.enforcePermission(superCall, (String) args[0], (int) args[1], (int) args[2],
                         (String) args[3]);
             }
         }, new ActivitySuperAction() {
@@ -624,8 +711,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final int modeFlags, final String message) {
         callHook("enforceUriPermission(Uri, int, int, int, String)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.enforceUriPermission((Uri) args[0], (int) args[1], (int) args[2],
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.enforceUriPermission(superCall, (Uri) args[0], (int) args[1], (int) args[2],
                         (int) args[3], (String) args[4]);
             }
         }, new ActivitySuperAction() {
@@ -643,8 +731,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("enforceUriPermission(Uri, String, String, int, int, int, String)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.enforceUriPermission((Uri) args[0], (String) args[1],
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.enforceUriPermission(superCall, (Uri) args[0], (String) args[1],
                                 (String) args[2], (int) args[3], (int) args[4], (int) args[5],
                                 (String) args[6]);
                     }
@@ -661,8 +750,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public String[] fileList() {
         return callFunction("fileList()", new PluginMethodFunction<String[]>() {
             @Override
-            public String[] call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.fileList();
+            public String[] call(final ActivitySuperFunction<String[]> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.fileList(superCall);
+
             }
         }, new ActivitySuperFunction<String[]>("fileList()") {
             @Override
@@ -675,8 +767,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public View findViewById(@IdRes final int id) {
         return callFunction("findViewById(int)", new PluginMethodFunction<View>() {
             @Override
-            public View call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.findViewById((int) args[0]);
+            public View call(final ActivitySuperFunction<View> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.findViewById(superCall, (int) args[0]);
+
             }
         }, new ActivitySuperFunction<View>("findViewById(int)") {
             @Override
@@ -689,8 +784,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void finish() {
         callHook("finish()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.finish();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.finish(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -703,8 +799,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void finishActivity(final int requestCode) {
         callHook("finishActivity(int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.finishActivity((int) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.finishActivity(superCall, (int) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -717,8 +814,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void finishActivityFromChild(@NonNull final Activity child, final int requestCode) {
         callHook("finishActivityFromChild(Activity, int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.finishActivityFromChild((Activity) args[0], (int) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.finishActivityFromChild(superCall, (Activity) args[0], (int) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -731,8 +829,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void finishAffinity() {
         callHook("finishAffinity()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.finishAffinity();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.finishAffinity(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -745,8 +844,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void finishAfterTransition() {
         callHook("finishAfterTransition()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.finishAfterTransition();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.finishAfterTransition(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -759,8 +859,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void finishAndRemoveTask() {
         callHook("finishAndRemoveTask()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.finishAndRemoveTask();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.finishAndRemoveTask(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -773,8 +874,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void finishFromChild(final Activity child) {
         callHook("finishFromChild(Activity)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.finishFromChild((Activity) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.finishFromChild(superCall, (Activity) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -787,8 +889,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public android.app.ActionBar getActionBar() {
         return callFunction("getActionBar()", new PluginMethodFunction<android.app.ActionBar>() {
             @Override
-            public android.app.ActionBar call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getActionBar();
+            public android.app.ActionBar call(
+                    final ActivitySuperFunction<android.app.ActionBar> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getActionBar(superCall);
+
             }
         }, new ActivitySuperFunction<android.app.ActionBar>("getActionBar()") {
             @Override
@@ -801,8 +907,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Context getApplicationContext() {
         return callFunction("getApplicationContext()", new PluginMethodFunction<Context>() {
             @Override
-            public Context call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getApplicationContext();
+            public Context call(final ActivitySuperFunction<Context> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getApplicationContext(superCall);
+
             }
         }, new ActivitySuperFunction<Context>("getApplicationContext()") {
             @Override
@@ -815,8 +924,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public ApplicationInfo getApplicationInfo() {
         return callFunction("getApplicationInfo()", new PluginMethodFunction<ApplicationInfo>() {
             @Override
-            public ApplicationInfo call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getApplicationInfo();
+            public ApplicationInfo call(final ActivitySuperFunction<ApplicationInfo> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getApplicationInfo(superCall);
+
             }
         }, new ActivitySuperFunction<ApplicationInfo>("getApplicationInfo()") {
             @Override
@@ -829,8 +941,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public AssetManager getAssets() {
         return callFunction("getAssets()", new PluginMethodFunction<AssetManager>() {
             @Override
-            public AssetManager call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getAssets();
+            public AssetManager call(final ActivitySuperFunction<AssetManager> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getAssets(superCall);
+
             }
         }, new ActivitySuperFunction<AssetManager>("getAssets()") {
             @Override
@@ -843,8 +958,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Context getBaseContext() {
         return callFunction("getBaseContext()", new PluginMethodFunction<Context>() {
             @Override
-            public Context call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getBaseContext();
+            public Context call(final ActivitySuperFunction<Context> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getBaseContext(superCall);
+
             }
         }, new ActivitySuperFunction<Context>("getBaseContext()") {
             @Override
@@ -857,8 +975,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File getCacheDir() {
         return callFunction("getCacheDir()", new PluginMethodFunction<File>() {
             @Override
-            public File call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getCacheDir();
+            public File call(final ActivitySuperFunction<File> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getCacheDir(superCall);
+
             }
         }, new ActivitySuperFunction<File>("getCacheDir()") {
             @Override
@@ -871,8 +992,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public ComponentName getCallingActivity() {
         return callFunction("getCallingActivity()", new PluginMethodFunction<ComponentName>() {
             @Override
-            public ComponentName call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getCallingActivity();
+            public ComponentName call(final ActivitySuperFunction<ComponentName> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getCallingActivity(superCall);
+
             }
         }, new ActivitySuperFunction<ComponentName>("getCallingActivity()") {
             @Override
@@ -885,8 +1009,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public String getCallingPackage() {
         return callFunction("getCallingPackage()", new PluginMethodFunction<String>() {
             @Override
-            public String call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getCallingPackage();
+            public String call(final ActivitySuperFunction<String> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getCallingPackage(superCall);
+
             }
         }, new ActivitySuperFunction<String>("getCallingPackage()") {
             @Override
@@ -899,8 +1026,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public int getChangingConfigurations() {
         return callFunction("getChangingConfigurations()", new PluginMethodFunction<Integer>() {
             @Override
-            public Integer call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getChangingConfigurations();
+            public Integer call(final ActivitySuperFunction<Integer> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getChangingConfigurations(superCall);
+
             }
         }, new ActivitySuperFunction<Integer>("getChangingConfigurations()") {
             @Override
@@ -913,8 +1043,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public ClassLoader getClassLoader() {
         return callFunction("getClassLoader()", new PluginMethodFunction<ClassLoader>() {
             @Override
-            public ClassLoader call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getClassLoader();
+            public ClassLoader call(final ActivitySuperFunction<ClassLoader> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getClassLoader(superCall);
+
             }
         }, new ActivitySuperFunction<ClassLoader>("getClassLoader()") {
             @Override
@@ -927,8 +1060,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File getCodeCacheDir() {
         return callFunction("getCodeCacheDir()", new PluginMethodFunction<File>() {
             @Override
-            public File call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getCodeCacheDir();
+            public File call(final ActivitySuperFunction<File> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getCodeCacheDir(superCall);
+
             }
         }, new ActivitySuperFunction<File>("getCodeCacheDir()") {
             @Override
@@ -941,8 +1077,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public ComponentName getComponentName() {
         return callFunction("getComponentName()", new PluginMethodFunction<ComponentName>() {
             @Override
-            public ComponentName call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getComponentName();
+            public ComponentName call(final ActivitySuperFunction<ComponentName> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getComponentName(superCall);
+
             }
         }, new ActivitySuperFunction<ComponentName>("getComponentName()") {
             @Override
@@ -955,8 +1094,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public ContentResolver getContentResolver() {
         return callFunction("getContentResolver()", new PluginMethodFunction<ContentResolver>() {
             @Override
-            public ContentResolver call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getContentResolver();
+            public ContentResolver call(final ActivitySuperFunction<ContentResolver> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getContentResolver(superCall);
+
             }
         }, new ActivitySuperFunction<ContentResolver>("getContentResolver()") {
             @Override
@@ -969,8 +1111,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Scene getContentScene() {
         return callFunction("getContentScene()", new PluginMethodFunction<Scene>() {
             @Override
-            public Scene call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getContentScene();
+            public Scene call(final ActivitySuperFunction<Scene> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getContentScene(superCall);
+
             }
         }, new ActivitySuperFunction<Scene>("getContentScene()") {
             @Override
@@ -984,9 +1129,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("getContentTransitionManager()",
                 new PluginMethodFunction<TransitionManager>() {
                     @Override
-                    public TransitionManager call(final ActivityPlugin plugin,
-                            final Object... args) {
-                        return plugin.getContentTransitionManager();
+                    public TransitionManager call(
+                            final ActivitySuperFunction<TransitionManager> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.getContentTransitionManager(superCall);
+
                     }
                 }, new ActivitySuperFunction<TransitionManager>("getContentTransitionManager()") {
                     @Override
@@ -999,8 +1147,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public View getCurrentFocus() {
         return callFunction("getCurrentFocus()", new PluginMethodFunction<View>() {
             @Override
-            public View call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getCurrentFocus();
+            public View call(final ActivitySuperFunction<View> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getCurrentFocus(superCall);
+
             }
         }, new ActivitySuperFunction<View>("getCurrentFocus()") {
             @Override
@@ -1013,8 +1164,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File getDatabasePath(final String name) {
         return callFunction("getDatabasePath(String)", new PluginMethodFunction<File>() {
             @Override
-            public File call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getDatabasePath((String) args[0]);
+            public File call(final ActivitySuperFunction<File> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getDatabasePath(superCall, (String) args[0]);
+
             }
         }, new ActivitySuperFunction<File>("getDatabasePath(String)") {
             @Override
@@ -1027,8 +1181,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public AppCompatDelegate getDelegate() {
         return callFunction("getDelegate()", new PluginMethodFunction<AppCompatDelegate>() {
             @Override
-            public AppCompatDelegate call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getDelegate();
+            public AppCompatDelegate call(final ActivitySuperFunction<AppCompatDelegate> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getDelegate(superCall);
+
             }
         }, new ActivitySuperFunction<AppCompatDelegate>("getDelegate()") {
             @Override
@@ -1041,8 +1198,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File getDir(final String name, final int mode) {
         return callFunction("getDir(String, int)", new PluginMethodFunction<File>() {
             @Override
-            public File call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getDir((String) args[0], (int) args[1]);
+            public File call(final ActivitySuperFunction<File> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getDir(superCall, (String) args[0], (int) args[1]);
+
             }
         }, new ActivitySuperFunction<File>("getDir(String, int)") {
             @Override
@@ -1056,9 +1216,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("getDrawerToggleDelegate()",
                 new PluginMethodFunction<ActionBarDrawerToggle.Delegate>() {
                     @Override
-                    public ActionBarDrawerToggle.Delegate call(final ActivityPlugin plugin,
-                            final Object... args) {
-                        return plugin.getDrawerToggleDelegate();
+                    public ActionBarDrawerToggle.Delegate call(
+                            final ActivitySuperFunction<ActionBarDrawerToggle.Delegate> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.getDrawerToggleDelegate(superCall);
+
                     }
                 }, new ActivitySuperFunction<ActionBarDrawerToggle.Delegate>(
                         "getDrawerToggleDelegate()") {
@@ -1072,8 +1235,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File getExternalCacheDir() {
         return callFunction("getExternalCacheDir()", new PluginMethodFunction<File>() {
             @Override
-            public File call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getExternalCacheDir();
+            public File call(final ActivitySuperFunction<File> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getExternalCacheDir(superCall);
+
             }
         }, new ActivitySuperFunction<File>("getExternalCacheDir()") {
             @Override
@@ -1086,8 +1252,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File[] getExternalCacheDirs() {
         return callFunction("getExternalCacheDirs()", new PluginMethodFunction<File[]>() {
             @Override
-            public File[] call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getExternalCacheDirs();
+            public File[] call(final ActivitySuperFunction<File[]> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getExternalCacheDirs(superCall);
+
             }
         }, new ActivitySuperFunction<File[]>("getExternalCacheDirs()") {
             @Override
@@ -1100,8 +1269,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File getExternalFilesDir(final String type) {
         return callFunction("getExternalFilesDir(String)", new PluginMethodFunction<File>() {
             @Override
-            public File call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getExternalFilesDir((String) args[0]);
+            public File call(final ActivitySuperFunction<File> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getExternalFilesDir(superCall, (String) args[0]);
+
             }
         }, new ActivitySuperFunction<File>("getExternalFilesDir(String)") {
             @Override
@@ -1114,8 +1286,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File[] getExternalFilesDirs(final String type) {
         return callFunction("getExternalFilesDirs(String)", new PluginMethodFunction<File[]>() {
             @Override
-            public File[] call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getExternalFilesDirs((String) args[0]);
+            public File[] call(final ActivitySuperFunction<File[]> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getExternalFilesDirs(superCall, (String) args[0]);
+
             }
         }, new ActivitySuperFunction<File[]>("getExternalFilesDirs(String)") {
             @Override
@@ -1128,8 +1303,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File[] getExternalMediaDirs() {
         return callFunction("getExternalMediaDirs()", new PluginMethodFunction<File[]>() {
             @Override
-            public File[] call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getExternalMediaDirs();
+            public File[] call(final ActivitySuperFunction<File[]> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getExternalMediaDirs(superCall);
+
             }
         }, new ActivitySuperFunction<File[]>("getExternalMediaDirs()") {
             @Override
@@ -1142,8 +1320,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File getFileStreamPath(final String name) {
         return callFunction("getFileStreamPath(String)", new PluginMethodFunction<File>() {
             @Override
-            public File call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getFileStreamPath((String) args[0]);
+            public File call(final ActivitySuperFunction<File> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getFileStreamPath(superCall, (String) args[0]);
+
             }
         }, new ActivitySuperFunction<File>("getFileStreamPath(String)") {
             @Override
@@ -1156,8 +1337,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File getFilesDir() {
         return callFunction("getFilesDir()", new PluginMethodFunction<File>() {
             @Override
-            public File call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getFilesDir();
+            public File call(final ActivitySuperFunction<File> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getFilesDir(superCall);
+
             }
         }, new ActivitySuperFunction<File>("getFilesDir()") {
             @Override
@@ -1171,9 +1355,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("getFragmentManager()",
                 new PluginMethodFunction<android.app.FragmentManager>() {
                     @Override
-                    public android.app.FragmentManager call(final ActivityPlugin plugin,
-                            final Object... args) {
-                        return plugin.getFragmentManager();
+                    public android.app.FragmentManager call(
+                            final ActivitySuperFunction<android.app.FragmentManager> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.getFragmentManager(superCall);
+
                     }
                 }, new ActivitySuperFunction<android.app.FragmentManager>("getFragmentManager()") {
                     @Override
@@ -1186,8 +1373,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Intent getIntent() {
         return callFunction("getIntent()", new PluginMethodFunction<Intent>() {
             @Override
-            public Intent call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getIntent();
+            public Intent call(final ActivitySuperFunction<Intent> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getIntent(superCall);
+
             }
         }, new ActivitySuperFunction<Intent>("getIntent()") {
             @Override
@@ -1200,8 +1390,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public LayoutInflater getLayoutInflater() {
         return callFunction("getLayoutInflater()", new PluginMethodFunction<LayoutInflater>() {
             @Override
-            public LayoutInflater call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getLayoutInflater();
+            public LayoutInflater call(final ActivitySuperFunction<LayoutInflater> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getLayoutInflater(superCall);
+
             }
         }, new ActivitySuperFunction<LayoutInflater>("getLayoutInflater()") {
             @Override
@@ -1215,9 +1408,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("getLoaderManager()",
                 new PluginMethodFunction<android.app.LoaderManager>() {
                     @Override
-                    public android.app.LoaderManager call(final ActivityPlugin plugin,
-                            final Object... args) {
-                        return plugin.getLoaderManager();
+                    public android.app.LoaderManager call(
+                            final ActivitySuperFunction<android.app.LoaderManager> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.getLoaderManager(superCall);
+
                     }
                 }, new ActivitySuperFunction<android.app.LoaderManager>("getLoaderManager()") {
                     @Override
@@ -1230,8 +1426,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public String getLocalClassName() {
         return callFunction("getLocalClassName()", new PluginMethodFunction<String>() {
             @Override
-            public String call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getLocalClassName();
+            public String call(final ActivitySuperFunction<String> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getLocalClassName(superCall);
+
             }
         }, new ActivitySuperFunction<String>("getLocalClassName()") {
             @Override
@@ -1244,8 +1443,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Looper getMainLooper() {
         return callFunction("getMainLooper()", new PluginMethodFunction<Looper>() {
             @Override
-            public Looper call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getMainLooper();
+            public Looper call(final ActivitySuperFunction<Looper> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getMainLooper(superCall);
+
             }
         }, new ActivitySuperFunction<Looper>("getMainLooper()") {
             @Override
@@ -1258,8 +1460,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public MenuInflater getMenuInflater() {
         return callFunction("getMenuInflater()", new PluginMethodFunction<MenuInflater>() {
             @Override
-            public MenuInflater call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getMenuInflater();
+            public MenuInflater call(final ActivitySuperFunction<MenuInflater> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getMenuInflater(superCall);
+
             }
         }, new ActivitySuperFunction<MenuInflater>("getMenuInflater()") {
             @Override
@@ -1272,8 +1477,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File getNoBackupFilesDir() {
         return callFunction("getNoBackupFilesDir()", new PluginMethodFunction<File>() {
             @Override
-            public File call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getNoBackupFilesDir();
+            public File call(final ActivitySuperFunction<File> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getNoBackupFilesDir(superCall);
+
             }
         }, new ActivitySuperFunction<File>("getNoBackupFilesDir()") {
             @Override
@@ -1286,8 +1494,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File getObbDir() {
         return callFunction("getObbDir()", new PluginMethodFunction<File>() {
             @Override
-            public File call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getObbDir();
+            public File call(final ActivitySuperFunction<File> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getObbDir(superCall);
+
             }
         }, new ActivitySuperFunction<File>("getObbDir()") {
             @Override
@@ -1300,8 +1511,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public File[] getObbDirs() {
         return callFunction("getObbDirs()", new PluginMethodFunction<File[]>() {
             @Override
-            public File[] call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getObbDirs();
+            public File[] call(final ActivitySuperFunction<File[]> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getObbDirs(superCall);
+
             }
         }, new ActivitySuperFunction<File[]>("getObbDirs()") {
             @Override
@@ -1314,8 +1528,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public String getPackageCodePath() {
         return callFunction("getPackageCodePath()", new PluginMethodFunction<String>() {
             @Override
-            public String call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getPackageCodePath();
+            public String call(final ActivitySuperFunction<String> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getPackageCodePath(superCall);
+
             }
         }, new ActivitySuperFunction<String>("getPackageCodePath()") {
             @Override
@@ -1328,8 +1545,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public PackageManager getPackageManager() {
         return callFunction("getPackageManager()", new PluginMethodFunction<PackageManager>() {
             @Override
-            public PackageManager call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getPackageManager();
+            public PackageManager call(final ActivitySuperFunction<PackageManager> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getPackageManager(superCall);
+
             }
         }, new ActivitySuperFunction<PackageManager>("getPackageManager()") {
             @Override
@@ -1342,8 +1562,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public String getPackageName() {
         return callFunction("getPackageName()", new PluginMethodFunction<String>() {
             @Override
-            public String call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getPackageName();
+            public String call(final ActivitySuperFunction<String> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getPackageName(superCall);
+
             }
         }, new ActivitySuperFunction<String>("getPackageName()") {
             @Override
@@ -1356,8 +1579,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public String getPackageResourcePath() {
         return callFunction("getPackageResourcePath()", new PluginMethodFunction<String>() {
             @Override
-            public String call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getPackageResourcePath();
+            public String call(final ActivitySuperFunction<String> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getPackageResourcePath(superCall);
+
             }
         }, new ActivitySuperFunction<String>("getPackageResourcePath()") {
             @Override
@@ -1370,8 +1596,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Intent getParentActivityIntent() {
         return callFunction("getParentActivityIntent()", new PluginMethodFunction<Intent>() {
             @Override
-            public Intent call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getParentActivityIntent();
+            public Intent call(final ActivitySuperFunction<Intent> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getParentActivityIntent(superCall);
+
             }
         }, new ActivitySuperFunction<Intent>("getParentActivityIntent()") {
             @Override
@@ -1384,8 +1613,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public SharedPreferences getPreferences(final int mode) {
         return callFunction("getPreferences(int)", new PluginMethodFunction<SharedPreferences>() {
             @Override
-            public SharedPreferences call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getPreferences((int) args[0]);
+            public SharedPreferences call(final ActivitySuperFunction<SharedPreferences> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getPreferences(superCall, (int) args[0]);
+
             }
         }, new ActivitySuperFunction<SharedPreferences>("getPreferences(int)") {
             @Override
@@ -1398,8 +1630,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Uri getReferrer() {
         return callFunction("getReferrer()", new PluginMethodFunction<Uri>() {
             @Override
-            public Uri call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getReferrer();
+            public Uri call(final ActivitySuperFunction<Uri> superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+
+                return plugin.getReferrer(superCall);
+
             }
         }, new ActivitySuperFunction<Uri>("getReferrer()") {
             @Override
@@ -1412,8 +1647,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public int getRequestedOrientation() {
         return callFunction("getRequestedOrientation()", new PluginMethodFunction<Integer>() {
             @Override
-            public Integer call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getRequestedOrientation();
+            public Integer call(final ActivitySuperFunction<Integer> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getRequestedOrientation(superCall);
+
             }
         }, new ActivitySuperFunction<Integer>("getRequestedOrientation()") {
             @Override
@@ -1426,8 +1664,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Resources getResources() {
         return callFunction("getResources()", new PluginMethodFunction<Resources>() {
             @Override
-            public Resources call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getResources();
+            public Resources call(final ActivitySuperFunction<Resources> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getResources(superCall);
+
             }
         }, new ActivitySuperFunction<Resources>("getResources()") {
             @Override
@@ -1441,9 +1682,13 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("getSharedPreferences(String, int)",
                 new PluginMethodFunction<SharedPreferences>() {
                     @Override
-                    public SharedPreferences call(final ActivityPlugin plugin,
-                            final Object... args) {
-                        return plugin.getSharedPreferences((String) args[0], (int) args[1]);
+                    public SharedPreferences call(
+                            final ActivitySuperFunction<SharedPreferences> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .getSharedPreferences(superCall, (String) args[0], (int) args[1]);
+
                     }
                 },
                 new ActivitySuperFunction<SharedPreferences>("getSharedPreferences(String, int)") {
@@ -1458,8 +1703,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public ActionBar getSupportActionBar() {
         return callFunction("getSupportActionBar()", new PluginMethodFunction<ActionBar>() {
             @Override
-            public ActionBar call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getSupportActionBar();
+            public ActionBar call(final ActivitySuperFunction<ActionBar> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getSupportActionBar(superCall);
+
             }
         }, new ActivitySuperFunction<ActionBar>("getSupportActionBar()") {
             @Override
@@ -1473,8 +1721,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("getSupportFragmentManager()",
                 new PluginMethodFunction<FragmentManager>() {
                     @Override
-                    public FragmentManager call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.getSupportFragmentManager();
+                    public FragmentManager call(
+                            final ActivitySuperFunction<FragmentManager> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.getSupportFragmentManager(superCall);
+
                     }
                 }, new ActivitySuperFunction<FragmentManager>("getSupportFragmentManager()") {
                     @Override
@@ -1487,8 +1739,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public LoaderManager getSupportLoaderManager() {
         return callFunction("getSupportLoaderManager()", new PluginMethodFunction<LoaderManager>() {
             @Override
-            public LoaderManager call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getSupportLoaderManager();
+            public LoaderManager call(final ActivitySuperFunction<LoaderManager> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getSupportLoaderManager(superCall);
+
             }
         }, new ActivitySuperFunction<LoaderManager>("getSupportLoaderManager()") {
             @Override
@@ -1501,8 +1756,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Intent getSupportParentActivityIntent() {
         return callFunction("getSupportParentActivityIntent()", new PluginMethodFunction<Intent>() {
             @Override
-            public Intent call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getSupportParentActivityIntent();
+            public Intent call(final ActivitySuperFunction<Intent> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getSupportParentActivityIntent(superCall);
+
             }
         }, new ActivitySuperFunction<Intent>("getSupportParentActivityIntent()") {
             @Override
@@ -1515,8 +1773,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Object getSystemService(@NonNull final String name) {
         return callFunction("getSystemService(String)", new PluginMethodFunction<Object>() {
             @Override
-            public Object call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getSystemService((String) args[0]);
+            public Object call(final ActivitySuperFunction<Object> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getSystemService(superCall, (String) args[0]);
+
             }
         }, new ActivitySuperFunction<Object>("getSystemService(String)") {
             @Override
@@ -1529,8 +1790,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public String getSystemServiceName(final Class<?> serviceClass) {
         return callFunction("getSystemServiceName(Class<?>)", new PluginMethodFunction<String>() {
             @Override
-            public String call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getSystemServiceName((Class<?>) args[0]);
+            public String call(final ActivitySuperFunction<String> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getSystemServiceName(superCall, (Class<?>) args[0]);
+
             }
         }, new ActivitySuperFunction<String>("getSystemServiceName(Class<?>)") {
             @Override
@@ -1543,8 +1807,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public int getTaskId() {
         return callFunction("getTaskId()", new PluginMethodFunction<Integer>() {
             @Override
-            public Integer call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getTaskId();
+            public Integer call(final ActivitySuperFunction<Integer> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getTaskId(superCall);
+
             }
         }, new ActivitySuperFunction<Integer>("getTaskId()") {
             @Override
@@ -1557,8 +1824,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Resources.Theme getTheme() {
         return callFunction("getTheme()", new PluginMethodFunction<Resources.Theme>() {
             @Override
-            public Resources.Theme call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getTheme();
+            public Resources.Theme call(final ActivitySuperFunction<Resources.Theme> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getTheme(superCall);
+
             }
         }, new ActivitySuperFunction<Resources.Theme>("getTheme()") {
             @Override
@@ -1571,8 +1841,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public VoiceInteractor getVoiceInteractor() {
         return callFunction("getVoiceInteractor()", new PluginMethodFunction<VoiceInteractor>() {
             @Override
-            public VoiceInteractor call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getVoiceInteractor();
+            public VoiceInteractor call(final ActivitySuperFunction<VoiceInteractor> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getVoiceInteractor(superCall);
+
             }
         }, new ActivitySuperFunction<VoiceInteractor>("getVoiceInteractor()") {
             @Override
@@ -1585,8 +1858,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Drawable getWallpaper() {
         return callFunction("getWallpaper()", new PluginMethodFunction<Drawable>() {
             @Override
-            public Drawable call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getWallpaper();
+            public Drawable call(final ActivitySuperFunction<Drawable> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getWallpaper(superCall);
+
             }
         }, new ActivitySuperFunction<Drawable>("getWallpaper()") {
             @Override
@@ -1600,8 +1876,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("getWallpaperDesiredMinimumHeight()",
                 new PluginMethodFunction<Integer>() {
                     @Override
-                    public Integer call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.getWallpaperDesiredMinimumHeight();
+                    public Integer call(final ActivitySuperFunction<Integer> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.getWallpaperDesiredMinimumHeight(superCall);
+
                     }
                 }, new ActivitySuperFunction<Integer>("getWallpaperDesiredMinimumHeight()") {
                     @Override
@@ -1615,8 +1894,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("getWallpaperDesiredMinimumWidth()",
                 new PluginMethodFunction<Integer>() {
                     @Override
-                    public Integer call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.getWallpaperDesiredMinimumWidth();
+                    public Integer call(final ActivitySuperFunction<Integer> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.getWallpaperDesiredMinimumWidth(superCall);
+
                     }
                 }, new ActivitySuperFunction<Integer>("getWallpaperDesiredMinimumWidth()") {
                     @Override
@@ -1629,8 +1911,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Window getWindow() {
         return callFunction("getWindow()", new PluginMethodFunction<Window>() {
             @Override
-            public Window call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getWindow();
+            public Window call(final ActivitySuperFunction<Window> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getWindow(superCall);
+
             }
         }, new ActivitySuperFunction<Window>("getWindow()") {
             @Override
@@ -1643,8 +1928,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public WindowManager getWindowManager() {
         return callFunction("getWindowManager()", new PluginMethodFunction<WindowManager>() {
             @Override
-            public WindowManager call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.getWindowManager();
+            public WindowManager call(final ActivitySuperFunction<WindowManager> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.getWindowManager(superCall);
+
             }
         }, new ActivitySuperFunction<WindowManager>("getWindowManager()") {
             @Override
@@ -1657,8 +1945,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void grantUriPermission(final String toPackage, final Uri uri, final int modeFlags) {
         callHook("grantUriPermission(String, Uri, int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.grantUriPermission((String) args[0], (Uri) args[1], (int) args[2]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.grantUriPermission(superCall, (String) args[0], (Uri) args[1],
+                        (int) args[2]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -1671,8 +1961,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean hasWindowFocus() {
         return callFunction("hasWindowFocus()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.hasWindowFocus();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.hasWindowFocus(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("hasWindowFocus()") {
             @Override
@@ -1685,8 +1978,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void invalidateOptionsMenu() {
         callHook("invalidateOptionsMenu()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.invalidateOptionsMenu();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.invalidateOptionsMenu(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -1699,8 +1993,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean isChangingConfigurations() {
         return callFunction("isChangingConfigurations()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.isChangingConfigurations();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.isChangingConfigurations(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("isChangingConfigurations()") {
             @Override
@@ -1713,8 +2010,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean isDestroyed() {
         return callFunction("isDestroyed()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.isDestroyed();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.isDestroyed(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("isDestroyed()") {
             @Override
@@ -1727,8 +2027,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean isFinishing() {
         return callFunction("isFinishing()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.isFinishing();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.isFinishing(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("isFinishing()") {
             @Override
@@ -1741,8 +2044,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean isImmersive() {
         return callFunction("isImmersive()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.isImmersive();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.isImmersive(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("isImmersive()") {
             @Override
@@ -1755,8 +2061,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean isRestricted() {
         return callFunction("isRestricted()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.isRestricted();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.isRestricted(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("isRestricted()") {
             @Override
@@ -1769,8 +2078,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean isTaskRoot() {
         return callFunction("isTaskRoot()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.isTaskRoot();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.isTaskRoot(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("isTaskRoot()") {
             @Override
@@ -1783,8 +2095,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean isVoiceInteraction() {
         return callFunction("isVoiceInteraction()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.isVoiceInteraction();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.isVoiceInteraction(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("isVoiceInteraction()") {
             @Override
@@ -1797,8 +2112,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean isVoiceInteractionRoot() {
         return callFunction("isVoiceInteractionRoot()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.isVoiceInteractionRoot();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.isVoiceInteractionRoot(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("isVoiceInteractionRoot()") {
             @Override
@@ -1811,8 +2129,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean moveTaskToBack(final boolean nonRoot) {
         return callFunction("moveTaskToBack(boolean)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.moveTaskToBack((boolean) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.moveTaskToBack(superCall, (boolean) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("moveTaskToBack(boolean)") {
             @Override
@@ -1825,8 +2146,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean navigateUpTo(final Intent upIntent) {
         return callFunction("navigateUpTo(Intent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.navigateUpTo((Intent) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.navigateUpTo(superCall, (Intent) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("navigateUpTo(Intent)") {
             @Override
@@ -1840,8 +2164,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("navigateUpToFromChild(Activity, Intent)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.navigateUpToFromChild((Activity) args[0], (Intent) args[1]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.navigateUpToFromChild(superCall, (Activity) args[0],
+                                (Intent) args[1]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("navigateUpToFromChild(Activity, Intent)") {
                     @Override
@@ -1855,8 +2183,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onActionModeFinished(final android.view.ActionMode mode) {
         callHook("onActionModeFinished(android.view.ActionMode)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onActionModeFinished((android.view.ActionMode) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onActionModeFinished(superCall, (android.view.ActionMode) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -1869,8 +2198,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onActionModeStarted(final android.view.ActionMode mode) {
         callHook("onActionModeStarted(android.view.ActionMode)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onActionModeStarted((android.view.ActionMode) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onActionModeStarted(superCall, (android.view.ActionMode) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -1883,8 +2213,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onActivityReenter(final int resultCode, final Intent data) {
         callHook("onActivityReenter(int, Intent)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onActivityReenter((int) args[0], (Intent) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onActivityReenter(superCall, (int) args[0], (Intent) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -1897,8 +2228,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         callHook("onActivityResult(int, int, Intent)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onActivityResult((int) args[0], (int) args[1], (Intent) args[2]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onActivityResult(superCall, (int) args[0], (int) args[1], (Intent) args[2]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -1912,8 +2244,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final boolean first) {
         callHook("onApplyThemeResource(Resources.Theme, int, boolean)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onApplyThemeResource((Resources.Theme) args[0], (int) args[1],
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onApplyThemeResource(superCall, (Resources.Theme) args[0], (int) args[1],
                         (boolean) args[2]);
             }
         }, new ActivitySuperAction() {
@@ -1928,8 +2261,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onAttachFragment(final Fragment fragment) {
         callHook("onAttachFragment(Fragment)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onAttachFragment((Fragment) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onAttachFragment(superCall, (Fragment) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -1942,8 +2276,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onAttachFragment(final android.app.Fragment fragment) {
         callHook("onAttachFragment(android.app.Fragment)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onAttachFragment((android.app.Fragment) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onAttachFragment(superCall, (android.app.Fragment) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -1956,8 +2291,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onAttachedToWindow() {
         callHook("onAttachedToWindow()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onAttachedToWindow();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onAttachedToWindow(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -1970,8 +2306,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onBackPressed() {
         callHook("onBackPressed()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onBackPressed();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onBackPressed(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -1984,8 +2321,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onChildTitleChanged(final Activity childActivity, final CharSequence title) {
         callHook("onChildTitleChanged(Activity, CharSequence)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onChildTitleChanged((Activity) args[0], (CharSequence) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onChildTitleChanged(superCall, (Activity) args[0], (CharSequence) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -1998,8 +2336,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onConfigurationChanged(final Configuration newConfig) {
         callHook("onConfigurationChanged(Configuration)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onConfigurationChanged((Configuration) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onConfigurationChanged(superCall, (Configuration) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2012,8 +2351,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onContentChanged() {
         callHook("onContentChanged()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onContentChanged();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onContentChanged(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2026,8 +2366,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onContextItemSelected(final MenuItem item) {
         return callFunction("onContextItemSelected(MenuItem)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onContextItemSelected((MenuItem) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onContextItemSelected(superCall, (MenuItem) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onContextItemSelected(MenuItem)") {
             @Override
@@ -2040,8 +2383,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onContextMenuClosed(final Menu menu) {
         callHook("onContextMenuClosed(Menu)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onContextMenuClosed((Menu) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onContextMenuClosed(superCall, (Menu) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2054,8 +2398,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         callHook("onCreate(Bundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onCreate((Bundle) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onCreate(superCall, (Bundle) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2068,8 +2413,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
         callHook("onCreate(Bundle, PersistableBundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onCreate((Bundle) args[0], (PersistableBundle) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onCreate(superCall, (Bundle) args[0], (PersistableBundle) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2084,8 +2430,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.onCreateContextMenu((ContextMenu) args[0], (View) args[1],
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.onCreateContextMenu(superCall, (ContextMenu) args[0], (View) args[1],
                                 (ContextMenu.ContextMenuInfo) args[2]);
                     }
                 }, new ActivitySuperAction() {
@@ -2100,8 +2447,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public CharSequence onCreateDescription() {
         return callFunction("onCreateDescription()", new PluginMethodFunction<CharSequence>() {
             @Override
-            public CharSequence call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onCreateDescription();
+            public CharSequence call(final ActivitySuperFunction<CharSequence> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onCreateDescription(superCall);
+
             }
         }, new ActivitySuperFunction<CharSequence>("onCreateDescription()") {
             @Override
@@ -2114,8 +2464,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Dialog onCreateDialog(final int id) {
         return callFunction("onCreateDialog(int)", new PluginMethodFunction<Dialog>() {
             @Override
-            public Dialog call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onCreateDialog((int) args[0]);
+            public Dialog call(final ActivitySuperFunction<Dialog> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onCreateDialog(superCall, (int) args[0]);
+
             }
         }, new ActivitySuperFunction<Dialog>("onCreateDialog(int)") {
             @Override
@@ -2128,8 +2481,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Dialog onCreateDialog(final int id, final Bundle args) {
         return callFunction("onCreateDialog(int, Bundle)", new PluginMethodFunction<Dialog>() {
             @Override
-            public Dialog call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onCreateDialog((int) args[0], (Bundle) args[1]);
+            public Dialog call(final ActivitySuperFunction<Dialog> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onCreateDialog(superCall, (int) args[0], (Bundle) args[1]);
+
             }
         }, new ActivitySuperFunction<Dialog>("onCreateDialog(int, Bundle)") {
             @Override
@@ -2142,8 +2498,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onCreateNavigateUpTaskStack(final TaskStackBuilder builder) {
         callHook("onCreateNavigateUpTaskStack(TaskStackBuilder)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onCreateNavigateUpTaskStack((TaskStackBuilder) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onCreateNavigateUpTaskStack(superCall, (TaskStackBuilder) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2156,8 +2513,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onCreateOptionsMenu(final Menu menu) {
         return callFunction("onCreateOptionsMenu(Menu)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onCreateOptionsMenu((Menu) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onCreateOptionsMenu(superCall, (Menu) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onCreateOptionsMenu(Menu)") {
             @Override
@@ -2170,8 +2530,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onCreatePanelMenu(final int featureId, final Menu menu) {
         return callFunction("onCreatePanelMenu(int, Menu)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onCreatePanelMenu((int) args[0], (Menu) args[1]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onCreatePanelMenu(superCall, (int) args[0], (Menu) args[1]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onCreatePanelMenu(int, Menu)") {
             @Override
@@ -2184,8 +2547,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public View onCreatePanelView(final int featureId) {
         return callFunction("onCreatePanelView(int)", new PluginMethodFunction<View>() {
             @Override
-            public View call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onCreatePanelView((int) args[0]);
+            public View call(final ActivitySuperFunction<View> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onCreatePanelView(superCall, (int) args[0]);
+
             }
         }, new ActivitySuperFunction<View>("onCreatePanelView(int)") {
             @Override
@@ -2200,8 +2566,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("onCreateSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.onCreateSupportNavigateUpTaskStack(
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.onCreateSupportNavigateUpTaskStack(superCall,
                                 (android.support.v4.app.TaskStackBuilder) args[0]);
                     }
                 }, new ActivitySuperAction() {
@@ -2217,8 +2584,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("onCreateThumbnail(Bitmap, Canvas)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.onCreateThumbnail((Bitmap) args[0], (Canvas) args[1]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .onCreateThumbnail(superCall, (Bitmap) args[0], (Canvas) args[1]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("onCreateThumbnail(Bitmap, Canvas)") {
                     @Override
@@ -2234,10 +2605,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("onCreateView(View, String, Context, AttributeSet)",
                 new PluginMethodFunction<View>() {
                     @Override
-                    public View call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin
-                                .onCreateView((View) args[0], (String) args[1], (Context) args[2],
-                                        (AttributeSet) args[3]);
+                    public View call(final ActivitySuperFunction<View> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.onCreateView(superCall, (View) args[0], (String) args[1],
+                                (Context) args[2], (AttributeSet) args[3]);
+
                     }
                 }, new ActivitySuperFunction<View>(
                         "onCreateView(View, String, Context, AttributeSet)") {
@@ -2253,9 +2626,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("onCreateView(String, Context, AttributeSet)",
                 new PluginMethodFunction<View>() {
                     @Override
-                    public View call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.onCreateView((String) args[0], (Context) args[1],
+                    public View call(final ActivitySuperFunction<View> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.onCreateView(superCall, (String) args[0], (Context) args[1],
                                 (AttributeSet) args[2]);
+
                     }
                 }, new ActivitySuperFunction<View>("onCreateView(String, Context, AttributeSet)") {
                     @Override
@@ -2269,8 +2645,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onDestroy() {
         callHook("onDestroy()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onDestroy();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onDestroy(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2283,8 +2660,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onDetachedFromWindow() {
         callHook("onDetachedFromWindow()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onDetachedFromWindow();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onDetachedFromWindow(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2297,8 +2675,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onEnterAnimationComplete() {
         callHook("onEnterAnimationComplete()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onEnterAnimationComplete();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onEnterAnimationComplete(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2312,8 +2691,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("onGenericMotionEvent(MotionEvent)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.onGenericMotionEvent((MotionEvent) args[0]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.onGenericMotionEvent(superCall, (MotionEvent) args[0]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("onGenericMotionEvent(MotionEvent)") {
                     @Override
@@ -2326,8 +2708,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onKeyDown(final int keyCode, final KeyEvent event) {
         return callFunction("onKeyDown(int, KeyEvent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onKeyDown((int) args[0], (KeyEvent) args[1]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onKeyDown(superCall, (int) args[0], (KeyEvent) args[1]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onKeyDown(int, KeyEvent)") {
             @Override
@@ -2340,8 +2725,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onKeyLongPress(final int keyCode, final KeyEvent event) {
         return callFunction("onKeyLongPress(int, KeyEvent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onKeyLongPress((int) args[0], (KeyEvent) args[1]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onKeyLongPress(superCall, (int) args[0], (KeyEvent) args[1]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onKeyLongPress(int, KeyEvent)") {
             @Override
@@ -2355,9 +2743,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("onKeyMultiple(int, int, KeyEvent)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin
-                                .onKeyMultiple((int) args[0], (int) args[1], (KeyEvent) args[2]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.onKeyMultiple(superCall, (int) args[0], (int) args[1],
+                                (KeyEvent) args[2]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("onKeyMultiple(int, int, KeyEvent)") {
                     @Override
@@ -2371,8 +2762,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onKeyShortcut(final int keyCode, final KeyEvent event) {
         return callFunction("onKeyShortcut(int, KeyEvent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onKeyShortcut((int) args[0], (KeyEvent) args[1]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onKeyShortcut(superCall, (int) args[0], (KeyEvent) args[1]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onKeyShortcut(int, KeyEvent)") {
             @Override
@@ -2385,8 +2779,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onKeyUp(final int keyCode, final KeyEvent event) {
         return callFunction("onKeyUp(int, KeyEvent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onKeyUp((int) args[0], (KeyEvent) args[1]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onKeyUp(superCall, (int) args[0], (KeyEvent) args[1]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onKeyUp(int, KeyEvent)") {
             @Override
@@ -2399,8 +2796,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onLowMemory() {
         callHook("onLowMemory()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onLowMemory();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onLowMemory(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2413,8 +2811,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onMenuOpened(final int featureId, final Menu menu) {
         return callFunction("onMenuOpened(int, Menu)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onMenuOpened((int) args[0], (Menu) args[1]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onMenuOpened(superCall, (int) args[0], (Menu) args[1]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onMenuOpened(int, Menu)") {
             @Override
@@ -2427,8 +2828,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onNavigateUp() {
         return callFunction("onNavigateUp()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onNavigateUp();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onNavigateUp(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("onNavigateUp()") {
             @Override
@@ -2441,8 +2845,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onNavigateUpFromChild(final Activity child) {
         return callFunction("onNavigateUpFromChild(Activity)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onNavigateUpFromChild((Activity) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onNavigateUpFromChild(superCall, (Activity) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onNavigateUpFromChild(Activity)") {
             @Override
@@ -2455,8 +2862,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onNewIntent(final Intent intent) {
         callHook("onNewIntent(Intent)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onNewIntent((Intent) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onNewIntent(superCall, (Intent) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2469,8 +2877,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onOptionsItemSelected(final MenuItem item) {
         return callFunction("onOptionsItemSelected(MenuItem)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onOptionsItemSelected((MenuItem) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onOptionsItemSelected(superCall, (MenuItem) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onOptionsItemSelected(MenuItem)") {
             @Override
@@ -2483,8 +2894,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onOptionsMenuClosed(final Menu menu) {
         callHook("onOptionsMenuClosed(Menu)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onOptionsMenuClosed((Menu) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onOptionsMenuClosed(superCall, (Menu) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2497,8 +2909,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onPanelClosed(final int featureId, final Menu menu) {
         callHook("onPanelClosed(int, Menu)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onPanelClosed((int) args[0], (Menu) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onPanelClosed(superCall, (int) args[0], (Menu) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2511,8 +2924,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onPause() {
         callHook("onPause()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onPause();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onPause(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2525,8 +2939,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onPostCreate(@Nullable final Bundle savedInstanceState) {
         callHook("onPostCreate(Bundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onPostCreate((Bundle) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onPostCreate(superCall, (Bundle) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2540,8 +2955,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final PersistableBundle persistentState) {
         callHook("onPostCreate(Bundle, PersistableBundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onPostCreate((Bundle) args[0], (PersistableBundle) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onPostCreate(superCall, (Bundle) args[0], (PersistableBundle) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2554,8 +2970,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onPostResume() {
         callHook("onPostResume()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onPostResume();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onPostResume(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2568,8 +2985,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onPrepareDialog(final int id, final Dialog dialog) {
         callHook("onPrepareDialog(int, Dialog)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onPrepareDialog((int) args[0], (Dialog) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onPrepareDialog(superCall, (int) args[0], (Dialog) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2582,8 +3000,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onPrepareDialog(final int id, final Dialog dialog, final Bundle args) {
         callHook("onPrepareDialog(int, Dialog, Bundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onPrepareDialog((int) args[0], (Dialog) args[1], (Bundle) args[2]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onPrepareDialog(superCall, (int) args[0], (Dialog) args[1],
+                        (Bundle) args[2]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2596,8 +3016,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onPrepareNavigateUpTaskStack(final TaskStackBuilder builder) {
         callHook("onPrepareNavigateUpTaskStack(TaskStackBuilder)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onPrepareNavigateUpTaskStack((TaskStackBuilder) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onPrepareNavigateUpTaskStack(superCall, (TaskStackBuilder) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2610,8 +3031,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onPrepareOptionsMenu(final Menu menu) {
         return callFunction("onPrepareOptionsMenu(Menu)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onPrepareOptionsMenu((Menu) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onPrepareOptionsMenu(superCall, (Menu) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onPrepareOptionsMenu(Menu)") {
             @Override
@@ -2625,8 +3049,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("onPrepareOptionsPanel(View, Menu)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.onPrepareOptionsPanel((View) args[0], (Menu) args[1]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .onPrepareOptionsPanel(superCall, (View) args[0], (Menu) args[1]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("onPrepareOptionsPanel(View, Menu)") {
                     @Override
@@ -2640,8 +3068,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onPreparePanel(final int featureId, final View view, final Menu menu) {
         return callFunction("onPreparePanel(int, View, Menu)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onPreparePanel((int) args[0], (View) args[1], (Menu) args[2]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin
+                        .onPreparePanel(superCall, (int) args[0], (View) args[1], (Menu) args[2]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onPreparePanel(int, View, Menu)") {
             @Override
@@ -2657,8 +3089,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.onPrepareSupportNavigateUpTaskStack(
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.onPrepareSupportNavigateUpTaskStack(superCall,
                                 (android.support.v4.app.TaskStackBuilder) args[0]);
                     }
                 }, new ActivitySuperAction() {
@@ -2673,8 +3106,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onProvideAssistContent(final AssistContent outContent) {
         callHook("onProvideAssistContent(AssistContent)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onProvideAssistContent((AssistContent) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onProvideAssistContent(superCall, (AssistContent) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2687,8 +3121,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onProvideAssistData(final Bundle data) {
         callHook("onProvideAssistData(Bundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onProvideAssistData((Bundle) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onProvideAssistData(superCall, (Bundle) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2701,8 +3136,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Uri onProvideReferrer() {
         return callFunction("onProvideReferrer()", new PluginMethodFunction<Uri>() {
             @Override
-            public Uri call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onProvideReferrer();
+            public Uri call(final ActivitySuperFunction<Uri> superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+
+                return plugin.onProvideReferrer(superCall);
+
             }
         }, new ActivitySuperFunction<Uri>("onProvideReferrer()") {
             @Override
@@ -2716,8 +3154,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
             @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         callHook("onRequestPermissionsResult(int, String[], int[])", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onRequestPermissionsResult((int) args[0], (String[]) args[1],
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onRequestPermissionsResult(superCall, (int) args[0], (String[]) args[1],
                         (int[]) args[2]);
             }
         }, new ActivitySuperAction() {
@@ -2732,8 +3171,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onRestart() {
         callHook("onRestart()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onRestart();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onRestart(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2746,8 +3186,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onRestoreInstanceState(final Bundle savedInstanceState) {
         callHook("onRestoreInstanceState(Bundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onRestoreInstanceState((Bundle) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onRestoreInstanceState(superCall, (Bundle) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2761,8 +3202,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final PersistableBundle persistentState) {
         callHook("onRestoreInstanceState(Bundle, PersistableBundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onRestoreInstanceState((Bundle) args[0], (PersistableBundle) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onRestoreInstanceState(superCall, (Bundle) args[0],
+                        (PersistableBundle) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2776,8 +3219,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onResume() {
         callHook("onResume()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onResume();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onResume(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2790,8 +3234,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onResumeFragments() {
         callHook("onResumeFragments()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onResumeFragments();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onResumeFragments(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2804,8 +3249,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onSaveInstanceState(final Bundle outState) {
         callHook("onSaveInstanceState(Bundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onSaveInstanceState((Bundle) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onSaveInstanceState(superCall, (Bundle) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2819,8 +3265,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final PersistableBundle outPersistentState) {
         callHook("onSaveInstanceState(Bundle, PersistableBundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onSaveInstanceState((Bundle) args[0], (PersistableBundle) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onSaveInstanceState(superCall, (Bundle) args[0],
+                        (PersistableBundle) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2833,8 +3281,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onSearchRequested(final SearchEvent searchEvent) {
         return callFunction("onSearchRequested(SearchEvent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onSearchRequested((SearchEvent) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onSearchRequested(superCall, (SearchEvent) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onSearchRequested(SearchEvent)") {
             @Override
@@ -2847,8 +3298,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onSearchRequested() {
         return callFunction("onSearchRequested()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onSearchRequested();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onSearchRequested(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("onSearchRequested()") {
             @Override
@@ -2861,8 +3315,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onStart() {
         callHook("onStart()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onStart();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onStart(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2875,8 +3330,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onStateNotSaved() {
         callHook("onStateNotSaved()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onStateNotSaved();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onStateNotSaved(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2889,8 +3345,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onStop() {
         callHook("onStop()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onStop();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onStop(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2903,8 +3360,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onSupportActionModeFinished(@NonNull final ActionMode mode) {
         callHook("onSupportActionModeFinished(ActionMode)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onSupportActionModeFinished((ActionMode) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onSupportActionModeFinished(superCall, (ActionMode) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2917,8 +3375,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onSupportActionModeStarted(@NonNull final ActionMode mode) {
         callHook("onSupportActionModeStarted(ActionMode)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onSupportActionModeStarted((ActionMode) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onSupportActionModeStarted(superCall, (ActionMode) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2931,8 +3390,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onSupportContentChanged() {
         callHook("onSupportContentChanged()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onSupportContentChanged();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onSupportContentChanged(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2945,8 +3405,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onSupportNavigateUp() {
         return callFunction("onSupportNavigateUp()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onSupportNavigateUp();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onSupportNavigateUp(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("onSupportNavigateUp()") {
             @Override
@@ -2959,8 +3422,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onTitleChanged(final CharSequence title, final int color) {
         callHook("onTitleChanged(CharSequence, int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onTitleChanged((CharSequence) args[0], (int) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onTitleChanged(superCall, (CharSequence) args[0], (int) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -2973,8 +3437,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onTouchEvent(final MotionEvent event) {
         return callFunction("onTouchEvent(MotionEvent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onTouchEvent((MotionEvent) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onTouchEvent(superCall, (MotionEvent) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onTouchEvent(MotionEvent)") {
             @Override
@@ -2987,8 +3454,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean onTrackballEvent(final MotionEvent event) {
         return callFunction("onTrackballEvent(MotionEvent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.onTrackballEvent((MotionEvent) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.onTrackballEvent(superCall, (MotionEvent) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("onTrackballEvent(MotionEvent)") {
             @Override
@@ -3001,8 +3471,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onTrimMemory(final int level) {
         callHook("onTrimMemory(int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onTrimMemory((int) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onTrimMemory(superCall, (int) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3015,8 +3486,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onUserInteraction() {
         callHook("onUserInteraction()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onUserInteraction();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onUserInteraction(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3029,8 +3501,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onUserLeaveHint() {
         callHook("onUserLeaveHint()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onUserLeaveHint();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onUserLeaveHint(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3043,8 +3516,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onVisibleBehindCanceled() {
         callHook("onVisibleBehindCanceled()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onVisibleBehindCanceled();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onVisibleBehindCanceled(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3057,8 +3531,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onWindowAttributesChanged(final WindowManager.LayoutParams params) {
         callHook("onWindowAttributesChanged(WindowManager.LayoutParams)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onWindowAttributesChanged((WindowManager.LayoutParams) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onWindowAttributesChanged(superCall, (WindowManager.LayoutParams) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3071,8 +3546,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void onWindowFocusChanged(final boolean hasFocus) {
         callHook("onWindowFocusChanged(boolean)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.onWindowFocusChanged((boolean) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onWindowFocusChanged(superCall, (boolean) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3087,10 +3563,13 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("onWindowStartingActionMode(android.view.ActionMode.Callback)",
                 new PluginMethodFunction<android.view.ActionMode>() {
                     @Override
-                    public android.view.ActionMode call(final ActivityPlugin plugin,
-                            final Object... args) {
-                        return plugin.onWindowStartingActionMode(
+                    public android.view.ActionMode call(
+                            final ActivitySuperFunction<android.view.ActionMode> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.onWindowStartingActionMode(superCall,
                                 (android.view.ActionMode.Callback) args[0]);
+
                     }
                 }, new ActivitySuperFunction<android.view.ActionMode>(
                         "onWindowStartingActionMode(android.view.ActionMode.Callback)") {
@@ -3107,10 +3586,13 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("onWindowStartingActionMode(android.view.ActionMode.Callback, int)",
                 new PluginMethodFunction<android.view.ActionMode>() {
                     @Override
-                    public android.view.ActionMode call(final ActivityPlugin plugin,
-                            final Object... args) {
-                        return plugin.onWindowStartingActionMode(
+                    public android.view.ActionMode call(
+                            final ActivitySuperFunction<android.view.ActionMode> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.onWindowStartingActionMode(superCall,
                                 (android.view.ActionMode.Callback) args[0], (int) args[1]);
+
                     }
                 }, new ActivitySuperFunction<android.view.ActionMode>(
                         "onWindowStartingActionMode(android.view.ActionMode.Callback, int)") {
@@ -3127,9 +3609,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("onWindowStartingSupportActionMode(ActionMode.Callback)",
                 new PluginMethodFunction<ActionMode>() {
                     @Override
-                    public ActionMode call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin
-                                .onWindowStartingSupportActionMode((ActionMode.Callback) args[0]);
+                    public ActionMode call(final ActivitySuperFunction<ActionMode> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.onWindowStartingSupportActionMode(superCall,
+                                (ActionMode.Callback) args[0]);
+
                     }
                 }, new ActivitySuperFunction<ActionMode>(
                         "onWindowStartingSupportActionMode(ActionMode.Callback)") {
@@ -3144,8 +3629,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void openContextMenu(final View view) {
         callHook("openContextMenu(View)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.openContextMenu((View) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.openContextMenu(superCall, (View) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3158,8 +3644,14 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public FileInputStream openFileInput(final String name) {
         return callFunction("openFileInput(String)", new PluginMethodFunction<FileInputStream>() {
             @Override
-            public FileInputStream call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.openFileInput((String) args[0]);
+            public FileInputStream call(final ActivitySuperFunction<FileInputStream> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+                try {
+                    return plugin.openFileInput(superCall, (String) args[0]);
+                } catch (FileNotFoundException e) {
+                    throw new SuppressedException(e);
+                }
+
             }
         }, new ActivitySuperFunction<FileInputStream>("openFileInput(String)") {
             @Override
@@ -3177,9 +3669,16 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("openFileOutput(String, int)",
                 new PluginMethodFunction<FileOutputStream>() {
                     @Override
-                    public FileOutputStream call(final ActivityPlugin plugin,
-                            final Object... args) {
-                        return plugin.openFileOutput((String) args[0], (int) args[1]);
+                    public FileOutputStream call(
+                            final ActivitySuperFunction<FileOutputStream> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        try {
+                            return plugin
+                                    .openFileOutput(superCall, (String) args[0], (int) args[1]);
+                        } catch (FileNotFoundException e) {
+                            throw new SuppressedException(e);
+                        }
+
                     }
                 }, new ActivitySuperFunction<FileOutputStream>("openFileOutput(String, int)") {
                     @Override
@@ -3196,8 +3695,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void openOptionsMenu() {
         callHook("openOptionsMenu()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.openOptionsMenu();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.openOptionsMenu(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3212,9 +3712,14 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory)",
                 new PluginMethodFunction<SQLiteDatabase>() {
                     @Override
-                    public SQLiteDatabase call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.openOrCreateDatabase((String) args[0], (int) args[1],
-                                (SQLiteDatabase.CursorFactory) args[2]);
+                    public SQLiteDatabase call(
+                            final ActivitySuperFunction<SQLiteDatabase> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .openOrCreateDatabase(superCall, (String) args[0], (int) args[1],
+                                        (SQLiteDatabase.CursorFactory) args[2]);
+
                     }
                 }, new ActivitySuperFunction<SQLiteDatabase>(
                         "openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory)") {
@@ -3232,10 +3737,15 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 "openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory, DatabaseErrorHandler)",
                 new PluginMethodFunction<SQLiteDatabase>() {
                     @Override
-                    public SQLiteDatabase call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.openOrCreateDatabase((String) args[0], (int) args[1],
-                                (SQLiteDatabase.CursorFactory) args[2],
-                                (DatabaseErrorHandler) args[3]);
+                    public SQLiteDatabase call(
+                            final ActivitySuperFunction<SQLiteDatabase> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .openOrCreateDatabase(superCall, (String) args[0], (int) args[1],
+                                        (SQLiteDatabase.CursorFactory) args[2],
+                                        (DatabaseErrorHandler) args[3]);
+
                     }
                 }, new ActivitySuperFunction<SQLiteDatabase>(
                         "openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory, DatabaseErrorHandler)") {
@@ -3251,8 +3761,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void overridePendingTransition(final int enterAnim, final int exitAnim) {
         callHook("overridePendingTransition(int, int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.overridePendingTransition((int) args[0], (int) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.overridePendingTransition(superCall, (int) args[0], (int) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3265,8 +3776,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public Drawable peekWallpaper() {
         return callFunction("peekWallpaper()", new PluginMethodFunction<Drawable>() {
             @Override
-            public Drawable call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.peekWallpaper();
+            public Drawable call(final ActivitySuperFunction<Drawable> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.peekWallpaper(superCall);
+
             }
         }, new ActivitySuperFunction<Drawable>("peekWallpaper()") {
             @Override
@@ -3279,8 +3793,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void postponeEnterTransition() {
         callHook("postponeEnterTransition()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.postponeEnterTransition();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.postponeEnterTransition(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3293,8 +3808,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void recreate() {
         callHook("recreate()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.recreate();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.recreate(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3307,8 +3823,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void registerComponentCallbacks(final ComponentCallbacks callback) {
         callHook("registerComponentCallbacks(ComponentCallbacks)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.registerComponentCallbacks((ComponentCallbacks) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.registerComponentCallbacks(superCall, (ComponentCallbacks) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3321,8 +3838,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void registerForContextMenu(final View view) {
         callHook("registerForContextMenu(View)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.registerForContextMenu((View) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.registerForContextMenu(superCall, (View) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3336,9 +3854,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("registerReceiver(BroadcastReceiver, IntentFilter)",
                 new PluginMethodFunction<Intent>() {
                     @Override
-                    public Intent call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.registerReceiver((BroadcastReceiver) args[0],
+                    public Intent call(final ActivitySuperFunction<Intent> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.registerReceiver(superCall, (BroadcastReceiver) args[0],
                                 (IntentFilter) args[1]);
+
                     }
                 }, new ActivitySuperFunction<Intent>(
                         "registerReceiver(BroadcastReceiver, IntentFilter)") {
@@ -3355,9 +3876,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("registerReceiver(BroadcastReceiver, IntentFilter, String, Handler)",
                 new PluginMethodFunction<Intent>() {
                     @Override
-                    public Intent call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.registerReceiver((BroadcastReceiver) args[0],
+                    public Intent call(final ActivitySuperFunction<Intent> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.registerReceiver(superCall, (BroadcastReceiver) args[0],
                                 (IntentFilter) args[1], (String) args[2], (Handler) args[3]);
+
                     }
                 }, new ActivitySuperFunction<Intent>(
                         "registerReceiver(BroadcastReceiver, IntentFilter, String, Handler)") {
@@ -3372,8 +3896,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean releaseInstance() {
         return callFunction("releaseInstance()", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.releaseInstance();
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.releaseInstance(superCall);
+
             }
         }, new ActivitySuperFunction<Boolean>("releaseInstance()") {
             @Override
@@ -3386,8 +3913,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void removeStickyBroadcast(final Intent intent) {
         callHook("removeStickyBroadcast(Intent)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.removeStickyBroadcast((Intent) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.removeStickyBroadcast(superCall, (Intent) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3400,8 +3928,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void removeStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
         callHook("removeStickyBroadcastAsUser(Intent, UserHandle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.removeStickyBroadcastAsUser((Intent) args[0], (UserHandle) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.removeStickyBroadcastAsUser(superCall, (Intent) args[0],
+                        (UserHandle) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3414,8 +3944,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void reportFullyDrawn() {
         callHook("reportFullyDrawn()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.reportFullyDrawn();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.reportFullyDrawn(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3428,8 +3959,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean requestVisibleBehind(final boolean visible) {
         return callFunction("requestVisibleBehind(boolean)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.requestVisibleBehind((boolean) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.requestVisibleBehind(superCall, (boolean) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("requestVisibleBehind(boolean)") {
             @Override
@@ -3442,8 +3976,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void revokeUriPermission(final Uri uri, final int modeFlags) {
         callHook("revokeUriPermission(Uri, int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.revokeUriPermission((Uri) args[0], (int) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.revokeUriPermission(superCall, (Uri) args[0], (int) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3456,8 +3991,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void sendBroadcast(final Intent intent) {
         callHook("sendBroadcast(Intent)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.sendBroadcast((Intent) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.sendBroadcast(superCall, (Intent) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3470,8 +4006,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void sendBroadcast(final Intent intent, final String receiverPermission) {
         callHook("sendBroadcast(Intent, String)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.sendBroadcast((Intent) args[0], (String) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.sendBroadcast(superCall, (Intent) args[0], (String) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3484,8 +4021,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void sendBroadcastAsUser(final Intent intent, final UserHandle user) {
         callHook("sendBroadcastAsUser(Intent, UserHandle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.sendBroadcastAsUser((Intent) args[0], (UserHandle) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.sendBroadcastAsUser(superCall, (Intent) args[0], (UserHandle) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3499,8 +4037,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final String receiverPermission) {
         callHook("sendBroadcastAsUser(Intent, UserHandle, String)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.sendBroadcastAsUser((Intent) args[0], (UserHandle) args[1],
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.sendBroadcastAsUser(superCall, (Intent) args[0], (UserHandle) args[1],
                         (String) args[2]);
             }
         }, new ActivitySuperAction() {
@@ -3515,8 +4054,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void sendOrderedBroadcast(final Intent intent, final String receiverPermission) {
         callHook("sendOrderedBroadcast(Intent, String)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.sendOrderedBroadcast((Intent) args[0], (String) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.sendOrderedBroadcast(superCall, (Intent) args[0], (String) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3533,8 +4073,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 "sendOrderedBroadcast(Intent, String, BroadcastReceiver, Handler, int, String, Bundle)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.sendOrderedBroadcast((Intent) args[0], (String) args[1],
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.sendOrderedBroadcast(superCall, (Intent) args[0], (String) args[1],
                                 (BroadcastReceiver) args[2], (Handler) args[3], (int) args[4],
                                 (String) args[5], (Bundle) args[6]);
                     }
@@ -3557,10 +4098,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 "sendOrderedBroadcastAsUser(Intent, UserHandle, String, BroadcastReceiver, Handler, int, String, Bundle)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.sendOrderedBroadcastAsUser((Intent) args[0], (UserHandle) args[1],
-                                (String) args[2], (BroadcastReceiver) args[3], (Handler) args[4],
-                                (int) args[5], (String) args[6], (Bundle) args[7]);
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.sendOrderedBroadcastAsUser(superCall, (Intent) args[0],
+                                (UserHandle) args[1], (String) args[2], (BroadcastReceiver) args[3],
+                                (Handler) args[4], (int) args[5], (String) args[6],
+                                (Bundle) args[7]);
                     }
                 }, new ActivitySuperAction() {
                     @Override
@@ -3577,8 +4120,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void sendStickyBroadcast(final Intent intent) {
         callHook("sendStickyBroadcast(Intent)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.sendStickyBroadcast((Intent) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.sendStickyBroadcast(superCall, (Intent) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3591,8 +4135,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void sendStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
         callHook("sendStickyBroadcastAsUser(Intent, UserHandle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.sendStickyBroadcastAsUser((Intent) args[0], (UserHandle) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.sendStickyBroadcastAsUser(superCall, (Intent) args[0], (UserHandle) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3609,8 +4154,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 "sendStickyOrderedBroadcast(Intent, BroadcastReceiver, Handler, int, String, Bundle)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.sendStickyOrderedBroadcast((Intent) args[0],
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.sendStickyOrderedBroadcast(superCall, (Intent) args[0],
                                 (BroadcastReceiver) args[1], (Handler) args[2], (int) args[3],
                                 (String) args[4], (Bundle) args[5]);
                     }
@@ -3631,8 +4177,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 "sendStickyOrderedBroadcastAsUser(Intent, UserHandle, BroadcastReceiver, Handler, int, String, Bundle)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.sendStickyOrderedBroadcastAsUser((Intent) args[0],
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.sendStickyOrderedBroadcastAsUser(superCall, (Intent) args[0],
                                 (UserHandle) args[1], (BroadcastReceiver) args[2],
                                 (Handler) args[3], (int) args[4], (String) args[5],
                                 (Bundle) args[6]);
@@ -3652,8 +4199,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setActionBar(final Toolbar toolbar) {
         callHook("setActionBar(Toolbar)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setActionBar((Toolbar) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setActionBar(superCall, (Toolbar) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3666,8 +4214,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setContentTransitionManager(final TransitionManager tm) {
         callHook("setContentTransitionManager(TransitionManager)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setContentTransitionManager((TransitionManager) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setContentTransitionManager(superCall, (TransitionManager) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3680,8 +4229,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setContentView(@LayoutRes final int layoutResID) {
         callHook("setContentView(int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setContentView((int) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setContentView(superCall, (int) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3694,8 +4244,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setContentView(final View view) {
         callHook("setContentView(View)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setContentView((View) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setContentView(superCall, (View) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3708,8 +4259,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setContentView(final View view, final ViewGroup.LayoutParams params) {
         callHook("setContentView(View, ViewGroup.LayoutParams)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setContentView((View) args[0], (ViewGroup.LayoutParams) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setContentView(superCall, (View) args[0], (ViewGroup.LayoutParams) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3722,8 +4274,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setEnterSharedElementCallback(final SharedElementCallback callback) {
         callHook("setEnterSharedElementCallback(SharedElementCallback)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setEnterSharedElementCallback((SharedElementCallback) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setEnterSharedElementCallback(superCall, (SharedElementCallback) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3737,8 +4290,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("setEnterSharedElementCallback(android.app.SharedElementCallback)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.setEnterSharedElementCallback(
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.setEnterSharedElementCallback(superCall,
                                 (android.app.SharedElementCallback) args[0]);
                     }
                 }, new ActivitySuperAction() {
@@ -3753,8 +4307,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setExitSharedElementCallback(final SharedElementCallback listener) {
         callHook("setExitSharedElementCallback(SharedElementCallback)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setExitSharedElementCallback((SharedElementCallback) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setExitSharedElementCallback(superCall, (SharedElementCallback) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3768,8 +4323,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("setExitSharedElementCallback(android.app.SharedElementCallback)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.setExitSharedElementCallback(
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.setExitSharedElementCallback(superCall,
                                 (android.app.SharedElementCallback) args[0]);
                     }
                 }, new ActivitySuperAction() {
@@ -3784,8 +4340,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setFinishOnTouchOutside(final boolean finish) {
         callHook("setFinishOnTouchOutside(boolean)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setFinishOnTouchOutside((boolean) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setFinishOnTouchOutside(superCall, (boolean) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3798,8 +4355,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setImmersive(final boolean i) {
         callHook("setImmersive(boolean)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setImmersive((boolean) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setImmersive(superCall, (boolean) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3812,8 +4370,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setIntent(final Intent newIntent) {
         callHook("setIntent(Intent)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setIntent((Intent) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setIntent(superCall, (Intent) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3826,8 +4385,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setRequestedOrientation(final int requestedOrientation) {
         callHook("setRequestedOrientation(int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setRequestedOrientation((int) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setRequestedOrientation(superCall, (int) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3841,8 +4401,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("setSupportActionBar(android.support.v7.widget.Toolbar)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.setSupportActionBar((android.support.v7.widget.Toolbar) args[0]);
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.setSupportActionBar(superCall,
+                                (android.support.v7.widget.Toolbar) args[0]);
                     }
                 }, new ActivitySuperAction() {
                     @Override
@@ -3856,8 +4418,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setSupportProgress(final int progress) {
         callHook("setSupportProgress(int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setSupportProgress((int) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setSupportProgress(superCall, (int) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3870,8 +4433,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setSupportProgressBarIndeterminate(final boolean indeterminate) {
         callHook("setSupportProgressBarIndeterminate(boolean)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setSupportProgressBarIndeterminate((boolean) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setSupportProgressBarIndeterminate(superCall, (boolean) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3884,8 +4448,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setSupportProgressBarIndeterminateVisibility(final boolean visible) {
         callHook("setSupportProgressBarIndeterminateVisibility(boolean)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setSupportProgressBarIndeterminateVisibility((boolean) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setSupportProgressBarIndeterminateVisibility(superCall, (boolean) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3898,8 +4463,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setSupportProgressBarVisibility(final boolean visible) {
         callHook("setSupportProgressBarVisibility(boolean)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setSupportProgressBarVisibility((boolean) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setSupportProgressBarVisibility(superCall, (boolean) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3912,8 +4478,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setTaskDescription(final ActivityManager.TaskDescription taskDescription) {
         callHook("setTaskDescription(ActivityManager.TaskDescription)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setTaskDescription((ActivityManager.TaskDescription) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setTaskDescription(superCall, (ActivityManager.TaskDescription) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3926,8 +4493,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setTheme(@StyleRes final int resid) {
         callHook("setTheme(int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setTheme((int) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setTheme(superCall, (int) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3940,8 +4508,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setTitle(final CharSequence title) {
         callHook("setTitle(CharSequence)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setTitle((CharSequence) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setTitle(superCall, (CharSequence) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3954,8 +4523,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setTitle(final int titleId) {
         callHook("setTitle(int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setTitle((int) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setTitle(superCall, (int) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3968,8 +4538,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setTitleColor(final int textColor) {
         callHook("setTitleColor(int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setTitleColor((int) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setTitleColor(superCall, (int) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3982,8 +4553,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setVisible(final boolean visible) {
         callHook("setVisible(boolean)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.setVisible((boolean) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.setVisible(superCall, (boolean) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -3996,9 +4568,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setWallpaper(final Bitmap bitmap) throws IOException {
         callHook("setWallpaper(Bitmap)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
                 try {
-                    plugin.setWallpaper((Bitmap) args[0]);
+                    plugin.setWallpaper(superCall, (Bitmap) args[0]);
                 } catch (IOException e) {
                     throw new SuppressedException(e);
                 }
@@ -4018,9 +4591,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void setWallpaper(final InputStream data) throws IOException {
         callHook("setWallpaper(InputStream)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
                 try {
-                    plugin.setWallpaper((InputStream) args[0]);
+                    plugin.setWallpaper(superCall, (InputStream) args[0]);
                 } catch (IOException e) {
                     throw new SuppressedException(e);
                 }
@@ -4041,8 +4615,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("shouldShowRequestPermissionRationale(String)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.shouldShowRequestPermissionRationale((String) args[0]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .shouldShowRequestPermissionRationale(superCall, (String) args[0]);
+
                     }
                 },
                 new ActivitySuperFunction<Boolean>("shouldShowRequestPermissionRationale(String)") {
@@ -4057,8 +4635,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean shouldUpRecreateTask(final Intent targetIntent) {
         return callFunction("shouldUpRecreateTask(Intent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.shouldUpRecreateTask((Intent) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.shouldUpRecreateTask(superCall, (Intent) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("shouldUpRecreateTask(Intent)") {
             @Override
@@ -4071,8 +4652,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean showAssist(final Bundle args) {
         return callFunction("showAssist(Bundle)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.showAssist((Bundle) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.showAssist(superCall, (Bundle) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("showAssist(Bundle)") {
             @Override
@@ -4085,8 +4669,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void showLockTaskEscapeMessage() {
         callHook("showLockTaskEscapeMessage()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.showLockTaskEscapeMessage();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.showLockTaskEscapeMessage(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4101,9 +4686,13 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("startActionMode(android.view.ActionMode.Callback)",
                 new PluginMethodFunction<android.view.ActionMode>() {
                     @Override
-                    public android.view.ActionMode call(final ActivityPlugin plugin,
-                            final Object... args) {
-                        return plugin.startActionMode((android.view.ActionMode.Callback) args[0]);
+                    public android.view.ActionMode call(
+                            final ActivitySuperFunction<android.view.ActionMode> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.startActionMode(superCall,
+                                (android.view.ActionMode.Callback) args[0]);
+
                     }
                 }, new ActivitySuperFunction<android.view.ActionMode>(
                         "startActionMode(android.view.ActionMode.Callback)") {
@@ -4120,10 +4709,13 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("startActionMode(android.view.ActionMode.Callback, int)",
                 new PluginMethodFunction<android.view.ActionMode>() {
                     @Override
-                    public android.view.ActionMode call(final ActivityPlugin plugin,
-                            final Object... args) {
-                        return plugin.startActionMode((android.view.ActionMode.Callback) args[0],
-                                (int) args[1]);
+                    public android.view.ActionMode call(
+                            final ActivitySuperFunction<android.view.ActionMode> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.startActionMode(superCall,
+                                (android.view.ActionMode.Callback) args[0], (int) args[1]);
+
                     }
                 }, new ActivitySuperFunction<android.view.ActionMode>(
                         "startActionMode(android.view.ActionMode.Callback, int)") {
@@ -4139,8 +4731,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void startActivities(final Intent[] intents) {
         callHook("startActivities(Intent[])", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startActivities((Intent[]) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startActivities(superCall, (Intent[]) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4153,8 +4746,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void startActivities(final Intent[] intents, final Bundle options) {
         callHook("startActivities(Intent[], Bundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startActivities((Intent[]) args[0], (Bundle) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startActivities(superCall, (Intent[]) args[0], (Bundle) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4167,8 +4761,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void startActivity(final Intent intent) {
         callHook("startActivity(Intent)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startActivity((Intent) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startActivity(superCall, (Intent) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4181,8 +4776,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void startActivity(final Intent intent, final Bundle options) {
         callHook("startActivity(Intent, Bundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startActivity((Intent) args[0], (Bundle) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startActivity(superCall, (Intent) args[0], (Bundle) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4195,8 +4791,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void startActivityForResult(final Intent intent, final int requestCode) {
         callHook("startActivityForResult(Intent, int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startActivityForResult((Intent) args[0], (int) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startActivityForResult(superCall, (Intent) args[0], (int) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4210,8 +4807,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final Bundle options) {
         callHook("startActivityForResult(Intent, int, Bundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startActivityForResult((Intent) args[0], (int) args[1], (Bundle) args[2]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startActivityForResult(superCall, (Intent) args[0], (int) args[1],
+                        (Bundle) args[2]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4226,8 +4825,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final int requestCode) {
         callHook("startActivityFromChild(Activity, Intent, int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startActivityFromChild((Activity) args[0], (Intent) args[1], (int) args[2]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startActivityFromChild(superCall, (Activity) args[0], (Intent) args[1],
+                        (int) args[2]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4242,9 +4843,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final int requestCode, final Bundle options) {
         callHook("startActivityFromChild(Activity, Intent, int, Bundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startActivityFromChild((Activity) args[0], (Intent) args[1], (int) args[2],
-                        (Bundle) args[3]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startActivityFromChild(superCall, (Activity) args[0], (Intent) args[1],
+                        (int) args[2], (Bundle) args[3]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4259,8 +4861,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final int requestCode) {
         callHook("startActivityFromFragment(Fragment, Intent, int)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startActivityFromFragment((Fragment) args[0], (Intent) args[1],
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startActivityFromFragment(superCall, (Fragment) args[0], (Intent) args[1],
                         (int) args[2]);
             }
         }, new ActivitySuperAction() {
@@ -4277,9 +4880,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("startActivityFromFragment(Fragment, Intent, int, Bundle)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.startActivityFromFragment((Fragment) args[0], (Intent) args[1],
-                                (int) args[2], (Bundle) args[3]);
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.startActivityFromFragment(superCall, (Fragment) args[0],
+                                (Intent) args[1], (int) args[2], (Bundle) args[3]);
                     }
                 }, new ActivitySuperAction() {
                     @Override
@@ -4295,8 +4899,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("startActivityFromFragment(android.app.Fragment, Intent, int)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.startActivityFromFragment((android.app.Fragment) args[0],
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.startActivityFromFragment(superCall, (android.app.Fragment) args[0],
                                 (Intent) args[1], (int) args[2]);
                     }
                 }, new ActivitySuperAction() {
@@ -4313,8 +4918,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
-                        plugin.startActivityFromFragment((android.app.Fragment) args[0],
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+                        plugin.startActivityFromFragment(superCall, (android.app.Fragment) args[0],
                                 (Intent) args[1], (int) args[2], (Bundle) args[3]);
                     }
                 }, new ActivitySuperAction() {
@@ -4330,8 +4936,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("startActivityIfNeeded(Intent, int)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.startActivityIfNeeded((Intent) args[0], (int) args[1]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .startActivityIfNeeded(superCall, (Intent) args[0], (int) args[1]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("startActivityIfNeeded(Intent, int)") {
                     @Override
@@ -4347,9 +4957,13 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("startActivityIfNeeded(Intent, int, Bundle)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.startActivityIfNeeded((Intent) args[0], (int) args[1],
-                                (Bundle) args[2]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .startActivityIfNeeded(superCall, (Intent) args[0], (int) args[1],
+                                        (Bundle) args[2]);
+
                     }
                 },
                 new ActivitySuperFunction<Boolean>("startActivityIfNeeded(Intent, int, Bundle)") {
@@ -4367,10 +4981,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("startInstrumentation(ComponentName, String, Bundle)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin
-                                .startInstrumentation((ComponentName) args[0], (String) args[1],
-                                        (Bundle) args[2]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.startInstrumentation(superCall, (ComponentName) args[0],
+                                (String) args[1], (Bundle) args[2]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>(
                         "startInstrumentation(ComponentName, String, Bundle)") {
@@ -4388,10 +5004,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("startIntentSender(IntentSender, Intent, int, int, int)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
                         try {
-                            plugin.startIntentSender((IntentSender) args[0], (Intent) args[1],
-                                    (int) args[2], (int) args[3], (int) args[4]);
+                            plugin.startIntentSender(superCall, (IntentSender) args[0],
+                                    (Intent) args[1], (int) args[2], (int) args[3], (int) args[4]);
                         } catch (IntentSender.SendIntentException e) {
                             throw new SuppressedException(e);
                         }
@@ -4415,10 +5032,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("startIntentSender(IntentSender, Intent, int, int, int, Bundle)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
                         try {
-                            plugin.startIntentSender((IntentSender) args[0], (Intent) args[1],
-                                    (int) args[2], (int) args[3], (int) args[4], (Bundle) args[5]);
+                            plugin.startIntentSender(superCall, (IntentSender) args[0],
+                                    (Intent) args[1], (int) args[2], (int) args[3], (int) args[4],
+                                    (Bundle) args[5]);
                         } catch (IntentSender.SendIntentException e) {
                             throw new SuppressedException(e);
                         }
@@ -4443,10 +5062,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("startIntentSenderForResult(IntentSender, int, Intent, int, int, int)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
                         try {
-                            plugin.startIntentSenderForResult((IntentSender) args[0], (int) args[1],
-                                    (Intent) args[2], (int) args[3], (int) args[4], (int) args[5]);
+                            plugin.startIntentSenderForResult(superCall, (IntentSender) args[0],
+                                    (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
+                                    (int) args[5]);
                         } catch (IntentSender.SendIntentException e) {
                             throw new SuppressedException(e);
                         }
@@ -4471,11 +5092,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("startIntentSenderForResult(IntentSender, int, Intent, int, int, int, Bundle)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
                         try {
-                            plugin.startIntentSenderForResult((IntentSender) args[0], (int) args[1],
-                                    (Intent) args[2], (int) args[3], (int) args[4], (int) args[5],
-                                    (Bundle) args[6]);
+                            plugin.startIntentSenderForResult(superCall, (IntentSender) args[0],
+                                    (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
+                                    (int) args[5], (Bundle) args[6]);
                         } catch (IntentSender.SendIntentException e) {
                             throw new SuppressedException(e);
                         }
@@ -4500,9 +5122,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
         callHook("startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
                         try {
-                            plugin.startIntentSenderFromChild((Activity) args[0],
+                            plugin.startIntentSenderFromChild(superCall, (Activity) args[0],
                                     (IntentSender) args[1], (int) args[2], (Intent) args[3],
                                     (int) args[4], (int) args[5], (int) args[6]);
                         } catch (IntentSender.SendIntentException e) {
@@ -4531,9 +5154,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 "startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int, Bundle)",
                 new PluginMethodAction() {
                     @Override
-                    public void call(final ActivityPlugin plugin, final Object... args) {
+                    public void call(final ActivitySuperFunction superCall,
+                            final ActivityPlugin plugin, final Object... args) {
                         try {
-                            plugin.startIntentSenderFromChild((Activity) args[0],
+                            plugin.startIntentSenderFromChild(superCall, (Activity) args[0],
                                     (IntentSender) args[1], (int) args[2], (Intent) args[3],
                                     (int) args[4], (int) args[5], (int) args[6], (Bundle) args[7]);
                         } catch (IntentSender.SendIntentException e) {
@@ -4558,8 +5182,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void startLockTask() {
         callHook("startLockTask()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startLockTask();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startLockTask(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4572,8 +5197,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void startManagingCursor(final Cursor c) {
         callHook("startManagingCursor(Cursor)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startManagingCursor((Cursor) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startManagingCursor(superCall, (Cursor) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4587,8 +5213,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("startNextMatchingActivity(Intent)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.startNextMatchingActivity((Intent) args[0]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.startNextMatchingActivity(superCall, (Intent) args[0]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("startNextMatchingActivity(Intent)") {
                     @Override
@@ -4602,8 +5231,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("startNextMatchingActivity(Intent, Bundle)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.startNextMatchingActivity((Intent) args[0], (Bundle) args[1]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.startNextMatchingActivity(superCall, (Intent) args[0],
+                                (Bundle) args[1]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("startNextMatchingActivity(Intent, Bundle)") {
                     @Override
@@ -4617,8 +5250,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void startPostponedEnterTransition() {
         callHook("startPostponedEnterTransition()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startPostponedEnterTransition();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startPostponedEnterTransition(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4632,8 +5266,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
             final Bundle appSearchData, final boolean globalSearch) {
         callHook("startSearch(String, boolean, Bundle, boolean)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.startSearch((String) args[0], (boolean) args[1], (Bundle) args[2],
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.startSearch(superCall, (String) args[0], (boolean) args[1], (Bundle) args[2],
                         (boolean) args[3]);
             }
         }, new ActivitySuperAction() {
@@ -4648,8 +5283,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public ComponentName startService(final Intent service) {
         return callFunction("startService(Intent)", new PluginMethodFunction<ComponentName>() {
             @Override
-            public ComponentName call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.startService((Intent) args[0]);
+            public ComponentName call(final ActivitySuperFunction<ComponentName> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.startService(superCall, (Intent) args[0]);
+
             }
         }, new ActivitySuperFunction<ComponentName>("startService(Intent)") {
             @Override
@@ -4663,8 +5301,12 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("startSupportActionMode(ActionMode.Callback)",
                 new PluginMethodFunction<ActionMode>() {
                     @Override
-                    public ActionMode call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.startSupportActionMode((ActionMode.Callback) args[0]);
+                    public ActionMode call(final ActivitySuperFunction<ActionMode> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin
+                                .startSupportActionMode(superCall, (ActionMode.Callback) args[0]);
+
                     }
                 }, new ActivitySuperFunction<ActionMode>(
                         "startSupportActionMode(ActionMode.Callback)") {
@@ -4679,8 +5321,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void stopLockTask() {
         callHook("stopLockTask()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.stopLockTask();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.stopLockTask(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4693,8 +5336,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void stopManagingCursor(final Cursor c) {
         callHook("stopManagingCursor(Cursor)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.stopManagingCursor((Cursor) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.stopManagingCursor(superCall, (Cursor) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4707,8 +5351,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public boolean stopService(final Intent name) {
         return callFunction("stopService(Intent)", new PluginMethodFunction<Boolean>() {
             @Override
-            public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                return plugin.stopService((Intent) args[0]);
+            public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                    final ActivityPlugin plugin, final Object... args) {
+
+                return plugin.stopService(superCall, (Intent) args[0]);
+
             }
         }, new ActivitySuperFunction<Boolean>("stopService(Intent)") {
             @Override
@@ -4721,8 +5368,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void supportFinishAfterTransition() {
         callHook("supportFinishAfterTransition()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.supportFinishAfterTransition();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.supportFinishAfterTransition(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4735,8 +5383,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void supportInvalidateOptionsMenu() {
         callHook("supportInvalidateOptionsMenu()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.supportInvalidateOptionsMenu();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.supportInvalidateOptionsMenu(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4749,8 +5398,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void supportNavigateUpTo(@NonNull final Intent upIntent) {
         callHook("supportNavigateUpTo(Intent)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.supportNavigateUpTo((Intent) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.supportNavigateUpTo(superCall, (Intent) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4763,8 +5413,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void supportPostponeEnterTransition() {
         callHook("supportPostponeEnterTransition()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.supportPostponeEnterTransition();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.supportPostponeEnterTransition(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4778,8 +5429,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("supportRequestWindowFeature(int)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.supportRequestWindowFeature((int) args[0]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.supportRequestWindowFeature(superCall, (int) args[0]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("supportRequestWindowFeature(int)") {
                     @Override
@@ -4793,8 +5447,11 @@ public class ActivityDelegate extends ActivityDelegateBase {
         return callFunction("supportShouldUpRecreateTask(Intent)",
                 new PluginMethodFunction<Boolean>() {
                     @Override
-                    public Boolean call(final ActivityPlugin plugin, final Object... args) {
-                        return plugin.supportShouldUpRecreateTask((Intent) args[0]);
+                    public Boolean call(final ActivitySuperFunction<Boolean> superCall,
+                            final ActivityPlugin plugin, final Object... args) {
+
+                        return plugin.supportShouldUpRecreateTask(superCall, (Intent) args[0]);
+
                     }
                 }, new ActivitySuperFunction<Boolean>("supportShouldUpRecreateTask(Intent)") {
                     @Override
@@ -4807,8 +5464,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void supportStartPostponedEnterTransition() {
         callHook("supportStartPostponedEnterTransition()", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.supportStartPostponedEnterTransition();
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.supportStartPostponedEnterTransition(superCall);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4821,8 +5479,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void takeKeyEvents(final boolean get) {
         callHook("takeKeyEvents(boolean)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.takeKeyEvents((boolean) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.takeKeyEvents(superCall, (boolean) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4835,8 +5494,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void triggerSearch(final String query, final Bundle appSearchData) {
         callHook("triggerSearch(String, Bundle)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.triggerSearch((String) args[0], (Bundle) args[1]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.triggerSearch(superCall, (String) args[0], (Bundle) args[1]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4849,8 +5509,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void unbindService(final ServiceConnection conn) {
         callHook("unbindService(ServiceConnection)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.unbindService((ServiceConnection) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.unbindService(superCall, (ServiceConnection) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4863,8 +5524,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void unregisterComponentCallbacks(final ComponentCallbacks callback) {
         callHook("unregisterComponentCallbacks(ComponentCallbacks)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.unregisterComponentCallbacks((ComponentCallbacks) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.unregisterComponentCallbacks(superCall, (ComponentCallbacks) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4877,8 +5539,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void unregisterForContextMenu(final View view) {
         callHook("unregisterForContextMenu(View)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.unregisterForContextMenu((View) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.unregisterForContextMenu(superCall, (View) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
@@ -4891,8 +5554,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
     public void unregisterReceiver(final BroadcastReceiver receiver) {
         callHook("unregisterReceiver(BroadcastReceiver)", new PluginMethodAction() {
             @Override
-            public void call(final ActivityPlugin plugin, final Object... args) {
-                plugin.unregisterReceiver((BroadcastReceiver) args[0]);
+            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.unregisterReceiver(superCall, (BroadcastReceiver) args[0]);
             }
         }, new ActivitySuperAction() {
             @Override
