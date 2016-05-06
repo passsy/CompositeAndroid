@@ -1,5 +1,7 @@
 package com.pascalwelsch.compositeandroid.activity;
 
+import com.pascalwelsch.compositeandroid.core.Removable;
+
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 

@@ -1,5 +1,12 @@
 package com.pascalwelsch.compositeandroid.activity;
 
+import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
+import com.pascalwelsch.compositeandroid.core.PluginCall;
+import com.pascalwelsch.compositeandroid.core.PluginCallVoid;
+import com.pascalwelsch.compositeandroid.core.Removable;
+import com.pascalwelsch.compositeandroid.core.SuperCall;
+import com.pascalwelsch.compositeandroid.core.SuperCallVoid;
+
 import android.support.annotation.NonNull;
 
 import java.util.Iterator;
@@ -11,8 +18,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 abstract class ActivityDelegateBase {
 
     protected final CompositeActivity mActivity;
-
-    protected ActivityPluginBase mCallingPlugin;
 
     protected List<ActivityPlugin> mPlugins = new CopyOnWriteArrayList<>();
 
@@ -29,6 +34,7 @@ abstract class ActivityDelegateBase {
             @Override
             public void remove() {
                 mPlugins.remove(plugin);
+                plugin.setActivityDelegate(null);
             }
         };
     }
@@ -58,11 +64,10 @@ abstract class ActivityDelegateBase {
 
     @NonNull
     protected <T> T callForwardFunction(final String methodName,
-            final PluginMethodFunction<T> methodCall, final ActivitySuperFunction<T> activitySuper,
+            final PluginCall<T> methodCall, final SuperCall<T> activitySuper,
             final Object... args) {
 
         final LinkedList<ActivityPlugin> plugins = new LinkedList<>(mPlugins);
-        plugins.remove(mCallingPlugin);
 
         final ListIterator<ActivityPlugin> iterator = plugins.listIterator();
         return callForwardFunction(iterator, methodName, methodCall, activitySuper, args);
@@ -71,12 +76,12 @@ abstract class ActivityDelegateBase {
     @NonNull
     protected <T> T callForwardFunction(final Iterator<ActivityPlugin> iterator,
             final String methodName,
-            final PluginMethodFunction<T> methodCall, final ActivitySuperFunction<T> activitySuper,
+            final PluginCall<T> methodCall, final SuperCall<T> activitySuper,
             final Object... args) {
 
         if (iterator.hasNext()) {
             final ActivityPlugin plugin = iterator.next();
-            final ActivitySuperFunction<T> listener = new ActivitySuperFunction<T>(methodName) {
+            final NamedSuperCall<T> listener = new NamedSuperCall<T>(methodName) {
                 @Override
                 public T call(final Object... args) {
                     return callForwardFunction(iterator, methodName, methodCall, activitySuper,
@@ -92,11 +97,10 @@ abstract class ActivityDelegateBase {
 
     @NonNull
     protected <T> T callFunction(final String methodName,
-            final PluginMethodFunction<T> methodCall, final ActivitySuperFunction<T> activitySuper,
+            final PluginCall<T> methodCall, final SuperCall<T> activitySuper,
             final Object... args) {
 
         final LinkedList<ActivityPlugin> plugins = new LinkedList<>(mPlugins);
-        plugins.remove(mCallingPlugin);
 
         final ListIterator<ActivityPlugin> iterator = plugins.listIterator(plugins.size());
         return callFunction(iterator, methodName, methodCall, activitySuper, args);
@@ -105,12 +109,12 @@ abstract class ActivityDelegateBase {
     @NonNull
     protected <T> T callFunction(final ListIterator<ActivityPlugin> iterator,
             final String methodName,
-            final PluginMethodFunction<T> methodCall, final ActivitySuperFunction<T> activitySuper,
+            final PluginCall<T> methodCall, final SuperCall<T> activitySuper,
             final Object... args) {
 
         if (iterator.hasPrevious()) {
             ActivityPlugin plugin = iterator.previous();
-            final ActivitySuperFunction<T> listener = new ActivitySuperFunction<T>(methodName) {
+            final NamedSuperCall<T> listener = new NamedSuperCall<T>(methodName) {
                 @Override
                 public T call(final Object... args) {
                     return callFunction(iterator, methodName, methodCall, activitySuper, args);
@@ -125,24 +129,22 @@ abstract class ActivityDelegateBase {
     }
 
     protected void callHook(final String methodName,
-            final PluginMethodAction methodCall, final ActivitySuperAction activitySuper,
+            final PluginCallVoid methodCall, final SuperCallVoid activitySuper,
             final Object... args) {
 
         final LinkedList<ActivityPlugin> plugins = new LinkedList<>(mPlugins);
-        plugins.remove(mCallingPlugin);
 
         final ListIterator<ActivityPlugin> iterator = plugins.listIterator(plugins.size());
         callHook(iterator, methodName, methodCall, activitySuper, args);
     }
 
     void callHook(final ListIterator<ActivityPlugin> iterator, final String methodName,
-            final PluginMethodAction methodCall, final ActivitySuperAction activitySuper,
+            final PluginCallVoid methodCall, final SuperCallVoid activitySuper,
             final Object... args) {
 
         if (iterator.hasPrevious()) {
             final ActivityPlugin plugin = iterator.previous();
-            final ActivitySuperFunction<Void> listener = new ActivitySuperFunction<Void>(
-                    methodName) {
+            final NamedSuperCall<Void> listener = new NamedSuperCall<Void>(methodName) {
                 @Override
                 public Void call(final Object... args) {
                     callHook(iterator, methodName, methodCall, activitySuper, args);
@@ -150,13 +152,8 @@ abstract class ActivityDelegateBase {
                 }
             };
             methodCall.call(listener, plugin, args);
-
         } else {
             activitySuper.call(args);
         }
-    }
-
-    private void removePlugin(final ActivityPlugin plugin) {
-        mPlugins.remove(plugin);
     }
 }

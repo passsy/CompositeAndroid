@@ -1,5 +1,7 @@
 package com.pascalwelsch.compositeandroid.activity;
 
+import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
@@ -1761,7 +1763,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         mSuperListeners.pop().call(receiver);
     }
 
-    void addContentView(final ActivitySuperFunction superCall, final View view,
+    void addContentView(final NamedSuperCall<Void> superCall, final View view,
             final ViewGroup.LayoutParams params) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1769,7 +1771,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void applyOverrideConfiguration(final ActivitySuperFunction superCall,
+    void applyOverrideConfiguration(final NamedSuperCall<Void> superCall,
             final Configuration overrideConfiguration) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1777,14 +1779,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void attachBaseContext(final ActivitySuperFunction superCall, final Context newBase) {
+    void attachBaseContext(final NamedSuperCall<Void> superCall, final Context newBase) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             attachBaseContext(newBase);
         }
     }
 
-    boolean bindService(final ActivitySuperFunction superCall, final Intent service,
+    boolean bindService(final NamedSuperCall<Boolean> superCall, final Intent service,
             final ServiceConnection conn, final int flags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1792,7 +1794,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    int checkCallingOrSelfPermission(final ActivitySuperFunction superCall,
+    int checkCallingOrSelfPermission(final NamedSuperCall<Integer> superCall,
             final String permission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1800,7 +1802,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    int checkCallingOrSelfUriPermission(final ActivitySuperFunction superCall, final Uri uri,
+    int checkCallingOrSelfUriPermission(final NamedSuperCall<Integer> superCall, final Uri uri,
             final int modeFlags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1808,14 +1810,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    int checkCallingPermission(final ActivitySuperFunction superCall, final String permission) {
+    int checkCallingPermission(final NamedSuperCall<Integer> superCall, final String permission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return checkCallingPermission(permission);
         }
     }
 
-    int checkCallingUriPermission(final ActivitySuperFunction superCall, final Uri uri,
+    int checkCallingUriPermission(final NamedSuperCall<Integer> superCall, final Uri uri,
             final int modeFlags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1823,7 +1825,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    int checkPermission(final ActivitySuperFunction superCall, final String permission,
+    int checkPermission(final NamedSuperCall<Integer> superCall, final String permission,
             final int pid, final int uid) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1831,14 +1833,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    int checkSelfPermission(final ActivitySuperFunction superCall, final String permission) {
+    int checkSelfPermission(final NamedSuperCall<Integer> superCall, final String permission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return checkSelfPermission(permission);
         }
     }
 
-    int checkUriPermission(final ActivitySuperFunction superCall, final Uri uri, final int pid,
+    int checkUriPermission(final NamedSuperCall<Integer> superCall, final Uri uri, final int pid,
             final int uid, final int modeFlags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1846,7 +1848,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    int checkUriPermission(final ActivitySuperFunction superCall, final Uri uri,
+    int checkUriPermission(final NamedSuperCall<Integer> superCall, final Uri uri,
             final String readPermission, final String writePermission, final int pid, final int uid,
             final int modeFlags) {
         synchronized (mSuperListeners) {
@@ -1855,28 +1857,28 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void clearWallpaper(final ActivitySuperFunction superCall) throws IOException {
+    void clearWallpaper(final NamedSuperCall<Void> superCall) throws IOException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             clearWallpaper();
         }
     }
 
-    void closeContextMenu(final ActivitySuperFunction superCall) {
+    void closeContextMenu(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             closeContextMenu();
         }
     }
 
-    void closeOptionsMenu(final ActivitySuperFunction superCall) {
+    void closeOptionsMenu(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             closeOptionsMenu();
         }
     }
 
-    Context createConfigurationContext(final ActivitySuperFunction superCall,
+    Context createConfigurationContext(final NamedSuperCall<Context> superCall,
             final Configuration overrideConfiguration) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1884,14 +1886,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    Context createDisplayContext(final ActivitySuperFunction superCall, final Display display) {
+    Context createDisplayContext(final NamedSuperCall<Context> superCall, final Display display) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return createDisplayContext(display);
         }
     }
 
-    Context createPackageContext(final ActivitySuperFunction superCall, final String packageName,
+    Context createPackageContext(final NamedSuperCall<Context> superCall, final String packageName,
             final int flags) throws PackageManager.NameNotFoundException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1899,36 +1901,36 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    PendingIntent createPendingResult(final ActivitySuperFunction superCall, final int requestCode,
-            @NonNull final Intent data, final int flags) {
+    PendingIntent createPendingResult(final NamedSuperCall<PendingIntent> superCall,
+            final int requestCode, @NonNull final Intent data, final int flags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return createPendingResult(requestCode, data, flags);
         }
     }
 
-    String[] databaseList(final ActivitySuperFunction superCall) {
+    String[] databaseList(final NamedSuperCall<String[]> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return databaseList();
         }
     }
 
-    boolean deleteDatabase(final ActivitySuperFunction superCall, final String name) {
+    boolean deleteDatabase(final NamedSuperCall<Boolean> superCall, final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return deleteDatabase(name);
         }
     }
 
-    boolean deleteFile(final ActivitySuperFunction superCall, final String name) {
+    boolean deleteFile(final NamedSuperCall<Boolean> superCall, final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return deleteFile(name);
         }
     }
 
-    boolean dispatchGenericMotionEvent(final ActivitySuperFunction superCall,
+    boolean dispatchGenericMotionEvent(final NamedSuperCall<Boolean> superCall,
             final MotionEvent ev) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1936,21 +1938,22 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean dispatchKeyEvent(final ActivitySuperFunction superCall, final KeyEvent event) {
+    boolean dispatchKeyEvent(final NamedSuperCall<Boolean> superCall, final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return dispatchKeyEvent(event);
         }
     }
 
-    boolean dispatchKeyShortcutEvent(final ActivitySuperFunction superCall, final KeyEvent event) {
+    boolean dispatchKeyShortcutEvent(final NamedSuperCall<Boolean> superCall,
+            final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return dispatchKeyShortcutEvent(event);
         }
     }
 
-    boolean dispatchPopulateAccessibilityEvent(final ActivitySuperFunction superCall,
+    boolean dispatchPopulateAccessibilityEvent(final NamedSuperCall<Boolean> superCall,
             final AccessibilityEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1958,21 +1961,21 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean dispatchTouchEvent(final ActivitySuperFunction superCall, final MotionEvent ev) {
+    boolean dispatchTouchEvent(final NamedSuperCall<Boolean> superCall, final MotionEvent ev) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return dispatchTouchEvent(ev);
         }
     }
 
-    boolean dispatchTrackballEvent(final ActivitySuperFunction superCall, final MotionEvent ev) {
+    boolean dispatchTrackballEvent(final NamedSuperCall<Boolean> superCall, final MotionEvent ev) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return dispatchTrackballEvent(ev);
         }
     }
 
-    void dump(final ActivitySuperFunction superCall, final String prefix, final FileDescriptor fd,
+    void dump(final NamedSuperCall<Void> superCall, final String prefix, final FileDescriptor fd,
             final PrintWriter writer, final String[] args) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1980,7 +1983,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void enforceCallingOrSelfPermission(final ActivitySuperFunction superCall,
+    void enforceCallingOrSelfPermission(final NamedSuperCall<Void> superCall,
             final String permission, final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1988,7 +1991,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void enforceCallingOrSelfUriPermission(final ActivitySuperFunction superCall, final Uri uri,
+    void enforceCallingOrSelfUriPermission(final NamedSuperCall<Void> superCall, final Uri uri,
             final int modeFlags, final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1996,7 +1999,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void enforceCallingPermission(final ActivitySuperFunction superCall, final String permission,
+    void enforceCallingPermission(final NamedSuperCall<Void> superCall, final String permission,
             final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2004,7 +2007,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void enforceCallingUriPermission(final ActivitySuperFunction superCall, final Uri uri,
+    void enforceCallingUriPermission(final NamedSuperCall<Void> superCall, final Uri uri,
             final int modeFlags, final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2012,7 +2015,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void enforcePermission(final ActivitySuperFunction superCall, final String permission,
+    void enforcePermission(final NamedSuperCall<Void> superCall, final String permission,
             final int pid, final int uid, final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2020,7 +2023,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void enforceUriPermission(final ActivitySuperFunction superCall, final Uri uri, final int pid,
+    void enforceUriPermission(final NamedSuperCall<Void> superCall, final Uri uri, final int pid,
             final int uid, final int modeFlags, final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2028,7 +2031,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void enforceUriPermission(final ActivitySuperFunction superCall, final Uri uri,
+    void enforceUriPermission(final NamedSuperCall<Void> superCall, final Uri uri,
             final String readPermission, final String writePermission, final int pid, final int uid,
             final int modeFlags, final String message) {
         synchronized (mSuperListeners) {
@@ -2038,35 +2041,35 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    String[] fileList(final ActivitySuperFunction superCall) {
+    String[] fileList(final NamedSuperCall<String[]> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return fileList();
         }
     }
 
-    View findViewById(final ActivitySuperFunction superCall, @IdRes final int id) {
+    View findViewById(final NamedSuperCall<View> superCall, @IdRes final int id) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return findViewById(id);
         }
     }
 
-    void finish(final ActivitySuperFunction superCall) {
+    void finish(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finish();
         }
     }
 
-    void finishActivity(final ActivitySuperFunction superCall, final int requestCode) {
+    void finishActivity(final NamedSuperCall<Void> superCall, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishActivity(requestCode);
         }
     }
 
-    void finishActivityFromChild(final ActivitySuperFunction superCall,
+    void finishActivityFromChild(final NamedSuperCall<Void> superCall,
             @NonNull final Activity child, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2074,400 +2077,405 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void finishAffinity(final ActivitySuperFunction superCall) {
+    void finishAffinity(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishAffinity();
         }
     }
 
-    void finishAfterTransition(final ActivitySuperFunction superCall) {
+    void finishAfterTransition(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishAfterTransition();
         }
     }
 
-    void finishAndRemoveTask(final ActivitySuperFunction superCall) {
+    void finishAndRemoveTask(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishAndRemoveTask();
         }
     }
 
-    void finishFromChild(final ActivitySuperFunction superCall, final Activity child) {
+    void finishFromChild(final NamedSuperCall<Void> superCall, final Activity child) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishFromChild(child);
         }
     }
 
-    android.app.ActionBar getActionBar(final ActivitySuperFunction superCall) {
+    android.app.ActionBar getActionBar(final NamedSuperCall<android.app.ActionBar> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getActionBar();
         }
     }
 
-    Context getApplicationContext(final ActivitySuperFunction superCall) {
+    Context getApplicationContext(final NamedSuperCall<Context> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getApplicationContext();
         }
     }
 
-    ApplicationInfo getApplicationInfo(final ActivitySuperFunction superCall) {
+    ApplicationInfo getApplicationInfo(final NamedSuperCall<ApplicationInfo> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getApplicationInfo();
         }
     }
 
-    AssetManager getAssets(final ActivitySuperFunction superCall) {
+    AssetManager getAssets(final NamedSuperCall<AssetManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getAssets();
         }
     }
 
-    Context getBaseContext(final ActivitySuperFunction superCall) {
+    Context getBaseContext(final NamedSuperCall<Context> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getBaseContext();
         }
     }
 
-    File getCacheDir(final ActivitySuperFunction superCall) {
+    File getCacheDir(final NamedSuperCall<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getCacheDir();
         }
     }
 
-    ComponentName getCallingActivity(final ActivitySuperFunction superCall) {
+    ComponentName getCallingActivity(final NamedSuperCall<ComponentName> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getCallingActivity();
         }
     }
 
-    String getCallingPackage(final ActivitySuperFunction superCall) {
+    String getCallingPackage(final NamedSuperCall<String> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getCallingPackage();
         }
     }
 
-    int getChangingConfigurations(final ActivitySuperFunction superCall) {
+    int getChangingConfigurations(final NamedSuperCall<Integer> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getChangingConfigurations();
         }
     }
 
-    ClassLoader getClassLoader(final ActivitySuperFunction superCall) {
+    ClassLoader getClassLoader(final NamedSuperCall<ClassLoader> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getClassLoader();
         }
     }
 
-    File getCodeCacheDir(final ActivitySuperFunction superCall) {
+    File getCodeCacheDir(final NamedSuperCall<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getCodeCacheDir();
         }
     }
 
-    ComponentName getComponentName(final ActivitySuperFunction superCall) {
+    ComponentName getComponentName(final NamedSuperCall<ComponentName> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getComponentName();
         }
     }
 
-    ContentResolver getContentResolver(final ActivitySuperFunction superCall) {
+    ContentResolver getContentResolver(final NamedSuperCall<ContentResolver> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getContentResolver();
         }
     }
 
-    Scene getContentScene(final ActivitySuperFunction superCall) {
+    Scene getContentScene(final NamedSuperCall<Scene> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getContentScene();
         }
     }
 
-    TransitionManager getContentTransitionManager(final ActivitySuperFunction superCall) {
+    TransitionManager getContentTransitionManager(
+            final NamedSuperCall<TransitionManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getContentTransitionManager();
         }
     }
 
-    View getCurrentFocus(final ActivitySuperFunction superCall) {
+    View getCurrentFocus(final NamedSuperCall<View> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getCurrentFocus();
         }
     }
 
-    File getDatabasePath(final ActivitySuperFunction superCall, final String name) {
+    File getDatabasePath(final NamedSuperCall<File> superCall, final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getDatabasePath(name);
         }
     }
 
-    AppCompatDelegate getDelegate(final ActivitySuperFunction superCall) {
+    AppCompatDelegate getDelegate(final NamedSuperCall<AppCompatDelegate> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getDelegate();
         }
     }
 
-    File getDir(final ActivitySuperFunction superCall, final String name, final int mode) {
+    File getDir(final NamedSuperCall<File> superCall, final String name, final int mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getDir(name, mode);
         }
     }
 
-    ActionBarDrawerToggle.Delegate getDrawerToggleDelegate(final ActivitySuperFunction superCall) {
+    ActionBarDrawerToggle.Delegate getDrawerToggleDelegate(
+            final NamedSuperCall<ActionBarDrawerToggle.Delegate> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getDrawerToggleDelegate();
         }
     }
 
-    File getExternalCacheDir(final ActivitySuperFunction superCall) {
+    File getExternalCacheDir(final NamedSuperCall<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getExternalCacheDir();
         }
     }
 
-    File[] getExternalCacheDirs(final ActivitySuperFunction superCall) {
+    File[] getExternalCacheDirs(final NamedSuperCall<File[]> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getExternalCacheDirs();
         }
     }
 
-    File getExternalFilesDir(final ActivitySuperFunction superCall, final String type) {
+    File getExternalFilesDir(final NamedSuperCall<File> superCall, final String type) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getExternalFilesDir(type);
         }
     }
 
-    File[] getExternalFilesDirs(final ActivitySuperFunction superCall, final String type) {
+    File[] getExternalFilesDirs(final NamedSuperCall<File[]> superCall, final String type) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getExternalFilesDirs(type);
         }
     }
 
-    File[] getExternalMediaDirs(final ActivitySuperFunction superCall) {
+    File[] getExternalMediaDirs(final NamedSuperCall<File[]> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getExternalMediaDirs();
         }
     }
 
-    File getFileStreamPath(final ActivitySuperFunction superCall, final String name) {
+    File getFileStreamPath(final NamedSuperCall<File> superCall, final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getFileStreamPath(name);
         }
     }
 
-    File getFilesDir(final ActivitySuperFunction superCall) {
+    File getFilesDir(final NamedSuperCall<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getFilesDir();
         }
     }
 
-    android.app.FragmentManager getFragmentManager(final ActivitySuperFunction superCall) {
+    android.app.FragmentManager getFragmentManager(
+            final NamedSuperCall<android.app.FragmentManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getFragmentManager();
         }
     }
 
-    Intent getIntent(final ActivitySuperFunction superCall) {
+    Intent getIntent(final NamedSuperCall<Intent> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getIntent();
         }
     }
 
-    LayoutInflater getLayoutInflater(final ActivitySuperFunction superCall) {
+    LayoutInflater getLayoutInflater(final NamedSuperCall<LayoutInflater> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getLayoutInflater();
         }
     }
 
-    android.app.LoaderManager getLoaderManager(final ActivitySuperFunction superCall) {
+    android.app.LoaderManager getLoaderManager(
+            final NamedSuperCall<android.app.LoaderManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getLoaderManager();
         }
     }
 
-    String getLocalClassName(final ActivitySuperFunction superCall) {
+    String getLocalClassName(final NamedSuperCall<String> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getLocalClassName();
         }
     }
 
-    Looper getMainLooper(final ActivitySuperFunction superCall) {
+    Looper getMainLooper(final NamedSuperCall<Looper> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getMainLooper();
         }
     }
 
-    MenuInflater getMenuInflater(final ActivitySuperFunction superCall) {
+    MenuInflater getMenuInflater(final NamedSuperCall<MenuInflater> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getMenuInflater();
         }
     }
 
-    File getNoBackupFilesDir(final ActivitySuperFunction superCall) {
+    File getNoBackupFilesDir(final NamedSuperCall<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getNoBackupFilesDir();
         }
     }
 
-    File getObbDir(final ActivitySuperFunction superCall) {
+    File getObbDir(final NamedSuperCall<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getObbDir();
         }
     }
 
-    File[] getObbDirs(final ActivitySuperFunction superCall) {
+    File[] getObbDirs(final NamedSuperCall<File[]> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getObbDirs();
         }
     }
 
-    String getPackageCodePath(final ActivitySuperFunction superCall) {
+    String getPackageCodePath(final NamedSuperCall<String> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getPackageCodePath();
         }
     }
 
-    PackageManager getPackageManager(final ActivitySuperFunction superCall) {
+    PackageManager getPackageManager(final NamedSuperCall<PackageManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getPackageManager();
         }
     }
 
-    String getPackageName(final ActivitySuperFunction superCall) {
+    String getPackageName(final NamedSuperCall<String> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getPackageName();
         }
     }
 
-    String getPackageResourcePath(final ActivitySuperFunction superCall) {
+    String getPackageResourcePath(final NamedSuperCall<String> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getPackageResourcePath();
         }
     }
 
-    Intent getParentActivityIntent(final ActivitySuperFunction superCall) {
+    Intent getParentActivityIntent(final NamedSuperCall<Intent> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getParentActivityIntent();
         }
     }
 
-    SharedPreferences getPreferences(final ActivitySuperFunction superCall, final int mode) {
+    SharedPreferences getPreferences(final NamedSuperCall<SharedPreferences> superCall,
+            final int mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getPreferences(mode);
         }
     }
 
-    Uri getReferrer(final ActivitySuperFunction superCall) {
+    Uri getReferrer(final NamedSuperCall<Uri> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getReferrer();
         }
     }
 
-    int getRequestedOrientation(final ActivitySuperFunction superCall) {
+    int getRequestedOrientation(final NamedSuperCall<Integer> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getRequestedOrientation();
         }
     }
 
-    Resources getResources(final ActivitySuperFunction superCall) {
+    Resources getResources(final NamedSuperCall<Resources> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getResources();
         }
     }
 
-    SharedPreferences getSharedPreferences(final ActivitySuperFunction superCall, final String name,
-            final int mode) {
+    SharedPreferences getSharedPreferences(final NamedSuperCall<SharedPreferences> superCall,
+            final String name, final int mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSharedPreferences(name, mode);
         }
     }
 
-    ActionBar getSupportActionBar(final ActivitySuperFunction superCall) {
+    ActionBar getSupportActionBar(final NamedSuperCall<ActionBar> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSupportActionBar();
         }
     }
 
-    FragmentManager getSupportFragmentManager(final ActivitySuperFunction superCall) {
+    FragmentManager getSupportFragmentManager(final NamedSuperCall<FragmentManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSupportFragmentManager();
         }
     }
 
-    LoaderManager getSupportLoaderManager(final ActivitySuperFunction superCall) {
+    LoaderManager getSupportLoaderManager(final NamedSuperCall<LoaderManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSupportLoaderManager();
         }
     }
 
-    Intent getSupportParentActivityIntent(final ActivitySuperFunction superCall) {
+    Intent getSupportParentActivityIntent(final NamedSuperCall<Intent> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSupportParentActivityIntent();
         }
     }
 
-    Object getSystemService(final ActivitySuperFunction superCall, @NonNull final String name) {
+    Object getSystemService(final NamedSuperCall<Object> superCall, @NonNull final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSystemService(name);
         }
     }
 
-    String getSystemServiceName(final ActivitySuperFunction superCall,
+    String getSystemServiceName(final NamedSuperCall<String> superCall,
             final Class<?> serviceClass) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2475,63 +2483,63 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    int getTaskId(final ActivitySuperFunction superCall) {
+    int getTaskId(final NamedSuperCall<Integer> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getTaskId();
         }
     }
 
-    Resources.Theme getTheme(final ActivitySuperFunction superCall) {
+    Resources.Theme getTheme(final NamedSuperCall<Resources.Theme> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getTheme();
         }
     }
 
-    VoiceInteractor getVoiceInteractor(final ActivitySuperFunction superCall) {
+    VoiceInteractor getVoiceInteractor(final NamedSuperCall<VoiceInteractor> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getVoiceInteractor();
         }
     }
 
-    Drawable getWallpaper(final ActivitySuperFunction superCall) {
+    Drawable getWallpaper(final NamedSuperCall<Drawable> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getWallpaper();
         }
     }
 
-    int getWallpaperDesiredMinimumHeight(final ActivitySuperFunction superCall) {
+    int getWallpaperDesiredMinimumHeight(final NamedSuperCall<Integer> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getWallpaperDesiredMinimumHeight();
         }
     }
 
-    int getWallpaperDesiredMinimumWidth(final ActivitySuperFunction superCall) {
+    int getWallpaperDesiredMinimumWidth(final NamedSuperCall<Integer> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getWallpaperDesiredMinimumWidth();
         }
     }
 
-    Window getWindow(final ActivitySuperFunction superCall) {
+    Window getWindow(final NamedSuperCall<Window> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getWindow();
         }
     }
 
-    WindowManager getWindowManager(final ActivitySuperFunction superCall) {
+    WindowManager getWindowManager(final NamedSuperCall<WindowManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getWindowManager();
         }
     }
 
-    void grantUriPermission(final ActivitySuperFunction superCall, final String toPackage,
+    void grantUriPermission(final NamedSuperCall<Void> superCall, final String toPackage,
             final Uri uri, final int modeFlags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2539,91 +2547,91 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean hasWindowFocus(final ActivitySuperFunction superCall) {
+    boolean hasWindowFocus(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return hasWindowFocus();
         }
     }
 
-    void invalidateOptionsMenu(final ActivitySuperFunction superCall) {
+    void invalidateOptionsMenu(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             invalidateOptionsMenu();
         }
     }
 
-    boolean isChangingConfigurations(final ActivitySuperFunction superCall) {
+    boolean isChangingConfigurations(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isChangingConfigurations();
         }
     }
 
-    boolean isDestroyed(final ActivitySuperFunction superCall) {
+    boolean isDestroyed(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isDestroyed();
         }
     }
 
-    boolean isFinishing(final ActivitySuperFunction superCall) {
+    boolean isFinishing(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isFinishing();
         }
     }
 
-    boolean isImmersive(final ActivitySuperFunction superCall) {
+    boolean isImmersive(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isImmersive();
         }
     }
 
-    boolean isRestricted(final ActivitySuperFunction superCall) {
+    boolean isRestricted(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isRestricted();
         }
     }
 
-    boolean isTaskRoot(final ActivitySuperFunction superCall) {
+    boolean isTaskRoot(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isTaskRoot();
         }
     }
 
-    boolean isVoiceInteraction(final ActivitySuperFunction superCall) {
+    boolean isVoiceInteraction(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isVoiceInteraction();
         }
     }
 
-    boolean isVoiceInteractionRoot(final ActivitySuperFunction superCall) {
+    boolean isVoiceInteractionRoot(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isVoiceInteractionRoot();
         }
     }
 
-    boolean moveTaskToBack(final ActivitySuperFunction superCall, final boolean nonRoot) {
+    boolean moveTaskToBack(final NamedSuperCall<Boolean> superCall, final boolean nonRoot) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return moveTaskToBack(nonRoot);
         }
     }
 
-    boolean navigateUpTo(final ActivitySuperFunction superCall, final Intent upIntent) {
+    boolean navigateUpTo(final NamedSuperCall<Boolean> superCall, final Intent upIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return navigateUpTo(upIntent);
         }
     }
 
-    boolean navigateUpToFromChild(final ActivitySuperFunction superCall, final Activity child,
+    boolean navigateUpToFromChild(final NamedSuperCall<Boolean> superCall, final Activity child,
             final Intent upIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2631,7 +2639,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onActionModeFinished(final ActivitySuperFunction superCall,
+    void onActionModeFinished(final NamedSuperCall<Void> superCall,
             final android.view.ActionMode mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2639,7 +2647,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onActionModeStarted(final ActivitySuperFunction superCall,
+    void onActionModeStarted(final NamedSuperCall<Void> superCall,
             final android.view.ActionMode mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2647,7 +2655,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onActivityReenter(final ActivitySuperFunction superCall, final int resultCode,
+    void onActivityReenter(final NamedSuperCall<Void> superCall, final int resultCode,
             final Intent data) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2655,7 +2663,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onActivityResult(final ActivitySuperFunction superCall, final int requestCode,
+    void onActivityResult(final NamedSuperCall<Void> superCall, final int requestCode,
             final int resultCode, final Intent data) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2663,7 +2671,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onApplyThemeResource(final ActivitySuperFunction superCall, final Resources.Theme theme,
+    void onApplyThemeResource(final NamedSuperCall<Void> superCall, final Resources.Theme theme,
             final int resid, final boolean first) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2671,14 +2679,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onAttachFragment(final ActivitySuperFunction superCall, final Fragment fragment) {
+    void onAttachFragment(final NamedSuperCall<Void> superCall, final Fragment fragment) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onAttachFragment(fragment);
         }
     }
 
-    void onAttachFragment(final ActivitySuperFunction superCall,
+    void onAttachFragment(final NamedSuperCall<Void> superCall,
             final android.app.Fragment fragment) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2686,21 +2694,21 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onAttachedToWindow(final ActivitySuperFunction superCall) {
+    void onAttachedToWindow(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onAttachedToWindow();
         }
     }
 
-    void onBackPressed(final ActivitySuperFunction superCall) {
+    void onBackPressed(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onBackPressed();
         }
     }
 
-    void onChildTitleChanged(final ActivitySuperFunction superCall, final Activity childActivity,
+    void onChildTitleChanged(final NamedSuperCall<Void> superCall, final Activity childActivity,
             final CharSequence title) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2708,7 +2716,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onConfigurationChanged(final ActivitySuperFunction superCall,
+    void onConfigurationChanged(final NamedSuperCall<Void> superCall,
             final Configuration newConfig) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2716,36 +2724,35 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onContentChanged(final ActivitySuperFunction superCall) {
+    void onContentChanged(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onContentChanged();
         }
     }
 
-    boolean onContextItemSelected(final ActivitySuperFunction superCall, final MenuItem item) {
+    boolean onContextItemSelected(final NamedSuperCall<Boolean> superCall, final MenuItem item) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onContextItemSelected(item);
         }
     }
 
-    void onContextMenuClosed(final ActivitySuperFunction superCall, final Menu menu) {
+    void onContextMenuClosed(final NamedSuperCall<Void> superCall, final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onContextMenuClosed(menu);
         }
     }
 
-    void onCreate(final ActivitySuperFunction superCall,
-            @Nullable final Bundle savedInstanceState) {
+    void onCreate(final NamedSuperCall<Void> superCall, @Nullable final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onCreate(savedInstanceState);
         }
     }
 
-    void onCreate(final ActivitySuperFunction superCall, final Bundle savedInstanceState,
+    void onCreate(final NamedSuperCall<Void> superCall, final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2753,7 +2760,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onCreateContextMenu(final ActivitySuperFunction superCall, final ContextMenu menu,
+    void onCreateContextMenu(final NamedSuperCall<Void> superCall, final ContextMenu menu,
             final View v, final ContextMenu.ContextMenuInfo menuInfo) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2761,28 +2768,28 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    CharSequence onCreateDescription(final ActivitySuperFunction superCall) {
+    CharSequence onCreateDescription(final NamedSuperCall<CharSequence> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateDescription();
         }
     }
 
-    Dialog onCreateDialog(final ActivitySuperFunction superCall, final int id) {
+    Dialog onCreateDialog(final NamedSuperCall<Dialog> superCall, final int id) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateDialog(id);
         }
     }
 
-    Dialog onCreateDialog(final ActivitySuperFunction superCall, final int id, final Bundle args) {
+    Dialog onCreateDialog(final NamedSuperCall<Dialog> superCall, final int id, final Bundle args) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateDialog(id, args);
         }
     }
 
-    void onCreateNavigateUpTaskStack(final ActivitySuperFunction superCall,
+    void onCreateNavigateUpTaskStack(final NamedSuperCall<Void> superCall,
             final TaskStackBuilder builder) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2790,14 +2797,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onCreateOptionsMenu(final ActivitySuperFunction superCall, final Menu menu) {
+    boolean onCreateOptionsMenu(final NamedSuperCall<Boolean> superCall, final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateOptionsMenu(menu);
         }
     }
 
-    boolean onCreatePanelMenu(final ActivitySuperFunction superCall, final int featureId,
+    boolean onCreatePanelMenu(final NamedSuperCall<Boolean> superCall, final int featureId,
             final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2805,14 +2812,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    View onCreatePanelView(final ActivitySuperFunction superCall, final int featureId) {
+    View onCreatePanelView(final NamedSuperCall<View> superCall, final int featureId) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreatePanelView(featureId);
         }
     }
 
-    void onCreateSupportNavigateUpTaskStack(final ActivitySuperFunction superCall,
+    void onCreateSupportNavigateUpTaskStack(final NamedSuperCall<Void> superCall,
             @NonNull final android.support.v4.app.TaskStackBuilder builder) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2820,7 +2827,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onCreateThumbnail(final ActivitySuperFunction superCall, final Bitmap outBitmap,
+    boolean onCreateThumbnail(final NamedSuperCall<Boolean> superCall, final Bitmap outBitmap,
             final Canvas canvas) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2828,7 +2835,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    View onCreateView(final ActivitySuperFunction superCall, final View parent, final String name,
+    View onCreateView(final NamedSuperCall<View> superCall, final View parent, final String name,
             final Context context, final AttributeSet attrs) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2836,7 +2843,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    View onCreateView(final ActivitySuperFunction superCall, final String name,
+    View onCreateView(final NamedSuperCall<View> superCall, final String name,
             final Context context, final AttributeSet attrs) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2844,35 +2851,35 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onDestroy(final ActivitySuperFunction superCall) {
+    void onDestroy(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onDestroy();
         }
     }
 
-    void onDetachedFromWindow(final ActivitySuperFunction superCall) {
+    void onDetachedFromWindow(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onDetachedFromWindow();
         }
     }
 
-    void onEnterAnimationComplete(final ActivitySuperFunction superCall) {
+    void onEnterAnimationComplete(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onEnterAnimationComplete();
         }
     }
 
-    boolean onGenericMotionEvent(final ActivitySuperFunction superCall, final MotionEvent event) {
+    boolean onGenericMotionEvent(final NamedSuperCall<Boolean> superCall, final MotionEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onGenericMotionEvent(event);
         }
     }
 
-    boolean onKeyDown(final ActivitySuperFunction superCall, final int keyCode,
+    boolean onKeyDown(final NamedSuperCall<Boolean> superCall, final int keyCode,
             final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2880,7 +2887,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onKeyLongPress(final ActivitySuperFunction superCall, final int keyCode,
+    boolean onKeyLongPress(final NamedSuperCall<Boolean> superCall, final int keyCode,
             final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2888,7 +2895,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onKeyMultiple(final ActivitySuperFunction superCall, final int keyCode,
+    boolean onKeyMultiple(final NamedSuperCall<Boolean> superCall, final int keyCode,
             final int repeatCount, final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2896,7 +2903,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onKeyShortcut(final ActivitySuperFunction superCall, final int keyCode,
+    boolean onKeyShortcut(final NamedSuperCall<Boolean> superCall, final int keyCode,
             final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2904,7 +2911,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onKeyUp(final ActivitySuperFunction superCall, final int keyCode,
+    boolean onKeyUp(final NamedSuperCall<Boolean> superCall, final int keyCode,
             final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2912,14 +2919,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onLowMemory(final ActivitySuperFunction superCall) {
+    void onLowMemory(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onLowMemory();
         }
     }
 
-    boolean onMenuOpened(final ActivitySuperFunction superCall, final int featureId,
+    boolean onMenuOpened(final NamedSuperCall<Boolean> superCall, final int featureId,
             final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2927,57 +2934,56 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onNavigateUp(final ActivitySuperFunction superCall) {
+    boolean onNavigateUp(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onNavigateUp();
         }
     }
 
-    boolean onNavigateUpFromChild(final ActivitySuperFunction superCall, final Activity child) {
+    boolean onNavigateUpFromChild(final NamedSuperCall<Boolean> superCall, final Activity child) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onNavigateUpFromChild(child);
         }
     }
 
-    void onNewIntent(final ActivitySuperFunction superCall, final Intent intent) {
+    void onNewIntent(final NamedSuperCall<Void> superCall, final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onNewIntent(intent);
         }
     }
 
-    boolean onOptionsItemSelected(final ActivitySuperFunction superCall, final MenuItem item) {
+    boolean onOptionsItemSelected(final NamedSuperCall<Boolean> superCall, final MenuItem item) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onOptionsItemSelected(item);
         }
     }
 
-    void onOptionsMenuClosed(final ActivitySuperFunction superCall, final Menu menu) {
+    void onOptionsMenuClosed(final NamedSuperCall<Void> superCall, final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onOptionsMenuClosed(menu);
         }
     }
 
-    void onPanelClosed(final ActivitySuperFunction superCall, final int featureId,
-            final Menu menu) {
+    void onPanelClosed(final NamedSuperCall<Void> superCall, final int featureId, final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPanelClosed(featureId, menu);
         }
     }
 
-    void onPause(final ActivitySuperFunction superCall) {
+    void onPause(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPause();
         }
     }
 
-    void onPostCreate(final ActivitySuperFunction superCall,
+    void onPostCreate(final NamedSuperCall<Void> superCall,
             @Nullable final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2985,7 +2991,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onPostCreate(final ActivitySuperFunction superCall, final Bundle savedInstanceState,
+    void onPostCreate(final NamedSuperCall<Void> superCall, final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2993,21 +2999,21 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onPostResume(final ActivitySuperFunction superCall) {
+    void onPostResume(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPostResume();
         }
     }
 
-    void onPrepareDialog(final ActivitySuperFunction superCall, final int id, final Dialog dialog) {
+    void onPrepareDialog(final NamedSuperCall<Void> superCall, final int id, final Dialog dialog) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPrepareDialog(id, dialog);
         }
     }
 
-    void onPrepareDialog(final ActivitySuperFunction superCall, final int id, final Dialog dialog,
+    void onPrepareDialog(final NamedSuperCall<Void> superCall, final int id, final Dialog dialog,
             final Bundle args) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3015,7 +3021,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onPrepareNavigateUpTaskStack(final ActivitySuperFunction superCall,
+    void onPrepareNavigateUpTaskStack(final NamedSuperCall<Void> superCall,
             final TaskStackBuilder builder) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3023,14 +3029,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onPrepareOptionsMenu(final ActivitySuperFunction superCall, final Menu menu) {
+    boolean onPrepareOptionsMenu(final NamedSuperCall<Boolean> superCall, final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onPrepareOptionsMenu(menu);
         }
     }
 
-    boolean onPrepareOptionsPanel(final ActivitySuperFunction superCall, final View view,
+    boolean onPrepareOptionsPanel(final NamedSuperCall<Boolean> superCall, final View view,
             final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3038,7 +3044,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onPreparePanel(final ActivitySuperFunction superCall, final int featureId,
+    boolean onPreparePanel(final NamedSuperCall<Boolean> superCall, final int featureId,
             final View view, final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3046,7 +3052,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onPrepareSupportNavigateUpTaskStack(final ActivitySuperFunction superCall,
+    void onPrepareSupportNavigateUpTaskStack(final NamedSuperCall<Void> superCall,
             @NonNull final android.support.v4.app.TaskStackBuilder builder) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3054,7 +3060,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onProvideAssistContent(final ActivitySuperFunction superCall,
+    void onProvideAssistContent(final NamedSuperCall<Void> superCall,
             final AssistContent outContent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3062,21 +3068,21 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onProvideAssistData(final ActivitySuperFunction superCall, final Bundle data) {
+    void onProvideAssistData(final NamedSuperCall<Void> superCall, final Bundle data) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onProvideAssistData(data);
         }
     }
 
-    Uri onProvideReferrer(final ActivitySuperFunction superCall) {
+    Uri onProvideReferrer(final NamedSuperCall<Uri> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onProvideReferrer();
         }
     }
 
-    void onRequestPermissionsResult(final ActivitySuperFunction superCall, final int requestCode,
+    void onRequestPermissionsResult(final NamedSuperCall<Void> superCall, final int requestCode,
             @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3084,14 +3090,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onRestart(final ActivitySuperFunction superCall) {
+    void onRestart(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onRestart();
         }
     }
 
-    void onRestoreInstanceState(final ActivitySuperFunction superCall,
+    void onRestoreInstanceState(final NamedSuperCall<Void> superCall,
             final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3099,7 +3105,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onRestoreInstanceState(final ActivitySuperFunction superCall,
+    void onRestoreInstanceState(final NamedSuperCall<Void> superCall,
             final Bundle savedInstanceState, final PersistableBundle persistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3107,28 +3113,28 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onResume(final ActivitySuperFunction superCall) {
+    void onResume(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onResume();
         }
     }
 
-    void onResumeFragments(final ActivitySuperFunction superCall) {
+    void onResumeFragments(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onResumeFragments();
         }
     }
 
-    void onSaveInstanceState(final ActivitySuperFunction superCall, final Bundle outState) {
+    void onSaveInstanceState(final NamedSuperCall<Void> superCall, final Bundle outState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onSaveInstanceState(outState);
         }
     }
 
-    void onSaveInstanceState(final ActivitySuperFunction superCall, final Bundle outState,
+    void onSaveInstanceState(final NamedSuperCall<Void> superCall, final Bundle outState,
             final PersistableBundle outPersistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3136,7 +3142,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onSearchRequested(final ActivitySuperFunction superCall,
+    boolean onSearchRequested(final NamedSuperCall<Boolean> superCall,
             final SearchEvent searchEvent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3144,35 +3150,35 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onSearchRequested(final ActivitySuperFunction superCall) {
+    boolean onSearchRequested(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onSearchRequested();
         }
     }
 
-    void onStart(final ActivitySuperFunction superCall) {
+    void onStart(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onStart();
         }
     }
 
-    void onStateNotSaved(final ActivitySuperFunction superCall) {
+    void onStateNotSaved(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onStateNotSaved();
         }
     }
 
-    void onStop(final ActivitySuperFunction superCall) {
+    void onStop(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onStop();
         }
     }
 
-    void onSupportActionModeFinished(final ActivitySuperFunction superCall,
+    void onSupportActionModeFinished(final NamedSuperCall<Void> superCall,
             @NonNull final ActionMode mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3180,7 +3186,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onSupportActionModeStarted(final ActivitySuperFunction superCall,
+    void onSupportActionModeStarted(final NamedSuperCall<Void> superCall,
             @NonNull final ActionMode mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3188,21 +3194,21 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onSupportContentChanged(final ActivitySuperFunction superCall) {
+    void onSupportContentChanged(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onSupportContentChanged();
         }
     }
 
-    boolean onSupportNavigateUp(final ActivitySuperFunction superCall) {
+    boolean onSupportNavigateUp(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onSupportNavigateUp();
         }
     }
 
-    void onTitleChanged(final ActivitySuperFunction superCall, final CharSequence title,
+    void onTitleChanged(final NamedSuperCall<Void> superCall, final CharSequence title,
             final int color) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3210,49 +3216,49 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean onTouchEvent(final ActivitySuperFunction superCall, final MotionEvent event) {
+    boolean onTouchEvent(final NamedSuperCall<Boolean> superCall, final MotionEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onTouchEvent(event);
         }
     }
 
-    boolean onTrackballEvent(final ActivitySuperFunction superCall, final MotionEvent event) {
+    boolean onTrackballEvent(final NamedSuperCall<Boolean> superCall, final MotionEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onTrackballEvent(event);
         }
     }
 
-    void onTrimMemory(final ActivitySuperFunction superCall, final int level) {
+    void onTrimMemory(final NamedSuperCall<Void> superCall, final int level) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onTrimMemory(level);
         }
     }
 
-    void onUserInteraction(final ActivitySuperFunction superCall) {
+    void onUserInteraction(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onUserInteraction();
         }
     }
 
-    void onUserLeaveHint(final ActivitySuperFunction superCall) {
+    void onUserLeaveHint(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onUserLeaveHint();
         }
     }
 
-    void onVisibleBehindCanceled(final ActivitySuperFunction superCall) {
+    void onVisibleBehindCanceled(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onVisibleBehindCanceled();
         }
     }
 
-    void onWindowAttributesChanged(final ActivitySuperFunction superCall,
+    void onWindowAttributesChanged(final NamedSuperCall<Void> superCall,
             final WindowManager.LayoutParams params) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3260,14 +3266,15 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void onWindowFocusChanged(final ActivitySuperFunction superCall, final boolean hasFocus) {
+    void onWindowFocusChanged(final NamedSuperCall<Void> superCall, final boolean hasFocus) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onWindowFocusChanged(hasFocus);
         }
     }
 
-    android.view.ActionMode onWindowStartingActionMode(final ActivitySuperFunction superCall,
+    android.view.ActionMode onWindowStartingActionMode(
+            final NamedSuperCall<android.view.ActionMode> superCall,
             final android.view.ActionMode.Callback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3275,7 +3282,8 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    android.view.ActionMode onWindowStartingActionMode(final ActivitySuperFunction superCall,
+    android.view.ActionMode onWindowStartingActionMode(
+            final NamedSuperCall<android.view.ActionMode> superCall,
             final android.view.ActionMode.Callback callback, final int type) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3283,7 +3291,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    ActionMode onWindowStartingSupportActionMode(final ActivitySuperFunction superCall,
+    ActionMode onWindowStartingSupportActionMode(final NamedSuperCall<ActionMode> superCall,
             @NonNull final ActionMode.Callback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3291,46 +3299,46 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void openContextMenu(final ActivitySuperFunction superCall, final View view) {
+    void openContextMenu(final NamedSuperCall<Void> superCall, final View view) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             openContextMenu(view);
         }
     }
 
-    FileInputStream openFileInput(final ActivitySuperFunction superCall, final String name)
-            throws FileNotFoundException {
+    FileInputStream openFileInput(final NamedSuperCall<FileInputStream> superCall,
+            final String name) throws FileNotFoundException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return openFileInput(name);
         }
     }
 
-    FileOutputStream openFileOutput(final ActivitySuperFunction superCall, final String name,
-            final int mode) throws FileNotFoundException {
+    FileOutputStream openFileOutput(final NamedSuperCall<FileOutputStream> superCall,
+            final String name, final int mode) throws FileNotFoundException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return openFileOutput(name, mode);
         }
     }
 
-    void openOptionsMenu(final ActivitySuperFunction superCall) {
+    void openOptionsMenu(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             openOptionsMenu();
         }
     }
 
-    SQLiteDatabase openOrCreateDatabase(final ActivitySuperFunction superCall, final String name,
-            final int mode, final SQLiteDatabase.CursorFactory factory) {
+    SQLiteDatabase openOrCreateDatabase(final NamedSuperCall<SQLiteDatabase> superCall,
+            final String name, final int mode, final SQLiteDatabase.CursorFactory factory) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return openOrCreateDatabase(name, mode, factory);
         }
     }
 
-    SQLiteDatabase openOrCreateDatabase(final ActivitySuperFunction superCall, final String name,
-            final int mode, final SQLiteDatabase.CursorFactory factory,
+    SQLiteDatabase openOrCreateDatabase(final NamedSuperCall<SQLiteDatabase> superCall,
+            final String name, final int mode, final SQLiteDatabase.CursorFactory factory,
             final DatabaseErrorHandler errorHandler) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3338,7 +3346,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void overridePendingTransition(final ActivitySuperFunction superCall, final int enterAnim,
+    void overridePendingTransition(final NamedSuperCall<Void> superCall, final int enterAnim,
             final int exitAnim) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3346,28 +3354,28 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    Drawable peekWallpaper(final ActivitySuperFunction superCall) {
+    Drawable peekWallpaper(final NamedSuperCall<Drawable> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return peekWallpaper();
         }
     }
 
-    void postponeEnterTransition(final ActivitySuperFunction superCall) {
+    void postponeEnterTransition(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             postponeEnterTransition();
         }
     }
 
-    void recreate(final ActivitySuperFunction superCall) {
+    void recreate(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             recreate();
         }
     }
 
-    void registerComponentCallbacks(final ActivitySuperFunction superCall,
+    void registerComponentCallbacks(final NamedSuperCall<Void> superCall,
             final ComponentCallbacks callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3375,44 +3383,45 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void registerForContextMenu(final ActivitySuperFunction superCall, final View view) {
+    void registerForContextMenu(final NamedSuperCall<Void> superCall, final View view) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             registerForContextMenu(view);
         }
     }
 
-    Intent registerReceiver(final ActivitySuperFunction superCall, final BroadcastReceiver receiver,
-            final IntentFilter filter) {
+    Intent registerReceiver(final NamedSuperCall<Intent> superCall,
+            final BroadcastReceiver receiver, final IntentFilter filter) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return registerReceiver(receiver, filter);
         }
     }
 
-    Intent registerReceiver(final ActivitySuperFunction superCall, final BroadcastReceiver receiver,
-            final IntentFilter filter, final String broadcastPermission, final Handler scheduler) {
+    Intent registerReceiver(final NamedSuperCall<Intent> superCall,
+            final BroadcastReceiver receiver, final IntentFilter filter,
+            final String broadcastPermission, final Handler scheduler) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return registerReceiver(receiver, filter, broadcastPermission, scheduler);
         }
     }
 
-    boolean releaseInstance(final ActivitySuperFunction superCall) {
+    boolean releaseInstance(final NamedSuperCall<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return releaseInstance();
         }
     }
 
-    void removeStickyBroadcast(final ActivitySuperFunction superCall, final Intent intent) {
+    void removeStickyBroadcast(final NamedSuperCall<Void> superCall, final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             removeStickyBroadcast(intent);
         }
     }
 
-    void removeStickyBroadcastAsUser(final ActivitySuperFunction superCall, final Intent intent,
+    void removeStickyBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
             final UserHandle user) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3420,21 +3429,21 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void reportFullyDrawn(final ActivitySuperFunction superCall) {
+    void reportFullyDrawn(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             reportFullyDrawn();
         }
     }
 
-    boolean requestVisibleBehind(final ActivitySuperFunction superCall, final boolean visible) {
+    boolean requestVisibleBehind(final NamedSuperCall<Boolean> superCall, final boolean visible) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return requestVisibleBehind(visible);
         }
     }
 
-    void revokeUriPermission(final ActivitySuperFunction superCall, final Uri uri,
+    void revokeUriPermission(final NamedSuperCall<Void> superCall, final Uri uri,
             final int modeFlags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3442,14 +3451,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void sendBroadcast(final ActivitySuperFunction superCall, final Intent intent) {
+    void sendBroadcast(final NamedSuperCall<Void> superCall, final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             sendBroadcast(intent);
         }
     }
 
-    void sendBroadcast(final ActivitySuperFunction superCall, final Intent intent,
+    void sendBroadcast(final NamedSuperCall<Void> superCall, final Intent intent,
             final String receiverPermission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3457,7 +3466,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void sendBroadcastAsUser(final ActivitySuperFunction superCall, final Intent intent,
+    void sendBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
             final UserHandle user) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3465,7 +3474,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void sendBroadcastAsUser(final ActivitySuperFunction superCall, final Intent intent,
+    void sendBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
             final UserHandle user, final String receiverPermission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3473,7 +3482,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void sendOrderedBroadcast(final ActivitySuperFunction superCall, final Intent intent,
+    void sendOrderedBroadcast(final NamedSuperCall<Void> superCall, final Intent intent,
             final String receiverPermission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3481,7 +3490,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void sendOrderedBroadcast(final ActivitySuperFunction superCall, final Intent intent,
+    void sendOrderedBroadcast(final NamedSuperCall<Void> superCall, final Intent intent,
             final String receiverPermission, final BroadcastReceiver resultReceiver,
             final Handler scheduler, final int initialCode, final String initialData,
             final Bundle initialExtras) {
@@ -3492,7 +3501,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void sendOrderedBroadcastAsUser(final ActivitySuperFunction superCall, final Intent intent,
+    void sendOrderedBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
             final UserHandle user, final String receiverPermission,
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras) {
@@ -3503,14 +3512,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void sendStickyBroadcast(final ActivitySuperFunction superCall, final Intent intent) {
+    void sendStickyBroadcast(final NamedSuperCall<Void> superCall, final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             sendStickyBroadcast(intent);
         }
     }
 
-    void sendStickyBroadcastAsUser(final ActivitySuperFunction superCall, final Intent intent,
+    void sendStickyBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
             final UserHandle user) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3518,7 +3527,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void sendStickyOrderedBroadcast(final ActivitySuperFunction superCall, final Intent intent,
+    void sendStickyOrderedBroadcast(final NamedSuperCall<Void> superCall, final Intent intent,
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras) {
         synchronized (mSuperListeners) {
@@ -3528,10 +3537,9 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void sendStickyOrderedBroadcastAsUser(final ActivitySuperFunction superCall,
-            final Intent intent, final UserHandle user, final BroadcastReceiver resultReceiver,
-            final Handler scheduler, final int initialCode, final String initialData,
-            final Bundle initialExtras) {
+    void sendStickyOrderedBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
+            final UserHandle user, final BroadcastReceiver resultReceiver, final Handler scheduler,
+            final int initialCode, final String initialData, final Bundle initialExtras) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             sendStickyOrderedBroadcastAsUser(intent, user, resultReceiver, scheduler, initialCode,
@@ -3539,14 +3547,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setActionBar(final ActivitySuperFunction superCall, final Toolbar toolbar) {
+    void setActionBar(final NamedSuperCall<Void> superCall, final Toolbar toolbar) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setActionBar(toolbar);
         }
     }
 
-    void setContentTransitionManager(final ActivitySuperFunction superCall,
+    void setContentTransitionManager(final NamedSuperCall<Void> superCall,
             final TransitionManager tm) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3554,21 +3562,21 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setContentView(final ActivitySuperFunction superCall, @LayoutRes final int layoutResID) {
+    void setContentView(final NamedSuperCall<Void> superCall, @LayoutRes final int layoutResID) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setContentView(layoutResID);
         }
     }
 
-    void setContentView(final ActivitySuperFunction superCall, final View view) {
+    void setContentView(final NamedSuperCall<Void> superCall, final View view) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setContentView(view);
         }
     }
 
-    void setContentView(final ActivitySuperFunction superCall, final View view,
+    void setContentView(final NamedSuperCall<Void> superCall, final View view,
             final ViewGroup.LayoutParams params) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3576,7 +3584,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setEnterSharedElementCallback(final ActivitySuperFunction superCall,
+    void setEnterSharedElementCallback(final NamedSuperCall<Void> superCall,
             final SharedElementCallback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3584,7 +3592,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setEnterSharedElementCallback(final ActivitySuperFunction superCall,
+    void setEnterSharedElementCallback(final NamedSuperCall<Void> superCall,
             final android.app.SharedElementCallback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3592,7 +3600,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setExitSharedElementCallback(final ActivitySuperFunction superCall,
+    void setExitSharedElementCallback(final NamedSuperCall<Void> superCall,
             final SharedElementCallback listener) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3600,7 +3608,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setExitSharedElementCallback(final ActivitySuperFunction superCall,
+    void setExitSharedElementCallback(final NamedSuperCall<Void> superCall,
             final android.app.SharedElementCallback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3608,28 +3616,28 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setFinishOnTouchOutside(final ActivitySuperFunction superCall, final boolean finish) {
+    void setFinishOnTouchOutside(final NamedSuperCall<Void> superCall, final boolean finish) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setFinishOnTouchOutside(finish);
         }
     }
 
-    void setImmersive(final ActivitySuperFunction superCall, final boolean i) {
+    void setImmersive(final NamedSuperCall<Void> superCall, final boolean i) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setImmersive(i);
         }
     }
 
-    void setIntent(final ActivitySuperFunction superCall, final Intent newIntent) {
+    void setIntent(final NamedSuperCall<Void> superCall, final Intent newIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setIntent(newIntent);
         }
     }
 
-    void setRequestedOrientation(final ActivitySuperFunction superCall,
+    void setRequestedOrientation(final NamedSuperCall<Void> superCall,
             final int requestedOrientation) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3637,7 +3645,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setSupportActionBar(final ActivitySuperFunction superCall,
+    void setSupportActionBar(final NamedSuperCall<Void> superCall,
             @Nullable final android.support.v7.widget.Toolbar toolbar) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3645,14 +3653,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setSupportProgress(final ActivitySuperFunction superCall, final int progress) {
+    void setSupportProgress(final NamedSuperCall<Void> superCall, final int progress) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setSupportProgress(progress);
         }
     }
 
-    void setSupportProgressBarIndeterminate(final ActivitySuperFunction superCall,
+    void setSupportProgressBarIndeterminate(final NamedSuperCall<Void> superCall,
             final boolean indeterminate) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3660,7 +3668,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setSupportProgressBarIndeterminateVisibility(final ActivitySuperFunction superCall,
+    void setSupportProgressBarIndeterminateVisibility(final NamedSuperCall<Void> superCall,
             final boolean visible) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3668,7 +3676,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setSupportProgressBarVisibility(final ActivitySuperFunction superCall,
+    void setSupportProgressBarVisibility(final NamedSuperCall<Void> superCall,
             final boolean visible) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3676,7 +3684,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setTaskDescription(final ActivitySuperFunction superCall,
+    void setTaskDescription(final NamedSuperCall<Void> superCall,
             final ActivityManager.TaskDescription taskDescription) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3684,42 +3692,42 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setTheme(final ActivitySuperFunction superCall, @StyleRes final int resid) {
+    void setTheme(final NamedSuperCall<Void> superCall, @StyleRes final int resid) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setTheme(resid);
         }
     }
 
-    void setTitle(final ActivitySuperFunction superCall, final CharSequence title) {
+    void setTitle(final NamedSuperCall<Void> superCall, final CharSequence title) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setTitle(title);
         }
     }
 
-    void setTitle(final ActivitySuperFunction superCall, final int titleId) {
+    void setTitle(final NamedSuperCall<Void> superCall, final int titleId) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setTitle(titleId);
         }
     }
 
-    void setTitleColor(final ActivitySuperFunction superCall, final int textColor) {
+    void setTitleColor(final NamedSuperCall<Void> superCall, final int textColor) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setTitleColor(textColor);
         }
     }
 
-    void setVisible(final ActivitySuperFunction superCall, final boolean visible) {
+    void setVisible(final NamedSuperCall<Void> superCall, final boolean visible) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setVisible(visible);
         }
     }
 
-    void setWallpaper(final ActivitySuperFunction superCall, final Bitmap bitmap)
+    void setWallpaper(final NamedSuperCall<Void> superCall, final Bitmap bitmap)
             throws IOException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3727,7 +3735,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void setWallpaper(final ActivitySuperFunction superCall, final InputStream data)
+    void setWallpaper(final NamedSuperCall<Void> superCall, final InputStream data)
             throws IOException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3735,7 +3743,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean shouldShowRequestPermissionRationale(final ActivitySuperFunction superCall,
+    boolean shouldShowRequestPermissionRationale(final NamedSuperCall<Boolean> superCall,
             @NonNull final String permission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3743,28 +3751,29 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean shouldUpRecreateTask(final ActivitySuperFunction superCall, final Intent targetIntent) {
+    boolean shouldUpRecreateTask(final NamedSuperCall<Boolean> superCall,
+            final Intent targetIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return shouldUpRecreateTask(targetIntent);
         }
     }
 
-    boolean showAssist(final ActivitySuperFunction superCall, final Bundle args) {
+    boolean showAssist(final NamedSuperCall<Boolean> superCall, final Bundle args) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return showAssist(args);
         }
     }
 
-    void showLockTaskEscapeMessage(final ActivitySuperFunction superCall) {
+    void showLockTaskEscapeMessage(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             showLockTaskEscapeMessage();
         }
     }
 
-    android.view.ActionMode startActionMode(final ActivitySuperFunction superCall,
+    android.view.ActionMode startActionMode(final NamedSuperCall<android.view.ActionMode> superCall,
             final android.view.ActionMode.Callback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3772,7 +3781,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    android.view.ActionMode startActionMode(final ActivitySuperFunction superCall,
+    android.view.ActionMode startActionMode(final NamedSuperCall<android.view.ActionMode> superCall,
             final android.view.ActionMode.Callback callback, final int type) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3780,14 +3789,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startActivities(final ActivitySuperFunction superCall, final Intent[] intents) {
+    void startActivities(final NamedSuperCall<Void> superCall, final Intent[] intents) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivities(intents);
         }
     }
 
-    void startActivities(final ActivitySuperFunction superCall, final Intent[] intents,
+    void startActivities(final NamedSuperCall<Void> superCall, final Intent[] intents,
             final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3795,14 +3804,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startActivity(final ActivitySuperFunction superCall, final Intent intent) {
+    void startActivity(final NamedSuperCall<Void> superCall, final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivity(intent);
         }
     }
 
-    void startActivity(final ActivitySuperFunction superCall, final Intent intent,
+    void startActivity(final NamedSuperCall<Void> superCall, final Intent intent,
             final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3810,7 +3819,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startActivityForResult(final ActivitySuperFunction superCall, final Intent intent,
+    void startActivityForResult(final NamedSuperCall<Void> superCall, final Intent intent,
             final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3818,7 +3827,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startActivityForResult(final ActivitySuperFunction superCall, final Intent intent,
+    void startActivityForResult(final NamedSuperCall<Void> superCall, final Intent intent,
             final int requestCode, final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3826,24 +3835,23 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startActivityFromChild(final ActivitySuperFunction superCall,
-            @NonNull final Activity child, final Intent intent, final int requestCode) {
+    void startActivityFromChild(final NamedSuperCall<Void> superCall, @NonNull final Activity child,
+            final Intent intent, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromChild(child, intent, requestCode);
         }
     }
 
-    void startActivityFromChild(final ActivitySuperFunction superCall,
-            @NonNull final Activity child, final Intent intent, final int requestCode,
-            final Bundle options) {
+    void startActivityFromChild(final NamedSuperCall<Void> superCall, @NonNull final Activity child,
+            final Intent intent, final int requestCode, final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromChild(child, intent, requestCode, options);
         }
     }
 
-    void startActivityFromFragment(final ActivitySuperFunction superCall, final Fragment fragment,
+    void startActivityFromFragment(final NamedSuperCall<Void> superCall, final Fragment fragment,
             final Intent intent, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3851,7 +3859,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startActivityFromFragment(final ActivitySuperFunction superCall, final Fragment fragment,
+    void startActivityFromFragment(final NamedSuperCall<Void> superCall, final Fragment fragment,
             final Intent intent, final int requestCode, @Nullable final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3859,7 +3867,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startActivityFromFragment(final ActivitySuperFunction superCall,
+    void startActivityFromFragment(final NamedSuperCall<Void> superCall,
             @NonNull final android.app.Fragment fragment, final Intent intent,
             final int requestCode) {
         synchronized (mSuperListeners) {
@@ -3868,7 +3876,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startActivityFromFragment(final ActivitySuperFunction superCall,
+    void startActivityFromFragment(final NamedSuperCall<Void> superCall,
             @NonNull final android.app.Fragment fragment, final Intent intent,
             final int requestCode, final Bundle options) {
         synchronized (mSuperListeners) {
@@ -3877,7 +3885,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean startActivityIfNeeded(final ActivitySuperFunction superCall,
+    boolean startActivityIfNeeded(final NamedSuperCall<Boolean> superCall,
             @NonNull final Intent intent, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3885,7 +3893,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean startActivityIfNeeded(final ActivitySuperFunction superCall,
+    boolean startActivityIfNeeded(final NamedSuperCall<Boolean> superCall,
             @NonNull final Intent intent, final int requestCode, final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3893,7 +3901,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean startInstrumentation(final ActivitySuperFunction superCall,
+    boolean startInstrumentation(final NamedSuperCall<Boolean> superCall,
             final ComponentName className, final String profileFile, final Bundle arguments) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3901,7 +3909,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startIntentSender(final ActivitySuperFunction superCall, final IntentSender intent,
+    void startIntentSender(final NamedSuperCall<Void> superCall, final IntentSender intent,
             final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags) throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
@@ -3910,7 +3918,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startIntentSender(final ActivitySuperFunction superCall, final IntentSender intent,
+    void startIntentSender(final NamedSuperCall<Void> superCall, final IntentSender intent,
             final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
@@ -3919,10 +3927,9 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startIntentSenderForResult(final ActivitySuperFunction superCall,
-            final IntentSender intent, final int requestCode, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags)
-            throws IntentSender.SendIntentException {
+    void startIntentSenderForResult(final NamedSuperCall<Void> superCall, final IntentSender intent,
+            final int requestCode, final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
@@ -3930,9 +3937,9 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startIntentSenderForResult(final ActivitySuperFunction superCall,
-            final IntentSender intent, final int requestCode, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
+    void startIntentSenderForResult(final NamedSuperCall<Void> superCall, final IntentSender intent,
+            final int requestCode, final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3941,7 +3948,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startIntentSenderFromChild(final ActivitySuperFunction superCall, final Activity child,
+    void startIntentSenderFromChild(final NamedSuperCall<Void> superCall, final Activity child,
             final IntentSender intent, final int requestCode, final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags)
             throws IntentSender.SendIntentException {
@@ -3952,7 +3959,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startIntentSenderFromChild(final ActivitySuperFunction superCall, final Activity child,
+    void startIntentSenderFromChild(final NamedSuperCall<Void> superCall, final Activity child,
             final IntentSender intent, final int requestCode, final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
@@ -3963,21 +3970,21 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startLockTask(final ActivitySuperFunction superCall) {
+    void startLockTask(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startLockTask();
         }
     }
 
-    void startManagingCursor(final ActivitySuperFunction superCall, final Cursor c) {
+    void startManagingCursor(final NamedSuperCall<Void> superCall, final Cursor c) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startManagingCursor(c);
         }
     }
 
-    boolean startNextMatchingActivity(final ActivitySuperFunction superCall,
+    boolean startNextMatchingActivity(final NamedSuperCall<Boolean> superCall,
             @NonNull final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3985,7 +3992,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean startNextMatchingActivity(final ActivitySuperFunction superCall,
+    boolean startNextMatchingActivity(final NamedSuperCall<Boolean> superCall,
             @NonNull final Intent intent, final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3993,14 +4000,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void startPostponedEnterTransition(final ActivitySuperFunction superCall) {
+    void startPostponedEnterTransition(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startPostponedEnterTransition();
         }
     }
 
-    void startSearch(final ActivitySuperFunction superCall, final String initialQuery,
+    void startSearch(final NamedSuperCall<Void> superCall, final String initialQuery,
             final boolean selectInitialQuery, final Bundle appSearchData,
             final boolean globalSearch) {
         synchronized (mSuperListeners) {
@@ -4009,14 +4016,15 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    ComponentName startService(final ActivitySuperFunction superCall, final Intent service) {
+    ComponentName startService(final NamedSuperCall<ComponentName> superCall,
+            final Intent service) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startService(service);
         }
     }
 
-    ActionMode startSupportActionMode(final ActivitySuperFunction superCall,
+    ActionMode startSupportActionMode(final NamedSuperCall<ActionMode> superCall,
             @NonNull final ActionMode.Callback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4024,57 +4032,56 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void stopLockTask(final ActivitySuperFunction superCall) {
+    void stopLockTask(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             stopLockTask();
         }
     }
 
-    void stopManagingCursor(final ActivitySuperFunction superCall, final Cursor c) {
+    void stopManagingCursor(final NamedSuperCall<Void> superCall, final Cursor c) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             stopManagingCursor(c);
         }
     }
 
-    boolean stopService(final ActivitySuperFunction superCall, final Intent name) {
+    boolean stopService(final NamedSuperCall<Boolean> superCall, final Intent name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return stopService(name);
         }
     }
 
-    void supportFinishAfterTransition(final ActivitySuperFunction superCall) {
+    void supportFinishAfterTransition(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             supportFinishAfterTransition();
         }
     }
 
-    void supportInvalidateOptionsMenu(final ActivitySuperFunction superCall) {
+    void supportInvalidateOptionsMenu(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             supportInvalidateOptionsMenu();
         }
     }
 
-    void supportNavigateUpTo(final ActivitySuperFunction superCall,
-            @NonNull final Intent upIntent) {
+    void supportNavigateUpTo(final NamedSuperCall<Void> superCall, @NonNull final Intent upIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             supportNavigateUpTo(upIntent);
         }
     }
 
-    void supportPostponeEnterTransition(final ActivitySuperFunction superCall) {
+    void supportPostponeEnterTransition(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             supportPostponeEnterTransition();
         }
     }
 
-    boolean supportRequestWindowFeature(final ActivitySuperFunction superCall,
+    boolean supportRequestWindowFeature(final NamedSuperCall<Boolean> superCall,
             final int featureId) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4082,7 +4089,7 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    boolean supportShouldUpRecreateTask(final ActivitySuperFunction superCall,
+    boolean supportShouldUpRecreateTask(final NamedSuperCall<Boolean> superCall,
             @NonNull final Intent targetIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4090,21 +4097,21 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void supportStartPostponedEnterTransition(final ActivitySuperFunction superCall) {
+    void supportStartPostponedEnterTransition(final NamedSuperCall<Void> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             supportStartPostponedEnterTransition();
         }
     }
 
-    void takeKeyEvents(final ActivitySuperFunction superCall, final boolean get) {
+    void takeKeyEvents(final NamedSuperCall<Void> superCall, final boolean get) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             takeKeyEvents(get);
         }
     }
 
-    void triggerSearch(final ActivitySuperFunction superCall, final String query,
+    void triggerSearch(final NamedSuperCall<Void> superCall, final String query,
             final Bundle appSearchData) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4112,14 +4119,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void unbindService(final ActivitySuperFunction superCall, final ServiceConnection conn) {
+    void unbindService(final NamedSuperCall<Void> superCall, final ServiceConnection conn) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             unbindService(conn);
         }
     }
 
-    void unregisterComponentCallbacks(final ActivitySuperFunction superCall,
+    void unregisterComponentCallbacks(final NamedSuperCall<Void> superCall,
             final ComponentCallbacks callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4127,14 +4134,14 @@ public class ActivityPlugin extends ActivityPluginBase {
         }
     }
 
-    void unregisterForContextMenu(final ActivitySuperFunction superCall, final View view) {
+    void unregisterForContextMenu(final NamedSuperCall<Void> superCall, final View view) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             unregisterForContextMenu(view);
         }
     }
 
-    void unregisterReceiver(final ActivitySuperFunction superCall,
+    void unregisterReceiver(final NamedSuperCall<Void> superCall,
             final BroadcastReceiver receiver) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);

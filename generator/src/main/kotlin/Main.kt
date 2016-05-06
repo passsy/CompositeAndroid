@@ -29,14 +29,21 @@ fun createActivityPlugin(activity: AnalyzedJavaFile) {
     val methods = sb.toString()
 
     val code = """
-    package com.pascalwelsch.compositeandroid.activity;
+package com.pascalwelsch.compositeandroid.activity;
 
-    ${activity.imports}
+import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
+import com.pascalwelsch.compositeandroid.core.PluginCall;
+import com.pascalwelsch.compositeandroid.core.PluginCallVoid;
+import com.pascalwelsch.compositeandroid.core.SuperCall;
+import com.pascalwelsch.compositeandroid.core.SuperCallVoid;
 
-    @SuppressWarnings("unused")
-    public class ActivityPlugin extends ActivityPluginBase {
+${activity.imports}
+
+
+@SuppressWarnings("unused")
+public class ActivityPlugin extends ActivityPluginBase {
     $methods
-    }
+}
     """
 
     val out = File(outPath + "ActivityPlugin.java")
@@ -52,7 +59,7 @@ fun AnalyzedJavaMethod.returnSuperListener(): String {
         return ($boxedReturnType) mSuperListeners.pop().call(${parameterNames.joinToString()});
     }
 
-    $returnType $name(final ActivitySuperFunction superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
+    $returnType $name(final NamedSuperCall<$boxedReturnType> superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return $name(${parameterNames.joinToString()});
@@ -68,7 +75,7 @@ fun AnalyzedJavaMethod.callListener(): String {
         mSuperListeners.pop().call(${parameterNames.joinToString()});
     }
 
-    void $name(final ActivitySuperFunction superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
+    void $name(final NamedSuperCall<Void> superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             $name(${parameterNames.joinToString()});
@@ -91,6 +98,12 @@ fun createActivityDelegate(activity: AnalyzedJavaFile) {
     val activityDelegate = """
 package com.pascalwelsch.compositeandroid.activity;
 
+import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
+import com.pascalwelsch.compositeandroid.core.PluginCall;
+import com.pascalwelsch.compositeandroid.core.PluginCallVoid;
+import com.pascalwelsch.compositeandroid.core.SuperCall;
+import com.pascalwelsch.compositeandroid.core.SuperCallVoid;
+
 ${activity.imports}
 
 public class ActivityDelegate extends ActivityDelegateBase {
@@ -99,7 +112,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         super(compositeActivity);
     }
 
-    ${methodsSb.toString()}
+${methodsSb.toString()}
 
 }
 """
@@ -119,9 +132,9 @@ fun AnalyzedJavaMethod.callFunction(): String {
 
     return """
     public $returnType $name($rawParameters) {
-        return callFunction("$name(${parameterTypes.joinToString()})", new PluginMethodFunction<$boxedReturnType>() {
+        return callFunction("$name(${parameterTypes.joinToString()})", new PluginCall<$boxedReturnType>() {
             @Override
-            public $boxedReturnType call(final ActivitySuperFunction<$boxedReturnType> superCall, final ActivityPlugin plugin, final Object... args) {
+            public $boxedReturnType call(final NamedSuperCall<$boxedReturnType> superCall, final ActivityPlugin plugin, final Object... args) {
             ${ if (throws) "                try {" else ""}
                 return plugin.$name(${listOf("superCall").plus(typedArgs).joinToString()});
                 ${if (throws) {
@@ -131,10 +144,10 @@ fun AnalyzedJavaMethod.callFunction(): String {
                     sb.appendln("            }").toString()
                 } else ""}
             }
-        }, new ActivitySuperFunction<$boxedReturnType>("$name(${parameterTypes.joinToString()})") {
+        }, new SuperCall<$boxedReturnType>() {
             @Override
             public $boxedReturnType call(final Object... args) { ${if (throws) "\ntry {" else ""}
-                return mActivity.${name}_super(${typedArgs.joinToString()}); ${if (throws) "\n} catch ($exceptionType e) {\n throw new SuppressedException(e);\n }" else ""}
+                return mActivity.${name}__super(${typedArgs.joinToString()}); ${if (throws) "\n} catch ($exceptionType e) {\n throw new SuppressedException(e);\n }" else ""}
             }
         }${if (parameterNames.size > 0) ", " else ""}$varargs);
     }
@@ -159,13 +172,14 @@ fun AnalyzedJavaMethod.hook(): String {
         "new Object[]{${parameterNames[0]}}"
     } else parameterNames.joinToString()
 
+
     val sb = StringBuilder()
     sb.appendln("    public void $name($rawParameters) $exceptions {")
     sb.appendln(
-            "        callHook(\"$name(${parameterTypes.joinToString()})\",new PluginMethodAction() {")
+            "        callHook(\"$name(${parameterTypes.joinToString()})\", new PluginCallVoid() {")
     sb.appendln("            @Override")
     sb.appendln(
-            "            public void call(final ActivitySuperFunction superCall, final ActivityPlugin plugin, final Object... args) {")
+            "            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin, final Object... args) {")
     if (throws) sb.appendln("                try {")
     sb.appendln("                plugin.$name(${listOf("superCall").plus(
             typedArgs).joinToString()});")
@@ -175,11 +189,11 @@ fun AnalyzedJavaMethod.hook(): String {
         sb.appendln("            }")
     }
     sb.appendln("            }")
-    sb.appendln("        }, new ActivitySuperAction() {")
+    sb.appendln("        }, new SuperCallVoid() {")
     sb.appendln("            @Override")
     sb.appendln("            public void call(final Object... args) {")
     if (throws) sb.appendln("                try {")
-    sb.appendln("                mActivity.${name}_super(${typedArgs.joinToString()});")
+    sb.appendln("                mActivity.${name}__super(${typedArgs.joinToString()});")
     if (throws) {
         sb.appendln("            } catch ($exceptionType e) {")
         sb.appendln("                throw new SuppressedException(e);")
@@ -236,7 +250,7 @@ fun createCompositeActivity(activity: AnalyzedJavaFile) {
             sb.appendln(
                     "    ${annotations.filter { !it.contains("Override") }.joinToString("\n")}")
             sb.appendln(
-                    "    public $returnType ${name}_super($rawParameters) $exceptions{")
+                    "    protected $returnType ${name}__super($rawParameters) $exceptions{")
 
             sb.appendln("        ${returnWhenNotVoid}super.$name(" +
                     "${parameterNames.joinToString()});")

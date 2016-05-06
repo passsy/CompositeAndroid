@@ -1,5 +1,7 @@
 package com.pascalwelsch.compositeandroid.activity;
 
+import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
+
 import java.util.Stack;
 
 abstract class ActivityPluginBase {
@@ -8,7 +10,7 @@ abstract class ActivityPluginBase {
 
     CompositeActivity mCompositeActivity;
 
-    final Stack<ActivitySuperFunction<?>> mSuperListeners = new Stack<>();
+    final Stack<NamedSuperCall<?>> mSuperListeners = new Stack<>();
 
     public CompositeActivity getActivity() {
         return mCompositeActivity;

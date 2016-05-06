@@ -98,10 +98,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.addContentView(view, params);
     }
 
-    public void addContentView_super(final View view, final ViewGroup.LayoutParams params) {
-        super.addContentView(view, params);
-    }
-
     /**
      * Call to set an "override configuration" on this context -- this is
      * a configuration that replies one or more values of the standard
@@ -117,17 +113,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.applyOverrideConfiguration(overrideConfiguration);
     }
 
-    public void applyOverrideConfiguration_super(final Configuration overrideConfiguration) {
-        super.applyOverrideConfiguration(overrideConfiguration);
-    }
-
     @Override
     public void attachBaseContext(final Context newBase) {
         delegate.attachBaseContext(newBase);
-    }
-
-    public void attachBaseContext_super(final Context newBase) {
-        super.attachBaseContext(newBase);
     }
 
     @Override
@@ -136,18 +124,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.bindService(service, conn, flags);
     }
 
-    public boolean bindService_super(final Intent service, final ServiceConnection conn,
-            final int flags) {
-        return super.bindService(service, conn, flags);
-    }
-
     @Override
     public int checkCallingOrSelfPermission(final String permission) {
         return delegate.checkCallingOrSelfPermission(permission);
-    }
-
-    public int checkCallingOrSelfPermission_super(final String permission) {
-        return super.checkCallingOrSelfPermission(permission);
     }
 
     @Override
@@ -155,17 +134,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.checkCallingOrSelfUriPermission(uri, modeFlags);
     }
 
-    public int checkCallingOrSelfUriPermission_super(final Uri uri, final int modeFlags) {
-        return super.checkCallingOrSelfUriPermission(uri, modeFlags);
-    }
-
     @Override
     public int checkCallingPermission(final String permission) {
         return delegate.checkCallingPermission(permission);
-    }
-
-    public int checkCallingPermission_super(final String permission) {
-        return super.checkCallingPermission(permission);
     }
 
     @Override
@@ -173,26 +144,14 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.checkCallingUriPermission(uri, modeFlags);
     }
 
-    public int checkCallingUriPermission_super(final Uri uri, final int modeFlags) {
-        return super.checkCallingUriPermission(uri, modeFlags);
-    }
-
     @Override
     public int checkPermission(final String permission, final int pid, final int uid) {
         return delegate.checkPermission(permission, pid, uid);
     }
 
-    public int checkPermission_super(final String permission, final int pid, final int uid) {
-        return super.checkPermission(permission, pid, uid);
-    }
-
     @Override
     public int checkSelfPermission(final String permission) {
         return delegate.checkSelfPermission(permission);
-    }
-
-    public int checkSelfPermission_super(final String permission) {
-        return super.checkSelfPermission(permission);
     }
 
     @Override
@@ -208,16 +167,6 @@ public class CompositeActivity extends CompositeActivityBase {
                 .checkUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags);
     }
 
-    public int checkUriPermission_super(final Uri uri, final int pid, final int uid,
-            final int modeFlags) {
-        return super.checkUriPermission(uri, pid, uid, modeFlags);
-    }
-
-    public int checkUriPermission_super(final Uri uri, final String readPermission,
-            final String writePermission, final int pid, final int uid, final int modeFlags) {
-        return super.checkUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags);
-    }
-
     @Override
     public void clearWallpaper() throws IOException {
         try {
@@ -227,20 +176,12 @@ public class CompositeActivity extends CompositeActivityBase {
         }
     }
 
-    public void clearWallpaper_super() throws IOException {
-        super.clearWallpaper();
-    }
-
     /**
      * Programmatically closes the most recently opened context menu, if showing.
      */
     @Override
     public void closeContextMenu() {
         delegate.closeContextMenu();
-    }
-
-    public void closeContextMenu_super() {
-        super.closeContextMenu();
     }
 
     /**
@@ -252,26 +193,14 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.closeOptionsMenu();
     }
 
-    public void closeOptionsMenu_super() {
-        super.closeOptionsMenu();
-    }
-
     @Override
     public Context createConfigurationContext(final Configuration overrideConfiguration) {
         return delegate.createConfigurationContext(overrideConfiguration);
     }
 
-    public Context createConfigurationContext_super(final Configuration overrideConfiguration) {
-        return super.createConfigurationContext(overrideConfiguration);
-    }
-
     @Override
     public Context createDisplayContext(final Display display) {
         return delegate.createDisplayContext(display);
-    }
-
-    public Context createDisplayContext_super(final Display display) {
-        return super.createDisplayContext(display);
     }
 
     @Override
@@ -282,11 +211,6 @@ public class CompositeActivity extends CompositeActivityBase {
         } catch (SuppressedException e) {
             throw (PackageManager.NameNotFoundException) e.getCause();
         }
-    }
-
-    public Context createPackageContext_super(final String packageName, final int flags)
-            throws PackageManager.NameNotFoundException {
-        return super.createPackageContext(packageName, flags);
     }
 
     /**
@@ -320,18 +244,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.createPendingResult(requestCode, data, flags);
     }
 
-    public PendingIntent createPendingResult_super(final int requestCode,
-            @NonNull final Intent data, final int flags) {
-        return super.createPendingResult(requestCode, data, flags);
-    }
-
     @Override
     public String[] databaseList() {
         return delegate.databaseList();
-    }
-
-    public String[] databaseList_super() {
-        return super.databaseList();
     }
 
     @Override
@@ -339,17 +254,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.deleteDatabase(name);
     }
 
-    public boolean deleteDatabase_super(final String name) {
-        return super.deleteDatabase(name);
-    }
-
     @Override
     public boolean deleteFile(final String name) {
         return delegate.deleteFile(name);
-    }
-
-    public boolean deleteFile_super(final String name) {
-        return super.deleteFile(name);
     }
 
     /**
@@ -366,17 +273,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.dispatchGenericMotionEvent(ev);
     }
 
-    public boolean dispatchGenericMotionEvent_super(final MotionEvent ev) {
-        return super.dispatchGenericMotionEvent(ev);
-    }
-
     @Override
     public boolean dispatchKeyEvent(final KeyEvent event) {
         return delegate.dispatchKeyEvent(event);
-    }
-
-    public boolean dispatchKeyEvent_super(final KeyEvent event) {
-        return super.dispatchKeyEvent(event);
     }
 
     /**
@@ -393,17 +292,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.dispatchKeyShortcutEvent(event);
     }
 
-    public boolean dispatchKeyShortcutEvent_super(final KeyEvent event) {
-        return super.dispatchKeyShortcutEvent(event);
-    }
-
     @Override
     public boolean dispatchPopulateAccessibilityEvent(final AccessibilityEvent event) {
         return delegate.dispatchPopulateAccessibilityEvent(event);
-    }
-
-    public boolean dispatchPopulateAccessibilityEvent_super(final AccessibilityEvent event) {
-        return super.dispatchPopulateAccessibilityEvent(event);
     }
 
     /**
@@ -420,10 +311,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.dispatchTouchEvent(ev);
     }
 
-    public boolean dispatchTouchEvent_super(final MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
-    }
-
     /**
      * Called to process trackball events.  You can override this to
      * intercept all trackball events before they are dispatched to the
@@ -436,10 +323,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public boolean dispatchTrackballEvent(final MotionEvent ev) {
         return delegate.dispatchTrackballEvent(ev);
-    }
-
-    public boolean dispatchTrackballEvent_super(final MotionEvent ev) {
-        return super.dispatchTrackballEvent(ev);
     }
 
     /**
@@ -458,19 +341,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.dump(prefix, fd, writer, args);
     }
 
-    public void dump_super(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args) {
-        super.dump(prefix, fd, writer, args);
-    }
-
     @Override
     public void enforceCallingOrSelfPermission(final String permission, final String message) {
         delegate.enforceCallingOrSelfPermission(permission, message);
-    }
-
-    public void enforceCallingOrSelfPermission_super(final String permission,
-            final String message) {
-        super.enforceCallingOrSelfPermission(permission, message);
     }
 
     @Override
@@ -479,18 +352,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.enforceCallingOrSelfUriPermission(uri, modeFlags, message);
     }
 
-    public void enforceCallingOrSelfUriPermission_super(final Uri uri, final int modeFlags,
-            final String message) {
-        super.enforceCallingOrSelfUriPermission(uri, modeFlags, message);
-    }
-
     @Override
     public void enforceCallingPermission(final String permission, final String message) {
         delegate.enforceCallingPermission(permission, message);
-    }
-
-    public void enforceCallingPermission_super(final String permission, final String message) {
-        super.enforceCallingPermission(permission, message);
     }
 
     @Override
@@ -499,20 +363,10 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.enforceCallingUriPermission(uri, modeFlags, message);
     }
 
-    public void enforceCallingUriPermission_super(final Uri uri, final int modeFlags,
-            final String message) {
-        super.enforceCallingUriPermission(uri, modeFlags, message);
-    }
-
     @Override
     public void enforcePermission(final String permission, final int pid, final int uid,
             final String message) {
         delegate.enforcePermission(permission, pid, uid, message);
-    }
-
-    public void enforcePermission_super(final String permission, final int pid, final int uid,
-            final String message) {
-        super.enforcePermission(permission, pid, uid, message);
     }
 
     @Override
@@ -529,36 +383,15 @@ public class CompositeActivity extends CompositeActivityBase {
                 message);
     }
 
-    public void enforceUriPermission_super(final Uri uri, final int pid, final int uid,
-            final int modeFlags, final String message) {
-        super.enforceUriPermission(uri, pid, uid, modeFlags, message);
-    }
-
-    public void enforceUriPermission_super(final Uri uri, final String readPermission,
-            final String writePermission, final int pid, final int uid, final int modeFlags,
-            final String message) {
-        super.enforceUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags,
-                message);
-    }
-
     @Override
     public String[] fileList() {
         return delegate.fileList();
-    }
-
-    public String[] fileList_super() {
-        return super.fileList();
     }
 
     @Nullable
     @Override
     public View findViewById(@IdRes final int id) {
         return delegate.findViewById(id);
-    }
-
-    @Nullable
-    public View findViewById_super(@IdRes final int id) {
-        return super.findViewById(id);
     }
 
     /**
@@ -597,15 +430,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.finishActivityFromChild(child, requestCode);
     }
 
-    public void finishActivityFromChild_super(@NonNull final Activity child,
-            final int requestCode) {
-        super.finishActivityFromChild(child, requestCode);
-    }
-
-    public void finishActivity_super(final int requestCode) {
-        super.finishActivity(requestCode);
-    }
-
     /**
      * Finish this activity as well as all activities immediately below it
      * in the current task that have the same affinity.  This is typically
@@ -625,10 +449,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.finishAffinity();
     }
 
-    public void finishAffinity_super() {
-        super.finishAffinity();
-    }
-
     /**
      * Reverses the Activity Scene entry Transition and triggers the calling Activity
      * to reverse its exit Transition. When the exit Transition completes,
@@ -642,10 +462,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.finishAfterTransition();
     }
 
-    public void finishAfterTransition_super() {
-        super.finishAfterTransition();
-    }
-
     /**
      * Call this when your activity is done and should be closed and the task should be completely
      * removed as a part of finishing the Activity.
@@ -653,10 +469,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void finishAndRemoveTask() {
         delegate.finishAndRemoveTask();
-    }
-
-    public void finishAndRemoveTask_super() {
-        super.finishAndRemoveTask();
     }
 
     /**
@@ -672,14 +484,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.finishFromChild(child);
     }
 
-    public void finishFromChild_super(final Activity child) {
-        super.finishFromChild(child);
-    }
-
-    public void finish_super() {
-        super.finish();
-    }
-
     /**
      * Retrieve a reference to this activity's ActionBar.
      *
@@ -691,18 +495,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getActionBar();
     }
 
-    @Nullable
-    public android.app.ActionBar getActionBar_super() {
-        return super.getActionBar();
-    }
-
     @Override
     public Context getApplicationContext() {
         return delegate.getApplicationContext();
-    }
-
-    public Context getApplicationContext_super() {
-        return super.getApplicationContext();
     }
 
     @Override
@@ -710,17 +505,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getApplicationInfo();
     }
 
-    public ApplicationInfo getApplicationInfo_super() {
-        return super.getApplicationInfo();
-    }
-
     @Override
     public AssetManager getAssets() {
         return delegate.getAssets();
-    }
-
-    public AssetManager getAssets_super() {
-        return super.getAssets();
     }
 
     /**
@@ -731,17 +518,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getBaseContext();
     }
 
-    public Context getBaseContext_super() {
-        return super.getBaseContext();
-    }
-
     @Override
     public File getCacheDir() {
         return delegate.getCacheDir();
-    }
-
-    public File getCacheDir_super() {
-        return super.getCacheDir();
     }
 
     /**
@@ -762,11 +541,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public ComponentName getCallingActivity() {
         return delegate.getCallingActivity();
-    }
-
-    @Nullable
-    public ComponentName getCallingActivity_super() {
-        return super.getCallingActivity();
     }
 
     /**
@@ -795,11 +569,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getCallingPackage();
     }
 
-    @Nullable
-    public String getCallingPackage_super() {
-        return super.getCallingPackage();
-    }
-
     /**
      * If this activity is being destroyed because it can not handle a
      * configuration parameter being changed (and thus its
@@ -819,26 +588,14 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getChangingConfigurations();
     }
 
-    public int getChangingConfigurations_super() {
-        return super.getChangingConfigurations();
-    }
-
     @Override
     public ClassLoader getClassLoader() {
         return delegate.getClassLoader();
     }
 
-    public ClassLoader getClassLoader_super() {
-        return super.getClassLoader();
-    }
-
     @Override
     public File getCodeCacheDir() {
         return delegate.getCodeCacheDir();
-    }
-
-    public File getCodeCacheDir_super() {
-        return super.getCodeCacheDir();
     }
 
     /**
@@ -851,17 +608,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getComponentName();
     }
 
-    public ComponentName getComponentName_super() {
-        return super.getComponentName();
-    }
-
     @Override
     public ContentResolver getContentResolver() {
         return delegate.getContentResolver();
-    }
-
-    public ContentResolver getContentResolver_super() {
-        return super.getContentResolver();
     }
 
     /**
@@ -875,10 +624,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public Scene getContentScene() {
         return delegate.getContentScene();
-    }
-
-    public Scene getContentScene_super() {
-        return super.getContentScene();
     }
 
     /**
@@ -895,10 +640,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getContentTransitionManager();
     }
 
-    public TransitionManager getContentTransitionManager_super() {
-        return super.getContentTransitionManager();
-    }
-
     /**
      * Calls {@link Window#getCurrentFocus} on the
      * Window of this Activity to return the currently focused view.
@@ -913,18 +654,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getCurrentFocus();
     }
 
-    @Nullable
-    public View getCurrentFocus_super() {
-        return super.getCurrentFocus();
-    }
-
     @Override
     public File getDatabasePath(final String name) {
         return delegate.getDatabasePath(name);
-    }
-
-    public File getDatabasePath_super(final String name) {
-        return super.getDatabasePath(name);
     }
 
     /**
@@ -936,18 +668,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getDelegate();
     }
 
-    @NonNull
-    public AppCompatDelegate getDelegate_super() {
-        return super.getDelegate();
-    }
-
     @Override
     public File getDir(final String name, final int mode) {
         return delegate.getDir(name, mode);
-    }
-
-    public File getDir_super(final String name, final int mode) {
-        return super.getDir(name, mode);
     }
 
     @Nullable
@@ -956,18 +679,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getDrawerToggleDelegate();
     }
 
-    @Nullable
-    public ActionBarDrawerToggle.Delegate getDrawerToggleDelegate_super() {
-        return super.getDrawerToggleDelegate();
-    }
-
     @Override
     public File getExternalCacheDir() {
         return delegate.getExternalCacheDir();
-    }
-
-    public File getExternalCacheDir_super() {
-        return super.getExternalCacheDir();
     }
 
     @Override
@@ -975,17 +689,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getExternalCacheDirs();
     }
 
-    public File[] getExternalCacheDirs_super() {
-        return super.getExternalCacheDirs();
-    }
-
     @Override
     public File getExternalFilesDir(final String type) {
         return delegate.getExternalFilesDir(type);
-    }
-
-    public File getExternalFilesDir_super(final String type) {
-        return super.getExternalFilesDir(type);
     }
 
     @Override
@@ -993,17 +699,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getExternalFilesDirs(type);
     }
 
-    public File[] getExternalFilesDirs_super(final String type) {
-        return super.getExternalFilesDirs(type);
-    }
-
     @Override
     public File[] getExternalMediaDirs() {
         return delegate.getExternalMediaDirs();
-    }
-
-    public File[] getExternalMediaDirs_super() {
-        return super.getExternalMediaDirs();
     }
 
     @Override
@@ -1011,17 +709,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getFileStreamPath(name);
     }
 
-    public File getFileStreamPath_super(final String name) {
-        return super.getFileStreamPath(name);
-    }
-
     @Override
     public File getFilesDir() {
         return delegate.getFilesDir();
-    }
-
-    public File getFilesDir_super() {
-        return super.getFilesDir();
     }
 
     /**
@@ -1033,20 +723,12 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getFragmentManager();
     }
 
-    public android.app.FragmentManager getFragmentManager_super() {
-        return super.getFragmentManager();
-    }
-
     /**
      * Return the intent that started this activity.
      */
     @Override
     public Intent getIntent() {
         return delegate.getIntent();
-    }
-
-    public Intent getIntent_super() {
-        return super.getIntent();
     }
 
     /**
@@ -1059,21 +741,12 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getLayoutInflater();
     }
 
-    @NonNull
-    public LayoutInflater getLayoutInflater_super() {
-        return super.getLayoutInflater();
-    }
-
     /**
      * Return the LoaderManager for this activity, creating it if needed.
      */
     @Override
     public android.app.LoaderManager getLoaderManager() {
         return delegate.getLoaderManager();
-    }
-
-    public android.app.LoaderManager getLoaderManager_super() {
-        return super.getLoaderManager();
     }
 
     /**
@@ -1088,18 +761,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getLocalClassName();
     }
 
-    @NonNull
-    public String getLocalClassName_super() {
-        return super.getLocalClassName();
-    }
-
     @Override
     public Looper getMainLooper() {
         return delegate.getMainLooper();
-    }
-
-    public Looper getMainLooper_super() {
-        return super.getMainLooper();
     }
 
     @NonNull
@@ -1108,18 +772,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getMenuInflater();
     }
 
-    @NonNull
-    public MenuInflater getMenuInflater_super() {
-        return super.getMenuInflater();
-    }
-
     @Override
     public File getNoBackupFilesDir() {
         return delegate.getNoBackupFilesDir();
-    }
-
-    public File getNoBackupFilesDir_super() {
-        return super.getNoBackupFilesDir();
     }
 
     @Override
@@ -1127,17 +782,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getObbDir();
     }
 
-    public File getObbDir_super() {
-        return super.getObbDir();
-    }
-
     @Override
     public File[] getObbDirs() {
         return delegate.getObbDirs();
-    }
-
-    public File[] getObbDirs_super() {
-        return super.getObbDirs();
     }
 
     @Override
@@ -1145,17 +792,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getPackageCodePath();
     }
 
-    public String getPackageCodePath_super() {
-        return super.getPackageCodePath();
-    }
-
     @Override
     public PackageManager getPackageManager() {
         return delegate.getPackageManager();
-    }
-
-    public PackageManager getPackageManager_super() {
-        return super.getPackageManager();
     }
 
     @Override
@@ -1163,17 +802,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getPackageName();
     }
 
-    public String getPackageName_super() {
-        return super.getPackageName();
-    }
-
     @Override
     public String getPackageResourcePath() {
         return delegate.getPackageResourcePath();
-    }
-
-    public String getPackageResourcePath_super() {
-        return super.getPackageResourcePath();
     }
 
     /**
@@ -1193,11 +824,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getParentActivityIntent();
     }
 
-    @Nullable
-    public Intent getParentActivityIntent_super() {
-        return super.getParentActivityIntent();
-    }
-
     /**
      * Retrieve a {@link SharedPreferences} object for accessing preferences
      * that are private to this activity.  This simply calls the underlying
@@ -1213,10 +839,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public SharedPreferences getPreferences(final int mode) {
         return delegate.getPreferences(mode);
-    }
-
-    public SharedPreferences getPreferences_super(final int mode) {
-        return super.getPreferences(mode);
     }
 
     /**
@@ -1241,11 +863,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getReferrer();
     }
 
-    @Nullable
-    public Uri getReferrer_super() {
-        return super.getReferrer();
-    }
-
     /**
      * Return the current requested orientation of the activity.  This will
      * either be the orientation requested in its component's manifest, or
@@ -1260,26 +877,14 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getRequestedOrientation();
     }
 
-    public int getRequestedOrientation_super() {
-        return super.getRequestedOrientation();
-    }
-
     @Override
     public Resources getResources() {
         return delegate.getResources();
     }
 
-    public Resources getResources_super() {
-        return super.getResources();
-    }
-
     @Override
     public SharedPreferences getSharedPreferences(final String name, final int mode) {
         return delegate.getSharedPreferences(name, mode);
-    }
-
-    public SharedPreferences getSharedPreferences_super(final String name, final int mode) {
-        return super.getSharedPreferences(name, mode);
     }
 
     /**
@@ -1295,11 +900,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getSupportActionBar();
     }
 
-    @Nullable
-    public ActionBar getSupportActionBar_super() {
-        return super.getSupportActionBar();
-    }
-
     /**
      * Return the FragmentManager for interacting with fragments associated
      * with this activity.
@@ -1309,17 +909,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getSupportFragmentManager();
     }
 
-    public FragmentManager getSupportFragmentManager_super() {
-        return super.getSupportFragmentManager();
-    }
-
     @Override
     public LoaderManager getSupportLoaderManager() {
         return delegate.getSupportLoaderManager();
-    }
-
-    public LoaderManager getSupportLoaderManager_super() {
-        return super.getSupportLoaderManager();
     }
 
     /**
@@ -1337,11 +929,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getSupportParentActivityIntent();
     }
 
-    @Nullable
-    public Intent getSupportParentActivityIntent_super() {
-        return super.getSupportParentActivityIntent();
-    }
-
     @Override
     public Object getSystemService(@NonNull final String name) {
         return delegate.getSystemService(name);
@@ -1350,14 +937,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public String getSystemServiceName(final Class<?> serviceClass) {
         return delegate.getSystemServiceName(serviceClass);
-    }
-
-    public String getSystemServiceName_super(final Class<?> serviceClass) {
-        return super.getSystemServiceName(serviceClass);
-    }
-
-    public Object getSystemService_super(@NonNull final String name) {
-        return super.getSystemService(name);
     }
 
     /**
@@ -1371,17 +950,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getTaskId();
     }
 
-    public int getTaskId_super() {
-        return super.getTaskId();
-    }
-
     @Override
     public Resources.Theme getTheme() {
         return delegate.getTheme();
-    }
-
-    public Resources.Theme getTheme_super() {
-        return super.getTheme();
     }
 
     /**
@@ -1391,10 +962,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public VoiceInteractor getVoiceInteractor() {
         return delegate.getVoiceInteractor();
-    }
-
-    public VoiceInteractor getVoiceInteractor_super() {
-        return super.getVoiceInteractor();
     }
 
     @Override
@@ -1407,21 +974,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getWallpaperDesiredMinimumHeight();
     }
 
-    public int getWallpaperDesiredMinimumHeight_super() {
-        return super.getWallpaperDesiredMinimumHeight();
-    }
-
     @Override
     public int getWallpaperDesiredMinimumWidth() {
         return delegate.getWallpaperDesiredMinimumWidth();
-    }
-
-    public int getWallpaperDesiredMinimumWidth_super() {
-        return super.getWallpaperDesiredMinimumWidth();
-    }
-
-    public Drawable getWallpaper_super() {
-        return super.getWallpaper();
     }
 
     /**
@@ -1445,22 +1000,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getWindowManager();
     }
 
-    public WindowManager getWindowManager_super() {
-        return super.getWindowManager();
-    }
-
-    public Window getWindow_super() {
-        return super.getWindow();
-    }
-
     @Override
     public void grantUriPermission(final String toPackage, final Uri uri, final int modeFlags) {
         delegate.grantUriPermission(toPackage, uri, modeFlags);
-    }
-
-    public void grantUriPermission_super(final String toPackage, final Uri uri,
-            final int modeFlags) {
-        super.grantUriPermission(toPackage, uri, modeFlags);
     }
 
     /**
@@ -1475,20 +1017,12 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.hasWindowFocus();
     }
 
-    public boolean hasWindowFocus_super() {
-        return super.hasWindowFocus();
-    }
-
     /**
      * @hide
      */
     @Override
     public void invalidateOptionsMenu() {
         delegate.invalidateOptionsMenu();
-    }
-
-    public void invalidateOptionsMenu_super() {
-        super.invalidateOptionsMenu();
     }
 
     /**
@@ -1505,10 +1039,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.isChangingConfigurations();
     }
 
-    public boolean isChangingConfigurations_super() {
-        return super.isChangingConfigurations();
-    }
-
     /**
      * Returns true if the final {@link #onDestroy()} call has been made
      * on the Activity, so this instance is now dead.
@@ -1516,10 +1046,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public boolean isDestroyed() {
         return delegate.isDestroyed();
-    }
-
-    public boolean isDestroyed_super() {
-        return super.isDestroyed();
     }
 
     /**
@@ -1535,10 +1061,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public boolean isFinishing() {
         return delegate.isFinishing();
-    }
-
-    public boolean isFinishing_super() {
-        return super.isFinishing();
     }
 
     /**
@@ -1557,17 +1079,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.isImmersive();
     }
 
-    public boolean isImmersive_super() {
-        return super.isImmersive();
-    }
-
     @Override
     public boolean isRestricted() {
         return delegate.isRestricted();
-    }
-
-    public boolean isRestricted_super() {
-        return super.isRestricted();
     }
 
     /**
@@ -1579,10 +1093,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public boolean isTaskRoot() {
         return delegate.isTaskRoot();
-    }
-
-    public boolean isTaskRoot_super() {
-        return super.isTaskRoot();
     }
 
     /**
@@ -1607,14 +1117,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.isVoiceInteractionRoot();
     }
 
-    public boolean isVoiceInteractionRoot_super() {
-        return super.isVoiceInteractionRoot();
-    }
-
-    public boolean isVoiceInteraction_super() {
-        return super.isVoiceInteraction();
-    }
-
     /**
      * Move the task containing this activity to the back of the activity
      * stack.  The activity's order within the task is unchanged.
@@ -1628,10 +1130,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public boolean moveTaskToBack(final boolean nonRoot) {
         return delegate.moveTaskToBack(nonRoot);
-    }
-
-    public boolean moveTaskToBack_super(final boolean nonRoot) {
-        return super.moveTaskToBack(nonRoot);
     }
 
     /**
@@ -1676,14 +1174,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.navigateUpToFromChild(child, upIntent);
     }
 
-    public boolean navigateUpToFromChild_super(final Activity child, final Intent upIntent) {
-        return super.navigateUpToFromChild(child, upIntent);
-    }
-
-    public boolean navigateUpTo_super(final Intent upIntent) {
-        return super.navigateUpTo(upIntent);
-    }
-
     /**
      * Notifies the activity that an action mode has finished.
      * Activity subclasses overriding this method should call the superclass implementation.
@@ -1695,10 +1185,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onActionModeFinished(mode);
     }
 
-    public void onActionModeFinished_super(final android.view.ActionMode mode) {
-        super.onActionModeFinished(mode);
-    }
-
     /**
      * Notifies the Activity that an action mode has been started.
      * Activity subclasses overriding this method should call the superclass implementation.
@@ -1708,10 +1194,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void onActionModeStarted(final android.view.ActionMode mode) {
         delegate.onActionModeStarted(mode);
-    }
-
-    public void onActionModeStarted_super(final android.view.ActionMode mode) {
-        super.onActionModeStarted(mode);
     }
 
     /**
@@ -1736,10 +1218,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onActivityReenter(resultCode, data);
     }
 
-    public void onActivityReenter_super(final int resultCode, final Intent data) {
-        super.onActivityReenter(resultCode, data);
-    }
-
     /**
      * Dispatch incoming result to the correct fragment.
      */
@@ -1748,20 +1226,10 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void onActivityResult_super(final int requestCode, final int resultCode,
-            final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     @Override
     public void onApplyThemeResource(final Resources.Theme theme, final int resid,
             final boolean first) {
         delegate.onApplyThemeResource(theme, resid, first);
-    }
-
-    public void onApplyThemeResource_super(final Resources.Theme theme, final int resid,
-            final boolean first) {
-        super.onApplyThemeResource(theme, resid, first);
     }
 
     /**
@@ -1782,14 +1250,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onAttachFragment(fragment);
     }
 
-    public void onAttachFragment_super(final Fragment fragment) {
-        super.onAttachFragment(fragment);
-    }
-
-    public void onAttachFragment_super(final android.app.Fragment fragment) {
-        super.onAttachFragment(fragment);
-    }
-
     /**
      * Called when the main window associated with the activity has been
      * attached to the window manager.
@@ -1803,10 +1263,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onAttachedToWindow();
     }
 
-    public void onAttachedToWindow_super() {
-        super.onAttachedToWindow();
-    }
-
     /**
      * Take care of popping the fragment back stack or finishing the activity
      * as appropriate.
@@ -1816,17 +1272,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onBackPressed();
     }
 
-    public void onBackPressed_super() {
-        super.onBackPressed();
-    }
-
     @Override
     public void onChildTitleChanged(final Activity childActivity, final CharSequence title) {
         delegate.onChildTitleChanged(childActivity, title);
-    }
-
-    public void onChildTitleChanged_super(final Activity childActivity, final CharSequence title) {
-        super.onChildTitleChanged(childActivity, title);
     }
 
     @Override
@@ -1834,17 +1282,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onConfigurationChanged(newConfig);
     }
 
-    public void onConfigurationChanged_super(final Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
     @Override
     public void onContentChanged() {
         delegate.onContentChanged();
-    }
-
-    public void onContentChanged_super() {
-        super.onContentChanged();
     }
 
     /**
@@ -1869,10 +1309,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onContextItemSelected(item);
     }
 
-    public boolean onContextItemSelected_super(final MenuItem item) {
-        return super.onContextItemSelected(item);
-    }
-
     /**
      * This hook is called whenever the context menu is being closed (either by
      * the user canceling the menu with the back/menu button, or when an item is
@@ -1883,10 +1319,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void onContextMenuClosed(final Menu menu) {
         delegate.onContextMenuClosed(menu);
-    }
-
-    public void onContextMenuClosed_super(final Menu menu) {
-        super.onContextMenuClosed(menu);
     }
 
     @Override
@@ -1940,11 +1372,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onCreateContextMenu(menu, v, menuInfo);
     }
 
-    public void onCreateContextMenu_super(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-    }
-
     /**
      * Generate a new description for this activity.  This method is called
      * before pausing the activity and can, if desired, return some textual
@@ -1965,11 +1392,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public CharSequence onCreateDescription() {
         return delegate.onCreateDescription();
-    }
-
-    @Nullable
-    public CharSequence onCreateDescription_super() {
-        return super.onCreateDescription();
     }
 
     /**
@@ -2017,15 +1439,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onCreateDialog(id, args);
     }
 
-    public Dialog onCreateDialog_super(final int id) {
-        return super.onCreateDialog(id);
-    }
-
-    @Nullable
-    public Dialog onCreateDialog_super(final int id, final Bundle args) {
-        return super.onCreateDialog(id, args);
-    }
-
     /**
      * Define the synthetic task stack that will be generated during Up navigation from
      * a different task.
@@ -2048,10 +1461,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void onCreateNavigateUpTaskStack(final TaskStackBuilder builder) {
         delegate.onCreateNavigateUpTaskStack(builder);
-    }
-
-    public void onCreateNavigateUpTaskStack_super(final TaskStackBuilder builder) {
-        super.onCreateNavigateUpTaskStack(builder);
     }
 
     /**
@@ -2085,20 +1494,12 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onCreateOptionsMenu(menu);
     }
 
-    public boolean onCreateOptionsMenu_super(final Menu menu) {
-        return super.onCreateOptionsMenu(menu);
-    }
-
     /**
      * Dispatch to Fragment.onCreateOptionsMenu().
      */
     @Override
     public boolean onCreatePanelMenu(final int featureId, final Menu menu) {
         return delegate.onCreatePanelMenu(featureId, menu);
-    }
-
-    public boolean onCreatePanelMenu_super(final int featureId, final Menu menu) {
-        return super.onCreatePanelMenu(featureId, menu);
     }
 
     /**
@@ -2112,11 +1513,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public View onCreatePanelView(final int featureId) {
         return delegate.onCreatePanelView(featureId);
-    }
-
-    @Nullable
-    public View onCreatePanelView_super(final int featureId) {
-        return super.onCreatePanelView(featureId);
     }
 
     /**
@@ -2149,11 +1545,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onCreateSupportNavigateUpTaskStack(builder);
     }
 
-    public void onCreateSupportNavigateUpTaskStack_super(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
-        super.onCreateSupportNavigateUpTaskStack(builder);
-    }
-
     /**
      * Generate a new thumbnail for this activity.  This method is called before
      * pausing the activity, and should draw into <var>outBitmap</var> the
@@ -2177,10 +1568,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onCreateThumbnail(outBitmap, canvas);
     }
 
-    public boolean onCreateThumbnail_super(final Bitmap outBitmap, final Canvas canvas) {
-        return super.onCreateThumbnail(outBitmap, canvas);
-    }
-
     @Override
     public View onCreateView(final View parent, final String name, final Context context,
             final AttributeSet attrs) {
@@ -2192,32 +1579,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onCreateView(name, context, attrs);
     }
 
-    public View onCreateView_super(final View parent, final String name, final Context context,
-            final AttributeSet attrs) {
-        return super.onCreateView(parent, name, context, attrs);
-    }
-
-    public View onCreateView_super(final String name, final Context context,
-            final AttributeSet attrs) {
-        return super.onCreateView(name, context, attrs);
-    }
-
-    public void onCreate_super(@Nullable final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    public void onCreate_super(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-    }
-
     @Override
     public void onDestroy() {
         delegate.onDestroy();
-    }
-
-    public void onDestroy_super() {
-        super.onDestroy();
     }
 
     /**
@@ -2233,10 +1597,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onDetachedFromWindow();
     }
 
-    public void onDetachedFromWindow_super() {
-        super.onDetachedFromWindow();
-    }
-
     /**
      * Activities cannot draw during the period that their windows are animating in. In order
      * to know when it is safe to begin drawing they can override this method which will be
@@ -2245,10 +1605,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void onEnterAnimationComplete() {
         delegate.onEnterAnimationComplete();
-    }
-
-    public void onEnterAnimationComplete_super() {
-        super.onEnterAnimationComplete();
     }
 
     /**
@@ -2280,20 +1636,12 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onGenericMotionEvent(event);
     }
 
-    public boolean onGenericMotionEvent_super(final MotionEvent event) {
-        return super.onGenericMotionEvent(event);
-    }
-
     /**
      * Take care of calling onBackPressed() for pre-Eclair platforms.
      */
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent event) {
         return delegate.onKeyDown(keyCode, event);
-    }
-
-    public boolean onKeyDown_super(final int keyCode, final KeyEvent event) {
-        return super.onKeyDown(keyCode, event);
     }
 
     /**
@@ -2306,10 +1654,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onKeyLongPress(keyCode, event);
     }
 
-    public boolean onKeyLongPress_super(final int keyCode, final KeyEvent event) {
-        return super.onKeyLongPress(keyCode, event);
-    }
-
     /**
      * Default implementation of {@link KeyEvent.Callback#onKeyMultiple(int, int, KeyEvent)
      * KeyEvent.Callback.onKeyMultiple()}: always returns false (doesn't handle
@@ -2318,11 +1662,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public boolean onKeyMultiple(final int keyCode, final int repeatCount, final KeyEvent event) {
         return delegate.onKeyMultiple(keyCode, repeatCount, event);
-    }
-
-    public boolean onKeyMultiple_super(final int keyCode, final int repeatCount,
-            final KeyEvent event) {
-        return super.onKeyMultiple(keyCode, repeatCount, event);
     }
 
     /**
@@ -2338,10 +1677,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public boolean onKeyShortcut(final int keyCode, final KeyEvent event) {
         return delegate.onKeyShortcut(keyCode, event);
-    }
-
-    public boolean onKeyShortcut_super(final int keyCode, final KeyEvent event) {
-        return super.onKeyShortcut(keyCode, event);
     }
 
     /**
@@ -2364,20 +1699,12 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onKeyUp(keyCode, event);
     }
 
-    public boolean onKeyUp_super(final int keyCode, final KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
-    }
-
     /**
      * Dispatch onLowMemory() to all fragments.
      */
     @Override
     public void onLowMemory() {
         delegate.onLowMemory();
-    }
-
-    public void onLowMemory_super() {
-        super.onLowMemory();
     }
 
     /**
@@ -2389,10 +1716,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public boolean onMenuOpened(final int featureId, final Menu menu) {
         return delegate.onMenuOpened(featureId, menu);
-    }
-
-    public boolean onMenuOpened_super(final int featureId, final Menu menu) {
-        return super.onMenuOpened(featureId, menu);
     }
 
     /**
@@ -2436,14 +1759,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onNavigateUpFromChild(child);
     }
 
-    public boolean onNavigateUpFromChild_super(final Activity child) {
-        return super.onNavigateUpFromChild(child);
-    }
-
-    public boolean onNavigateUp_super() {
-        return super.onNavigateUp();
-    }
-
     /**
      * Handle onNewIntent() to inform the fragment manager that the
      * state is not saved.  If you are handling new intents and may be
@@ -2457,10 +1772,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void onNewIntent(final Intent intent) {
         delegate.onNewIntent(intent);
-    }
-
-    public void onNewIntent_super(final Intent intent) {
-        super.onNewIntent(intent);
     }
 
     /**
@@ -2484,10 +1795,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onOptionsItemSelected(item);
     }
 
-    public boolean onOptionsItemSelected_super(final MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * This hook is called whenever the options menu is being closed (either by the user canceling
      * the menu with the back/menu button, or when an item is selected).
@@ -2498,10 +1805,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void onOptionsMenuClosed(final Menu menu) {
         delegate.onOptionsMenuClosed(menu);
-    }
-
-    public void onOptionsMenuClosed_super(final Menu menu) {
-        super.onOptionsMenuClosed(menu);
     }
 
     /**
@@ -2515,20 +1818,12 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onPanelClosed(featureId, menu);
     }
 
-    public void onPanelClosed_super(final int featureId, final Menu menu) {
-        super.onPanelClosed(featureId, menu);
-    }
-
     /**
      * Dispatch onPause() to fragments.
      */
     @Override
     public void onPause() {
         delegate.onPause();
-    }
-
-    public void onPause_super() {
-        super.onPause();
     }
 
     @Override
@@ -2552,22 +1847,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onPostCreate(savedInstanceState, persistentState);
     }
 
-    public void onPostCreate_super(@Nullable final Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-    }
-
-    public void onPostCreate_super(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
-        super.onPostCreate(savedInstanceState, persistentState);
-    }
-
     @Override
     public void onPostResume() {
         delegate.onPostResume();
-    }
-
-    public void onPostResume_super() {
-        super.onPostResume();
     }
 
     /**
@@ -2607,14 +1889,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onPrepareDialog(id, dialog, args);
     }
 
-    public void onPrepareDialog_super(final int id, final Dialog dialog) {
-        super.onPrepareDialog(id, dialog);
-    }
-
-    public void onPrepareDialog_super(final int id, final Dialog dialog, final Bundle args) {
-        super.onPrepareDialog(id, dialog, args);
-    }
-
     /**
      * Prepare the synthetic task stack that will be generated during Up navigation
      * from a different task.
@@ -2630,10 +1904,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void onPrepareNavigateUpTaskStack(final TaskStackBuilder builder) {
         delegate.onPrepareNavigateUpTaskStack(builder);
-    }
-
-    public void onPrepareNavigateUpTaskStack_super(final TaskStackBuilder builder) {
-        super.onPrepareNavigateUpTaskStack(builder);
     }
 
     /**
@@ -2657,10 +1927,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onPrepareOptionsMenu(menu);
     }
 
-    public boolean onPrepareOptionsMenu_super(final Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
-    }
-
     /**
      * @hide
      */
@@ -2669,20 +1935,12 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onPrepareOptionsPanel(view, menu);
     }
 
-    public boolean onPrepareOptionsPanel_super(final View view, final Menu menu) {
-        return super.onPrepareOptionsPanel(view, menu);
-    }
-
     /**
      * Dispatch onPrepareOptionsMenu() to fragments.
      */
     @Override
     public boolean onPreparePanel(final int featureId, final View view, final Menu menu) {
         return delegate.onPreparePanel(featureId, view, menu);
-    }
-
-    public boolean onPreparePanel_super(final int featureId, final View view, final Menu menu) {
-        return super.onPreparePanel(featureId, view, menu);
     }
 
     /**
@@ -2705,11 +1963,6 @@ public class CompositeActivity extends CompositeActivityBase {
     public void onPrepareSupportNavigateUpTaskStack(
             @NonNull final android.support.v4.app.TaskStackBuilder builder) {
         delegate.onPrepareSupportNavigateUpTaskStack(builder);
-    }
-
-    public void onPrepareSupportNavigateUpTaskStack_super(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
-        super.onPrepareSupportNavigateUpTaskStack(builder);
     }
 
     /**
@@ -2736,10 +1989,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onProvideAssistContent(outContent);
     }
 
-    public void onProvideAssistContent_super(final AssistContent outContent) {
-        super.onProvideAssistContent(outContent);
-    }
-
     /**
      * This is called when the user is requesting an assist, to build a full
      * {@link Intent#ACTION_ASSIST} Intent with all of the context of the current
@@ -2756,10 +2005,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onProvideAssistData(data);
     }
 
-    public void onProvideAssistData_super(final Bundle data) {
-        super.onProvideAssistData(data);
-    }
-
     /**
      * Override to generate the desired referrer for the content currently being shown
      * by the app.  The default implementation returns null, meaning the referrer will simply
@@ -2769,10 +2014,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public Uri onProvideReferrer() {
         return delegate.onProvideReferrer();
-    }
-
-    public Uri onProvideReferrer_super() {
-        return super.onProvideReferrer();
     }
 
     /**
@@ -2795,11 +2036,6 @@ public class CompositeActivity extends CompositeActivityBase {
     public void onRequestPermissionsResult(final int requestCode,
             @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         delegate.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    public void onRequestPermissionsResult_super(final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     /**
@@ -2825,10 +2061,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void onRestart() {
         delegate.onRestart();
-    }
-
-    public void onRestart_super() {
-        super.onRestart();
     }
 
     /**
@@ -2881,15 +2113,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onRestoreInstanceState(savedInstanceState, persistentState);
     }
 
-    public void onRestoreInstanceState_super(final Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    public void onRestoreInstanceState_super(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
-        super.onRestoreInstanceState(savedInstanceState, persistentState);
-    }
-
     /**
      * Dispatch onResume() to fragments.  Note that for better inter-operation
      * with older versions of the platform, at the point of this call the
@@ -2915,14 +2138,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onResumeFragments();
     }
 
-    public void onResumeFragments_super() {
-        super.onResumeFragments();
-    }
-
-    public void onResume_super() {
-        super.onResume();
-    }
-
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         delegate.onSaveInstanceState(outState);
@@ -2946,15 +2161,6 @@ public class CompositeActivity extends CompositeActivityBase {
     public void onSaveInstanceState(final Bundle outState,
             final PersistableBundle outPersistentState) {
         delegate.onSaveInstanceState(outState, outPersistentState);
-    }
-
-    public void onSaveInstanceState_super(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    public void onSaveInstanceState_super(final Bundle outState,
-            final PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
     }
 
     /**
@@ -2992,14 +2198,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onSearchRequested();
     }
 
-    public boolean onSearchRequested_super(final SearchEvent searchEvent) {
-        return super.onSearchRequested(searchEvent);
-    }
-
-    public boolean onSearchRequested_super() {
-        return super.onSearchRequested();
-    }
-
     /**
      * Dispatch onStart() to all fragments.  Ensure any created loaders are
      * now started.
@@ -3007,10 +2205,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void onStart() {
         delegate.onStart();
-    }
-
-    public void onStart_super() {
-        super.onStart();
     }
 
     /**
@@ -3021,17 +2215,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onStateNotSaved();
     }
 
-    public void onStateNotSaved_super() {
-        super.onStateNotSaved();
-    }
-
     @Override
     public void onStop() {
         delegate.onStop();
-    }
-
-    public void onStop_super() {
-        super.onStop();
     }
 
     /**
@@ -3045,10 +2231,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onSupportActionModeFinished(mode);
     }
 
-    public void onSupportActionModeFinished_super(@NonNull final ActionMode mode) {
-        super.onSupportActionModeFinished(mode);
-    }
-
     /**
      * Notifies the Activity that a support action mode has been started.
      * Activity subclasses overriding this method should call the superclass implementation.
@@ -3060,20 +2242,12 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onSupportActionModeStarted(mode);
     }
 
-    public void onSupportActionModeStarted_super(@NonNull final ActionMode mode) {
-        super.onSupportActionModeStarted(mode);
-    }
-
     /**
      * @deprecated Use {@link #onContentChanged()} instead.
      */
     @Override
     public void onSupportContentChanged() {
         delegate.onSupportContentChanged();
-    }
-
-    public void onSupportContentChanged_super() {
-        super.onSupportContentChanged();
     }
 
     /**
@@ -3104,17 +2278,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onSupportNavigateUp();
     }
 
-    public boolean onSupportNavigateUp_super() {
-        return super.onSupportNavigateUp();
-    }
-
     @Override
     public void onTitleChanged(final CharSequence title, final int color) {
         delegate.onTitleChanged(title, color);
-    }
-
-    public void onTitleChanged_super(final CharSequence title, final int color) {
-        super.onTitleChanged(title, color);
     }
 
     /**
@@ -3129,10 +2295,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
         return delegate.onTouchEvent(event);
-    }
-
-    public boolean onTouchEvent_super(final MotionEvent event) {
-        return super.onTouchEvent(event);
     }
 
     /**
@@ -3153,17 +2315,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onTrackballEvent(event);
     }
 
-    public boolean onTrackballEvent_super(final MotionEvent event) {
-        return super.onTrackballEvent(event);
-    }
-
     @Override
     public void onTrimMemory(final int level) {
         delegate.onTrimMemory(level);
-    }
-
-    public void onTrimMemory_super(final int level) {
-        super.onTrimMemory(level);
     }
 
     /**
@@ -3190,10 +2344,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onUserInteraction();
     }
 
-    public void onUserInteraction_super() {
-        super.onUserInteraction();
-    }
-
     /**
      * Called as part of the activity lifecycle when an activity is about to go
      * into the background as the result of user choice.  For example, when the
@@ -3212,10 +2362,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void onUserLeaveHint() {
         delegate.onUserLeaveHint();
-    }
-
-    public void onUserLeaveHint_super() {
-        super.onUserLeaveHint();
     }
 
     /**
@@ -3237,17 +2383,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onVisibleBehindCanceled();
     }
 
-    public void onVisibleBehindCanceled_super() {
-        super.onVisibleBehindCanceled();
-    }
-
     @Override
     public void onWindowAttributesChanged(final WindowManager.LayoutParams params) {
         delegate.onWindowAttributesChanged(params);
-    }
-
-    public void onWindowAttributesChanged_super(final WindowManager.LayoutParams params) {
-        super.onWindowAttributesChanged(params);
     }
 
     /**
@@ -3281,10 +2419,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.onWindowFocusChanged(hasFocus);
     }
 
-    public void onWindowFocusChanged_super(final boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-    }
-
     /**
      * Give the Activity a chance to control the UI for an action mode requested
      * by the system.
@@ -3313,18 +2447,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onWindowStartingActionMode(callback, type);
     }
 
-    @Nullable
-    public android.view.ActionMode onWindowStartingActionMode_super(
-            final android.view.ActionMode.Callback callback) {
-        return super.onWindowStartingActionMode(callback);
-    }
-
-    @Nullable
-    public android.view.ActionMode onWindowStartingActionMode_super(
-            final android.view.ActionMode.Callback callback, final int type) {
-        return super.onWindowStartingActionMode(callback, type);
-    }
-
     /**
      * Called when a support action mode is being started for this window. Gives the
      * callback an opportunity to handle the action mode in its own unique and
@@ -3341,12 +2463,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.onWindowStartingSupportActionMode(callback);
     }
 
-    @Nullable
-    public ActionMode onWindowStartingSupportActionMode_super(
-            @NonNull final ActionMode.Callback callback) {
-        return super.onWindowStartingSupportActionMode(callback);
-    }
-
     /**
      * Programmatically opens the context menu for a particular {@code view}.
      * The {@code view} should have been added via
@@ -3359,10 +2475,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.openContextMenu(view);
     }
 
-    public void openContextMenu_super(final View view) {
-        super.openContextMenu(view);
-    }
-
     @Override
     public FileInputStream openFileInput(final String name) throws FileNotFoundException {
         try {
@@ -3370,10 +2482,6 @@ public class CompositeActivity extends CompositeActivityBase {
         } catch (SuppressedException e) {
             throw (FileNotFoundException) e.getCause();
         }
-    }
-
-    public FileInputStream openFileInput_super(final String name) throws FileNotFoundException {
-        return super.openFileInput(name);
     }
 
     @Override
@@ -3386,11 +2494,6 @@ public class CompositeActivity extends CompositeActivityBase {
         }
     }
 
-    public FileOutputStream openFileOutput_super(final String name, final int mode)
-            throws FileNotFoundException {
-        return super.openFileOutput(name, mode);
-    }
-
     /**
      * Programmatically opens the options menu. If the options menu is already
      * open, this method does nothing.
@@ -3398,10 +2501,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void openOptionsMenu() {
         delegate.openOptionsMenu();
-    }
-
-    public void openOptionsMenu_super() {
-        super.openOptionsMenu();
     }
 
     @Override
@@ -3414,16 +2513,6 @@ public class CompositeActivity extends CompositeActivityBase {
     public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
             final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler) {
         return delegate.openOrCreateDatabase(name, mode, factory, errorHandler);
-    }
-
-    public SQLiteDatabase openOrCreateDatabase_super(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory) {
-        return super.openOrCreateDatabase(name, mode, factory);
-    }
-
-    public SQLiteDatabase openOrCreateDatabase_super(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler) {
-        return super.openOrCreateDatabase(name, mode, factory, errorHandler);
     }
 
     /**
@@ -3448,17 +2537,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.overridePendingTransition(enterAnim, exitAnim);
     }
 
-    public void overridePendingTransition_super(final int enterAnim, final int exitAnim) {
-        super.overridePendingTransition(enterAnim, exitAnim);
-    }
-
     @Override
     public Drawable peekWallpaper() {
         return delegate.peekWallpaper();
-    }
-
-    public Drawable peekWallpaper_super() {
-        return super.peekWallpaper();
     }
 
     /**
@@ -3481,10 +2562,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.postponeEnterTransition();
     }
 
-    public void postponeEnterTransition_super() {
-        super.postponeEnterTransition();
-    }
-
     /**
      * Cause this Activity to be recreated with a new instance.  This results
      * in essentially the same flow as when the Activity is created due to
@@ -3494,10 +2571,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void recreate() {
         delegate.recreate();
-    }
-
-    public void recreate_super() {
-        super.recreate();
     }
 
     /**
@@ -3515,10 +2588,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.registerComponentCallbacks(callback);
     }
 
-    public void registerComponentCallbacks_super(final ComponentCallbacks callback) {
-        super.registerComponentCallbacks(callback);
-    }
-
     /**
      * Registers a context menu to be shown for the given view (multiple views
      * can show the context menu). This method will set the
@@ -3534,10 +2603,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.registerForContextMenu(view);
     }
 
-    public void registerForContextMenu_super(final View view) {
-        super.registerForContextMenu(view);
-    }
-
     @Override
     public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter) {
         return delegate.registerReceiver(receiver, filter);
@@ -3547,16 +2612,6 @@ public class CompositeActivity extends CompositeActivityBase {
     public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
             final String broadcastPermission, final Handler scheduler) {
         return delegate.registerReceiver(receiver, filter, broadcastPermission, scheduler);
-    }
-
-    public Intent registerReceiver_super(final BroadcastReceiver receiver,
-            final IntentFilter filter) {
-        return super.registerReceiver(receiver, filter);
-    }
-
-    public Intent registerReceiver_super(final BroadcastReceiver receiver,
-            final IntentFilter filter, final String broadcastPermission, final Handler scheduler) {
-        return super.registerReceiver(receiver, filter, broadcastPermission, scheduler);
     }
 
     /**
@@ -3575,10 +2630,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.releaseInstance();
     }
 
-    public boolean releaseInstance_super() {
-        return super.releaseInstance();
-    }
-
     @Override
     public void removeStickyBroadcast(final Intent intent) {
         delegate.removeStickyBroadcast(intent);
@@ -3587,14 +2638,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void removeStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
         delegate.removeStickyBroadcastAsUser(intent, user);
-    }
-
-    public void removeStickyBroadcastAsUser_super(final Intent intent, final UserHandle user) {
-        super.removeStickyBroadcastAsUser(intent, user);
-    }
-
-    public void removeStickyBroadcast_super(final Intent intent) {
-        super.removeStickyBroadcast(intent);
     }
 
     /**
@@ -3613,10 +2656,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void reportFullyDrawn() {
         delegate.reportFullyDrawn();
-    }
-
-    public void reportFullyDrawn_super() {
-        super.reportFullyDrawn();
     }
 
     /**
@@ -3656,17 +2695,9 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.requestVisibleBehind(visible);
     }
 
-    public boolean requestVisibleBehind_super(final boolean visible) {
-        return super.requestVisibleBehind(visible);
-    }
-
     @Override
     public void revokeUriPermission(final Uri uri, final int modeFlags) {
         delegate.revokeUriPermission(uri, modeFlags);
-    }
-
-    public void revokeUriPermission_super(final Uri uri, final int modeFlags) {
-        super.revokeUriPermission(uri, modeFlags);
     }
 
     @Override
@@ -3688,23 +2719,6 @@ public class CompositeActivity extends CompositeActivityBase {
     public void sendBroadcastAsUser(final Intent intent, final UserHandle user,
             final String receiverPermission) {
         delegate.sendBroadcastAsUser(intent, user, receiverPermission);
-    }
-
-    public void sendBroadcastAsUser_super(final Intent intent, final UserHandle user) {
-        super.sendBroadcastAsUser(intent, user);
-    }
-
-    public void sendBroadcastAsUser_super(final Intent intent, final UserHandle user,
-            final String receiverPermission) {
-        super.sendBroadcastAsUser(intent, user, receiverPermission);
-    }
-
-    public void sendBroadcast_super(final Intent intent) {
-        super.sendBroadcast(intent);
-    }
-
-    public void sendBroadcast_super(final Intent intent, final String receiverPermission) {
-        super.sendBroadcast(intent, receiverPermission);
     }
 
     @Override
@@ -3729,25 +2743,6 @@ public class CompositeActivity extends CompositeActivityBase {
                 scheduler, initialCode, initialData, initialExtras);
     }
 
-    public void sendOrderedBroadcastAsUser_super(final Intent intent, final UserHandle user,
-            final String receiverPermission, final BroadcastReceiver resultReceiver,
-            final Handler scheduler, final int initialCode, final String initialData,
-            final Bundle initialExtras) {
-        super.sendOrderedBroadcastAsUser(intent, user, receiverPermission, resultReceiver,
-                scheduler, initialCode, initialData, initialExtras);
-    }
-
-    public void sendOrderedBroadcast_super(final Intent intent, final String receiverPermission) {
-        super.sendOrderedBroadcast(intent, receiverPermission);
-    }
-
-    public void sendOrderedBroadcast_super(final Intent intent, final String receiverPermission,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
-        super.sendOrderedBroadcast(intent, receiverPermission, resultReceiver, scheduler,
-                initialCode, initialData, initialExtras);
-    }
-
     @Override
     public void sendStickyBroadcast(final Intent intent) {
         delegate.sendStickyBroadcast(intent);
@@ -3756,14 +2751,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void sendStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
         delegate.sendStickyBroadcastAsUser(intent, user);
-    }
-
-    public void sendStickyBroadcastAsUser_super(final Intent intent, final UserHandle user) {
-        super.sendStickyBroadcastAsUser(intent, user);
-    }
-
-    public void sendStickyBroadcast_super(final Intent intent) {
-        super.sendStickyBroadcast(intent);
     }
 
     @Override
@@ -3780,20 +2767,6 @@ public class CompositeActivity extends CompositeActivityBase {
             final String initialData, final Bundle initialExtras) {
         delegate.sendStickyOrderedBroadcastAsUser(intent, user, resultReceiver, scheduler,
                 initialCode, initialData, initialExtras);
-    }
-
-    public void sendStickyOrderedBroadcastAsUser_super(final Intent intent, final UserHandle user,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
-        super.sendStickyOrderedBroadcastAsUser(intent, user, resultReceiver, scheduler, initialCode,
-                initialData, initialExtras);
-    }
-
-    public void sendStickyOrderedBroadcast_super(final Intent intent,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
-        super.sendStickyOrderedBroadcast(intent, resultReceiver, scheduler, initialCode,
-                initialData, initialExtras);
     }
 
     /**
@@ -3817,10 +2790,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.setActionBar(toolbar);
     }
 
-    public void setActionBar_super(final Toolbar toolbar) {
-        super.setActionBar(toolbar);
-    }
-
     /**
      * Set the {@link TransitionManager} to use for default transitions in this window.
      * Requires {@link Window#FEATURE_CONTENT_TRANSITIONS}.
@@ -3830,10 +2799,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void setContentTransitionManager(final TransitionManager tm) {
         delegate.setContentTransitionManager(tm);
-    }
-
-    public void setContentTransitionManager_super(final TransitionManager tm) {
-        super.setContentTransitionManager(tm);
     }
 
     @Override
@@ -3849,18 +2814,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void setContentView(final View view, final ViewGroup.LayoutParams params) {
         delegate.setContentView(view, params);
-    }
-
-    public void setContentView_super(@LayoutRes final int layoutResID) {
-        super.setContentView(layoutResID);
-    }
-
-    public void setContentView_super(final View view) {
-        super.setContentView(view);
-    }
-
-    public void setContentView_super(final View view, final ViewGroup.LayoutParams params) {
-        super.setContentView(view, params);
     }
 
     /**
@@ -3887,15 +2840,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void setEnterSharedElementCallback(final android.app.SharedElementCallback callback) {
         delegate.setEnterSharedElementCallback(callback);
-    }
-
-    public void setEnterSharedElementCallback_super(final SharedElementCallback callback) {
-        super.setEnterSharedElementCallback(callback);
-    }
-
-    public void setEnterSharedElementCallback_super(
-            final android.app.SharedElementCallback callback) {
-        super.setEnterSharedElementCallback(callback);
     }
 
     /**
@@ -3926,15 +2870,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.setExitSharedElementCallback(callback);
     }
 
-    public void setExitSharedElementCallback_super(final SharedElementCallback listener) {
-        super.setExitSharedElementCallback(listener);
-    }
-
-    public void setExitSharedElementCallback_super(
-            final android.app.SharedElementCallback callback) {
-        super.setExitSharedElementCallback(callback);
-    }
-
     /**
      * Sets whether this activity is finished when touched outside its window's
      * bounds.
@@ -3942,10 +2877,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void setFinishOnTouchOutside(final boolean finish) {
         delegate.setFinishOnTouchOutside(finish);
-    }
-
-    public void setFinishOnTouchOutside_super(final boolean finish) {
-        super.setFinishOnTouchOutside(finish);
     }
 
     /**
@@ -3967,10 +2898,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.setImmersive(i);
     }
 
-    public void setImmersive_super(final boolean i) {
-        super.setImmersive(i);
-    }
-
     /**
      * Change the intent returned by {@link #getIntent}.  This holds a
      * reference to the given intent; it does not copy it.  Often used in
@@ -3983,10 +2910,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void setIntent(final Intent newIntent) {
         delegate.setIntent(newIntent);
-    }
-
-    public void setIntent_super(final Intent newIntent) {
-        super.setIntent(newIntent);
     }
 
     /**
@@ -4002,10 +2925,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void setRequestedOrientation(final int requestedOrientation) {
         delegate.setRequestedOrientation(requestedOrientation);
-    }
-
-    public void setRequestedOrientation_super(final int requestedOrientation) {
-        super.setRequestedOrientation(requestedOrientation);
     }
 
     /**
@@ -4027,11 +2946,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar) {
         delegate.setSupportActionBar(toolbar);
-    }
-
-    public void setSupportActionBar_super(
-            @Nullable final android.support.v7.widget.Toolbar toolbar) {
-        super.setSupportActionBar(toolbar);
     }
 
     /**
@@ -4058,28 +2972,12 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.setSupportProgressBarIndeterminateVisibility(visible);
     }
 
-    public void setSupportProgressBarIndeterminateVisibility_super(final boolean visible) {
-        super.setSupportProgressBarIndeterminateVisibility(visible);
-    }
-
-    public void setSupportProgressBarIndeterminate_super(final boolean indeterminate) {
-        super.setSupportProgressBarIndeterminate(indeterminate);
-    }
-
     /**
      * @deprecated Progress bars are no longer provided in AppCompat.
      */
     @Override
     public void setSupportProgressBarVisibility(final boolean visible) {
         delegate.setSupportProgressBarVisibility(visible);
-    }
-
-    public void setSupportProgressBarVisibility_super(final boolean visible) {
-        super.setSupportProgressBarVisibility(visible);
-    }
-
-    public void setSupportProgress_super(final int progress) {
-        super.setSupportProgress(progress);
     }
 
     /**
@@ -4100,17 +2998,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.setTaskDescription(taskDescription);
     }
 
-    public void setTaskDescription_super(final ActivityManager.TaskDescription taskDescription) {
-        super.setTaskDescription(taskDescription);
-    }
-
     @Override
     public void setTheme(@StyleRes final int resid) {
         delegate.setTheme(resid);
-    }
-
-    public void setTheme_super(@StyleRes final int resid) {
-        super.setTheme(resid);
     }
 
     /**
@@ -4150,18 +3040,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.setTitleColor(textColor);
     }
 
-    public void setTitleColor_super(final int textColor) {
-        super.setTitleColor(textColor);
-    }
-
-    public void setTitle_super(final CharSequence title) {
-        super.setTitle(title);
-    }
-
-    public void setTitle_super(final int titleId) {
-        super.setTitle(titleId);
-    }
-
     /**
      * Control whether this activity's main window is visible.  This is intended
      * only for the special case of an activity that is not going to show a
@@ -4175,10 +3053,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void setVisible(final boolean visible) {
         delegate.setVisible(visible);
-    }
-
-    public void setVisible_super(final boolean visible) {
-        super.setVisible(visible);
     }
 
     @Override
@@ -4197,14 +3071,6 @@ public class CompositeActivity extends CompositeActivityBase {
         } catch (SuppressedException e) {
             throw (IOException) e.getCause();
         }
-    }
-
-    public void setWallpaper_super(final Bitmap bitmap) throws IOException {
-        super.setWallpaper(bitmap);
-    }
-
-    public void setWallpaper_super(final InputStream data) throws IOException {
-        super.setWallpaper(data);
     }
 
     /**
@@ -4231,10 +3097,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.shouldShowRequestPermissionRationale(permission);
     }
 
-    public boolean shouldShowRequestPermissionRationale_super(@NonNull final String permission) {
-        return super.shouldShowRequestPermissionRationale(permission);
-    }
-
     /**
      * Returns true if the app should recreate the task when navigating 'up' from this activity
      * by using targetIntent.
@@ -4253,10 +3115,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.shouldUpRecreateTask(targetIntent);
     }
 
-    public boolean shouldUpRecreateTask_super(final Intent targetIntent) {
-        return super.shouldUpRecreateTask(targetIntent);
-    }
-
     /**
      * Ask to have the current assistant shown to the user.  This only works if the calling
      * activity is the current foreground activity.  It is the same as calling
@@ -4273,10 +3131,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.showAssist(args);
     }
 
-    public boolean showAssist_super(final Bundle args) {
-        return super.showAssist(args);
-    }
-
     /**
      * Shows the user the system defined message for telling the user how to exit
      * lock task mode. The task containing this activity must be in lock task mode at the time
@@ -4285,10 +3139,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void showLockTaskEscapeMessage() {
         delegate.showLockTaskEscapeMessage();
-    }
-
-    public void showLockTaskEscapeMessage_super() {
-        super.showLockTaskEscapeMessage();
     }
 
     /**
@@ -4319,18 +3169,6 @@ public class CompositeActivity extends CompositeActivityBase {
     public android.view.ActionMode startActionMode(final android.view.ActionMode.Callback callback,
             final int type) {
         return delegate.startActionMode(callback, type);
-    }
-
-    @Nullable
-    public android.view.ActionMode startActionMode_super(
-            final android.view.ActionMode.Callback callback) {
-        return super.startActionMode(callback);
-    }
-
-    @Nullable
-    public android.view.ActionMode startActionMode_super(
-            final android.view.ActionMode.Callback callback, final int type) {
-        return super.startActionMode(callback, type);
     }
 
     /**
@@ -4368,14 +3206,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void startActivities(final Intent[] intents, final Bundle options) {
         delegate.startActivities(intents, options);
-    }
-
-    public void startActivities_super(final Intent[] intents) {
-        super.startActivities(intents);
-    }
-
-    public void startActivities_super(final Intent[] intents, final Bundle options) {
-        super.startActivities(intents, options);
     }
 
     /**
@@ -4461,15 +3291,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.startActivityForResult(intent, requestCode, options);
     }
 
-    public void startActivityForResult_super(final Intent intent, final int requestCode) {
-        super.startActivityForResult(intent, requestCode);
-    }
-
-    public void startActivityForResult_super(final Intent intent, final int requestCode,
-            final Bundle options) {
-        super.startActivityForResult(intent, requestCode, options);
-    }
-
     /**
      * Same as calling {@link #startActivityFromChild(Activity, Intent, int, Bundle)}
      * with no options.
@@ -4506,16 +3327,6 @@ public class CompositeActivity extends CompositeActivityBase {
     public void startActivityFromChild(@NonNull final Activity child, final Intent intent,
             final int requestCode, final Bundle options) {
         delegate.startActivityFromChild(child, intent, requestCode, options);
-    }
-
-    public void startActivityFromChild_super(@NonNull final Activity child, final Intent intent,
-            final int requestCode) {
-        super.startActivityFromChild(child, intent, requestCode);
-    }
-
-    public void startActivityFromChild_super(@NonNull final Activity child, final Intent intent,
-            final int requestCode, final Bundle options) {
-        super.startActivityFromChild(child, intent, requestCode, options);
     }
 
     /**
@@ -4576,26 +3387,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.startActivityFromFragment(fragment, intent, requestCode, options);
     }
 
-    public void startActivityFromFragment_super(final Fragment fragment, final Intent intent,
-            final int requestCode) {
-        super.startActivityFromFragment(fragment, intent, requestCode);
-    }
-
-    public void startActivityFromFragment_super(final Fragment fragment, final Intent intent,
-            final int requestCode, @Nullable final Bundle options) {
-        super.startActivityFromFragment(fragment, intent, requestCode, options);
-    }
-
-    public void startActivityFromFragment_super(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode) {
-        super.startActivityFromFragment(fragment, intent, requestCode);
-    }
-
-    public void startActivityFromFragment_super(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode, final Bundle options) {
-        super.startActivityFromFragment(fragment, intent, requestCode, options);
-    }
-
     /**
      * Same as calling {@link #startActivityIfNeeded(Intent, int, Bundle)}
      * with no options.
@@ -4648,33 +3439,10 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.startActivityIfNeeded(intent, requestCode, options);
     }
 
-    public boolean startActivityIfNeeded_super(@NonNull final Intent intent,
-            final int requestCode) {
-        return super.startActivityIfNeeded(intent, requestCode);
-    }
-
-    public boolean startActivityIfNeeded_super(@NonNull final Intent intent, final int requestCode,
-            final Bundle options) {
-        return super.startActivityIfNeeded(intent, requestCode, options);
-    }
-
-    public void startActivity_super(final Intent intent) {
-        super.startActivity(intent);
-    }
-
-    public void startActivity_super(final Intent intent, final Bundle options) {
-        super.startActivity(intent, options);
-    }
-
     @Override
     public boolean startInstrumentation(final ComponentName className, final String profileFile,
             final Bundle arguments) {
         return delegate.startInstrumentation(className, profileFile, arguments);
-    }
-
-    public boolean startInstrumentation_super(final ComponentName className,
-            final String profileFile, final Bundle arguments) {
-        return super.startInstrumentation(className, profileFile, arguments);
     }
 
     /**
@@ -4795,20 +3563,6 @@ public class CompositeActivity extends CompositeActivityBase {
         }
     }
 
-    public void startIntentSenderForResult_super(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException {
-        super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
-                extraFlags);
-    }
-
-    public void startIntentSenderForResult_super(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
-        super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
-                extraFlags, options);
-    }
-
     /**
      * Same as calling {@link #startIntentSenderFromChild(Activity, IntentSender,
      * int, Intent, int, int, int, Bundle)} with no options.
@@ -4844,33 +3598,6 @@ public class CompositeActivity extends CompositeActivityBase {
         }
     }
 
-    public void startIntentSenderFromChild_super(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
-        super.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
-                flagsValues, extraFlags);
-    }
-
-    public void startIntentSenderFromChild_super(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
-            throws IntentSender.SendIntentException {
-        super.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
-                flagsValues, extraFlags, options);
-    }
-
-    public void startIntentSender_super(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags)
-            throws IntentSender.SendIntentException {
-        super.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
-    }
-
-    public void startIntentSender_super(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
-            throws IntentSender.SendIntentException {
-        super.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags, options);
-    }
-
     /**
      * Request to put this Activity in a mode where the user is locked to the
      * current task.
@@ -4895,10 +3622,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void startLockTask() {
         delegate.startLockTask();
-    }
-
-    public void startLockTask_super() {
-        super.startLockTask();
     }
 
     /**
@@ -4930,10 +3653,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void startManagingCursor(final Cursor c) {
         delegate.startManagingCursor(c);
-    }
-
-    public void startManagingCursor_super(final Cursor c) {
-        super.startManagingCursor(c);
     }
 
     /**
@@ -4977,15 +3696,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.startNextMatchingActivity(intent, options);
     }
 
-    public boolean startNextMatchingActivity_super(@NonNull final Intent intent) {
-        return super.startNextMatchingActivity(intent);
-    }
-
-    public boolean startNextMatchingActivity_super(@NonNull final Intent intent,
-            final Bundle options) {
-        return super.startNextMatchingActivity(intent, options);
-    }
-
     /**
      * Begin postponed transitions after {@link #postponeEnterTransition()} was called.
      * If postponeEnterTransition() was called, you must call startPostponedEnterTransition()
@@ -4994,10 +3704,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void startPostponedEnterTransition() {
         delegate.startPostponedEnterTransition();
-    }
-
-    public void startPostponedEnterTransition_super() {
-        super.startPostponedEnterTransition();
     }
 
     /**
@@ -5048,18 +3754,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
 
-    public void startSearch_super(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch) {
-        super.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
-    }
-
     @Override
     public ComponentName startService(final Intent service) {
         return delegate.startService(service);
-    }
-
-    public ComponentName startService_super(final Intent service) {
-        return super.startService(service);
     }
 
     /**
@@ -5072,11 +3769,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
         return delegate.startSupportActionMode(callback);
-    }
-
-    @Nullable
-    public ActionMode startSupportActionMode_super(@NonNull final ActionMode.Callback callback) {
-        return super.startSupportActionMode(callback);
     }
 
     /**
@@ -5101,10 +3793,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.stopLockTask();
     }
 
-    public void stopLockTask_super() {
-        super.stopLockTask();
-    }
-
     /**
      * Given a Cursor that was previously given to
      * {@link #startManagingCursor}, stop the activity's management of that
@@ -5125,17 +3813,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.stopManagingCursor(c);
     }
 
-    public void stopManagingCursor_super(final Cursor c) {
-        super.stopManagingCursor(c);
-    }
-
     @Override
     public boolean stopService(final Intent name) {
         return delegate.stopService(name);
-    }
-
-    public boolean stopService_super(final Intent name) {
-        return super.stopService(name);
     }
 
     /**
@@ -5152,17 +3832,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.supportFinishAfterTransition();
     }
 
-    public void supportFinishAfterTransition_super() {
-        super.supportFinishAfterTransition();
-    }
-
     @Override
     public void supportInvalidateOptionsMenu() {
         delegate.supportInvalidateOptionsMenu();
-    }
-
-    public void supportInvalidateOptionsMenu_super() {
-        super.supportInvalidateOptionsMenu();
     }
 
     /**
@@ -5182,10 +3854,6 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.supportNavigateUpTo(upIntent);
     }
 
-    public void supportNavigateUpTo_super(@NonNull final Intent upIntent) {
-        super.supportNavigateUpTo(upIntent);
-    }
-
     /**
      * Support library version of {@link Activity#postponeEnterTransition()} that works
      * only on API 21 and later.
@@ -5193,10 +3861,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void supportPostponeEnterTransition() {
         delegate.supportPostponeEnterTransition();
-    }
-
-    public void supportPostponeEnterTransition_super() {
-        super.supportPostponeEnterTransition();
     }
 
     /**
@@ -5215,10 +3879,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public boolean supportRequestWindowFeature(final int featureId) {
         return delegate.supportRequestWindowFeature(featureId);
-    }
-
-    public boolean supportRequestWindowFeature_super(final int featureId) {
-        return super.supportRequestWindowFeature(featureId);
     }
 
     /**
@@ -5240,10 +3900,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.supportShouldUpRecreateTask(targetIntent);
     }
 
-    public boolean supportShouldUpRecreateTask_super(@NonNull final Intent targetIntent) {
-        return super.supportShouldUpRecreateTask(targetIntent);
-    }
-
     /**
      * Support library version of {@link Activity#startPostponedEnterTransition()}
      * that only works with API 21 and later.
@@ -5251,10 +3907,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void supportStartPostponedEnterTransition() {
         delegate.supportStartPostponedEnterTransition();
-    }
-
-    public void supportStartPostponedEnterTransition_super() {
-        super.supportStartPostponedEnterTransition();
     }
 
     /**
@@ -5267,10 +3919,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void takeKeyEvents(final boolean get) {
         delegate.takeKeyEvents(get);
-    }
-
-    public void takeKeyEvents_super(final boolean get) {
-        super.takeKeyEvents(get);
     }
 
     /**
@@ -5287,17 +3935,9 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.triggerSearch(query, appSearchData);
     }
 
-    public void triggerSearch_super(final String query, final Bundle appSearchData) {
-        super.triggerSearch(query, appSearchData);
-    }
-
     @Override
     public void unbindService(final ServiceConnection conn) {
         delegate.unbindService(conn);
-    }
-
-    public void unbindService_super(final ServiceConnection conn) {
-        super.unbindService(conn);
     }
 
     /**
@@ -5307,10 +3947,6 @@ public class CompositeActivity extends CompositeActivityBase {
     @Override
     public void unregisterComponentCallbacks(final ComponentCallbacks callback) {
         delegate.unregisterComponentCallbacks(callback);
-    }
-
-    public void unregisterComponentCallbacks_super(final ComponentCallbacks callback) {
-        super.unregisterComponentCallbacks(callback);
     }
 
     /**
@@ -5325,16 +3961,1387 @@ public class CompositeActivity extends CompositeActivityBase {
         delegate.unregisterForContextMenu(view);
     }
 
-    public void unregisterForContextMenu_super(final View view) {
-        super.unregisterForContextMenu(view);
-    }
-
     @Override
     public void unregisterReceiver(final BroadcastReceiver receiver) {
         delegate.unregisterReceiver(receiver);
     }
 
-    public void unregisterReceiver_super(final BroadcastReceiver receiver) {
+    protected void addContentView__super(final View view, final ViewGroup.LayoutParams params) {
+        super.addContentView(view, params);
+    }
+
+    protected void applyOverrideConfiguration__super(final Configuration overrideConfiguration) {
+        super.applyOverrideConfiguration(overrideConfiguration);
+    }
+
+    protected void attachBaseContext__super(final Context newBase) {
+        super.attachBaseContext(newBase);
+    }
+
+    protected boolean bindService__super(final Intent service, final ServiceConnection conn,
+            final int flags) {
+        return super.bindService(service, conn, flags);
+    }
+
+    protected int checkCallingOrSelfPermission__super(final String permission) {
+        return super.checkCallingOrSelfPermission(permission);
+    }
+
+    protected int checkCallingOrSelfUriPermission__super(final Uri uri, final int modeFlags) {
+        return super.checkCallingOrSelfUriPermission(uri, modeFlags);
+    }
+
+    protected int checkCallingPermission__super(final String permission) {
+        return super.checkCallingPermission(permission);
+    }
+
+    protected int checkCallingUriPermission__super(final Uri uri, final int modeFlags) {
+        return super.checkCallingUriPermission(uri, modeFlags);
+    }
+
+    protected int checkPermission__super(final String permission, final int pid, final int uid) {
+        return super.checkPermission(permission, pid, uid);
+    }
+
+    protected int checkSelfPermission__super(final String permission) {
+        return super.checkSelfPermission(permission);
+    }
+
+    protected int checkUriPermission__super(final Uri uri, final int pid, final int uid,
+            final int modeFlags) {
+        return super.checkUriPermission(uri, pid, uid, modeFlags);
+    }
+
+    protected int checkUriPermission__super(final Uri uri, final String readPermission,
+            final String writePermission, final int pid, final int uid, final int modeFlags) {
+        return super.checkUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags);
+    }
+
+    protected void clearWallpaper__super() throws IOException {
+        super.clearWallpaper();
+    }
+
+    protected void closeContextMenu__super() {
+        super.closeContextMenu();
+    }
+
+    protected void closeOptionsMenu__super() {
+        super.closeOptionsMenu();
+    }
+
+    protected Context createConfigurationContext__super(final Configuration overrideConfiguration) {
+        return super.createConfigurationContext(overrideConfiguration);
+    }
+
+    protected Context createDisplayContext__super(final Display display) {
+        return super.createDisplayContext(display);
+    }
+
+    protected Context createPackageContext__super(final String packageName, final int flags)
+            throws PackageManager.NameNotFoundException {
+        return super.createPackageContext(packageName, flags);
+    }
+
+    protected PendingIntent createPendingResult__super(final int requestCode,
+            @NonNull final Intent data, final int flags) {
+        return super.createPendingResult(requestCode, data, flags);
+    }
+
+    protected String[] databaseList__super() {
+        return super.databaseList();
+    }
+
+    protected boolean deleteDatabase__super(final String name) {
+        return super.deleteDatabase(name);
+    }
+
+    protected boolean deleteFile__super(final String name) {
+        return super.deleteFile(name);
+    }
+
+    protected boolean dispatchGenericMotionEvent__super(final MotionEvent ev) {
+        return super.dispatchGenericMotionEvent(ev);
+    }
+
+    protected boolean dispatchKeyEvent__super(final KeyEvent event) {
+        return super.dispatchKeyEvent(event);
+    }
+
+    protected boolean dispatchKeyShortcutEvent__super(final KeyEvent event) {
+        return super.dispatchKeyShortcutEvent(event);
+    }
+
+    protected boolean dispatchPopulateAccessibilityEvent__super(final AccessibilityEvent event) {
+        return super.dispatchPopulateAccessibilityEvent(event);
+    }
+
+    protected boolean dispatchTouchEvent__super(final MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
+
+    protected boolean dispatchTrackballEvent__super(final MotionEvent ev) {
+        return super.dispatchTrackballEvent(ev);
+    }
+
+    protected void dump__super(final String prefix, final FileDescriptor fd,
+            final PrintWriter writer, final String[] args) {
+        super.dump(prefix, fd, writer, args);
+    }
+
+    protected void enforceCallingOrSelfPermission__super(final String permission,
+            final String message) {
+        super.enforceCallingOrSelfPermission(permission, message);
+    }
+
+    protected void enforceCallingOrSelfUriPermission__super(final Uri uri, final int modeFlags,
+            final String message) {
+        super.enforceCallingOrSelfUriPermission(uri, modeFlags, message);
+    }
+
+    protected void enforceCallingPermission__super(final String permission, final String message) {
+        super.enforceCallingPermission(permission, message);
+    }
+
+    protected void enforceCallingUriPermission__super(final Uri uri, final int modeFlags,
+            final String message) {
+        super.enforceCallingUriPermission(uri, modeFlags, message);
+    }
+
+    protected void enforcePermission__super(final String permission, final int pid, final int uid,
+            final String message) {
+        super.enforcePermission(permission, pid, uid, message);
+    }
+
+    protected void enforceUriPermission__super(final Uri uri, final int pid, final int uid,
+            final int modeFlags, final String message) {
+        super.enforceUriPermission(uri, pid, uid, modeFlags, message);
+    }
+
+    protected void enforceUriPermission__super(final Uri uri, final String readPermission,
+            final String writePermission, final int pid, final int uid, final int modeFlags,
+            final String message) {
+        super.enforceUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags,
+                message);
+    }
+
+    protected String[] fileList__super() {
+        return super.fileList();
+    }
+
+    @Nullable
+    protected View findViewById__super(@IdRes final int id) {
+        return super.findViewById(id);
+    }
+
+    protected void finishActivityFromChild__super(@NonNull final Activity child,
+            final int requestCode) {
+        super.finishActivityFromChild(child, requestCode);
+    }
+
+    protected void finishActivity__super(final int requestCode) {
+        super.finishActivity(requestCode);
+    }
+
+    protected void finishAffinity__super() {
+        super.finishAffinity();
+    }
+
+    protected void finishAfterTransition__super() {
+        super.finishAfterTransition();
+    }
+
+    protected void finishAndRemoveTask__super() {
+        super.finishAndRemoveTask();
+    }
+
+    protected void finishFromChild__super(final Activity child) {
+        super.finishFromChild(child);
+    }
+
+    protected void finish__super() {
+        super.finish();
+    }
+
+    @Nullable
+    protected android.app.ActionBar getActionBar__super() {
+        return super.getActionBar();
+    }
+
+    protected Context getApplicationContext__super() {
+        return super.getApplicationContext();
+    }
+
+    protected ApplicationInfo getApplicationInfo__super() {
+        return super.getApplicationInfo();
+    }
+
+    protected AssetManager getAssets__super() {
+        return super.getAssets();
+    }
+
+    protected Context getBaseContext__super() {
+        return super.getBaseContext();
+    }
+
+    protected File getCacheDir__super() {
+        return super.getCacheDir();
+    }
+
+    @Nullable
+    protected ComponentName getCallingActivity__super() {
+        return super.getCallingActivity();
+    }
+
+    @Nullable
+    protected String getCallingPackage__super() {
+        return super.getCallingPackage();
+    }
+
+    protected int getChangingConfigurations__super() {
+        return super.getChangingConfigurations();
+    }
+
+    protected ClassLoader getClassLoader__super() {
+        return super.getClassLoader();
+    }
+
+    protected File getCodeCacheDir__super() {
+        return super.getCodeCacheDir();
+    }
+
+    protected ComponentName getComponentName__super() {
+        return super.getComponentName();
+    }
+
+    protected ContentResolver getContentResolver__super() {
+        return super.getContentResolver();
+    }
+
+    protected Scene getContentScene__super() {
+        return super.getContentScene();
+    }
+
+    protected TransitionManager getContentTransitionManager__super() {
+        return super.getContentTransitionManager();
+    }
+
+    @Nullable
+    protected View getCurrentFocus__super() {
+        return super.getCurrentFocus();
+    }
+
+    protected File getDatabasePath__super(final String name) {
+        return super.getDatabasePath(name);
+    }
+
+    @NonNull
+    protected AppCompatDelegate getDelegate__super() {
+        return super.getDelegate();
+    }
+
+    protected File getDir__super(final String name, final int mode) {
+        return super.getDir(name, mode);
+    }
+
+    @Nullable
+    protected ActionBarDrawerToggle.Delegate getDrawerToggleDelegate__super() {
+        return super.getDrawerToggleDelegate();
+    }
+
+    protected File getExternalCacheDir__super() {
+        return super.getExternalCacheDir();
+    }
+
+    protected File[] getExternalCacheDirs__super() {
+        return super.getExternalCacheDirs();
+    }
+
+    protected File getExternalFilesDir__super(final String type) {
+        return super.getExternalFilesDir(type);
+    }
+
+    protected File[] getExternalFilesDirs__super(final String type) {
+        return super.getExternalFilesDirs(type);
+    }
+
+    protected File[] getExternalMediaDirs__super() {
+        return super.getExternalMediaDirs();
+    }
+
+    protected File getFileStreamPath__super(final String name) {
+        return super.getFileStreamPath(name);
+    }
+
+    protected File getFilesDir__super() {
+        return super.getFilesDir();
+    }
+
+    protected android.app.FragmentManager getFragmentManager__super() {
+        return super.getFragmentManager();
+    }
+
+    protected Intent getIntent__super() {
+        return super.getIntent();
+    }
+
+    @NonNull
+    protected LayoutInflater getLayoutInflater__super() {
+        return super.getLayoutInflater();
+    }
+
+    protected android.app.LoaderManager getLoaderManager__super() {
+        return super.getLoaderManager();
+    }
+
+    @NonNull
+    protected String getLocalClassName__super() {
+        return super.getLocalClassName();
+    }
+
+    protected Looper getMainLooper__super() {
+        return super.getMainLooper();
+    }
+
+    @NonNull
+    protected MenuInflater getMenuInflater__super() {
+        return super.getMenuInflater();
+    }
+
+    protected File getNoBackupFilesDir__super() {
+        return super.getNoBackupFilesDir();
+    }
+
+    protected File getObbDir__super() {
+        return super.getObbDir();
+    }
+
+    protected File[] getObbDirs__super() {
+        return super.getObbDirs();
+    }
+
+    protected String getPackageCodePath__super() {
+        return super.getPackageCodePath();
+    }
+
+    protected PackageManager getPackageManager__super() {
+        return super.getPackageManager();
+    }
+
+    protected String getPackageName__super() {
+        return super.getPackageName();
+    }
+
+    protected String getPackageResourcePath__super() {
+        return super.getPackageResourcePath();
+    }
+
+    @Nullable
+    protected Intent getParentActivityIntent__super() {
+        return super.getParentActivityIntent();
+    }
+
+    protected SharedPreferences getPreferences__super(final int mode) {
+        return super.getPreferences(mode);
+    }
+
+    @Nullable
+    protected Uri getReferrer__super() {
+        return super.getReferrer();
+    }
+
+    protected int getRequestedOrientation__super() {
+        return super.getRequestedOrientation();
+    }
+
+    protected Resources getResources__super() {
+        return super.getResources();
+    }
+
+    protected SharedPreferences getSharedPreferences__super(final String name, final int mode) {
+        return super.getSharedPreferences(name, mode);
+    }
+
+    @Nullable
+    protected ActionBar getSupportActionBar__super() {
+        return super.getSupportActionBar();
+    }
+
+    protected FragmentManager getSupportFragmentManager__super() {
+        return super.getSupportFragmentManager();
+    }
+
+    protected LoaderManager getSupportLoaderManager__super() {
+        return super.getSupportLoaderManager();
+    }
+
+    @Nullable
+    protected Intent getSupportParentActivityIntent__super() {
+        return super.getSupportParentActivityIntent();
+    }
+
+    protected String getSystemServiceName__super(final Class<?> serviceClass) {
+        return super.getSystemServiceName(serviceClass);
+    }
+
+    protected Object getSystemService__super(@NonNull final String name) {
+        return super.getSystemService(name);
+    }
+
+    protected int getTaskId__super() {
+        return super.getTaskId();
+    }
+
+    protected Resources.Theme getTheme__super() {
+        return super.getTheme();
+    }
+
+    protected VoiceInteractor getVoiceInteractor__super() {
+        return super.getVoiceInteractor();
+    }
+
+    protected int getWallpaperDesiredMinimumHeight__super() {
+        return super.getWallpaperDesiredMinimumHeight();
+    }
+
+    protected int getWallpaperDesiredMinimumWidth__super() {
+        return super.getWallpaperDesiredMinimumWidth();
+    }
+
+    protected Drawable getWallpaper__super() {
+        return super.getWallpaper();
+    }
+
+    protected WindowManager getWindowManager__super() {
+        return super.getWindowManager();
+    }
+
+    protected Window getWindow__super() {
+        return super.getWindow();
+    }
+
+    protected void grantUriPermission__super(final String toPackage, final Uri uri,
+            final int modeFlags) {
+        super.grantUriPermission(toPackage, uri, modeFlags);
+    }
+
+    protected boolean hasWindowFocus__super() {
+        return super.hasWindowFocus();
+    }
+
+    protected void invalidateOptionsMenu__super() {
+        super.invalidateOptionsMenu();
+    }
+
+    protected boolean isChangingConfigurations__super() {
+        return super.isChangingConfigurations();
+    }
+
+    protected boolean isDestroyed__super() {
+        return super.isDestroyed();
+    }
+
+    protected boolean isFinishing__super() {
+        return super.isFinishing();
+    }
+
+    protected boolean isImmersive__super() {
+        return super.isImmersive();
+    }
+
+    protected boolean isRestricted__super() {
+        return super.isRestricted();
+    }
+
+    protected boolean isTaskRoot__super() {
+        return super.isTaskRoot();
+    }
+
+    protected boolean isVoiceInteractionRoot__super() {
+        return super.isVoiceInteractionRoot();
+    }
+
+    protected boolean isVoiceInteraction__super() {
+        return super.isVoiceInteraction();
+    }
+
+    protected boolean moveTaskToBack__super(final boolean nonRoot) {
+        return super.moveTaskToBack(nonRoot);
+    }
+
+    protected boolean navigateUpToFromChild__super(final Activity child, final Intent upIntent) {
+        return super.navigateUpToFromChild(child, upIntent);
+    }
+
+    protected boolean navigateUpTo__super(final Intent upIntent) {
+        return super.navigateUpTo(upIntent);
+    }
+
+    protected void onActionModeFinished__super(final android.view.ActionMode mode) {
+        super.onActionModeFinished(mode);
+    }
+
+    protected void onActionModeStarted__super(final android.view.ActionMode mode) {
+        super.onActionModeStarted(mode);
+    }
+
+    protected void onActivityReenter__super(final int resultCode, final Intent data) {
+        super.onActivityReenter(resultCode, data);
+    }
+
+    protected void onActivityResult__super(final int requestCode, final int resultCode,
+            final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    protected void onApplyThemeResource__super(final Resources.Theme theme, final int resid,
+            final boolean first) {
+        super.onApplyThemeResource(theme, resid, first);
+    }
+
+    protected void onAttachFragment__super(final Fragment fragment) {
+        super.onAttachFragment(fragment);
+    }
+
+    protected void onAttachFragment__super(final android.app.Fragment fragment) {
+        super.onAttachFragment(fragment);
+    }
+
+    protected void onAttachedToWindow__super() {
+        super.onAttachedToWindow();
+    }
+
+    protected void onBackPressed__super() {
+        super.onBackPressed();
+    }
+
+    protected void onChildTitleChanged__super(final Activity childActivity,
+            final CharSequence title) {
+        super.onChildTitleChanged(childActivity, title);
+    }
+
+    protected void onConfigurationChanged__super(final Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    protected void onContentChanged__super() {
+        super.onContentChanged();
+    }
+
+    protected boolean onContextItemSelected__super(final MenuItem item) {
+        return super.onContextItemSelected(item);
+    }
+
+    protected void onContextMenuClosed__super(final Menu menu) {
+        super.onContextMenuClosed(menu);
+    }
+
+    protected void onCreateContextMenu__super(final ContextMenu menu, final View v,
+            final ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Nullable
+    protected CharSequence onCreateDescription__super() {
+        return super.onCreateDescription();
+    }
+
+    protected Dialog onCreateDialog__super(final int id) {
+        return super.onCreateDialog(id);
+    }
+
+    @Nullable
+    protected Dialog onCreateDialog__super(final int id, final Bundle args) {
+        return super.onCreateDialog(id, args);
+    }
+
+    protected void onCreateNavigateUpTaskStack__super(final TaskStackBuilder builder) {
+        super.onCreateNavigateUpTaskStack(builder);
+    }
+
+    protected boolean onCreateOptionsMenu__super(final Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    protected boolean onCreatePanelMenu__super(final int featureId, final Menu menu) {
+        return super.onCreatePanelMenu(featureId, menu);
+    }
+
+    @Nullable
+    protected View onCreatePanelView__super(final int featureId) {
+        return super.onCreatePanelView(featureId);
+    }
+
+    protected void onCreateSupportNavigateUpTaskStack__super(
+            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+        super.onCreateSupportNavigateUpTaskStack(builder);
+    }
+
+    protected boolean onCreateThumbnail__super(final Bitmap outBitmap, final Canvas canvas) {
+        return super.onCreateThumbnail(outBitmap, canvas);
+    }
+
+    protected View onCreateView__super(final View parent, final String name, final Context context,
+            final AttributeSet attrs) {
+        return super.onCreateView(parent, name, context, attrs);
+    }
+
+    protected View onCreateView__super(final String name, final Context context,
+            final AttributeSet attrs) {
+        return super.onCreateView(name, context, attrs);
+    }
+
+    protected void onCreate__super(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    protected void onCreate__super(final Bundle savedInstanceState,
+            final PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+    }
+
+    protected void onDestroy__super() {
+        super.onDestroy();
+    }
+
+    protected void onDetachedFromWindow__super() {
+        super.onDetachedFromWindow();
+    }
+
+    protected void onEnterAnimationComplete__super() {
+        super.onEnterAnimationComplete();
+    }
+
+    protected boolean onGenericMotionEvent__super(final MotionEvent event) {
+        return super.onGenericMotionEvent(event);
+    }
+
+    protected boolean onKeyDown__super(final int keyCode, final KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
+    }
+
+    protected boolean onKeyLongPress__super(final int keyCode, final KeyEvent event) {
+        return super.onKeyLongPress(keyCode, event);
+    }
+
+    protected boolean onKeyMultiple__super(final int keyCode, final int repeatCount,
+            final KeyEvent event) {
+        return super.onKeyMultiple(keyCode, repeatCount, event);
+    }
+
+    protected boolean onKeyShortcut__super(final int keyCode, final KeyEvent event) {
+        return super.onKeyShortcut(keyCode, event);
+    }
+
+    protected boolean onKeyUp__super(final int keyCode, final KeyEvent event) {
+        return super.onKeyUp(keyCode, event);
+    }
+
+    protected void onLowMemory__super() {
+        super.onLowMemory();
+    }
+
+    protected boolean onMenuOpened__super(final int featureId, final Menu menu) {
+        return super.onMenuOpened(featureId, menu);
+    }
+
+    protected boolean onNavigateUpFromChild__super(final Activity child) {
+        return super.onNavigateUpFromChild(child);
+    }
+
+    protected boolean onNavigateUp__super() {
+        return super.onNavigateUp();
+    }
+
+    protected void onNewIntent__super(final Intent intent) {
+        super.onNewIntent(intent);
+    }
+
+    protected boolean onOptionsItemSelected__super(final MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected void onOptionsMenuClosed__super(final Menu menu) {
+        super.onOptionsMenuClosed(menu);
+    }
+
+    protected void onPanelClosed__super(final int featureId, final Menu menu) {
+        super.onPanelClosed(featureId, menu);
+    }
+
+    protected void onPause__super() {
+        super.onPause();
+    }
+
+    protected void onPostCreate__super(@Nullable final Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+    }
+
+    protected void onPostCreate__super(final Bundle savedInstanceState,
+            final PersistableBundle persistentState) {
+        super.onPostCreate(savedInstanceState, persistentState);
+    }
+
+    protected void onPostResume__super() {
+        super.onPostResume();
+    }
+
+    protected void onPrepareDialog__super(final int id, final Dialog dialog) {
+        super.onPrepareDialog(id, dialog);
+    }
+
+    protected void onPrepareDialog__super(final int id, final Dialog dialog, final Bundle args) {
+        super.onPrepareDialog(id, dialog, args);
+    }
+
+    protected void onPrepareNavigateUpTaskStack__super(final TaskStackBuilder builder) {
+        super.onPrepareNavigateUpTaskStack(builder);
+    }
+
+    protected boolean onPrepareOptionsMenu__super(final Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    protected boolean onPrepareOptionsPanel__super(final View view, final Menu menu) {
+        return super.onPrepareOptionsPanel(view, menu);
+    }
+
+    protected boolean onPreparePanel__super(final int featureId, final View view, final Menu menu) {
+        return super.onPreparePanel(featureId, view, menu);
+    }
+
+    protected void onPrepareSupportNavigateUpTaskStack__super(
+            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+        super.onPrepareSupportNavigateUpTaskStack(builder);
+    }
+
+    protected void onProvideAssistContent__super(final AssistContent outContent) {
+        super.onProvideAssistContent(outContent);
+    }
+
+    protected void onProvideAssistData__super(final Bundle data) {
+        super.onProvideAssistData(data);
+    }
+
+    protected Uri onProvideReferrer__super() {
+        return super.onProvideReferrer();
+    }
+
+    protected void onRequestPermissionsResult__super(final int requestCode,
+            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    protected void onRestart__super() {
+        super.onRestart();
+    }
+
+    protected void onRestoreInstanceState__super(final Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    protected void onRestoreInstanceState__super(final Bundle savedInstanceState,
+            final PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+    }
+
+    protected void onResumeFragments__super() {
+        super.onResumeFragments();
+    }
+
+    protected void onResume__super() {
+        super.onResume();
+    }
+
+    protected void onSaveInstanceState__super(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    protected void onSaveInstanceState__super(final Bundle outState,
+            final PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    protected boolean onSearchRequested__super(final SearchEvent searchEvent) {
+        return super.onSearchRequested(searchEvent);
+    }
+
+    protected boolean onSearchRequested__super() {
+        return super.onSearchRequested();
+    }
+
+    protected void onStart__super() {
+        super.onStart();
+    }
+
+    protected void onStateNotSaved__super() {
+        super.onStateNotSaved();
+    }
+
+    protected void onStop__super() {
+        super.onStop();
+    }
+
+    protected void onSupportActionModeFinished__super(@NonNull final ActionMode mode) {
+        super.onSupportActionModeFinished(mode);
+    }
+
+    protected void onSupportActionModeStarted__super(@NonNull final ActionMode mode) {
+        super.onSupportActionModeStarted(mode);
+    }
+
+    protected void onSupportContentChanged__super() {
+        super.onSupportContentChanged();
+    }
+
+    protected boolean onSupportNavigateUp__super() {
+        return super.onSupportNavigateUp();
+    }
+
+    protected void onTitleChanged__super(final CharSequence title, final int color) {
+        super.onTitleChanged(title, color);
+    }
+
+    protected boolean onTouchEvent__super(final MotionEvent event) {
+        return super.onTouchEvent(event);
+    }
+
+    protected boolean onTrackballEvent__super(final MotionEvent event) {
+        return super.onTrackballEvent(event);
+    }
+
+    protected void onTrimMemory__super(final int level) {
+        super.onTrimMemory(level);
+    }
+
+    protected void onUserInteraction__super() {
+        super.onUserInteraction();
+    }
+
+    protected void onUserLeaveHint__super() {
+        super.onUserLeaveHint();
+    }
+
+    protected void onVisibleBehindCanceled__super() {
+        super.onVisibleBehindCanceled();
+    }
+
+    protected void onWindowAttributesChanged__super(final WindowManager.LayoutParams params) {
+        super.onWindowAttributesChanged(params);
+    }
+
+    protected void onWindowFocusChanged__super(final boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+    }
+
+    @Nullable
+    protected android.view.ActionMode onWindowStartingActionMode__super(
+            final android.view.ActionMode.Callback callback) {
+        return super.onWindowStartingActionMode(callback);
+    }
+
+    @Nullable
+    protected android.view.ActionMode onWindowStartingActionMode__super(
+            final android.view.ActionMode.Callback callback, final int type) {
+        return super.onWindowStartingActionMode(callback, type);
+    }
+
+    @Nullable
+    protected ActionMode onWindowStartingSupportActionMode__super(
+            @NonNull final ActionMode.Callback callback) {
+        return super.onWindowStartingSupportActionMode(callback);
+    }
+
+    protected void openContextMenu__super(final View view) {
+        super.openContextMenu(view);
+    }
+
+    protected FileInputStream openFileInput__super(final String name) throws FileNotFoundException {
+        return super.openFileInput(name);
+    }
+
+    protected FileOutputStream openFileOutput__super(final String name, final int mode)
+            throws FileNotFoundException {
+        return super.openFileOutput(name, mode);
+    }
+
+    protected void openOptionsMenu__super() {
+        super.openOptionsMenu();
+    }
+
+    protected SQLiteDatabase openOrCreateDatabase__super(final String name, final int mode,
+            final SQLiteDatabase.CursorFactory factory) {
+        return super.openOrCreateDatabase(name, mode, factory);
+    }
+
+    protected SQLiteDatabase openOrCreateDatabase__super(final String name, final int mode,
+            final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler) {
+        return super.openOrCreateDatabase(name, mode, factory, errorHandler);
+    }
+
+    protected void overridePendingTransition__super(final int enterAnim, final int exitAnim) {
+        super.overridePendingTransition(enterAnim, exitAnim);
+    }
+
+    protected Drawable peekWallpaper__super() {
+        return super.peekWallpaper();
+    }
+
+    protected void postponeEnterTransition__super() {
+        super.postponeEnterTransition();
+    }
+
+    protected void recreate__super() {
+        super.recreate();
+    }
+
+    protected void registerComponentCallbacks__super(final ComponentCallbacks callback) {
+        super.registerComponentCallbacks(callback);
+    }
+
+    protected void registerForContextMenu__super(final View view) {
+        super.registerForContextMenu(view);
+    }
+
+    protected Intent registerReceiver__super(final BroadcastReceiver receiver,
+            final IntentFilter filter) {
+        return super.registerReceiver(receiver, filter);
+    }
+
+    protected Intent registerReceiver__super(final BroadcastReceiver receiver,
+            final IntentFilter filter, final String broadcastPermission, final Handler scheduler) {
+        return super.registerReceiver(receiver, filter, broadcastPermission, scheduler);
+    }
+
+    protected boolean releaseInstance__super() {
+        return super.releaseInstance();
+    }
+
+    protected void removeStickyBroadcastAsUser__super(final Intent intent, final UserHandle user) {
+        super.removeStickyBroadcastAsUser(intent, user);
+    }
+
+    protected void removeStickyBroadcast__super(final Intent intent) {
+        super.removeStickyBroadcast(intent);
+    }
+
+    protected void reportFullyDrawn__super() {
+        super.reportFullyDrawn();
+    }
+
+    protected boolean requestVisibleBehind__super(final boolean visible) {
+        return super.requestVisibleBehind(visible);
+    }
+
+    protected void revokeUriPermission__super(final Uri uri, final int modeFlags) {
+        super.revokeUriPermission(uri, modeFlags);
+    }
+
+    protected void sendBroadcastAsUser__super(final Intent intent, final UserHandle user) {
+        super.sendBroadcastAsUser(intent, user);
+    }
+
+    protected void sendBroadcastAsUser__super(final Intent intent, final UserHandle user,
+            final String receiverPermission) {
+        super.sendBroadcastAsUser(intent, user, receiverPermission);
+    }
+
+    protected void sendBroadcast__super(final Intent intent) {
+        super.sendBroadcast(intent);
+    }
+
+    protected void sendBroadcast__super(final Intent intent, final String receiverPermission) {
+        super.sendBroadcast(intent, receiverPermission);
+    }
+
+    protected void sendOrderedBroadcastAsUser__super(final Intent intent, final UserHandle user,
+            final String receiverPermission, final BroadcastReceiver resultReceiver,
+            final Handler scheduler, final int initialCode, final String initialData,
+            final Bundle initialExtras) {
+        super.sendOrderedBroadcastAsUser(intent, user, receiverPermission, resultReceiver,
+                scheduler, initialCode, initialData, initialExtras);
+    }
+
+    protected void sendOrderedBroadcast__super(final Intent intent,
+            final String receiverPermission) {
+        super.sendOrderedBroadcast(intent, receiverPermission);
+    }
+
+    protected void sendOrderedBroadcast__super(final Intent intent, final String receiverPermission,
+            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
+            final String initialData, final Bundle initialExtras) {
+        super.sendOrderedBroadcast(intent, receiverPermission, resultReceiver, scheduler,
+                initialCode, initialData, initialExtras);
+    }
+
+    protected void sendStickyBroadcastAsUser__super(final Intent intent, final UserHandle user) {
+        super.sendStickyBroadcastAsUser(intent, user);
+    }
+
+    protected void sendStickyBroadcast__super(final Intent intent) {
+        super.sendStickyBroadcast(intent);
+    }
+
+    protected void sendStickyOrderedBroadcastAsUser__super(final Intent intent,
+            final UserHandle user, final BroadcastReceiver resultReceiver, final Handler scheduler,
+            final int initialCode, final String initialData, final Bundle initialExtras) {
+        super.sendStickyOrderedBroadcastAsUser(intent, user, resultReceiver, scheduler, initialCode,
+                initialData, initialExtras);
+    }
+
+    protected void sendStickyOrderedBroadcast__super(final Intent intent,
+            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
+            final String initialData, final Bundle initialExtras) {
+        super.sendStickyOrderedBroadcast(intent, resultReceiver, scheduler, initialCode,
+                initialData, initialExtras);
+    }
+
+    protected void setActionBar__super(final Toolbar toolbar) {
+        super.setActionBar(toolbar);
+    }
+
+    protected void setContentTransitionManager__super(final TransitionManager tm) {
+        super.setContentTransitionManager(tm);
+    }
+
+    protected void setContentView__super(@LayoutRes final int layoutResID) {
+        super.setContentView(layoutResID);
+    }
+
+    protected void setContentView__super(final View view) {
+        super.setContentView(view);
+    }
+
+    protected void setContentView__super(final View view, final ViewGroup.LayoutParams params) {
+        super.setContentView(view, params);
+    }
+
+    protected void setEnterSharedElementCallback__super(final SharedElementCallback callback) {
+        super.setEnterSharedElementCallback(callback);
+    }
+
+    protected void setEnterSharedElementCallback__super(
+            final android.app.SharedElementCallback callback) {
+        super.setEnterSharedElementCallback(callback);
+    }
+
+    protected void setExitSharedElementCallback__super(final SharedElementCallback listener) {
+        super.setExitSharedElementCallback(listener);
+    }
+
+    protected void setExitSharedElementCallback__super(
+            final android.app.SharedElementCallback callback) {
+        super.setExitSharedElementCallback(callback);
+    }
+
+    protected void setFinishOnTouchOutside__super(final boolean finish) {
+        super.setFinishOnTouchOutside(finish);
+    }
+
+    protected void setImmersive__super(final boolean i) {
+        super.setImmersive(i);
+    }
+
+    protected void setIntent__super(final Intent newIntent) {
+        super.setIntent(newIntent);
+    }
+
+    protected void setRequestedOrientation__super(final int requestedOrientation) {
+        super.setRequestedOrientation(requestedOrientation);
+    }
+
+    protected void setSupportActionBar__super(
+            @Nullable final android.support.v7.widget.Toolbar toolbar) {
+        super.setSupportActionBar(toolbar);
+    }
+
+    protected void setSupportProgressBarIndeterminateVisibility__super(final boolean visible) {
+        super.setSupportProgressBarIndeterminateVisibility(visible);
+    }
+
+    protected void setSupportProgressBarIndeterminate__super(final boolean indeterminate) {
+        super.setSupportProgressBarIndeterminate(indeterminate);
+    }
+
+    protected void setSupportProgressBarVisibility__super(final boolean visible) {
+        super.setSupportProgressBarVisibility(visible);
+    }
+
+    protected void setSupportProgress__super(final int progress) {
+        super.setSupportProgress(progress);
+    }
+
+    protected void setTaskDescription__super(
+            final ActivityManager.TaskDescription taskDescription) {
+        super.setTaskDescription(taskDescription);
+    }
+
+    protected void setTheme__super(@StyleRes final int resid) {
+        super.setTheme(resid);
+    }
+
+    protected void setTitleColor__super(final int textColor) {
+        super.setTitleColor(textColor);
+    }
+
+    protected void setTitle__super(final CharSequence title) {
+        super.setTitle(title);
+    }
+
+    protected void setTitle__super(final int titleId) {
+        super.setTitle(titleId);
+    }
+
+    protected void setVisible__super(final boolean visible) {
+        super.setVisible(visible);
+    }
+
+    protected void setWallpaper__super(final Bitmap bitmap) throws IOException {
+        super.setWallpaper(bitmap);
+    }
+
+    protected void setWallpaper__super(final InputStream data) throws IOException {
+        super.setWallpaper(data);
+    }
+
+    protected boolean shouldShowRequestPermissionRationale__super(
+            @NonNull final String permission) {
+        return super.shouldShowRequestPermissionRationale(permission);
+    }
+
+    protected boolean shouldUpRecreateTask__super(final Intent targetIntent) {
+        return super.shouldUpRecreateTask(targetIntent);
+    }
+
+    protected boolean showAssist__super(final Bundle args) {
+        return super.showAssist(args);
+    }
+
+    protected void showLockTaskEscapeMessage__super() {
+        super.showLockTaskEscapeMessage();
+    }
+
+    @Nullable
+    protected android.view.ActionMode startActionMode__super(
+            final android.view.ActionMode.Callback callback) {
+        return super.startActionMode(callback);
+    }
+
+    @Nullable
+    protected android.view.ActionMode startActionMode__super(
+            final android.view.ActionMode.Callback callback, final int type) {
+        return super.startActionMode(callback, type);
+    }
+
+    protected void startActivities__super(final Intent[] intents) {
+        super.startActivities(intents);
+    }
+
+    protected void startActivities__super(final Intent[] intents, final Bundle options) {
+        super.startActivities(intents, options);
+    }
+
+    protected void startActivityForResult__super(final Intent intent, final int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+    }
+
+    protected void startActivityForResult__super(final Intent intent, final int requestCode,
+            final Bundle options) {
+        super.startActivityForResult(intent, requestCode, options);
+    }
+
+    protected void startActivityFromChild__super(@NonNull final Activity child, final Intent intent,
+            final int requestCode) {
+        super.startActivityFromChild(child, intent, requestCode);
+    }
+
+    protected void startActivityFromChild__super(@NonNull final Activity child, final Intent intent,
+            final int requestCode, final Bundle options) {
+        super.startActivityFromChild(child, intent, requestCode, options);
+    }
+
+    protected void startActivityFromFragment__super(final Fragment fragment, final Intent intent,
+            final int requestCode) {
+        super.startActivityFromFragment(fragment, intent, requestCode);
+    }
+
+    protected void startActivityFromFragment__super(final Fragment fragment, final Intent intent,
+            final int requestCode, @Nullable final Bundle options) {
+        super.startActivityFromFragment(fragment, intent, requestCode, options);
+    }
+
+    protected void startActivityFromFragment__super(@NonNull final android.app.Fragment fragment,
+            final Intent intent, final int requestCode) {
+        super.startActivityFromFragment(fragment, intent, requestCode);
+    }
+
+    protected void startActivityFromFragment__super(@NonNull final android.app.Fragment fragment,
+            final Intent intent, final int requestCode, final Bundle options) {
+        super.startActivityFromFragment(fragment, intent, requestCode, options);
+    }
+
+    protected boolean startActivityIfNeeded__super(@NonNull final Intent intent,
+            final int requestCode) {
+        return super.startActivityIfNeeded(intent, requestCode);
+    }
+
+    protected boolean startActivityIfNeeded__super(@NonNull final Intent intent,
+            final int requestCode, final Bundle options) {
+        return super.startActivityIfNeeded(intent, requestCode, options);
+    }
+
+    protected void startActivity__super(final Intent intent) {
+        super.startActivity(intent);
+    }
+
+    protected void startActivity__super(final Intent intent, final Bundle options) {
+        super.startActivity(intent, options);
+    }
+
+    protected boolean startInstrumentation__super(final ComponentName className,
+            final String profileFile, final Bundle arguments) {
+        return super.startInstrumentation(className, profileFile, arguments);
+    }
+
+    protected void startIntentSenderForResult__super(final IntentSender intent,
+            final int requestCode, final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
+        super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
+                extraFlags);
+    }
+
+    protected void startIntentSenderForResult__super(final IntentSender intent,
+            final int requestCode, final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException {
+        super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
+                extraFlags, options);
+    }
+
+    protected void startIntentSenderFromChild__super(final Activity child,
+            final IntentSender intent, final int requestCode, final Intent fillInIntent,
+            final int flagsMask, final int flagsValues, final int extraFlags)
+            throws IntentSender.SendIntentException {
+        super.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
+                flagsValues, extraFlags);
+    }
+
+    protected void startIntentSenderFromChild__super(final Activity child,
+            final IntentSender intent, final int requestCode, final Intent fillInIntent,
+            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException {
+        super.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
+                flagsValues, extraFlags, options);
+    }
+
+    protected void startIntentSender__super(final IntentSender intent, final Intent fillInIntent,
+            final int flagsMask, final int flagsValues, final int extraFlags)
+            throws IntentSender.SendIntentException {
+        super.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
+    }
+
+    protected void startIntentSender__super(final IntentSender intent, final Intent fillInIntent,
+            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException {
+        super.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags, options);
+    }
+
+    protected void startLockTask__super() {
+        super.startLockTask();
+    }
+
+    protected void startManagingCursor__super(final Cursor c) {
+        super.startManagingCursor(c);
+    }
+
+    protected boolean startNextMatchingActivity__super(@NonNull final Intent intent) {
+        return super.startNextMatchingActivity(intent);
+    }
+
+    protected boolean startNextMatchingActivity__super(@NonNull final Intent intent,
+            final Bundle options) {
+        return super.startNextMatchingActivity(intent, options);
+    }
+
+    protected void startPostponedEnterTransition__super() {
+        super.startPostponedEnterTransition();
+    }
+
+    protected void startSearch__super(final String initialQuery, final boolean selectInitialQuery,
+            final Bundle appSearchData, final boolean globalSearch) {
+        super.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
+    }
+
+    protected ComponentName startService__super(final Intent service) {
+        return super.startService(service);
+    }
+
+    @Nullable
+    protected ActionMode startSupportActionMode__super(
+            @NonNull final ActionMode.Callback callback) {
+        return super.startSupportActionMode(callback);
+    }
+
+    protected void stopLockTask__super() {
+        super.stopLockTask();
+    }
+
+    protected void stopManagingCursor__super(final Cursor c) {
+        super.stopManagingCursor(c);
+    }
+
+    protected boolean stopService__super(final Intent name) {
+        return super.stopService(name);
+    }
+
+    protected void supportFinishAfterTransition__super() {
+        super.supportFinishAfterTransition();
+    }
+
+    protected void supportInvalidateOptionsMenu__super() {
+        super.supportInvalidateOptionsMenu();
+    }
+
+    protected void supportNavigateUpTo__super(@NonNull final Intent upIntent) {
+        super.supportNavigateUpTo(upIntent);
+    }
+
+    protected void supportPostponeEnterTransition__super() {
+        super.supportPostponeEnterTransition();
+    }
+
+    protected boolean supportRequestWindowFeature__super(final int featureId) {
+        return super.supportRequestWindowFeature(featureId);
+    }
+
+    protected boolean supportShouldUpRecreateTask__super(@NonNull final Intent targetIntent) {
+        return super.supportShouldUpRecreateTask(targetIntent);
+    }
+
+    protected void supportStartPostponedEnterTransition__super() {
+        super.supportStartPostponedEnterTransition();
+    }
+
+    protected void takeKeyEvents__super(final boolean get) {
+        super.takeKeyEvents(get);
+    }
+
+    protected void triggerSearch__super(final String query, final Bundle appSearchData) {
+        super.triggerSearch(query, appSearchData);
+    }
+
+    protected void unbindService__super(final ServiceConnection conn) {
+        super.unbindService(conn);
+    }
+
+    protected void unregisterComponentCallbacks__super(final ComponentCallbacks callback) {
+        super.unregisterComponentCallbacks(callback);
+    }
+
+    protected void unregisterForContextMenu__super(final View view) {
+        super.unregisterForContextMenu(view);
+    }
+
+    protected void unregisterReceiver__super(final BroadcastReceiver receiver) {
         super.unregisterReceiver(receiver);
     }
 
