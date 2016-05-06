@@ -4,13 +4,15 @@
 
 *Composition over inheritance*
 
-Allows to `mixin` functionality into an Android `Activity`. Just because we all have a `BaseActivity` in our projects containing too much unused stuff. When it grows, it get unmaintainable
+Allows to add functionality into an Android `Activity`. Just because we all have a `BaseActivity` in our projects containing too much unused stuff. When it grows, it get unmaintainable.
 
 
 ## Project stage
 
-**pre-alpha.** Really, *do not use this anywhere*! It compiles and works in the simplest tests. I just posted it to have a discussion about my idea.
+*Early alpha*. Nothing breaks when you extend `CompositeActivity`. Getting simple callbacks is safe. Overriding methods and changing parameters is tested. Sound good?
+Well, I already found an edgecases (`getLastNonConfigurationInstance()` and `onRetainCustomNonConfigurationInstance()`) and I'm sure there are more. And I ran into the first threading problems and solved them but there could be more, too.
 
+I successfully replaced a `BaseActivity` in a big grown project with a `CompositeActivity`. It works without problems, so far. This means it's kind of stable if you don't try to break it.
 
 ## Inspiration
 
@@ -19,6 +21,14 @@ Allows to `mixin` functionality into an Android `Activity`. Just because we all 
     - it doesn't only support code execution before or after calling `super`, not very flexible
 - [Lightcycle](https://github.com/soundcloud/lightcycle) which only supports basic lifecycle methods.
 
+## Possible Usecases
+
+- Plugin for the GooglePlayApiClient handling all the edgecases
+- Wrap your layout in a predefined container by overriding `setContentView()`
+- a Plugin showing a loadingspinner
+- a Plugin for requesting permissions automatically handling all response codes
+- granually add libraries like [Mosby](https://github.com/sockeqwe/mosby) or [Flow](https://github.com/square/flow) without extending from a `MvpActivity`
+- and **so much more...**
 
 ## How will it work once it's done?
 
@@ -37,9 +47,9 @@ Then you are able to `mixin` the `BaseFunctionality` in your activities when nee
 +    private final BaseFunctionality base = new BaseFunctionality();
 + 
 +    public MainActivity() {
-+        mixin(base);
++        addPlugin(base);
 +        // and everything else
-+        mixin(new ViewTracking("Main"));
++        addPlugin(new ViewTracking("Main"));
 +    }
 
     @Override
@@ -53,16 +63,14 @@ Then you are able to `mixin` the `BaseFunctionality` in your activities when nee
 
 I recommend not to move all logic of your `BaseActivity` into a single plugin. Split it up and mixin only what you need.  
 
-## Get it
+## Get it [![Download](https://api.bintray.com/packages/passsy/maven/CompositeActivity/images/download.svg) ](https://bintray.com/passsy/maven/CompositeActivity/_latestVersion)
 
 CompositeAndroid is available via [jcenter](http://blog.bintray.com/2015/02/09/android-studio-migration-from-maven-central-to-jcenter/)
 
-```java
-
+```gradle
 dependencies {
-    compile 'com.pascalwelsch.compositeandroid:activity:0.1-alpha1'
+    compile 'com.pascalwelsch.compositeandroid:activity:0.1'
 }
-
 ```
 
 # License
