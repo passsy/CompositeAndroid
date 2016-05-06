@@ -12,9 +12,9 @@ fun main(args: Array<String>) {
     activity = activity.copy(methods = filteredMethods)
 
 
-    //createCompositeActivity(activity)
+    createCompositeActivity(activity)
     createActivityDelegate(activity)
-    //createActivityPlugin(activity)
+    createActivityPlugin(activity)
 }
 
 fun createActivityPlugin(activity: AnalyzedJavaFile) {
