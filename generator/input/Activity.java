@@ -1,4 +1,4 @@
-package com.pascalwelsch.compositeandroid.activity;
+package com.pascalwelsch.compositeandroid;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -88,7 +88,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
-public class TestActivity extends AppCompatActivity {
+/**
+ * com.android.support:appcompat-v7:23.3.0
+ */
+public class ImportActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -139,7 +142,6 @@ public class TestActivity extends AppCompatActivity {
         super.setSupportActionBar(toolbar);
     }
 
-    @NonNull
     @Override
     public MenuInflater getMenuInflater() {
         return super.getMenuInflater();

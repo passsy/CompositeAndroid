@@ -1,50 +1,21 @@
 package com.pascalwelsch.compositeandroid.activity;
 
-import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
+import com.pascalwelsch.compositeandroid.core.AbstractPlugin;
 
-import java.util.Stack;
+import android.app.Activity;
 
-abstract class ActivityPluginBase {
-
-    ActivityDelegate mActivityDelegate;
-
-    CompositeActivity mCompositeActivity;
-
-    final Stack<NamedSuperCall<?>> mSuperListeners = new Stack<>();
+abstract class ActivityPluginBase extends AbstractPlugin<Activity, ActivityDelegate> {
 
     public CompositeActivity getActivity() {
-        return mCompositeActivity;
+        return (CompositeActivity) getOriginal();
     }
 
     public Object getLastNonConfigurationInstance(final String key) {
-        return mActivityDelegate.getLastNonConfigurationInstance(key);
+        return getCompositeDelegate().getLastNonConfigurationInstance(key);
     }
 
     public CompositeNonConfigurationInstance onRetainNonConfigurationInstance() {
         return null;
     }
 
-    public void setActivity(final CompositeActivity compositeActivity) {
-        mCompositeActivity = compositeActivity;
-    }
-
-    public void setActivityDelegate(final ActivityDelegate activityDelegate) {
-        mActivityDelegate = activityDelegate;
-    }
-
-    void verifyMethodCalledFromDelegate(final String method) {
-        if (mSuperListeners.isEmpty()) {
-            throw new IllegalStateException("Do not call " + method
-                    + " on a ActivityPlugin directly. You have to call mDelegate." + method
-                    + " or the call order of the plugins would be mixed up.");
-        }
-        final String superListener = mSuperListeners.peek().getMethodName();
-        if (!superListener.equals(method)) {
-            throw new IllegalStateException("You may have called "
-                    + method + " from " + superListener + " instead of calling getActivity()."
-                    + method + ". Do not call " + method
-                    + " on a ActivityPlugin directly. You have to call mDelegate." + method
-                    + " or the call order of the plugins would be mixed up.");
-        }
-    }
 }

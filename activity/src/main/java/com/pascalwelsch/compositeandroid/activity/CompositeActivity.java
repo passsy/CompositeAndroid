@@ -766,7 +766,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return delegate.getMainLooper();
     }
 
-    @NonNull
     @Override
     public MenuInflater getMenuInflater() {
         return delegate.getMenuInflater();
@@ -4302,7 +4301,6 @@ public class CompositeActivity extends CompositeActivityBase {
         return super.getMainLooper();
     }
 
-    @NonNull
     protected MenuInflater getMenuInflater__super() {
         return super.getMenuInflater();
     }
