@@ -172,6 +172,8 @@ public class MainActivity extends CompositeActivity {
 }
 ```
 
+Read more about the ordering of the Plugins [here](https://github.com/passsy/CompositeAndroid/wiki/Ordering-of-plugins-and-the-result-on-the-call-order)
+
 #### Write a plugin
 
 
