@@ -142,8 +142,8 @@ Extend from one of the composite implementations when you want to add plugins. T
 ```
 
 ```diff
-- public class MyActivity extends Fragment { // v4 support library
-+ public class MyActivity extends CompositeFragment {
+- public class MyFragment extends Fragment { // v4 support library
++ public class MyFragment extends CompositeFragment {
 ```
 
 
