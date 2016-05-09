@@ -244,7 +244,7 @@ The documentation is currently not existing. I'm sorry, but right now it's more 
 
 ## Inspiration and other Android Composition Libraries
 
-- [Navi](https://github.com/trello/navi) of cause, but
+- [Navi](https://github.com/trello/navi) of course, but
     - it doesn't support all methods (only methods without return value)
     - it does only support code execution before or after calling `super`, not very flexible
     - no plugin API
