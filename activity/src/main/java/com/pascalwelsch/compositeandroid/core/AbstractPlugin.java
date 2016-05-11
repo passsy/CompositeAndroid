@@ -10,6 +10,12 @@ public class AbstractPlugin<T, D> {
 
     private T mOriginal;
 
+    public final void addToDelegate(final D delegate, final T original) {
+        mDelegate = delegate;
+        mOriginal = original;
+        onAddedToDelegate();
+    }
+
     public D getCompositeDelegate() {
         return mDelegate;
     }
@@ -18,12 +24,10 @@ public class AbstractPlugin<T, D> {
         return mOriginal;
     }
 
-    public void setDelegate(final D delegate) {
-        mDelegate = delegate;
-    }
-
-    public void setOriginal(final T original) {
-        mOriginal = original;
+    public final void removeFromDelegate() {
+        mDelegate = null;
+        mOriginal = null;
+        onRemovedFromDelegated();
     }
 
     public void verifyMethodCalledFromDelegate(final String method) {
@@ -40,5 +44,21 @@ public class AbstractPlugin<T, D> {
                     + " on a ActivityPlugin directly. You have to call mDelegate." + method
                     + " or the call order of the plugins would be mixed up.");
         }
+    }
+
+    /**
+     * callback when this plugin was added to a delegate. {@link #getOriginal()} and {@link
+     * #getCompositeDelegate()} are now set
+     */
+    protected void onAddedToDelegate() {
+
+    }
+
+    /**
+     * callback when this plugin was removed from the delegate. {@link #getOriginal()} and {@link
+     * #getCompositeDelegate()} are now {@code null}
+     */
+    protected void onRemovedFromDelegated() {
+
     }
 }
