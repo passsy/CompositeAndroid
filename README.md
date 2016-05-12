@@ -15,7 +15,7 @@ Allows to add functionality into an Android `Activity`. Just because we all have
 - gradually add libraries like [Mosby](https://github.com/sockeqwe/mosby) (without extending from a `MvpActivity`) or [Flow](https://github.com/square/flow) to your Activities when you need it
 - and **so much more...**
 
-## Example
+## State of the Art
 
 Given you have an `Activity` showing a list of tweets (`TweetStreamActivity`) and you want add view tracking. 
 
@@ -93,7 +93,6 @@ public class TrackingDelegate {
      *     super.onResume();
      *     mTrackingDelegate.onResume();
      * }
-     *
      * } </pre>
      */
     public void onResume() {
@@ -118,11 +117,9 @@ public class TweetStreamActivity extends AppCompatActivity {
 
 This is an elegant solution but breaks when updating such a library and the delegate call position has changed. Or when the delegate added new callbacks which don't get automatically implemented by increasing the version number in the `build.gradle`.
 
----
+# Composite Android solution
 
-### Composite Android solution
-
-CompositeAndroid let's you add delegates to your Activity without adding calls to the correct location. Such delegates are called `Plugins`.
+CompositeAndroid let's you add delegates to your Activity without adding calls to the correct location. Such delegates are called `Plugins`. A Plugin is able to inject code at every position in the Activity lifecycle. It is able to override every method.
 
 
 #### Get Started [![Download](https://api.bintray.com/packages/passsy/maven/CompositeActivity/images/download.svg) ](https://bintray.com/passsy/maven/CompositeActivity/_latestVersion)
@@ -137,23 +134,20 @@ dependencies {
 
 #### Extend from a composite implementation
 
-
 Extend from one of the composite implementations when you want to add plugins. This is the only inheritance you have to make.
 
 ```diff
 - public class MyActivity extends AppCompatActivity {
 + public class MyActivity extends CompositeActivity {
-
 ```
 
 ```diff
-- public class MyActivity extends Fragment { // v4 support library
-+ public class MyActivity extends CompositeFragment {
-
+- public class MyFragment extends Fragment { // v4 support library
++ public class MyFragment extends CompositeFragment {
 ```
 
 
-#### Add a plugin
+#### Add a plugins
 
 Use the constructor to add plugins. Do not add plugins in `#onCreate()`. That's too late. Many `Activity` methods are called before `#onCreate()` which could be important for a plugin to work.
 
@@ -177,6 +171,8 @@ public class MainActivity extends CompositeActivity {
     }
 }
 ```
+
+Read more about the ordering of the Plugins [here](https://github.com/passsy/CompositeAndroid/wiki/Ordering-of-plugins-and-the-result-on-the-call-order)
 
 #### Write a plugin
 
@@ -230,8 +226,10 @@ Here some information about plugins. The Activity example is used but it works t
 
 Not everything works exactly like you'd use inheritance. Here is a small list of minor things you have to know:
 
+#### Important for all Plugin authors
 - you can't call an `Activity` method of a `Plugin` such as `onResume()` or `getResources()`. Otherwise the call order of the added plugins is not guaranteed. Instead call those methods on the real `Activity` with `getCompositeActivity.onResume()` or `getCompositeActivity.getResources()`.
 
+#### Absolute edgecases
 - you can't really override `Activity#onRetainCustomNonConfigurationInstance()` and `Activity#getLastCustomNonConfigurationInstance()` in sense of intercepting what the actual Activity or other Plugins save or read. But you can use those methods to save and get a non configuration instance object as you would use it in an `Activity`. Make sure you use the same `key` for saving and reading the instance.
 
 
@@ -246,7 +244,7 @@ The documentation is currently not existing. I'm sorry, but right now it's more 
 
 ## Inspiration and other Android Composition Libraries
 
-- [Navi](https://github.com/trello/navi) of cause, but
+- [Navi](https://github.com/trello/navi) of course, but
     - it doesn't support all methods (only methods without return value)
     - it does only support code execution before or after calling `super`, not very flexible
     - no plugin API
