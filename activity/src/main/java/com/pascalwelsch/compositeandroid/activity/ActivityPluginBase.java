@@ -2,12 +2,10 @@ package com.pascalwelsch.compositeandroid.activity;
 
 import com.pascalwelsch.compositeandroid.core.AbstractPlugin;
 
-import android.app.Activity;
-
-abstract class ActivityPluginBase extends AbstractPlugin<Activity, ActivityDelegate> {
+abstract class ActivityPluginBase extends AbstractPlugin<CompositeActivity, ActivityDelegate> {
 
     public CompositeActivity getActivity() {
-        return (CompositeActivity) getOriginal();
+        return getOriginal();
     }
 
     public Object getLastNonConfigurationInstance(final String key) {
