@@ -23,7 +23,7 @@ public class AbstractDelegate<T, P extends AbstractPlugin> {
 
     @SuppressWarnings("unchecked")
     public Removable addPlugin(final P plugin) {
-        plugin.addToDelegate(this, plugin);
+        plugin.addToDelegate(this, mOriginal);
         mPlugins.add(plugin);
         return new Removable() {
             @Override
