@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
-def final String VERSION_NAME = "0.1.2-SNAPSHOT"
+def final String VERSION_NAME = "0.1.2"
 def final int VERSION_CODE = 4
 
 android {
