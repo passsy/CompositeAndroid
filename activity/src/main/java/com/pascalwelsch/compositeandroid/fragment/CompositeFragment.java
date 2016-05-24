@@ -1029,292 +1029,361 @@ public class CompositeFragment extends CompositeFragmentBase {
         delegate.unregisterForContextMenu(view);
     }
 
-    protected void dump__super(final String prefix, final FileDescriptor fd,
+    @Override
+    public void dump__super(final String prefix, final FileDescriptor fd,
             final PrintWriter writer, final String[] args) {
         super.dump(prefix, fd, writer, args);
     }
 
-    protected boolean getAllowEnterTransitionOverlap__super() {
+    @Override
+    public boolean getAllowEnterTransitionOverlap__super() {
         return super.getAllowEnterTransitionOverlap();
     }
 
-    protected boolean getAllowReturnTransitionOverlap__super() {
+    @Override
+    public boolean getAllowReturnTransitionOverlap__super() {
         return super.getAllowReturnTransitionOverlap();
     }
 
-    protected Context getContext__super() {
+    @Override
+    public Context getContext__super() {
         return super.getContext();
     }
 
-    protected Object getEnterTransition__super() {
+    @Override
+    public Object getEnterTransition__super() {
         return super.getEnterTransition();
     }
 
-    protected Object getExitTransition__super() {
+    @Override
+    public Object getExitTransition__super() {
         return super.getExitTransition();
     }
 
-    protected LayoutInflater getLayoutInflater__super(final Bundle savedInstanceState) {
+    @Override
+    public LayoutInflater getLayoutInflater__super(final Bundle savedInstanceState) {
         return super.getLayoutInflater(savedInstanceState);
     }
 
-    protected LoaderManager getLoaderManager__super() {
+    @Override
+    public LoaderManager getLoaderManager__super() {
         return super.getLoaderManager();
     }
 
-    protected Object getReenterTransition__super() {
+    @Override
+    public Object getReenterTransition__super() {
         return super.getReenterTransition();
     }
 
-    protected Object getReturnTransition__super() {
+    @Override
+    public Object getReturnTransition__super() {
         return super.getReturnTransition();
     }
 
-    protected Object getSharedElementEnterTransition__super() {
+    @Override
+    public Object getSharedElementEnterTransition__super() {
         return super.getSharedElementEnterTransition();
     }
 
-    protected Object getSharedElementReturnTransition__super() {
+    @Override
+    public Object getSharedElementReturnTransition__super() {
         return super.getSharedElementReturnTransition();
     }
 
-    protected boolean getUserVisibleHint__super() {
+    @Override
+    public boolean getUserVisibleHint__super() {
         return super.getUserVisibleHint();
     }
 
+    @Override
     @Nullable
-    protected View getView__super() {
+    public View getView__super() {
         return super.getView();
     }
 
-    protected void onActivityCreated__super(@Nullable final Bundle savedInstanceState) {
+    @Override
+    public void onActivityCreated__super(@Nullable final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
-    protected void onActivityResult__super(final int requestCode, final int resultCode,
+    @Override
+    public void onActivityResult__super(final int requestCode, final int resultCode,
             final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    protected void onAttach__super(final Context context) {
+    @Override
+    public void onAttach__super(final Context context) {
         super.onAttach(context);
     }
 
-    protected void onAttach__super(final Activity activity) {
+    @Override
+    public void onAttach__super(final Activity activity) {
         super.onAttach(activity);
     }
 
-    protected void onConfigurationChanged__super(final Configuration newConfig) {
+    @Override
+    public void onConfigurationChanged__super(final Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 
-    protected boolean onContextItemSelected__super(final MenuItem item) {
+    @Override
+    public boolean onContextItemSelected__super(final MenuItem item) {
         return super.onContextItemSelected(item);
     }
 
-    protected Animation onCreateAnimation__super(final int transit, final boolean enter,
+    @Override
+    public Animation onCreateAnimation__super(final int transit, final boolean enter,
             final int nextAnim) {
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
-    protected void onCreateContextMenu__super(final ContextMenu menu, final View v,
+    @Override
+    public void onCreateContextMenu__super(final ContextMenu menu, final View v,
             final ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
-    protected void onCreateOptionsMenu__super(final Menu menu, final MenuInflater inflater) {
+    @Override
+    public void onCreateOptionsMenu__super(final Menu menu, final MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
     @Nullable
-    protected View onCreateView__super(final LayoutInflater inflater,
+    public View onCreateView__super(final LayoutInflater inflater,
             @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    protected void onCreate__super(@Nullable final Bundle savedInstanceState) {
+    @Override
+    public void onCreate__super(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    protected void onDestroyOptionsMenu__super() {
+    @Override
+    public void onDestroyOptionsMenu__super() {
         super.onDestroyOptionsMenu();
     }
 
-    protected void onDestroyView__super() {
+    @Override
+    public void onDestroyView__super() {
         super.onDestroyView();
     }
 
-    protected void onDestroy__super() {
+    @Override
+    public void onDestroy__super() {
         super.onDestroy();
     }
 
-    protected void onDetach__super() {
+    @Override
+    public void onDetach__super() {
         super.onDetach();
     }
 
-    protected void onHiddenChanged__super(final boolean hidden) {
+    @Override
+    public void onHiddenChanged__super(final boolean hidden) {
         super.onHiddenChanged(hidden);
     }
 
-    protected void onInflate__super(final Context context, final AttributeSet attrs,
+    @Override
+    public void onInflate__super(final Context context, final AttributeSet attrs,
             final Bundle savedInstanceState) {
         super.onInflate(context, attrs, savedInstanceState);
     }
 
-    protected void onInflate__super(final Activity activity, final AttributeSet attrs,
+    @Override
+    public void onInflate__super(final Activity activity, final AttributeSet attrs,
             final Bundle savedInstanceState) {
         super.onInflate(activity, attrs, savedInstanceState);
     }
 
-    protected void onLowMemory__super() {
+    @Override
+    public void onLowMemory__super() {
         super.onLowMemory();
     }
 
-    protected boolean onOptionsItemSelected__super(final MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected__super(final MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void onOptionsMenuClosed__super(final Menu menu) {
+    @Override
+    public void onOptionsMenuClosed__super(final Menu menu) {
         super.onOptionsMenuClosed(menu);
     }
 
-    protected void onPause__super() {
+    @Override
+    public void onPause__super() {
         super.onPause();
     }
 
-    protected void onPrepareOptionsMenu__super(final Menu menu) {
+    @Override
+    public void onPrepareOptionsMenu__super(final Menu menu) {
         super.onPrepareOptionsMenu(menu);
     }
 
-    protected void onRequestPermissionsResult__super(final int requestCode,
+    @Override
+    public void onRequestPermissionsResult__super(final int requestCode,
             @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    protected void onResume__super() {
+    @Override
+    public void onResume__super() {
         super.onResume();
     }
 
-    protected void onSaveInstanceState__super(final Bundle outState) {
+    @Override
+    public void onSaveInstanceState__super(final Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
-    protected void onStart__super() {
+    @Override
+    public void onStart__super() {
         super.onStart();
     }
 
-    protected void onStop__super() {
+    @Override
+    public void onStop__super() {
         super.onStop();
     }
 
-    protected void onViewCreated__super(final View view,
+    @Override
+    public void onViewCreated__super(final View view,
             @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    protected void onViewStateRestored__super(@Nullable final Bundle savedInstanceState) {
+    @Override
+    public void onViewStateRestored__super(@Nullable final Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
     }
 
-    protected void registerForContextMenu__super(final View view) {
+    @Override
+    public void registerForContextMenu__super(final View view) {
         super.registerForContextMenu(view);
     }
 
-    protected void setAllowEnterTransitionOverlap__super(final boolean allow) {
+    @Override
+    public void setAllowEnterTransitionOverlap__super(final boolean allow) {
         super.setAllowEnterTransitionOverlap(allow);
     }
 
-    protected void setAllowReturnTransitionOverlap__super(final boolean allow) {
+    @Override
+    public void setAllowReturnTransitionOverlap__super(final boolean allow) {
         super.setAllowReturnTransitionOverlap(allow);
     }
 
-    protected void setArguments__super(final Bundle args) {
+    @Override
+    public void setArguments__super(final Bundle args) {
         super.setArguments(args);
     }
 
-    protected void setEnterSharedElementCallback__super(final SharedElementCallback callback) {
+    @Override
+    public void setEnterSharedElementCallback__super(final SharedElementCallback callback) {
         super.setEnterSharedElementCallback(callback);
     }
 
-    protected void setEnterTransition__super(final Object transition) {
+    @Override
+    public void setEnterTransition__super(final Object transition) {
         super.setEnterTransition(transition);
     }
 
-    protected void setExitSharedElementCallback__super(final SharedElementCallback callback) {
+    @Override
+    public void setExitSharedElementCallback__super(final SharedElementCallback callback) {
         super.setExitSharedElementCallback(callback);
     }
 
-    protected void setExitTransition__super(final Object transition) {
+    @Override
+    public void setExitTransition__super(final Object transition) {
         super.setExitTransition(transition);
     }
 
-    protected void setHasOptionsMenu__super(final boolean hasMenu) {
+    @Override
+    public void setHasOptionsMenu__super(final boolean hasMenu) {
         super.setHasOptionsMenu(hasMenu);
     }
 
-    protected void setInitialSavedState__super(final Fragment.SavedState state) {
+    @Override
+    public void setInitialSavedState__super(final Fragment.SavedState state) {
         super.setInitialSavedState(state);
     }
 
-    protected void setMenuVisibility__super(final boolean menuVisible) {
+    @Override
+    public void setMenuVisibility__super(final boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
     }
 
-    protected void setReenterTransition__super(final Object transition) {
+    @Override
+    public void setReenterTransition__super(final Object transition) {
         super.setReenterTransition(transition);
     }
 
-    protected void setRetainInstance__super(final boolean retain) {
+    @Override
+    public void setRetainInstance__super(final boolean retain) {
         super.setRetainInstance(retain);
     }
 
-    protected void setReturnTransition__super(final Object transition) {
+    @Override
+    public void setReturnTransition__super(final Object transition) {
         super.setReturnTransition(transition);
     }
 
-    protected void setSharedElementEnterTransition__super(final Object transition) {
+    @Override
+    public void setSharedElementEnterTransition__super(final Object transition) {
         super.setSharedElementEnterTransition(transition);
     }
 
-    protected void setSharedElementReturnTransition__super(final Object transition) {
+    @Override
+    public void setSharedElementReturnTransition__super(final Object transition) {
         super.setSharedElementReturnTransition(transition);
     }
 
-    protected void setTargetFragment__super(final Fragment fragment, final int requestCode) {
+    @Override
+    public void setTargetFragment__super(final Fragment fragment, final int requestCode) {
         super.setTargetFragment(fragment, requestCode);
     }
 
-    protected void setUserVisibleHint__super(final boolean isVisibleToUser) {
+    @Override
+    public void setUserVisibleHint__super(final boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
     }
 
-    protected boolean shouldShowRequestPermissionRationale__super(
+    @Override
+    public boolean shouldShowRequestPermissionRationale__super(
             @NonNull final String permission) {
         return super.shouldShowRequestPermissionRationale(permission);
     }
 
-    protected void startActivityForResult__super(final Intent intent, final int requestCode) {
+    @Override
+    public void startActivityForResult__super(final Intent intent, final int requestCode) {
         super.startActivityForResult(intent, requestCode);
     }
 
-    protected void startActivityForResult__super(final Intent intent, final int requestCode,
+    @Override
+    public void startActivityForResult__super(final Intent intent, final int requestCode,
             @Nullable final Bundle options) {
         super.startActivityForResult(intent, requestCode, options);
     }
 
-    protected void startActivity__super(final Intent intent) {
+    @Override
+    public void startActivity__super(final Intent intent) {
         super.startActivity(intent);
     }
 
-    protected void startActivity__super(final Intent intent, @Nullable final Bundle options) {
+    @Override
+    public void startActivity__super(final Intent intent, @Nullable final Bundle options) {
         super.startActivity(intent, options);
     }
 
-    protected String toString__super() {
+    @Override
+    public String toString__super() {
         return super.toString();
     }
 
-    protected void unregisterForContextMenu__super(final View view) {
+    @Override
+    public void unregisterForContextMenu__super(final View view) {
         super.unregisterForContextMenu(view);
     }
 

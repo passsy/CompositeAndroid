@@ -1,4 +1,4 @@
-package com.pascalwelsch.compositeandroid.dialogfragment;
+package com.pascalwelsch.compositeandroid.fragment;
 
 import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
 import com.pascalwelsch.compositeandroid.core.PluginCall;
@@ -37,8 +37,8 @@ import java.io.PrintWriter;
 
 public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
 
-    public DialogFragmentDelegate(final CompositeDialogFragment compositedialogfragment) {
-        super(compositedialogfragment);
+    public DialogFragmentDelegate(final CompositeDialogFragmentBase fragment) {
+        super(fragment);
     }
 
     public void dismiss() {
@@ -51,7 +51,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().dismiss__super();
+                getDialogFragment().dismiss__super();
             }
         });
     }
@@ -66,7 +66,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().dismissAllowingStateLoss__super();
+                getDialogFragment().dismissAllowingStateLoss__super();
             }
         });
     }
@@ -84,15 +84,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().dump__super((String) args[0], (FileDescriptor) args[1],
+                        getOriginal().dump__super((String) args[0], (FileDescriptor) args[1],
                                 (PrintWriter) args[2], (String[]) args[3]);
                     }
                 }, prefix, fd, writer, args);
     }
 
-
     public boolean getAllowEnterTransitionOverlap() {
-        return callFunction("getAllowEnterTransitionOverlap()",
+        return callDialogFunction("getAllowEnterTransitionOverlap()",
                 new PluginCall<DialogFragmentPlugin, Boolean>() {
                     @Override
                     public Boolean call(final NamedSuperCall<Boolean> superCall,
@@ -104,14 +103,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getFragment().getAllowEnterTransitionOverlap__super();
+                        return getOriginal().getAllowEnterTransitionOverlap__super();
                     }
                 });
     }
 
 
     public boolean getAllowReturnTransitionOverlap() {
-        return callFunction("getAllowReturnTransitionOverlap()",
+        return callDialogFunction("getAllowReturnTransitionOverlap()",
                 new PluginCall<DialogFragmentPlugin, Boolean>() {
                     @Override
                     public Boolean call(final NamedSuperCall<Boolean> superCall,
@@ -123,14 +122,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getFragment().getAllowReturnTransitionOverlap__super();
+                        return getOriginal().getAllowReturnTransitionOverlap__super();
                     }
                 });
     }
 
 
     public Context getContext() {
-        return callFunction("getContext()", new PluginCall<DialogFragmentPlugin, Context>() {
+        return callDialogFunction("getContext()", new PluginCall<DialogFragmentPlugin, Context>() {
             @Override
             public Context call(final NamedSuperCall<Context> superCall,
                     final DialogFragmentPlugin plugin, final Object... args) {
@@ -141,14 +140,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCall<Context>() {
             @Override
             public Context call(final Object... args) {
-                return getFragment().getContext__super();
+                return getOriginal().getContext__super();
             }
         });
     }
 
 
     public Dialog getDialog() {
-        return callFunction("getDialog()", new PluginCall<DialogFragmentPlugin, Dialog>() {
+        return callDialogFunction("getDialog()", new PluginCall<DialogFragmentPlugin, Dialog>() {
             @Override
             public Dialog call(final NamedSuperCall<Dialog> superCall,
                     final DialogFragmentPlugin plugin, final Object... args) {
@@ -159,14 +158,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCall<Dialog>() {
             @Override
             public Dialog call(final Object... args) {
-                return getFragment().getDialog__super();
+                return getDialogFragment().getDialog__super();
             }
         });
     }
 
 
     public Object getEnterTransition() {
-        return callFunction("getEnterTransition()", new PluginCall<DialogFragmentPlugin, Object>() {
+        return callDialogFunction("getEnterTransition()", new PluginCall<DialogFragmentPlugin, Object>() {
             @Override
             public Object call(final NamedSuperCall<Object> superCall,
                     final DialogFragmentPlugin plugin, final Object... args) {
@@ -177,14 +176,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCall<Object>() {
             @Override
             public Object call(final Object... args) {
-                return getFragment().getEnterTransition__super();
+                return getOriginal().getEnterTransition__super();
             }
         });
     }
 
 
     public Object getExitTransition() {
-        return callFunction("getExitTransition()", new PluginCall<DialogFragmentPlugin, Object>() {
+        return callDialogFunction("getExitTransition()", new PluginCall<DialogFragmentPlugin, Object>() {
             @Override
             public Object call(final NamedSuperCall<Object> superCall,
                     final DialogFragmentPlugin plugin, final Object... args) {
@@ -195,14 +194,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCall<Object>() {
             @Override
             public Object call(final Object... args) {
-                return getFragment().getExitTransition__super();
+                return getOriginal().getExitTransition__super();
             }
         });
     }
 
 
     public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
-        return callFunction("getLayoutInflater(Bundle)",
+        return callDialogFunction("getLayoutInflater(Bundle)",
                 new PluginCall<DialogFragmentPlugin, LayoutInflater>() {
                     @Override
                     public LayoutInflater call(final NamedSuperCall<LayoutInflater> superCall,
@@ -214,14 +213,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<LayoutInflater>() {
                     @Override
                     public LayoutInflater call(final Object... args) {
-                        return getFragment().getLayoutInflater__super((Bundle) args[0]);
+                        return getOriginal().getLayoutInflater__super((Bundle) args[0]);
                     }
                 }, savedInstanceState);
     }
 
 
     public LoaderManager getLoaderManager() {
-        return callFunction("getLoaderManager()",
+        return callDialogFunction("getLoaderManager()",
                 new PluginCall<DialogFragmentPlugin, LoaderManager>() {
                     @Override
                     public LoaderManager call(final NamedSuperCall<LoaderManager> superCall,
@@ -233,14 +232,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<LoaderManager>() {
                     @Override
                     public LoaderManager call(final Object... args) {
-                        return getFragment().getLoaderManager__super();
+                        return getOriginal().getLoaderManager__super();
                     }
                 });
     }
 
 
     public Object getReenterTransition() {
-        return callFunction("getReenterTransition()",
+        return callDialogFunction("getReenterTransition()",
                 new PluginCall<DialogFragmentPlugin, Object>() {
                     @Override
                     public Object call(final NamedSuperCall<Object> superCall,
@@ -252,14 +251,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Object>() {
                     @Override
                     public Object call(final Object... args) {
-                        return getFragment().getReenterTransition__super();
+                        return getOriginal().getReenterTransition__super();
                     }
                 });
     }
 
 
     public Object getReturnTransition() {
-        return callFunction("getReturnTransition()",
+        return callDialogFunction("getReturnTransition()",
                 new PluginCall<DialogFragmentPlugin, Object>() {
                     @Override
                     public Object call(final NamedSuperCall<Object> superCall,
@@ -271,14 +270,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Object>() {
                     @Override
                     public Object call(final Object... args) {
-                        return getFragment().getReturnTransition__super();
+                        return getOriginal().getReturnTransition__super();
                     }
                 });
     }
 
 
     public Object getSharedElementEnterTransition() {
-        return callFunction("getSharedElementEnterTransition()",
+        return callDialogFunction("getSharedElementEnterTransition()",
                 new PluginCall<DialogFragmentPlugin, Object>() {
                     @Override
                     public Object call(final NamedSuperCall<Object> superCall,
@@ -290,14 +289,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Object>() {
                     @Override
                     public Object call(final Object... args) {
-                        return getFragment().getSharedElementEnterTransition__super();
+                        return getOriginal().getSharedElementEnterTransition__super();
                     }
                 });
     }
 
 
     public Object getSharedElementReturnTransition() {
-        return callFunction("getSharedElementReturnTransition()",
+        return callDialogFunction("getSharedElementReturnTransition()",
                 new PluginCall<DialogFragmentPlugin, Object>() {
                     @Override
                     public Object call(final NamedSuperCall<Object> superCall,
@@ -309,14 +308,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Object>() {
                     @Override
                     public Object call(final Object... args) {
-                        return getFragment().getSharedElementReturnTransition__super();
+                        return getOriginal().getSharedElementReturnTransition__super();
                     }
                 });
     }
 
 
     public boolean getShowsDialog() {
-        return callFunction("getShowsDialog()", new PluginCall<DialogFragmentPlugin, Boolean>() {
+        return callDialogFunction("getShowsDialog()", new PluginCall<DialogFragmentPlugin, Boolean>() {
             @Override
             public Boolean call(final NamedSuperCall<Boolean> superCall,
                     final DialogFragmentPlugin plugin, final Object... args) {
@@ -327,14 +326,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getFragment().getShowsDialog__super();
+                return getDialogFragment().getShowsDialog__super();
             }
         });
     }
 
 
     public int getTheme() {
-        return callFunction("getTheme()", new PluginCall<DialogFragmentPlugin, Integer>() {
+        return callDialogFunction("getTheme()", new PluginCall<DialogFragmentPlugin, Integer>() {
             @Override
             public Integer call(final NamedSuperCall<Integer> superCall,
                     final DialogFragmentPlugin plugin, final Object... args) {
@@ -345,14 +344,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCall<Integer>() {
             @Override
             public Integer call(final Object... args) {
-                return getFragment().getTheme__super();
+                return getDialogFragment().getTheme__super();
             }
         });
     }
 
 
     public boolean getUserVisibleHint() {
-        return callFunction("getUserVisibleHint()",
+        return callDialogFunction("getUserVisibleHint()",
                 new PluginCall<DialogFragmentPlugin, Boolean>() {
                     @Override
                     public Boolean call(final NamedSuperCall<Boolean> superCall,
@@ -364,14 +363,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getFragment().getUserVisibleHint__super();
+                        return getOriginal().getUserVisibleHint__super();
                     }
                 });
     }
 
 
     public View getView() {
-        return callFunction("getView()", new PluginCall<DialogFragmentPlugin, View>() {
+        return callDialogFunction("getView()", new PluginCall<DialogFragmentPlugin, View>() {
             @Override
             public View call(final NamedSuperCall<View> superCall,
                     final DialogFragmentPlugin plugin, final Object... args) {
@@ -382,14 +381,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCall<View>() {
             @Override
             public View call(final Object... args) {
-                return getFragment().getView__super();
+                return getOriginal().getView__super();
             }
         });
     }
 
 
     public boolean isCancelable() {
-        return callFunction("isCancelable()", new PluginCall<DialogFragmentPlugin, Boolean>() {
+        return callDialogFunction("isCancelable()", new PluginCall<DialogFragmentPlugin, Boolean>() {
             @Override
             public Boolean call(final NamedSuperCall<Boolean> superCall,
                     final DialogFragmentPlugin plugin, final Object... args) {
@@ -400,7 +399,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getFragment().isCancelable__super();
+                return getDialogFragment().isCancelable__super();
             }
         });
     }
@@ -415,7 +414,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onActivityCreated__super((Bundle) args[0]);
+                getOriginal().onActivityCreated__super((Bundle) args[0]);
             }
         }, savedInstanceState);
     }
@@ -430,7 +429,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment()
+                getOriginal()
                         .onActivityResult__super((int) args[0], (int) args[1], (Intent) args[2]);
             }
         }, requestCode, resultCode, data);
@@ -446,7 +445,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onAttach__super((Activity) args[0]);
+                getOriginal().onAttach__super((Activity) args[0]);
             }
         }, activity);
     }
@@ -461,7 +460,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onAttach__super((Context) args[0]);
+                getOriginal().onAttach__super((Context) args[0]);
             }
         }, context);
     }
@@ -476,7 +475,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onCancel__super((DialogInterface) args[0]);
+                getDialogFragment().onCancel__super((DialogInterface) args[0]);
             }
         }, dialog);
     }
@@ -492,14 +491,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().onConfigurationChanged__super((Configuration) args[0]);
+                        getOriginal().onConfigurationChanged__super((Configuration) args[0]);
                     }
                 }, newConfig);
     }
 
 
     public boolean onContextItemSelected(final MenuItem item) {
-        return callFunction("onContextItemSelected(MenuItem)",
+        return callDialogFunction("onContextItemSelected(MenuItem)",
                 new PluginCall<DialogFragmentPlugin, Boolean>() {
                     @Override
                     public Boolean call(final NamedSuperCall<Boolean> superCall,
@@ -511,29 +510,13 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getFragment().onContextItemSelected__super((MenuItem) args[0]);
+                        return getOriginal().onContextItemSelected__super((MenuItem) args[0]);
                     }
                 }, item);
     }
 
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
-        callHook("onCreate(Bundle)", new PluginCallVoid<DialogFragmentPlugin>() {
-            @Override
-            public void call(final NamedSuperCall<Void> superCall,
-                    final DialogFragmentPlugin plugin, final Object... args) {
-                plugin.onCreate(superCall, (Bundle) args[0]);
-            }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getFragment().onCreate__super((Bundle) args[0]);
-            }
-        }, savedInstanceState);
-    }
-
-
     public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
-        return callFunction("onCreateAnimation(int, boolean, int)",
+        return callDialogFunction("onCreateAnimation(int, boolean, int)",
                 new PluginCall<DialogFragmentPlugin, Animation>() {
                     @Override
                     public Animation call(final NamedSuperCall<Animation> superCall,
@@ -546,7 +529,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Animation>() {
                     @Override
                     public Animation call(final Object... args) {
-                        return getFragment()
+                        return getOriginal()
                                 .onCreateAnimation__super((int) args[0], (boolean) args[1],
                                         (int) args[2]);
                     }
@@ -566,7 +549,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment()
+                        getOriginal()
                                 .onCreateContextMenu__super((ContextMenu) args[0], (View) args[1],
                                         (ContextMenu.ContextMenuInfo) args[2]);
                     }
@@ -575,7 +558,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
 
 
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
-        return callFunction("onCreateDialog(Bundle)",
+        return callDialogFunction("onCreateDialog(Bundle)",
                 new PluginCall<DialogFragmentPlugin, Dialog>() {
                     @Override
                     public Dialog call(final NamedSuperCall<Dialog> superCall,
@@ -587,7 +570,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Dialog>() {
                     @Override
                     public Dialog call(final Object... args) {
-                        return getFragment().onCreateDialog__super((Bundle) args[0]);
+                        return getDialogFragment().onCreateDialog__super((Bundle) args[0]);
                     }
                 }, savedInstanceState);
     }
@@ -604,7 +587,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment()
+                        getOriginal()
                                 .onCreateOptionsMenu__super((Menu) args[0], (MenuInflater) args[1]);
                     }
                 }, menu, inflater);
@@ -613,7 +596,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
 
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
             @Nullable final Bundle savedInstanceState) {
-        return callFunction("onCreateView(LayoutInflater, ViewGroup, Bundle)",
+        return callDialogFunction("onCreateView(LayoutInflater, ViewGroup, Bundle)",
                 new PluginCall<DialogFragmentPlugin, View>() {
                     @Override
                     public View call(final NamedSuperCall<View> superCall,
@@ -626,7 +609,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<View>() {
                     @Override
                     public View call(final Object... args) {
-                        return getFragment()
+                        return getOriginal()
                                 .onCreateView__super((LayoutInflater) args[0], (ViewGroup) args[1],
                                         (Bundle) args[2]);
                     }
@@ -643,7 +626,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onDestroy__super();
+                getOriginal().onDestroy__super();
             }
         });
     }
@@ -658,7 +641,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onDestroyOptionsMenu__super();
+                getOriginal().onDestroyOptionsMenu__super();
             }
         });
     }
@@ -673,7 +656,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onDestroyView__super();
+                getOriginal().onDestroyView__super();
             }
         });
     }
@@ -688,7 +671,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onDetach__super();
+                getOriginal().onDetach__super();
             }
         });
     }
@@ -703,7 +686,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onDismiss__super((DialogInterface) args[0]);
+                getDialogFragment().onDismiss__super((DialogInterface) args[0]);
             }
         }, dialog);
     }
@@ -718,7 +701,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onHiddenChanged__super((boolean) args[0]);
+                getOriginal().onHiddenChanged__super((boolean) args[0]);
             }
         }, hidden);
     }
@@ -736,7 +719,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().onInflate__super((Context) args[0], (AttributeSet) args[1],
+                        getOriginal().onInflate__super((Context) args[0], (AttributeSet) args[1],
                                 (Bundle) args[2]);
                     }
                 }, context, attrs, savedInstanceState);
@@ -755,7 +738,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().onInflate__super((Activity) args[0], (AttributeSet) args[1],
+                        getOriginal().onInflate__super((Activity) args[0], (AttributeSet) args[1],
                                 (Bundle) args[2]);
                     }
                 }, activity, attrs, savedInstanceState);
@@ -771,14 +754,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onLowMemory__super();
+                getOriginal().onLowMemory__super();
             }
         });
     }
 
 
     public boolean onOptionsItemSelected(final MenuItem item) {
-        return callFunction("onOptionsItemSelected(MenuItem)",
+        return callDialogFunction("onOptionsItemSelected(MenuItem)",
                 new PluginCall<DialogFragmentPlugin, Boolean>() {
                     @Override
                     public Boolean call(final NamedSuperCall<Boolean> superCall,
@@ -790,7 +773,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getFragment().onOptionsItemSelected__super((MenuItem) args[0]);
+                        return getOriginal().onOptionsItemSelected__super((MenuItem) args[0]);
                     }
                 }, item);
     }
@@ -805,7 +788,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onOptionsMenuClosed__super((Menu) args[0]);
+                getOriginal().onOptionsMenuClosed__super((Menu) args[0]);
             }
         }, menu);
     }
@@ -820,7 +803,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onPause__super();
+                getOriginal().onPause__super();
             }
         });
     }
@@ -835,7 +818,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onPrepareOptionsMenu__super((Menu) args[0]);
+                getOriginal().onPrepareOptionsMenu__super((Menu) args[0]);
             }
         }, menu);
     }
@@ -853,7 +836,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().onRequestPermissionsResult__super((int) args[0],
+                        getOriginal().onRequestPermissionsResult__super((int) args[0],
                                 (String[]) args[1], (int[]) args[2]);
                     }
                 }, requestCode, permissions, grantResults);
@@ -869,7 +852,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onResume__super();
+                getOriginal().onResume__super();
             }
         });
     }
@@ -884,7 +867,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onSaveInstanceState__super((Bundle) args[0]);
+                getOriginal().onSaveInstanceState__super((Bundle) args[0]);
             }
         }, outState);
     }
@@ -899,7 +882,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onStart__super();
+                getOriginal().onStart__super();
             }
         });
     }
@@ -914,7 +897,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onStop__super();
+                getOriginal().onStop__super();
             }
         });
     }
@@ -929,7 +912,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onViewCreated__super((View) args[0], (Bundle) args[1]);
+                getOriginal().onViewCreated__super((View) args[0], (Bundle) args[1]);
             }
         }, view, savedInstanceState);
     }
@@ -944,7 +927,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().onViewStateRestored__super((Bundle) args[0]);
+                getOriginal().onViewStateRestored__super((Bundle) args[0]);
             }
         }, savedInstanceState);
     }
@@ -959,7 +942,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().registerForContextMenu__super((View) args[0]);
+                getOriginal().registerForContextMenu__super((View) args[0]);
             }
         }, view);
     }
@@ -975,7 +958,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().setAllowEnterTransitionOverlap__super((boolean) args[0]);
+                        getOriginal().setAllowEnterTransitionOverlap__super((boolean) args[0]);
                     }
                 }, allow);
     }
@@ -991,7 +974,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().setAllowReturnTransitionOverlap__super((boolean) args[0]);
+                        getOriginal().setAllowReturnTransitionOverlap__super((boolean) args[0]);
                     }
                 }, allow);
     }
@@ -1006,7 +989,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setArguments__super((Bundle) args[0]);
+                getOriginal().setArguments__super((Bundle) args[0]);
             }
         }, args);
     }
@@ -1021,7 +1004,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setCancelable__super((boolean) args[0]);
+                getDialogFragment().setCancelable__super((boolean) args[0]);
             }
         }, cancelable);
     }
@@ -1038,7 +1021,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().setEnterSharedElementCallback__super(
+                        getOriginal().setEnterSharedElementCallback__super(
                                 (SharedElementCallback) args[0]);
                     }
                 }, callback);
@@ -1054,7 +1037,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setEnterTransition__super((Object) args[0]);
+                getOriginal().setEnterTransition__super((Object) args[0]);
             }
         }, transition);
     }
@@ -1071,7 +1054,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().setExitSharedElementCallback__super(
+                        getOriginal().setExitSharedElementCallback__super(
                                 (SharedElementCallback) args[0]);
                     }
                 }, callback);
@@ -1087,7 +1070,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setExitTransition__super((Object) args[0]);
+                getOriginal().setExitTransition__super((Object) args[0]);
             }
         }, transition);
     }
@@ -1102,7 +1085,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setHasOptionsMenu__super((boolean) args[0]);
+                getOriginal().setHasOptionsMenu__super((boolean) args[0]);
             }
         }, hasMenu);
     }
@@ -1118,7 +1101,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().setInitialSavedState__super((Fragment.SavedState) args[0]);
+                        getOriginal().setInitialSavedState__super((Fragment.SavedState) args[0]);
                     }
                 }, state);
     }
@@ -1133,7 +1116,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setMenuVisibility__super((boolean) args[0]);
+                getOriginal().setMenuVisibility__super((boolean) args[0]);
             }
         }, menuVisible);
     }
@@ -1148,7 +1131,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setReenterTransition__super((Object) args[0]);
+                getOriginal().setReenterTransition__super((Object) args[0]);
             }
         }, transition);
     }
@@ -1163,7 +1146,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setRetainInstance__super((boolean) args[0]);
+                getOriginal().setRetainInstance__super((boolean) args[0]);
             }
         }, retain);
     }
@@ -1178,7 +1161,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setReturnTransition__super((Object) args[0]);
+                getOriginal().setReturnTransition__super((Object) args[0]);
             }
         }, transition);
     }
@@ -1194,7 +1177,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().setSharedElementEnterTransition__super((Object) args[0]);
+                        getOriginal().setSharedElementEnterTransition__super((Object) args[0]);
                     }
                 }, transition);
     }
@@ -1210,7 +1193,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().setSharedElementReturnTransition__super((Object) args[0]);
+                        getOriginal().setSharedElementReturnTransition__super((Object) args[0]);
                     }
                 }, transition);
     }
@@ -1225,7 +1208,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setShowsDialog__super((boolean) args[0]);
+                getDialogFragment().setShowsDialog__super((boolean) args[0]);
             }
         }, showsDialog);
     }
@@ -1240,13 +1223,13 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setStyle__super((int) args[0], (int) args[1]);
+                getDialogFragment().setStyle__super((int) args[0], (int) args[1]);
             }
         }, style, theme);
     }
 
-    public void setTargetFragment(final Fragment fragment, final int requestCode) {
-        callHook("setTargetFragment(Fragment, int)", new PluginCallVoid<DialogFragmentPlugin>() {
+    public void setTargetOriginal(final Fragment fragment, final int requestCode) {
+        callHook("setTargetOriginal(Fragment, int)", new PluginCallVoid<DialogFragmentPlugin>() {
             @Override
             public void call(final NamedSuperCall<Void> superCall,
                     final DialogFragmentPlugin plugin, final Object... args) {
@@ -1255,7 +1238,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setTargetFragment__super((Fragment) args[0], (int) args[1]);
+                getOriginal().setTargetFragment__super((Fragment) args[0], (int) args[1]);
             }
         }, fragment, requestCode);
     }
@@ -1270,7 +1253,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setUserVisibleHint__super((boolean) args[0]);
+                getOriginal().setUserVisibleHint__super((boolean) args[0]);
             }
         }, isVisibleToUser);
     }
@@ -1285,14 +1268,14 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().setupDialog__super((Dialog) args[0], (int) args[1]);
+                getDialogFragment().setupDialog__super((Dialog) args[0], (int) args[1]);
             }
         }, dialog, style);
     }
 
 
     public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
-        return callFunction("shouldShowRequestPermissionRationale(String)",
+        return callDialogFunction("shouldShowRequestPermissionRationale(String)",
                 new PluginCall<DialogFragmentPlugin, Boolean>() {
                     @Override
                     public Boolean call(final NamedSuperCall<Boolean> superCall,
@@ -1305,7 +1288,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getFragment()
+                        return getOriginal()
                                 .shouldShowRequestPermissionRationale__super((String) args[0]);
                     }
                 }, permission);
@@ -1321,27 +1304,25 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().show__super((FragmentManager) args[0], (String) args[1]);
+                getDialogFragment().show__super((FragmentManager) args[0], (String) args[1]);
             }
         }, manager, tag);
     }
 
 
     public int show(final FragmentTransaction transaction, final String tag) {
-        return callFunction("show(FragmentTransaction, String)",
+        return callDialogFunction("show(FragmentTransaction, String)",
                 new PluginCall<DialogFragmentPlugin, Integer>() {
                     @Override
                     public Integer call(final NamedSuperCall<Integer> superCall,
                             final DialogFragmentPlugin plugin, final Object... args) {
-
                         return plugin
                                 .show(superCall, (FragmentTransaction) args[0], (String) args[1]);
-
                     }
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getFragment()
+                        return getDialogFragment()
                                 .show__super((FragmentTransaction) args[0], (String) args[1]);
                     }
                 }, transaction, tag);
@@ -1357,7 +1338,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().startActivity__super((Intent) args[0]);
+                getOriginal().startActivity__super((Intent) args[0]);
             }
         }, intent);
     }
@@ -1372,7 +1353,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().startActivity__super((Intent) args[0], (Bundle) args[1]);
+                getOriginal().startActivity__super((Intent) args[0], (Bundle) args[1]);
             }
         }, intent, options);
     }
@@ -1387,7 +1368,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().startActivityForResult__super((Intent) args[0], (int) args[1]);
+                getOriginal().startActivityForResult__super((Intent) args[0], (int) args[1]);
             }
         }, intent, requestCode);
     }
@@ -1405,7 +1386,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getFragment().startActivityForResult__super((Intent) args[0], (int) args[1],
+                        getOriginal().startActivityForResult__super((Intent) args[0], (int) args[1],
                                 (Bundle) args[2]);
                     }
                 }, intent, requestCode, options);
@@ -1413,7 +1394,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
 
 
     public String toString() {
-        return callFunction("toString()", new PluginCall<DialogFragmentPlugin, String>() {
+        return callDialogFunction("toString()", new PluginCall<DialogFragmentPlugin, String>() {
             @Override
             public String call(final NamedSuperCall<String> superCall,
                     final DialogFragmentPlugin plugin, final Object... args) {
@@ -1424,7 +1405,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCall<String>() {
             @Override
             public String call(final Object... args) {
-                return getFragment().toString__super();
+                return getOriginal().toString__super();
             }
         });
     }
@@ -1439,7 +1420,7 @@ public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getFragment().unregisterForContextMenu__super((View) args[0]);
+                getOriginal().unregisterForContextMenu__super((View) args[0]);
             }
         }, view);
     }

@@ -2,9 +2,11 @@ package com.pascalwelsch.compositeandroid.fragment;
 
 import com.pascalwelsch.compositeandroid.core.AbstractPlugin;
 
-public class FragmentPluginBase extends AbstractPlugin<CompositeFragment, FragmentDelegate> {
+import android.support.v4.app.Fragment;
 
-    public CompositeFragment getFragment() {
-        return getOriginal();
+public class FragmentPluginBase extends AbstractPlugin<Fragment, FragmentDelegate> {
+
+    public ICompositeFragment getFragment() {
+        return (ICompositeFragment) getOriginal();
     }
 }

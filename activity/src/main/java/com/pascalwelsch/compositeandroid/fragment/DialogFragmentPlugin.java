@@ -1,4 +1,4 @@
-package com.pascalwelsch.compositeandroid.dialogfragment;
+package com.pascalwelsch.compositeandroid.fragment;
 
 import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
 
