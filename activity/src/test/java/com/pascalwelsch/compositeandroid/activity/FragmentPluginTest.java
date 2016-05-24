@@ -1,8 +1,8 @@
 package com.pascalwelsch.compositeandroid.activity;
 
 import com.pascalwelsch.compositeandroid.fragment.CompositeDialogFragment;
-import com.pascalwelsch.compositeandroid.fragment.DialogFragmentPlugin;
 import com.pascalwelsch.compositeandroid.fragment.CompositeFragment;
+import com.pascalwelsch.compositeandroid.fragment.DialogFragmentPlugin;
 import com.pascalwelsch.compositeandroid.fragment.FragmentPlugin;
 
 import org.junit.Test;
@@ -29,10 +29,20 @@ public class FragmentPluginTest {
 
         private boolean mGotCalled;
 
+        private boolean mShowsCalled;
+
         @Override
         public void onCreate(@Nullable final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             mGotCalled = true;
+        }
+
+
+        @Override
+        public boolean getShowsDialog() {
+            final boolean showsDialog = super.getShowsDialog();
+            mShowsCalled = true;
+            return showsDialog;
         }
     }
 
@@ -62,7 +72,7 @@ public class FragmentPluginTest {
     }
 
     @Test
-    public void testAddNormalToDialog() throws Exception {
+    public void testCallBaseMethod() throws Exception {
         final TestFragment testFragment = new TestFragment();
         assertThat(testFragment.mPlugin.mGotCalled).isFalse();
         testFragment.onCreate(null);
@@ -74,7 +84,15 @@ public class FragmentPluginTest {
         testDialogFragment.onCreate(null);
         assertThat(testDialogFragment.mPlugin.mGotCalled).isTrue();
         assertThat(testDialogFragment.mDialogPlugin.mGotCalled).isTrue();
+    }
 
+    @Test
+    public void testCallDialogFragmentMethod() throws Exception {
+
+        final TestDialogFragment testDialogFragment = new TestDialogFragment();
+        assertThat(testDialogFragment.mDialogPlugin.mShowsCalled).isFalse();
+        testDialogFragment.getShowsDialog();
+        assertThat(testDialogFragment.mDialogPlugin.mShowsCalled).isTrue();
 
     }
 }
