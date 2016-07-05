@@ -32,9 +32,12 @@ import java.io.PrintWriter;
 
 public class FragmentDelegate extends FragmentDelegateBase {
 
-    public FragmentDelegate(final IFragment compositefragment) {
-        super(compositefragment);
+
+    public FragmentDelegate(final IFragment ifragment) {
+        super(ifragment);
+
     }
+
 
     public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
             final String[] args) {
@@ -1030,7 +1033,7 @@ public class FragmentDelegate extends FragmentDelegateBase {
     }
 
     public void setTargetFragment(final Fragment fragment, final int requestCode) {
-        callHook("setTargetOriginal(Fragment, int)", new PluginCallVoid<FragmentPlugin>() {
+        callHook("setTargetFragment(Fragment, int)", new PluginCallVoid<FragmentPlugin>() {
             @Override
             public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
                     final Object... args) {

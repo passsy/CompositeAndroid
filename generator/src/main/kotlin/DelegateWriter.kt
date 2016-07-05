@@ -6,9 +6,13 @@ fun writeDelegate(javaFile: AnalyzedJavaFile,
                   javaClassName: String,
                   compositeName: String,
                   pluginName: String,
-                  originalGetterName: String,
+                  originalGetterName: String = "getOriginal()",
                   additionalImports: String? = null,
-                  transform: ((String) -> String)? = null) {
+                  transform: ((String) -> String)? = null,
+                  superClass: AnalyzedJavaFile? = null,
+                  superClassPluginName: String = "",
+                  superClassDelegateName: String = ""
+) {
 
 
     val methodsSb = StringBuilder()
@@ -18,6 +22,43 @@ fun writeDelegate(javaFile: AnalyzedJavaFile,
             "void" -> methodsSb.appendln(method.hook(originalGetterName, pluginName))
             else -> methodsSb.appendln(method.callFunction(originalGetterName, pluginName))
         }
+    }
+
+
+
+    fun superDelegateInitialization(): String {
+        return if (superClass == null) "" else
+            "m$superClassDelegateName = new $superClassDelegateName(${compositeName.toLowerCase()});"
+    }
+
+    fun superDelegateDeclaration(): String {
+        return if (superClass == null) "" else
+            "private final $superClassDelegateName m$superClassDelegateName;"
+    }
+
+    fun addSuperDelegatePlugin(): String {
+        return if (superClass == null) "" else """
+        |public Removable addPlugin(final $superClassPluginName plugin) {
+        |    return m$superClassDelegateName.addPlugin(plugin);
+        |}
+        """.replaceIndentByMargin()
+    }
+
+    fun addPlugin(): String {
+        return if (superClass == null) "" else """
+        |@Override
+        |public Removable addPlugin(final $pluginName plugin) {
+        |    final Removable removable = super.addPlugin(plugin);
+        |    final Removable superRemovable = m$superClassDelegateName.addPlugin(plugin);
+        |    return new Removable() {
+        |        @Override
+        |        public void remove() {
+        |            removable.remove();
+        |            superRemovable.remove();
+        |        }
+        |    };
+        |}
+        """.replaceIndentByMargin()
     }
 
     var activityDelegate = """
@@ -35,9 +76,15 @@ ${additionalImports ?: ""}
 
 public class $javaClassName extends ${javaClassName}Base {
 
+    ${superDelegateDeclaration()}
+
     public $javaClassName(final $compositeName ${compositeName.toLowerCase()}) {
         super(${compositeName.toLowerCase()});
+        ${superDelegateInitialization()}
     }
+
+${addSuperDelegatePlugin().prependIndent()}
+${addPlugin().prependIndent()}
 
 ${methodsSb.toString()}
 
