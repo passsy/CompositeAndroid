@@ -32,7 +32,7 @@ import java.io.PrintWriter;
 
 public class FragmentDelegate extends FragmentDelegateBase {
 
-    public FragmentDelegate(final ICompositeFragment compositefragment) {
+    public FragmentDelegate(final IFragment compositefragment) {
         super(compositefragment);
     }
 

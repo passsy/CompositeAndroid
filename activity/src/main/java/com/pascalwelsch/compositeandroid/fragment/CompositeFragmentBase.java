@@ -4,7 +4,7 @@ import com.pascalwelsch.compositeandroid.core.Removable;
 
 import android.support.v4.app.Fragment;
 
-public abstract class CompositeFragmentBase extends Fragment implements ICompositeFragment{
+public abstract class CompositeFragmentBase extends Fragment implements IFragment {
 
     protected FragmentDelegate delegate = new FragmentDelegate((CompositeFragment) this);
 
