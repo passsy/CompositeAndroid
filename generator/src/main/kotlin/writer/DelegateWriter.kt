@@ -26,10 +26,10 @@ fun writeDelegate(javaFile: AnalyzedJavaFile,
 
 
     val allMethods = mutableListOf<AnalyzedJavaMethod>()
-    allMethods.addAll(javaFile.methods)
     if (superClassInputFile != null) {
         allMethods.addAll(superClassInputFile.methods)
     }
+    allMethods.addAll(javaFile.methods)
     val distinctMethods = allMethods.distinctBy { "${it.name} ${it.parameterTypes}" }.toMutableList()
 
     for (method in distinctMethods) {

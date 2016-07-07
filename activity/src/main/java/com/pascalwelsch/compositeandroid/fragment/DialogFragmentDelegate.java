@@ -218,7 +218,7 @@ public class DialogFragmentDelegate
         });
     }
 
-    public void onActivityCreated(final Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         mFragmentDelegate.onActivityCreated(savedInstanceState);
     }
 
@@ -226,12 +226,12 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void onAttach(final Activity activity) {
-        mFragmentDelegate.onAttach(activity);
-    }
-
     public void onAttach(final Context context) {
         mFragmentDelegate.onAttach(context);
+    }
+
+    public void onAttach(final Activity activity) {
+        mFragmentDelegate.onAttach(activity);
     }
 
     public void onCancel(final DialogInterface dialog) {

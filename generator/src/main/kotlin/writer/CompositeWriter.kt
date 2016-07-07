@@ -16,7 +16,7 @@ fun writeComposite(javaFile: AnalyzedJavaFile,
                    superClassDelegateName: String = "",
                    delegateClassName: String,
                    pluginClassName: String,
-                   superClassInfputFile: AnalyzedJavaFile? = null,
+                   superClassInputFile: AnalyzedJavaFile? = null,
                    addCodeToClass: String? = null) {
 
 
@@ -57,21 +57,19 @@ fun writeComposite(javaFile: AnalyzedJavaFile,
     |
     """.replaceIndentByMargin())
 
-    for (method in javaFile.methods) with(method) {
+    val allMethods = mutableListOf<AnalyzedJavaMethod>()
+    if (superClassInputFile != null) {
+        allMethods.addAll(superClassInputFile.methods)
+    }
+    allMethods.addAll(javaFile.methods)
+    val distinctMethods = allMethods.distinctBy { "${it.name} ${it.parameterTypes}" }.toMutableList()
+
+    for (method in distinctMethods) with(method) {
         // override method, calling delegate
         sb.appendln(callDelegate())
 
         // super method
         sb.appendln(callSuper())
-    }
-
-    if (superClassInfputFile != null) {
-        for (method in superClassInfputFile.methods) {
-            val isSameMethod: (AnalyzedJavaMethod) -> Boolean = { method.name == it.name && method.parameterTypes == it.parameterTypes }
-            if (javaFile.methods.filter(isSameMethod).isEmpty()) {
-                sb.appendln(method.callSuper())
-            }
-        }
     }
 
     addCodeToClass?.let { sb.appendln(it) }

@@ -51,7 +51,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             superClassDelegateName = "FragmentDelegate",
             pluginClassName = "DialogFragmentPlugin",
             delegateClassName = "DialogFragmentDelegate",
-            superClassInfputFile = fragment)
+            superClassInputFile = fragment)
 
     writeDelegate(dialogfragment,
             outPackage,
@@ -98,7 +98,7 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             delegateClassName = "FragmentDelegate",
-            pluginClassName = "FragmentPlugin", superClassInfputFile = fragment)
+            pluginClassName = "FragmentPlugin", superClassInputFile = fragment)
 
     writeDelegate(fragment,
             outPackage,
