@@ -1,5 +1,6 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
+import com.pascalwelsch.compositeandroid.core.AbstractPlugin;
 import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
 
 import android.app.Activity;
@@ -25,9 +26,8 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-
 @SuppressWarnings("unused")
-public class FragmentPlugin extends FragmentPluginBase {
+public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
 
     public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
             final String[] args) {
@@ -891,4 +891,3 @@ public class FragmentPlugin extends FragmentPluginBase {
     }
 
 }
-    

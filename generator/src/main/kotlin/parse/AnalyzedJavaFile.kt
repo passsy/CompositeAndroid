@@ -1,3 +1,5 @@
+package parse
+
 data class AnalyzedJavaFile(
         val imports: String,
         var methods: List<AnalyzedJavaMethod>
@@ -62,4 +64,5 @@ data class AnalyzedJavaMethod(
     }
 
     val throws: Boolean = exceptionType != null
+    val signature: String = "#$name($rawParameters):$returnType"
 }

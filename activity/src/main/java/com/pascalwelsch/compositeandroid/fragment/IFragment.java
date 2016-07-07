@@ -1,5 +1,7 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
+import com.pascalwelsch.compositeandroid.core.Removable;
+
 import android.app.Activity;
 import android.content.ComponentCallbacks;
 import android.content.Context;
@@ -26,11 +28,13 @@ import java.io.PrintWriter;
 
 public interface IFragment extends ComponentCallbacks, View.OnCreateContextMenuListener {
 
+    Removable addPlugin(FragmentPlugin plugin);
+
     void dump(String prefix, FileDescriptor fd, PrintWriter writer,
             String[] args);
 
-    void dump__super(String prefix, FileDescriptor fd,
-            PrintWriter writer, String[] args);
+    void dump__super(String prefix, FileDescriptor fd, PrintWriter writer,
+            String[] args);
 
     boolean getAllowEnterTransitionOverlap();
 
@@ -217,8 +221,7 @@ public interface IFragment extends ComponentCallbacks, View.OnCreateContextMenuL
 
     void onViewCreated(View view, @Nullable Bundle savedInstanceState);
 
-    void onViewCreated__super(View view,
-            @Nullable Bundle savedInstanceState);
+    void onViewCreated__super(View view, @Nullable Bundle savedInstanceState);
 
     void onViewStateRestored(@Nullable Bundle savedInstanceState);
 
@@ -298,8 +301,7 @@ public interface IFragment extends ComponentCallbacks, View.OnCreateContextMenuL
 
     boolean shouldShowRequestPermissionRationale(@NonNull String permission);
 
-    boolean shouldShowRequestPermissionRationale__super(
-            @NonNull String permission);
+    boolean shouldShowRequestPermissionRationale__super(@NonNull String permission);
 
     void startActivity(Intent intent);
 

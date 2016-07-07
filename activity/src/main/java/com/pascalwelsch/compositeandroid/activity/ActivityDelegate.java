@@ -84,8 +84,10 @@ import java.io.PrintWriter;
 
 public class ActivityDelegate extends ActivityDelegateBase {
 
+
     public ActivityDelegate(final CompositeActivity compositeactivity) {
         super(compositeactivity);
+
     }
 
     public void addContentView(final View view, final ViewGroup.LayoutParams params) {

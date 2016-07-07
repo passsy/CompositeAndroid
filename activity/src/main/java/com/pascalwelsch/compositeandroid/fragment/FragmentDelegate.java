@@ -1,5 +1,6 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
+import com.pascalwelsch.compositeandroid.core.AbstractDelegate;
 import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
 import com.pascalwelsch.compositeandroid.core.PluginCall;
 import com.pascalwelsch.compositeandroid.core.PluginCallVoid;
@@ -29,8 +30,7 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-
-public class FragmentDelegate extends FragmentDelegateBase {
+public class FragmentDelegate extends AbstractDelegate<IFragment, FragmentPlugin> {
 
 
     public FragmentDelegate(final IFragment ifragment) {

@@ -1,3 +1,8 @@
+package writer
+
+import outPath
+import parse.AnalyzedJavaFile
+import parse.AnalyzedJavaMethod
 import java.io.File
 
 
@@ -7,37 +12,93 @@ fun writeDelegate(javaFile: AnalyzedJavaFile,
                   compositeName: String,
                   pluginName: String,
                   originalGetterName: String = "getOriginal()",
+                  extends: String,
                   additionalImports: String? = null,
                   transform: ((String) -> String)? = null,
-                  superClass: AnalyzedJavaFile? = null,
                   superClassPluginName: String = "",
-                  superClassDelegateName: String = ""
+                  superClassDelegateName: String = "",
+                  superClassInputFile: AnalyzedJavaFile? = null
 ) {
 
 
     val methodsSb = StringBuilder()
 
-    for (method in javaFile.methods) with(method) {
-        when (returnType) {
-            "void" -> methodsSb.appendln(method.hook(originalGetterName, pluginName))
-            else -> methodsSb.appendln(method.callFunction(originalGetterName, pluginName))
-        }
+
+    val allMethods = mutableListOf<AnalyzedJavaMethod>()
+    allMethods.addAll(javaFile.methods)
+    if (superClassInputFile != null) {
+        allMethods.addAll(superClassInputFile.methods)
+    }
+    val distinctMethods = allMethods.distinctBy { "${it.name} ${it.parameterTypes}" }.toMutableList()
+
+    for (method in distinctMethods) {
+
+        val isSameMethod: (AnalyzedJavaMethod) -> Boolean = { method.name == it.name && method.parameterTypes == it.parameterTypes }
+        val definedInSuperComposite = superClassInputFile?.methods
+                ?.filter(isSameMethod)?.isNotEmpty() ?: false
+        val definedInComposite = javaFile.methods.filter(isSameMethod).isNotEmpty()
+        val isVoid = method.returnType == "void"
+
+
+        //methodsSb.appendln(
+        //        "//${method.signature} inSuperComposite: $definedInSuperComposite, inComposite: $definedInComposite")
+        methodsSb.appendln(when {
+            definedInComposite && !definedInSuperComposite && isVoid ->
+                method.hook(originalGetterName, pluginName)
+            definedInComposite && !definedInSuperComposite && !isVoid ->
+                method.callFunction(originalGetterName, pluginName)
+
+            definedInSuperComposite && isVoid ->
+                method.forwardToDelegate(superClassDelegateName)
+            definedInSuperComposite && !isVoid ->
+                method.forwardToDelegateWithReturn(superClassDelegateName)
+
+            else -> "// TODO ${method.signature} inSuperComposite: $definedInSuperComposite, inComposite: $definedInComposite"
+        })
     }
 
 
+    /*for (method in javaFile.methods) {
+        val definedInSuper = superClassInputFile?.methods?.contains(method) ?: false
+        val isVoid = method.returnType == "void"
+        methodsSb.appendln(when {
+            definedInSuper && !isVoid -> method.forwardToDelegateWithReturn(superClassDelegateName)
+            definedInSuper && isVoid -> method.forwardToDelegate(superClassDelegateName)
+            !definedInSuper && !isVoid -> method.callFunction(originalGetterName, pluginName)
+            !definedInSuper && isVoid -> method.hook(originalGetterName, pluginName)
+            else -> "//TODO something is broken with $method "
+        })
+    }
+
+    if (superClassInputFile != null) {
+        for (method in superClassInputFile.methods) {
+
+            val definedInBase = javaFile.methods.contains(method)
+            val isVoid = method.returnType == "void"
+
+            methodsSb.appendln(when {
+                definedInBase -> ""
+                !definedInBase && isVoid -> method.forwardToDelegate(superClassDelegateName)
+                !definedInBase && !isVoid -> method.forwardToDelegateWithReturn(
+                        superClassDelegateName)
+                else -> "//TODO something is broken with $method "
+            })
+        }
+    }*/
+
 
     fun superDelegateInitialization(): String {
-        return if (superClass == null) "" else
+        return if (superClassDelegateName.isEmpty()) "" else
             "m$superClassDelegateName = new $superClassDelegateName(${compositeName.toLowerCase()});"
     }
 
     fun superDelegateDeclaration(): String {
-        return if (superClass == null) "" else
+        return if (superClassDelegateName.isEmpty()) "" else
             "private final $superClassDelegateName m$superClassDelegateName;"
     }
 
     fun addSuperDelegatePlugin(): String {
-        return if (superClass == null) "" else """
+        return if (superClassDelegateName.isEmpty()) "" else """
         |public Removable addPlugin(final $superClassPluginName plugin) {
         |    return m$superClassDelegateName.addPlugin(plugin);
         |}
@@ -45,7 +106,7 @@ fun writeDelegate(javaFile: AnalyzedJavaFile,
     }
 
     fun addPlugin(): String {
-        return if (superClass == null) "" else """
+        return if (superClassDelegateName.isEmpty()) "" else """
         |@Override
         |public Removable addPlugin(final $pluginName plugin) {
         |    final Removable removable = super.addPlugin(plugin);
@@ -64,17 +125,13 @@ fun writeDelegate(javaFile: AnalyzedJavaFile,
     var activityDelegate = """
 package com.pascalwelsch.compositeandroid.$javaPackage;
 
-import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
-import com.pascalwelsch.compositeandroid.core.PluginCall;
-import com.pascalwelsch.compositeandroid.core.PluginCallVoid;
-import com.pascalwelsch.compositeandroid.core.SuperCall;
-import com.pascalwelsch.compositeandroid.core.SuperCallVoid;
+import com.pascalwelsch.compositeandroid.core.*;
 
 ${javaFile.imports}
 
 ${additionalImports ?: ""}
 
-public class $javaClassName extends ${javaClassName}Base {
+public class $javaClassName extends $extends {
 
     ${superDelegateDeclaration()}
 
@@ -100,9 +157,28 @@ ${methodsSb.toString()}
     System.out.println("wrote ${out.absolutePath}")
 }
 
+fun AnalyzedJavaMethod.forwardToDelegate(delegateName: String): String {
+    return """
+    |
+    |public void $name($rawParameters) $exceptions {
+    |    m$delegateName.$name(${parameterNames.joinToString()});
+    |}
+    """.replaceIndentByMargin("    ")
+}
+
+fun AnalyzedJavaMethod.forwardToDelegateWithReturn(delegateName: String): String {
+    return """
+    |
+    |public $returnType $name($rawParameters) $exceptions {
+    |    return m$delegateName.$name(${parameterNames.joinToString()});
+    |}
+    """.replaceIndentByMargin("    ")
+}
+
 
 fun AnalyzedJavaMethod.hook(originalGetterName: String = "getOriginal()",
                             pluginType: String = "Plugin"): String {
+
 
     val typedArgs = parameterTypes.mapIndexed { i, type -> "($type) args[$i]" }
 
@@ -160,7 +236,7 @@ fun AnalyzedJavaMethod.callFunction(originalGetterName: String = "getOriginal()"
         return callFunction("$name(${parameterTypes.joinToString()})", new PluginCall<$pluginType, $boxedReturnType>() {
             @Override
             public $boxedReturnType call(final NamedSuperCall<$boxedReturnType> superCall, final $pluginType plugin, final Object... args) {
-            ${ if (throws) "                try {" else ""}
+            ${if (throws) "                try {" else ""}
                 return plugin.$name(${listOf("superCall").plus(typedArgs).joinToString()});
                 ${if (throws) {
         val sb = StringBuilder()

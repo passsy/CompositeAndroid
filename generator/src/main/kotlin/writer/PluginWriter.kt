@@ -1,10 +1,17 @@
+package writer
+
+import outPath
+import parse.AnalyzedJavaFile
+import parse.AnalyzedJavaMethod
 import java.io.File
 
 fun writePlugin(javaFile: AnalyzedJavaFile,
                 javaPackage: String,
                 javaClassName: String,
+                extends: String,
                 additionalImports: String? = null,
-                transform: ((String) -> String)?= null) {
+                transform: ((String) -> String)? = null,
+                superClassInputFile: AnalyzedJavaFile? = null) {
 
     val sb = StringBuilder()
     for (method in javaFile.methods) with(method) {
@@ -16,23 +23,19 @@ fun writePlugin(javaFile: AnalyzedJavaFile,
     val methods = sb.toString()
 
     var code = """
-package com.pascalwelsch.compositeandroid.$javaPackage;
-
-import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
-import com.pascalwelsch.compositeandroid.core.PluginCall;
-import com.pascalwelsch.compositeandroid.core.PluginCallVoid;
-import com.pascalwelsch.compositeandroid.core.SuperCall;
-import com.pascalwelsch.compositeandroid.core.SuperCallVoid;
-
-${javaFile.imports}
-
-${additionalImports ?: ""}
-
-@SuppressWarnings("unused")
-public class $javaClassName extends ${javaClassName}Base {
-    $methods
-}
-    """
+        |package com.pascalwelsch.compositeandroid.$javaPackage;
+        |
+        |import com.pascalwelsch.compositeandroid.core.*;
+        |
+        |${javaFile.imports}
+        |
+        |${additionalImports ?: ""}
+        |
+        |@SuppressWarnings("unused")
+        |public class $javaClassName extends $extends {
+        |    $methods
+        |}
+        """.replaceIndentByMargin()
 
     if (transform != null) {
         code = transform(code)

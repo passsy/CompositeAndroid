@@ -37,7 +37,6 @@ public class FragmentPluginTest {
             mGotCalled = true;
         }
 
-
         @Override
         public boolean getShowsDialog() {
             final boolean showsDialog = super.getShowsDialog();
