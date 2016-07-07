@@ -78,7 +78,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
-
 public interface ICompositeActivity
         extends LayoutInflater.Factory2, Window.Callback, KeyEvent.Callback,
         View.OnCreateContextMenuListener, ComponentCallbacks2,

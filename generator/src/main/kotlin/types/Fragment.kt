@@ -37,8 +37,14 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             outPackage,
             "CompositeDialogFragment",
             "DialogFragment implements ICompositeDialogFragment",
-            """
+            additionalImports = """
             |import android.support.v4.app.*;
+            |import java.io.*;
+            |import android.content.*;
+            |import android.view.*;
+            |import android.view.animation.*;
+            |import android.util.*;
+            |import android.content.res.*;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             superClassPluginNames = listOf("FragmentPlugin"),
@@ -55,6 +61,12 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             "getOriginal()",
             additionalImports = """
             |import android.support.v4.app.*;
+            |import java.io.*;
+            |import android.content.*;
+            |import android.view.*;
+            |import android.view.animation.*;
+            |import android.util.*;
+            |import android.content.res.*;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             extends = "AbstractDelegate<ICompositeDialogFragment, DialogFragmentPlugin>",

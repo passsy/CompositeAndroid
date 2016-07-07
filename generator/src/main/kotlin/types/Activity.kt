@@ -48,7 +48,12 @@ fun generateActivity() {
             "activity",
             "ICompositeActivity",
             "LayoutInflater.Factory2, Window.Callback, KeyEvent.Callback, View.OnCreateContextMenuListener, ComponentCallbacks2, ActivityCompat.OnRequestPermissionsResultCallback, AppCompatCallback, ActionBarDrawerToggle.DelegateProvider",
-            addCodeToClass = interface_custom_nonConfigurationInstance_handling)
+            addCodeToClass = interface_custom_nonConfigurationInstance_handling,
+            additionalImports = """
+            |import android.content.*;
+            |import android.support.v4.app.*;
+            |import android.support.v7.app.*;
+            """.replaceIndentByMargin())
 }
 
 
