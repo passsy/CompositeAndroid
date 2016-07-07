@@ -4,9 +4,9 @@ import com.pascalwelsch.compositeandroid.activity.ActivityPlugin;
 
 import android.util.Log;
 
-public class Tracking extends ActivityPlugin {
+public class ActivityTracking extends ActivityPlugin {
 
-    private static final String TAG = Tracking.class.getSimpleName();
+    private static final String TAG = ActivityTracking.class.getSimpleName();
 
     @Override
     public void onResume() {
