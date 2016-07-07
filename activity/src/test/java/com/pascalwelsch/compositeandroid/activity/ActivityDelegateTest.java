@@ -310,7 +310,7 @@ public class ActivityDelegateTest {
             }
         });
 
-        final CompositeActivity activity = mock(CompositeActivity.class);
+        final ICompositeActivity activity = mock(ICompositeActivity.class);
         final ActivityDelegate delegate = new ActivityDelegate(activity);
 
         delegate.addPlugin(a);
@@ -334,7 +334,7 @@ public class ActivityDelegateTest {
         final ActivityPlugin b = spy(new ActivityPlugin());
         final ActivityPlugin c = spy(new ActivityPlugin());
 
-        final CompositeActivity activity = mock(CompositeActivity.class);
+        final ICompositeActivity activity = mock(ICompositeActivity.class);
         final ActivityDelegate delegate = new ActivityDelegate(activity);
 
         delegate.addPlugin(a);
@@ -362,7 +362,7 @@ public class ActivityDelegateTest {
         });
         final ActivityPlugin c = spy(new ActivityPlugin());
 
-        final CompositeActivity activity = mock(CompositeActivity.class);
+        final ICompositeActivity activity = mock(ICompositeActivity.class);
         final ActivityDelegate delegate = new ActivityDelegate(activity);
 
         delegate.addPlugin(a);

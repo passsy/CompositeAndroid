@@ -81,8 +81,8 @@ import java.io.PrintWriter;
 
 public interface ICompositeActivity
         extends LayoutInflater.Factory2, Window.Callback, KeyEvent.Callback,
-        View.OnCreateContextMenuListener,
-        ComponentCallbacks2, ActivityCompat.OnRequestPermissionsResultCallback, AppCompatCallback,
+        View.OnCreateContextMenuListener, ComponentCallbacks2,
+        ActivityCompat.OnRequestPermissionsResultCallback, AppCompatCallback,
         ActionBarDrawerToggle.DelegateProvider {
 
 

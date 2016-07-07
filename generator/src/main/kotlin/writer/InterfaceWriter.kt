@@ -9,7 +9,7 @@ import java.io.File
 fun writeInterface(javaFile: AnalyzedJavaFile,
                    javaPackage: String,
                    javaClassName: String,
-                   extends: String,
+                   extends: String? = null,
                    additionalImports: String = "",
                    transform: ((String) -> String)? = null,
                    superClassPluginNames: List<String> = listOf(),
@@ -26,7 +26,7 @@ fun writeInterface(javaFile: AnalyzedJavaFile,
     |
     |$additionalImports
     |
-    |public interface $javaClassName extends $extends {
+    |public interface $javaClassName ${extends?.let { "extends $extends " } ?: ""}{
     |
     |
     """.replaceIndentByMargin())

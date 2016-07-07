@@ -35,7 +35,7 @@ import java.io.PrintWriter;
 @SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant"})
 @SuppressLint({"MissingSuperCall", "NewApi"})
 
-public class CompositeDialogFragment extends DialogFragment implements ICompositeFragment {
+public class CompositeDialogFragment extends DialogFragment implements ICompositeDialogFragment {
 
     protected DialogFragmentDelegate delegate = new DialogFragmentDelegate(this);
 

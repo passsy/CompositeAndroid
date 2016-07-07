@@ -37,13 +37,13 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
 public class DialogFragmentDelegate
-        extends AbstractDelegate<CompositeDialogFragment, DialogFragmentPlugin> {
+        extends AbstractDelegate<ICompositeDialogFragment, DialogFragmentPlugin> {
 
     private final FragmentDelegate mFragmentDelegate;
 
-    public DialogFragmentDelegate(final CompositeDialogFragment compositedialogfragment) {
-        super(compositedialogfragment);
-        mFragmentDelegate = new FragmentDelegate(compositedialogfragment);
+    public DialogFragmentDelegate(final ICompositeDialogFragment icompositedialogfragment) {
+        super(icompositedialogfragment);
+        mFragmentDelegate = new FragmentDelegate(icompositedialogfragment);
     }
 
     public Removable addPlugin(final FragmentPlugin plugin) {
