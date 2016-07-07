@@ -58,6 +58,7 @@ import android.support.v4.app.SharedElementCallback;
 import android.support.v4.view.WindowCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
 import android.transition.Scene;
@@ -94,7 +95,7 @@ import java.io.PrintWriter;
 @SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant"})
 @SuppressLint({"MissingSuperCall", "NewApi"})
 
-public class CompositeActivity extends CompositeActivityBase {
+public class CompositeActivity extends AppCompatActivity implements ICompositeActivity {
 
     protected ActivityDelegate delegate = new ActivityDelegate(this);
 
@@ -1056,6 +1057,36 @@ public class CompositeActivity extends CompositeActivityBase {
 
     public Intent getIntent__super() {
         return super.getIntent();
+    }
+
+    /**
+     * @return see {@link #AppCompatActivity#getLastCustomNonConfigurationInstance()}
+     */
+    public Object getLastCompositeCustomNonConfigurationInstance() {
+        return delegate.getLastCompositeCustomNonConfigurationInstance();
+    }
+
+    /**
+     * Use {@link #getLastCompositeCustomNonConfigurationInstance()} instead. This is used
+     * internally
+     *
+     * @see AppCompatActivity#getLastCustomNonConfigurationInstance()
+     */
+    @Override
+    final public Object getLastCustomNonConfigurationInstance() {
+        return super.getLastCustomNonConfigurationInstance();
+    }
+
+    /**
+     * Use {@link #getLastCompositeCustomNonConfigurationInstance()} instead. This is used
+     * internally
+     *
+     * @see AppCompatActivity#getLastNonConfigurationInstance()
+     */
+    @Nullable
+    @Override
+    final public Object getLastNonConfigurationInstance() {
+        return super.getLastNonConfigurationInstance();
     }
 
     /**
@@ -2928,6 +2959,22 @@ public class CompositeActivity extends CompositeActivityBase {
 
     public void onResume__super() {
         super.onResume();
+    }
+
+    /**
+     * @return see {@link #AppCompatActivity#onRetainCustomNonConfigurationInstance()}
+     */
+    public Object onRetainCompositeCustomNonConfigurationInstance() {
+        return delegate.onRetainNonConfigurationInstance();
+    }
+
+    /**
+     * use {@link #onRetainCompositeCustomNonConfigurationInstance()} instead. This is used
+     * integrally
+     */
+    @Override
+    final public Object onRetainCustomNonConfigurationInstance() {
+        return delegate.onRetainNonConfigurationInstance();
     }
 
     @Override

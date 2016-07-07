@@ -16,7 +16,8 @@ fun writeComposite(javaFile: AnalyzedJavaFile,
                    superClassDelegateName: String = "",
                    delegateClassName: String,
                    pluginClassName: String,
-                   superClassInfputFile: AnalyzedJavaFile? = null) {
+                   superClassInfputFile: AnalyzedJavaFile? = null,
+                   addCodeToClass: String? = null) {
 
 
     fun addPlugins(): String {
@@ -72,6 +73,8 @@ fun writeComposite(javaFile: AnalyzedJavaFile,
             }
         }
     }
+
+    addCodeToClass?.let { sb.appendln(it) }
 
     sb.appendln("}")
 

@@ -308,4 +308,5 @@ public class DialogFragmentPlugin extends FragmentPlugin {
         }
     }
 
+
 }

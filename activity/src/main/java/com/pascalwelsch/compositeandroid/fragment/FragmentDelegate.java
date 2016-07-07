@@ -30,11 +30,11 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-public class FragmentDelegate extends AbstractDelegate<IFragment, FragmentPlugin> {
+public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, FragmentPlugin> {
 
 
-    public FragmentDelegate(final IFragment ifragment) {
-        super(ifragment);
+    public FragmentDelegate(final ICompositeFragment icompositefragment) {
+        super(icompositefragment);
 
     }
 

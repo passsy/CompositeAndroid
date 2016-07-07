@@ -26,7 +26,7 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-public interface IFragment extends ComponentCallbacks, View.OnCreateContextMenuListener {
+public interface ICompositeFragment extends ComponentCallbacks, View.OnCreateContextMenuListener {
 
     Removable addPlugin(FragmentPlugin plugin);
 

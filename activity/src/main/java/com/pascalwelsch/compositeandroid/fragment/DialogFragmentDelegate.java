@@ -1,5 +1,6 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
+import com.pascalwelsch.compositeandroid.core.AbstractDelegate;
 import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
 import com.pascalwelsch.compositeandroid.core.PluginCall;
 import com.pascalwelsch.compositeandroid.core.PluginCallVoid;
@@ -9,7 +10,10 @@ import com.pascalwelsch.compositeandroid.core.SuperCallVoid;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,10 +23,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
+import android.util.AttributeSet;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 
-public class DialogFragmentDelegate extends DialogFragmentDelegateBase {
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
+
+public class DialogFragmentDelegate
+        extends AbstractDelegate<CompositeDialogFragment, DialogFragmentPlugin> {
 
     private final FragmentDelegate mFragmentDelegate;
 

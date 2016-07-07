@@ -35,7 +35,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
     writeComposite(dialogfragment,
             outPackage,
             "CompositeDialogFragment",
-            "DialogFragment implements IFragment",
+            "DialogFragment implements ICompositeFragment",
             """
             |import android.support.v4.app.*;
             """.replaceIndentByMargin(),
@@ -56,7 +56,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import android.support.v4.app.*;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
-            extends = "DialogFragmentDelegateBase",
+            extends = "AbstractDelegate<CompositeDialogFragment, DialogFragmentPlugin>",
             superClassPluginName = "FragmentPlugin",
             superClassDelegateName = "FragmentDelegate",
             superClassInputFile = fragment)
@@ -68,7 +68,10 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
 }
 
 private fun generateFragment(fragment: AnalyzedJavaFile) {
-    writeComposite(fragment, outPackage, "CompositeFragment", "CompositeFragmentBase",
+    writeComposite(fragment,
+            outPackage,
+            "CompositeFragment",
+            "Fragment implements ICompositeFragment",
             """
             |import android.support.v4.app.*;
             """.replaceIndentByMargin(),
@@ -79,14 +82,14 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
     writeDelegate(fragment,
             "fragment",
             "FragmentDelegate",
-            "IFragment",
+            "ICompositeFragment",
             "FragmentPlugin",
             "getOriginal()",
             additionalImports =
             """
             |import android.support.v4.app.*;
             """.replaceIndentByMargin(),
-            extends = "AbstractDelegate<IFragment, FragmentPlugin>",
+            extends = "AbstractDelegate<ICompositeFragment, FragmentPlugin>",
             transform = replaceSavedState)
 
     writePlugin(fragment,

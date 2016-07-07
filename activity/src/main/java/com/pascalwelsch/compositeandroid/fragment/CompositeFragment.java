@@ -33,7 +33,7 @@ import java.io.PrintWriter;
 @SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant"})
 @SuppressLint({"MissingSuperCall", "NewApi"})
 
-public class CompositeFragment extends CompositeFragmentBase {
+public class CompositeFragment extends Fragment implements ICompositeFragment {
 
     protected FragmentDelegate delegate = new FragmentDelegate(this);
 

@@ -890,4 +890,5 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
+
 }

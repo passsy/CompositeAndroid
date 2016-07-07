@@ -17,7 +17,8 @@ fun writeDelegate(javaFile: AnalyzedJavaFile,
                   transform: ((String) -> String)? = null,
                   superClassPluginName: String = "",
                   superClassDelegateName: String = "",
-                  superClassInputFile: AnalyzedJavaFile? = null
+                  superClassInputFile: AnalyzedJavaFile? = null,
+                  addCodeToClass: String? = null
 ) {
 
 
@@ -57,36 +58,6 @@ fun writeDelegate(javaFile: AnalyzedJavaFile,
         })
     }
 
-
-    /*for (method in javaFile.methods) {
-        val definedInSuper = superClassInputFile?.methods?.contains(method) ?: false
-        val isVoid = method.returnType == "void"
-        methodsSb.appendln(when {
-            definedInSuper && !isVoid -> method.forwardToDelegateWithReturn(superClassDelegateName)
-            definedInSuper && isVoid -> method.forwardToDelegate(superClassDelegateName)
-            !definedInSuper && !isVoid -> method.callFunction(originalGetterName, pluginName)
-            !definedInSuper && isVoid -> method.hook(originalGetterName, pluginName)
-            else -> "//TODO something is broken with $method "
-        })
-    }
-
-    if (superClassInputFile != null) {
-        for (method in superClassInputFile.methods) {
-
-            val definedInBase = javaFile.methods.contains(method)
-            val isVoid = method.returnType == "void"
-
-            methodsSb.appendln(when {
-                definedInBase -> ""
-                !definedInBase && isVoid -> method.forwardToDelegate(superClassDelegateName)
-                !definedInBase && !isVoid -> method.forwardToDelegateWithReturn(
-                        superClassDelegateName)
-                else -> "//TODO something is broken with $method "
-            })
-        }
-    }*/
-
-
     fun superDelegateInitialization(): String {
         return if (superClassDelegateName.isEmpty()) "" else
             "m$superClassDelegateName = new $superClassDelegateName(${compositeName.toLowerCase()});"
@@ -123,30 +94,33 @@ fun writeDelegate(javaFile: AnalyzedJavaFile,
     }
 
     var activityDelegate = """
-package com.pascalwelsch.compositeandroid.$javaPackage;
+        |package com.pascalwelsch.compositeandroid.$javaPackage;
+        |
+        |import com.pascalwelsch.compositeandroid.core.*;
+        |
+        |${javaFile.imports}
+        |
+        |${additionalImports ?: ""}
+        |
+        |public class $javaClassName extends $extends {
+        |
+        |    ${superDelegateDeclaration()}
+        |
+        |    public $javaClassName(final $compositeName ${compositeName.toLowerCase()}) {
+        |        super(${compositeName.toLowerCase()});
+        |        ${superDelegateInitialization()}
+        |    }
+        |
+        |${addSuperDelegatePlugin().prependIndent()}
+        |${addPlugin().prependIndent()}
+        |
+        |${methodsSb.toString()}
+        |
+        |${addCodeToClass ?: ""}
+        |
+        |}
+        """.replaceIndentByMargin()
 
-import com.pascalwelsch.compositeandroid.core.*;
-
-${javaFile.imports}
-
-${additionalImports ?: ""}
-
-public class $javaClassName extends $extends {
-
-    ${superDelegateDeclaration()}
-
-    public $javaClassName(final $compositeName ${compositeName.toLowerCase()}) {
-        super(${compositeName.toLowerCase()});
-        ${superDelegateInitialization()}
-    }
-
-${addSuperDelegatePlugin().prependIndent()}
-${addPlugin().prependIndent()}
-
-${methodsSb.toString()}
-
-}
-"""
     if (transform != null) {
         activityDelegate = transform(activityDelegate)
     }

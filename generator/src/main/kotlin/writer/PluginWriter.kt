@@ -11,7 +11,8 @@ fun writePlugin(javaFile: AnalyzedJavaFile,
                 extends: String,
                 additionalImports: String? = null,
                 transform: ((String) -> String)? = null,
-                superClassInputFile: AnalyzedJavaFile? = null) {
+                superClassInputFile: AnalyzedJavaFile? = null,
+                addCodeToClass: String? = null) {
 
     val sb = StringBuilder()
     for (method in javaFile.methods) with(method) {
@@ -33,7 +34,8 @@ fun writePlugin(javaFile: AnalyzedJavaFile,
         |
         |@SuppressWarnings("unused")
         |public class $javaClassName extends $extends {
-        |    $methods
+        |$methods
+        |${addCodeToClass?:""}
         |}
         """.replaceIndentByMargin()
 
