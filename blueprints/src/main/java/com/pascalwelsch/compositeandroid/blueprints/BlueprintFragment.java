@@ -1,4 +1,4 @@
-package com.pascalwelsch.compositeandroid;
+package com.pascalwelsch.compositeandroid.blueprints;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,10 +26,9 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-/**
- * compile 'com.android.support:support-v4:23.3.0'
- */
-public class ImportFragment extends Fragment {
+// 23.4.0
+@SuppressWarnings("JavadocReference")
+public class BlueprintFragment extends Fragment {
 
     /**
      * Print the Fragments's state into the given stream.

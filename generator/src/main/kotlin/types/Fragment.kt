@@ -17,7 +17,7 @@ fun main(args: Array<String>) {
 
 fun generateFragments() {
 
-    val fragment = parseJavaFile(File("$inPath/Fragment.java"))
+    val fragment = parseJavaFile(File("$inPath/BlueprintFragment.java"))
 
     generateFragment(fragment)
 
@@ -31,7 +31,7 @@ val replaceSavedState: (String) -> String = {
 }
 
 private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
-    val dialogfragment = parseJavaFile(File("$inPath/DialogFragment.java"))
+    val dialogfragment = parseJavaFile(File("$inPath/BlueprintDialogFragment.java"))
 
     writeComposite(dialogfragment,
             outPackage,

@@ -161,10 +161,9 @@ public interface ICompositeActivity
     Context createPackageContext__super(final String packageName, final int flags)
             throws PackageManager.NameNotFoundException;
 
-    PendingIntent createPendingResult(final int requestCode, @NonNull final Intent data,
-            final int flags);
+    PendingIntent createPendingResult(final int requestCode, final Intent data, final int flags);
 
-    PendingIntent createPendingResult__super(final int requestCode, @NonNull final Intent data,
+    PendingIntent createPendingResult__super(final int requestCode, final Intent data,
             final int flags);
 
     String[] databaseList();
@@ -260,9 +259,9 @@ public interface ICompositeActivity
 
     void finishActivity(final int requestCode);
 
-    void finishActivityFromChild(@NonNull final Activity child, final int requestCode);
+    void finishActivityFromChild(final Activity child, final int requestCode);
 
-    void finishActivityFromChild__super(@NonNull final Activity child, final int requestCode);
+    void finishActivityFromChild__super(final Activity child, final int requestCode);
 
     void finishActivity__super(final int requestCode);
 
@@ -494,13 +493,13 @@ public interface ICompositeActivity
 
     Intent getSupportParentActivityIntent__super();
 
-    Object getSystemService(@NonNull final String name);
+    Object getSystemService(final String name);
 
     String getSystemServiceName(final Class<?> serviceClass);
 
     String getSystemServiceName__super(final Class<?> serviceClass);
 
-    Object getSystemService__super(@NonNull final String name);
+    Object getSystemService__super(final String name);
 
     int getTaskId();
 
@@ -647,9 +646,9 @@ public interface ICompositeActivity
 
     void onContextMenuClosed__super(final Menu menu);
 
-    void onCreate(@Nullable final Bundle savedInstanceState);
-
     void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState);
+
+    void onCreate(@Nullable final Bundle savedInstanceState);
 
     void onCreateContextMenu(final ContextMenu menu, final View v,
             final ContextMenu.ContextMenuInfo menuInfo);
@@ -705,9 +704,9 @@ public interface ICompositeActivity
 
     View onCreateView__super(final String name, final Context context, final AttributeSet attrs);
 
-    void onCreate__super(@Nullable final Bundle savedInstanceState);
-
     void onCreate__super(final Bundle savedInstanceState, final PersistableBundle persistentState);
+
+    void onCreate__super(@Nullable final Bundle savedInstanceState);
 
     void onDestroy();
 
@@ -781,14 +780,14 @@ public interface ICompositeActivity
 
     void onPause__super();
 
-    void onPostCreate(@Nullable final Bundle savedInstanceState);
-
     void onPostCreate(final Bundle savedInstanceState, final PersistableBundle persistentState);
 
-    void onPostCreate__super(@Nullable final Bundle savedInstanceState);
+    void onPostCreate(@Nullable final Bundle savedInstanceState);
 
     void onPostCreate__super(final Bundle savedInstanceState,
             final PersistableBundle persistentState);
+
+    void onPostCreate__super(@Nullable final Bundle savedInstanceState);
 
     void onPostResume();
 
@@ -846,15 +845,15 @@ public interface ICompositeActivity
 
     void onRestart__super();
 
-    void onRestoreInstanceState(final Bundle savedInstanceState);
-
     void onRestoreInstanceState(final Bundle savedInstanceState,
             final PersistableBundle persistentState);
 
-    void onRestoreInstanceState__super(final Bundle savedInstanceState);
+    void onRestoreInstanceState(final Bundle savedInstanceState);
 
     void onRestoreInstanceState__super(final Bundle savedInstanceState,
             final PersistableBundle persistentState);
+
+    void onRestoreInstanceState__super(final Bundle savedInstanceState);
 
     void onResume();
 
@@ -868,14 +867,14 @@ public interface ICompositeActivity
 
     Object onRetainCustomNonConfigurationInstance();
 
-    void onSaveInstanceState(final Bundle outState);
-
     void onSaveInstanceState(final Bundle outState, final PersistableBundle outPersistentState);
 
-    void onSaveInstanceState__super(final Bundle outState);
+    void onSaveInstanceState(final Bundle outState);
 
     void onSaveInstanceState__super(final Bundle outState,
             final PersistableBundle outPersistentState);
+
+    void onSaveInstanceState__super(final Bundle outState);
 
     boolean onSearchRequested(final SearchEvent searchEvent);
 
@@ -1221,9 +1220,9 @@ public interface ICompositeActivity
 
     void setWallpaper__super(final InputStream data) throws IOException;
 
-    boolean shouldShowRequestPermissionRationale(@NonNull final String permission);
+    boolean shouldShowRequestPermissionRationale(final String permission);
 
-    boolean shouldShowRequestPermissionRationale__super(@NonNull final String permission);
+    boolean shouldShowRequestPermissionRationale__super(final String permission);
 
     boolean shouldUpRecreateTask(final Intent targetIntent);
 
@@ -1268,50 +1267,48 @@ public interface ICompositeActivity
     void startActivityForResult__super(final Intent intent, final int requestCode,
             final Bundle options);
 
-    void startActivityFromChild(@NonNull final Activity child, final Intent intent,
-            final int requestCode);
+    void startActivityFromChild(final Activity child, final Intent intent, final int requestCode);
 
-    void startActivityFromChild(@NonNull final Activity child, final Intent intent,
-            final int requestCode, final Bundle options);
-
-    void startActivityFromChild__super(@NonNull final Activity child, final Intent intent,
-            final int requestCode);
-
-    void startActivityFromChild__super(@NonNull final Activity child, final Intent intent,
-            final int requestCode, final Bundle options);
-
-    void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode);
-
-    void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode, @Nullable final Bundle options);
-
-    void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode);
-
-    void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode, final Bundle options);
-
-    void startActivityFromFragment__super(final Fragment fragment, final Intent intent,
-            final int requestCode);
-
-    void startActivityFromFragment__super(final Fragment fragment, final Intent intent,
-            final int requestCode, @Nullable final Bundle options);
-
-    void startActivityFromFragment__super(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode);
-
-    void startActivityFromFragment__super(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode, final Bundle options);
-
-    boolean startActivityIfNeeded(@NonNull final Intent intent, final int requestCode);
-
-    boolean startActivityIfNeeded(@NonNull final Intent intent, final int requestCode,
+    void startActivityFromChild(final Activity child, final Intent intent, final int requestCode,
             final Bundle options);
 
-    boolean startActivityIfNeeded__super(@NonNull final Intent intent, final int requestCode);
+    void startActivityFromChild__super(final Activity child, final Intent intent,
+            final int requestCode);
 
-    boolean startActivityIfNeeded__super(@NonNull final Intent intent, final int requestCode,
+    void startActivityFromChild__super(final Activity child, final Intent intent,
+            final int requestCode, final Bundle options);
+
+    void startActivityFromFragment(final Fragment fragment, final Intent intent,
+            final int requestCode);
+
+    void startActivityFromFragment(final Fragment fragment, final Intent intent,
+            final int requestCode, @Nullable final Bundle options);
+
+    void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
+            final int requestCode);
+
+    void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
+            final int requestCode, final Bundle options);
+
+    void startActivityFromFragment__super(final Fragment fragment, final Intent intent,
+            final int requestCode);
+
+    void startActivityFromFragment__super(final Fragment fragment, final Intent intent,
+            final int requestCode, @Nullable final Bundle options);
+
+    void startActivityFromFragment__super(final android.app.Fragment fragment, final Intent intent,
+            final int requestCode);
+
+    void startActivityFromFragment__super(final android.app.Fragment fragment, final Intent intent,
+            final int requestCode, final Bundle options);
+
+    boolean startActivityIfNeeded(final Intent intent, final int requestCode);
+
+    boolean startActivityIfNeeded(final Intent intent, final int requestCode, final Bundle options);
+
+    boolean startActivityIfNeeded__super(final Intent intent, final int requestCode);
+
+    boolean startActivityIfNeeded__super(final Intent intent, final int requestCode,
             final Bundle options);
 
     void startActivity__super(final Intent intent);
@@ -1382,13 +1379,13 @@ public interface ICompositeActivity
 
     void startManagingCursor__super(final Cursor c);
 
-    boolean startNextMatchingActivity(@NonNull final Intent intent);
+    boolean startNextMatchingActivity(final Intent intent);
 
-    boolean startNextMatchingActivity(@NonNull final Intent intent, final Bundle options);
+    boolean startNextMatchingActivity(final Intent intent, final Bundle options);
 
-    boolean startNextMatchingActivity__super(@NonNull final Intent intent);
+    boolean startNextMatchingActivity__super(final Intent intent);
 
-    boolean startNextMatchingActivity__super(@NonNull final Intent intent, final Bundle options);
+    boolean startNextMatchingActivity__super(final Intent intent, final Bundle options);
 
     void startPostponedEnterTransition();
 

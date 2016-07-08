@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
 }
 
 fun generateActivity() {
-    var activity = parseJavaFile(File("$inPath/Activity.java"))
+    var activity = parseJavaFile(File("$inPath/BlueprintActivity.java"))
 
     // filter methods with special implementations
     val filteredMethods = activity.methods
