@@ -42,7 +42,7 @@ public class ActivityDelegateTest {
         delegate.addPlugin(b);
         delegate.addPlugin(c);
 
-        final KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, 1);
+        final KeyEvent event = mock(KeyEvent.class);
         delegate.onKeyDown(1, event);
 
         verify(a, never()).onKeyDown(1, event);
@@ -65,7 +65,7 @@ public class ActivityDelegateTest {
         delegate.addPlugin(b);
         delegate.addPlugin(c);
 
-        final KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, 1);
+        final KeyEvent event = mock(KeyEvent.class);
         delegate.onKeyDown(1, event);
 
         verify(a).onKeyDown(1, event);
@@ -155,7 +155,7 @@ public class ActivityDelegateTest {
         delegate.addPlugin(b);
         delegate.addPlugin(c);
 
-        final KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, 1);
+        final KeyEvent event = mock(KeyEvent.class);
         delegate.onKeyDown(1, event);
 
         verify(a).onKeyDown(25, event);
@@ -219,7 +219,7 @@ public class ActivityDelegateTest {
         final CompositeActivity activity = mock(CompositeActivity.class);
         final ActivityDelegate delegate = new ActivityDelegate(activity);
 
-        final KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, 1);
+        final KeyEvent event = mock(KeyEvent.class);
         delegate.onKeyDown(1, event);
         verify(activity).onKeyDown__super(1, event);
     }
@@ -234,7 +234,7 @@ public class ActivityDelegateTest {
 
         delegate.addPlugin(a);
 
-        final KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, 1);
+        final KeyEvent event = mock(KeyEvent.class);
         delegate.onKeyDown(1, event);
 
         verify(a).onKeyDown(1, event);
@@ -310,14 +310,15 @@ public class ActivityDelegateTest {
             }
         });
 
-        final CompositeActivity activity = mock(CompositeActivity.class);
+        final ICompositeActivity activity = mock(ICompositeActivity.class);
         final ActivityDelegate delegate = new ActivityDelegate(activity);
 
         delegate.addPlugin(a);
         delegate.addPlugin(b);
         delegate.addPlugin(c);
 
-        final KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, 1);
+
+        final KeyEvent event = mock(KeyEvent.class);
         delegate.onKeyDown(1, event);
 
         verify(a, never()).onKeyDown(25, event);
@@ -333,7 +334,7 @@ public class ActivityDelegateTest {
         final ActivityPlugin b = spy(new ActivityPlugin());
         final ActivityPlugin c = spy(new ActivityPlugin());
 
-        final CompositeActivity activity = mock(CompositeActivity.class);
+        final ICompositeActivity activity = mock(ICompositeActivity.class);
         final ActivityDelegate delegate = new ActivityDelegate(activity);
 
         delegate.addPlugin(a);
@@ -361,7 +362,7 @@ public class ActivityDelegateTest {
         });
         final ActivityPlugin c = spy(new ActivityPlugin());
 
-        final CompositeActivity activity = mock(CompositeActivity.class);
+        final ICompositeActivity activity = mock(ICompositeActivity.class);
         final ActivityDelegate delegate = new ActivityDelegate(activity);
 
         delegate.addPlugin(a);

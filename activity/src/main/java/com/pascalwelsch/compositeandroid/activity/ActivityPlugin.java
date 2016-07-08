@@ -1,5 +1,6 @@
 package com.pascalwelsch.compositeandroid.activity;
 
+import com.pascalwelsch.compositeandroid.core.AbstractPlugin;
 import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
 
 import android.app.Activity;
@@ -79,7 +80,7 @@ import java.io.PrintWriter;
 
 
 @SuppressWarnings("unused")
-public class ActivityPlugin extends ActivityPluginBase {
+public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDelegate> {
 
     public void addContentView(final View view, final ViewGroup.LayoutParams params) {
         verifyMethodCalledFromDelegate("addContentView(View, ViewGroup.LayoutParams)");
@@ -464,6 +465,10 @@ public class ActivityPlugin extends ActivityPluginBase {
     public Intent getIntent() {
         verifyMethodCalledFromDelegate("getIntent()");
         return (Intent) mSuperListeners.pop().call();
+    }
+
+    public Object getLastNonConfigurationInstance(final String key) {
+        return getCompositeDelegate().getLastNonConfigurationInstance(key);
     }
 
     public LayoutInflater getLayoutInflater() {
@@ -1030,6 +1035,10 @@ public class ActivityPlugin extends ActivityPluginBase {
     public void onResumeFragments() {
         verifyMethodCalledFromDelegate("onResumeFragments()");
         mSuperListeners.pop().call();
+    }
+
+    public CompositeNonConfigurationInstance onRetainNonConfigurationInstance() {
+        return null;
     }
 
     public void onSaveInstanceState(final Bundle outState) {
@@ -4148,6 +4157,4 @@ public class ActivityPlugin extends ActivityPluginBase {
             unregisterReceiver(receiver);
         }
     }
-
 }
-    

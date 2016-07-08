@@ -1,5 +1,6 @@
 package com.pascalwelsch.compositeandroid.activity;
 
+import com.pascalwelsch.compositeandroid.core.AbstractDelegate;
 import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
 import com.pascalwelsch.compositeandroid.core.PluginCall;
 import com.pascalwelsch.compositeandroid.core.PluginCallVoid;
@@ -82,10 +83,12 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 
 
-public class ActivityDelegate extends ActivityDelegateBase {
+public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, ActivityPlugin> {
 
-    public ActivityDelegate(final CompositeActivity compositeactivity) {
-        super(compositeactivity);
+
+    public ActivityDelegate(final ICompositeActivity icompositeactivity) {
+        super(icompositeactivity);
+
     }
 
     public void addContentView(final View view, final ViewGroup.LayoutParams params) {
@@ -100,7 +103,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().addContentView__super((View) args[0],
+                        getOriginal().addContentView__super((View) args[0],
                                 (ViewGroup.LayoutParams) args[1]);
                     }
                 }, view, params);
@@ -116,7 +119,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().applyOverrideConfiguration__super((Configuration) args[0]);
+                getOriginal().applyOverrideConfiguration__super((Configuration) args[0]);
             }
         }, overrideConfiguration);
     }
@@ -131,7 +134,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().attachBaseContext__super((Context) args[0]);
+                getOriginal().attachBaseContext__super((Context) args[0]);
             }
         }, newBase);
     }
@@ -151,7 +154,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .bindService__super((Intent) args[0], (ServiceConnection) args[1],
                                         (int) args[2]);
                     }
@@ -171,8 +174,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getCompositeActivity()
-                                .checkCallingOrSelfPermission__super((String) args[0]);
+                        return getOriginal().checkCallingOrSelfPermission__super((String) args[0]);
                     }
                 }, permission);
     }
@@ -191,9 +193,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getCompositeActivity()
-                                .checkCallingOrSelfUriPermission__super((Uri) args[0],
-                                        (int) args[1]);
+                        return getOriginal().checkCallingOrSelfUriPermission__super((Uri) args[0],
+                                (int) args[1]);
                     }
                 }, uri, modeFlags);
     }
@@ -211,8 +212,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getCompositeActivity()
-                                .checkCallingPermission__super((String) args[0]);
+                        return getOriginal().checkCallingPermission__super((String) args[0]);
                     }
                 }, permission);
     }
@@ -231,7 +231,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .checkCallingUriPermission__super((Uri) args[0], (int) args[1]);
                     }
                 }, uri, modeFlags);
@@ -251,9 +251,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getCompositeActivity()
-                                .checkPermission__super((String) args[0], (int) args[1],
-                                        (int) args[2]);
+                        return getOriginal().checkPermission__super((String) args[0], (int) args[1],
+                                (int) args[2]);
                     }
                 }, permission, pid, uid);
     }
@@ -271,7 +270,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getCompositeActivity().checkSelfPermission__super((String) args[0]);
+                        return getOriginal().checkSelfPermission__super((String) args[0]);
                     }
                 }, permission);
     }
@@ -291,9 +290,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getCompositeActivity()
-                                .checkUriPermission__super((Uri) args[0], (int) args[1],
-                                        (int) args[2], (int) args[3]);
+                        return getOriginal().checkUriPermission__super((Uri) args[0], (int) args[1],
+                                (int) args[2], (int) args[3]);
                     }
                 }, uri, pid, uid, modeFlags);
     }
@@ -313,7 +311,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .checkUriPermission__super((Uri) args[0], (String) args[1],
                                         (String) args[2], (int) args[3], (int) args[4],
                                         (int) args[5]);
@@ -336,7 +334,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
             @Override
             public void call(final Object... args) {
                 try {
-                    getCompositeActivity().clearWallpaper__super();
+                    getOriginal().clearWallpaper__super();
                 } catch (IOException e) {
                     throw new SuppressedException(e);
                 }
@@ -354,7 +352,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().closeContextMenu__super();
+                getOriginal().closeContextMenu__super();
             }
         });
     }
@@ -369,7 +367,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().closeOptionsMenu__super();
+                getOriginal().closeOptionsMenu__super();
             }
         });
     }
@@ -388,7 +386,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Context>() {
                     @Override
                     public Context call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .createConfigurationContext__super((Configuration) args[0]);
                     }
                 }, overrideConfiguration);
@@ -407,8 +405,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Context>() {
                     @Override
                     public Context call(final Object... args) {
-                        return getCompositeActivity()
-                                .createDisplayContext__super((Display) args[0]);
+                        return getOriginal().createDisplayContext__super((Display) args[0]);
                     }
                 }, display);
     }
@@ -431,7 +428,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                     @Override
                     public Context call(final Object... args) {
                         try {
-                            return getCompositeActivity()
+                            return getOriginal()
                                     .createPackageContext__super((String) args[0], (int) args[1]);
                         } catch (PackageManager.NameNotFoundException e) {
                             throw new SuppressedException(e);
@@ -456,7 +453,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<PendingIntent>() {
                     @Override
                     public PendingIntent call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .createPendingResult__super((int) args[0], (Intent) args[1],
                                         (int) args[2]);
                     }
@@ -475,7 +472,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<String[]>() {
             @Override
             public String[] call(final Object... args) {
-                return getCompositeActivity().databaseList__super();
+                return getOriginal().databaseList__super();
             }
         });
     }
@@ -492,7 +489,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().deleteDatabase__super((String) args[0]);
+                return getOriginal().deleteDatabase__super((String) args[0]);
             }
         }, name);
     }
@@ -509,7 +506,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().deleteFile__super((String) args[0]);
+                return getOriginal().deleteFile__super((String) args[0]);
             }
         }, name);
     }
@@ -527,7 +524,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .dispatchGenericMotionEvent__super((MotionEvent) args[0]);
                     }
                 }, ev);
@@ -546,7 +543,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity().dispatchKeyEvent__super((KeyEvent) args[0]);
+                        return getOriginal().dispatchKeyEvent__super((KeyEvent) args[0]);
                     }
                 }, event);
     }
@@ -564,8 +561,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .dispatchKeyShortcutEvent__super((KeyEvent) args[0]);
+                        return getOriginal().dispatchKeyShortcutEvent__super((KeyEvent) args[0]);
                     }
                 }, event);
     }
@@ -584,7 +580,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity().dispatchPopulateAccessibilityEvent__super(
+                        return getOriginal().dispatchPopulateAccessibilityEvent__super(
                                 (AccessibilityEvent) args[0]);
                     }
                 }, event);
@@ -603,8 +599,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .dispatchTouchEvent__super((MotionEvent) args[0]);
+                        return getOriginal().dispatchTouchEvent__super((MotionEvent) args[0]);
                     }
                 }, ev);
     }
@@ -622,8 +617,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .dispatchTrackballEvent__super((MotionEvent) args[0]);
+                        return getOriginal().dispatchTrackballEvent__super((MotionEvent) args[0]);
                     }
                 }, ev);
     }
@@ -641,9 +635,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .dump__super((String) args[0], (FileDescriptor) args[1],
-                                        (PrintWriter) args[2], (String[]) args[3]);
+                        getOriginal().dump__super((String) args[0], (FileDescriptor) args[1],
+                                (PrintWriter) args[2], (String[]) args[3]);
                     }
                 }, prefix, fd, writer, args);
     }
@@ -660,9 +653,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .enforceCallingOrSelfPermission__super((String) args[0],
-                                        (String) args[1]);
+                        getOriginal().enforceCallingOrSelfPermission__super((String) args[0],
+                                (String) args[1]);
                     }
                 }, permission, message);
     }
@@ -680,9 +672,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .enforceCallingOrSelfUriPermission__super((Uri) args[0],
-                                        (int) args[1], (String) args[2]);
+                        getOriginal().enforceCallingOrSelfUriPermission__super((Uri) args[0],
+                                (int) args[1], (String) args[2]);
                     }
                 }, uri, modeFlags, message);
     }
@@ -697,8 +688,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity()
-                        .enforceCallingPermission__super((String) args[0], (String) args[1]);
+                getOriginal().enforceCallingPermission__super((String) args[0], (String) args[1]);
             }
         }, permission, message);
     }
@@ -716,7 +706,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .enforceCallingUriPermission__super((Uri) args[0], (int) args[1],
                                         (String) args[2]);
                     }
@@ -736,9 +726,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .enforcePermission__super((String) args[0], (int) args[1],
-                                        (int) args[2], (String) args[3]);
+                        getOriginal().enforcePermission__super((String) args[0], (int) args[1],
+                                (int) args[2], (String) args[3]);
                     }
                 }, permission, pid, uid, message);
     }
@@ -756,9 +745,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .enforceUriPermission__super((Uri) args[0], (int) args[1],
-                                        (int) args[2], (int) args[3], (String) args[4]);
+                        getOriginal().enforceUriPermission__super((Uri) args[0], (int) args[1],
+                                (int) args[2], (int) args[3], (String) args[4]);
                     }
                 }, uri, pid, uid, modeFlags, message);
     }
@@ -778,10 +766,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .enforceUriPermission__super((Uri) args[0], (String) args[1],
-                                        (String) args[2], (int) args[3], (int) args[4],
-                                        (int) args[5], (String) args[6]);
+                        getOriginal().enforceUriPermission__super((Uri) args[0], (String) args[1],
+                                (String) args[2], (int) args[3], (int) args[4], (int) args[5],
+                                (String) args[6]);
                     }
                 }, uri, readPermission, writePermission, pid, uid, modeFlags, message);
     }
@@ -798,7 +785,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<String[]>() {
             @Override
             public String[] call(final Object... args) {
-                return getCompositeActivity().fileList__super();
+                return getOriginal().fileList__super();
             }
         });
     }
@@ -815,7 +802,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<View>() {
             @Override
             public View call(final Object... args) {
-                return getCompositeActivity().findViewById__super((int) args[0]);
+                return getOriginal().findViewById__super((int) args[0]);
             }
         }, id);
     }
@@ -830,7 +817,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().finish__super();
+                getOriginal().finish__super();
             }
         });
     }
@@ -845,7 +832,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().finishActivity__super((int) args[0]);
+                getOriginal().finishActivity__super((int) args[0]);
             }
         }, requestCode);
     }
@@ -860,8 +847,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity()
-                        .finishActivityFromChild__super((Activity) args[0], (int) args[1]);
+                getOriginal().finishActivityFromChild__super((Activity) args[0], (int) args[1]);
             }
         }, child, requestCode);
     }
@@ -876,7 +862,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().finishAffinity__super();
+                getOriginal().finishAffinity__super();
             }
         });
     }
@@ -891,7 +877,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().finishAfterTransition__super();
+                getOriginal().finishAfterTransition__super();
             }
         });
     }
@@ -906,7 +892,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().finishAndRemoveTask__super();
+                getOriginal().finishAndRemoveTask__super();
             }
         });
     }
@@ -921,7 +907,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().finishFromChild__super((Activity) args[0]);
+                getOriginal().finishFromChild__super((Activity) args[0]);
             }
         }, child);
     }
@@ -940,7 +926,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<android.app.ActionBar>() {
                     @Override
                     public android.app.ActionBar call(final Object... args) {
-                        return getCompositeActivity().getActionBar__super();
+                        return getOriginal().getActionBar__super();
                     }
                 });
     }
@@ -957,7 +943,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Context>() {
             @Override
             public Context call(final Object... args) {
-                return getCompositeActivity().getApplicationContext__super();
+                return getOriginal().getApplicationContext__super();
             }
         });
     }
@@ -975,7 +961,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<ApplicationInfo>() {
                     @Override
                     public ApplicationInfo call(final Object... args) {
-                        return getCompositeActivity().getApplicationInfo__super();
+                        return getOriginal().getApplicationInfo__super();
                     }
                 });
     }
@@ -992,7 +978,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<AssetManager>() {
             @Override
             public AssetManager call(final Object... args) {
-                return getCompositeActivity().getAssets__super();
+                return getOriginal().getAssets__super();
             }
         });
     }
@@ -1009,7 +995,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Context>() {
             @Override
             public Context call(final Object... args) {
-                return getCompositeActivity().getBaseContext__super();
+                return getOriginal().getBaseContext__super();
             }
         });
     }
@@ -1026,7 +1012,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File>() {
             @Override
             public File call(final Object... args) {
-                return getCompositeActivity().getCacheDir__super();
+                return getOriginal().getCacheDir__super();
             }
         });
     }
@@ -1044,7 +1030,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<ComponentName>() {
                     @Override
                     public ComponentName call(final Object... args) {
-                        return getCompositeActivity().getCallingActivity__super();
+                        return getOriginal().getCallingActivity__super();
                     }
                 });
     }
@@ -1061,7 +1047,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<String>() {
             @Override
             public String call(final Object... args) {
-                return getCompositeActivity().getCallingPackage__super();
+                return getOriginal().getCallingPackage__super();
             }
         });
     }
@@ -1079,7 +1065,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getCompositeActivity().getChangingConfigurations__super();
+                        return getOriginal().getChangingConfigurations__super();
                     }
                 });
     }
@@ -1096,7 +1082,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<ClassLoader>() {
             @Override
             public ClassLoader call(final Object... args) {
-                return getCompositeActivity().getClassLoader__super();
+                return getOriginal().getClassLoader__super();
             }
         });
     }
@@ -1113,7 +1099,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File>() {
             @Override
             public File call(final Object... args) {
-                return getCompositeActivity().getCodeCacheDir__super();
+                return getOriginal().getCodeCacheDir__super();
             }
         });
     }
@@ -1130,7 +1116,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<ComponentName>() {
             @Override
             public ComponentName call(final Object... args) {
-                return getCompositeActivity().getComponentName__super();
+                return getOriginal().getComponentName__super();
             }
         });
     }
@@ -1148,7 +1134,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<ContentResolver>() {
                     @Override
                     public ContentResolver call(final Object... args) {
-                        return getCompositeActivity().getContentResolver__super();
+                        return getOriginal().getContentResolver__super();
                     }
                 });
     }
@@ -1165,7 +1151,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Scene>() {
             @Override
             public Scene call(final Object... args) {
-                return getCompositeActivity().getContentScene__super();
+                return getOriginal().getContentScene__super();
             }
         });
     }
@@ -1183,7 +1169,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<TransitionManager>() {
                     @Override
                     public TransitionManager call(final Object... args) {
-                        return getCompositeActivity().getContentTransitionManager__super();
+                        return getOriginal().getContentTransitionManager__super();
                     }
                 });
     }
@@ -1200,7 +1186,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<View>() {
             @Override
             public View call(final Object... args) {
-                return getCompositeActivity().getCurrentFocus__super();
+                return getOriginal().getCurrentFocus__super();
             }
         });
     }
@@ -1217,7 +1203,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File>() {
             @Override
             public File call(final Object... args) {
-                return getCompositeActivity().getDatabasePath__super((String) args[0]);
+                return getOriginal().getDatabasePath__super((String) args[0]);
             }
         }, name);
     }
@@ -1234,7 +1220,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<AppCompatDelegate>() {
             @Override
             public AppCompatDelegate call(final Object... args) {
-                return getCompositeActivity().getDelegate__super();
+                return getOriginal().getDelegate__super();
             }
         });
     }
@@ -1251,7 +1237,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File>() {
             @Override
             public File call(final Object... args) {
-                return getCompositeActivity().getDir__super((String) args[0], (int) args[1]);
+                return getOriginal().getDir__super((String) args[0], (int) args[1]);
             }
         }, name, mode);
     }
@@ -1270,7 +1256,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<ActionBarDrawerToggle.Delegate>() {
                     @Override
                     public ActionBarDrawerToggle.Delegate call(final Object... args) {
-                        return getCompositeActivity().getDrawerToggleDelegate__super();
+                        return getOriginal().getDrawerToggleDelegate__super();
                     }
                 });
     }
@@ -1287,7 +1273,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File>() {
             @Override
             public File call(final Object... args) {
-                return getCompositeActivity().getExternalCacheDir__super();
+                return getOriginal().getExternalCacheDir__super();
             }
         });
     }
@@ -1304,7 +1290,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File[]>() {
             @Override
             public File[] call(final Object... args) {
-                return getCompositeActivity().getExternalCacheDirs__super();
+                return getOriginal().getExternalCacheDirs__super();
             }
         });
     }
@@ -1321,7 +1307,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File>() {
             @Override
             public File call(final Object... args) {
-                return getCompositeActivity().getExternalFilesDir__super((String) args[0]);
+                return getOriginal().getExternalFilesDir__super((String) args[0]);
             }
         }, type);
     }
@@ -1339,7 +1325,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<File[]>() {
                     @Override
                     public File[] call(final Object... args) {
-                        return getCompositeActivity().getExternalFilesDirs__super((String) args[0]);
+                        return getOriginal().getExternalFilesDirs__super((String) args[0]);
                     }
                 }, type);
     }
@@ -1356,7 +1342,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File[]>() {
             @Override
             public File[] call(final Object... args) {
-                return getCompositeActivity().getExternalMediaDirs__super();
+                return getOriginal().getExternalMediaDirs__super();
             }
         });
     }
@@ -1373,7 +1359,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File>() {
             @Override
             public File call(final Object... args) {
-                return getCompositeActivity().getFileStreamPath__super((String) args[0]);
+                return getOriginal().getFileStreamPath__super((String) args[0]);
             }
         }, name);
     }
@@ -1390,7 +1376,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File>() {
             @Override
             public File call(final Object... args) {
-                return getCompositeActivity().getFilesDir__super();
+                return getOriginal().getFilesDir__super();
             }
         });
     }
@@ -1409,7 +1395,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<android.app.FragmentManager>() {
                     @Override
                     public android.app.FragmentManager call(final Object... args) {
-                        return getCompositeActivity().getFragmentManager__super();
+                        return getOriginal().getFragmentManager__super();
                     }
                 });
     }
@@ -1426,9 +1412,27 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Intent>() {
             @Override
             public Intent call(final Object... args) {
-                return getCompositeActivity().getIntent__super();
+                return getOriginal().getIntent__super();
             }
         });
+    }
+
+    public Object getLastCompositeCustomNonConfigurationInstance() {
+        final Object nci = getOriginal().getLastCustomNonConfigurationInstance();
+        if (nci instanceof NonConfigurationInstanceWrapper) {
+            final NonConfigurationInstanceWrapper all = (NonConfigurationInstanceWrapper) nci;
+            return all.getSuperNonConfigurationInstance();
+        }
+        return null;
+    }
+
+    public Object getLastNonConfigurationInstance(final String key) {
+        final Object nci = getOriginal().getLastCustomNonConfigurationInstance();
+        if (nci instanceof NonConfigurationInstanceWrapper) {
+            final NonConfigurationInstanceWrapper all = (NonConfigurationInstanceWrapper) nci;
+            return all.getPluginNonConfigurationInstance(key);
+        }
+        return null;
     }
 
     public LayoutInflater getLayoutInflater() {
@@ -1444,7 +1448,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<LayoutInflater>() {
                     @Override
                     public LayoutInflater call(final Object... args) {
-                        return getCompositeActivity().getLayoutInflater__super();
+                        return getOriginal().getLayoutInflater__super();
                     }
                 });
     }
@@ -1463,7 +1467,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<android.app.LoaderManager>() {
                     @Override
                     public android.app.LoaderManager call(final Object... args) {
-                        return getCompositeActivity().getLoaderManager__super();
+                        return getOriginal().getLoaderManager__super();
                     }
                 });
     }
@@ -1480,7 +1484,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<String>() {
             @Override
             public String call(final Object... args) {
-                return getCompositeActivity().getLocalClassName__super();
+                return getOriginal().getLocalClassName__super();
             }
         });
     }
@@ -1497,7 +1501,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Looper>() {
             @Override
             public Looper call(final Object... args) {
-                return getCompositeActivity().getMainLooper__super();
+                return getOriginal().getMainLooper__super();
             }
         });
     }
@@ -1514,7 +1518,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<MenuInflater>() {
             @Override
             public MenuInflater call(final Object... args) {
-                return getCompositeActivity().getMenuInflater__super();
+                return getOriginal().getMenuInflater__super();
             }
         });
     }
@@ -1531,7 +1535,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File>() {
             @Override
             public File call(final Object... args) {
-                return getCompositeActivity().getNoBackupFilesDir__super();
+                return getOriginal().getNoBackupFilesDir__super();
             }
         });
     }
@@ -1548,7 +1552,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File>() {
             @Override
             public File call(final Object... args) {
-                return getCompositeActivity().getObbDir__super();
+                return getOriginal().getObbDir__super();
             }
         });
     }
@@ -1565,7 +1569,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<File[]>() {
             @Override
             public File[] call(final Object... args) {
-                return getCompositeActivity().getObbDirs__super();
+                return getOriginal().getObbDirs__super();
             }
         });
     }
@@ -1582,7 +1586,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<String>() {
             @Override
             public String call(final Object... args) {
-                return getCompositeActivity().getPackageCodePath__super();
+                return getOriginal().getPackageCodePath__super();
             }
         });
     }
@@ -1600,7 +1604,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<PackageManager>() {
                     @Override
                     public PackageManager call(final Object... args) {
-                        return getCompositeActivity().getPackageManager__super();
+                        return getOriginal().getPackageManager__super();
                     }
                 });
     }
@@ -1617,7 +1621,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<String>() {
             @Override
             public String call(final Object... args) {
-                return getCompositeActivity().getPackageName__super();
+                return getOriginal().getPackageName__super();
             }
         });
     }
@@ -1634,7 +1638,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<String>() {
             @Override
             public String call(final Object... args) {
-                return getCompositeActivity().getPackageResourcePath__super();
+                return getOriginal().getPackageResourcePath__super();
             }
         });
     }
@@ -1651,7 +1655,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Intent>() {
             @Override
             public Intent call(final Object... args) {
-                return getCompositeActivity().getParentActivityIntent__super();
+                return getOriginal().getParentActivityIntent__super();
             }
         });
     }
@@ -1669,7 +1673,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<SharedPreferences>() {
                     @Override
                     public SharedPreferences call(final Object... args) {
-                        return getCompositeActivity().getPreferences__super((int) args[0]);
+                        return getOriginal().getPreferences__super((int) args[0]);
                     }
                 }, mode);
     }
@@ -1686,7 +1690,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Uri>() {
             @Override
             public Uri call(final Object... args) {
-                return getCompositeActivity().getReferrer__super();
+                return getOriginal().getReferrer__super();
             }
         });
     }
@@ -1703,7 +1707,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Integer>() {
             @Override
             public Integer call(final Object... args) {
-                return getCompositeActivity().getRequestedOrientation__super();
+                return getOriginal().getRequestedOrientation__super();
             }
         });
     }
@@ -1720,7 +1724,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Resources>() {
             @Override
             public Resources call(final Object... args) {
-                return getCompositeActivity().getResources__super();
+                return getOriginal().getResources__super();
             }
         });
     }
@@ -1739,7 +1743,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<SharedPreferences>() {
                     @Override
                     public SharedPreferences call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .getSharedPreferences__super((String) args[0], (int) args[1]);
                     }
                 }, name, mode);
@@ -1757,7 +1761,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<ActionBar>() {
             @Override
             public ActionBar call(final Object... args) {
-                return getCompositeActivity().getSupportActionBar__super();
+                return getOriginal().getSupportActionBar__super();
             }
         });
     }
@@ -1775,7 +1779,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<FragmentManager>() {
                     @Override
                     public FragmentManager call(final Object... args) {
-                        return getCompositeActivity().getSupportFragmentManager__super();
+                        return getOriginal().getSupportFragmentManager__super();
                     }
                 });
     }
@@ -1793,7 +1797,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<LoaderManager>() {
                     @Override
                     public LoaderManager call(final Object... args) {
-                        return getCompositeActivity().getSupportLoaderManager__super();
+                        return getOriginal().getSupportLoaderManager__super();
                     }
                 });
     }
@@ -1811,7 +1815,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Intent>() {
                     @Override
                     public Intent call(final Object... args) {
-                        return getCompositeActivity().getSupportParentActivityIntent__super();
+                        return getOriginal().getSupportParentActivityIntent__super();
                     }
                 });
     }
@@ -1828,7 +1832,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Object>() {
             @Override
             public Object call(final Object... args) {
-                return getCompositeActivity().getSystemService__super((String) args[0]);
+                return getOriginal().getSystemService__super((String) args[0]);
             }
         }, name);
     }
@@ -1846,8 +1850,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<String>() {
                     @Override
                     public String call(final Object... args) {
-                        return getCompositeActivity()
-                                .getSystemServiceName__super((Class<?>) args[0]);
+                        return getOriginal().getSystemServiceName__super((Class<?>) args[0]);
                     }
                 }, serviceClass);
     }
@@ -1864,7 +1867,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Integer>() {
             @Override
             public Integer call(final Object... args) {
-                return getCompositeActivity().getTaskId__super();
+                return getOriginal().getTaskId__super();
             }
         });
     }
@@ -1881,7 +1884,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Resources.Theme>() {
             @Override
             public Resources.Theme call(final Object... args) {
-                return getCompositeActivity().getTheme__super();
+                return getOriginal().getTheme__super();
             }
         });
     }
@@ -1899,7 +1902,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<VoiceInteractor>() {
                     @Override
                     public VoiceInteractor call(final Object... args) {
-                        return getCompositeActivity().getVoiceInteractor__super();
+                        return getOriginal().getVoiceInteractor__super();
                     }
                 });
     }
@@ -1916,7 +1919,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Drawable>() {
             @Override
             public Drawable call(final Object... args) {
-                return getCompositeActivity().getWallpaper__super();
+                return getOriginal().getWallpaper__super();
             }
         });
     }
@@ -1934,7 +1937,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getCompositeActivity().getWallpaperDesiredMinimumHeight__super();
+                        return getOriginal().getWallpaperDesiredMinimumHeight__super();
                     }
                 });
     }
@@ -1952,7 +1955,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Integer>() {
                     @Override
                     public Integer call(final Object... args) {
-                        return getCompositeActivity().getWallpaperDesiredMinimumWidth__super();
+                        return getOriginal().getWallpaperDesiredMinimumWidth__super();
                     }
                 });
     }
@@ -1969,7 +1972,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Window>() {
             @Override
             public Window call(final Object... args) {
-                return getCompositeActivity().getWindow__super();
+                return getOriginal().getWindow__super();
             }
         });
     }
@@ -1986,7 +1989,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<WindowManager>() {
             @Override
             public WindowManager call(final Object... args) {
-                return getCompositeActivity().getWindowManager__super();
+                return getOriginal().getWindowManager__super();
             }
         });
     }
@@ -2002,7 +2005,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity()
+                getOriginal()
                         .grantUriPermission__super((String) args[0], (Uri) args[1], (int) args[2]);
             }
         }, toPackage, uri, modeFlags);
@@ -2020,7 +2023,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().hasWindowFocus__super();
+                return getOriginal().hasWindowFocus__super();
             }
         });
     }
@@ -2035,7 +2038,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().invalidateOptionsMenu__super();
+                getOriginal().invalidateOptionsMenu__super();
             }
         });
     }
@@ -2053,7 +2056,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity().isChangingConfigurations__super();
+                        return getOriginal().isChangingConfigurations__super();
                     }
                 });
     }
@@ -2070,7 +2073,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().isDestroyed__super();
+                return getOriginal().isDestroyed__super();
             }
         });
     }
@@ -2087,7 +2090,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().isFinishing__super();
+                return getOriginal().isFinishing__super();
             }
         });
     }
@@ -2104,7 +2107,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().isImmersive__super();
+                return getOriginal().isImmersive__super();
             }
         });
     }
@@ -2121,7 +2124,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().isRestricted__super();
+                return getOriginal().isRestricted__super();
             }
         });
     }
@@ -2138,7 +2141,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().isTaskRoot__super();
+                return getOriginal().isTaskRoot__super();
             }
         });
     }
@@ -2155,7 +2158,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().isVoiceInteraction__super();
+                return getOriginal().isVoiceInteraction__super();
             }
         });
     }
@@ -2172,7 +2175,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().isVoiceInteractionRoot__super();
+                return getOriginal().isVoiceInteractionRoot__super();
             }
         });
     }
@@ -2189,7 +2192,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().moveTaskToBack__super((boolean) args[0]);
+                return getOriginal().moveTaskToBack__super((boolean) args[0]);
             }
         }, nonRoot);
     }
@@ -2206,7 +2209,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().navigateUpTo__super((Intent) args[0]);
+                return getOriginal().navigateUpTo__super((Intent) args[0]);
             }
         }, upIntent);
     }
@@ -2225,7 +2228,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .navigateUpToFromChild__super((Activity) args[0], (Intent) args[1]);
                     }
                 }, child, upIntent);
@@ -2242,7 +2245,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .onActionModeFinished__super((android.view.ActionMode) args[0]);
                     }
                 }, mode);
@@ -2259,8 +2262,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .onActionModeStarted__super((android.view.ActionMode) args[0]);
+                        getOriginal().onActionModeStarted__super((android.view.ActionMode) args[0]);
                     }
                 }, mode);
     }
@@ -2275,7 +2277,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onActivityReenter__super((int) args[0], (Intent) args[1]);
+                getOriginal().onActivityReenter__super((int) args[0], (Intent) args[1]);
             }
         }, resultCode, data);
     }
@@ -2290,7 +2292,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity()
+                getOriginal()
                         .onActivityResult__super((int) args[0], (int) args[1], (Intent) args[2]);
             }
         }, requestCode, resultCode, data);
@@ -2309,9 +2311,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .onApplyThemeResource__super((Resources.Theme) args[0],
-                                        (int) args[1], (boolean) args[2]);
+                        getOriginal().onApplyThemeResource__super((Resources.Theme) args[0],
+                                (int) args[1], (boolean) args[2]);
                     }
                 }, theme, resid, first);
     }
@@ -2326,7 +2327,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onAttachFragment__super((Fragment) args[0]);
+                getOriginal().onAttachFragment__super((Fragment) args[0]);
             }
         }, fragment);
     }
@@ -2341,7 +2342,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onAttachFragment__super((android.app.Fragment) args[0]);
+                getOriginal().onAttachFragment__super((android.app.Fragment) args[0]);
             }
         }, fragment);
     }
@@ -2356,7 +2357,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onAttachedToWindow__super();
+                getOriginal().onAttachedToWindow__super();
             }
         });
     }
@@ -2371,7 +2372,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onBackPressed__super();
+                getOriginal().onBackPressed__super();
             }
         });
     }
@@ -2388,7 +2389,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().onChildTitleChanged__super((Activity) args[0],
+                        getOriginal().onChildTitleChanged__super((Activity) args[0],
                                 (CharSequence) args[1]);
                     }
                 }, childActivity, title);
@@ -2404,7 +2405,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onConfigurationChanged__super((Configuration) args[0]);
+                getOriginal().onConfigurationChanged__super((Configuration) args[0]);
             }
         }, newConfig);
     }
@@ -2419,7 +2420,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onContentChanged__super();
+                getOriginal().onContentChanged__super();
             }
         });
     }
@@ -2437,8 +2438,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .onContextItemSelected__super((MenuItem) args[0]);
+                        return getOriginal().onContextItemSelected__super((MenuItem) args[0]);
                     }
                 }, item);
     }
@@ -2453,7 +2453,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onContextMenuClosed__super((Menu) args[0]);
+                getOriginal().onContextMenuClosed__super((Menu) args[0]);
             }
         }, menu);
     }
@@ -2468,7 +2468,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onCreate__super((Bundle) args[0]);
+                getOriginal().onCreate__super((Bundle) args[0]);
             }
         }, savedInstanceState);
     }
@@ -2483,8 +2483,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity()
-                        .onCreate__super((Bundle) args[0], (PersistableBundle) args[1]);
+                getOriginal().onCreate__super((Bundle) args[0], (PersistableBundle) args[1]);
             }
         }, savedInstanceState, persistentState);
     }
@@ -2502,7 +2501,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .onCreateContextMenu__super((ContextMenu) args[0], (View) args[1],
                                         (ContextMenu.ContextMenuInfo) args[2]);
                     }
@@ -2522,7 +2521,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<CharSequence>() {
                     @Override
                     public CharSequence call(final Object... args) {
-                        return getCompositeActivity().onCreateDescription__super();
+                        return getOriginal().onCreateDescription__super();
                     }
                 });
     }
@@ -2539,7 +2538,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Dialog>() {
             @Override
             public Dialog call(final Object... args) {
-                return getCompositeActivity().onCreateDialog__super((int) args[0]);
+                return getOriginal().onCreateDialog__super((int) args[0]);
             }
         }, id);
     }
@@ -2557,8 +2556,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Dialog>() {
                     @Override
                     public Dialog call(final Object... args) {
-                        return getCompositeActivity()
-                                .onCreateDialog__super((int) args[0], (Bundle) args[1]);
+                        return getOriginal().onCreateDialog__super((int) args[0], (Bundle) args[1]);
                     }
                 }, id, args);
     }
@@ -2574,7 +2572,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .onCreateNavigateUpTaskStack__super((TaskStackBuilder) args[0]);
                     }
                 }, builder);
@@ -2592,7 +2590,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().onCreateOptionsMenu__super((Menu) args[0]);
+                return getOriginal().onCreateOptionsMenu__super((Menu) args[0]);
             }
         }, menu);
     }
@@ -2610,7 +2608,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .onCreatePanelMenu__super((int) args[0], (Menu) args[1]);
                     }
                 }, featureId, menu);
@@ -2628,7 +2626,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<View>() {
             @Override
             public View call(final Object... args) {
-                return getCompositeActivity().onCreatePanelView__super((int) args[0]);
+                return getOriginal().onCreatePanelView__super((int) args[0]);
             }
         }, featureId);
     }
@@ -2646,7 +2644,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().onCreateSupportNavigateUpTaskStack__super(
+                        getOriginal().onCreateSupportNavigateUpTaskStack__super(
                                 (android.support.v4.app.TaskStackBuilder) args[0]);
                     }
                 }, builder);
@@ -2666,7 +2664,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .onCreateThumbnail__super((Bitmap) args[0], (Canvas) args[1]);
                     }
                 }, outBitmap, canvas);
@@ -2687,9 +2685,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<View>() {
                     @Override
                     public View call(final Object... args) {
-                        return getCompositeActivity()
-                                .onCreateView__super((View) args[0], (String) args[1],
-                                        (Context) args[2], (AttributeSet) args[3]);
+                        return getOriginal().onCreateView__super((View) args[0], (String) args[1],
+                                (Context) args[2], (AttributeSet) args[3]);
                     }
                 }, parent, name, context, attrs);
     }
@@ -2708,7 +2705,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<View>() {
                     @Override
                     public View call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .onCreateView__super((String) args[0], (Context) args[1],
                                         (AttributeSet) args[2]);
                     }
@@ -2725,7 +2722,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onDestroy__super();
+                getOriginal().onDestroy__super();
             }
         });
     }
@@ -2740,7 +2737,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onDetachedFromWindow__super();
+                getOriginal().onDetachedFromWindow__super();
             }
         });
     }
@@ -2755,7 +2752,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onEnterAnimationComplete__super();
+                getOriginal().onEnterAnimationComplete__super();
             }
         });
     }
@@ -2773,8 +2770,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .onGenericMotionEvent__super((MotionEvent) args[0]);
+                        return getOriginal().onGenericMotionEvent__super((MotionEvent) args[0]);
                     }
                 }, event);
     }
@@ -2791,7 +2787,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().onKeyDown__super((int) args[0], (KeyEvent) args[1]);
+                return getOriginal().onKeyDown__super((int) args[0], (KeyEvent) args[1]);
             }
         }, keyCode, event);
     }
@@ -2809,7 +2805,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .onKeyLongPress__super((int) args[0], (KeyEvent) args[1]);
                     }
                 }, keyCode, event);
@@ -2829,9 +2825,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .onKeyMultiple__super((int) args[0], (int) args[1],
-                                        (KeyEvent) args[2]);
+                        return getOriginal().onKeyMultiple__super((int) args[0], (int) args[1],
+                                (KeyEvent) args[2]);
                     }
                 }, keyCode, repeatCount, event);
     }
@@ -2849,7 +2844,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .onKeyShortcut__super((int) args[0], (KeyEvent) args[1]);
                     }
                 }, keyCode, event);
@@ -2867,7 +2862,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().onKeyUp__super((int) args[0], (KeyEvent) args[1]);
+                return getOriginal().onKeyUp__super((int) args[0], (KeyEvent) args[1]);
             }
         }, keyCode, event);
     }
@@ -2882,7 +2877,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onLowMemory__super();
+                getOriginal().onLowMemory__super();
             }
         });
     }
@@ -2899,7 +2894,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().onMenuOpened__super((int) args[0], (Menu) args[1]);
+                return getOriginal().onMenuOpened__super((int) args[0], (Menu) args[1]);
             }
         }, featureId, menu);
     }
@@ -2916,7 +2911,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().onNavigateUp__super();
+                return getOriginal().onNavigateUp__super();
             }
         });
     }
@@ -2934,8 +2929,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .onNavigateUpFromChild__super((Activity) args[0]);
+                        return getOriginal().onNavigateUpFromChild__super((Activity) args[0]);
                     }
                 }, child);
     }
@@ -2950,7 +2944,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onNewIntent__super((Intent) args[0]);
+                getOriginal().onNewIntent__super((Intent) args[0]);
             }
         }, intent);
     }
@@ -2968,8 +2962,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .onOptionsItemSelected__super((MenuItem) args[0]);
+                        return getOriginal().onOptionsItemSelected__super((MenuItem) args[0]);
                     }
                 }, item);
     }
@@ -2984,7 +2977,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onOptionsMenuClosed__super((Menu) args[0]);
+                getOriginal().onOptionsMenuClosed__super((Menu) args[0]);
             }
         }, menu);
     }
@@ -2999,7 +2992,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onPanelClosed__super((int) args[0], (Menu) args[1]);
+                getOriginal().onPanelClosed__super((int) args[0], (Menu) args[1]);
             }
         }, featureId, menu);
     }
@@ -3014,7 +3007,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onPause__super();
+                getOriginal().onPause__super();
             }
         });
     }
@@ -3029,7 +3022,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onPostCreate__super((Bundle) args[0]);
+                getOriginal().onPostCreate__super((Bundle) args[0]);
             }
         }, savedInstanceState);
     }
@@ -3045,8 +3038,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity()
-                        .onPostCreate__super((Bundle) args[0], (PersistableBundle) args[1]);
+                getOriginal().onPostCreate__super((Bundle) args[0], (PersistableBundle) args[1]);
             }
         }, savedInstanceState, persistentState);
     }
@@ -3061,7 +3053,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onPostResume__super();
+                getOriginal().onPostResume__super();
             }
         });
     }
@@ -3076,7 +3068,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onPrepareDialog__super((int) args[0], (Dialog) args[1]);
+                getOriginal().onPrepareDialog__super((int) args[0], (Dialog) args[1]);
             }
         }, id, dialog);
     }
@@ -3092,7 +3084,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity()
+                getOriginal()
                         .onPrepareDialog__super((int) args[0], (Dialog) args[1], (Bundle) args[2]);
             }
         }, id, dialog, args);
@@ -3109,7 +3101,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .onPrepareNavigateUpTaskStack__super((TaskStackBuilder) args[0]);
                     }
                 }, builder);
@@ -3128,7 +3120,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity().onPrepareOptionsMenu__super((Menu) args[0]);
+                        return getOriginal().onPrepareOptionsMenu__super((Menu) args[0]);
                     }
                 }, menu);
     }
@@ -3147,7 +3139,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .onPrepareOptionsPanel__super((View) args[0], (Menu) args[1]);
                     }
                 }, view, menu);
@@ -3167,9 +3159,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .onPreparePanel__super((int) args[0], (View) args[1],
-                                        (Menu) args[2]);
+                        return getOriginal().onPreparePanel__super((int) args[0], (View) args[1],
+                                (Menu) args[2]);
                     }
                 }, featureId, view, menu);
     }
@@ -3187,7 +3178,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().onPrepareSupportNavigateUpTaskStack__super(
+                        getOriginal().onPrepareSupportNavigateUpTaskStack__super(
                                 (android.support.v4.app.TaskStackBuilder) args[0]);
                     }
                 }, builder);
@@ -3203,7 +3194,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onProvideAssistContent__super((AssistContent) args[0]);
+                getOriginal().onProvideAssistContent__super((AssistContent) args[0]);
             }
         }, outContent);
     }
@@ -3218,7 +3209,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onProvideAssistData__super((Bundle) args[0]);
+                getOriginal().onProvideAssistData__super((Bundle) args[0]);
             }
         }, data);
     }
@@ -3235,7 +3226,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Uri>() {
             @Override
             public Uri call(final Object... args) {
-                return getCompositeActivity().onProvideReferrer__super();
+                return getOriginal().onProvideReferrer__super();
             }
         });
     }
@@ -3253,7 +3244,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().onRequestPermissionsResult__super((int) args[0],
+                        getOriginal().onRequestPermissionsResult__super((int) args[0],
                                 (String[]) args[1], (int[]) args[2]);
                     }
                 }, requestCode, permissions, grantResults);
@@ -3269,7 +3260,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onRestart__super();
+                getOriginal().onRestart__super();
             }
         });
     }
@@ -3284,7 +3275,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onRestoreInstanceState__super((Bundle) args[0]);
+                getOriginal().onRestoreInstanceState__super((Bundle) args[0]);
             }
         }, savedInstanceState);
     }
@@ -3302,7 +3293,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().onRestoreInstanceState__super((Bundle) args[0],
+                        getOriginal().onRestoreInstanceState__super((Bundle) args[0],
                                 (PersistableBundle) args[1]);
                     }
                 }, savedInstanceState, persistentState);
@@ -3318,7 +3309,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onResume__super();
+                getOriginal().onResume__super();
             }
         });
     }
@@ -3333,9 +3324,22 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onResumeFragments__super();
+                getOriginal().onResumeFragments__super();
             }
         });
+    }
+
+    public Object onRetainNonConfigurationInstance() {
+        final NonConfigurationInstanceWrapper all = new NonConfigurationInstanceWrapper(
+                getOriginal().onRetainCompositeCustomNonConfigurationInstance());
+        for (final ActivityPlugin plugin : mPlugins) {
+            final CompositeNonConfigurationInstance pluginNci = plugin
+                    .onRetainNonConfigurationInstance();
+            if (pluginNci != null) {
+                all.putPluginNonConfigurationInstance(pluginNci);
+            }
+        }
+        return all;
     }
 
     public void onSaveInstanceState(final Bundle outState) {
@@ -3348,7 +3352,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onSaveInstanceState__super((Bundle) args[0]);
+                getOriginal().onSaveInstanceState__super((Bundle) args[0]);
             }
         }, outState);
     }
@@ -3366,7 +3370,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().onSaveInstanceState__super((Bundle) args[0],
+                        getOriginal().onSaveInstanceState__super((Bundle) args[0],
                                 (PersistableBundle) args[1]);
                     }
                 }, outState, outPersistentState);
@@ -3385,8 +3389,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .onSearchRequested__super((SearchEvent) args[0]);
+                        return getOriginal().onSearchRequested__super((SearchEvent) args[0]);
                     }
                 }, searchEvent);
     }
@@ -3403,7 +3406,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().onSearchRequested__super();
+                return getOriginal().onSearchRequested__super();
             }
         });
     }
@@ -3418,7 +3421,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onStart__super();
+                getOriginal().onStart__super();
             }
         });
     }
@@ -3433,7 +3436,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onStateNotSaved__super();
+                getOriginal().onStateNotSaved__super();
             }
         });
     }
@@ -3448,7 +3451,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onStop__super();
+                getOriginal().onStop__super();
             }
         });
     }
@@ -3463,7 +3466,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onSupportActionModeFinished__super((ActionMode) args[0]);
+                getOriginal().onSupportActionModeFinished__super((ActionMode) args[0]);
             }
         }, mode);
     }
@@ -3478,7 +3481,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onSupportActionModeStarted__super((ActionMode) args[0]);
+                getOriginal().onSupportActionModeStarted__super((ActionMode) args[0]);
             }
         }, mode);
     }
@@ -3493,7 +3496,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onSupportContentChanged__super();
+                getOriginal().onSupportContentChanged__super();
             }
         });
     }
@@ -3510,7 +3513,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().onSupportNavigateUp__super();
+                return getOriginal().onSupportNavigateUp__super();
             }
         });
     }
@@ -3525,7 +3528,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onTitleChanged__super((CharSequence) args[0], (int) args[1]);
+                getOriginal().onTitleChanged__super((CharSequence) args[0], (int) args[1]);
             }
         }, title, color);
     }
@@ -3542,7 +3545,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().onTouchEvent__super((MotionEvent) args[0]);
+                return getOriginal().onTouchEvent__super((MotionEvent) args[0]);
             }
         }, event);
     }
@@ -3560,8 +3563,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .onTrackballEvent__super((MotionEvent) args[0]);
+                        return getOriginal().onTrackballEvent__super((MotionEvent) args[0]);
                     }
                 }, event);
     }
@@ -3576,7 +3578,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onTrimMemory__super((int) args[0]);
+                getOriginal().onTrimMemory__super((int) args[0]);
             }
         }, level);
     }
@@ -3591,7 +3593,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onUserInteraction__super();
+                getOriginal().onUserInteraction__super();
             }
         });
     }
@@ -3606,7 +3608,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onUserLeaveHint__super();
+                getOriginal().onUserLeaveHint__super();
             }
         });
     }
@@ -3621,7 +3623,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onVisibleBehindCanceled__super();
+                getOriginal().onVisibleBehindCanceled__super();
             }
         });
     }
@@ -3638,7 +3640,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().onWindowAttributesChanged__super(
+                        getOriginal().onWindowAttributesChanged__super(
                                 (WindowManager.LayoutParams) args[0]);
                     }
                 }, params);
@@ -3654,7 +3656,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().onWindowFocusChanged__super((boolean) args[0]);
+                getOriginal().onWindowFocusChanged__super((boolean) args[0]);
             }
         }, hasFocus);
     }
@@ -3675,7 +3677,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<android.view.ActionMode>() {
                     @Override
                     public android.view.ActionMode call(final Object... args) {
-                        return getCompositeActivity().onWindowStartingActionMode__super(
+                        return getOriginal().onWindowStartingActionMode__super(
                                 (android.view.ActionMode.Callback) args[0]);
                     }
                 }, callback);
@@ -3697,7 +3699,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<android.view.ActionMode>() {
                     @Override
                     public android.view.ActionMode call(final Object... args) {
-                        return getCompositeActivity().onWindowStartingActionMode__super(
+                        return getOriginal().onWindowStartingActionMode__super(
                                 (android.view.ActionMode.Callback) args[0], (int) args[1]);
                     }
                 }, callback, type);
@@ -3718,7 +3720,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<ActionMode>() {
                     @Override
                     public ActionMode call(final Object... args) {
-                        return getCompositeActivity().onWindowStartingSupportActionMode__super(
+                        return getOriginal().onWindowStartingSupportActionMode__super(
                                 (ActionMode.Callback) args[0]);
                     }
                 }, callback);
@@ -3734,7 +3736,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().openContextMenu__super((View) args[0]);
+                getOriginal().openContextMenu__super((View) args[0]);
             }
         }, view);
     }
@@ -3756,7 +3758,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                     @Override
                     public FileInputStream call(final Object... args) {
                         try {
-                            return getCompositeActivity().openFileInput__super((String) args[0]);
+                            return getOriginal().openFileInput__super((String) args[0]);
                         } catch (FileNotFoundException e) {
                             throw new SuppressedException(e);
                         }
@@ -3782,7 +3784,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                     @Override
                     public FileOutputStream call(final Object... args) {
                         try {
-                            return getCompositeActivity()
+                            return getOriginal()
                                     .openFileOutput__super((String) args[0], (int) args[1]);
                         } catch (FileNotFoundException e) {
                             throw new SuppressedException(e);
@@ -3801,7 +3803,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().openOptionsMenu__super();
+                getOriginal().openOptionsMenu__super();
             }
         });
     }
@@ -3822,7 +3824,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<SQLiteDatabase>() {
                     @Override
                     public SQLiteDatabase call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .openOrCreateDatabase__super((String) args[0], (int) args[1],
                                         (SQLiteDatabase.CursorFactory) args[2]);
                     }
@@ -3847,7 +3849,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<SQLiteDatabase>() {
                     @Override
                     public SQLiteDatabase call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .openOrCreateDatabase__super((String) args[0], (int) args[1],
                                         (SQLiteDatabase.CursorFactory) args[2],
                                         (DatabaseErrorHandler) args[3]);
@@ -3865,8 +3867,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity()
-                        .overridePendingTransition__super((int) args[0], (int) args[1]);
+                getOriginal().overridePendingTransition__super((int) args[0], (int) args[1]);
             }
         }, enterAnim, exitAnim);
     }
@@ -3883,7 +3884,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Drawable>() {
             @Override
             public Drawable call(final Object... args) {
-                return getCompositeActivity().peekWallpaper__super();
+                return getOriginal().peekWallpaper__super();
             }
         });
     }
@@ -3898,7 +3899,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().postponeEnterTransition__super();
+                getOriginal().postponeEnterTransition__super();
             }
         });
     }
@@ -3913,7 +3914,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().recreate__super();
+                getOriginal().recreate__super();
             }
         });
     }
@@ -3929,7 +3930,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .registerComponentCallbacks__super((ComponentCallbacks) args[0]);
                     }
                 }, callback);
@@ -3945,7 +3946,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().registerForContextMenu__super((View) args[0]);
+                getOriginal().registerForContextMenu__super((View) args[0]);
             }
         }, view);
     }
@@ -3964,9 +3965,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Intent>() {
                     @Override
                     public Intent call(final Object... args) {
-                        return getCompositeActivity()
-                                .registerReceiver__super((BroadcastReceiver) args[0],
-                                        (IntentFilter) args[1]);
+                        return getOriginal().registerReceiver__super((BroadcastReceiver) args[0],
+                                (IntentFilter) args[1]);
                     }
                 }, receiver, filter);
     }
@@ -3986,10 +3986,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Intent>() {
                     @Override
                     public Intent call(final Object... args) {
-                        return getCompositeActivity()
-                                .registerReceiver__super((BroadcastReceiver) args[0],
-                                        (IntentFilter) args[1], (String) args[2],
-                                        (Handler) args[3]);
+                        return getOriginal().registerReceiver__super((BroadcastReceiver) args[0],
+                                (IntentFilter) args[1], (String) args[2], (Handler) args[3]);
                     }
                 }, receiver, filter, broadcastPermission, scheduler);
     }
@@ -4006,7 +4004,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().releaseInstance__super();
+                return getOriginal().releaseInstance__super();
             }
         });
     }
@@ -4021,7 +4019,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().removeStickyBroadcast__super((Intent) args[0]);
+                getOriginal().removeStickyBroadcast__super((Intent) args[0]);
             }
         }, intent);
     }
@@ -4038,7 +4036,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().removeStickyBroadcastAsUser__super((Intent) args[0],
+                        getOriginal().removeStickyBroadcastAsUser__super((Intent) args[0],
                                 (UserHandle) args[1]);
                     }
                 }, intent, user);
@@ -4054,7 +4052,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().reportFullyDrawn__super();
+                getOriginal().reportFullyDrawn__super();
             }
         });
     }
@@ -4072,8 +4070,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .requestVisibleBehind__super((boolean) args[0]);
+                        return getOriginal().requestVisibleBehind__super((boolean) args[0]);
                     }
                 }, visible);
     }
@@ -4088,7 +4085,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().revokeUriPermission__super((Uri) args[0], (int) args[1]);
+                getOriginal().revokeUriPermission__super((Uri) args[0], (int) args[1]);
             }
         }, uri, modeFlags);
     }
@@ -4103,7 +4100,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().sendBroadcast__super((Intent) args[0]);
+                getOriginal().sendBroadcast__super((Intent) args[0]);
             }
         }, intent);
     }
@@ -4118,7 +4115,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().sendBroadcast__super((Intent) args[0], (String) args[1]);
+                getOriginal().sendBroadcast__super((Intent) args[0], (String) args[1]);
             }
         }, intent, receiverPermission);
     }
@@ -4133,8 +4130,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity()
-                        .sendBroadcastAsUser__super((Intent) args[0], (UserHandle) args[1]);
+                getOriginal().sendBroadcastAsUser__super((Intent) args[0], (UserHandle) args[1]);
             }
         }, intent, user);
     }
@@ -4152,7 +4148,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .sendBroadcastAsUser__super((Intent) args[0], (UserHandle) args[1],
                                         (String) args[2]);
                     }
@@ -4169,8 +4165,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity()
-                        .sendOrderedBroadcast__super((Intent) args[0], (String) args[1]);
+                getOriginal().sendOrderedBroadcast__super((Intent) args[0], (String) args[1]);
             }
         }, intent, receiverPermission);
     }
@@ -4191,7 +4186,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .sendOrderedBroadcast__super((Intent) args[0], (String) args[1],
                                         (BroadcastReceiver) args[2], (Handler) args[3],
                                         (int) args[4], (String) args[5], (Bundle) args[6]);
@@ -4218,7 +4213,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().sendOrderedBroadcastAsUser__super((Intent) args[0],
+                        getOriginal().sendOrderedBroadcastAsUser__super((Intent) args[0],
                                 (UserHandle) args[1], (String) args[2], (BroadcastReceiver) args[3],
                                 (Handler) args[4], (int) args[5], (String) args[6],
                                 (Bundle) args[7]);
@@ -4237,7 +4232,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().sendStickyBroadcast__super((Intent) args[0]);
+                getOriginal().sendStickyBroadcast__super((Intent) args[0]);
             }
         }, intent);
     }
@@ -4254,7 +4249,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().sendStickyBroadcastAsUser__super((Intent) args[0],
+                        getOriginal().sendStickyBroadcastAsUser__super((Intent) args[0],
                                 (UserHandle) args[1]);
                     }
                 }, intent, user);
@@ -4276,7 +4271,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().sendStickyOrderedBroadcast__super((Intent) args[0],
+                        getOriginal().sendStickyOrderedBroadcast__super((Intent) args[0],
                                 (BroadcastReceiver) args[1], (Handler) args[2], (int) args[3],
                                 (String) args[4], (Bundle) args[5]);
                     }
@@ -4300,11 +4295,10 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .sendStickyOrderedBroadcastAsUser__super((Intent) args[0],
-                                        (UserHandle) args[1], (BroadcastReceiver) args[2],
-                                        (Handler) args[3], (int) args[4], (String) args[5],
-                                        (Bundle) args[6]);
+                        getOriginal().sendStickyOrderedBroadcastAsUser__super((Intent) args[0],
+                                (UserHandle) args[1], (BroadcastReceiver) args[2],
+                                (Handler) args[3], (int) args[4], (String) args[5],
+                                (Bundle) args[6]);
                     }
                 }, intent, user, resultReceiver, scheduler, initialCode, initialData,
                 initialExtras);
@@ -4320,7 +4314,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setActionBar__super((Toolbar) args[0]);
+                getOriginal().setActionBar__super((Toolbar) args[0]);
             }
         }, toolbar);
     }
@@ -4336,7 +4330,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .setContentTransitionManager__super((TransitionManager) args[0]);
                     }
                 }, tm);
@@ -4352,7 +4346,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setContentView__super((int) args[0]);
+                getOriginal().setContentView__super((int) args[0]);
             }
         }, layoutResID);
     }
@@ -4367,7 +4361,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setContentView__super((View) args[0]);
+                getOriginal().setContentView__super((View) args[0]);
             }
         }, view);
     }
@@ -4384,7 +4378,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().setContentView__super((View) args[0],
+                        getOriginal().setContentView__super((View) args[0],
                                 (ViewGroup.LayoutParams) args[1]);
                     }
                 }, view, params);
@@ -4402,7 +4396,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().setEnterSharedElementCallback__super(
+                        getOriginal().setEnterSharedElementCallback__super(
                                 (SharedElementCallback) args[0]);
                     }
                 }, callback);
@@ -4420,7 +4414,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().setEnterSharedElementCallback__super(
+                        getOriginal().setEnterSharedElementCallback__super(
                                 (android.app.SharedElementCallback) args[0]);
                     }
                 }, callback);
@@ -4438,7 +4432,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().setExitSharedElementCallback__super(
+                        getOriginal().setExitSharedElementCallback__super(
                                 (SharedElementCallback) args[0]);
                     }
                 }, listener);
@@ -4456,7 +4450,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().setExitSharedElementCallback__super(
+                        getOriginal().setExitSharedElementCallback__super(
                                 (android.app.SharedElementCallback) args[0]);
                     }
                 }, callback);
@@ -4472,7 +4466,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setFinishOnTouchOutside__super((boolean) args[0]);
+                getOriginal().setFinishOnTouchOutside__super((boolean) args[0]);
             }
         }, finish);
     }
@@ -4487,7 +4481,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setImmersive__super((boolean) args[0]);
+                getOriginal().setImmersive__super((boolean) args[0]);
             }
         }, i);
     }
@@ -4502,7 +4496,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setIntent__super((Intent) args[0]);
+                getOriginal().setIntent__super((Intent) args[0]);
             }
         }, newIntent);
     }
@@ -4517,7 +4511,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setRequestedOrientation__super((int) args[0]);
+                getOriginal().setRequestedOrientation__super((int) args[0]);
             }
         }, requestedOrientation);
     }
@@ -4534,7 +4528,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().setSupportActionBar__super(
+                        getOriginal().setSupportActionBar__super(
                                 (android.support.v7.widget.Toolbar) args[0]);
                     }
                 }, toolbar);
@@ -4550,7 +4544,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setSupportProgress__super((int) args[0]);
+                getOriginal().setSupportProgress__super((int) args[0]);
             }
         }, progress);
     }
@@ -4566,8 +4560,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .setSupportProgressBarIndeterminate__super((boolean) args[0]);
+                        getOriginal().setSupportProgressBarIndeterminate__super((boolean) args[0]);
                     }
                 }, indeterminate);
     }
@@ -4584,7 +4577,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().setSupportProgressBarIndeterminateVisibility__super(
+                        getOriginal().setSupportProgressBarIndeterminateVisibility__super(
                                 (boolean) args[0]);
                     }
                 }, visible);
@@ -4600,7 +4593,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setSupportProgressBarVisibility__super((boolean) args[0]);
+                getOriginal().setSupportProgressBarVisibility__super((boolean) args[0]);
             }
         }, visible);
     }
@@ -4617,7 +4610,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().setTaskDescription__super(
+                        getOriginal().setTaskDescription__super(
                                 (ActivityManager.TaskDescription) args[0]);
                     }
                 }, taskDescription);
@@ -4633,7 +4626,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setTheme__super((int) args[0]);
+                getOriginal().setTheme__super((int) args[0]);
             }
         }, resid);
     }
@@ -4648,7 +4641,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setTitle__super((CharSequence) args[0]);
+                getOriginal().setTitle__super((CharSequence) args[0]);
             }
         }, title);
     }
@@ -4663,7 +4656,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setTitle__super((int) args[0]);
+                getOriginal().setTitle__super((int) args[0]);
             }
         }, titleId);
     }
@@ -4678,7 +4671,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setTitleColor__super((int) args[0]);
+                getOriginal().setTitleColor__super((int) args[0]);
             }
         }, textColor);
     }
@@ -4693,7 +4686,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().setVisible__super((boolean) args[0]);
+                getOriginal().setVisible__super((boolean) args[0]);
             }
         }, visible);
     }
@@ -4713,7 +4706,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
             @Override
             public void call(final Object... args) {
                 try {
-                    getCompositeActivity().setWallpaper__super((Bitmap) args[0]);
+                    getOriginal().setWallpaper__super((Bitmap) args[0]);
                 } catch (IOException e) {
                     throw new SuppressedException(e);
                 }
@@ -4736,7 +4729,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
             @Override
             public void call(final Object... args) {
                 try {
-                    getCompositeActivity().setWallpaper__super((InputStream) args[0]);
+                    getOriginal().setWallpaper__super((InputStream) args[0]);
                 } catch (IOException e) {
                     throw new SuppressedException(e);
                 }
@@ -4758,7 +4751,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .shouldShowRequestPermissionRationale__super((String) args[0]);
                     }
                 }, permission);
@@ -4777,7 +4770,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity().shouldUpRecreateTask__super((Intent) args[0]);
+                        return getOriginal().shouldUpRecreateTask__super((Intent) args[0]);
                     }
                 }, targetIntent);
     }
@@ -4794,7 +4787,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().showAssist__super((Bundle) args[0]);
+                return getOriginal().showAssist__super((Bundle) args[0]);
             }
         }, args);
     }
@@ -4809,7 +4802,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().showLockTaskEscapeMessage__super();
+                getOriginal().showLockTaskEscapeMessage__super();
             }
         });
     }
@@ -4830,7 +4823,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<android.view.ActionMode>() {
                     @Override
                     public android.view.ActionMode call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .startActionMode__super((android.view.ActionMode.Callback) args[0]);
                     }
                 }, callback);
@@ -4852,7 +4845,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<android.view.ActionMode>() {
                     @Override
                     public android.view.ActionMode call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .startActionMode__super((android.view.ActionMode.Callback) args[0],
                                         (int) args[1]);
                     }
@@ -4869,7 +4862,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().startActivities__super((Intent[]) args[0]);
+                getOriginal().startActivities__super((Intent[]) args[0]);
             }
         }, new Object[]{intents});
     }
@@ -4884,7 +4877,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().startActivities__super((Intent[]) args[0], (Bundle) args[1]);
+                getOriginal().startActivities__super((Intent[]) args[0], (Bundle) args[1]);
             }
         }, intents, options);
     }
@@ -4899,7 +4892,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().startActivity__super((Intent) args[0]);
+                getOriginal().startActivity__super((Intent) args[0]);
             }
         }, intent);
     }
@@ -4914,7 +4907,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().startActivity__super((Intent) args[0], (Bundle) args[1]);
+                getOriginal().startActivity__super((Intent) args[0], (Bundle) args[1]);
             }
         }, intent, options);
     }
@@ -4929,8 +4922,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity()
-                        .startActivityForResult__super((Intent) args[0], (int) args[1]);
+                getOriginal().startActivityForResult__super((Intent) args[0], (int) args[1]);
             }
         }, intent, requestCode);
     }
@@ -4948,9 +4940,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .startActivityForResult__super((Intent) args[0], (int) args[1],
-                                        (Bundle) args[2]);
+                        getOriginal().startActivityForResult__super((Intent) args[0], (int) args[1],
+                                (Bundle) args[2]);
                     }
                 }, intent, requestCode, options);
     }
@@ -4968,7 +4959,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .startActivityFromChild__super((Activity) args[0], (Intent) args[1],
                                         (int) args[2]);
                     }
@@ -4988,7 +4979,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .startActivityFromChild__super((Activity) args[0], (Intent) args[1],
                                         (int) args[2], (Bundle) args[3]);
                     }
@@ -5008,7 +4999,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().startActivityFromFragment__super((Fragment) args[0],
+                        getOriginal().startActivityFromFragment__super((Fragment) args[0],
                                 (Intent) args[1], (int) args[2]);
                     }
                 }, fragment, intent, requestCode);
@@ -5027,7 +5018,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity().startActivityFromFragment__super((Fragment) args[0],
+                        getOriginal().startActivityFromFragment__super((Fragment) args[0],
                                 (Intent) args[1], (int) args[2], (Bundle) args[3]);
                     }
                 }, fragment, intent, requestCode, options);
@@ -5046,7 +5037,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .startActivityFromFragment__super((android.app.Fragment) args[0],
                                         (Intent) args[1], (int) args[2]);
                     }
@@ -5066,7 +5057,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .startActivityFromFragment__super((android.app.Fragment) args[0],
                                         (Intent) args[1], (int) args[2], (Bundle) args[3]);
                     }
@@ -5087,7 +5078,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .startActivityIfNeeded__super((Intent) args[0], (int) args[1]);
                     }
                 }, intent, requestCode);
@@ -5109,7 +5100,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .startActivityIfNeeded__super((Intent) args[0], (int) args[1],
                                         (Bundle) args[2]);
                     }
@@ -5131,9 +5122,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .startInstrumentation__super((ComponentName) args[0],
-                                        (String) args[1], (Bundle) args[2]);
+                        return getOriginal().startInstrumentation__super((ComponentName) args[0],
+                                (String) args[1], (Bundle) args[2]);
                     }
                 }, className, profileFile, arguments);
     }
@@ -5157,7 +5147,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                     @Override
                     public void call(final Object... args) {
                         try {
-                            getCompositeActivity().startIntentSender__super((IntentSender) args[0],
+                            getOriginal().startIntentSender__super((IntentSender) args[0],
                                     (Intent) args[1], (int) args[2], (int) args[3], (int) args[4]);
                         } catch (IntentSender.SendIntentException e) {
                             throw new SuppressedException(e);
@@ -5186,7 +5176,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                     @Override
                     public void call(final Object... args) {
                         try {
-                            getCompositeActivity().startIntentSender__super((IntentSender) args[0],
+                            getOriginal().startIntentSender__super((IntentSender) args[0],
                                     (Intent) args[1], (int) args[2], (int) args[3], (int) args[4],
                                     (Bundle) args[5]);
                         } catch (IntentSender.SendIntentException e) {
@@ -5216,10 +5206,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
                     @Override
                     public void call(final Object... args) {
                         try {
-                            getCompositeActivity()
-                                    .startIntentSenderForResult__super((IntentSender) args[0],
-                                            (int) args[1], (Intent) args[2], (int) args[3],
-                                            (int) args[4], (int) args[5]);
+                            getOriginal().startIntentSenderForResult__super((IntentSender) args[0],
+                                    (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
+                                    (int) args[5]);
                         } catch (IntentSender.SendIntentException e) {
                             throw new SuppressedException(e);
                         }
@@ -5247,10 +5236,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
                     @Override
                     public void call(final Object... args) {
                         try {
-                            getCompositeActivity()
-                                    .startIntentSenderForResult__super((IntentSender) args[0],
-                                            (int) args[1], (Intent) args[2], (int) args[3],
-                                            (int) args[4], (int) args[5], (Bundle) args[6]);
+                            getOriginal().startIntentSenderForResult__super((IntentSender) args[0],
+                                    (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
+                                    (int) args[5], (Bundle) args[6]);
                         } catch (IntentSender.SendIntentException e) {
                             throw new SuppressedException(e);
                         }
@@ -5278,10 +5266,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
                     @Override
                     public void call(final Object... args) {
                         try {
-                            getCompositeActivity()
-                                    .startIntentSenderFromChild__super((Activity) args[0],
-                                            (IntentSender) args[1], (int) args[2], (Intent) args[3],
-                                            (int) args[4], (int) args[5], (int) args[6]);
+                            getOriginal().startIntentSenderFromChild__super((Activity) args[0],
+                                    (IntentSender) args[1], (int) args[2], (Intent) args[3],
+                                    (int) args[4], (int) args[5], (int) args[6]);
                         } catch (IntentSender.SendIntentException e) {
                             throw new SuppressedException(e);
                         }
@@ -5311,11 +5298,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
                     @Override
                     public void call(final Object... args) {
                         try {
-                            getCompositeActivity()
-                                    .startIntentSenderFromChild__super((Activity) args[0],
-                                            (IntentSender) args[1], (int) args[2], (Intent) args[3],
-                                            (int) args[4], (int) args[5], (int) args[6],
-                                            (Bundle) args[7]);
+                            getOriginal().startIntentSenderFromChild__super((Activity) args[0],
+                                    (IntentSender) args[1], (int) args[2], (Intent) args[3],
+                                    (int) args[4], (int) args[5], (int) args[6], (Bundle) args[7]);
                         } catch (IntentSender.SendIntentException e) {
                             throw new SuppressedException(e);
                         }
@@ -5334,7 +5319,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().startLockTask__super();
+                getOriginal().startLockTask__super();
             }
         });
     }
@@ -5349,7 +5334,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().startManagingCursor__super((Cursor) args[0]);
+                getOriginal().startManagingCursor__super((Cursor) args[0]);
             }
         }, c);
     }
@@ -5367,8 +5352,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .startNextMatchingActivity__super((Intent) args[0]);
+                        return getOriginal().startNextMatchingActivity__super((Intent) args[0]);
                     }
                 }, intent);
     }
@@ -5387,9 +5371,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .startNextMatchingActivity__super((Intent) args[0],
-                                        (Bundle) args[1]);
+                        return getOriginal().startNextMatchingActivity__super((Intent) args[0],
+                                (Bundle) args[1]);
                     }
                 }, intent, options);
     }
@@ -5404,7 +5387,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().startPostponedEnterTransition__super();
+                getOriginal().startPostponedEnterTransition__super();
             }
         });
     }
@@ -5422,9 +5405,8 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
-                                .startSearch__super((String) args[0], (boolean) args[1],
-                                        (Bundle) args[2], (boolean) args[3]);
+                        getOriginal().startSearch__super((String) args[0], (boolean) args[1],
+                                (Bundle) args[2], (boolean) args[3]);
                     }
                 }, initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
@@ -5442,7 +5424,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<ComponentName>() {
                     @Override
                     public ComponentName call(final Object... args) {
-                        return getCompositeActivity().startService__super((Intent) args[0]);
+                        return getOriginal().startService__super((Intent) args[0]);
                     }
                 }, service);
     }
@@ -5461,7 +5443,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<ActionMode>() {
                     @Override
                     public ActionMode call(final Object... args) {
-                        return getCompositeActivity()
+                        return getOriginal()
                                 .startSupportActionMode__super((ActionMode.Callback) args[0]);
                     }
                 }, callback);
@@ -5477,7 +5459,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().stopLockTask__super();
+                getOriginal().stopLockTask__super();
             }
         });
     }
@@ -5492,7 +5474,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().stopManagingCursor__super((Cursor) args[0]);
+                getOriginal().stopManagingCursor__super((Cursor) args[0]);
             }
         }, c);
     }
@@ -5509,7 +5491,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getCompositeActivity().stopService__super((Intent) args[0]);
+                return getOriginal().stopService__super((Intent) args[0]);
             }
         }, name);
     }
@@ -5524,7 +5506,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().supportFinishAfterTransition__super();
+                getOriginal().supportFinishAfterTransition__super();
             }
         });
     }
@@ -5539,7 +5521,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().supportInvalidateOptionsMenu__super();
+                getOriginal().supportInvalidateOptionsMenu__super();
             }
         });
     }
@@ -5554,7 +5536,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().supportNavigateUpTo__super((Intent) args[0]);
+                getOriginal().supportNavigateUpTo__super((Intent) args[0]);
             }
         }, upIntent);
     }
@@ -5569,7 +5551,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().supportPostponeEnterTransition__super();
+                getOriginal().supportPostponeEnterTransition__super();
             }
         });
     }
@@ -5587,8 +5569,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .supportRequestWindowFeature__super((int) args[0]);
+                        return getOriginal().supportRequestWindowFeature__super((int) args[0]);
                     }
                 }, featureId);
     }
@@ -5606,8 +5587,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getCompositeActivity()
-                                .supportShouldUpRecreateTask__super((Intent) args[0]);
+                        return getOriginal().supportShouldUpRecreateTask__super((Intent) args[0]);
                     }
                 }, targetIntent);
     }
@@ -5622,7 +5602,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().supportStartPostponedEnterTransition__super();
+                getOriginal().supportStartPostponedEnterTransition__super();
             }
         });
     }
@@ -5637,7 +5617,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().takeKeyEvents__super((boolean) args[0]);
+                getOriginal().takeKeyEvents__super((boolean) args[0]);
             }
         }, get);
     }
@@ -5652,7 +5632,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().triggerSearch__super((String) args[0], (Bundle) args[1]);
+                getOriginal().triggerSearch__super((String) args[0], (Bundle) args[1]);
             }
         }, query, appSearchData);
     }
@@ -5667,7 +5647,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().unbindService__super((ServiceConnection) args[0]);
+                getOriginal().unbindService__super((ServiceConnection) args[0]);
             }
         }, conn);
     }
@@ -5684,7 +5664,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getCompositeActivity()
+                        getOriginal()
                                 .unregisterComponentCallbacks__super((ComponentCallbacks) args[0]);
                     }
                 }, callback);
@@ -5700,7 +5680,7 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().unregisterForContextMenu__super((View) args[0]);
+                getOriginal().unregisterForContextMenu__super((View) args[0]);
             }
         }, view);
     }
@@ -5715,10 +5695,9 @@ public class ActivityDelegate extends ActivityDelegateBase {
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getCompositeActivity().unregisterReceiver__super((BroadcastReceiver) args[0]);
+                getOriginal().unregisterReceiver__super((BroadcastReceiver) args[0]);
             }
         }, receiver);
     }
-
 
 }

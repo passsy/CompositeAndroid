@@ -1,3 +1,5 @@
+package parse
+
 import java.io.File
 
 
@@ -20,7 +22,7 @@ fun parseJavaFile(file: File): AnalyzedJavaFile {
 
 
     // findAll runs out of memory
-    val matches = mutableListOf<MatchResult>();
+    val methodMatches = mutableListOf<MatchResult>();
     var pos = 0
     while (true) {
         val methodsMatch = "(?:\n*?((?:\\h*?\\/\\*\\*\\h*[\\w@]*\n*){1}(?:\\h*\\*.*\n*)*?(?:\\h*\\*\\/){1})\n)*((?:^\\h*\\@.*\n)*?)?\\h*((?:\\w* )*)([\\w\\.]*(?:\\[\\])?) (\\w*)\\(((?:\n*[^\\)]*)*)\\)([^\\{]*)\\{((?:.*\n)(?:\n*(?:        .*\n))*)\\    \\}\n*"
@@ -30,14 +32,14 @@ fun parseJavaFile(file: File): AnalyzedJavaFile {
         if (methodsMatch == null) {
             break;
         }
-        matches.add(methodsMatch);
+        methodMatches.add(methodsMatch);
         pos = methodsMatch.range.last
     }
 
 
     val methods = mutableListOf<AnalyzedJavaMethod>();
 
-    for (match in matches) {
+    for (match in methodMatches) {
         val groups = match.groups
 
         val javadoc = groups[1]?.value
@@ -45,7 +47,7 @@ fun parseJavaFile(file: File): AnalyzedJavaFile {
         val visibility = groups[3]?.value ?: ""
         val returnType = groups[4]?.value!!
         val name = groups[5]?.value!!
-        val parameters = groups[6]?.value?.replace("\n", " ")
+        val parameters = groups[6]?.value?.replace("\n", " ")?.replace(",\\h+".toRegex(), ", ")
         val throws = groups[7]?.value?.replace("\n", " ")
 
         val paramNames = mutableListOf<String>()
