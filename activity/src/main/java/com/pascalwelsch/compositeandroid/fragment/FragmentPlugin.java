@@ -60,6 +60,10 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         return (Object) mSuperListeners.pop().call();
     }
 
+    public Fragment getFragment() {
+        return (Fragment) getOriginal();
+    }
+
     public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("getLayoutInflater(Bundle)");
         return (LayoutInflater) mSuperListeners.pop().call(savedInstanceState);

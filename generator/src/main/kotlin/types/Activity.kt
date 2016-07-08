@@ -38,7 +38,8 @@ fun generateActivity() {
             extends = "AbstractDelegate<ICompositeActivity, ActivityPlugin>",
             addCodeToClass = delegate_custom_nonConfigurationInstance_handling)
 
-    writePlugin(activity,
+    writePlugin("Activity",
+            activity,
             "activity",
             "ActivityPlugin",
             extends = "AbstractPlugin<CompositeActivity, ActivityDelegate>",

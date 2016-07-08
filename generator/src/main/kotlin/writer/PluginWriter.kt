@@ -5,7 +5,8 @@ import parse.AnalyzedJavaFile
 import parse.AnalyzedJavaMethod
 import java.io.File
 
-fun writePlugin(javaFile: AnalyzedJavaFile,
+fun writePlugin(normalClassName: String,
+                javaFile: AnalyzedJavaFile,
                 javaPackage: String,
                 javaClassName: String,
                 extends: String,
@@ -23,6 +24,14 @@ fun writePlugin(javaFile: AnalyzedJavaFile,
     }
     val methods = sb.toString()
 
+
+    val niceGetter: String = """
+        |public $normalClassName get$normalClassName() {
+        |    return ($normalClassName) getOriginal();
+        |}
+        """.replaceIndentByMargin("    ")
+
+
     var code = """
         |package com.pascalwelsch.compositeandroid.$javaPackage;
         |
@@ -35,7 +44,10 @@ fun writePlugin(javaFile: AnalyzedJavaFile,
         |@SuppressWarnings("unused")
         |public class $javaClassName extends $extends {
         |$methods
-        |${addCodeToClass?:""}
+        |
+        |$niceGetter
+        |
+        |${addCodeToClass ?: ""}
         |}
         """.replaceIndentByMargin()
 

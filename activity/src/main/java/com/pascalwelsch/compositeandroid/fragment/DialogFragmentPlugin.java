@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -29,6 +30,10 @@ public class DialogFragmentPlugin extends FragmentPlugin {
     public Dialog getDialog() {
         verifyMethodCalledFromDelegate("getDialog()");
         return (Dialog) mSuperListeners.pop().call();
+    }
+
+    public DialogFragment getDialogFragment() {
+        return (DialogFragment) getOriginal();
     }
 
     public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {

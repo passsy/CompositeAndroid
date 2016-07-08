@@ -327,6 +327,10 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         return (android.app.ActionBar) mSuperListeners.pop().call();
     }
 
+    public Activity getActivity() {
+        return (Activity) getOriginal();
+    }
+
     public Context getApplicationContext() {
         verifyMethodCalledFromDelegate("getApplicationContext()");
         return (Context) mSuperListeners.pop().call();
