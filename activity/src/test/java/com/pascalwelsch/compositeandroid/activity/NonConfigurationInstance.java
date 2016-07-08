@@ -26,7 +26,7 @@ public class NonConfigurationInstance {
         });
         final ActivityPlugin c = spy(new ActivityPlugin());
 
-        final CompositeActivity activity = mock(CompositeActivity.class);
+        final ICompositeActivity activity = mock(ICompositeActivity.class);
         final ActivityDelegate delegate = new ActivityDelegate(activity);
 
         delegate.addPlugin(a);

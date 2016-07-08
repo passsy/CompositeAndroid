@@ -1,4 +1,6 @@
-package com.pascalwelsch.compositeandroid.dialogfragment;
+package com.pascalwelsch.compositeandroid.fragment;
+
+import com.pascalwelsch.compositeandroid.core.Removable;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -6,19 +8,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
-import android.transition.ChangeBounds;
-import android.transition.Visibility;
 import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -34,7 +34,19 @@ import java.io.PrintWriter;
 
 @SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant"})
 @SuppressLint({"MissingSuperCall", "NewApi"})
-public class CompositeDialogFragment extends CompositeDialogFragmentBase {
+
+public class CompositeDialogFragment extends DialogFragment implements ICompositeDialogFragment {
+
+    protected DialogFragmentDelegate delegate = new DialogFragmentDelegate(this);
+
+
+    public Removable addPlugin(final DialogFragmentPlugin plugin) {
+        return delegate.addPlugin(plugin);
+    }
+
+    public Removable addPlugin(final FragmentPlugin plugin) {
+        return delegate.addPlugin(plugin);
+    }
 
     /**
      * Dismiss the fragment and its dialog.  If the fragment was added to the
@@ -58,6 +70,14 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.dismissAllowingStateLoss();
     }
 
+    public void dismissAllowingStateLoss__super() {
+        super.dismissAllowingStateLoss();
+    }
+
+    public void dismiss__super() {
+        super.dismiss();
+    }
+
     /**
      * Print the Fragments's state into the given stream.
      *
@@ -73,6 +93,11 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.dump(prefix, fd, writer, args);
     }
 
+    public void dump__super(final String prefix, final FileDescriptor fd, final PrintWriter writer,
+            final String[] args) {
+        super.dump(prefix, fd, writer, args);
+    }
+
     /**
      * Returns whether the the exit transition and enter transition overlap or not.
      * When true, the enter transition will start as soon as possible. When false, the
@@ -84,6 +109,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public boolean getAllowEnterTransitionOverlap() {
         return delegate.getAllowEnterTransitionOverlap();
+    }
+
+    public boolean getAllowEnterTransitionOverlap__super() {
+        return super.getAllowEnterTransitionOverlap();
     }
 
     /**
@@ -99,6 +128,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.getAllowReturnTransitionOverlap();
     }
 
+    public boolean getAllowReturnTransitionOverlap__super() {
+        return super.getAllowReturnTransitionOverlap();
+    }
+
     /**
      * Return the {@link Context} this fragment is currently associated with.
      */
@@ -107,9 +140,17 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.getContext();
     }
 
+    public Context getContext__super() {
+        return super.getContext();
+    }
+
     @Override
     public Dialog getDialog() {
         return delegate.getDialog();
+    }
+
+    public Dialog getDialog__super() {
+        return super.getDialog();
     }
 
     /**
@@ -124,6 +165,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public Object getEnterTransition() {
         return delegate.getEnterTransition();
+    }
+
+    public Object getEnterTransition__super() {
+        return super.getEnterTransition();
     }
 
     /**
@@ -143,12 +188,22 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.getExitTransition();
     }
 
+    public Object getExitTransition__super() {
+        return super.getExitTransition();
+    }
+
     /**
-     * @hide
+     * @hide Hack so that DialogFragment can make its Dialog before creating
+     * its views, and the view construction can use the dialog's context for
+     * inflation.  Maybe this should become a public API. Note sure.
      */
     @Override
     public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
         return delegate.getLayoutInflater(savedInstanceState);
+    }
+
+    public LayoutInflater getLayoutInflater__super(final Bundle savedInstanceState) {
+        return super.getLayoutInflater(savedInstanceState);
     }
 
     /**
@@ -157,6 +212,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public LoaderManager getLoaderManager() {
         return delegate.getLoaderManager();
+    }
+
+    public LoaderManager getLoaderManager__super() {
+        return super.getLoaderManager();
     }
 
     /**
@@ -176,6 +235,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.getReenterTransition();
     }
 
+    public Object getReenterTransition__super() {
+        return super.getReenterTransition();
+    }
+
     /**
      * Returns the Transition that will be used to move Views out of the scene when the Fragment is
      * preparing to be removed, hidden, or detached because of popping the back stack. The exiting
@@ -193,6 +256,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.getReturnTransition();
     }
 
+    public Object getReturnTransition__super() {
+        return super.getReturnTransition();
+    }
+
     /**
      * Returns the Transition that will be used for shared elements transferred into the content
      * Scene. Typical Transitions will affect size and location, such as
@@ -205,6 +272,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public Object getSharedElementEnterTransition() {
         return delegate.getSharedElementEnterTransition();
+    }
+
+    public Object getSharedElementEnterTransition__super() {
+        return super.getSharedElementEnterTransition();
     }
 
     /**
@@ -224,6 +295,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.getSharedElementReturnTransition();
     }
 
+    public Object getSharedElementReturnTransition__super() {
+        return super.getSharedElementReturnTransition();
+    }
+
     /**
      * Return the current value of {@link #setShowsDialog(boolean)}.
      */
@@ -232,9 +307,17 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.getShowsDialog();
     }
 
+    public boolean getShowsDialog__super() {
+        return super.getShowsDialog();
+    }
+
     @Override
     public int getTheme() {
         return delegate.getTheme();
+    }
+
+    public int getTheme__super() {
+        return super.getTheme();
     }
 
     /**
@@ -244,6 +327,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public boolean getUserVisibleHint() {
         return delegate.getUserVisibleHint();
+    }
+
+    public boolean getUserVisibleHint__super() {
+        return super.getUserVisibleHint();
     }
 
     /**
@@ -258,6 +345,11 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.getView();
     }
 
+    @Nullable
+    public View getView__super() {
+        return super.getView();
+    }
+
     /**
      * Return the current value of {@link #setCancelable(boolean)}.
      */
@@ -266,9 +358,30 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.isCancelable();
     }
 
+    public boolean isCancelable__super() {
+        return super.isCancelable();
+    }
+
+    /**
+     * Called when the fragment's activity has been created and this
+     * fragment's view hierarchy instantiated.  It can be used to do final
+     * initialization once these pieces are in place, such as retrieving
+     * views or restoring state.  It is also useful for fragments that use
+     * {@link #setRetainInstance(boolean)} to retain their instance,
+     * as this callback tells the fragment when it is fully associated with
+     * the new activity instance.  This is called after {@link #onCreateView}
+     * and before {@link #onViewStateRestored(Bundle)}.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     */
     @Override
-    public void onActivityCreated(final Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         delegate.onActivityCreated(savedInstanceState);
+    }
+
+    public void onActivityCreated__super(@Nullable final Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     /**
@@ -289,9 +402,9 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    public void onAttach(final Activity activity) {
-        delegate.onAttach(activity);
+    public void onActivityResult__super(final int requestCode, final int resultCode,
+            final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
@@ -303,14 +416,40 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.onAttach(context);
     }
 
+    /**
+     * Called when a fragment is first attached to its activity.
+     * {@link #onCreate(Bundle)} will be called after this.
+     * <p>Deprecated. See {@link #onAttach(Context)}.
+     */
+    @Override
+    public void onAttach(final Activity activity) {
+        delegate.onAttach(activity);
+    }
+
+    public void onAttach__super(final Context context) {
+        super.onAttach(context);
+    }
+
+    public void onAttach__super(final Activity activity) {
+        super.onAttach(activity);
+    }
+
     @Override
     public void onCancel(final DialogInterface dialog) {
         delegate.onCancel(dialog);
     }
 
+    public void onCancel__super(final DialogInterface dialog) {
+        super.onCancel(dialog);
+    }
+
     @Override
     public void onConfigurationChanged(final Configuration newConfig) {
         delegate.onConfigurationChanged(newConfig);
+    }
+
+    public void onConfigurationChanged__super(final Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     /**
@@ -335,6 +474,24 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.onContextItemSelected(item);
     }
 
+    public boolean onContextItemSelected__super(final MenuItem item) {
+        return super.onContextItemSelected(item);
+    }
+
+    /**
+     * Called to do initial creation of a fragment.  This is called after
+     * {@link #onAttach(Activity)} and before
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     *
+     * <p>Note that this can be called while the fragment's activity is
+     * still in the process of being created.  As such, you can not rely
+     * on things like the activity's content view hierarchy being initialized
+     * at this point.  If you want to do work once the activity itself is
+     * created, see {@link #onActivityCreated(Bundle)}.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         delegate.onCreate(savedInstanceState);
@@ -346,6 +503,11 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
         return delegate.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    public Animation onCreateAnimation__super(final int transit, final boolean enter,
+            final int nextAnim) {
+        return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
     /**
@@ -369,6 +531,11 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     public void onCreateContextMenu(final ContextMenu menu, final View v,
             final ContextMenu.ContextMenuInfo menuInfo) {
         delegate.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    public void onCreateContextMenu__super(final ContextMenu menu, final View v,
+            final ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
     }
 
     /**
@@ -398,6 +565,11 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.onCreateDialog(savedInstanceState);
     }
 
+    @NonNull
+    public Dialog onCreateDialog__super(final Bundle savedInstanceState) {
+        return super.onCreateDialog(savedInstanceState);
+    }
+
     /**
      * Initialize the contents of the Activity's standard options menu.  You
      * should place your menu items in to <var>menu</var>.  For this method
@@ -413,6 +585,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         delegate.onCreateOptionsMenu(menu, inflater);
+    }
+
+    public void onCreateOptionsMenu__super(final Menu menu, final MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     /**
@@ -441,6 +617,16 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Nullable
+    public View onCreateView__super(final LayoutInflater inflater,
+            @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    public void onCreate__super(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     /**
      * Called when the fragment is no longer in use.  This is called
      * after {@link #onStop()} and before {@link #onDetach()}.
@@ -462,22 +648,52 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.onDestroyOptionsMenu();
     }
 
+    public void onDestroyOptionsMenu__super() {
+        super.onDestroyOptionsMenu();
+    }
+
     /**
-     * Remove dialog.
+     * Called when the view previously created by {@link #onCreateView} has
+     * been detached from the fragment.  The next time the fragment needs
+     * to be displayed, a new view will be created.  This is called
+     * after {@link #onStop()} and before {@link #onDestroy()}.  It is called
+     * <em>regardless</em> of whether {@link #onCreateView} returned a
+     * non-null view.  Internally it is called after the view's state has
+     * been saved but before it has been removed from its parent.
      */
     @Override
     public void onDestroyView() {
         delegate.onDestroyView();
     }
 
+    public void onDestroyView__super() {
+        super.onDestroyView();
+    }
+
+    public void onDestroy__super() {
+        super.onDestroy();
+    }
+
+    /**
+     * Called when the fragment is no longer attached to its activity.  This
+     * is called after {@link #onDestroy()}.
+     */
     @Override
     public void onDetach() {
         delegate.onDetach();
     }
 
+    public void onDetach__super() {
+        super.onDetach();
+    }
+
     @Override
     public void onDismiss(final DialogInterface dialog) {
         delegate.onDismiss(dialog);
+    }
+
+    public void onDismiss__super(final DialogInterface dialog) {
+        super.onDismiss(dialog);
     }
 
     /**
@@ -491,6 +707,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void onHiddenChanged(final boolean hidden) {
         delegate.onHiddenChanged(hidden);
+    }
+
+    public void onHiddenChanged__super(final boolean hidden) {
+        super.onHiddenChanged(hidden);
     }
 
     /**
@@ -551,9 +771,23 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.onInflate(activity, attrs, savedInstanceState);
     }
 
+    public void onInflate__super(final Context context, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
+        super.onInflate(context, attrs, savedInstanceState);
+    }
+
+    public void onInflate__super(final Activity activity, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
+        super.onInflate(activity, attrs, savedInstanceState);
+    }
+
     @Override
     public void onLowMemory() {
         delegate.onLowMemory();
+    }
+
+    public void onLowMemory__super() {
+        super.onLowMemory();
     }
 
     /**
@@ -577,6 +811,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         return delegate.onOptionsItemSelected(item);
     }
 
+    public boolean onOptionsItemSelected__super(final MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * This hook is called whenever the options menu is being closed (either by the user canceling
      * the menu with the back/menu button, or when an item is selected).
@@ -589,6 +827,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.onOptionsMenuClosed(menu);
     }
 
+    public void onOptionsMenuClosed__super(final Menu menu) {
+        super.onOptionsMenuClosed(menu);
+    }
+
     /**
      * Called when the Fragment is no longer resumed.  This is generally
      * tied to {@link Activity#onPause() Activity.onPause} of the containing
@@ -597,6 +839,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void onPause() {
         delegate.onPause();
+    }
+
+    public void onPause__super() {
+        super.onPause();
     }
 
     /**
@@ -615,6 +861,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void onPrepareOptionsMenu(final Menu menu) {
         delegate.onPrepareOptionsMenu(menu);
+    }
+
+    public void onPrepareOptionsMenu__super(final Menu menu) {
+        super.onPrepareOptionsMenu(menu);
     }
 
     /**
@@ -639,6 +889,11 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    public void onRequestPermissionsResult__super(final int requestCode,
+            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
     /**
      * Called when the fragment is visible to the user and actively running.
      * This is generally
@@ -650,19 +905,64 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.onResume();
     }
 
+    public void onResume__super() {
+        super.onResume();
+    }
+
+    /**
+     * Called to ask the fragment to save its current dynamic state, so it
+     * can later be reconstructed in a new instance of its process is
+     * restarted.  If a new instance of the fragment later needs to be
+     * created, the data you place in the Bundle here will be available
+     * in the Bundle given to {@link #onCreate(Bundle)},
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
+     * {@link #onActivityCreated(Bundle)}.
+     *
+     * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
+     * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
+     * applies here as well.  Note however: <em>this method may be called
+     * at any time before {@link #onDestroy()}</em>.  There are many situations
+     * where a fragment may be mostly torn down (such as when placed on the
+     * back stack with no UI showing), but its state will not be saved until
+     * its owning activity actually needs to save its state.
+     *
+     * @param outState Bundle in which to place your saved state.
+     */
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         delegate.onSaveInstanceState(outState);
     }
 
+    public void onSaveInstanceState__super(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    /**
+     * Called when the Fragment is visible to the user.  This is generally
+     * tied to {@link Activity#onStart() Activity.onStart} of the containing
+     * Activity's lifecycle.
+     */
     @Override
     public void onStart() {
         delegate.onStart();
     }
 
+    public void onStart__super() {
+        super.onStart();
+    }
+
+    /**
+     * Called when the Fragment is no longer started.  This is generally
+     * tied to {@link Activity#onStop() Activity.onStop} of the containing
+     * Activity's lifecycle.
+     */
     @Override
     public void onStop() {
         delegate.onStop();
+    }
+
+    public void onStop__super() {
+        super.onStop();
     }
 
     /**
@@ -681,6 +981,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.onViewCreated(view, savedInstanceState);
     }
 
+    public void onViewCreated__super(final View view, @Nullable final Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
     /**
      * Called when all saved state has been restored into the view hierarchy
      * of the fragment.  This can be used to do initialization based on saved
@@ -695,6 +999,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
         delegate.onViewStateRestored(savedInstanceState);
+    }
+
+    public void onViewStateRestored__super(@Nullable final Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
 
     /**
@@ -712,6 +1020,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.registerForContextMenu(view);
     }
 
+    public void registerForContextMenu__super(final View view) {
+        super.registerForContextMenu(view);
+    }
+
     /**
      * Sets whether the the exit transition and enter transition overlap or not.
      * When true, the enter transition will start as soon as possible. When false, the
@@ -723,6 +1035,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void setAllowEnterTransitionOverlap(final boolean allow) {
         delegate.setAllowEnterTransitionOverlap(allow);
+    }
+
+    public void setAllowEnterTransitionOverlap__super(final boolean allow) {
+        super.setAllowEnterTransitionOverlap(allow);
     }
 
     /**
@@ -738,6 +1054,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.setAllowReturnTransitionOverlap(allow);
     }
 
+    public void setAllowReturnTransitionOverlap__super(final boolean allow) {
+        super.setAllowReturnTransitionOverlap(allow);
+    }
+
     /**
      * Supply the construction arguments for this fragment.  This can only
      * be called before the fragment has been attached to its activity; that
@@ -748,6 +1068,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void setArguments(final Bundle args) {
         delegate.setArguments(args);
+    }
+
+    public void setArguments__super(final Bundle args) {
+        super.setArguments(args);
     }
 
     /**
@@ -764,6 +1088,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.setCancelable(cancelable);
     }
 
+    public void setCancelable__super(final boolean cancelable) {
+        super.setCancelable(cancelable);
+    }
+
     /**
      * When custom transitions are used with Fragments, the enter transition callback
      * is called when this Fragment is attached or detached when not popping the back stack.
@@ -774,6 +1102,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void setEnterSharedElementCallback(final SharedElementCallback callback) {
         delegate.setEnterSharedElementCallback(callback);
+    }
+
+    public void setEnterSharedElementCallback__super(final SharedElementCallback callback) {
+        super.setEnterSharedElementCallback(callback);
     }
 
     /**
@@ -791,6 +1123,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.setEnterTransition(transition);
     }
 
+    public void setEnterTransition__super(final Object transition) {
+        super.setEnterTransition(transition);
+    }
+
     /**
      * When custom transitions are used with Fragments, the exit transition callback
      * is called when this Fragment is attached or detached when popping the back stack.
@@ -801,6 +1137,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void setExitSharedElementCallback(final SharedElementCallback callback) {
         delegate.setExitSharedElementCallback(callback);
+    }
+
+    public void setExitSharedElementCallback__super(final SharedElementCallback callback) {
+        super.setExitSharedElementCallback(callback);
     }
 
     /**
@@ -821,6 +1161,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.setExitTransition(transition);
     }
 
+    public void setExitTransition__super(final Object transition) {
+        super.setExitTransition(transition);
+    }
+
     /**
      * Report that this fragment would like to participate in populating
      * the options menu by receiving a call to {@link #onCreateOptionsMenu}
@@ -831,6 +1175,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void setHasOptionsMenu(final boolean hasMenu) {
         delegate.setHasOptionsMenu(hasMenu);
+    }
+
+    public void setHasOptionsMenu__super(final boolean hasMenu) {
+        super.setHasOptionsMenu(hasMenu);
     }
 
     /**
@@ -846,6 +1194,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.setInitialSavedState(state);
     }
 
+    public void setInitialSavedState__super(final Fragment.SavedState state) {
+        super.setInitialSavedState(state);
+    }
+
     /**
      * Set a hint for whether this fragment's menu should be visible.  This
      * is useful if you know that a fragment has been placed in your view
@@ -858,6 +1210,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void setMenuVisibility(final boolean menuVisible) {
         delegate.setMenuVisibility(menuVisible);
+    }
+
+    public void setMenuVisibility__super(final boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
     }
 
     /**
@@ -876,6 +1232,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void setReenterTransition(final Object transition) {
         delegate.setReenterTransition(transition);
+    }
+
+    public void setReenterTransition__super(final Object transition) {
+        super.setReenterTransition(transition);
     }
 
     /**
@@ -897,6 +1257,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.setRetainInstance(retain);
     }
 
+    public void setRetainInstance__super(final boolean retain) {
+        super.setRetainInstance(retain);
+    }
+
     /**
      * Sets the Transition that will be used to move Views out of the scene when the Fragment is
      * preparing to be removed, hidden, or detached because of popping the back stack. The exiting
@@ -916,6 +1280,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.setReturnTransition(transition);
     }
 
+    public void setReturnTransition__super(final Object transition) {
+        super.setReturnTransition(transition);
+    }
+
     /**
      * Sets the Transition that will be used for shared elements transferred into the content
      * Scene. Typical Transitions will affect size and location, such as
@@ -928,6 +1296,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void setSharedElementEnterTransition(final Object transition) {
         delegate.setSharedElementEnterTransition(transition);
+    }
+
+    public void setSharedElementEnterTransition__super(final Object transition) {
+        super.setSharedElementEnterTransition(transition);
     }
 
     /**
@@ -945,6 +1317,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void setSharedElementReturnTransition(final Object transition) {
         delegate.setSharedElementReturnTransition(transition);
+    }
+
+    public void setSharedElementReturnTransition__super(final Object transition) {
+        super.setSharedElementReturnTransition(transition);
     }
 
     /**
@@ -969,6 +1345,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.setShowsDialog(showsDialog);
     }
 
+    public void setShowsDialog__super(final boolean showsDialog) {
+        super.setShowsDialog(showsDialog);
+    }
+
     /**
      * Call to customize the basic appearance and behavior of the
      * fragment's dialog.  This can be used for some common dialog behaviors,
@@ -987,6 +1367,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.setStyle(style, theme);
     }
 
+    public void setStyle__super(final int style, @StyleRes final int theme) {
+        super.setStyle(style, theme);
+    }
+
     /**
      * Optional target for this fragment.  This may be used, for example,
      * if this fragment is being started by another, and when done wants to
@@ -1001,6 +1385,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public void setTargetFragment(final Fragment fragment, final int requestCode) {
         delegate.setTargetFragment(fragment, requestCode);
+    }
+
+    public void setTargetFragment__super(final Fragment fragment, final int requestCode) {
+        super.setTargetFragment(fragment, requestCode);
     }
 
     /**
@@ -1022,12 +1410,20 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.setUserVisibleHint(isVisibleToUser);
     }
 
+    public void setUserVisibleHint__super(final boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
     /**
      * @hide
      */
     @Override
     public void setupDialog(final Dialog dialog, final int style) {
         delegate.setupDialog(dialog, style);
+    }
+
+    public void setupDialog__super(final Dialog dialog, final int style) {
+        super.setupDialog(dialog, style);
     }
 
     /**
@@ -1052,6 +1448,10 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
         return delegate.shouldShowRequestPermissionRationale(permission);
+    }
+
+    public boolean shouldShowRequestPermissionRationale__super(@NonNull final String permission) {
+        return super.shouldShowRequestPermissionRationale(permission);
     }
 
     /**
@@ -1084,6 +1484,14 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
     @Override
     public int show(final FragmentTransaction transaction, final String tag) {
         return delegate.show(transaction, tag);
+    }
+
+    public void show__super(final FragmentManager manager, final String tag) {
+        super.show(manager, tag);
+    }
+
+    public int show__super(final FragmentTransaction transaction, final String tag) {
+        return super.show(transaction, tag);
     }
 
     /**
@@ -1123,9 +1531,30 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.startActivityForResult(intent, requestCode, options);
     }
 
+    public void startActivityForResult__super(final Intent intent, final int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+    }
+
+    public void startActivityForResult__super(final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
+        super.startActivityForResult(intent, requestCode, options);
+    }
+
+    public void startActivity__super(final Intent intent) {
+        super.startActivity(intent);
+    }
+
+    public void startActivity__super(final Intent intent, @Nullable final Bundle options) {
+        super.startActivity(intent, options);
+    }
+
     @Override
     public String toString() {
         return delegate.toString();
+    }
+
+    public String toString__super() {
+        return super.toString();
     }
 
     /**
@@ -1140,354 +1569,7 @@ public class CompositeDialogFragment extends CompositeDialogFragmentBase {
         delegate.unregisterForContextMenu(view);
     }
 
-    protected void dismissAllowingStateLoss__super() {
-        super.dismissAllowingStateLoss();
-    }
-
-    protected void dismiss__super() {
-        super.dismiss();
-    }
-
-    protected void dump__super(final String prefix, final FileDescriptor fd,
-            final PrintWriter writer, final String[] args) {
-        super.dump(prefix, fd, writer, args);
-    }
-
-    protected boolean getAllowEnterTransitionOverlap__super() {
-        return super.getAllowEnterTransitionOverlap();
-    }
-
-    protected boolean getAllowReturnTransitionOverlap__super() {
-        return super.getAllowReturnTransitionOverlap();
-    }
-
-    protected Context getContext__super() {
-        return super.getContext();
-    }
-
-    protected Dialog getDialog__super() {
-        return super.getDialog();
-    }
-
-    protected Object getEnterTransition__super() {
-        return super.getEnterTransition();
-    }
-
-    protected Object getExitTransition__super() {
-        return super.getExitTransition();
-    }
-
-    protected LayoutInflater getLayoutInflater__super(final Bundle savedInstanceState) {
-        return super.getLayoutInflater(savedInstanceState);
-    }
-
-    protected LoaderManager getLoaderManager__super() {
-        return super.getLoaderManager();
-    }
-
-    protected Object getReenterTransition__super() {
-        return super.getReenterTransition();
-    }
-
-    protected Object getReturnTransition__super() {
-        return super.getReturnTransition();
-    }
-
-    protected Object getSharedElementEnterTransition__super() {
-        return super.getSharedElementEnterTransition();
-    }
-
-    protected Object getSharedElementReturnTransition__super() {
-        return super.getSharedElementReturnTransition();
-    }
-
-    protected boolean getShowsDialog__super() {
-        return super.getShowsDialog();
-    }
-
-    protected int getTheme__super() {
-        return super.getTheme();
-    }
-
-    protected boolean getUserVisibleHint__super() {
-        return super.getUserVisibleHint();
-    }
-
-    @Nullable
-    protected View getView__super() {
-        return super.getView();
-    }
-
-    protected boolean isCancelable__super() {
-        return super.isCancelable();
-    }
-
-    protected void onActivityCreated__super(final Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    protected void onActivityResult__super(final int requestCode, final int resultCode,
-            final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    protected void onAttach__super(final Activity activity) {
-        super.onAttach(activity);
-    }
-
-    protected void onAttach__super(final Context context) {
-        super.onAttach(context);
-    }
-
-    protected void onCancel__super(final DialogInterface dialog) {
-        super.onCancel(dialog);
-    }
-
-    protected void onConfigurationChanged__super(final Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
-    protected boolean onContextItemSelected__super(final MenuItem item) {
-        return super.onContextItemSelected(item);
-    }
-
-    protected Animation onCreateAnimation__super(final int transit, final boolean enter,
-            final int nextAnim) {
-        return super.onCreateAnimation(transit, enter, nextAnim);
-    }
-
-    protected void onCreateContextMenu__super(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-    }
-
-    @NonNull
-    protected Dialog onCreateDialog__super(final Bundle savedInstanceState) {
-        return super.onCreateDialog(savedInstanceState);
-    }
-
-    protected void onCreateOptionsMenu__super(final Menu menu, final MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Nullable
-    protected View onCreateView__super(final LayoutInflater inflater,
-            @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    protected void onCreate__super(@Nullable final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    protected void onDestroyOptionsMenu__super() {
-        super.onDestroyOptionsMenu();
-    }
-
-    protected void onDestroyView__super() {
-        super.onDestroyView();
-    }
-
-    protected void onDestroy__super() {
-        super.onDestroy();
-    }
-
-    protected void onDetach__super() {
-        super.onDetach();
-    }
-
-    protected void onDismiss__super(final DialogInterface dialog) {
-        super.onDismiss(dialog);
-    }
-
-    protected void onHiddenChanged__super(final boolean hidden) {
-        super.onHiddenChanged(hidden);
-    }
-
-    protected void onInflate__super(final Context context, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
-        super.onInflate(context, attrs, savedInstanceState);
-    }
-
-    protected void onInflate__super(final Activity activity, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
-        super.onInflate(activity, attrs, savedInstanceState);
-    }
-
-    protected void onLowMemory__super() {
-        super.onLowMemory();
-    }
-
-    protected boolean onOptionsItemSelected__super(final MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
-    protected void onOptionsMenuClosed__super(final Menu menu) {
-        super.onOptionsMenuClosed(menu);
-    }
-
-    protected void onPause__super() {
-        super.onPause();
-    }
-
-    protected void onPrepareOptionsMenu__super(final Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-    }
-
-    protected void onRequestPermissionsResult__super(final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    protected void onResume__super() {
-        super.onResume();
-    }
-
-    protected void onSaveInstanceState__super(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    protected void onStart__super() {
-        super.onStart();
-    }
-
-    protected void onStop__super() {
-        super.onStop();
-    }
-
-    protected void onViewCreated__super(final View view,
-            @Nullable final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    protected void onViewStateRestored__super(@Nullable final Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-    }
-
-    protected void registerForContextMenu__super(final View view) {
-        super.registerForContextMenu(view);
-    }
-
-    protected void setAllowEnterTransitionOverlap__super(final boolean allow) {
-        super.setAllowEnterTransitionOverlap(allow);
-    }
-
-    protected void setAllowReturnTransitionOverlap__super(final boolean allow) {
-        super.setAllowReturnTransitionOverlap(allow);
-    }
-
-    protected void setArguments__super(final Bundle args) {
-        super.setArguments(args);
-    }
-
-    protected void setCancelable__super(final boolean cancelable) {
-        super.setCancelable(cancelable);
-    }
-
-    protected void setEnterSharedElementCallback__super(final SharedElementCallback callback) {
-        super.setEnterSharedElementCallback(callback);
-    }
-
-    protected void setEnterTransition__super(final Object transition) {
-        super.setEnterTransition(transition);
-    }
-
-    protected void setExitSharedElementCallback__super(final SharedElementCallback callback) {
-        super.setExitSharedElementCallback(callback);
-    }
-
-    protected void setExitTransition__super(final Object transition) {
-        super.setExitTransition(transition);
-    }
-
-    protected void setHasOptionsMenu__super(final boolean hasMenu) {
-        super.setHasOptionsMenu(hasMenu);
-    }
-
-    protected void setInitialSavedState__super(final Fragment.SavedState state) {
-        super.setInitialSavedState(state);
-    }
-
-    protected void setMenuVisibility__super(final boolean menuVisible) {
-        super.setMenuVisibility(menuVisible);
-    }
-
-    protected void setReenterTransition__super(final Object transition) {
-        super.setReenterTransition(transition);
-    }
-
-    protected void setRetainInstance__super(final boolean retain) {
-        super.setRetainInstance(retain);
-    }
-
-    protected void setReturnTransition__super(final Object transition) {
-        super.setReturnTransition(transition);
-    }
-
-    protected void setSharedElementEnterTransition__super(final Object transition) {
-        super.setSharedElementEnterTransition(transition);
-    }
-
-    protected void setSharedElementReturnTransition__super(final Object transition) {
-        super.setSharedElementReturnTransition(transition);
-    }
-
-    protected void setShowsDialog__super(final boolean showsDialog) {
-        super.setShowsDialog(showsDialog);
-    }
-
-    protected void setStyle__super(final int style, @StyleRes final int theme) {
-        super.setStyle(style, theme);
-    }
-
-    protected void setTargetFragment__super(final Fragment fragment, final int requestCode) {
-        super.setTargetFragment(fragment, requestCode);
-    }
-
-    protected void setUserVisibleHint__super(final boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-    }
-
-    protected void setupDialog__super(final Dialog dialog, final int style) {
-        super.setupDialog(dialog, style);
-    }
-
-    protected boolean shouldShowRequestPermissionRationale__super(
-            @NonNull final String permission) {
-        return super.shouldShowRequestPermissionRationale(permission);
-    }
-
-    protected void show__super(final FragmentManager manager, final String tag) {
-        super.show(manager, tag);
-    }
-
-    protected int show__super(final FragmentTransaction transaction, final String tag) {
-        return super.show(transaction, tag);
-    }
-
-    protected void startActivityForResult__super(final Intent intent, final int requestCode) {
-        super.startActivityForResult(intent, requestCode);
-    }
-
-    protected void startActivityForResult__super(final Intent intent, final int requestCode,
-            @Nullable final Bundle options) {
-        super.startActivityForResult(intent, requestCode, options);
-    }
-
-    protected void startActivity__super(final Intent intent) {
-        super.startActivity(intent);
-    }
-
-    protected void startActivity__super(final Intent intent, @Nullable final Bundle options) {
-        super.startActivity(intent, options);
-    }
-
-    protected String toString__super() {
-        return super.toString();
-    }
-
-    protected void unregisterForContextMenu__super(final View view) {
+    public void unregisterForContextMenu__super(final View view) {
         super.unregisterForContextMenu(view);
     }
-
 }
