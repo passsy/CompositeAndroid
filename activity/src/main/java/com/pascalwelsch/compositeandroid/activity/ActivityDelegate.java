@@ -91,6 +91,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
     }
 
+
     public void addContentView(final View view, final ViewGroup.LayoutParams params) {
         callHook("addContentView(View, ViewGroup.LayoutParams)",
                 new PluginCallVoid<ActivityPlugin>() {
@@ -437,7 +438,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 }, packageName, flags);
     }
 
-    public PendingIntent createPendingResult(final int requestCode, @NonNull final Intent data,
+    public PendingIntent createPendingResult(final int requestCode, final Intent data,
             final int flags) {
         return callFunction("createPendingResult(int, Intent, int)",
                 new PluginCall<ActivityPlugin, PendingIntent>() {
@@ -837,7 +838,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         }, requestCode);
     }
 
-    public void finishActivityFromChild(@NonNull final Activity child, final int requestCode) {
+    public void finishActivityFromChild(final Activity child, final int requestCode) {
         callHook("finishActivityFromChild(Activity, int)", new PluginCallVoid<ActivityPlugin>() {
             @Override
             public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
@@ -1820,7 +1821,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 });
     }
 
-    public Object getSystemService(@NonNull final String name) {
+    public Object getSystemService(final String name) {
         return callFunction("getSystemService(String)", new PluginCall<ActivityPlugin, Object>() {
             @Override
             public Object call(final NamedSuperCall<Object> superCall, final ActivityPlugin plugin,
@@ -2458,21 +2459,6 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         }, menu);
     }
 
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
-        callHook("onCreate(Bundle)", new PluginCallVoid<ActivityPlugin>() {
-            @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onCreate(superCall, (Bundle) args[0]);
-            }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().onCreate__super((Bundle) args[0]);
-            }
-        }, savedInstanceState);
-    }
-
     public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
         callHook("onCreate(Bundle, PersistableBundle)", new PluginCallVoid<ActivityPlugin>() {
             @Override
@@ -2486,6 +2472,21 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 getOriginal().onCreate__super((Bundle) args[0], (PersistableBundle) args[1]);
             }
         }, savedInstanceState, persistentState);
+    }
+
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
+        callHook("onCreate(Bundle)", new PluginCallVoid<ActivityPlugin>() {
+            @Override
+            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onCreate(superCall, (Bundle) args[0]);
+            }
+        }, new SuperCallVoid() {
+            @Override
+            public void call(final Object... args) {
+                getOriginal().onCreate__super((Bundle) args[0]);
+            }
+        }, savedInstanceState);
     }
 
     public void onCreateContextMenu(final ContextMenu menu, final View v,
@@ -3012,21 +3013,6 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         });
     }
 
-    public void onPostCreate(@Nullable final Bundle savedInstanceState) {
-        callHook("onPostCreate(Bundle)", new PluginCallVoid<ActivityPlugin>() {
-            @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onPostCreate(superCall, (Bundle) args[0]);
-            }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().onPostCreate__super((Bundle) args[0]);
-            }
-        }, savedInstanceState);
-    }
-
     public void onPostCreate(final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
         callHook("onPostCreate(Bundle, PersistableBundle)", new PluginCallVoid<ActivityPlugin>() {
@@ -3041,6 +3027,21 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 getOriginal().onPostCreate__super((Bundle) args[0], (PersistableBundle) args[1]);
             }
         }, savedInstanceState, persistentState);
+    }
+
+    public void onPostCreate(@Nullable final Bundle savedInstanceState) {
+        callHook("onPostCreate(Bundle)", new PluginCallVoid<ActivityPlugin>() {
+            @Override
+            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onPostCreate(superCall, (Bundle) args[0]);
+            }
+        }, new SuperCallVoid() {
+            @Override
+            public void call(final Object... args) {
+                getOriginal().onPostCreate__super((Bundle) args[0]);
+            }
+        }, savedInstanceState);
     }
 
     public void onPostResume() {
@@ -3265,21 +3266,6 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         });
     }
 
-    public void onRestoreInstanceState(final Bundle savedInstanceState) {
-        callHook("onRestoreInstanceState(Bundle)", new PluginCallVoid<ActivityPlugin>() {
-            @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onRestoreInstanceState(superCall, (Bundle) args[0]);
-            }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().onRestoreInstanceState__super((Bundle) args[0]);
-            }
-        }, savedInstanceState);
-    }
-
     public void onRestoreInstanceState(final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
         callHook("onRestoreInstanceState(Bundle, PersistableBundle)",
@@ -3297,6 +3283,21 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                                 (PersistableBundle) args[1]);
                     }
                 }, savedInstanceState, persistentState);
+    }
+
+    public void onRestoreInstanceState(final Bundle savedInstanceState) {
+        callHook("onRestoreInstanceState(Bundle)", new PluginCallVoid<ActivityPlugin>() {
+            @Override
+            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onRestoreInstanceState(superCall, (Bundle) args[0]);
+            }
+        }, new SuperCallVoid() {
+            @Override
+            public void call(final Object... args) {
+                getOriginal().onRestoreInstanceState__super((Bundle) args[0]);
+            }
+        }, savedInstanceState);
     }
 
     public void onResume() {
@@ -3342,21 +3343,6 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return all;
     }
 
-    public void onSaveInstanceState(final Bundle outState) {
-        callHook("onSaveInstanceState(Bundle)", new PluginCallVoid<ActivityPlugin>() {
-            @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onSaveInstanceState(superCall, (Bundle) args[0]);
-            }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().onSaveInstanceState__super((Bundle) args[0]);
-            }
-        }, outState);
-    }
-
     public void onSaveInstanceState(final Bundle outState,
             final PersistableBundle outPersistentState) {
         callHook("onSaveInstanceState(Bundle, PersistableBundle)",
@@ -3374,6 +3360,21 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                                 (PersistableBundle) args[1]);
                     }
                 }, outState, outPersistentState);
+    }
+
+    public void onSaveInstanceState(final Bundle outState) {
+        callHook("onSaveInstanceState(Bundle)", new PluginCallVoid<ActivityPlugin>() {
+            @Override
+            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
+                    final Object... args) {
+                plugin.onSaveInstanceState(superCall, (Bundle) args[0]);
+            }
+        }, new SuperCallVoid() {
+            @Override
+            public void call(final Object... args) {
+                getOriginal().onSaveInstanceState__super((Bundle) args[0]);
+            }
+        }, outState);
     }
 
     public boolean onSearchRequested(final SearchEvent searchEvent) {
@@ -4737,7 +4738,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         }, data);
     }
 
-    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
+    public boolean shouldShowRequestPermissionRationale(final String permission) {
         return callFunction("shouldShowRequestPermissionRationale(String)",
                 new PluginCall<ActivityPlugin, Boolean>() {
                     @Override
@@ -4946,7 +4947,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 }, intent, requestCode, options);
     }
 
-    public void startActivityFromChild(@NonNull final Activity child, final Intent intent,
+    public void startActivityFromChild(final Activity child, final Intent intent,
             final int requestCode) {
         callHook("startActivityFromChild(Activity, Intent, int)",
                 new PluginCallVoid<ActivityPlugin>() {
@@ -4966,7 +4967,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 }, child, intent, requestCode);
     }
 
-    public void startActivityFromChild(@NonNull final Activity child, final Intent intent,
+    public void startActivityFromChild(final Activity child, final Intent intent,
             final int requestCode, final Bundle options) {
         callHook("startActivityFromChild(Activity, Intent, int, Bundle)",
                 new PluginCallVoid<ActivityPlugin>() {
@@ -5024,8 +5025,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 }, fragment, intent, requestCode, options);
     }
 
-    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode) {
+    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
+            final int requestCode) {
         callHook("startActivityFromFragment(android.app.Fragment, Intent, int)",
                 new PluginCallVoid<ActivityPlugin>() {
                     @Override
@@ -5044,8 +5045,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 }, fragment, intent, requestCode);
     }
 
-    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode, final Bundle options) {
+    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
+            final int requestCode, final Bundle options) {
         callHook("startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)",
                 new PluginCallVoid<ActivityPlugin>() {
                     @Override
@@ -5064,7 +5065,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 }, fragment, intent, requestCode, options);
     }
 
-    public boolean startActivityIfNeeded(@NonNull final Intent intent, final int requestCode) {
+    public boolean startActivityIfNeeded(final Intent intent, final int requestCode) {
         return callFunction("startActivityIfNeeded(Intent, int)",
                 new PluginCall<ActivityPlugin, Boolean>() {
                     @Override
@@ -5084,7 +5085,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 }, intent, requestCode);
     }
 
-    public boolean startActivityIfNeeded(@NonNull final Intent intent, final int requestCode,
+    public boolean startActivityIfNeeded(final Intent intent, final int requestCode,
             final Bundle options) {
         return callFunction("startActivityIfNeeded(Intent, int, Bundle)",
                 new PluginCall<ActivityPlugin, Boolean>() {
@@ -5339,7 +5340,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         }, c);
     }
 
-    public boolean startNextMatchingActivity(@NonNull final Intent intent) {
+    public boolean startNextMatchingActivity(final Intent intent) {
         return callFunction("startNextMatchingActivity(Intent)",
                 new PluginCall<ActivityPlugin, Boolean>() {
                     @Override
@@ -5357,7 +5358,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 }, intent);
     }
 
-    public boolean startNextMatchingActivity(@NonNull final Intent intent, final Bundle options) {
+    public boolean startNextMatchingActivity(final Intent intent, final Bundle options) {
         return callFunction("startNextMatchingActivity(Intent, Bundle)",
                 new PluginCall<ActivityPlugin, Boolean>() {
                     @Override

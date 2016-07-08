@@ -177,7 +177,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         return (Context) mSuperListeners.pop().call(packageName, flags);
     }
 
-    public PendingIntent createPendingResult(final int requestCode, @NonNull final Intent data,
+    public PendingIntent createPendingResult(final int requestCode, final Intent data,
             final int flags) {
         verifyMethodCalledFromDelegate("createPendingResult(int, Intent, int)");
         return (PendingIntent) mSuperListeners.pop().call(requestCode, data, flags);
@@ -297,7 +297,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         mSuperListeners.pop().call(requestCode);
     }
 
-    public void finishActivityFromChild(@NonNull final Activity child, final int requestCode) {
+    public void finishActivityFromChild(final Activity child, final int requestCode) {
         verifyMethodCalledFromDelegate("finishActivityFromChild(Activity, int)");
         mSuperListeners.pop().call(child, requestCode);
     }
@@ -581,7 +581,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         return (Intent) mSuperListeners.pop().call();
     }
 
-    public Object getSystemService(@NonNull final String name) {
+    public Object getSystemService(final String name) {
         verifyMethodCalledFromDelegate("getSystemService(String)");
         return (Object) mSuperListeners.pop().call(name);
     }
@@ -772,14 +772,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         mSuperListeners.pop().call(menu);
     }
 
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
-        verifyMethodCalledFromDelegate("onCreate(Bundle)");
-        mSuperListeners.pop().call(savedInstanceState);
-    }
-
     public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
         verifyMethodCalledFromDelegate("onCreate(Bundle, PersistableBundle)");
         mSuperListeners.pop().call(savedInstanceState, persistentState);
+    }
+
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
+        verifyMethodCalledFromDelegate("onCreate(Bundle)");
+        mSuperListeners.pop().call(savedInstanceState);
     }
 
     public void onCreateContextMenu(final ContextMenu menu, final View v,
@@ -937,15 +937,15 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         mSuperListeners.pop().call();
     }
 
-    public void onPostCreate(@Nullable final Bundle savedInstanceState) {
-        verifyMethodCalledFromDelegate("onPostCreate(Bundle)");
-        mSuperListeners.pop().call(savedInstanceState);
-    }
-
     public void onPostCreate(final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
         verifyMethodCalledFromDelegate("onPostCreate(Bundle, PersistableBundle)");
         mSuperListeners.pop().call(savedInstanceState, persistentState);
+    }
+
+    public void onPostCreate(@Nullable final Bundle savedInstanceState) {
+        verifyMethodCalledFromDelegate("onPostCreate(Bundle)");
+        mSuperListeners.pop().call(savedInstanceState);
     }
 
     public void onPostResume() {
@@ -1016,15 +1016,15 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         mSuperListeners.pop().call();
     }
 
-    public void onRestoreInstanceState(final Bundle savedInstanceState) {
-        verifyMethodCalledFromDelegate("onRestoreInstanceState(Bundle)");
-        mSuperListeners.pop().call(savedInstanceState);
-    }
-
     public void onRestoreInstanceState(final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
         verifyMethodCalledFromDelegate("onRestoreInstanceState(Bundle, PersistableBundle)");
         mSuperListeners.pop().call(savedInstanceState, persistentState);
+    }
+
+    public void onRestoreInstanceState(final Bundle savedInstanceState) {
+        verifyMethodCalledFromDelegate("onRestoreInstanceState(Bundle)");
+        mSuperListeners.pop().call(savedInstanceState);
     }
 
     public void onResume() {
@@ -1041,15 +1041,15 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         return null;
     }
 
-    public void onSaveInstanceState(final Bundle outState) {
-        verifyMethodCalledFromDelegate("onSaveInstanceState(Bundle)");
-        mSuperListeners.pop().call(outState);
-    }
-
     public void onSaveInstanceState(final Bundle outState,
             final PersistableBundle outPersistentState) {
         verifyMethodCalledFromDelegate("onSaveInstanceState(Bundle, PersistableBundle)");
         mSuperListeners.pop().call(outState, outPersistentState);
+    }
+
+    public void onSaveInstanceState(final Bundle outState) {
+        verifyMethodCalledFromDelegate("onSaveInstanceState(Bundle)");
+        mSuperListeners.pop().call(outState);
     }
 
     public boolean onSearchRequested(final SearchEvent searchEvent) {
@@ -1478,7 +1478,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         mSuperListeners.pop().call(data);
     }
 
-    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
+    public boolean shouldShowRequestPermissionRationale(final String permission) {
         verifyMethodCalledFromDelegate("shouldShowRequestPermissionRationale(String)");
         return (Boolean) mSuperListeners.pop().call(permission);
     }
@@ -1541,13 +1541,13 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         mSuperListeners.pop().call(intent, requestCode, options);
     }
 
-    public void startActivityFromChild(@NonNull final Activity child, final Intent intent,
+    public void startActivityFromChild(final Activity child, final Intent intent,
             final int requestCode) {
         verifyMethodCalledFromDelegate("startActivityFromChild(Activity, Intent, int)");
         mSuperListeners.pop().call(child, intent, requestCode);
     }
 
-    public void startActivityFromChild(@NonNull final Activity child, final Intent intent,
+    public void startActivityFromChild(final Activity child, final Intent intent,
             final int requestCode, final Bundle options) {
         verifyMethodCalledFromDelegate("startActivityFromChild(Activity, Intent, int, Bundle)");
         mSuperListeners.pop().call(child, intent, requestCode, options);
@@ -1565,26 +1565,26 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         mSuperListeners.pop().call(fragment, intent, requestCode, options);
     }
 
-    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode) {
+    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
+            final int requestCode) {
         verifyMethodCalledFromDelegate(
                 "startActivityFromFragment(android.app.Fragment, Intent, int)");
         mSuperListeners.pop().call(fragment, intent, requestCode);
     }
 
-    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
-            final Intent intent, final int requestCode, final Bundle options) {
+    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
+            final int requestCode, final Bundle options) {
         verifyMethodCalledFromDelegate(
                 "startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)");
         mSuperListeners.pop().call(fragment, intent, requestCode, options);
     }
 
-    public boolean startActivityIfNeeded(@NonNull final Intent intent, final int requestCode) {
+    public boolean startActivityIfNeeded(final Intent intent, final int requestCode) {
         verifyMethodCalledFromDelegate("startActivityIfNeeded(Intent, int)");
         return (Boolean) mSuperListeners.pop().call(intent, requestCode);
     }
 
-    public boolean startActivityIfNeeded(@NonNull final Intent intent, final int requestCode,
+    public boolean startActivityIfNeeded(final Intent intent, final int requestCode,
             final Bundle options) {
         verifyMethodCalledFromDelegate("startActivityIfNeeded(Intent, int, Bundle)");
         return (Boolean) mSuperListeners.pop().call(intent, requestCode, options);
@@ -1661,12 +1661,12 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         mSuperListeners.pop().call(c);
     }
 
-    public boolean startNextMatchingActivity(@NonNull final Intent intent) {
+    public boolean startNextMatchingActivity(final Intent intent) {
         verifyMethodCalledFromDelegate("startNextMatchingActivity(Intent)");
         return (Boolean) mSuperListeners.pop().call(intent);
     }
 
-    public boolean startNextMatchingActivity(@NonNull final Intent intent, final Bundle options) {
+    public boolean startNextMatchingActivity(final Intent intent, final Bundle options) {
         verifyMethodCalledFromDelegate("startNextMatchingActivity(Intent, Bundle)");
         return (Boolean) mSuperListeners.pop().call(intent, options);
     }
@@ -1911,7 +1911,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     PendingIntent createPendingResult(final NamedSuperCall<PendingIntent> superCall,
-            final int requestCode, @NonNull final Intent data, final int flags) {
+            final int requestCode, final Intent data, final int flags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return createPendingResult(requestCode, data, flags);
@@ -2078,8 +2078,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void finishActivityFromChild(final NamedSuperCall<Void> superCall,
-            @NonNull final Activity child, final int requestCode) {
+    void finishActivityFromChild(final NamedSuperCall<Void> superCall, final Activity child,
+            final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishActivityFromChild(child, requestCode);
@@ -2477,7 +2477,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    Object getSystemService(final NamedSuperCall<Object> superCall, @NonNull final String name) {
+    Object getSystemService(final NamedSuperCall<Object> superCall, final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSystemService(name);
@@ -2754,18 +2754,18 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onCreate(final NamedSuperCall<Void> superCall, @Nullable final Bundle savedInstanceState) {
-        synchronized (mSuperListeners) {
-            mSuperListeners.push(superCall);
-            onCreate(savedInstanceState);
-        }
-    }
-
     void onCreate(final NamedSuperCall<Void> superCall, final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onCreate(savedInstanceState, persistentState);
+        }
+    }
+
+    void onCreate(final NamedSuperCall<Void> superCall, @Nullable final Bundle savedInstanceState) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onCreate(savedInstanceState);
         }
     }
 
@@ -2992,19 +2992,19 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onPostCreate(final NamedSuperCall<Void> superCall,
-            @Nullable final Bundle savedInstanceState) {
-        synchronized (mSuperListeners) {
-            mSuperListeners.push(superCall);
-            onPostCreate(savedInstanceState);
-        }
-    }
-
     void onPostCreate(final NamedSuperCall<Void> superCall, final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPostCreate(savedInstanceState, persistentState);
+        }
+    }
+
+    void onPostCreate(final NamedSuperCall<Void> superCall,
+            @Nullable final Bundle savedInstanceState) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onPostCreate(savedInstanceState);
         }
     }
 
@@ -3107,18 +3107,18 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void onRestoreInstanceState(final NamedSuperCall<Void> superCall,
-            final Bundle savedInstanceState) {
-        synchronized (mSuperListeners) {
-            mSuperListeners.push(superCall);
-            onRestoreInstanceState(savedInstanceState);
-        }
-    }
-
-    void onRestoreInstanceState(final NamedSuperCall<Void> superCall,
             final Bundle savedInstanceState, final PersistableBundle persistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onRestoreInstanceState(savedInstanceState, persistentState);
+        }
+    }
+
+    void onRestoreInstanceState(final NamedSuperCall<Void> superCall,
+            final Bundle savedInstanceState) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onRestoreInstanceState(savedInstanceState);
         }
     }
 
@@ -3136,18 +3136,18 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onSaveInstanceState(final NamedSuperCall<Void> superCall, final Bundle outState) {
-        synchronized (mSuperListeners) {
-            mSuperListeners.push(superCall);
-            onSaveInstanceState(outState);
-        }
-    }
-
     void onSaveInstanceState(final NamedSuperCall<Void> superCall, final Bundle outState,
             final PersistableBundle outPersistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onSaveInstanceState(outState, outPersistentState);
+        }
+    }
+
+    void onSaveInstanceState(final NamedSuperCall<Void> superCall, final Bundle outState) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onSaveInstanceState(outState);
         }
     }
 
@@ -3753,7 +3753,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     boolean shouldShowRequestPermissionRationale(final NamedSuperCall<Boolean> superCall,
-            @NonNull final String permission) {
+            final String permission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return shouldShowRequestPermissionRationale(permission);
@@ -3844,7 +3844,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startActivityFromChild(final NamedSuperCall<Void> superCall, @NonNull final Activity child,
+    void startActivityFromChild(final NamedSuperCall<Void> superCall, final Activity child,
             final Intent intent, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3852,7 +3852,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startActivityFromChild(final NamedSuperCall<Void> superCall, @NonNull final Activity child,
+    void startActivityFromChild(final NamedSuperCall<Void> superCall, final Activity child,
             final Intent intent, final int requestCode, final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3877,8 +3877,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void startActivityFromFragment(final NamedSuperCall<Void> superCall,
-            @NonNull final android.app.Fragment fragment, final Intent intent,
-            final int requestCode) {
+            final android.app.Fragment fragment, final Intent intent, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromFragment(fragment, intent, requestCode);
@@ -3886,24 +3885,24 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void startActivityFromFragment(final NamedSuperCall<Void> superCall,
-            @NonNull final android.app.Fragment fragment, final Intent intent,
-            final int requestCode, final Bundle options) {
+            final android.app.Fragment fragment, final Intent intent, final int requestCode,
+            final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromFragment(fragment, intent, requestCode, options);
         }
     }
 
-    boolean startActivityIfNeeded(final NamedSuperCall<Boolean> superCall,
-            @NonNull final Intent intent, final int requestCode) {
+    boolean startActivityIfNeeded(final NamedSuperCall<Boolean> superCall, final Intent intent,
+            final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startActivityIfNeeded(intent, requestCode);
         }
     }
 
-    boolean startActivityIfNeeded(final NamedSuperCall<Boolean> superCall,
-            @NonNull final Intent intent, final int requestCode, final Bundle options) {
+    boolean startActivityIfNeeded(final NamedSuperCall<Boolean> superCall, final Intent intent,
+            final int requestCode, final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startActivityIfNeeded(intent, requestCode, options);
@@ -3994,15 +3993,15 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     boolean startNextMatchingActivity(final NamedSuperCall<Boolean> superCall,
-            @NonNull final Intent intent) {
+            final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startNextMatchingActivity(intent);
         }
     }
 
-    boolean startNextMatchingActivity(final NamedSuperCall<Boolean> superCall,
-            @NonNull final Intent intent, final Bundle options) {
+    boolean startNextMatchingActivity(final NamedSuperCall<Boolean> superCall, final Intent intent,
+            final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startNextMatchingActivity(intent, options);
