@@ -52,7 +52,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getOriginal().dump__super((String) args[0], (FileDescriptor) args[1],
+                        getOriginal().super_dump((String) args[0], (FileDescriptor) args[1],
                                 (PrintWriter) args[2], (String[]) args[3]);
                     }
                 }, prefix, fd, writer, args);
@@ -72,7 +72,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getOriginal().getAllowEnterTransitionOverlap__super();
+                        return getOriginal().super_getAllowEnterTransitionOverlap();
                     }
                 });
     }
@@ -91,7 +91,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getOriginal().getAllowReturnTransitionOverlap__super();
+                        return getOriginal().super_getAllowReturnTransitionOverlap();
                     }
                 });
     }
@@ -109,7 +109,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCall<Context>() {
             @Override
             public Context call(final Object... args) {
-                return getOriginal().getContext__super();
+                return getOriginal().super_getContext();
             }
         });
     }
@@ -127,7 +127,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCall<Object>() {
             @Override
             public Object call(final Object... args) {
-                return getOriginal().getEnterTransition__super();
+                return getOriginal().super_getEnterTransition();
             }
         });
     }
@@ -145,7 +145,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCall<Object>() {
             @Override
             public Object call(final Object... args) {
-                return getOriginal().getExitTransition__super();
+                return getOriginal().super_getExitTransition();
             }
         });
     }
@@ -164,7 +164,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCall<LayoutInflater>() {
                     @Override
                     public LayoutInflater call(final Object... args) {
-                        return getOriginal().getLayoutInflater__super((Bundle) args[0]);
+                        return getOriginal().super_getLayoutInflater((Bundle) args[0]);
                     }
                 }, savedInstanceState);
     }
@@ -182,7 +182,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCall<LoaderManager>() {
             @Override
             public LoaderManager call(final Object... args) {
-                return getOriginal().getLoaderManager__super();
+                return getOriginal().super_getLoaderManager();
             }
         });
     }
@@ -200,7 +200,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCall<Object>() {
             @Override
             public Object call(final Object... args) {
-                return getOriginal().getReenterTransition__super();
+                return getOriginal().super_getReenterTransition();
             }
         });
     }
@@ -218,7 +218,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCall<Object>() {
             @Override
             public Object call(final Object... args) {
-                return getOriginal().getReturnTransition__super();
+                return getOriginal().super_getReturnTransition();
             }
         });
     }
@@ -237,7 +237,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCall<Object>() {
                     @Override
                     public Object call(final Object... args) {
-                        return getOriginal().getSharedElementEnterTransition__super();
+                        return getOriginal().super_getSharedElementEnterTransition();
                     }
                 });
     }
@@ -256,7 +256,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCall<Object>() {
                     @Override
                     public Object call(final Object... args) {
-                        return getOriginal().getSharedElementReturnTransition__super();
+                        return getOriginal().super_getSharedElementReturnTransition();
                     }
                 });
     }
@@ -274,7 +274,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().getUserVisibleHint__super();
+                return getOriginal().super_getUserVisibleHint();
             }
         });
     }
@@ -292,7 +292,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCall<View>() {
             @Override
             public View call(final Object... args) {
-                return getOriginal().getView__super();
+                return getOriginal().super_getView();
             }
         });
     }
@@ -307,7 +307,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onActivityCreated__super((Bundle) args[0]);
+                getOriginal().super_onActivityCreated((Bundle) args[0]);
             }
         }, savedInstanceState);
     }
@@ -323,7 +323,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
             @Override
             public void call(final Object... args) {
                 getOriginal()
-                        .onActivityResult__super((int) args[0], (int) args[1], (Intent) args[2]);
+                        .super_onActivityResult((int) args[0], (int) args[1], (Intent) args[2]);
             }
         }, requestCode, resultCode, data);
     }
@@ -338,7 +338,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onAttach__super((Context) args[0]);
+                getOriginal().super_onAttach((Context) args[0]);
             }
         }, context);
     }
@@ -353,7 +353,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onAttach__super((Activity) args[0]);
+                getOriginal().super_onAttach((Activity) args[0]);
             }
         }, activity);
     }
@@ -368,7 +368,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onConfigurationChanged__super((Configuration) args[0]);
+                getOriginal().super_onConfigurationChanged((Configuration) args[0]);
             }
         }, newConfig);
     }
@@ -387,7 +387,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getOriginal().onContextItemSelected__super((MenuItem) args[0]);
+                        return getOriginal().super_onContextItemSelected((MenuItem) args[0]);
                     }
                 }, item);
     }
@@ -402,7 +402,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onCreate__super((Bundle) args[0]);
+                getOriginal().super_onCreate((Bundle) args[0]);
             }
         }, savedInstanceState);
     }
@@ -423,7 +423,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                     @Override
                     public Animation call(final Object... args) {
                         return getOriginal()
-                                .onCreateAnimation__super((int) args[0], (boolean) args[1],
+                                .super_onCreateAnimation((int) args[0], (boolean) args[1],
                                         (int) args[2]);
                     }
                 }, transit, enter, nextAnim);
@@ -443,7 +443,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                     @Override
                     public void call(final Object... args) {
                         getOriginal()
-                                .onCreateContextMenu__super((ContextMenu) args[0], (View) args[1],
+                                .super_onCreateContextMenu((ContextMenu) args[0], (View) args[1],
                                         (ContextMenu.ContextMenuInfo) args[2]);
                     }
                 }, menu, v, menuInfo);
@@ -459,7 +459,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onCreateOptionsMenu__super((Menu) args[0], (MenuInflater) args[1]);
+                getOriginal().super_onCreateOptionsMenu((Menu) args[0], (MenuInflater) args[1]);
             }
         }, menu, inflater);
     }
@@ -481,7 +481,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                     @Override
                     public View call(final Object... args) {
                         return getOriginal()
-                                .onCreateView__super((LayoutInflater) args[0], (ViewGroup) args[1],
+                                .super_onCreateView((LayoutInflater) args[0], (ViewGroup) args[1],
                                         (Bundle) args[2]);
                     }
                 }, inflater, container, savedInstanceState);
@@ -497,7 +497,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onDestroy__super();
+                getOriginal().super_onDestroy();
             }
         });
     }
@@ -512,7 +512,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onDestroyOptionsMenu__super();
+                getOriginal().super_onDestroyOptionsMenu();
             }
         });
     }
@@ -527,7 +527,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onDestroyView__super();
+                getOriginal().super_onDestroyView();
             }
         });
     }
@@ -542,7 +542,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onDetach__super();
+                getOriginal().super_onDetach();
             }
         });
     }
@@ -557,7 +557,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onHiddenChanged__super((boolean) args[0]);
+                getOriginal().super_onHiddenChanged((boolean) args[0]);
             }
         }, hidden);
     }
@@ -574,7 +574,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onInflate__super((Context) args[0], (AttributeSet) args[1],
+                getOriginal().super_onInflate((Context) args[0], (AttributeSet) args[1],
                         (Bundle) args[2]);
             }
         }, context, attrs, savedInstanceState);
@@ -592,7 +592,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onInflate__super((Activity) args[0], (AttributeSet) args[1],
+                getOriginal().super_onInflate((Activity) args[0], (AttributeSet) args[1],
                         (Bundle) args[2]);
             }
         }, activity, attrs, savedInstanceState);
@@ -608,7 +608,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onLowMemory__super();
+                getOriginal().super_onLowMemory();
             }
         });
     }
@@ -627,7 +627,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCall<Boolean>() {
                     @Override
                     public Boolean call(final Object... args) {
-                        return getOriginal().onOptionsItemSelected__super((MenuItem) args[0]);
+                        return getOriginal().super_onOptionsItemSelected((MenuItem) args[0]);
                     }
                 }, item);
     }
@@ -642,7 +642,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onOptionsMenuClosed__super((Menu) args[0]);
+                getOriginal().super_onOptionsMenuClosed((Menu) args[0]);
             }
         }, menu);
     }
@@ -657,7 +657,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onPause__super();
+                getOriginal().super_onPause();
             }
         });
     }
@@ -672,7 +672,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onPrepareOptionsMenu__super((Menu) args[0]);
+                getOriginal().super_onPrepareOptionsMenu((Menu) args[0]);
             }
         }, menu);
     }
@@ -690,8 +690,9 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getOriginal().onRequestPermissionsResult__super((int) args[0],
-                                (String[]) args[1], (int[]) args[2]);
+                        getOriginal()
+                                .super_onRequestPermissionsResult((int) args[0], (String[]) args[1],
+                                        (int[]) args[2]);
                     }
                 }, requestCode, permissions, grantResults);
     }
@@ -706,7 +707,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onResume__super();
+                getOriginal().super_onResume();
             }
         });
     }
@@ -721,7 +722,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onSaveInstanceState__super((Bundle) args[0]);
+                getOriginal().super_onSaveInstanceState((Bundle) args[0]);
             }
         }, outState);
     }
@@ -736,7 +737,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onStart__super();
+                getOriginal().super_onStart();
             }
         });
     }
@@ -751,7 +752,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onStop__super();
+                getOriginal().super_onStop();
             }
         });
     }
@@ -766,7 +767,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onViewCreated__super((View) args[0], (Bundle) args[1]);
+                getOriginal().super_onViewCreated((View) args[0], (Bundle) args[1]);
             }
         }, view, savedInstanceState);
     }
@@ -781,7 +782,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onViewStateRestored__super((Bundle) args[0]);
+                getOriginal().super_onViewStateRestored((Bundle) args[0]);
             }
         }, savedInstanceState);
     }
@@ -796,7 +797,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().registerForContextMenu__super((View) args[0]);
+                getOriginal().super_registerForContextMenu((View) args[0]);
             }
         }, view);
     }
@@ -811,7 +812,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setAllowEnterTransitionOverlap__super((boolean) args[0]);
+                getOriginal().super_setAllowEnterTransitionOverlap((boolean) args[0]);
             }
         }, allow);
     }
@@ -826,7 +827,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setAllowReturnTransitionOverlap__super((boolean) args[0]);
+                getOriginal().super_setAllowReturnTransitionOverlap((boolean) args[0]);
             }
         }, allow);
     }
@@ -841,7 +842,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setArguments__super((Bundle) args[0]);
+                getOriginal().super_setArguments((Bundle) args[0]);
             }
         }, args);
     }
@@ -858,7 +859,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getOriginal().setEnterSharedElementCallback__super(
+                        getOriginal().super_setEnterSharedElementCallback(
                                 (SharedElementCallback) args[0]);
                     }
                 }, callback);
@@ -874,7 +875,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setEnterTransition__super((Object) args[0]);
+                getOriginal().super_setEnterTransition((Object) args[0]);
             }
         }, transition);
     }
@@ -891,7 +892,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getOriginal().setExitSharedElementCallback__super(
+                        getOriginal().super_setExitSharedElementCallback(
                                 (SharedElementCallback) args[0]);
                     }
                 }, callback);
@@ -907,7 +908,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setExitTransition__super((Object) args[0]);
+                getOriginal().super_setExitTransition((Object) args[0]);
             }
         }, transition);
     }
@@ -922,7 +923,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setHasOptionsMenu__super((boolean) args[0]);
+                getOriginal().super_setHasOptionsMenu((boolean) args[0]);
             }
         }, hasMenu);
     }
@@ -937,7 +938,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setInitialSavedState__super((Fragment.SavedState) args[0]);
+                getOriginal().super_setInitialSavedState((Fragment.SavedState) args[0]);
             }
         }, state);
     }
@@ -952,7 +953,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setMenuVisibility__super((boolean) args[0]);
+                getOriginal().super_setMenuVisibility((boolean) args[0]);
             }
         }, menuVisible);
     }
@@ -967,7 +968,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setReenterTransition__super((Object) args[0]);
+                getOriginal().super_setReenterTransition((Object) args[0]);
             }
         }, transition);
     }
@@ -982,7 +983,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setRetainInstance__super((boolean) args[0]);
+                getOriginal().super_setRetainInstance((boolean) args[0]);
             }
         }, retain);
     }
@@ -997,7 +998,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setReturnTransition__super((Object) args[0]);
+                getOriginal().super_setReturnTransition((Object) args[0]);
             }
         }, transition);
     }
@@ -1012,7 +1013,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setSharedElementEnterTransition__super((Object) args[0]);
+                getOriginal().super_setSharedElementEnterTransition((Object) args[0]);
             }
         }, transition);
     }
@@ -1027,7 +1028,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setSharedElementReturnTransition__super((Object) args[0]);
+                getOriginal().super_setSharedElementReturnTransition((Object) args[0]);
             }
         }, transition);
     }
@@ -1042,7 +1043,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setTargetFragment__super((Fragment) args[0], (int) args[1]);
+                getOriginal().super_setTargetFragment((Fragment) args[0], (int) args[1]);
             }
         }, fragment, requestCode);
     }
@@ -1057,7 +1058,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setUserVisibleHint__super((boolean) args[0]);
+                getOriginal().super_setUserVisibleHint((boolean) args[0]);
             }
         }, isVisibleToUser);
     }
@@ -1078,7 +1079,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                     @Override
                     public Boolean call(final Object... args) {
                         return getOriginal()
-                                .shouldShowRequestPermissionRationale__super((String) args[0]);
+                                .super_shouldShowRequestPermissionRationale((String) args[0]);
                     }
                 }, permission);
     }
@@ -1093,7 +1094,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().startActivity__super((Intent) args[0]);
+                getOriginal().super_startActivity((Intent) args[0]);
             }
         }, intent);
     }
@@ -1108,7 +1109,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().startActivity__super((Intent) args[0], (Bundle) args[1]);
+                getOriginal().super_startActivity((Intent) args[0], (Bundle) args[1]);
             }
         }, intent, options);
     }
@@ -1123,7 +1124,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().startActivityForResult__super((Intent) args[0], (int) args[1]);
+                getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1]);
             }
         }, intent, requestCode);
     }
@@ -1141,7 +1142,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 }, new SuperCallVoid() {
                     @Override
                     public void call(final Object... args) {
-                        getOriginal().startActivityForResult__super((Intent) args[0], (int) args[1],
+                        getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1],
                                 (Bundle) args[2]);
                     }
                 }, intent, requestCode, options);
@@ -1160,7 +1161,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCall<String>() {
             @Override
             public String call(final Object... args) {
-                return getOriginal().toString__super();
+                return getOriginal().super_toString();
             }
         });
     }
@@ -1175,7 +1176,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().unregisterForContextMenu__super((View) args[0]);
+                getOriginal().super_unregisterForContextMenu((View) args[0]);
             }
         }, view);
     }

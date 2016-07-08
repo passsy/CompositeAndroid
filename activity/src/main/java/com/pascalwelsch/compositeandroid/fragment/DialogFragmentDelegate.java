@@ -73,7 +73,7 @@ public class DialogFragmentDelegate
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().dismiss__super();
+                getOriginal().super_dismiss();
             }
         });
     }
@@ -88,7 +88,7 @@ public class DialogFragmentDelegate
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().dismissAllowingStateLoss__super();
+                getOriginal().super_dismissAllowingStateLoss();
             }
         });
     }
@@ -122,7 +122,7 @@ public class DialogFragmentDelegate
         }, new SuperCall<Dialog>() {
             @Override
             public Dialog call(final Object... args) {
-                return getOriginal().getDialog__super();
+                return getOriginal().super_getDialog();
             }
         });
     }
@@ -171,7 +171,7 @@ public class DialogFragmentDelegate
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().getShowsDialog__super();
+                return getOriginal().super_getShowsDialog();
             }
         });
     }
@@ -188,7 +188,7 @@ public class DialogFragmentDelegate
         }, new SuperCall<Integer>() {
             @Override
             public Integer call(final Object... args) {
-                return getOriginal().getTheme__super();
+                return getOriginal().super_getTheme();
             }
         });
     }
@@ -213,7 +213,7 @@ public class DialogFragmentDelegate
         }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().isCancelable__super();
+                return getOriginal().super_isCancelable();
             }
         });
     }
@@ -244,7 +244,7 @@ public class DialogFragmentDelegate
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onCancel__super((DialogInterface) args[0]);
+                getOriginal().super_onCancel((DialogInterface) args[0]);
             }
         }, dialog);
     }
@@ -283,7 +283,7 @@ public class DialogFragmentDelegate
                 }, new SuperCall<Dialog>() {
                     @Override
                     public Dialog call(final Object... args) {
-                        return getOriginal().onCreateDialog__super((Bundle) args[0]);
+                        return getOriginal().super_onCreateDialog((Bundle) args[0]);
                     }
                 }, savedInstanceState);
     }
@@ -323,7 +323,7 @@ public class DialogFragmentDelegate
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().onDismiss__super((DialogInterface) args[0]);
+                getOriginal().super_onDismiss((DialogInterface) args[0]);
             }
         }, dialog);
     }
@@ -417,7 +417,7 @@ public class DialogFragmentDelegate
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setCancelable__super((boolean) args[0]);
+                getOriginal().super_setCancelable((boolean) args[0]);
             }
         }, cancelable);
     }
@@ -480,7 +480,7 @@ public class DialogFragmentDelegate
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setShowsDialog__super((boolean) args[0]);
+                getOriginal().super_setShowsDialog((boolean) args[0]);
             }
         }, showsDialog);
     }
@@ -495,7 +495,7 @@ public class DialogFragmentDelegate
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setStyle__super((int) args[0], (int) args[1]);
+                getOriginal().super_setStyle((int) args[0], (int) args[1]);
             }
         }, style, theme);
     }
@@ -518,7 +518,7 @@ public class DialogFragmentDelegate
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().setupDialog__super((Dialog) args[0], (int) args[1]);
+                getOriginal().super_setupDialog((Dialog) args[0], (int) args[1]);
             }
         }, dialog, style);
     }
@@ -537,7 +537,7 @@ public class DialogFragmentDelegate
         }, new SuperCallVoid() {
             @Override
             public void call(final Object... args) {
-                getOriginal().show__super((FragmentManager) args[0], (String) args[1]);
+                getOriginal().super_show((FragmentManager) args[0], (String) args[1]);
             }
         }, manager, tag);
     }
@@ -557,7 +557,7 @@ public class DialogFragmentDelegate
                     @Override
                     public Integer call(final Object... args) {
                         return getOriginal()
-                                .show__super((FragmentTransaction) args[0], (String) args[1]);
+                                .super_show((FragmentTransaction) args[0], (String) args[1]);
                     }
                 }, transaction, tag);
     }

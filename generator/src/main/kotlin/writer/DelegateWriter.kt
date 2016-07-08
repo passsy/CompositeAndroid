@@ -182,7 +182,7 @@ fun AnalyzedJavaMethod.hook(originalGetterName: String = "getOriginal()",
     sb.appendln("            @Override")
     sb.appendln("            public void call(final Object... args) {")
     if (throws) sb.appendln("                try {")
-    sb.appendln("                $originalGetterName.${name}__super(${typedArgs.joinToString()});")
+    sb.appendln("                $originalGetterName.super_$name(${typedArgs.joinToString()});")
     if (throws) {
         sb.appendln("            } catch ($exceptionType e) {")
         sb.appendln("                throw new SuppressedException(e);")
@@ -222,7 +222,7 @@ fun AnalyzedJavaMethod.callFunction(originalGetterName: String = "getOriginal()"
         }, new SuperCall<$boxedReturnType>() {
             @Override
             public $boxedReturnType call(final Object... args) { ${if (throws) "\ntry {" else ""}
-                return $originalGetterName.${name}__super(${typedArgs.joinToString()}); ${if (throws) "\n} catch ($exceptionType e) {\n throw new SuppressedException(e);\n }" else ""}
+                return $originalGetterName.super_${name}(${typedArgs.joinToString()}); ${if (throws) "\n} catch ($exceptionType e) {\n throw new SuppressedException(e);\n }" else ""}
             }
         }${if (parameterNames.size > 0) ", " else ""}$varargs);
     }

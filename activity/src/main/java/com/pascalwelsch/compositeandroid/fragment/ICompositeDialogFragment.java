@@ -18,95 +18,95 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
 
     void dismissAllowingStateLoss();
 
-    void dismissAllowingStateLoss__super();
-
-    void dismiss__super();
-
     Dialog getDialog();
-
-    Dialog getDialog__super();
 
     LayoutInflater getLayoutInflater(final Bundle savedInstanceState);
 
-    LayoutInflater getLayoutInflater__super(final Bundle savedInstanceState);
-
     boolean getShowsDialog();
-
-    boolean getShowsDialog__super();
 
     int getTheme();
 
-    int getTheme__super();
-
     boolean isCancelable();
-
-    boolean isCancelable__super();
 
     void onActivityCreated(final Bundle savedInstanceState);
 
-    void onActivityCreated__super(final Bundle savedInstanceState);
-
     void onAttach(final Activity activity);
 
-    void onAttach__super(final Activity activity);
-
     void onCancel(final DialogInterface dialog);
-
-    void onCancel__super(final DialogInterface dialog);
 
     void onCreate(@Nullable final Bundle savedInstanceState);
 
     Dialog onCreateDialog(final Bundle savedInstanceState);
 
-    Dialog onCreateDialog__super(final Bundle savedInstanceState);
-
-    void onCreate__super(@Nullable final Bundle savedInstanceState);
-
     void onDestroyView();
-
-    void onDestroyView__super();
 
     void onDetach();
 
-    void onDetach__super();
-
     void onDismiss(final DialogInterface dialog);
-
-    void onDismiss__super(final DialogInterface dialog);
 
     void onSaveInstanceState(final Bundle outState);
 
-    void onSaveInstanceState__super(final Bundle outState);
-
     void onStart();
-
-    void onStart__super();
 
     void onStop();
 
-    void onStop__super();
-
     void setCancelable(final boolean cancelable);
-
-    void setCancelable__super(final boolean cancelable);
 
     void setShowsDialog(final boolean showsDialog);
 
-    void setShowsDialog__super(final boolean showsDialog);
-
     void setStyle(final int style, @StyleRes final int theme);
 
-    void setStyle__super(final int style, @StyleRes final int theme);
-
     void setupDialog(final Dialog dialog, final int style);
-
-    void setupDialog__super(final Dialog dialog, final int style);
 
     void show(final FragmentManager manager, final String tag);
 
     int show(final FragmentTransaction transaction, final String tag);
 
-    void show__super(final FragmentManager manager, final String tag);
+    void super_dismiss();
 
-    int show__super(final FragmentTransaction transaction, final String tag);
+    void super_dismissAllowingStateLoss();
+
+    Dialog super_getDialog();
+
+    LayoutInflater super_getLayoutInflater(final Bundle savedInstanceState);
+
+    boolean super_getShowsDialog();
+
+    int super_getTheme();
+
+    boolean super_isCancelable();
+
+    void super_onActivityCreated(final Bundle savedInstanceState);
+
+    void super_onAttach(final Activity activity);
+
+    void super_onCancel(final DialogInterface dialog);
+
+    void super_onCreate(@Nullable final Bundle savedInstanceState);
+
+    Dialog super_onCreateDialog(final Bundle savedInstanceState);
+
+    void super_onDestroyView();
+
+    void super_onDetach();
+
+    void super_onDismiss(final DialogInterface dialog);
+
+    void super_onSaveInstanceState(final Bundle outState);
+
+    void super_onStart();
+
+    void super_onStop();
+
+    void super_setCancelable(final boolean cancelable);
+
+    void super_setShowsDialog(final boolean showsDialog);
+
+    void super_setStyle(final int style, @StyleRes final int theme);
+
+    void super_setupDialog(final Dialog dialog, final int style);
+
+    void super_show(final FragmentManager manager, final String tag);
+
+    int super_show(final FragmentTransaction transaction, final String tag);
 }
