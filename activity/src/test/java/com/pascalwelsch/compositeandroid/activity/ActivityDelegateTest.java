@@ -48,7 +48,7 @@ public class ActivityDelegateTest {
         verify(a, never()).onKeyDown(1, event);
         verify(b).onKeyDown(1, event);
         verify(c).onKeyDown(1, event);
-        verify(activity, never()).onKeyDown__super(1, event);
+        verify(activity, never()).super_onKeyDown(1, event);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class ActivityDelegateTest {
         verify(a).onKeyDown(1, event);
         verify(b).onKeyDown(1, event);
         verify(c).onKeyDown(1, event);
-        verify(activity).onKeyDown__super(1, event);
+        verify(activity).super_onKeyDown(1, event);
     }
 
     @Test
@@ -132,7 +132,7 @@ public class ActivityDelegateTest {
         // twice because of the error above
         verify(b, times(2)).setContentView(layoutResID);
         verify(c).setContentView(layoutResID);
-        verify(activity, never()).setContentView__super(layoutResID);
+        verify(activity, never()).super_setContentView(layoutResID);
         verify(activity, never()).setContentView(layoutResID);
     }
 
@@ -161,7 +161,7 @@ public class ActivityDelegateTest {
         verify(a).onKeyDown(25, event);
         verify(b).onKeyDown(1, event);
         verify(c).onKeyDown(1, event);
-        verify(activity).onKeyDown__super(25, event);
+        verify(activity).super_onKeyDown(25, event);
     }
 
     @Test
@@ -206,7 +206,7 @@ public class ActivityDelegateTest {
         inOrder.verify(b).onPause();
         inOrder.verify(beforeBSuper).call();
         inOrder.verify(a).onPause();
-        inOrder.verify(activity).onPause__super();
+        inOrder.verify(activity).super_onPause();
         inOrder.verify(afterBSuper).call();
         inOrder.verify(afterCSuper).call();
 
@@ -221,7 +221,7 @@ public class ActivityDelegateTest {
 
         final KeyEvent event = mock(KeyEvent.class);
         delegate.onKeyDown(1, event);
-        verify(activity).onKeyDown__super(1, event);
+        verify(activity).super_onKeyDown(1, event);
     }
 
     @Test
@@ -238,7 +238,7 @@ public class ActivityDelegateTest {
         delegate.onKeyDown(1, event);
 
         verify(a).onKeyDown(1, event);
-        verify(activity).onKeyDown__super(1, event);
+        verify(activity).super_onKeyDown(1, event);
     }
 /*
     @Test
@@ -324,7 +324,7 @@ public class ActivityDelegateTest {
         verify(a, never()).onKeyDown(25, event);
         verify(b).onKeyDown(25, event);
         verify(c).onKeyDown(1, event);
-        verify(activity, never()).onKeyDown__super(25, event);
+        verify(activity, never()).super_onKeyDown(25, event);
     }
 
     @Test
@@ -347,7 +347,7 @@ public class ActivityDelegateTest {
         verify(a).onContextItemSelected(item);
         verify(b).onContextItemSelected(item);
         verify(c).onContextItemSelected(item);
-        verify(activity).onContextItemSelected__super(item);
+        verify(activity).super_onContextItemSelected(item);
     }
 
     @Test
@@ -375,7 +375,7 @@ public class ActivityDelegateTest {
         verify(a, never()).onContextItemSelected(item);
         verify(b).onContextItemSelected(item);
         verify(c).onContextItemSelected(item);
-        verify(activity, never()).onContextItemSelected__super(item);
+        verify(activity, never()).super_onContextItemSelected(item);
     }
 
 
