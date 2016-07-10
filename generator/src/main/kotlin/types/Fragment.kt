@@ -74,7 +74,8 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             superClassDelegateName = "FragmentDelegate",
             superClassInputFile = fragment)
 
-    writePlugin(dialogfragment,
+    writePlugin("DialogFragment",
+            dialogfragment,
             outPackage,
             "DialogFragmentPlugin",
             transform = replaceSavedState,
@@ -113,7 +114,8 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             extends = "AbstractDelegate<ICompositeFragment, FragmentPlugin>",
             transform = replaceSavedState)
 
-    writePlugin(fragment,
+    writePlugin("Fragment",
+            fragment,
             outPackage,
             "FragmentPlugin",
             additionalImports =
