@@ -38,9 +38,8 @@ android {
 }
 
 dependencies {
-    compile project(':core')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-
     compile "com.android.support:appcompat-v7:$supportLibraryVersion"
     compile "com.android.support:support-v4:$supportLibraryVersion"
 
@@ -48,13 +47,12 @@ dependencies {
     testCompile 'org.assertj:assertj-core:2.4.1'
 }
 
-
 // usage:
 // ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=true
 publish {
     userOrg = 'passsy'
     groupId = 'com.pascalwelsch.compositeandroid'
-    artifactId = 'activity'
+    artifactId = 'core'
     uploadName = 'CompositeActivity'
     publishVersion = VERSION_NAME
     description = 'CompositeAndroid - Composition over inheritance for Android'

@@ -1,4 +1,4 @@
-package com.pascalwelsch.compositeandroid.activity;
+package com.pascalwelsch.compositeandroid.core;
 
 import org.junit.Test;
 

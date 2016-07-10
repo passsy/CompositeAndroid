@@ -1,12 +1,12 @@
 package writer
 
-import outPath
 import parse.AnalyzedJavaFile
 import parse.AnalyzedJavaMethod
 import java.io.File
 
 
-fun writeComposite(javaFile: AnalyzedJavaFile,
+fun writeComposite(outPath: String,
+                   javaFile: AnalyzedJavaFile,
                    javaPackage: String,
                    javaClassName: String,
                    extends: String,
@@ -81,7 +81,7 @@ fun writeComposite(javaFile: AnalyzedJavaFile,
         output = transform(output)
     }
 
-    val out = File("${outPath}${javaPackage.replace('.', '/')}/$javaClassName.java")
+    val out = File("$outPath${javaPackage.replace('.', '/')}/$javaClassName.java")
     out.parentFile.mkdirs()
     out.printWriter().use { it.write(output) }
     System.out.println("wrote ${out.absolutePath}")

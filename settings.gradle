@@ -1,1 +1,1 @@
-include ':sample', ':activity', ':blueprints'
+include ':sample', ':activity', ':blueprints', ':fragment', ':core'

@@ -1,9 +1,4 @@
-package com.pascalwelsch.compositeandroid.activity;
-
-import com.pascalwelsch.compositeandroid.fragment.CompositeDialogFragment;
-import com.pascalwelsch.compositeandroid.fragment.CompositeFragment;
-import com.pascalwelsch.compositeandroid.fragment.DialogFragmentPlugin;
-import com.pascalwelsch.compositeandroid.fragment.FragmentPlugin;
+package com.pascalwelsch.compositeandroid.fragment;
 
 import org.junit.Test;
 
@@ -32,16 +27,16 @@ public class FragmentPluginTest {
         private boolean mShowsCalled;
 
         @Override
-        public void onCreate(@Nullable final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            mGotCalled = true;
-        }
-
-        @Override
         public boolean getShowsDialog() {
             final boolean showsDialog = super.getShowsDialog();
             mShowsCalled = true;
             return showsDialog;
+        }
+
+        @Override
+        public void onCreate(@Nullable final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            mGotCalled = true;
         }
     }
 

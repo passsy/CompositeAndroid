@@ -1,12 +1,12 @@
 package writer
 
-import outPath
 import parse.AnalyzedJavaFile
 import parse.AnalyzedJavaMethod
 import java.io.File
 
 
-fun writeDelegate(javaFile: AnalyzedJavaFile,
+fun writeDelegate(outPath: String,
+                  javaFile: AnalyzedJavaFile,
                   javaPackage: String,
                   javaClassName: String,
                   compositeName: String,
@@ -125,7 +125,7 @@ fun writeDelegate(javaFile: AnalyzedJavaFile,
         activityDelegate = transform(activityDelegate)
     }
 
-    val out = File("${outPath}${javaPackage.replace('.', '/')}/$javaClassName.java")
+    val out = File("$outPath${javaPackage.replace('.', '/')}/$javaClassName.java")
     out.parentFile.mkdirs()
     out.printWriter().use { it.write(activityDelegate) }
     System.out.println("wrote ${out.absolutePath}")
