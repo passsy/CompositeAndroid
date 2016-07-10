@@ -48,7 +48,7 @@ fun parseJavaFile(file: File): AnalyzedJavaFile {
         val returnType = groups[4]?.value!!
         val name = groups[5]?.value!!
         val parameters = groups[6]?.value?.replace("\n", " ")?.replace(",\\h+".toRegex(), ", ")
-        val throws = groups[7]?.value?.replace("\n", " ")
+        val throws = groups[7]?.value?.replace("\n", " ")?.replace(",\\h+".toRegex(), ", ")?.trim()
 
         val paramNames = mutableListOf<String>()
         val paramType = mutableListOf<String>()

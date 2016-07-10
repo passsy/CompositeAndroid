@@ -96,7 +96,8 @@ private fun AnalyzedJavaMethod.callSuper(): String {
 
     return """
             |$formattedAnnotations
-            |public $returnType ${name}__super($rawParameters) $exceptions{
+            |@Override
+            |public $returnType super_$name($rawParameters) $exceptions{
             |    ${returnWhenNotVoid}super.$name(${parameterNames.joinToString()});
             |}
             """.replaceIndentByMargin("    ")

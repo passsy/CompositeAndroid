@@ -57,11 +57,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.dump(prefix, fd, writer, args);
     }
 
-    public void dump__super(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args) {
-        super.dump(prefix, fd, writer, args);
-    }
-
     /**
      * Returns whether the the exit transition and enter transition overlap or not.
      * When true, the enter transition will start as soon as possible. When false, the
@@ -73,10 +68,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public boolean getAllowEnterTransitionOverlap() {
         return delegate.getAllowEnterTransitionOverlap();
-    }
-
-    public boolean getAllowEnterTransitionOverlap__super() {
-        return super.getAllowEnterTransitionOverlap();
     }
 
     /**
@@ -92,20 +83,12 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         return delegate.getAllowReturnTransitionOverlap();
     }
 
-    public boolean getAllowReturnTransitionOverlap__super() {
-        return super.getAllowReturnTransitionOverlap();
-    }
-
     /**
      * Return the {@link Context} this fragment is currently associated with.
      */
     @Override
     public Context getContext() {
         return delegate.getContext();
-    }
-
-    public Context getContext__super() {
-        return super.getContext();
     }
 
     /**
@@ -120,10 +103,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public Object getEnterTransition() {
         return delegate.getEnterTransition();
-    }
-
-    public Object getEnterTransition__super() {
-        return super.getEnterTransition();
     }
 
     /**
@@ -143,10 +122,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         return delegate.getExitTransition();
     }
 
-    public Object getExitTransition__super() {
-        return super.getExitTransition();
-    }
-
     /**
      * @hide Hack so that DialogFragment can make its Dialog before creating
      * its views, and the view construction can use the dialog's context for
@@ -157,20 +132,12 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         return delegate.getLayoutInflater(savedInstanceState);
     }
 
-    public LayoutInflater getLayoutInflater__super(final Bundle savedInstanceState) {
-        return super.getLayoutInflater(savedInstanceState);
-    }
-
     /**
      * Return the LoaderManager for this fragment, creating it if needed.
      */
     @Override
     public LoaderManager getLoaderManager() {
         return delegate.getLoaderManager();
-    }
-
-    public LoaderManager getLoaderManager__super() {
-        return super.getLoaderManager();
     }
 
     /**
@@ -190,10 +157,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         return delegate.getReenterTransition();
     }
 
-    public Object getReenterTransition__super() {
-        return super.getReenterTransition();
-    }
-
     /**
      * Returns the Transition that will be used to move Views out of the scene when the Fragment is
      * preparing to be removed, hidden, or detached because of popping the back stack. The exiting
@@ -211,10 +174,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         return delegate.getReturnTransition();
     }
 
-    public Object getReturnTransition__super() {
-        return super.getReturnTransition();
-    }
-
     /**
      * Returns the Transition that will be used for shared elements transferred into the content
      * Scene. Typical Transitions will affect size and location, such as
@@ -227,10 +186,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public Object getSharedElementEnterTransition() {
         return delegate.getSharedElementEnterTransition();
-    }
-
-    public Object getSharedElementEnterTransition__super() {
-        return super.getSharedElementEnterTransition();
     }
 
     /**
@@ -250,10 +205,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         return delegate.getSharedElementReturnTransition();
     }
 
-    public Object getSharedElementReturnTransition__super() {
-        return super.getSharedElementReturnTransition();
-    }
-
     /**
      * @return The current value of the user-visible hint on this fragment.
      * @see #setUserVisibleHint(boolean)
@@ -261,10 +212,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public boolean getUserVisibleHint() {
         return delegate.getUserVisibleHint();
-    }
-
-    public boolean getUserVisibleHint__super() {
-        return super.getUserVisibleHint();
     }
 
     /**
@@ -277,11 +224,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public View getView() {
         return delegate.getView();
-    }
-
-    @Nullable
-    public View getView__super() {
-        return super.getView();
     }
 
     /**
@@ -302,10 +244,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.onActivityCreated(savedInstanceState);
     }
 
-    public void onActivityCreated__super(@Nullable final Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
     /**
      * Receive the result from a previous call to
      * {@link #startActivityForResult(Intent, int)}.  This follows the
@@ -322,11 +260,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         delegate.onActivityResult(requestCode, resultCode, data);
-    }
-
-    public void onActivityResult__super(final int requestCode, final int resultCode,
-            final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
@@ -348,22 +281,9 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.onAttach(activity);
     }
 
-    public void onAttach__super(final Context context) {
-        super.onAttach(context);
-    }
-
-    public void onAttach__super(final Activity activity) {
-        super.onAttach(activity);
-    }
-
-
     @Override
     public void onConfigurationChanged(final Configuration newConfig) {
         delegate.onConfigurationChanged(newConfig);
-    }
-
-    public void onConfigurationChanged__super(final Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
     }
 
     /**
@@ -386,10 +306,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public boolean onContextItemSelected(final MenuItem item) {
         return delegate.onContextItemSelected(item);
-    }
-
-    public boolean onContextItemSelected__super(final MenuItem item) {
-        return super.onContextItemSelected(item);
     }
 
     /**
@@ -419,11 +335,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         return delegate.onCreateAnimation(transit, enter, nextAnim);
     }
 
-    public Animation onCreateAnimation__super(final int transit, final boolean enter,
-            final int nextAnim) {
-        return super.onCreateAnimation(transit, enter, nextAnim);
-    }
-
     /**
      * Called when a context menu for the {@code view} is about to be shown.
      * Unlike {@link #onCreateOptionsMenu}, this will be called every
@@ -447,11 +358,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.onCreateContextMenu(menu, v, menuInfo);
     }
 
-    public void onCreateContextMenu__super(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-    }
-
     /**
      * Initialize the contents of the Activity's standard options menu.  You
      * should place your menu items in to <var>menu</var>.  For this method
@@ -467,10 +373,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         delegate.onCreateOptionsMenu(menu, inflater);
-    }
-
-    public void onCreateOptionsMenu__super(final Menu menu, final MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     /**
@@ -499,16 +401,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         return delegate.onCreateView(inflater, container, savedInstanceState);
     }
 
-    @Nullable
-    public View onCreateView__super(final LayoutInflater inflater,
-            @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    public void onCreate__super(@Nullable final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     /**
      * Called when the fragment is no longer in use.  This is called
      * after {@link #onStop()} and before {@link #onDetach()}.
@@ -530,10 +422,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.onDestroyOptionsMenu();
     }
 
-    public void onDestroyOptionsMenu__super() {
-        super.onDestroyOptionsMenu();
-    }
-
     /**
      * Called when the view previously created by {@link #onCreateView} has
      * been detached from the fragment.  The next time the fragment needs
@@ -548,14 +436,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.onDestroyView();
     }
 
-    public void onDestroyView__super() {
-        super.onDestroyView();
-    }
-
-    public void onDestroy__super() {
-        super.onDestroy();
-    }
-
     /**
      * Called when the fragment is no longer attached to its activity.  This
      * is called after {@link #onDestroy()}.
@@ -563,10 +443,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void onDetach() {
         delegate.onDetach();
-    }
-
-    public void onDetach__super() {
-        super.onDetach();
     }
 
     /**
@@ -580,10 +456,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void onHiddenChanged(final boolean hidden) {
         delegate.onHiddenChanged(hidden);
-    }
-
-    public void onHiddenChanged__super(final boolean hidden) {
-        super.onHiddenChanged(hidden);
     }
 
     /**
@@ -644,24 +516,9 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.onInflate(activity, attrs, savedInstanceState);
     }
 
-    public void onInflate__super(final Context context, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
-        super.onInflate(context, attrs, savedInstanceState);
-    }
-
-    public void onInflate__super(final Activity activity, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
-        super.onInflate(activity, attrs, savedInstanceState);
-    }
-
-
     @Override
     public void onLowMemory() {
         delegate.onLowMemory();
-    }
-
-    public void onLowMemory__super() {
-        super.onLowMemory();
     }
 
     /**
@@ -685,10 +542,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         return delegate.onOptionsItemSelected(item);
     }
 
-    public boolean onOptionsItemSelected__super(final MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * This hook is called whenever the options menu is being closed (either by the user canceling
      * the menu with the back/menu button, or when an item is selected).
@@ -701,10 +554,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.onOptionsMenuClosed(menu);
     }
 
-    public void onOptionsMenuClosed__super(final Menu menu) {
-        super.onOptionsMenuClosed(menu);
-    }
-
     /**
      * Called when the Fragment is no longer resumed.  This is generally
      * tied to {@link Activity#onPause() Activity.onPause} of the containing
@@ -713,10 +562,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void onPause() {
         delegate.onPause();
-    }
-
-    public void onPause__super() {
-        super.onPause();
     }
 
     /**
@@ -735,10 +580,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void onPrepareOptionsMenu(final Menu menu) {
         delegate.onPrepareOptionsMenu(menu);
-    }
-
-    public void onPrepareOptionsMenu__super(final Menu menu) {
-        super.onPrepareOptionsMenu(menu);
     }
 
     /**
@@ -763,11 +604,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public void onRequestPermissionsResult__super(final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
     /**
      * Called when the fragment is visible to the user and actively running.
      * This is generally
@@ -777,10 +613,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void onResume() {
         delegate.onResume();
-    }
-
-    public void onResume__super() {
-        super.onResume();
     }
 
     /**
@@ -807,10 +639,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.onSaveInstanceState(outState);
     }
 
-    public void onSaveInstanceState__super(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
     /**
      * Called when the Fragment is visible to the user.  This is generally
      * tied to {@link Activity#onStart() Activity.onStart} of the containing
@@ -821,10 +649,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.onStart();
     }
 
-    public void onStart__super() {
-        super.onStart();
-    }
-
     /**
      * Called when the Fragment is no longer started.  This is generally
      * tied to {@link Activity#onStop() Activity.onStop} of the containing
@@ -833,10 +657,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void onStop() {
         delegate.onStop();
-    }
-
-    public void onStop__super() {
-        super.onStop();
     }
 
     /**
@@ -855,10 +675,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.onViewCreated(view, savedInstanceState);
     }
 
-    public void onViewCreated__super(final View view, @Nullable final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
     /**
      * Called when all saved state has been restored into the view hierarchy
      * of the fragment.  This can be used to do initialization based on saved
@@ -873,10 +689,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
         delegate.onViewStateRestored(savedInstanceState);
-    }
-
-    public void onViewStateRestored__super(@Nullable final Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
     }
 
     /**
@@ -894,10 +706,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.registerForContextMenu(view);
     }
 
-    public void registerForContextMenu__super(final View view) {
-        super.registerForContextMenu(view);
-    }
-
     /**
      * Sets whether the the exit transition and enter transition overlap or not.
      * When true, the enter transition will start as soon as possible. When false, the
@@ -909,10 +717,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void setAllowEnterTransitionOverlap(final boolean allow) {
         delegate.setAllowEnterTransitionOverlap(allow);
-    }
-
-    public void setAllowEnterTransitionOverlap__super(final boolean allow) {
-        super.setAllowEnterTransitionOverlap(allow);
     }
 
     /**
@@ -928,10 +732,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.setAllowReturnTransitionOverlap(allow);
     }
 
-    public void setAllowReturnTransitionOverlap__super(final boolean allow) {
-        super.setAllowReturnTransitionOverlap(allow);
-    }
-
     /**
      * Supply the construction arguments for this fragment.  This can only
      * be called before the fragment has been attached to its activity; that
@@ -944,10 +744,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.setArguments(args);
     }
 
-    public void setArguments__super(final Bundle args) {
-        super.setArguments(args);
-    }
-
     /**
      * When custom transitions are used with Fragments, the enter transition callback
      * is called when this Fragment is attached or detached when not popping the back stack.
@@ -958,10 +754,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void setEnterSharedElementCallback(final SharedElementCallback callback) {
         delegate.setEnterSharedElementCallback(callback);
-    }
-
-    public void setEnterSharedElementCallback__super(final SharedElementCallback callback) {
-        super.setEnterSharedElementCallback(callback);
     }
 
     /**
@@ -979,10 +771,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.setEnterTransition(transition);
     }
 
-    public void setEnterTransition__super(final Object transition) {
-        super.setEnterTransition(transition);
-    }
-
     /**
      * When custom transitions are used with Fragments, the exit transition callback
      * is called when this Fragment is attached or detached when popping the back stack.
@@ -993,10 +781,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void setExitSharedElementCallback(final SharedElementCallback callback) {
         delegate.setExitSharedElementCallback(callback);
-    }
-
-    public void setExitSharedElementCallback__super(final SharedElementCallback callback) {
-        super.setExitSharedElementCallback(callback);
     }
 
     /**
@@ -1017,10 +801,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.setExitTransition(transition);
     }
 
-    public void setExitTransition__super(final Object transition) {
-        super.setExitTransition(transition);
-    }
-
     /**
      * Report that this fragment would like to participate in populating
      * the options menu by receiving a call to {@link #onCreateOptionsMenu}
@@ -1031,10 +811,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void setHasOptionsMenu(final boolean hasMenu) {
         delegate.setHasOptionsMenu(hasMenu);
-    }
-
-    public void setHasOptionsMenu__super(final boolean hasMenu) {
-        super.setHasOptionsMenu(hasMenu);
     }
 
     /**
@@ -1050,10 +826,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.setInitialSavedState(state);
     }
 
-    public void setInitialSavedState__super(final Fragment.SavedState state) {
-        super.setInitialSavedState(state);
-    }
-
     /**
      * Set a hint for whether this fragment's menu should be visible.  This
      * is useful if you know that a fragment has been placed in your view
@@ -1066,10 +838,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void setMenuVisibility(final boolean menuVisible) {
         delegate.setMenuVisibility(menuVisible);
-    }
-
-    public void setMenuVisibility__super(final boolean menuVisible) {
-        super.setMenuVisibility(menuVisible);
     }
 
     /**
@@ -1088,10 +856,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void setReenterTransition(final Object transition) {
         delegate.setReenterTransition(transition);
-    }
-
-    public void setReenterTransition__super(final Object transition) {
-        super.setReenterTransition(transition);
     }
 
     /**
@@ -1113,10 +877,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.setRetainInstance(retain);
     }
 
-    public void setRetainInstance__super(final boolean retain) {
-        super.setRetainInstance(retain);
-    }
-
     /**
      * Sets the Transition that will be used to move Views out of the scene when the Fragment is
      * preparing to be removed, hidden, or detached because of popping the back stack. The exiting
@@ -1136,10 +896,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.setReturnTransition(transition);
     }
 
-    public void setReturnTransition__super(final Object transition) {
-        super.setReturnTransition(transition);
-    }
-
     /**
      * Sets the Transition that will be used for shared elements transferred into the content
      * Scene. Typical Transitions will affect size and location, such as
@@ -1152,10 +908,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void setSharedElementEnterTransition(final Object transition) {
         delegate.setSharedElementEnterTransition(transition);
-    }
-
-    public void setSharedElementEnterTransition__super(final Object transition) {
-        super.setSharedElementEnterTransition(transition);
     }
 
     /**
@@ -1175,10 +927,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.setSharedElementReturnTransition(transition);
     }
 
-    public void setSharedElementReturnTransition__super(final Object transition) {
-        super.setSharedElementReturnTransition(transition);
-    }
-
     /**
      * Optional target for this fragment.  This may be used, for example,
      * if this fragment is being started by another, and when done wants to
@@ -1193,10 +941,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void setTargetFragment(final Fragment fragment, final int requestCode) {
         delegate.setTargetFragment(fragment, requestCode);
-    }
-
-    public void setTargetFragment__super(final Fragment fragment, final int requestCode) {
-        super.setTargetFragment(fragment, requestCode);
     }
 
     /**
@@ -1216,10 +960,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void setUserVisibleHint(final boolean isVisibleToUser) {
         delegate.setUserVisibleHint(isVisibleToUser);
-    }
-
-    public void setUserVisibleHint__super(final boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
     }
 
     /**
@@ -1244,10 +984,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
         return delegate.shouldShowRequestPermissionRationale(permission);
-    }
-
-    public boolean shouldShowRequestPermissionRationale__super(@NonNull final String permission) {
-        return super.shouldShowRequestPermissionRationale(permission);
     }
 
     /**
@@ -1287,30 +1023,365 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         delegate.startActivityForResult(intent, requestCode, options);
     }
 
-    public void startActivityForResult__super(final Intent intent, final int requestCode) {
+    @Override
+    public void super_dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
+            final String[] args) {
+        super.dump(prefix, fd, writer, args);
+    }
+
+    @Override
+    public boolean super_getAllowEnterTransitionOverlap() {
+        return super.getAllowEnterTransitionOverlap();
+    }
+
+    @Override
+    public boolean super_getAllowReturnTransitionOverlap() {
+        return super.getAllowReturnTransitionOverlap();
+    }
+
+    @Override
+    public Context super_getContext() {
+        return super.getContext();
+    }
+
+    @Override
+    public Object super_getEnterTransition() {
+        return super.getEnterTransition();
+    }
+
+    @Override
+    public Object super_getExitTransition() {
+        return super.getExitTransition();
+    }
+
+    @Override
+    public LayoutInflater super_getLayoutInflater(final Bundle savedInstanceState) {
+        return super.getLayoutInflater(savedInstanceState);
+    }
+
+    @Override
+    public LoaderManager super_getLoaderManager() {
+        return super.getLoaderManager();
+    }
+
+    @Override
+    public Object super_getReenterTransition() {
+        return super.getReenterTransition();
+    }
+
+    @Override
+    public Object super_getReturnTransition() {
+        return super.getReturnTransition();
+    }
+
+    @Override
+    public Object super_getSharedElementEnterTransition() {
+        return super.getSharedElementEnterTransition();
+    }
+
+    @Override
+    public Object super_getSharedElementReturnTransition() {
+        return super.getSharedElementReturnTransition();
+    }
+
+    @Override
+    public boolean super_getUserVisibleHint() {
+        return super.getUserVisibleHint();
+    }
+
+    @Nullable
+    @Override
+    public View super_getView() {
+        return super.getView();
+    }
+
+    @Override
+    public void super_onActivityCreated(@Nullable final Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void super_onActivityResult(final int requestCode, final int resultCode,
+            final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void super_onAttach(final Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
+    public void super_onAttach(final Activity activity) {
+        super.onAttach(activity);
+    }
+
+    @Override
+    public void super_onConfigurationChanged(final Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean super_onContextItemSelected(final MenuItem item) {
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void super_onCreate(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public Animation super_onCreateAnimation(final int transit, final boolean enter,
+            final int nextAnim) {
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    @Override
+    public void super_onCreateContextMenu(final ContextMenu menu, final View v,
+            final ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Override
+    public void super_onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Nullable
+    @Override
+    public View super_onCreateView(final LayoutInflater inflater,
+            @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void super_onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void super_onDestroyOptionsMenu() {
+        super.onDestroyOptionsMenu();
+    }
+
+    @Override
+    public void super_onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void super_onDetach() {
+        super.onDetach();
+    }
+
+    @Override
+    public void super_onHiddenChanged(final boolean hidden) {
+        super.onHiddenChanged(hidden);
+    }
+
+    @Override
+    public void super_onInflate(final Context context, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
+        super.onInflate(context, attrs, savedInstanceState);
+    }
+
+    @Override
+    public void super_onInflate(final Activity activity, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
+        super.onInflate(activity, attrs, savedInstanceState);
+    }
+
+    @Override
+    public void super_onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    public boolean super_onOptionsItemSelected(final MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void super_onOptionsMenuClosed(final Menu menu) {
+        super.onOptionsMenuClosed(menu);
+    }
+
+    @Override
+    public void super_onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void super_onPrepareOptionsMenu(final Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public void super_onRequestPermissionsResult(final int requestCode,
+            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void super_onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void super_onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void super_onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void super_onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void super_onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void super_onViewStateRestored(@Nullable final Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+    }
+
+    @Override
+    public void super_registerForContextMenu(final View view) {
+        super.registerForContextMenu(view);
+    }
+
+    @Override
+    public void super_setAllowEnterTransitionOverlap(final boolean allow) {
+        super.setAllowEnterTransitionOverlap(allow);
+    }
+
+    @Override
+    public void super_setAllowReturnTransitionOverlap(final boolean allow) {
+        super.setAllowReturnTransitionOverlap(allow);
+    }
+
+    @Override
+    public void super_setArguments(final Bundle args) {
+        super.setArguments(args);
+    }
+
+    @Override
+    public void super_setEnterSharedElementCallback(final SharedElementCallback callback) {
+        super.setEnterSharedElementCallback(callback);
+    }
+
+    @Override
+    public void super_setEnterTransition(final Object transition) {
+        super.setEnterTransition(transition);
+    }
+
+    @Override
+    public void super_setExitSharedElementCallback(final SharedElementCallback callback) {
+        super.setExitSharedElementCallback(callback);
+    }
+
+    @Override
+    public void super_setExitTransition(final Object transition) {
+        super.setExitTransition(transition);
+    }
+
+    @Override
+    public void super_setHasOptionsMenu(final boolean hasMenu) {
+        super.setHasOptionsMenu(hasMenu);
+    }
+
+    @Override
+    public void super_setInitialSavedState(final Fragment.SavedState state) {
+        super.setInitialSavedState(state);
+    }
+
+    @Override
+    public void super_setMenuVisibility(final boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+    }
+
+    @Override
+    public void super_setReenterTransition(final Object transition) {
+        super.setReenterTransition(transition);
+    }
+
+    @Override
+    public void super_setRetainInstance(final boolean retain) {
+        super.setRetainInstance(retain);
+    }
+
+    @Override
+    public void super_setReturnTransition(final Object transition) {
+        super.setReturnTransition(transition);
+    }
+
+    @Override
+    public void super_setSharedElementEnterTransition(final Object transition) {
+        super.setSharedElementEnterTransition(transition);
+    }
+
+    @Override
+    public void super_setSharedElementReturnTransition(final Object transition) {
+        super.setSharedElementReturnTransition(transition);
+    }
+
+    @Override
+    public void super_setTargetFragment(final Fragment fragment, final int requestCode) {
+        super.setTargetFragment(fragment, requestCode);
+    }
+
+    @Override
+    public void super_setUserVisibleHint(final boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    @Override
+    public boolean super_shouldShowRequestPermissionRationale(@NonNull final String permission) {
+        return super.shouldShowRequestPermissionRationale(permission);
+    }
+
+    @Override
+    public void super_startActivity(final Intent intent) {
+        super.startActivity(intent);
+    }
+
+    @Override
+    public void super_startActivity(final Intent intent, @Nullable final Bundle options) {
+        super.startActivity(intent, options);
+    }
+
+    @Override
+    public void super_startActivityForResult(final Intent intent, final int requestCode) {
         super.startActivityForResult(intent, requestCode);
     }
 
-    public void startActivityForResult__super(final Intent intent, final int requestCode,
+    @Override
+    public void super_startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options) {
         super.startActivityForResult(intent, requestCode, options);
     }
 
-    public void startActivity__super(final Intent intent) {
-        super.startActivity(intent);
+    @Override
+    public String super_toString() {
+        return super.toString();
     }
 
-    public void startActivity__super(final Intent intent, @Nullable final Bundle options) {
-        super.startActivity(intent, options);
+    @Override
+    public void super_unregisterForContextMenu(final View view) {
+        super.unregisterForContextMenu(view);
     }
 
     @Override
     public String toString() {
         return delegate.toString();
-    }
-
-    public String toString__super() {
-        return super.toString();
     }
 
     /**
@@ -1323,9 +1394,5 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public void unregisterForContextMenu(final View view) {
         delegate.unregisterForContextMenu(view);
-    }
-
-    public void unregisterForContextMenu__super(final View view) {
-        super.unregisterForContextMenu(view);
     }
 }

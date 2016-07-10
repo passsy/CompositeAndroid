@@ -45,7 +45,7 @@ fun writeInterface(javaFile: AnalyzedJavaFile,
         output = transform(output)
     }
 
-    val out = File("${outPath}${javaPackage.replace('.', '/')}/$javaClassName.java")
+    val out = File("$outPath${javaPackage.replace('.', '/')}/$javaClassName.java")
     out.parentFile.mkdirs()
     out.printWriter().use { it.write(output) }
     System.out.println("wrote ${out.absolutePath}")
@@ -62,6 +62,6 @@ private fun AnalyzedJavaMethod.toInterface(): String {
 private fun AnalyzedJavaMethod.toSuperInterface(): String {
     return """
             |
-            |$returnType ${name}__super($rawParameters) $exceptions;
+            |$returnType super_$name($rawParameters) $exceptions;
             """.replaceIndentByMargin("    ")
 }
