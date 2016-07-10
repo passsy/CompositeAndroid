@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.2.0
+
+- `FragmentPlugin` can now be added to `CompositeDialogFragment` #16
+- Updated to support library version `23.4.0`
+- Project got split up into different modules #20
+
+```gradle
+dependencies {
+    
+    // contains CompositeActivity
+    compile 'com.pascalwelsch.compositeandroid:activity:0.2.0'
+    
+    // contains CompositeFragment and CompositeDialogFragment
+    compile 'com.pascalwelsch.compositeandroid:fragment:0.2.0'
+    
+    
+    // core module (not required, only abstract classes and utils)
+    compile 'com.pascalwelsch.compositeandroid:core:0.2.0'
+}
+```
+
+
 ## 0.1.2
 
 - Hotfix of crashes caused by type problems #11 #12
