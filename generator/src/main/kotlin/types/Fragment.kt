@@ -11,6 +11,8 @@ import java.io.File
 
 private val outPackage = "fragment"
 
+private val outPath = "../fragment/src/main/java/com/pascalwelsch/compositeandroid/"
+
 fun main(args: Array<String>) {
     generateFragments()
 }
@@ -33,7 +35,8 @@ val replaceSavedState: (String) -> String = {
 private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
     val dialogfragment = parseJavaFile(File("$inPath/BlueprintDialogFragment.java"))
 
-    writeComposite(dialogfragment,
+    writeComposite(outPath,
+            dialogfragment,
             outPackage,
             "CompositeDialogFragment",
             "DialogFragment implements ICompositeDialogFragment",
@@ -53,7 +56,8 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             delegateClassName = "DialogFragmentDelegate",
             superClassInputFile = fragment)
 
-    writeDelegate(dialogfragment,
+    writeDelegate(outPath,
+            dialogfragment,
             outPackage,
             "DialogFragmentDelegate",
             "ICompositeDialogFragment",
@@ -74,7 +78,8 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             superClassDelegateName = "FragmentDelegate",
             superClassInputFile = fragment)
 
-    writePlugin("DialogFragment",
+    writePlugin(outPath,
+            "DialogFragment",
             dialogfragment,
             outPackage,
             "DialogFragmentPlugin",
@@ -82,7 +87,8 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             superClassInputFile = fragment,
             extends = "FragmentPlugin")
 
-    writeInterface(dialogfragment,
+    writeInterface(outPath,
+            dialogfragment,
             outPackage,
             "ICompositeDialogFragment",
             "ICompositeFragment",
@@ -90,7 +96,8 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
 }
 
 private fun generateFragment(fragment: AnalyzedJavaFile) {
-    writeComposite(fragment,
+    writeComposite(outPath,
+            fragment,
             outPackage,
             "CompositeFragment",
             "Fragment implements ICompositeFragment",
@@ -101,7 +108,8 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             delegateClassName = "FragmentDelegate",
             pluginClassName = "FragmentPlugin", superClassInputFile = fragment)
 
-    writeDelegate(fragment,
+    writeDelegate(outPath,
+            fragment,
             outPackage,
             "FragmentDelegate",
             "ICompositeFragment",
@@ -114,7 +122,8 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             extends = "AbstractDelegate<ICompositeFragment, FragmentPlugin>",
             transform = replaceSavedState)
 
-    writePlugin("Fragment",
+    writePlugin(outPath,
+            "Fragment",
             fragment,
             outPackage,
             "FragmentPlugin",
@@ -126,7 +135,8 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             superClassInputFile = fragment,
             extends = "AbstractPlugin<Fragment, FragmentDelegate>")
 
-    writeInterface(fragment,
+    writeInterface(outPath,
+            fragment,
             outPackage,
             "ICompositeFragment",
             transform = replaceSavedState)

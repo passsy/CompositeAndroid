@@ -1,7 +1,4 @@
-package com.pascalwelsch.compositeandroid.activity;
-
-import com.pascalwelsch.compositeandroid.core.SuperCall;
-import com.pascalwelsch.compositeandroid.core.SuperCallVoid;
+package com.pascalwelsch.compositeandroid.core;
 
 import org.junit.Test;
 

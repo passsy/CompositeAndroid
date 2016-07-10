@@ -1,11 +1,11 @@
 package writer
 
-import outPath
 import parse.AnalyzedJavaFile
 import parse.AnalyzedJavaMethod
 import java.io.File
 
-fun writePlugin(normalClassName: String,
+fun writePlugin(outPath: String,
+                normalClassName: String,
                 javaFile: AnalyzedJavaFile,
                 javaPackage: String,
                 javaClassName: String,

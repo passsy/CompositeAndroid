@@ -9,6 +9,8 @@ import writer.writePlugin
 import java.io.File
 
 
+private val outPath = "../activity/src/main/java/com/pascalwelsch/compositeandroid/"
+
 fun main(args: Array<String>) {
     generateActivity()
 }
@@ -21,7 +23,8 @@ fun generateActivity() {
             .filterNot { it.name.contains("NonConfigurationInstance") }
     activity = activity.copy(methods = filteredMethods)
 
-    writeComposite(activity,
+    writeComposite(outPath,
+            activity,
             "activity",
             "CompositeActivity",
             "AppCompatActivity implements ICompositeActivity",
@@ -29,7 +32,8 @@ fun generateActivity() {
             pluginClassName = "ActivityPlugin",
             addCodeToClass = activity_custom_nonConfigurationInstance_handling)
 
-    writeDelegate(activity,
+    writeDelegate(outPath,
+            activity,
             "activity",
             "ActivityDelegate",
             "ICompositeActivity",
@@ -38,14 +42,16 @@ fun generateActivity() {
             extends = "AbstractDelegate<ICompositeActivity, ActivityPlugin>",
             addCodeToClass = delegate_custom_nonConfigurationInstance_handling)
 
-    writePlugin("Activity",
+    writePlugin(outPath,
+            "Activity",
             activity,
             "activity",
             "ActivityPlugin",
             extends = "AbstractPlugin<CompositeActivity, ActivityDelegate>",
             addCodeToClass = plugin_custom_nonConfigurationInstance_handling)
 
-    writeInterface(activity,
+    writeInterface(outPath,
+            activity,
             "activity",
             "ICompositeActivity",
             "LayoutInflater.Factory2, Window.Callback, KeyEvent.Callback, View.OnCreateContextMenuListener, ComponentCallbacks2, ActivityCompat.OnRequestPermissionsResultCallback, AppCompatCallback, ActionBarDrawerToggle.DelegateProvider",

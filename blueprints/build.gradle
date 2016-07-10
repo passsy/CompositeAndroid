@@ -1,15 +1,25 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion COMPILE_SDK_VERSION
+    buildToolsVersion BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 1
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+        versionCode 230400
         versionName "23.4.0"
     }
+
+    dexOptions {
+        preDexLibraries = !ciBuild
+        javaMaxHeapSize "2g"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {

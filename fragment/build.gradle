@@ -45,7 +45,6 @@ android {
 dependencies {
     compile project(':core')
     testCompile 'junit:junit:4.12'
-
     compile "com.android.support:appcompat-v7:$supportLibraryVersion"
     compile "com.android.support:support-v4:$supportLibraryVersion"
 
@@ -59,7 +58,7 @@ dependencies {
 publish {
     userOrg = 'passsy'
     groupId = 'com.pascalwelsch.compositeandroid'
-    artifactId = 'activity'
+    artifactId = 'fragment'
     uploadName = 'CompositeActivity'
     publishVersion = VERSION_NAME
     description = 'CompositeAndroid - Composition over inheritance for Android'

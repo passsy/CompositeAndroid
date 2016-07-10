@@ -1,12 +1,12 @@
 package writer
 
-import outPath
 import parse.AnalyzedJavaFile
 import parse.AnalyzedJavaMethod
 import java.io.File
 
 
-fun writeInterface(javaFile: AnalyzedJavaFile,
+fun writeInterface(outPath: String,
+                   javaFile: AnalyzedJavaFile,
                    javaPackage: String,
                    javaClassName: String,
                    extends: String? = null,
