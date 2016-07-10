@@ -10,6 +10,11 @@ android {
         versionCode 230400
         versionName "23.4.0"
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {
