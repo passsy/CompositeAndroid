@@ -34,9 +34,5 @@ before_script:
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
-script:
-  # By default Travis-ci executes './gradlew build connectedCheck' if no 'script:' section found.
-  - ./gradlew build connectedCheck --info
-
 after_success:
   - bash <(curl -s https://codecov.io/bash)
