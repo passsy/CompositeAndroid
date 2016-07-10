@@ -11,6 +11,11 @@ android {
         versionName "23.4.0"
     }
 
+    dexOptions {
+        preDexLibraries = !ciBuild
+        javaMaxHeapSize "2g"
+    }
+
     lintOptions {
         abortOnError false
     }

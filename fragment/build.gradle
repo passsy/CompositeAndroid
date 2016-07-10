@@ -28,6 +28,11 @@ android {
         }
     }
 
+    dexOptions {
+        preDexLibraries = !ciBuild
+        javaMaxHeapSize "2g"
+    }
+
     lintOptions {
         abortOnError false
     }
