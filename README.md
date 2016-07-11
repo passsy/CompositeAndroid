@@ -131,14 +131,14 @@ dependencies {
     // based on support library 23.4.0
     
     // contains CompositeActivity
-    compile 'com.pascalwelsch.compositeandroid:activity:0.2.0'
+    compile 'com.pascalwelsch.compositeandroid:activity:0.2.1'
 
     // contains CompositeFragment and CompositeDialogFragment
-    compile 'com.pascalwelsch.compositeandroid:fragment:0.2.0'
+    compile 'com.pascalwelsch.compositeandroid:fragment:0.2.1'
 
 
     // core module (not required, only abstract classes and utils)
-    compile 'com.pascalwelsch.compositeandroid:core:0.2.0'
+    compile 'com.pascalwelsch.compositeandroid:core:0.2.1'
 }
 ```
 
