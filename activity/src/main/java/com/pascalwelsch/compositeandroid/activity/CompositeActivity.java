@@ -745,7 +745,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @return see {@link #AppCompatActivity#getLastCustomNonConfigurationInstance()}
      */
     public Object getLastCompositeCustomNonConfigurationInstance() {
-        return null;
+        return delegate.getLastCompositeCustomNonConfigurationInstance();
     }
 
     /**
@@ -2183,7 +2183,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @return see {@link #AppCompatActivity#onRetainCustomNonConfigurationInstance()}
      */
     public Object onRetainCompositeCustomNonConfigurationInstance() {
-        return delegate.onRetainNonConfigurationInstance();
+        return null;
     }
 
     /**
