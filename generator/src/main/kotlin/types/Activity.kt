@@ -112,10 +112,11 @@ val activity_custom_nonConfigurationInstance_handling = """
         |}
         |
         |/**
+        | * save any object over configuration changes, get it with {@link #getLastCompositeCustomNonConfigurationInstance()}
         | * @return see {@link #AppCompatActivity#onRetainCustomNonConfigurationInstance()}
         | */
         |public Object onRetainCompositeCustomNonConfigurationInstance() {
-        |    return delegate.onRetainNonConfigurationInstance();
+        |    return null;
         |}
         """.replaceIndentByMargin("    ")
 
