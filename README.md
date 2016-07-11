@@ -126,6 +126,18 @@ CompositeAndroid let's you add delegates to your Activity without adding calls t
 
 CompositeAndroid is available via [jcenter](http://blog.bintray.com/2015/02/09/android-studio-migration-from-maven-central-to-jcenter/)
 
+top level `build.gradle`
+```gradle
+allprojects {
+    repositories {
+        jcenter() 
+        // required until all artifacts are synced to jcenter
+        maven { url = "https://dl.bintray.com/passsy/maven/" }
+    }
+}
+```
+
+app `build.gradle`
 ```gradle
 dependencies {
     // based on support library 23.4.0
