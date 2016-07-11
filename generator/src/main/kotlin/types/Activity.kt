@@ -112,7 +112,6 @@ val activity_custom_nonConfigurationInstance_handling = """
         |}
         |
         |/**
-        | * save any object over configuration changes, get it with {@link #getLastCompositeCustomNonConfigurationInstance()}
         | * @return see {@link #AppCompatActivity#onRetainCustomNonConfigurationInstance()}
         | */
         |public Object onRetainCompositeCustomNonConfigurationInstance() {
@@ -121,6 +120,15 @@ val activity_custom_nonConfigurationInstance_handling = """
         """.replaceIndentByMargin("    ")
 
 val delegate_custom_nonConfigurationInstance_handling = """
+        |
+        |public Object getLastCompositeCustomNonConfigurationInstance() {
+        |    final Object nci = getOriginal().getLastCustomNonConfigurationInstance();
+        |    if (nci instanceof NonConfigurationInstanceWrapper) {
+        |        final NonConfigurationInstanceWrapper all = (NonConfigurationInstanceWrapper) nci;
+        |        return all.getSuperNonConfigurationInstance();
+        |    }
+        |    return null;
+        |}
         |
         |public Object getLastNonConfigurationInstance(final String key) {
         |    final Object nci = getOriginal().getLastCustomNonConfigurationInstance();

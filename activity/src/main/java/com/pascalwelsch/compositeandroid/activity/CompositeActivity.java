@@ -2178,8 +2178,6 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * save any object over configuration changes, get it with {@link #getLastCompositeCustomNonConfigurationInstance()}
-     *
      * @return see {@link #AppCompatActivity#onRetainCustomNonConfigurationInstance()}
      */
     public Object onRetainCompositeCustomNonConfigurationInstance() {
