@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- hotfix `OutOfMemoryException` (stackoverflow) when calling  `Activity#getLastCompositeCustomNonConfigurationInstance()` #21
+
 ## 0.2.0
 
 - `FragmentPlugin` can now be added to `CompositeDialogFragment` #16

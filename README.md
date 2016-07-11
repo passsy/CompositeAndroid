@@ -128,7 +128,7 @@ CompositeAndroid is available via [jcenter](http://blog.bintray.com/2015/02/09/a
 
 ```gradle
 dependencies {
-    compile 'com.pascalwelsch.compositeandroid:activity:0.2.0' // based on support library 23.4.0
+    compile 'com.pascalwelsch.compositeandroid:activity:0.2.1' // based on support library 23.4.0
 }
 ```
 
