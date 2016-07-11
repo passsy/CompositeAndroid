@@ -108,7 +108,7 @@ val activity_custom_nonConfigurationInstance_handling = """
         | * @return see {@link #AppCompatActivity#getLastCustomNonConfigurationInstance()}
         | */
         |public Object getLastCompositeCustomNonConfigurationInstance() {
-        |    return delegate.getLastCompositeCustomNonConfigurationInstance();
+        |    return null;
         |}
         |
         |/**

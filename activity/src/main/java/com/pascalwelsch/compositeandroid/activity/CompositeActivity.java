@@ -745,7 +745,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @return see {@link #AppCompatActivity#getLastCustomNonConfigurationInstance()}
      */
     public Object getLastCompositeCustomNonConfigurationInstance() {
-        return delegate.getLastCompositeCustomNonConfigurationInstance();
+        return null;
     }
 
     /**
