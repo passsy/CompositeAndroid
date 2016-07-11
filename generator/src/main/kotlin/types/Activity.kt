@@ -108,7 +108,7 @@ val activity_custom_nonConfigurationInstance_handling = """
         | * @return see {@link #AppCompatActivity#getLastCustomNonConfigurationInstance()}
         | */
         |public Object getLastCompositeCustomNonConfigurationInstance() {
-        |    return null;
+        |    return delegate.getLastCompositeCustomNonConfigurationInstance();
         |}
         |
         |/**
@@ -116,11 +116,20 @@ val activity_custom_nonConfigurationInstance_handling = """
         | * @return see {@link #AppCompatActivity#onRetainCustomNonConfigurationInstance()}
         | */
         |public Object onRetainCompositeCustomNonConfigurationInstance() {
-        |    return delegate.onRetainNonConfigurationInstance();
+        |    return null;
         |}
         """.replaceIndentByMargin("    ")
 
 val delegate_custom_nonConfigurationInstance_handling = """
+        |
+        |public Object getLastCompositeCustomNonConfigurationInstance() {
+        |    final Object nci = getOriginal().getLastCustomNonConfigurationInstance();
+        |    if (nci instanceof NonConfigurationInstanceWrapper) {
+        |        final NonConfigurationInstanceWrapper all = (NonConfigurationInstanceWrapper) nci;
+        |        return all.getSuperNonConfigurationInstance();
+        |    }
+        |    return null;
+        |}
         |
         |public Object getLastNonConfigurationInstance(final String key) {
         |    final Object nci = getOriginal().getLastCustomNonConfigurationInstance();
