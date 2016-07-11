@@ -1418,15 +1418,6 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         });
     }
 
-    public Object getLastCompositeCustomNonConfigurationInstance() {
-        final Object nci = getOriginal().getLastCustomNonConfigurationInstance();
-        if (nci instanceof NonConfigurationInstanceWrapper) {
-            final NonConfigurationInstanceWrapper all = (NonConfigurationInstanceWrapper) nci;
-            return all.getSuperNonConfigurationInstance();
-        }
-        return null;
-    }
-
     public Object getLastNonConfigurationInstance(final String key) {
         final Object nci = getOriginal().getLastCustomNonConfigurationInstance();
         if (nci instanceof NonConfigurationInstanceWrapper) {
