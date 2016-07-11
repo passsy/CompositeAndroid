@@ -2,7 +2,7 @@
 
 ## 0.2.1
 
-- hotfix `OutOfMemoryException` (stackoverflow) when calling  `Activity#getLastCompositeCustomNonConfigurationInstance()` #21
+- hotfix `OutOfMemoryException` (stackoverflow) when calling  `Activity#getLastCompositeCustomNonConfigurationInstance()` (#21) #22
 
 ## 0.2.0
 
