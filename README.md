@@ -237,11 +237,12 @@ Here some information about plugins. The Activity example is used but it works t
 Not everything works exactly like you'd use inheritance. Here is a small list of minor things you have to know:
 
 #### Important for all Plugin authors
-- you can't call an `Activity` method of a `Plugin` such as `onResume()` or `getResources()`. Otherwise the call order of the added plugins is not guaranteed. Instead call those methods on the real `Activity` with `getCompositeActivity.onResume()` or `getCompositeActivity.getResources()`.
+- you can't call an `Activity` method of a `Plugin` such as `onResume()` or `getResources()`. Otherwise the call order of the added plugins is not guaranteed. Instead call those methods on the real `Activity` with `getActivity.onResume()` or `getActivity.getResources()`.
 
-#### Absolute edgecases
-- you can't really override `Activity#onRetainCustomNonConfigurationInstance()` and `Activity#getLastCustomNonConfigurationInstance()` in sense of intercepting what the actual Activity or other Plugins save or read. But you can use those methods to save and get a non configuration instance object as you would use it in an `Activity`. Make sure you use the same `key` for saving and reading the instance.
-
+#### onRetainNonConfigurationInstace
+- `CompositeActivity#onRetainCustomNonConfigurationInstance()` is final and required for internal usage, use `CompositeActivity#onRetainCompositeCustomNonConfigurationInstance()` instead
+- `CompositeActivity#getLastCustomNonConfigurationInstance()` is final and required for internal usage, use `CompositeActivity#getLastCompositeCustomNonConfigurationInstance()` instead
+- Saving a NonConfigurationInstance inside of a `Plugin` works by overriding `onRetainNonConfigurationInstance()` and returning an instance of `CompositeNonConfigurationInstance(key, object)`. Get the data again with `getLastNonConfigurationInstance(key)` and make sure you use the correct `key`.
 
 ## Project stage
 
