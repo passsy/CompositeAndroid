@@ -81,6 +81,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ListIterator;
 
 
 public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, ActivityPlugin> {
@@ -1209,21 +1210,26 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         }, name);
     }
 
+    final PluginCall<ActivityPlugin, AppCompatDelegate> fiudsojf
+            = new PluginCall<ActivityPlugin, AppCompatDelegate>() {
+        @Override
+        public AppCompatDelegate call(final NamedSuperCall<AppCompatDelegate> superCall,
+                final ActivityPlugin plugin, final Object... args) {
+
+            return plugin.getDelegate(superCall);
+
+        }
+    };
+    final SuperCall<AppCompatDelegate> diso = new SuperCall<AppCompatDelegate>() {
+        @Override
+        public AppCompatDelegate call(final Object... args) {
+            return getOriginal().super_getDelegate();
+        }
+    };
+
+
     public AppCompatDelegate getDelegate() {
-        return callFunction("getDelegate()", new PluginCall<ActivityPlugin, AppCompatDelegate>() {
-            @Override
-            public AppCompatDelegate call(final NamedSuperCall<AppCompatDelegate> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
-
-                return plugin.getDelegate(superCall);
-
-            }
-        }, new SuperCall<AppCompatDelegate>() {
-            @Override
-            public AppCompatDelegate call(final Object... args) {
-                return getOriginal().super_getDelegate();
-            }
-        });
+        return callFunction("getDelegate()", fiudsojf, diso);
     }
 
     public File getDir(final String name, final int mode) {
@@ -1713,22 +1719,50 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         });
     }
 
+
+    //private GetResourcesSuperCall mGetResourcesSuperCall = new GetResourcesSuperCall();
+
     public Resources getResources() {
-        return callFunction("getResources()", new PluginCall<ActivityPlugin, Resources>() {
-            @Override
-            public Resources call(final NamedSuperCall<Resources> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getResources();
+        }
 
-                return plugin.getResources(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Resources>() {
+        final NamedSuperCall<Resources> superCall =
+                new NamedSuperCall<Resources>("getResources()") {
+
             @Override
             public Resources call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getResources(this);
+                } else {
+                    return getOriginal().super_getResources();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+/*    private class GetResourcesSuperCall extends NamedSuperCall<Resources> {
+
+        private ListIterator<ActivityPlugin> iterator;
+
+        public GetResourcesSuperCall() {
+            super("getResources()");
+        }
+
+        @Override
+        public Resources call(final Object... args) {
+            if (iterator.hasPrevious()) {
+                ActivityPlugin plugin = iterator.previous();
+                return plugin.getResources(this);
+            } else {
                 return getOriginal().super_getResources();
             }
-        });
-    }
+        }
+    }*/
+
 
     public SharedPreferences getSharedPreferences(final String name, final int mode) {
         return callFunction("getSharedPreferences(String, int)",
@@ -3339,38 +3373,42 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return all;
     }
 
+    final PluginCallVoid<ActivityPlugin> onSaveInstanceStatemethodCall = new PluginCallVoid<ActivityPlugin>() {
+        @Override
+        public void call(final NamedSuperCall<Void> superCall,
+                final ActivityPlugin plugin, final Object... args) {
+            plugin.onSaveInstanceState(superCall, (Bundle) args[0],
+                    (PersistableBundle) args[1]);
+        }
+    };
+    final SuperCallVoid onSaveInstantstateactivitySuper = new SuperCallVoid() {
+        @Override
+        public void call(final Object... args) {
+            getOriginal().super_onSaveInstanceState((Bundle) args[0],
+                    (PersistableBundle) args[1]);
+        }
+    };
     public void onSaveInstanceState(final Bundle outState,
             final PersistableBundle outPersistentState) {
         callHook("onSaveInstanceState(Bundle, PersistableBundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onSaveInstanceState(superCall, (Bundle) args[0],
-                                (PersistableBundle) args[1]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_onSaveInstanceState((Bundle) args[0],
-                                (PersistableBundle) args[1]);
-                    }
-                }, outState, outPersistentState);
+                onSaveInstanceStatemethodCall, onSaveInstantstateactivitySuper, outState, outPersistentState);
     }
 
+    final PluginCallVoid<ActivityPlugin> aslkfjawer = new PluginCallVoid<ActivityPlugin>() {
+        @Override
+        public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
+                final Object... args) {
+            plugin.onSaveInstanceState(superCall, (Bundle) args[0]);
+        }
+    };
+    final SuperCallVoid oisanfs = new SuperCallVoid() {
+        @Override
+        public void call(final Object... args) {
+            getOriginal().super_onSaveInstanceState((Bundle) args[0]);
+        }
+    };
     public void onSaveInstanceState(final Bundle outState) {
-        callHook("onSaveInstanceState(Bundle)", new PluginCallVoid<ActivityPlugin>() {
-            @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onSaveInstanceState(superCall, (Bundle) args[0]);
-            }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onSaveInstanceState((Bundle) args[0]);
-            }
-        }, outState);
+        callHook("onSaveInstanceState(Bundle)", aslkfjawer, oisanfs, outState);
     }
 
     public boolean onSearchRequested(final SearchEvent searchEvent) {
