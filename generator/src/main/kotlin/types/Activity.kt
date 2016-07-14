@@ -38,8 +38,8 @@ fun generateActivity() {
             "ActivityDelegate",
             "ICompositeActivity",
             "ActivityPlugin",
-            "getOriginal()",
             extends = "AbstractDelegate<ICompositeActivity, ActivityPlugin>",
+            additionalImports = "import java.util.ListIterator;",
             addCodeToClass = delegate_custom_nonConfigurationInstance_handling)
 
     writePlugin(outPath,

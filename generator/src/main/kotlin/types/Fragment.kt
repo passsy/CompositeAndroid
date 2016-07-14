@@ -62,7 +62,6 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             "DialogFragmentDelegate",
             "ICompositeDialogFragment",
             "DialogFragmentPlugin",
-            "getOriginal()",
             additionalImports = """
             |import android.support.v4.app.*;
             |import java.io.*;
@@ -114,10 +113,10 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             "FragmentDelegate",
             "ICompositeFragment",
             "FragmentPlugin",
-            "getOriginal()",
             additionalImports =
             """
             |import android.support.v4.app.*;
+            |import java.util.ListIterator;
             """.replaceIndentByMargin(),
             extends = "AbstractDelegate<ICompositeFragment, FragmentPlugin>",
             transform = replaceSavedState)

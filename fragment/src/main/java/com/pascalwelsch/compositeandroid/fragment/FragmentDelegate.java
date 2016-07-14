@@ -2,10 +2,6 @@ package com.pascalwelsch.compositeandroid.fragment;
 
 import com.pascalwelsch.compositeandroid.core.AbstractDelegate;
 import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
-import com.pascalwelsch.compositeandroid.core.PluginCall;
-import com.pascalwelsch.compositeandroid.core.PluginCallVoid;
-import com.pascalwelsch.compositeandroid.core.SuperCall;
-import com.pascalwelsch.compositeandroid.core.SuperCallVoid;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,6 +25,7 @@ import android.view.animation.Animation;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+import java.util.ListIterator;
 
 public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, FragmentPlugin> {
 
@@ -41,1144 +38,1692 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
             final String[] args) {
-        callHook("dump(String, FileDescriptor, PrintWriter, String[])",
-                new PluginCallVoid<FragmentPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
-                        plugin.dump(superCall, (String) args[0], (FileDescriptor) args[1],
-                                (PrintWriter) args[2], (String[]) args[3]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_dump((String) args[0], (FileDescriptor) args[1],
-                                (PrintWriter) args[2], (String[]) args[3]);
-                    }
-                }, prefix, fd, writer, args);
-    }
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_dump(prefix, fd, writer, args);
+            return;
+        }
 
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "dump(String, FileDescriptor, PrintWriter, String[])") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().dump(this, (String) args[0], (FileDescriptor) args[1],
+                            (PrintWriter) args[2], (String[]) args[3]);
+                    return null;
+                } else {
+                    getOriginal().super_dump((String) args[0], (FileDescriptor) args[1],
+                            (PrintWriter) args[2], (String[]) args[3]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(prefix, fd, writer, args);
+    }
 
     public boolean getAllowEnterTransitionOverlap() {
-        return callFunction("getAllowEnterTransitionOverlap()",
-                new PluginCall<FragmentPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getAllowEnterTransitionOverlap();
+        }
 
-                        return plugin.getAllowEnterTransitionOverlap(superCall);
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_getAllowEnterTransitionOverlap();
-                    }
-                });
-    }
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "getAllowEnterTransitionOverlap()") {
 
-
-    public boolean getAllowReturnTransitionOverlap() {
-        return callFunction("getAllowReturnTransitionOverlap()",
-                new PluginCall<FragmentPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
-
-                        return plugin.getAllowReturnTransitionOverlap(superCall);
-
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_getAllowReturnTransitionOverlap();
-                    }
-                });
-    }
-
-
-    public Context getContext() {
-        return callFunction("getContext()", new PluginCall<FragmentPlugin, Context>() {
-            @Override
-            public Context call(final NamedSuperCall<Context> superCall,
-                    final FragmentPlugin plugin, final Object... args) {
-
-                return plugin.getContext(superCall);
-
-            }
-        }, new SuperCall<Context>() {
-            @Override
-            public Context call(final Object... args) {
-                return getOriginal().super_getContext();
-            }
-        });
-    }
-
-
-    public Object getEnterTransition() {
-        return callFunction("getEnterTransition()", new PluginCall<FragmentPlugin, Object>() {
-            @Override
-            public Object call(final NamedSuperCall<Object> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-
-                return plugin.getEnterTransition(superCall);
-
-            }
-        }, new SuperCall<Object>() {
-            @Override
-            public Object call(final Object... args) {
-                return getOriginal().super_getEnterTransition();
-            }
-        });
-    }
-
-
-    public Object getExitTransition() {
-        return callFunction("getExitTransition()", new PluginCall<FragmentPlugin, Object>() {
-            @Override
-            public Object call(final NamedSuperCall<Object> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-
-                return plugin.getExitTransition(superCall);
-
-            }
-        }, new SuperCall<Object>() {
-            @Override
-            public Object call(final Object... args) {
-                return getOriginal().super_getExitTransition();
-            }
-        });
-    }
-
-
-    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
-        return callFunction("getLayoutInflater(Bundle)",
-                new PluginCall<FragmentPlugin, LayoutInflater>() {
-                    @Override
-                    public LayoutInflater call(final NamedSuperCall<LayoutInflater> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
-
-                        return plugin.getLayoutInflater(superCall, (Bundle) args[0]);
-
-                    }
-                }, new SuperCall<LayoutInflater>() {
-                    @Override
-                    public LayoutInflater call(final Object... args) {
-                        return getOriginal().super_getLayoutInflater((Bundle) args[0]);
-                    }
-                }, savedInstanceState);
-    }
-
-
-    public LoaderManager getLoaderManager() {
-        return callFunction("getLoaderManager()", new PluginCall<FragmentPlugin, LoaderManager>() {
-            @Override
-            public LoaderManager call(final NamedSuperCall<LoaderManager> superCall,
-                    final FragmentPlugin plugin, final Object... args) {
-
-                return plugin.getLoaderManager(superCall);
-
-            }
-        }, new SuperCall<LoaderManager>() {
-            @Override
-            public LoaderManager call(final Object... args) {
-                return getOriginal().super_getLoaderManager();
-            }
-        });
-    }
-
-
-    public Object getReenterTransition() {
-        return callFunction("getReenterTransition()", new PluginCall<FragmentPlugin, Object>() {
-            @Override
-            public Object call(final NamedSuperCall<Object> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-
-                return plugin.getReenterTransition(superCall);
-
-            }
-        }, new SuperCall<Object>() {
-            @Override
-            public Object call(final Object... args) {
-                return getOriginal().super_getReenterTransition();
-            }
-        });
-    }
-
-
-    public Object getReturnTransition() {
-        return callFunction("getReturnTransition()", new PluginCall<FragmentPlugin, Object>() {
-            @Override
-            public Object call(final NamedSuperCall<Object> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-
-                return plugin.getReturnTransition(superCall);
-
-            }
-        }, new SuperCall<Object>() {
-            @Override
-            public Object call(final Object... args) {
-                return getOriginal().super_getReturnTransition();
-            }
-        });
-    }
-
-
-    public Object getSharedElementEnterTransition() {
-        return callFunction("getSharedElementEnterTransition()",
-                new PluginCall<FragmentPlugin, Object>() {
-                    @Override
-                    public Object call(final NamedSuperCall<Object> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
-
-                        return plugin.getSharedElementEnterTransition(superCall);
-
-                    }
-                }, new SuperCall<Object>() {
-                    @Override
-                    public Object call(final Object... args) {
-                        return getOriginal().super_getSharedElementEnterTransition();
-                    }
-                });
-    }
-
-
-    public Object getSharedElementReturnTransition() {
-        return callFunction("getSharedElementReturnTransition()",
-                new PluginCall<FragmentPlugin, Object>() {
-                    @Override
-                    public Object call(final NamedSuperCall<Object> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
-
-                        return plugin.getSharedElementReturnTransition(superCall);
-
-                    }
-                }, new SuperCall<Object>() {
-                    @Override
-                    public Object call(final Object... args) {
-                        return getOriginal().super_getSharedElementReturnTransition();
-                    }
-                });
-    }
-
-
-    public boolean getUserVisibleHint() {
-        return callFunction("getUserVisibleHint()", new PluginCall<FragmentPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final FragmentPlugin plugin, final Object... args) {
-
-                return plugin.getUserVisibleHint(superCall);
-
-            }
-        }, new SuperCall<Boolean>() {
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_getUserVisibleHint();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getAllowEnterTransitionOverlap(this);
+                } else {
+                    return getOriginal().super_getAllowEnterTransitionOverlap();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
+    public boolean getAllowReturnTransitionOverlap() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getAllowReturnTransitionOverlap();
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "getAllowReturnTransitionOverlap()") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getAllowReturnTransitionOverlap(this);
+                } else {
+                    return getOriginal().super_getAllowReturnTransitionOverlap();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public Context getContext() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getContext();
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>("getContext()") {
+
+            @Override
+            public Context call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getContext(this);
+                } else {
+                    return getOriginal().super_getContext();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public Object getEnterTransition() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getEnterTransition();
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
+                "getEnterTransition()") {
+
+            @Override
+            public Object call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getEnterTransition(this);
+                } else {
+                    return getOriginal().super_getEnterTransition();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public Object getExitTransition() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getExitTransition();
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>("getExitTransition()") {
+
+            @Override
+            public Object call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getExitTransition(this);
+                } else {
+                    return getOriginal().super_getExitTransition();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getLayoutInflater(savedInstanceState);
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<LayoutInflater> superCall = new NamedSuperCall<LayoutInflater>(
+                "getLayoutInflater(Bundle)") {
+
+            @Override
+            public LayoutInflater call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getLayoutInflater(this, (Bundle) args[0]);
+                } else {
+                    return getOriginal().super_getLayoutInflater((Bundle) args[0]);
+                }
+            }
+        };
+        return superCall.call(savedInstanceState);
+    }
+
+    public LoaderManager getLoaderManager() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getLoaderManager();
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<LoaderManager> superCall = new NamedSuperCall<LoaderManager>(
+                "getLoaderManager()") {
+
+            @Override
+            public LoaderManager call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getLoaderManager(this);
+                } else {
+                    return getOriginal().super_getLoaderManager();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public Object getReenterTransition() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getReenterTransition();
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
+                "getReenterTransition()") {
+
+            @Override
+            public Object call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getReenterTransition(this);
+                } else {
+                    return getOriginal().super_getReenterTransition();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public Object getReturnTransition() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getReturnTransition();
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
+                "getReturnTransition()") {
+
+            @Override
+            public Object call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getReturnTransition(this);
+                } else {
+                    return getOriginal().super_getReturnTransition();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public Object getSharedElementEnterTransition() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getSharedElementEnterTransition();
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
+                "getSharedElementEnterTransition()") {
+
+            @Override
+            public Object call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getSharedElementEnterTransition(this);
+                } else {
+                    return getOriginal().super_getSharedElementEnterTransition();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public Object getSharedElementReturnTransition() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getSharedElementReturnTransition();
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
+                "getSharedElementReturnTransition()") {
+
+            @Override
+            public Object call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getSharedElementReturnTransition(this);
+                } else {
+                    return getOriginal().super_getSharedElementReturnTransition();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public boolean getUserVisibleHint() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getUserVisibleHint();
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "getUserVisibleHint()") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getUserVisibleHint(this);
+                } else {
+                    return getOriginal().super_getUserVisibleHint();
+                }
+            }
+        };
+        return superCall.call();
+    }
 
     public View getView() {
-        return callFunction("getView()", new PluginCall<FragmentPlugin, View>() {
-            @Override
-            public View call(final NamedSuperCall<View> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getView();
+        }
 
-                return plugin.getView(superCall);
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<View>() {
+        final NamedSuperCall<View> superCall = new NamedSuperCall<View>("getView()") {
+
             @Override
             public View call(final Object... args) {
-                return getOriginal().super_getView();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getView(this);
+                } else {
+                    return getOriginal().super_getView();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
-        callHook("onActivityCreated(Bundle)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onActivityCreated(savedInstanceState);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onActivityCreated(Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onActivityCreated(superCall, (Bundle) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onActivityCreated(this, (Bundle) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onActivityCreated((Bundle) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onActivityCreated((Bundle) args[0]);
-            }
-        }, savedInstanceState);
+        };
+        superCall.call(savedInstanceState);
     }
 
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        callHook("onActivityResult(int, int, Intent)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onActivityResult(int, int, Intent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onActivityResult(superCall, (int) args[0], (int) args[1], (Intent) args[2]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onActivityResult(this, (int) args[0], (int) args[1], (Intent) args[2]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_onActivityResult((int) args[0], (int) args[1], (Intent) args[2]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal()
-                        .super_onActivityResult((int) args[0], (int) args[1], (Intent) args[2]);
-            }
-        }, requestCode, resultCode, data);
+        };
+        superCall.call(requestCode, resultCode, data);
     }
 
     public void onAttach(final Context context) {
-        callHook("onAttach(Context)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onAttach(context);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onAttach(Context)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onAttach(superCall, (Context) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onAttach(this, (Context) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onAttach((Context) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onAttach((Context) args[0]);
-            }
-        }, context);
+        };
+        superCall.call(context);
     }
 
     public void onAttach(final Activity activity) {
-        callHook("onAttach(Activity)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onAttach(activity);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onAttach(Activity)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onAttach(superCall, (Activity) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onAttach(this, (Activity) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onAttach((Activity) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onAttach((Activity) args[0]);
-            }
-        }, activity);
+        };
+        superCall.call(activity);
     }
 
     public void onConfigurationChanged(final Configuration newConfig) {
-        callHook("onConfigurationChanged(Configuration)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onConfigurationChanged(newConfig);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onConfigurationChanged(Configuration)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onConfigurationChanged(superCall, (Configuration) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onConfigurationChanged(this, (Configuration) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onConfigurationChanged((Configuration) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onConfigurationChanged((Configuration) args[0]);
-            }
-        }, newConfig);
+        };
+        superCall.call(newConfig);
     }
 
-
     public boolean onContextItemSelected(final MenuItem item) {
-        return callFunction("onContextItemSelected(MenuItem)",
-                new PluginCall<FragmentPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onContextItemSelected(item);
+        }
 
-                        return plugin.onContextItemSelected(superCall, (MenuItem) args[0]);
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onContextItemSelected((MenuItem) args[0]);
-                    }
-                }, item);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onContextItemSelected(MenuItem)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onContextItemSelected(this, (MenuItem) args[0]);
+                } else {
+                    return getOriginal().super_onContextItemSelected((MenuItem) args[0]);
+                }
+            }
+        };
+        return superCall.call(item);
     }
 
     public void onCreate(@Nullable final Bundle savedInstanceState) {
-        callHook("onCreate(Bundle)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onCreate(savedInstanceState);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onCreate(Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onCreate(superCall, (Bundle) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onCreate(this, (Bundle) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onCreate((Bundle) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onCreate((Bundle) args[0]);
-            }
-        }, savedInstanceState);
+        };
+        superCall.call(savedInstanceState);
     }
 
-
     public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
-        return callFunction("onCreateAnimation(int, boolean, int)",
-                new PluginCall<FragmentPlugin, Animation>() {
-                    @Override
-                    public Animation call(final NamedSuperCall<Animation> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreateAnimation(transit, enter, nextAnim);
+        }
 
-                        return plugin.onCreateAnimation(superCall, (int) args[0], (boolean) args[1],
-                                (int) args[2]);
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Animation>() {
-                    @Override
-                    public Animation call(final Object... args) {
-                        return getOriginal()
-                                .super_onCreateAnimation((int) args[0], (boolean) args[1],
-                                        (int) args[2]);
-                    }
-                }, transit, enter, nextAnim);
+        final NamedSuperCall<Animation> superCall = new NamedSuperCall<Animation>(
+                "onCreateAnimation(int, boolean, int)") {
+
+            @Override
+            public Animation call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onCreateAnimation(this, (int) args[0], (boolean) args[1],
+                                    (int) args[2]);
+                } else {
+                    return getOriginal().super_onCreateAnimation((int) args[0], (boolean) args[1],
+                            (int) args[2]);
+                }
+            }
+        };
+        return superCall.call(transit, enter, nextAnim);
     }
 
     public void onCreateContextMenu(final ContextMenu menu, final View v,
             final ContextMenu.ContextMenuInfo menuInfo) {
-        callHook("onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)",
-                new PluginCallVoid<FragmentPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
-                        plugin.onCreateContextMenu(superCall, (ContextMenu) args[0], (View) args[1],
-                                (ContextMenu.ContextMenuInfo) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_onCreateContextMenu((ContextMenu) args[0], (View) args[1],
-                                        (ContextMenu.ContextMenuInfo) args[2]);
-                    }
-                }, menu, v, menuInfo);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onCreateContextMenu(menu, v, menuInfo);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onCreateContextMenu(this, (ContextMenu) args[0], (View) args[1],
+                                    (ContextMenu.ContextMenuInfo) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_onCreateContextMenu((ContextMenu) args[0], (View) args[1],
+                            (ContextMenu.ContextMenuInfo) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(menu, v, menuInfo);
     }
 
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        callHook("onCreateOptionsMenu(Menu, MenuInflater)", new PluginCallVoid<FragmentPlugin>() {
-            @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onCreateOptionsMenu(superCall, (Menu) args[0], (MenuInflater) args[1]);
-            }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onCreateOptionsMenu((Menu) args[0], (MenuInflater) args[1]);
-            }
-        }, menu, inflater);
-    }
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onCreateOptionsMenu(menu, inflater);
+            return;
+        }
 
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onCreateOptionsMenu(Menu, MenuInflater)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onCreateOptionsMenu(this, (Menu) args[0], (MenuInflater) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_onCreateOptionsMenu((Menu) args[0], (MenuInflater) args[1]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(menu, inflater);
+    }
 
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
             @Nullable final Bundle savedInstanceState) {
-        return callFunction("onCreateView(LayoutInflater, ViewGroup, Bundle)",
-                new PluginCall<FragmentPlugin, View>() {
-                    @Override
-                    public View call(final NamedSuperCall<View> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreateView(inflater, container, savedInstanceState);
+        }
 
-                        return plugin.onCreateView(superCall, (LayoutInflater) args[0],
-                                (ViewGroup) args[1], (Bundle) args[2]);
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<View>() {
-                    @Override
-                    public View call(final Object... args) {
-                        return getOriginal()
-                                .super_onCreateView((LayoutInflater) args[0], (ViewGroup) args[1],
-                                        (Bundle) args[2]);
-                    }
-                }, inflater, container, savedInstanceState);
+        final NamedSuperCall<View> superCall = new NamedSuperCall<View>(
+                "onCreateView(LayoutInflater, ViewGroup, Bundle)") {
+
+            @Override
+            public View call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onCreateView(this, (LayoutInflater) args[0], (ViewGroup) args[1],
+                                    (Bundle) args[2]);
+                } else {
+                    return getOriginal()
+                            .super_onCreateView((LayoutInflater) args[0], (ViewGroup) args[1],
+                                    (Bundle) args[2]);
+                }
+            }
+        };
+        return superCall.call(inflater, container, savedInstanceState);
     }
 
     public void onDestroy() {
-        callHook("onDestroy()", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onDestroy();
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDestroy()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onDestroy(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onDestroy(this);
+                    return null;
+                } else {
+                    getOriginal().super_onDestroy();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onDestroy();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onDestroyOptionsMenu() {
-        callHook("onDestroyOptionsMenu()", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onDestroyOptionsMenu();
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDestroyOptionsMenu()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onDestroyOptionsMenu(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onDestroyOptionsMenu(this);
+                    return null;
+                } else {
+                    getOriginal().super_onDestroyOptionsMenu();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onDestroyOptionsMenu();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onDestroyView() {
-        callHook("onDestroyView()", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onDestroyView();
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDestroyView()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onDestroyView(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onDestroyView(this);
+                    return null;
+                } else {
+                    getOriginal().super_onDestroyView();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onDestroyView();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onDetach() {
-        callHook("onDetach()", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onDetach();
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDetach()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onDetach(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onDetach(this);
+                    return null;
+                } else {
+                    getOriginal().super_onDetach();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onDetach();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onHiddenChanged(final boolean hidden) {
-        callHook("onHiddenChanged(boolean)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onHiddenChanged(hidden);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onHiddenChanged(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onHiddenChanged(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onHiddenChanged(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onHiddenChanged((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onHiddenChanged((boolean) args[0]);
-            }
-        }, hidden);
+        };
+        superCall.call(hidden);
     }
 
     public void onInflate(final Context context, final AttributeSet attrs,
             final Bundle savedInstanceState) {
-        callHook("onInflate(Context, AttributeSet, Bundle)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onInflate(context, attrs, savedInstanceState);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onInflate(Context, AttributeSet, Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onInflate(superCall, (Context) args[0], (AttributeSet) args[1],
-                        (Bundle) args[2]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onInflate(this, (Context) args[0], (AttributeSet) args[1],
+                            (Bundle) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_onInflate((Context) args[0], (AttributeSet) args[1],
+                            (Bundle) args[2]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onInflate((Context) args[0], (AttributeSet) args[1],
-                        (Bundle) args[2]);
-            }
-        }, context, attrs, savedInstanceState);
+        };
+        superCall.call(context, attrs, savedInstanceState);
     }
 
     public void onInflate(final Activity activity, final AttributeSet attrs,
             final Bundle savedInstanceState) {
-        callHook("onInflate(Activity, AttributeSet, Bundle)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onInflate(activity, attrs, savedInstanceState);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onInflate(Activity, AttributeSet, Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onInflate(superCall, (Activity) args[0], (AttributeSet) args[1],
-                        (Bundle) args[2]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onInflate(this, (Activity) args[0], (AttributeSet) args[1],
+                            (Bundle) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_onInflate((Activity) args[0], (AttributeSet) args[1],
+                            (Bundle) args[2]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onInflate((Activity) args[0], (AttributeSet) args[1],
-                        (Bundle) args[2]);
-            }
-        }, activity, attrs, savedInstanceState);
+        };
+        superCall.call(activity, attrs, savedInstanceState);
     }
 
     public void onLowMemory() {
-        callHook("onLowMemory()", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onLowMemory();
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onLowMemory()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onLowMemory(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onLowMemory(this);
+                    return null;
+                } else {
+                    getOriginal().super_onLowMemory();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onLowMemory();
-            }
-        });
+        };
+        superCall.call();
     }
 
-
     public boolean onOptionsItemSelected(final MenuItem item) {
-        return callFunction("onOptionsItemSelected(MenuItem)",
-                new PluginCall<FragmentPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onOptionsItemSelected(item);
+        }
 
-                        return plugin.onOptionsItemSelected(superCall, (MenuItem) args[0]);
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onOptionsItemSelected((MenuItem) args[0]);
-                    }
-                }, item);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onOptionsItemSelected(MenuItem)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onOptionsItemSelected(this, (MenuItem) args[0]);
+                } else {
+                    return getOriginal().super_onOptionsItemSelected((MenuItem) args[0]);
+                }
+            }
+        };
+        return superCall.call(item);
     }
 
     public void onOptionsMenuClosed(final Menu menu) {
-        callHook("onOptionsMenuClosed(Menu)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onOptionsMenuClosed(menu);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onOptionsMenuClosed(Menu)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onOptionsMenuClosed(superCall, (Menu) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onOptionsMenuClosed(this, (Menu) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onOptionsMenuClosed((Menu) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onOptionsMenuClosed((Menu) args[0]);
-            }
-        }, menu);
+        };
+        superCall.call(menu);
     }
 
     public void onPause() {
-        callHook("onPause()", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPause();
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onPause()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onPause(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onPause(this);
+                    return null;
+                } else {
+                    getOriginal().super_onPause();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onPause();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onPrepareOptionsMenu(final Menu menu) {
-        callHook("onPrepareOptionsMenu(Menu)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPrepareOptionsMenu(menu);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onPrepareOptionsMenu(Menu)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onPrepareOptionsMenu(superCall, (Menu) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onPrepareOptionsMenu(this, (Menu) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onPrepareOptionsMenu((Menu) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onPrepareOptionsMenu((Menu) args[0]);
-            }
-        }, menu);
+        };
+        superCall.call(menu);
     }
 
     public void onRequestPermissionsResult(final int requestCode,
             @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        callHook("onRequestPermissionsResult(int, String[], int[])",
-                new PluginCallVoid<FragmentPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
-                        plugin.onRequestPermissionsResult(superCall, (int) args[0],
-                                (String[]) args[1], (int[]) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_onRequestPermissionsResult((int) args[0], (String[]) args[1],
-                                        (int[]) args[2]);
-                    }
-                }, requestCode, permissions, grantResults);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onRequestPermissionsResult(requestCode, permissions, grantResults);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onRequestPermissionsResult(int, String[], int[])") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onRequestPermissionsResult(this, (int) args[0], (String[]) args[1],
+                                    (int[]) args[2]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_onRequestPermissionsResult((int) args[0], (String[]) args[1],
+                                    (int[]) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(requestCode, permissions, grantResults);
     }
 
     public void onResume() {
-        callHook("onResume()", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onResume();
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onResume()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onResume(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onResume(this);
+                    return null;
+                } else {
+                    getOriginal().super_onResume();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onResume();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onSaveInstanceState(final Bundle outState) {
-        callHook("onSaveInstanceState(Bundle)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onSaveInstanceState(outState);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onSaveInstanceState(Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onSaveInstanceState(superCall, (Bundle) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onSaveInstanceState(this, (Bundle) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onSaveInstanceState((Bundle) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onSaveInstanceState((Bundle) args[0]);
-            }
-        }, outState);
+        };
+        superCall.call(outState);
     }
 
     public void onStart() {
-        callHook("onStart()", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onStart();
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onStart()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onStart(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onStart(this);
+                    return null;
+                } else {
+                    getOriginal().super_onStart();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onStart();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onStop() {
-        callHook("onStop()", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onStop();
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onStop()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onStop(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onStop(this);
+                    return null;
+                } else {
+                    getOriginal().super_onStop();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onStop();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
-        callHook("onViewCreated(View, Bundle)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onViewCreated(view, savedInstanceState);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onViewCreated(View, Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onViewCreated(superCall, (View) args[0], (Bundle) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onViewCreated(this, (View) args[0], (Bundle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_onViewCreated((View) args[0], (Bundle) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onViewCreated((View) args[0], (Bundle) args[1]);
-            }
-        }, view, savedInstanceState);
+        };
+        superCall.call(view, savedInstanceState);
     }
 
     public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
-        callHook("onViewStateRestored(Bundle)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onViewStateRestored(savedInstanceState);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onViewStateRestored(Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.onViewStateRestored(superCall, (Bundle) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onViewStateRestored(this, (Bundle) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onViewStateRestored((Bundle) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onViewStateRestored((Bundle) args[0]);
-            }
-        }, savedInstanceState);
+        };
+        superCall.call(savedInstanceState);
     }
 
     public void registerForContextMenu(final View view) {
-        callHook("registerForContextMenu(View)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_registerForContextMenu(view);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "registerForContextMenu(View)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.registerForContextMenu(superCall, (View) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().registerForContextMenu(this, (View) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_registerForContextMenu((View) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_registerForContextMenu((View) args[0]);
-            }
-        }, view);
+        };
+        superCall.call(view);
     }
 
     public void setAllowEnterTransitionOverlap(final boolean allow) {
-        callHook("setAllowEnterTransitionOverlap(boolean)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setAllowEnterTransitionOverlap(allow);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setAllowEnterTransitionOverlap(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setAllowEnterTransitionOverlap(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setAllowEnterTransitionOverlap(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setAllowEnterTransitionOverlap((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setAllowEnterTransitionOverlap((boolean) args[0]);
-            }
-        }, allow);
+        };
+        superCall.call(allow);
     }
 
     public void setAllowReturnTransitionOverlap(final boolean allow) {
-        callHook("setAllowReturnTransitionOverlap(boolean)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setAllowReturnTransitionOverlap(allow);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setAllowReturnTransitionOverlap(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setAllowReturnTransitionOverlap(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setAllowReturnTransitionOverlap(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setAllowReturnTransitionOverlap((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setAllowReturnTransitionOverlap((boolean) args[0]);
-            }
-        }, allow);
+        };
+        superCall.call(allow);
     }
 
     public void setArguments(final Bundle args) {
-        callHook("setArguments(Bundle)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setArguments(args);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setArguments(Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setArguments(superCall, (Bundle) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setArguments(this, (Bundle) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setArguments((Bundle) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setArguments((Bundle) args[0]);
-            }
-        }, args);
+        };
+        superCall.call(args);
     }
 
     public void setEnterSharedElementCallback(final SharedElementCallback callback) {
-        callHook("setEnterSharedElementCallback(SharedElementCallback)",
-                new PluginCallVoid<FragmentPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
-                        plugin.setEnterSharedElementCallback(superCall,
-                                (SharedElementCallback) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_setEnterSharedElementCallback(
-                                (SharedElementCallback) args[0]);
-                    }
-                }, callback);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setEnterSharedElementCallback(callback);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setEnterSharedElementCallback(SharedElementCallback)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .setEnterSharedElementCallback(this, (SharedElementCallback) args[0]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_setEnterSharedElementCallback((SharedElementCallback) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(callback);
     }
 
     public void setEnterTransition(final Object transition) {
-        callHook("setEnterTransition(Object)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setEnterTransition(transition);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setEnterTransition(Object)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setEnterTransition(superCall, (Object) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setEnterTransition(this, (Object) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setEnterTransition((Object) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setEnterTransition((Object) args[0]);
-            }
-        }, transition);
+        };
+        superCall.call(transition);
     }
 
     public void setExitSharedElementCallback(final SharedElementCallback callback) {
-        callHook("setExitSharedElementCallback(SharedElementCallback)",
-                new PluginCallVoid<FragmentPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
-                        plugin.setExitSharedElementCallback(superCall,
-                                (SharedElementCallback) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_setExitSharedElementCallback(
-                                (SharedElementCallback) args[0]);
-                    }
-                }, callback);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setExitSharedElementCallback(callback);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setExitSharedElementCallback(SharedElementCallback)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .setExitSharedElementCallback(this, (SharedElementCallback) args[0]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_setExitSharedElementCallback((SharedElementCallback) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(callback);
     }
 
     public void setExitTransition(final Object transition) {
-        callHook("setExitTransition(Object)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setExitTransition(transition);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setExitTransition(Object)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setExitTransition(superCall, (Object) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setExitTransition(this, (Object) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setExitTransition((Object) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setExitTransition((Object) args[0]);
-            }
-        }, transition);
+        };
+        superCall.call(transition);
     }
 
     public void setHasOptionsMenu(final boolean hasMenu) {
-        callHook("setHasOptionsMenu(boolean)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setHasOptionsMenu(hasMenu);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setHasOptionsMenu(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setHasOptionsMenu(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setHasOptionsMenu(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setHasOptionsMenu((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setHasOptionsMenu((boolean) args[0]);
-            }
-        }, hasMenu);
+        };
+        superCall.call(hasMenu);
     }
 
     public void setInitialSavedState(final Fragment.SavedState state) {
-        callHook("setInitialSavedState(Fragment.SavedState)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setInitialSavedState(state);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setInitialSavedState(Fragment.SavedState)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setInitialSavedState(superCall, (Fragment.SavedState) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setInitialSavedState(this, (Fragment.SavedState) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setInitialSavedState((Fragment.SavedState) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setInitialSavedState((Fragment.SavedState) args[0]);
-            }
-        }, state);
+        };
+        superCall.call(state);
     }
 
     public void setMenuVisibility(final boolean menuVisible) {
-        callHook("setMenuVisibility(boolean)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setMenuVisibility(menuVisible);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setMenuVisibility(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setMenuVisibility(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setMenuVisibility(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setMenuVisibility((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setMenuVisibility((boolean) args[0]);
-            }
-        }, menuVisible);
+        };
+        superCall.call(menuVisible);
     }
 
     public void setReenterTransition(final Object transition) {
-        callHook("setReenterTransition(Object)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setReenterTransition(transition);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setReenterTransition(Object)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setReenterTransition(superCall, (Object) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setReenterTransition(this, (Object) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setReenterTransition((Object) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setReenterTransition((Object) args[0]);
-            }
-        }, transition);
+        };
+        superCall.call(transition);
     }
 
     public void setRetainInstance(final boolean retain) {
-        callHook("setRetainInstance(boolean)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setRetainInstance(retain);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setRetainInstance(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setRetainInstance(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setRetainInstance(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setRetainInstance((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setRetainInstance((boolean) args[0]);
-            }
-        }, retain);
+        };
+        superCall.call(retain);
     }
 
     public void setReturnTransition(final Object transition) {
-        callHook("setReturnTransition(Object)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setReturnTransition(transition);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setReturnTransition(Object)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setReturnTransition(superCall, (Object) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setReturnTransition(this, (Object) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setReturnTransition((Object) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setReturnTransition((Object) args[0]);
-            }
-        }, transition);
+        };
+        superCall.call(transition);
     }
 
     public void setSharedElementEnterTransition(final Object transition) {
-        callHook("setSharedElementEnterTransition(Object)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setSharedElementEnterTransition(transition);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setSharedElementEnterTransition(Object)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setSharedElementEnterTransition(superCall, (Object) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setSharedElementEnterTransition(this, (Object) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setSharedElementEnterTransition((Object) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setSharedElementEnterTransition((Object) args[0]);
-            }
-        }, transition);
+        };
+        superCall.call(transition);
     }
 
     public void setSharedElementReturnTransition(final Object transition) {
-        callHook("setSharedElementReturnTransition(Object)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setSharedElementReturnTransition(transition);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setSharedElementReturnTransition(Object)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setSharedElementReturnTransition(superCall, (Object) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setSharedElementReturnTransition(this, (Object) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setSharedElementReturnTransition((Object) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setSharedElementReturnTransition((Object) args[0]);
-            }
-        }, transition);
+        };
+        superCall.call(transition);
     }
 
     public void setTargetFragment(final Fragment fragment, final int requestCode) {
-        callHook("setTargetFragment(Fragment, int)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setTargetFragment(fragment, requestCode);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setTargetFragment(Fragment, int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setTargetFragment(superCall, (Fragment) args[0], (int) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setTargetFragment(this, (Fragment) args[0], (int) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_setTargetFragment((Fragment) args[0], (int) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setTargetFragment((Fragment) args[0], (int) args[1]);
-            }
-        }, fragment, requestCode);
+        };
+        superCall.call(fragment, requestCode);
     }
 
     public void setUserVisibleHint(final boolean isVisibleToUser) {
-        callHook("setUserVisibleHint(boolean)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setUserVisibleHint(isVisibleToUser);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setUserVisibleHint(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.setUserVisibleHint(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setUserVisibleHint(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setUserVisibleHint((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setUserVisibleHint((boolean) args[0]);
-            }
-        }, isVisibleToUser);
+        };
+        superCall.call(isVisibleToUser);
     }
 
-
     public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
-        return callFunction("shouldShowRequestPermissionRationale(String)",
-                new PluginCall<FragmentPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_shouldShowRequestPermissionRationale(permission);
+        }
 
-                        return plugin
-                                .shouldShowRequestPermissionRationale(superCall, (String) args[0]);
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal()
-                                .super_shouldShowRequestPermissionRationale((String) args[0]);
-                    }
-                }, permission);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "shouldShowRequestPermissionRationale(String)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .shouldShowRequestPermissionRationale(this, (String) args[0]);
+                } else {
+                    return getOriginal()
+                            .super_shouldShowRequestPermissionRationale((String) args[0]);
+                }
+            }
+        };
+        return superCall.call(permission);
     }
 
     public void startActivity(final Intent intent) {
-        callHook("startActivity(Intent)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivity(intent);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("startActivity(Intent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.startActivity(superCall, (Intent) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startActivity(this, (Intent) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivity((Intent) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_startActivity((Intent) args[0]);
-            }
-        }, intent);
+        };
+        superCall.call(intent);
     }
 
     public void startActivity(final Intent intent, @Nullable final Bundle options) {
-        callHook("startActivity(Intent, Bundle)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivity(intent, options);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivity(Intent, Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.startActivity(superCall, (Intent) args[0], (Bundle) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startActivity(this, (Intent) args[0], (Bundle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivity((Intent) args[0], (Bundle) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_startActivity((Intent) args[0], (Bundle) args[1]);
-            }
-        }, intent, options);
+        };
+        superCall.call(intent, options);
     }
 
     public void startActivityForResult(final Intent intent, final int requestCode) {
-        callHook("startActivityForResult(Intent, int)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityForResult(intent, requestCode);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivityForResult(Intent, int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.startActivityForResult(superCall, (Intent) args[0], (int) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityForResult(this, (Intent) args[0], (int) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1]);
-            }
-        }, intent, requestCode);
+        };
+        superCall.call(intent, requestCode);
     }
 
     public void startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options) {
-        callHook("startActivityForResult(Intent, int, Bundle)",
-                new PluginCallVoid<FragmentPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final FragmentPlugin plugin, final Object... args) {
-                        plugin.startActivityForResult(superCall, (Intent) args[0], (int) args[1],
-                                (Bundle) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1],
-                                (Bundle) args[2]);
-                    }
-                }, intent, requestCode, options);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityForResult(intent, requestCode, options);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivityForResult(Intent, int, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityForResult(this, (Intent) args[0], (int) args[1],
+                                    (Bundle) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1],
+                            (Bundle) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(intent, requestCode, options);
     }
 
-
     public String toString() {
-        return callFunction("toString()", new PluginCall<FragmentPlugin, String>() {
-            @Override
-            public String call(final NamedSuperCall<String> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_toString();
+        }
 
-                return plugin.toString(superCall);
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<String>() {
+        final NamedSuperCall<String> superCall = new NamedSuperCall<String>("toString()") {
+
             @Override
             public String call(final Object... args) {
-                return getOriginal().super_toString();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().toString(this);
+                } else {
+                    return getOriginal().super_toString();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public void unregisterForContextMenu(final View view) {
-        callHook("unregisterForContextMenu(View)", new PluginCallVoid<FragmentPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_unregisterForContextMenu(view);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "unregisterForContextMenu(View)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final FragmentPlugin plugin,
-                    final Object... args) {
-                plugin.unregisterForContextMenu(superCall, (View) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().unregisterForContextMenu(this, (View) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_unregisterForContextMenu((View) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_unregisterForContextMenu((View) args[0]);
-            }
-        }, view);
+        };
+        superCall.call(view);
     }
 
 

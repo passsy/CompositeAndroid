@@ -2,10 +2,6 @@ package com.pascalwelsch.compositeandroid.activity;
 
 import com.pascalwelsch.compositeandroid.core.AbstractDelegate;
 import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
-import com.pascalwelsch.compositeandroid.core.PluginCall;
-import com.pascalwelsch.compositeandroid.core.PluginCallVoid;
-import com.pascalwelsch.compositeandroid.core.SuperCall;
-import com.pascalwelsch.compositeandroid.core.SuperCallVoid;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -83,7 +79,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ListIterator;
 
-
 public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, ActivityPlugin> {
 
 
@@ -94,1334 +89,1765 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
 
     public void addContentView(final View view, final ViewGroup.LayoutParams params) {
-        callHook("addContentView(View, ViewGroup.LayoutParams)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.addContentView(superCall, (View) args[0],
-                                (ViewGroup.LayoutParams) args[1]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_addContentView((View) args[0],
-                                (ViewGroup.LayoutParams) args[1]);
-                    }
-                }, view, params);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_addContentView(view, params);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "addContentView(View, ViewGroup.LayoutParams)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .addContentView(this, (View) args[0], (ViewGroup.LayoutParams) args[1]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_addContentView((View) args[0], (ViewGroup.LayoutParams) args[1]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(view, params);
     }
 
     public void applyOverrideConfiguration(final Configuration overrideConfiguration) {
-        callHook("applyOverrideConfiguration(Configuration)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_applyOverrideConfiguration(overrideConfiguration);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "applyOverrideConfiguration(Configuration)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.applyOverrideConfiguration(superCall, (Configuration) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().applyOverrideConfiguration(this, (Configuration) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_applyOverrideConfiguration((Configuration) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_applyOverrideConfiguration((Configuration) args[0]);
-            }
-        }, overrideConfiguration);
+        };
+        superCall.call(overrideConfiguration);
     }
 
     public void attachBaseContext(final Context newBase) {
-        callHook("attachBaseContext(Context)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_attachBaseContext(newBase);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "attachBaseContext(Context)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.attachBaseContext(superCall, (Context) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().attachBaseContext(this, (Context) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_attachBaseContext((Context) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_attachBaseContext((Context) args[0]);
-            }
-        }, newBase);
+        };
+        superCall.call(newBase);
     }
 
     public boolean bindService(final Intent service, final ServiceConnection conn,
             final int flags) {
-        return callFunction("bindService(Intent, ServiceConnection, int)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_bindService(service, conn, flags);
+        }
 
-                        return plugin.bindService(superCall, (Intent) args[0],
-                                (ServiceConnection) args[1], (int) args[2]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal()
-                                .super_bindService((Intent) args[0], (ServiceConnection) args[1],
-                                        (int) args[2]);
-                    }
-                }, service, conn, flags);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "bindService(Intent, ServiceConnection, int)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .bindService(this, (Intent) args[0], (ServiceConnection) args[1],
+                                    (int) args[2]);
+                } else {
+                    return getOriginal()
+                            .super_bindService((Intent) args[0], (ServiceConnection) args[1],
+                                    (int) args[2]);
+                }
+            }
+        };
+        return superCall.call(service, conn, flags);
     }
 
     public int checkCallingOrSelfPermission(final String permission) {
-        return callFunction("checkCallingOrSelfPermission(String)",
-                new PluginCall<ActivityPlugin, Integer>() {
-                    @Override
-                    public Integer call(final NamedSuperCall<Integer> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_checkCallingOrSelfPermission(permission);
+        }
 
-                        return plugin.checkCallingOrSelfPermission(superCall, (String) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Integer>() {
-                    @Override
-                    public Integer call(final Object... args) {
-                        return getOriginal().super_checkCallingOrSelfPermission((String) args[0]);
-                    }
-                }, permission);
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "checkCallingOrSelfPermission(String)") {
+
+            @Override
+            public Integer call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().checkCallingOrSelfPermission(this, (String) args[0]);
+                } else {
+                    return getOriginal().super_checkCallingOrSelfPermission((String) args[0]);
+                }
+            }
+        };
+        return superCall.call(permission);
     }
 
     public int checkCallingOrSelfUriPermission(final Uri uri, final int modeFlags) {
-        return callFunction("checkCallingOrSelfUriPermission(Uri, int)",
-                new PluginCall<ActivityPlugin, Integer>() {
-                    @Override
-                    public Integer call(final NamedSuperCall<Integer> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_checkCallingOrSelfUriPermission(uri, modeFlags);
+        }
 
-                        return plugin.checkCallingOrSelfUriPermission(superCall, (Uri) args[0],
-                                (int) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Integer>() {
-                    @Override
-                    public Integer call(final Object... args) {
-                        return getOriginal().super_checkCallingOrSelfUriPermission((Uri) args[0],
-                                (int) args[1]);
-                    }
-                }, uri, modeFlags);
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "checkCallingOrSelfUriPermission(Uri, int)") {
+
+            @Override
+            public Integer call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .checkCallingOrSelfUriPermission(this, (Uri) args[0], (int) args[1]);
+                } else {
+                    return getOriginal()
+                            .super_checkCallingOrSelfUriPermission((Uri) args[0], (int) args[1]);
+                }
+            }
+        };
+        return superCall.call(uri, modeFlags);
     }
 
     public int checkCallingPermission(final String permission) {
-        return callFunction("checkCallingPermission(String)",
-                new PluginCall<ActivityPlugin, Integer>() {
-                    @Override
-                    public Integer call(final NamedSuperCall<Integer> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_checkCallingPermission(permission);
+        }
 
-                        return plugin.checkCallingPermission(superCall, (String) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Integer>() {
-                    @Override
-                    public Integer call(final Object... args) {
-                        return getOriginal().super_checkCallingPermission((String) args[0]);
-                    }
-                }, permission);
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "checkCallingPermission(String)") {
+
+            @Override
+            public Integer call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().checkCallingPermission(this, (String) args[0]);
+                } else {
+                    return getOriginal().super_checkCallingPermission((String) args[0]);
+                }
+            }
+        };
+        return superCall.call(permission);
     }
 
     public int checkCallingUriPermission(final Uri uri, final int modeFlags) {
-        return callFunction("checkCallingUriPermission(Uri, int)",
-                new PluginCall<ActivityPlugin, Integer>() {
-                    @Override
-                    public Integer call(final NamedSuperCall<Integer> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_checkCallingUriPermission(uri, modeFlags);
+        }
 
-                        return plugin
-                                .checkCallingUriPermission(superCall, (Uri) args[0], (int) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Integer>() {
-                    @Override
-                    public Integer call(final Object... args) {
-                        return getOriginal()
-                                .super_checkCallingUriPermission((Uri) args[0], (int) args[1]);
-                    }
-                }, uri, modeFlags);
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "checkCallingUriPermission(Uri, int)") {
+
+            @Override
+            public Integer call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .checkCallingUriPermission(this, (Uri) args[0], (int) args[1]);
+                } else {
+                    return getOriginal()
+                            .super_checkCallingUriPermission((Uri) args[0], (int) args[1]);
+                }
+            }
+        };
+        return superCall.call(uri, modeFlags);
     }
 
     public int checkPermission(final String permission, final int pid, final int uid) {
-        return callFunction("checkPermission(String, int, int)",
-                new PluginCall<ActivityPlugin, Integer>() {
-                    @Override
-                    public Integer call(final NamedSuperCall<Integer> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_checkPermission(permission, pid, uid);
+        }
 
-                        return plugin.checkPermission(superCall, (String) args[0], (int) args[1],
-                                (int) args[2]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Integer>() {
-                    @Override
-                    public Integer call(final Object... args) {
-                        return getOriginal().super_checkPermission((String) args[0], (int) args[1],
-                                (int) args[2]);
-                    }
-                }, permission, pid, uid);
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "checkPermission(String, int, int)") {
+
+            @Override
+            public Integer call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .checkPermission(this, (String) args[0], (int) args[1], (int) args[2]);
+                } else {
+                    return getOriginal()
+                            .super_checkPermission((String) args[0], (int) args[1], (int) args[2]);
+                }
+            }
+        };
+        return superCall.call(permission, pid, uid);
     }
 
     public int checkSelfPermission(final String permission) {
-        return callFunction("checkSelfPermission(String)",
-                new PluginCall<ActivityPlugin, Integer>() {
-                    @Override
-                    public Integer call(final NamedSuperCall<Integer> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_checkSelfPermission(permission);
+        }
 
-                        return plugin.checkSelfPermission(superCall, (String) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Integer>() {
-                    @Override
-                    public Integer call(final Object... args) {
-                        return getOriginal().super_checkSelfPermission((String) args[0]);
-                    }
-                }, permission);
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "checkSelfPermission(String)") {
+
+            @Override
+            public Integer call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().checkSelfPermission(this, (String) args[0]);
+                } else {
+                    return getOriginal().super_checkSelfPermission((String) args[0]);
+                }
+            }
+        };
+        return superCall.call(permission);
     }
 
     public int checkUriPermission(final Uri uri, final int pid, final int uid,
             final int modeFlags) {
-        return callFunction("checkUriPermission(Uri, int, int, int)",
-                new PluginCall<ActivityPlugin, Integer>() {
-                    @Override
-                    public Integer call(final NamedSuperCall<Integer> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_checkUriPermission(uri, pid, uid, modeFlags);
+        }
 
-                        return plugin.checkUriPermission(superCall, (Uri) args[0], (int) args[1],
-                                (int) args[2], (int) args[3]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Integer>() {
-                    @Override
-                    public Integer call(final Object... args) {
-                        return getOriginal().super_checkUriPermission((Uri) args[0], (int) args[1],
-                                (int) args[2], (int) args[3]);
-                    }
-                }, uri, pid, uid, modeFlags);
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "checkUriPermission(Uri, int, int, int)") {
+
+            @Override
+            public Integer call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .checkUriPermission(this, (Uri) args[0], (int) args[1], (int) args[2],
+                                    (int) args[3]);
+                } else {
+                    return getOriginal()
+                            .super_checkUriPermission((Uri) args[0], (int) args[1], (int) args[2],
+                                    (int) args[3]);
+                }
+            }
+        };
+        return superCall.call(uri, pid, uid, modeFlags);
     }
 
     public int checkUriPermission(final Uri uri, final String readPermission,
             final String writePermission, final int pid, final int uid, final int modeFlags) {
-        return callFunction("checkUriPermission(Uri, String, String, int, int, int)",
-                new PluginCall<ActivityPlugin, Integer>() {
-                    @Override
-                    public Integer call(final NamedSuperCall<Integer> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal()
+                    .super_checkUriPermission(uri, readPermission, writePermission, pid, uid,
+                            modeFlags);
+        }
 
-                        return plugin.checkUriPermission(superCall, (Uri) args[0], (String) args[1],
-                                (String) args[2], (int) args[3], (int) args[4], (int) args[5]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Integer>() {
-                    @Override
-                    public Integer call(final Object... args) {
-                        return getOriginal()
-                                .super_checkUriPermission((Uri) args[0], (String) args[1],
-                                        (String) args[2], (int) args[3], (int) args[4],
-                                        (int) args[5]);
-                    }
-                }, uri, readPermission, writePermission, pid, uid, modeFlags);
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "checkUriPermission(Uri, String, String, int, int, int)") {
+
+            @Override
+            public Integer call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .checkUriPermission(this, (Uri) args[0], (String) args[1],
+                                    (String) args[2], (int) args[3], (int) args[4], (int) args[5]);
+                } else {
+                    return getOriginal().super_checkUriPermission((Uri) args[0], (String) args[1],
+                            (String) args[2], (int) args[3], (int) args[4], (int) args[5]);
+                }
+            }
+        };
+        return superCall.call(uri, readPermission, writePermission, pid, uid, modeFlags);
     }
 
     public void clearWallpaper() throws IOException {
-        callHook("clearWallpaper()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal().super_clearWallpaper();
+            } catch (IOException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("clearWallpaper()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                try {
-                    plugin.clearWallpaper(superCall);
-                } catch (IOException e) {
-                    throw new SuppressedException(e);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous().clearWallpaper(this);
+                        return null;
+                    } catch (IOException e) {
+                        throw new SuppressedException(e);
+                    }
+                } else {
+                    try {
+                        getOriginal().super_clearWallpaper();
+                        return null;
+                    } catch (IOException e) {
+                        throw new SuppressedException(e);
+                    }
                 }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                try {
-                    getOriginal().super_clearWallpaper();
-                } catch (IOException e) {
-                    throw new SuppressedException(e);
-                }
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void closeContextMenu() {
-        callHook("closeContextMenu()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_closeContextMenu();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("closeContextMenu()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.closeContextMenu(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().closeContextMenu(this);
+                    return null;
+                } else {
+                    getOriginal().super_closeContextMenu();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_closeContextMenu();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void closeOptionsMenu() {
-        callHook("closeOptionsMenu()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_closeOptionsMenu();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("closeOptionsMenu()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.closeOptionsMenu(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().closeOptionsMenu(this);
+                    return null;
+                } else {
+                    getOriginal().super_closeOptionsMenu();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_closeOptionsMenu();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public Context createConfigurationContext(final Configuration overrideConfiguration) {
-        return callFunction("createConfigurationContext(Configuration)",
-                new PluginCall<ActivityPlugin, Context>() {
-                    @Override
-                    public Context call(final NamedSuperCall<Context> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_createConfigurationContext(overrideConfiguration);
+        }
 
-                        return plugin
-                                .createConfigurationContext(superCall, (Configuration) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Context>() {
-                    @Override
-                    public Context call(final Object... args) {
-                        return getOriginal()
-                                .super_createConfigurationContext((Configuration) args[0]);
-                    }
-                }, overrideConfiguration);
+        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>(
+                "createConfigurationContext(Configuration)") {
+
+            @Override
+            public Context call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .createConfigurationContext(this, (Configuration) args[0]);
+                } else {
+                    return getOriginal().super_createConfigurationContext((Configuration) args[0]);
+                }
+            }
+        };
+        return superCall.call(overrideConfiguration);
     }
 
     public Context createDisplayContext(final Display display) {
-        return callFunction("createDisplayContext(Display)",
-                new PluginCall<ActivityPlugin, Context>() {
-                    @Override
-                    public Context call(final NamedSuperCall<Context> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_createDisplayContext(display);
+        }
 
-                        return plugin.createDisplayContext(superCall, (Display) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Context>() {
-                    @Override
-                    public Context call(final Object... args) {
-                        return getOriginal().super_createDisplayContext((Display) args[0]);
-                    }
-                }, display);
+        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>(
+                "createDisplayContext(Display)") {
+
+            @Override
+            public Context call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().createDisplayContext(this, (Display) args[0]);
+                } else {
+                    return getOriginal().super_createDisplayContext((Display) args[0]);
+                }
+            }
+        };
+        return superCall.call(display);
     }
 
-    public Context createPackageContext(final String packageName, final int flags) {
-        return callFunction("createPackageContext(String, int)",
-                new PluginCall<ActivityPlugin, Context>() {
-                    @Override
-                    public Context call(final NamedSuperCall<Context> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        try {
-                            return plugin.createPackageContext(superCall, (String) args[0],
-                                    (int) args[1]);
-                        } catch (PackageManager.NameNotFoundException e) {
-                            throw new SuppressedException(e);
-                        }
+    public Context createPackageContext(final String packageName, final int flags)
+            throws PackageManager.NameNotFoundException {
+        if (mPlugins.isEmpty()) {
+            try {
+                return getOriginal().super_createPackageContext(packageName, flags);
+            } catch (PackageManager.NameNotFoundException e) {
+                throw new SuppressedException(e);
+            }
+        }
 
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>(
+                "createPackageContext(String, int)") {
+
+            @Override
+            public Context call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        return iterator.previous()
+                                .createPackageContext(this, (String) args[0], (int) args[1]);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        throw new SuppressedException(e);
                     }
-                }, new SuperCall<Context>() {
-                    @Override
-                    public Context call(final Object... args) {
-                        try {
-                            return getOriginal()
-                                    .super_createPackageContext((String) args[0], (int) args[1]);
-                        } catch (PackageManager.NameNotFoundException e) {
-                            throw new SuppressedException(e);
-                        }
+                } else {
+                    try {
+                        return getOriginal()
+                                .super_createPackageContext((String) args[0], (int) args[1]);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        throw new SuppressedException(e);
                     }
-                }, packageName, flags);
+                }
+            }
+        };
+        return superCall.call(packageName, flags);
     }
 
     public PendingIntent createPendingResult(final int requestCode, final Intent data,
             final int flags) {
-        return callFunction("createPendingResult(int, Intent, int)",
-                new PluginCall<ActivityPlugin, PendingIntent>() {
-                    @Override
-                    public PendingIntent call(final NamedSuperCall<PendingIntent> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_createPendingResult(requestCode, data, flags);
+        }
 
-                        return plugin
-                                .createPendingResult(superCall, (int) args[0], (Intent) args[1],
-                                        (int) args[2]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<PendingIntent>() {
-                    @Override
-                    public PendingIntent call(final Object... args) {
-                        return getOriginal()
-                                .super_createPendingResult((int) args[0], (Intent) args[1],
-                                        (int) args[2]);
-                    }
-                }, requestCode, data, flags);
+        final NamedSuperCall<PendingIntent> superCall = new NamedSuperCall<PendingIntent>(
+                "createPendingResult(int, Intent, int)") {
+
+            @Override
+            public PendingIntent call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .createPendingResult(this, (int) args[0], (Intent) args[1],
+                                    (int) args[2]);
+                } else {
+                    return getOriginal().super_createPendingResult((int) args[0], (Intent) args[1],
+                            (int) args[2]);
+                }
+            }
+        };
+        return superCall.call(requestCode, data, flags);
     }
 
     public String[] databaseList() {
-        return callFunction("databaseList()", new PluginCall<ActivityPlugin, String[]>() {
-            @Override
-            public String[] call(final NamedSuperCall<String[]> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_databaseList();
+        }
 
-                return plugin.databaseList(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<String[]>() {
+        final NamedSuperCall<String[]> superCall = new NamedSuperCall<String[]>("databaseList()") {
+
             @Override
             public String[] call(final Object... args) {
-                return getOriginal().super_databaseList();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().databaseList(this);
+                } else {
+                    return getOriginal().super_databaseList();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public boolean deleteDatabase(final String name) {
-        return callFunction("deleteDatabase(String)", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_deleteDatabase(name);
+        }
 
-                return plugin.deleteDatabase(superCall, (String) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "deleteDatabase(String)") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_deleteDatabase((String) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().deleteDatabase(this, (String) args[0]);
+                } else {
+                    return getOriginal().super_deleteDatabase((String) args[0]);
+                }
             }
-        }, name);
+        };
+        return superCall.call(name);
     }
 
     public boolean deleteFile(final String name) {
-        return callFunction("deleteFile(String)", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_deleteFile(name);
+        }
 
-                return plugin.deleteFile(superCall, (String) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "deleteFile(String)") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_deleteFile((String) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().deleteFile(this, (String) args[0]);
+                } else {
+                    return getOriginal().super_deleteFile((String) args[0]);
+                }
             }
-        }, name);
+        };
+        return superCall.call(name);
     }
 
     public boolean dispatchGenericMotionEvent(final MotionEvent ev) {
-        return callFunction("dispatchGenericMotionEvent(MotionEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_dispatchGenericMotionEvent(ev);
+        }
 
-                        return plugin.dispatchGenericMotionEvent(superCall, (MotionEvent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal()
-                                .super_dispatchGenericMotionEvent((MotionEvent) args[0]);
-                    }
-                }, ev);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "dispatchGenericMotionEvent(MotionEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .dispatchGenericMotionEvent(this, (MotionEvent) args[0]);
+                } else {
+                    return getOriginal().super_dispatchGenericMotionEvent((MotionEvent) args[0]);
+                }
+            }
+        };
+        return superCall.call(ev);
     }
 
     public boolean dispatchKeyEvent(final KeyEvent event) {
-        return callFunction("dispatchKeyEvent(KeyEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_dispatchKeyEvent(event);
+        }
 
-                        return plugin.dispatchKeyEvent(superCall, (KeyEvent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_dispatchKeyEvent((KeyEvent) args[0]);
-                    }
-                }, event);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "dispatchKeyEvent(KeyEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().dispatchKeyEvent(this, (KeyEvent) args[0]);
+                } else {
+                    return getOriginal().super_dispatchKeyEvent((KeyEvent) args[0]);
+                }
+            }
+        };
+        return superCall.call(event);
     }
 
     public boolean dispatchKeyShortcutEvent(final KeyEvent event) {
-        return callFunction("dispatchKeyShortcutEvent(KeyEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_dispatchKeyShortcutEvent(event);
+        }
 
-                        return plugin.dispatchKeyShortcutEvent(superCall, (KeyEvent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_dispatchKeyShortcutEvent((KeyEvent) args[0]);
-                    }
-                }, event);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "dispatchKeyShortcutEvent(KeyEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().dispatchKeyShortcutEvent(this, (KeyEvent) args[0]);
+                } else {
+                    return getOriginal().super_dispatchKeyShortcutEvent((KeyEvent) args[0]);
+                }
+            }
+        };
+        return superCall.call(event);
     }
 
     public boolean dispatchPopulateAccessibilityEvent(final AccessibilityEvent event) {
-        return callFunction("dispatchPopulateAccessibilityEvent(AccessibilityEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_dispatchPopulateAccessibilityEvent(event);
+        }
 
-                        return plugin.dispatchPopulateAccessibilityEvent(superCall,
-                                (AccessibilityEvent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_dispatchPopulateAccessibilityEvent(
-                                (AccessibilityEvent) args[0]);
-                    }
-                }, event);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "dispatchPopulateAccessibilityEvent(AccessibilityEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .dispatchPopulateAccessibilityEvent(this, (AccessibilityEvent) args[0]);
+                } else {
+                    return getOriginal()
+                            .super_dispatchPopulateAccessibilityEvent((AccessibilityEvent) args[0]);
+                }
+            }
+        };
+        return superCall.call(event);
     }
 
     public boolean dispatchTouchEvent(final MotionEvent ev) {
-        return callFunction("dispatchTouchEvent(MotionEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_dispatchTouchEvent(ev);
+        }
 
-                        return plugin.dispatchTouchEvent(superCall, (MotionEvent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_dispatchTouchEvent((MotionEvent) args[0]);
-                    }
-                }, ev);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "dispatchTouchEvent(MotionEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().dispatchTouchEvent(this, (MotionEvent) args[0]);
+                } else {
+                    return getOriginal().super_dispatchTouchEvent((MotionEvent) args[0]);
+                }
+            }
+        };
+        return superCall.call(ev);
     }
 
     public boolean dispatchTrackballEvent(final MotionEvent ev) {
-        return callFunction("dispatchTrackballEvent(MotionEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_dispatchTrackballEvent(ev);
+        }
 
-                        return plugin.dispatchTrackballEvent(superCall, (MotionEvent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_dispatchTrackballEvent((MotionEvent) args[0]);
-                    }
-                }, ev);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "dispatchTrackballEvent(MotionEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().dispatchTrackballEvent(this, (MotionEvent) args[0]);
+                } else {
+                    return getOriginal().super_dispatchTrackballEvent((MotionEvent) args[0]);
+                }
+            }
+        };
+        return superCall.call(ev);
     }
 
     public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
             final String[] args) {
-        callHook("dump(String, FileDescriptor, PrintWriter, String[])",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.dump(superCall, (String) args[0], (FileDescriptor) args[1],
-                                (PrintWriter) args[2], (String[]) args[3]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_dump((String) args[0], (FileDescriptor) args[1],
-                                (PrintWriter) args[2], (String[]) args[3]);
-                    }
-                }, prefix, fd, writer, args);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_dump(prefix, fd, writer, args);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "dump(String, FileDescriptor, PrintWriter, String[])") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().dump(this, (String) args[0], (FileDescriptor) args[1],
+                            (PrintWriter) args[2], (String[]) args[3]);
+                    return null;
+                } else {
+                    getOriginal().super_dump((String) args[0], (FileDescriptor) args[1],
+                            (PrintWriter) args[2], (String[]) args[3]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(prefix, fd, writer, args);
     }
 
     public void enforceCallingOrSelfPermission(final String permission, final String message) {
-        callHook("enforceCallingOrSelfPermission(String, String)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.enforceCallingOrSelfPermission(superCall, (String) args[0],
-                                (String) args[1]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_enforceCallingOrSelfPermission((String) args[0],
-                                (String) args[1]);
-                    }
-                }, permission, message);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_enforceCallingOrSelfPermission(permission, message);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "enforceCallingOrSelfPermission(String, String)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().enforceCallingOrSelfPermission(this, (String) args[0],
+                            (String) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_enforceCallingOrSelfPermission((String) args[0],
+                            (String) args[1]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(permission, message);
     }
 
     public void enforceCallingOrSelfUriPermission(final Uri uri, final int modeFlags,
             final String message) {
-        callHook("enforceCallingOrSelfUriPermission(Uri, int, String)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.enforceCallingOrSelfUriPermission(superCall, (Uri) args[0],
-                                (int) args[1], (String) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_enforceCallingOrSelfUriPermission((Uri) args[0],
-                                (int) args[1], (String) args[2]);
-                    }
-                }, uri, modeFlags, message);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_enforceCallingOrSelfUriPermission(uri, modeFlags, message);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "enforceCallingOrSelfUriPermission(Uri, int, String)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .enforceCallingOrSelfUriPermission(this, (Uri) args[0], (int) args[1],
+                                    (String) args[2]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_enforceCallingOrSelfUriPermission((Uri) args[0], (int) args[1],
+                                    (String) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(uri, modeFlags, message);
     }
 
     public void enforceCallingPermission(final String permission, final String message) {
-        callHook("enforceCallingPermission(String, String)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_enforceCallingPermission(permission, message);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "enforceCallingPermission(String, String)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.enforceCallingPermission(superCall, (String) args[0], (String) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .enforceCallingPermission(this, (String) args[0], (String) args[1]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_enforceCallingPermission((String) args[0], (String) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_enforceCallingPermission((String) args[0], (String) args[1]);
-            }
-        }, permission, message);
+        };
+        superCall.call(permission, message);
     }
 
     public void enforceCallingUriPermission(final Uri uri, final int modeFlags,
             final String message) {
-        callHook("enforceCallingUriPermission(Uri, int, String)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.enforceCallingUriPermission(superCall, (Uri) args[0], (int) args[1],
-                                (String) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_enforceCallingUriPermission((Uri) args[0], (int) args[1],
-                                        (String) args[2]);
-                    }
-                }, uri, modeFlags, message);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_enforceCallingUriPermission(uri, modeFlags, message);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "enforceCallingUriPermission(Uri, int, String)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .enforceCallingUriPermission(this, (Uri) args[0], (int) args[1],
+                                    (String) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_enforceCallingUriPermission((Uri) args[0], (int) args[1],
+                            (String) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(uri, modeFlags, message);
     }
 
     public void enforcePermission(final String permission, final int pid, final int uid,
             final String message) {
-        callHook("enforcePermission(String, int, int, String)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.enforcePermission(superCall, (String) args[0], (int) args[1],
-                                (int) args[2], (String) args[3]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_enforcePermission((String) args[0], (int) args[1],
-                                (int) args[2], (String) args[3]);
-                    }
-                }, permission, pid, uid, message);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_enforcePermission(permission, pid, uid, message);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "enforcePermission(String, int, int, String)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .enforcePermission(this, (String) args[0], (int) args[1], (int) args[2],
+                                    (String) args[3]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_enforcePermission((String) args[0], (int) args[1], (int) args[2],
+                                    (String) args[3]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(permission, pid, uid, message);
     }
 
     public void enforceUriPermission(final Uri uri, final int pid, final int uid,
             final int modeFlags, final String message) {
-        callHook("enforceUriPermission(Uri, int, int, int, String)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.enforceUriPermission(superCall, (Uri) args[0], (int) args[1],
-                                (int) args[2], (int) args[3], (String) args[4]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_enforceUriPermission((Uri) args[0], (int) args[1],
-                                (int) args[2], (int) args[3], (String) args[4]);
-                    }
-                }, uri, pid, uid, modeFlags, message);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_enforceUriPermission(uri, pid, uid, modeFlags, message);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "enforceUriPermission(Uri, int, int, int, String)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .enforceUriPermission(this, (Uri) args[0], (int) args[1], (int) args[2],
+                                    (int) args[3], (String) args[4]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_enforceUriPermission((Uri) args[0], (int) args[1], (int) args[2],
+                                    (int) args[3], (String) args[4]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(uri, pid, uid, modeFlags, message);
     }
 
     public void enforceUriPermission(final Uri uri, final String readPermission,
             final String writePermission, final int pid, final int uid, final int modeFlags,
             final String message) {
-        callHook("enforceUriPermission(Uri, String, String, int, int, int, String)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.enforceUriPermission(superCall, (Uri) args[0], (String) args[1],
-                                (String) args[2], (int) args[3], (int) args[4], (int) args[5],
-                                (String) args[6]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_enforceUriPermission((Uri) args[0], (String) args[1],
-                                (String) args[2], (int) args[3], (int) args[4], (int) args[5],
-                                (String) args[6]);
-                    }
-                }, uri, readPermission, writePermission, pid, uid, modeFlags, message);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_enforceUriPermission(uri, readPermission, writePermission, pid, uid,
+                    modeFlags, message);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "enforceUriPermission(Uri, String, String, int, int, int, String)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().enforceUriPermission(this, (Uri) args[0], (String) args[1],
+                            (String) args[2], (int) args[3], (int) args[4], (int) args[5],
+                            (String) args[6]);
+                    return null;
+                } else {
+                    getOriginal().super_enforceUriPermission((Uri) args[0], (String) args[1],
+                            (String) args[2], (int) args[3], (int) args[4], (int) args[5],
+                            (String) args[6]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(uri, readPermission, writePermission, pid, uid, modeFlags, message);
     }
 
     public String[] fileList() {
-        return callFunction("fileList()", new PluginCall<ActivityPlugin, String[]>() {
-            @Override
-            public String[] call(final NamedSuperCall<String[]> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_fileList();
+        }
 
-                return plugin.fileList(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<String[]>() {
+        final NamedSuperCall<String[]> superCall = new NamedSuperCall<String[]>("fileList()") {
+
             @Override
             public String[] call(final Object... args) {
-                return getOriginal().super_fileList();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().fileList(this);
+                } else {
+                    return getOriginal().super_fileList();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public View findViewById(@IdRes final int id) {
-        return callFunction("findViewById(int)", new PluginCall<ActivityPlugin, View>() {
-            @Override
-            public View call(final NamedSuperCall<View> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_findViewById(id);
+        }
 
-                return plugin.findViewById(superCall, (int) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<View>() {
+        final NamedSuperCall<View> superCall = new NamedSuperCall<View>("findViewById(int)") {
+
             @Override
             public View call(final Object... args) {
-                return getOriginal().super_findViewById((int) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().findViewById(this, (int) args[0]);
+                } else {
+                    return getOriginal().super_findViewById((int) args[0]);
+                }
             }
-        }, id);
+        };
+        return superCall.call(id);
     }
 
     public void finish() {
-        callHook("finish()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_finish();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("finish()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.finish(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().finish(this);
+                    return null;
+                } else {
+                    getOriginal().super_finish();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_finish();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void finishActivity(final int requestCode) {
-        callHook("finishActivity(int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_finishActivity(requestCode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("finishActivity(int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.finishActivity(superCall, (int) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().finishActivity(this, (int) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_finishActivity((int) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_finishActivity((int) args[0]);
-            }
-        }, requestCode);
+        };
+        superCall.call(requestCode);
     }
 
     public void finishActivityFromChild(final Activity child, final int requestCode) {
-        callHook("finishActivityFromChild(Activity, int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_finishActivityFromChild(child, requestCode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "finishActivityFromChild(Activity, int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.finishActivityFromChild(superCall, (Activity) args[0], (int) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .finishActivityFromChild(this, (Activity) args[0], (int) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_finishActivityFromChild((Activity) args[0], (int) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_finishActivityFromChild((Activity) args[0], (int) args[1]);
-            }
-        }, child, requestCode);
+        };
+        superCall.call(child, requestCode);
     }
 
     public void finishAffinity() {
-        callHook("finishAffinity()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_finishAffinity();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("finishAffinity()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.finishAffinity(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().finishAffinity(this);
+                    return null;
+                } else {
+                    getOriginal().super_finishAffinity();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_finishAffinity();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void finishAfterTransition() {
-        callHook("finishAfterTransition()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_finishAfterTransition();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("finishAfterTransition()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.finishAfterTransition(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().finishAfterTransition(this);
+                    return null;
+                } else {
+                    getOriginal().super_finishAfterTransition();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_finishAfterTransition();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void finishAndRemoveTask() {
-        callHook("finishAndRemoveTask()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_finishAndRemoveTask();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("finishAndRemoveTask()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.finishAndRemoveTask(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().finishAndRemoveTask(this);
+                    return null;
+                } else {
+                    getOriginal().super_finishAndRemoveTask();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_finishAndRemoveTask();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void finishFromChild(final Activity child) {
-        callHook("finishFromChild(Activity)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_finishFromChild(child);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "finishFromChild(Activity)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.finishFromChild(superCall, (Activity) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().finishFromChild(this, (Activity) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_finishFromChild((Activity) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_finishFromChild((Activity) args[0]);
-            }
-        }, child);
+        };
+        superCall.call(child);
     }
 
     public android.app.ActionBar getActionBar() {
-        return callFunction("getActionBar()",
-                new PluginCall<ActivityPlugin, android.app.ActionBar>() {
-                    @Override
-                    public android.app.ActionBar call(
-                            final NamedSuperCall<android.app.ActionBar> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getActionBar();
+        }
 
-                        return plugin.getActionBar(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<android.app.ActionBar>() {
-                    @Override
-                    public android.app.ActionBar call(final Object... args) {
-                        return getOriginal().super_getActionBar();
-                    }
-                });
+        final NamedSuperCall<android.app.ActionBar> superCall
+                = new NamedSuperCall<android.app.ActionBar>("getActionBar()") {
+
+            @Override
+            public android.app.ActionBar call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getActionBar(this);
+                } else {
+                    return getOriginal().super_getActionBar();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public Context getApplicationContext() {
-        return callFunction("getApplicationContext()", new PluginCall<ActivityPlugin, Context>() {
-            @Override
-            public Context call(final NamedSuperCall<Context> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getApplicationContext();
+        }
 
-                return plugin.getApplicationContext(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Context>() {
+        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>(
+                "getApplicationContext()") {
+
             @Override
             public Context call(final Object... args) {
-                return getOriginal().super_getApplicationContext();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getApplicationContext(this);
+                } else {
+                    return getOriginal().super_getApplicationContext();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public ApplicationInfo getApplicationInfo() {
-        return callFunction("getApplicationInfo()",
-                new PluginCall<ActivityPlugin, ApplicationInfo>() {
-                    @Override
-                    public ApplicationInfo call(final NamedSuperCall<ApplicationInfo> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getApplicationInfo();
+        }
 
-                        return plugin.getApplicationInfo(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<ApplicationInfo>() {
-                    @Override
-                    public ApplicationInfo call(final Object... args) {
-                        return getOriginal().super_getApplicationInfo();
-                    }
-                });
+        final NamedSuperCall<ApplicationInfo> superCall = new NamedSuperCall<ApplicationInfo>(
+                "getApplicationInfo()") {
+
+            @Override
+            public ApplicationInfo call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getApplicationInfo(this);
+                } else {
+                    return getOriginal().super_getApplicationInfo();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public AssetManager getAssets() {
-        return callFunction("getAssets()", new PluginCall<ActivityPlugin, AssetManager>() {
-            @Override
-            public AssetManager call(final NamedSuperCall<AssetManager> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getAssets();
+        }
 
-                return plugin.getAssets(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<AssetManager>() {
+        final NamedSuperCall<AssetManager> superCall = new NamedSuperCall<AssetManager>(
+                "getAssets()") {
+
             @Override
             public AssetManager call(final Object... args) {
-                return getOriginal().super_getAssets();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getAssets(this);
+                } else {
+                    return getOriginal().super_getAssets();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public Context getBaseContext() {
-        return callFunction("getBaseContext()", new PluginCall<ActivityPlugin, Context>() {
-            @Override
-            public Context call(final NamedSuperCall<Context> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getBaseContext();
+        }
 
-                return plugin.getBaseContext(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Context>() {
+        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>("getBaseContext()") {
+
             @Override
             public Context call(final Object... args) {
-                return getOriginal().super_getBaseContext();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getBaseContext(this);
+                } else {
+                    return getOriginal().super_getBaseContext();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public File getCacheDir() {
-        return callFunction("getCacheDir()", new PluginCall<ActivityPlugin, File>() {
-            @Override
-            public File call(final NamedSuperCall<File> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getCacheDir();
+        }
 
-                return plugin.getCacheDir(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File>() {
+        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getCacheDir()") {
+
             @Override
             public File call(final Object... args) {
-                return getOriginal().super_getCacheDir();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getCacheDir(this);
+                } else {
+                    return getOriginal().super_getCacheDir();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public ComponentName getCallingActivity() {
-        return callFunction("getCallingActivity()",
-                new PluginCall<ActivityPlugin, ComponentName>() {
-                    @Override
-                    public ComponentName call(final NamedSuperCall<ComponentName> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getCallingActivity();
+        }
 
-                        return plugin.getCallingActivity(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<ComponentName>() {
-                    @Override
-                    public ComponentName call(final Object... args) {
-                        return getOriginal().super_getCallingActivity();
-                    }
-                });
+        final NamedSuperCall<ComponentName> superCall = new NamedSuperCall<ComponentName>(
+                "getCallingActivity()") {
+
+            @Override
+            public ComponentName call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getCallingActivity(this);
+                } else {
+                    return getOriginal().super_getCallingActivity();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public String getCallingPackage() {
-        return callFunction("getCallingPackage()", new PluginCall<ActivityPlugin, String>() {
-            @Override
-            public String call(final NamedSuperCall<String> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getCallingPackage();
+        }
 
-                return plugin.getCallingPackage(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<String>() {
+        final NamedSuperCall<String> superCall = new NamedSuperCall<String>("getCallingPackage()") {
+
             @Override
             public String call(final Object... args) {
-                return getOriginal().super_getCallingPackage();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getCallingPackage(this);
+                } else {
+                    return getOriginal().super_getCallingPackage();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public int getChangingConfigurations() {
-        return callFunction("getChangingConfigurations()",
-                new PluginCall<ActivityPlugin, Integer>() {
-                    @Override
-                    public Integer call(final NamedSuperCall<Integer> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getChangingConfigurations();
+        }
 
-                        return plugin.getChangingConfigurations(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Integer>() {
-                    @Override
-                    public Integer call(final Object... args) {
-                        return getOriginal().super_getChangingConfigurations();
-                    }
-                });
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "getChangingConfigurations()") {
+
+            @Override
+            public Integer call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getChangingConfigurations(this);
+                } else {
+                    return getOriginal().super_getChangingConfigurations();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public ClassLoader getClassLoader() {
-        return callFunction("getClassLoader()", new PluginCall<ActivityPlugin, ClassLoader>() {
-            @Override
-            public ClassLoader call(final NamedSuperCall<ClassLoader> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getClassLoader();
+        }
 
-                return plugin.getClassLoader(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<ClassLoader>() {
+        final NamedSuperCall<ClassLoader> superCall = new NamedSuperCall<ClassLoader>(
+                "getClassLoader()") {
+
             @Override
             public ClassLoader call(final Object... args) {
-                return getOriginal().super_getClassLoader();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getClassLoader(this);
+                } else {
+                    return getOriginal().super_getClassLoader();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public File getCodeCacheDir() {
-        return callFunction("getCodeCacheDir()", new PluginCall<ActivityPlugin, File>() {
-            @Override
-            public File call(final NamedSuperCall<File> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getCodeCacheDir();
+        }
 
-                return plugin.getCodeCacheDir(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File>() {
+        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getCodeCacheDir()") {
+
             @Override
             public File call(final Object... args) {
-                return getOriginal().super_getCodeCacheDir();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getCodeCacheDir(this);
+                } else {
+                    return getOriginal().super_getCodeCacheDir();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public ComponentName getComponentName() {
-        return callFunction("getComponentName()", new PluginCall<ActivityPlugin, ComponentName>() {
-            @Override
-            public ComponentName call(final NamedSuperCall<ComponentName> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getComponentName();
+        }
 
-                return plugin.getComponentName(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<ComponentName>() {
+        final NamedSuperCall<ComponentName> superCall = new NamedSuperCall<ComponentName>(
+                "getComponentName()") {
+
             @Override
             public ComponentName call(final Object... args) {
-                return getOriginal().super_getComponentName();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getComponentName(this);
+                } else {
+                    return getOriginal().super_getComponentName();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public ContentResolver getContentResolver() {
-        return callFunction("getContentResolver()",
-                new PluginCall<ActivityPlugin, ContentResolver>() {
-                    @Override
-                    public ContentResolver call(final NamedSuperCall<ContentResolver> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getContentResolver();
+        }
 
-                        return plugin.getContentResolver(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<ContentResolver>() {
-                    @Override
-                    public ContentResolver call(final Object... args) {
-                        return getOriginal().super_getContentResolver();
-                    }
-                });
+        final NamedSuperCall<ContentResolver> superCall = new NamedSuperCall<ContentResolver>(
+                "getContentResolver()") {
+
+            @Override
+            public ContentResolver call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getContentResolver(this);
+                } else {
+                    return getOriginal().super_getContentResolver();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public Scene getContentScene() {
-        return callFunction("getContentScene()", new PluginCall<ActivityPlugin, Scene>() {
-            @Override
-            public Scene call(final NamedSuperCall<Scene> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getContentScene();
+        }
 
-                return plugin.getContentScene(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Scene>() {
+        final NamedSuperCall<Scene> superCall = new NamedSuperCall<Scene>("getContentScene()") {
+
             @Override
             public Scene call(final Object... args) {
-                return getOriginal().super_getContentScene();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getContentScene(this);
+                } else {
+                    return getOriginal().super_getContentScene();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public TransitionManager getContentTransitionManager() {
-        return callFunction("getContentTransitionManager()",
-                new PluginCall<ActivityPlugin, TransitionManager>() {
-                    @Override
-                    public TransitionManager call(final NamedSuperCall<TransitionManager> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getContentTransitionManager();
+        }
 
-                        return plugin.getContentTransitionManager(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<TransitionManager>() {
-                    @Override
-                    public TransitionManager call(final Object... args) {
-                        return getOriginal().super_getContentTransitionManager();
-                    }
-                });
+        final NamedSuperCall<TransitionManager> superCall = new NamedSuperCall<TransitionManager>(
+                "getContentTransitionManager()") {
+
+            @Override
+            public TransitionManager call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getContentTransitionManager(this);
+                } else {
+                    return getOriginal().super_getContentTransitionManager();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public View getCurrentFocus() {
-        return callFunction("getCurrentFocus()", new PluginCall<ActivityPlugin, View>() {
-            @Override
-            public View call(final NamedSuperCall<View> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getCurrentFocus();
+        }
 
-                return plugin.getCurrentFocus(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<View>() {
+        final NamedSuperCall<View> superCall = new NamedSuperCall<View>("getCurrentFocus()") {
+
             @Override
             public View call(final Object... args) {
-                return getOriginal().super_getCurrentFocus();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getCurrentFocus(this);
+                } else {
+                    return getOriginal().super_getCurrentFocus();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public File getDatabasePath(final String name) {
-        return callFunction("getDatabasePath(String)", new PluginCall<ActivityPlugin, File>() {
-            @Override
-            public File call(final NamedSuperCall<File> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getDatabasePath(name);
+        }
 
-                return plugin.getDatabasePath(superCall, (String) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File>() {
+        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getDatabasePath(String)") {
+
             @Override
             public File call(final Object... args) {
-                return getOriginal().super_getDatabasePath((String) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getDatabasePath(this, (String) args[0]);
+                } else {
+                    return getOriginal().super_getDatabasePath((String) args[0]);
+                }
             }
-        }, name);
+        };
+        return superCall.call(name);
     }
 
-    final PluginCall<ActivityPlugin, AppCompatDelegate> fiudsojf
-            = new PluginCall<ActivityPlugin, AppCompatDelegate>() {
-        @Override
-        public AppCompatDelegate call(final NamedSuperCall<AppCompatDelegate> superCall,
-                final ActivityPlugin plugin, final Object... args) {
-
-            return plugin.getDelegate(superCall);
-
-        }
-    };
-    final SuperCall<AppCompatDelegate> diso = new SuperCall<AppCompatDelegate>() {
-        @Override
-        public AppCompatDelegate call(final Object... args) {
+    public AppCompatDelegate getDelegate() {
+        if (mPlugins.isEmpty()) {
             return getOriginal().super_getDelegate();
         }
-    };
 
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-    public AppCompatDelegate getDelegate() {
-        return callFunction("getDelegate()", fiudsojf, diso);
+        final NamedSuperCall<AppCompatDelegate> superCall = new NamedSuperCall<AppCompatDelegate>(
+                "getDelegate()") {
+
+            @Override
+            public AppCompatDelegate call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getDelegate(this);
+                } else {
+                    return getOriginal().super_getDelegate();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public File getDir(final String name, final int mode) {
-        return callFunction("getDir(String, int)", new PluginCall<ActivityPlugin, File>() {
-            @Override
-            public File call(final NamedSuperCall<File> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getDir(name, mode);
+        }
 
-                return plugin.getDir(superCall, (String) args[0], (int) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File>() {
+        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getDir(String, int)") {
+
             @Override
             public File call(final Object... args) {
-                return getOriginal().super_getDir((String) args[0], (int) args[1]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getDir(this, (String) args[0], (int) args[1]);
+                } else {
+                    return getOriginal().super_getDir((String) args[0], (int) args[1]);
+                }
             }
-        }, name, mode);
+        };
+        return superCall.call(name, mode);
     }
 
     public ActionBarDrawerToggle.Delegate getDrawerToggleDelegate() {
-        return callFunction("getDrawerToggleDelegate()",
-                new PluginCall<ActivityPlugin, ActionBarDrawerToggle.Delegate>() {
-                    @Override
-                    public ActionBarDrawerToggle.Delegate call(
-                            final NamedSuperCall<ActionBarDrawerToggle.Delegate> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getDrawerToggleDelegate();
+        }
 
-                        return plugin.getDrawerToggleDelegate(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<ActionBarDrawerToggle.Delegate>() {
-                    @Override
-                    public ActionBarDrawerToggle.Delegate call(final Object... args) {
-                        return getOriginal().super_getDrawerToggleDelegate();
-                    }
-                });
+        final NamedSuperCall<ActionBarDrawerToggle.Delegate> superCall
+                = new NamedSuperCall<ActionBarDrawerToggle.Delegate>("getDrawerToggleDelegate()") {
+
+            @Override
+            public ActionBarDrawerToggle.Delegate call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getDrawerToggleDelegate(this);
+                } else {
+                    return getOriginal().super_getDrawerToggleDelegate();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public File getExternalCacheDir() {
-        return callFunction("getExternalCacheDir()", new PluginCall<ActivityPlugin, File>() {
-            @Override
-            public File call(final NamedSuperCall<File> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getExternalCacheDir();
+        }
 
-                return plugin.getExternalCacheDir(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File>() {
+        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getExternalCacheDir()") {
+
             @Override
             public File call(final Object... args) {
-                return getOriginal().super_getExternalCacheDir();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getExternalCacheDir(this);
+                } else {
+                    return getOriginal().super_getExternalCacheDir();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public File[] getExternalCacheDirs() {
-        return callFunction("getExternalCacheDirs()", new PluginCall<ActivityPlugin, File[]>() {
-            @Override
-            public File[] call(final NamedSuperCall<File[]> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getExternalCacheDirs();
+        }
 
-                return plugin.getExternalCacheDirs(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File[]>() {
+        final NamedSuperCall<File[]> superCall = new NamedSuperCall<File[]>(
+                "getExternalCacheDirs()") {
+
             @Override
             public File[] call(final Object... args) {
-                return getOriginal().super_getExternalCacheDirs();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getExternalCacheDirs(this);
+                } else {
+                    return getOriginal().super_getExternalCacheDirs();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public File getExternalFilesDir(final String type) {
-        return callFunction("getExternalFilesDir(String)", new PluginCall<ActivityPlugin, File>() {
-            @Override
-            public File call(final NamedSuperCall<File> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getExternalFilesDir(type);
+        }
 
-                return plugin.getExternalFilesDir(superCall, (String) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File>() {
+        final NamedSuperCall<File> superCall = new NamedSuperCall<File>(
+                "getExternalFilesDir(String)") {
+
             @Override
             public File call(final Object... args) {
-                return getOriginal().super_getExternalFilesDir((String) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getExternalFilesDir(this, (String) args[0]);
+                } else {
+                    return getOriginal().super_getExternalFilesDir((String) args[0]);
+                }
             }
-        }, type);
+        };
+        return superCall.call(type);
     }
 
     public File[] getExternalFilesDirs(final String type) {
-        return callFunction("getExternalFilesDirs(String)",
-                new PluginCall<ActivityPlugin, File[]>() {
-                    @Override
-                    public File[] call(final NamedSuperCall<File[]> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getExternalFilesDirs(type);
+        }
 
-                        return plugin.getExternalFilesDirs(superCall, (String) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<File[]>() {
-                    @Override
-                    public File[] call(final Object... args) {
-                        return getOriginal().super_getExternalFilesDirs((String) args[0]);
-                    }
-                }, type);
+        final NamedSuperCall<File[]> superCall = new NamedSuperCall<File[]>(
+                "getExternalFilesDirs(String)") {
+
+            @Override
+            public File[] call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getExternalFilesDirs(this, (String) args[0]);
+                } else {
+                    return getOriginal().super_getExternalFilesDirs((String) args[0]);
+                }
+            }
+        };
+        return superCall.call(type);
     }
 
     public File[] getExternalMediaDirs() {
-        return callFunction("getExternalMediaDirs()", new PluginCall<ActivityPlugin, File[]>() {
-            @Override
-            public File[] call(final NamedSuperCall<File[]> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getExternalMediaDirs();
+        }
 
-                return plugin.getExternalMediaDirs(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File[]>() {
+        final NamedSuperCall<File[]> superCall = new NamedSuperCall<File[]>(
+                "getExternalMediaDirs()") {
+
             @Override
             public File[] call(final Object... args) {
-                return getOriginal().super_getExternalMediaDirs();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getExternalMediaDirs(this);
+                } else {
+                    return getOriginal().super_getExternalMediaDirs();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public File getFileStreamPath(final String name) {
-        return callFunction("getFileStreamPath(String)", new PluginCall<ActivityPlugin, File>() {
-            @Override
-            public File call(final NamedSuperCall<File> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getFileStreamPath(name);
+        }
 
-                return plugin.getFileStreamPath(superCall, (String) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File>() {
+        final NamedSuperCall<File> superCall = new NamedSuperCall<File>(
+                "getFileStreamPath(String)") {
+
             @Override
             public File call(final Object... args) {
-                return getOriginal().super_getFileStreamPath((String) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getFileStreamPath(this, (String) args[0]);
+                } else {
+                    return getOriginal().super_getFileStreamPath((String) args[0]);
+                }
             }
-        }, name);
+        };
+        return superCall.call(name);
     }
 
     public File getFilesDir() {
-        return callFunction("getFilesDir()", new PluginCall<ActivityPlugin, File>() {
-            @Override
-            public File call(final NamedSuperCall<File> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getFilesDir();
+        }
 
-                return plugin.getFilesDir(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File>() {
+        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getFilesDir()") {
+
             @Override
             public File call(final Object... args) {
-                return getOriginal().super_getFilesDir();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getFilesDir(this);
+                } else {
+                    return getOriginal().super_getFilesDir();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public android.app.FragmentManager getFragmentManager() {
-        return callFunction("getFragmentManager()",
-                new PluginCall<ActivityPlugin, android.app.FragmentManager>() {
-                    @Override
-                    public android.app.FragmentManager call(
-                            final NamedSuperCall<android.app.FragmentManager> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getFragmentManager();
+        }
 
-                        return plugin.getFragmentManager(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<android.app.FragmentManager>() {
-                    @Override
-                    public android.app.FragmentManager call(final Object... args) {
-                        return getOriginal().super_getFragmentManager();
-                    }
-                });
+        final NamedSuperCall<android.app.FragmentManager> superCall
+                = new NamedSuperCall<android.app.FragmentManager>("getFragmentManager()") {
+
+            @Override
+            public android.app.FragmentManager call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getFragmentManager(this);
+                } else {
+                    return getOriginal().super_getFragmentManager();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public Intent getIntent() {
-        return callFunction("getIntent()", new PluginCall<ActivityPlugin, Intent>() {
-            @Override
-            public Intent call(final NamedSuperCall<Intent> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getIntent();
+        }
 
-                return plugin.getIntent(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Intent>() {
+        final NamedSuperCall<Intent> superCall = new NamedSuperCall<Intent>("getIntent()") {
+
             @Override
             public Intent call(final Object... args) {
-                return getOriginal().super_getIntent();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getIntent(this);
+                } else {
+                    return getOriginal().super_getIntent();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public Object getLastCompositeCustomNonConfigurationInstance() {
@@ -1443,284 +1869,349 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     }
 
     public LayoutInflater getLayoutInflater() {
-        return callFunction("getLayoutInflater()",
-                new PluginCall<ActivityPlugin, LayoutInflater>() {
-                    @Override
-                    public LayoutInflater call(final NamedSuperCall<LayoutInflater> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getLayoutInflater();
+        }
 
-                        return plugin.getLayoutInflater(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<LayoutInflater>() {
-                    @Override
-                    public LayoutInflater call(final Object... args) {
-                        return getOriginal().super_getLayoutInflater();
-                    }
-                });
+        final NamedSuperCall<LayoutInflater> superCall = new NamedSuperCall<LayoutInflater>(
+                "getLayoutInflater()") {
+
+            @Override
+            public LayoutInflater call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getLayoutInflater(this);
+                } else {
+                    return getOriginal().super_getLayoutInflater();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public android.app.LoaderManager getLoaderManager() {
-        return callFunction("getLoaderManager()",
-                new PluginCall<ActivityPlugin, android.app.LoaderManager>() {
-                    @Override
-                    public android.app.LoaderManager call(
-                            final NamedSuperCall<android.app.LoaderManager> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getLoaderManager();
+        }
 
-                        return plugin.getLoaderManager(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<android.app.LoaderManager>() {
-                    @Override
-                    public android.app.LoaderManager call(final Object... args) {
-                        return getOriginal().super_getLoaderManager();
-                    }
-                });
+        final NamedSuperCall<android.app.LoaderManager> superCall
+                = new NamedSuperCall<android.app.LoaderManager>("getLoaderManager()") {
+
+            @Override
+            public android.app.LoaderManager call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getLoaderManager(this);
+                } else {
+                    return getOriginal().super_getLoaderManager();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public String getLocalClassName() {
-        return callFunction("getLocalClassName()", new PluginCall<ActivityPlugin, String>() {
-            @Override
-            public String call(final NamedSuperCall<String> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getLocalClassName();
+        }
 
-                return plugin.getLocalClassName(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<String>() {
+        final NamedSuperCall<String> superCall = new NamedSuperCall<String>("getLocalClassName()") {
+
             @Override
             public String call(final Object... args) {
-                return getOriginal().super_getLocalClassName();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getLocalClassName(this);
+                } else {
+                    return getOriginal().super_getLocalClassName();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public Looper getMainLooper() {
-        return callFunction("getMainLooper()", new PluginCall<ActivityPlugin, Looper>() {
-            @Override
-            public Looper call(final NamedSuperCall<Looper> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getMainLooper();
+        }
 
-                return plugin.getMainLooper(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Looper>() {
+        final NamedSuperCall<Looper> superCall = new NamedSuperCall<Looper>("getMainLooper()") {
+
             @Override
             public Looper call(final Object... args) {
-                return getOriginal().super_getMainLooper();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getMainLooper(this);
+                } else {
+                    return getOriginal().super_getMainLooper();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public MenuInflater getMenuInflater() {
-        return callFunction("getMenuInflater()", new PluginCall<ActivityPlugin, MenuInflater>() {
-            @Override
-            public MenuInflater call(final NamedSuperCall<MenuInflater> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getMenuInflater();
+        }
 
-                return plugin.getMenuInflater(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<MenuInflater>() {
+        final NamedSuperCall<MenuInflater> superCall = new NamedSuperCall<MenuInflater>(
+                "getMenuInflater()") {
+
             @Override
             public MenuInflater call(final Object... args) {
-                return getOriginal().super_getMenuInflater();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getMenuInflater(this);
+                } else {
+                    return getOriginal().super_getMenuInflater();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public File getNoBackupFilesDir() {
-        return callFunction("getNoBackupFilesDir()", new PluginCall<ActivityPlugin, File>() {
-            @Override
-            public File call(final NamedSuperCall<File> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getNoBackupFilesDir();
+        }
 
-                return plugin.getNoBackupFilesDir(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File>() {
+        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getNoBackupFilesDir()") {
+
             @Override
             public File call(final Object... args) {
-                return getOriginal().super_getNoBackupFilesDir();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getNoBackupFilesDir(this);
+                } else {
+                    return getOriginal().super_getNoBackupFilesDir();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public File getObbDir() {
-        return callFunction("getObbDir()", new PluginCall<ActivityPlugin, File>() {
-            @Override
-            public File call(final NamedSuperCall<File> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getObbDir();
+        }
 
-                return plugin.getObbDir(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File>() {
+        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getObbDir()") {
+
             @Override
             public File call(final Object... args) {
-                return getOriginal().super_getObbDir();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getObbDir(this);
+                } else {
+                    return getOriginal().super_getObbDir();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public File[] getObbDirs() {
-        return callFunction("getObbDirs()", new PluginCall<ActivityPlugin, File[]>() {
-            @Override
-            public File[] call(final NamedSuperCall<File[]> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getObbDirs();
+        }
 
-                return plugin.getObbDirs(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<File[]>() {
+        final NamedSuperCall<File[]> superCall = new NamedSuperCall<File[]>("getObbDirs()") {
+
             @Override
             public File[] call(final Object... args) {
-                return getOriginal().super_getObbDirs();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getObbDirs(this);
+                } else {
+                    return getOriginal().super_getObbDirs();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public String getPackageCodePath() {
-        return callFunction("getPackageCodePath()", new PluginCall<ActivityPlugin, String>() {
-            @Override
-            public String call(final NamedSuperCall<String> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getPackageCodePath();
+        }
 
-                return plugin.getPackageCodePath(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<String>() {
+        final NamedSuperCall<String> superCall = new NamedSuperCall<String>(
+                "getPackageCodePath()") {
+
             @Override
             public String call(final Object... args) {
-                return getOriginal().super_getPackageCodePath();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getPackageCodePath(this);
+                } else {
+                    return getOriginal().super_getPackageCodePath();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public PackageManager getPackageManager() {
-        return callFunction("getPackageManager()",
-                new PluginCall<ActivityPlugin, PackageManager>() {
-                    @Override
-                    public PackageManager call(final NamedSuperCall<PackageManager> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getPackageManager();
+        }
 
-                        return plugin.getPackageManager(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<PackageManager>() {
-                    @Override
-                    public PackageManager call(final Object... args) {
-                        return getOriginal().super_getPackageManager();
-                    }
-                });
+        final NamedSuperCall<PackageManager> superCall = new NamedSuperCall<PackageManager>(
+                "getPackageManager()") {
+
+            @Override
+            public PackageManager call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getPackageManager(this);
+                } else {
+                    return getOriginal().super_getPackageManager();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public String getPackageName() {
-        return callFunction("getPackageName()", new PluginCall<ActivityPlugin, String>() {
-            @Override
-            public String call(final NamedSuperCall<String> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getPackageName();
+        }
 
-                return plugin.getPackageName(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<String>() {
+        final NamedSuperCall<String> superCall = new NamedSuperCall<String>("getPackageName()") {
+
             @Override
             public String call(final Object... args) {
-                return getOriginal().super_getPackageName();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getPackageName(this);
+                } else {
+                    return getOriginal().super_getPackageName();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public String getPackageResourcePath() {
-        return callFunction("getPackageResourcePath()", new PluginCall<ActivityPlugin, String>() {
-            @Override
-            public String call(final NamedSuperCall<String> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getPackageResourcePath();
+        }
 
-                return plugin.getPackageResourcePath(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<String>() {
+        final NamedSuperCall<String> superCall = new NamedSuperCall<String>(
+                "getPackageResourcePath()") {
+
             @Override
             public String call(final Object... args) {
-                return getOriginal().super_getPackageResourcePath();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getPackageResourcePath(this);
+                } else {
+                    return getOriginal().super_getPackageResourcePath();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public Intent getParentActivityIntent() {
-        return callFunction("getParentActivityIntent()", new PluginCall<ActivityPlugin, Intent>() {
-            @Override
-            public Intent call(final NamedSuperCall<Intent> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getParentActivityIntent();
+        }
 
-                return plugin.getParentActivityIntent(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Intent>() {
+        final NamedSuperCall<Intent> superCall = new NamedSuperCall<Intent>(
+                "getParentActivityIntent()") {
+
             @Override
             public Intent call(final Object... args) {
-                return getOriginal().super_getParentActivityIntent();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getParentActivityIntent(this);
+                } else {
+                    return getOriginal().super_getParentActivityIntent();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public SharedPreferences getPreferences(final int mode) {
-        return callFunction("getPreferences(int)",
-                new PluginCall<ActivityPlugin, SharedPreferences>() {
-                    @Override
-                    public SharedPreferences call(final NamedSuperCall<SharedPreferences> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getPreferences(mode);
+        }
 
-                        return plugin.getPreferences(superCall, (int) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<SharedPreferences>() {
-                    @Override
-                    public SharedPreferences call(final Object... args) {
-                        return getOriginal().super_getPreferences((int) args[0]);
-                    }
-                }, mode);
+        final NamedSuperCall<SharedPreferences> superCall = new NamedSuperCall<SharedPreferences>(
+                "getPreferences(int)") {
+
+            @Override
+            public SharedPreferences call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getPreferences(this, (int) args[0]);
+                } else {
+                    return getOriginal().super_getPreferences((int) args[0]);
+                }
+            }
+        };
+        return superCall.call(mode);
     }
 
     public Uri getReferrer() {
-        return callFunction("getReferrer()", new PluginCall<ActivityPlugin, Uri>() {
-            @Override
-            public Uri call(final NamedSuperCall<Uri> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getReferrer();
+        }
 
-                return plugin.getReferrer(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Uri>() {
+        final NamedSuperCall<Uri> superCall = new NamedSuperCall<Uri>("getReferrer()") {
+
             @Override
             public Uri call(final Object... args) {
-                return getOriginal().super_getReferrer();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getReferrer(this);
+                } else {
+                    return getOriginal().super_getReferrer();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public int getRequestedOrientation() {
-        return callFunction("getRequestedOrientation()", new PluginCall<ActivityPlugin, Integer>() {
-            @Override
-            public Integer call(final NamedSuperCall<Integer> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getRequestedOrientation();
+        }
 
-                return plugin.getRequestedOrientation(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Integer>() {
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "getRequestedOrientation()") {
+
             @Override
             public Integer call(final Object... args) {
-                return getOriginal().super_getRequestedOrientation();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getRequestedOrientation(this);
+                } else {
+                    return getOriginal().super_getRequestedOrientation();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
-
-
-    //private GetResourcesSuperCall mGetResourcesSuperCall = new GetResourcesSuperCall();
 
     public Resources getResources() {
         if (mPlugins.isEmpty()) {
@@ -1729,8 +2220,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Resources> superCall =
-                new NamedSuperCall<Resources>("getResources()") {
+        final NamedSuperCall<Resources> superCall = new NamedSuperCall<Resources>(
+                "getResources()") {
 
             @Override
             public Resources call(final Object... args) {
@@ -1744,1620 +2235,2235 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call();
     }
 
-/*    private class GetResourcesSuperCall extends NamedSuperCall<Resources> {
-
-        private ListIterator<ActivityPlugin> iterator;
-
-        public GetResourcesSuperCall() {
-            super("getResources()");
-        }
-
-        @Override
-        public Resources call(final Object... args) {
-            if (iterator.hasPrevious()) {
-                ActivityPlugin plugin = iterator.previous();
-                return plugin.getResources(this);
-            } else {
-                return getOriginal().super_getResources();
-            }
-        }
-    }*/
-
-
     public SharedPreferences getSharedPreferences(final String name, final int mode) {
-        return callFunction("getSharedPreferences(String, int)",
-                new PluginCall<ActivityPlugin, SharedPreferences>() {
-                    @Override
-                    public SharedPreferences call(final NamedSuperCall<SharedPreferences> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getSharedPreferences(name, mode);
+        }
 
-                        return plugin
-                                .getSharedPreferences(superCall, (String) args[0], (int) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<SharedPreferences>() {
-                    @Override
-                    public SharedPreferences call(final Object... args) {
-                        return getOriginal()
-                                .super_getSharedPreferences((String) args[0], (int) args[1]);
-                    }
-                }, name, mode);
+        final NamedSuperCall<SharedPreferences> superCall = new NamedSuperCall<SharedPreferences>(
+                "getSharedPreferences(String, int)") {
+
+            @Override
+            public SharedPreferences call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .getSharedPreferences(this, (String) args[0], (int) args[1]);
+                } else {
+                    return getOriginal()
+                            .super_getSharedPreferences((String) args[0], (int) args[1]);
+                }
+            }
+        };
+        return superCall.call(name, mode);
     }
 
     public ActionBar getSupportActionBar() {
-        return callFunction("getSupportActionBar()", new PluginCall<ActivityPlugin, ActionBar>() {
-            @Override
-            public ActionBar call(final NamedSuperCall<ActionBar> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getSupportActionBar();
+        }
 
-                return plugin.getSupportActionBar(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<ActionBar>() {
+        final NamedSuperCall<ActionBar> superCall = new NamedSuperCall<ActionBar>(
+                "getSupportActionBar()") {
+
             @Override
             public ActionBar call(final Object... args) {
-                return getOriginal().super_getSupportActionBar();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getSupportActionBar(this);
+                } else {
+                    return getOriginal().super_getSupportActionBar();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public FragmentManager getSupportFragmentManager() {
-        return callFunction("getSupportFragmentManager()",
-                new PluginCall<ActivityPlugin, FragmentManager>() {
-                    @Override
-                    public FragmentManager call(final NamedSuperCall<FragmentManager> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getSupportFragmentManager();
+        }
 
-                        return plugin.getSupportFragmentManager(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<FragmentManager>() {
-                    @Override
-                    public FragmentManager call(final Object... args) {
-                        return getOriginal().super_getSupportFragmentManager();
-                    }
-                });
+        final NamedSuperCall<FragmentManager> superCall = new NamedSuperCall<FragmentManager>(
+                "getSupportFragmentManager()") {
+
+            @Override
+            public FragmentManager call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getSupportFragmentManager(this);
+                } else {
+                    return getOriginal().super_getSupportFragmentManager();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public LoaderManager getSupportLoaderManager() {
-        return callFunction("getSupportLoaderManager()",
-                new PluginCall<ActivityPlugin, LoaderManager>() {
-                    @Override
-                    public LoaderManager call(final NamedSuperCall<LoaderManager> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getSupportLoaderManager();
+        }
 
-                        return plugin.getSupportLoaderManager(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<LoaderManager>() {
-                    @Override
-                    public LoaderManager call(final Object... args) {
-                        return getOriginal().super_getSupportLoaderManager();
-                    }
-                });
+        final NamedSuperCall<LoaderManager> superCall = new NamedSuperCall<LoaderManager>(
+                "getSupportLoaderManager()") {
+
+            @Override
+            public LoaderManager call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getSupportLoaderManager(this);
+                } else {
+                    return getOriginal().super_getSupportLoaderManager();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public Intent getSupportParentActivityIntent() {
-        return callFunction("getSupportParentActivityIntent()",
-                new PluginCall<ActivityPlugin, Intent>() {
-                    @Override
-                    public Intent call(final NamedSuperCall<Intent> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getSupportParentActivityIntent();
+        }
 
-                        return plugin.getSupportParentActivityIntent(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Intent>() {
-                    @Override
-                    public Intent call(final Object... args) {
-                        return getOriginal().super_getSupportParentActivityIntent();
-                    }
-                });
+        final NamedSuperCall<Intent> superCall = new NamedSuperCall<Intent>(
+                "getSupportParentActivityIntent()") {
+
+            @Override
+            public Intent call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getSupportParentActivityIntent(this);
+                } else {
+                    return getOriginal().super_getSupportParentActivityIntent();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public Object getSystemService(final String name) {
-        return callFunction("getSystemService(String)", new PluginCall<ActivityPlugin, Object>() {
-            @Override
-            public Object call(final NamedSuperCall<Object> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getSystemService(name);
+        }
 
-                return plugin.getSystemService(superCall, (String) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Object>() {
+        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
+                "getSystemService(String)") {
+
             @Override
             public Object call(final Object... args) {
-                return getOriginal().super_getSystemService((String) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getSystemService(this, (String) args[0]);
+                } else {
+                    return getOriginal().super_getSystemService((String) args[0]);
+                }
             }
-        }, name);
+        };
+        return superCall.call(name);
     }
 
     public String getSystemServiceName(final Class<?> serviceClass) {
-        return callFunction("getSystemServiceName(Class<?>)",
-                new PluginCall<ActivityPlugin, String>() {
-                    @Override
-                    public String call(final NamedSuperCall<String> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getSystemServiceName(serviceClass);
+        }
 
-                        return plugin.getSystemServiceName(superCall, (Class<?>) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<String>() {
-                    @Override
-                    public String call(final Object... args) {
-                        return getOriginal().super_getSystemServiceName((Class<?>) args[0]);
-                    }
-                }, serviceClass);
+        final NamedSuperCall<String> superCall = new NamedSuperCall<String>(
+                "getSystemServiceName(Class<?>)") {
+
+            @Override
+            public String call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getSystemServiceName(this, (Class<?>) args[0]);
+                } else {
+                    return getOriginal().super_getSystemServiceName((Class<?>) args[0]);
+                }
+            }
+        };
+        return superCall.call(serviceClass);
     }
 
     public int getTaskId() {
-        return callFunction("getTaskId()", new PluginCall<ActivityPlugin, Integer>() {
-            @Override
-            public Integer call(final NamedSuperCall<Integer> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getTaskId();
+        }
 
-                return plugin.getTaskId(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Integer>() {
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>("getTaskId()") {
+
             @Override
             public Integer call(final Object... args) {
-                return getOriginal().super_getTaskId();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getTaskId(this);
+                } else {
+                    return getOriginal().super_getTaskId();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public Resources.Theme getTheme() {
-        return callFunction("getTheme()", new PluginCall<ActivityPlugin, Resources.Theme>() {
-            @Override
-            public Resources.Theme call(final NamedSuperCall<Resources.Theme> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getTheme();
+        }
 
-                return plugin.getTheme(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Resources.Theme>() {
+        final NamedSuperCall<Resources.Theme> superCall = new NamedSuperCall<Resources.Theme>(
+                "getTheme()") {
+
             @Override
             public Resources.Theme call(final Object... args) {
-                return getOriginal().super_getTheme();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getTheme(this);
+                } else {
+                    return getOriginal().super_getTheme();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public VoiceInteractor getVoiceInteractor() {
-        return callFunction("getVoiceInteractor()",
-                new PluginCall<ActivityPlugin, VoiceInteractor>() {
-                    @Override
-                    public VoiceInteractor call(final NamedSuperCall<VoiceInteractor> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getVoiceInteractor();
+        }
 
-                        return plugin.getVoiceInteractor(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<VoiceInteractor>() {
-                    @Override
-                    public VoiceInteractor call(final Object... args) {
-                        return getOriginal().super_getVoiceInteractor();
-                    }
-                });
+        final NamedSuperCall<VoiceInteractor> superCall = new NamedSuperCall<VoiceInteractor>(
+                "getVoiceInteractor()") {
+
+            @Override
+            public VoiceInteractor call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getVoiceInteractor(this);
+                } else {
+                    return getOriginal().super_getVoiceInteractor();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public Drawable getWallpaper() {
-        return callFunction("getWallpaper()", new PluginCall<ActivityPlugin, Drawable>() {
-            @Override
-            public Drawable call(final NamedSuperCall<Drawable> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getWallpaper();
+        }
 
-                return plugin.getWallpaper(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Drawable>() {
+        final NamedSuperCall<Drawable> superCall = new NamedSuperCall<Drawable>("getWallpaper()") {
+
             @Override
             public Drawable call(final Object... args) {
-                return getOriginal().super_getWallpaper();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getWallpaper(this);
+                } else {
+                    return getOriginal().super_getWallpaper();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public int getWallpaperDesiredMinimumHeight() {
-        return callFunction("getWallpaperDesiredMinimumHeight()",
-                new PluginCall<ActivityPlugin, Integer>() {
-                    @Override
-                    public Integer call(final NamedSuperCall<Integer> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getWallpaperDesiredMinimumHeight();
+        }
 
-                        return plugin.getWallpaperDesiredMinimumHeight(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Integer>() {
-                    @Override
-                    public Integer call(final Object... args) {
-                        return getOriginal().super_getWallpaperDesiredMinimumHeight();
-                    }
-                });
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "getWallpaperDesiredMinimumHeight()") {
+
+            @Override
+            public Integer call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getWallpaperDesiredMinimumHeight(this);
+                } else {
+                    return getOriginal().super_getWallpaperDesiredMinimumHeight();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public int getWallpaperDesiredMinimumWidth() {
-        return callFunction("getWallpaperDesiredMinimumWidth()",
-                new PluginCall<ActivityPlugin, Integer>() {
-                    @Override
-                    public Integer call(final NamedSuperCall<Integer> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getWallpaperDesiredMinimumWidth();
+        }
 
-                        return plugin.getWallpaperDesiredMinimumWidth(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Integer>() {
-                    @Override
-                    public Integer call(final Object... args) {
-                        return getOriginal().super_getWallpaperDesiredMinimumWidth();
-                    }
-                });
+        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+                "getWallpaperDesiredMinimumWidth()") {
+
+            @Override
+            public Integer call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getWallpaperDesiredMinimumWidth(this);
+                } else {
+                    return getOriginal().super_getWallpaperDesiredMinimumWidth();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public Window getWindow() {
-        return callFunction("getWindow()", new PluginCall<ActivityPlugin, Window>() {
-            @Override
-            public Window call(final NamedSuperCall<Window> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getWindow();
+        }
 
-                return plugin.getWindow(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Window>() {
+        final NamedSuperCall<Window> superCall = new NamedSuperCall<Window>("getWindow()") {
+
             @Override
             public Window call(final Object... args) {
-                return getOriginal().super_getWindow();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getWindow(this);
+                } else {
+                    return getOriginal().super_getWindow();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public WindowManager getWindowManager() {
-        return callFunction("getWindowManager()", new PluginCall<ActivityPlugin, WindowManager>() {
-            @Override
-            public WindowManager call(final NamedSuperCall<WindowManager> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getWindowManager();
+        }
 
-                return plugin.getWindowManager(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<WindowManager>() {
+        final NamedSuperCall<WindowManager> superCall = new NamedSuperCall<WindowManager>(
+                "getWindowManager()") {
+
             @Override
             public WindowManager call(final Object... args) {
-                return getOriginal().super_getWindowManager();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getWindowManager(this);
+                } else {
+                    return getOriginal().super_getWindowManager();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public void grantUriPermission(final String toPackage, final Uri uri, final int modeFlags) {
-        callHook("grantUriPermission(String, Uri, int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_grantUriPermission(toPackage, uri, modeFlags);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "grantUriPermission(String, Uri, int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.grantUriPermission(superCall, (String) args[0], (Uri) args[1],
-                        (int) args[2]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().grantUriPermission(this, (String) args[0], (Uri) args[1],
+                            (int) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_grantUriPermission((String) args[0], (Uri) args[1],
+                            (int) args[2]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal()
-                        .super_grantUriPermission((String) args[0], (Uri) args[1], (int) args[2]);
-            }
-        }, toPackage, uri, modeFlags);
+        };
+        superCall.call(toPackage, uri, modeFlags);
     }
 
     public boolean hasWindowFocus() {
-        return callFunction("hasWindowFocus()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_hasWindowFocus();
+        }
 
-                return plugin.hasWindowFocus(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("hasWindowFocus()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_hasWindowFocus();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().hasWindowFocus(this);
+                } else {
+                    return getOriginal().super_hasWindowFocus();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public void invalidateOptionsMenu() {
-        callHook("invalidateOptionsMenu()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_invalidateOptionsMenu();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("invalidateOptionsMenu()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.invalidateOptionsMenu(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().invalidateOptionsMenu(this);
+                    return null;
+                } else {
+                    getOriginal().super_invalidateOptionsMenu();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_invalidateOptionsMenu();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public boolean isChangingConfigurations() {
-        return callFunction("isChangingConfigurations()",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isChangingConfigurations();
+        }
 
-                        return plugin.isChangingConfigurations(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_isChangingConfigurations();
-                    }
-                });
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "isChangingConfigurations()") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isChangingConfigurations(this);
+                } else {
+                    return getOriginal().super_isChangingConfigurations();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public boolean isDestroyed() {
-        return callFunction("isDestroyed()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isDestroyed();
+        }
 
-                return plugin.isDestroyed(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("isDestroyed()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_isDestroyed();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isDestroyed(this);
+                } else {
+                    return getOriginal().super_isDestroyed();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public boolean isFinishing() {
-        return callFunction("isFinishing()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isFinishing();
+        }
 
-                return plugin.isFinishing(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("isFinishing()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_isFinishing();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isFinishing(this);
+                } else {
+                    return getOriginal().super_isFinishing();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public boolean isImmersive() {
-        return callFunction("isImmersive()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isImmersive();
+        }
 
-                return plugin.isImmersive(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("isImmersive()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_isImmersive();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isImmersive(this);
+                } else {
+                    return getOriginal().super_isImmersive();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public boolean isRestricted() {
-        return callFunction("isRestricted()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isRestricted();
+        }
 
-                return plugin.isRestricted(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("isRestricted()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_isRestricted();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isRestricted(this);
+                } else {
+                    return getOriginal().super_isRestricted();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public boolean isTaskRoot() {
-        return callFunction("isTaskRoot()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isTaskRoot();
+        }
 
-                return plugin.isTaskRoot(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("isTaskRoot()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_isTaskRoot();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isTaskRoot(this);
+                } else {
+                    return getOriginal().super_isTaskRoot();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public boolean isVoiceInteraction() {
-        return callFunction("isVoiceInteraction()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isVoiceInteraction();
+        }
 
-                return plugin.isVoiceInteraction(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "isVoiceInteraction()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_isVoiceInteraction();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isVoiceInteraction(this);
+                } else {
+                    return getOriginal().super_isVoiceInteraction();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public boolean isVoiceInteractionRoot() {
-        return callFunction("isVoiceInteractionRoot()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isVoiceInteractionRoot();
+        }
 
-                return plugin.isVoiceInteractionRoot(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "isVoiceInteractionRoot()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_isVoiceInteractionRoot();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isVoiceInteractionRoot(this);
+                } else {
+                    return getOriginal().super_isVoiceInteractionRoot();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public boolean moveTaskToBack(final boolean nonRoot) {
-        return callFunction("moveTaskToBack(boolean)", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_moveTaskToBack(nonRoot);
+        }
 
-                return plugin.moveTaskToBack(superCall, (boolean) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "moveTaskToBack(boolean)") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_moveTaskToBack((boolean) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().moveTaskToBack(this, (boolean) args[0]);
+                } else {
+                    return getOriginal().super_moveTaskToBack((boolean) args[0]);
+                }
             }
-        }, nonRoot);
+        };
+        return superCall.call(nonRoot);
     }
 
     public boolean navigateUpTo(final Intent upIntent) {
-        return callFunction("navigateUpTo(Intent)", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_navigateUpTo(upIntent);
+        }
 
-                return plugin.navigateUpTo(superCall, (Intent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "navigateUpTo(Intent)") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_navigateUpTo((Intent) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().navigateUpTo(this, (Intent) args[0]);
+                } else {
+                    return getOriginal().super_navigateUpTo((Intent) args[0]);
+                }
             }
-        }, upIntent);
+        };
+        return superCall.call(upIntent);
     }
 
     public boolean navigateUpToFromChild(final Activity child, final Intent upIntent) {
-        return callFunction("navigateUpToFromChild(Activity, Intent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_navigateUpToFromChild(child, upIntent);
+        }
 
-                        return plugin.navigateUpToFromChild(superCall, (Activity) args[0],
-                                (Intent) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal()
-                                .super_navigateUpToFromChild((Activity) args[0], (Intent) args[1]);
-                    }
-                }, child, upIntent);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "navigateUpToFromChild(Activity, Intent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .navigateUpToFromChild(this, (Activity) args[0], (Intent) args[1]);
+                } else {
+                    return getOriginal()
+                            .super_navigateUpToFromChild((Activity) args[0], (Intent) args[1]);
+                }
+            }
+        };
+        return superCall.call(child, upIntent);
     }
 
     public void onActionModeFinished(final android.view.ActionMode mode) {
-        callHook("onActionModeFinished(android.view.ActionMode)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onActionModeFinished(superCall, (android.view.ActionMode) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_onActionModeFinished((android.view.ActionMode) args[0]);
-                    }
-                }, mode);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onActionModeFinished(mode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onActionModeFinished(android.view.ActionMode)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onActionModeFinished(this, (android.view.ActionMode) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onActionModeFinished((android.view.ActionMode) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(mode);
     }
 
     public void onActionModeStarted(final android.view.ActionMode mode) {
-        callHook("onActionModeStarted(android.view.ActionMode)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onActionModeStarted(superCall, (android.view.ActionMode) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_onActionModeStarted((android.view.ActionMode) args[0]);
-                    }
-                }, mode);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onActionModeStarted(mode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onActionModeStarted(android.view.ActionMode)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onActionModeStarted(this, (android.view.ActionMode) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onActionModeStarted((android.view.ActionMode) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(mode);
     }
 
     public void onActivityReenter(final int resultCode, final Intent data) {
-        callHook("onActivityReenter(int, Intent)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onActivityReenter(resultCode, data);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onActivityReenter(int, Intent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onActivityReenter(superCall, (int) args[0], (Intent) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onActivityReenter(this, (int) args[0], (Intent) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_onActivityReenter((int) args[0], (Intent) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onActivityReenter((int) args[0], (Intent) args[1]);
-            }
-        }, resultCode, data);
+        };
+        superCall.call(resultCode, data);
     }
 
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        callHook("onActivityResult(int, int, Intent)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onActivityResult(int, int, Intent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onActivityResult(superCall, (int) args[0], (int) args[1], (Intent) args[2]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onActivityResult(this, (int) args[0], (int) args[1], (Intent) args[2]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_onActivityResult((int) args[0], (int) args[1], (Intent) args[2]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal()
-                        .super_onActivityResult((int) args[0], (int) args[1], (Intent) args[2]);
-            }
-        }, requestCode, resultCode, data);
+        };
+        superCall.call(requestCode, resultCode, data);
     }
 
     public void onApplyThemeResource(final Resources.Theme theme, final int resid,
             final boolean first) {
-        callHook("onApplyThemeResource(Resources.Theme, int, boolean)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onApplyThemeResource(superCall, (Resources.Theme) args[0],
-                                (int) args[1], (boolean) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_onApplyThemeResource((Resources.Theme) args[0],
-                                (int) args[1], (boolean) args[2]);
-                    }
-                }, theme, resid, first);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onApplyThemeResource(theme, resid, first);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onApplyThemeResource(Resources.Theme, int, boolean)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onApplyThemeResource(this, (Resources.Theme) args[0], (int) args[1],
+                                    (boolean) args[2]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_onApplyThemeResource((Resources.Theme) args[0], (int) args[1],
+                                    (boolean) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(theme, resid, first);
     }
 
     public void onAttachFragment(final Fragment fragment) {
-        callHook("onAttachFragment(Fragment)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onAttachFragment(fragment);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onAttachFragment(Fragment)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onAttachFragment(superCall, (Fragment) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onAttachFragment(this, (Fragment) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onAttachFragment((Fragment) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onAttachFragment((Fragment) args[0]);
-            }
-        }, fragment);
+        };
+        superCall.call(fragment);
     }
 
     public void onAttachFragment(final android.app.Fragment fragment) {
-        callHook("onAttachFragment(android.app.Fragment)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onAttachFragment(fragment);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onAttachFragment(android.app.Fragment)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onAttachFragment(superCall, (android.app.Fragment) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onAttachFragment(this, (android.app.Fragment) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onAttachFragment((android.app.Fragment) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onAttachFragment((android.app.Fragment) args[0]);
-            }
-        }, fragment);
+        };
+        superCall.call(fragment);
     }
 
     public void onAttachedToWindow() {
-        callHook("onAttachedToWindow()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onAttachedToWindow();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onAttachedToWindow()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onAttachedToWindow(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onAttachedToWindow(this);
+                    return null;
+                } else {
+                    getOriginal().super_onAttachedToWindow();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onAttachedToWindow();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onBackPressed() {
-        callHook("onBackPressed()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onBackPressed();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onBackPressed()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onBackPressed(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onBackPressed(this);
+                    return null;
+                } else {
+                    getOriginal().super_onBackPressed();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onBackPressed();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onChildTitleChanged(final Activity childActivity, final CharSequence title) {
-        callHook("onChildTitleChanged(Activity, CharSequence)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onChildTitleChanged(superCall, (Activity) args[0],
-                                (CharSequence) args[1]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_onChildTitleChanged((Activity) args[0],
-                                (CharSequence) args[1]);
-                    }
-                }, childActivity, title);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onChildTitleChanged(childActivity, title);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onChildTitleChanged(Activity, CharSequence)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onChildTitleChanged(this, (Activity) args[0], (CharSequence) args[1]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_onChildTitleChanged((Activity) args[0], (CharSequence) args[1]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(childActivity, title);
     }
 
     public void onConfigurationChanged(final Configuration newConfig) {
-        callHook("onConfigurationChanged(Configuration)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onConfigurationChanged(newConfig);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onConfigurationChanged(Configuration)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onConfigurationChanged(superCall, (Configuration) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onConfigurationChanged(this, (Configuration) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onConfigurationChanged((Configuration) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onConfigurationChanged((Configuration) args[0]);
-            }
-        }, newConfig);
+        };
+        superCall.call(newConfig);
     }
 
     public void onContentChanged() {
-        callHook("onContentChanged()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onContentChanged();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onContentChanged()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onContentChanged(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onContentChanged(this);
+                    return null;
+                } else {
+                    getOriginal().super_onContentChanged();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onContentChanged();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public boolean onContextItemSelected(final MenuItem item) {
-        return callFunction("onContextItemSelected(MenuItem)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onContextItemSelected(item);
+        }
 
-                        return plugin.onContextItemSelected(superCall, (MenuItem) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onContextItemSelected((MenuItem) args[0]);
-                    }
-                }, item);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onContextItemSelected(MenuItem)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onContextItemSelected(this, (MenuItem) args[0]);
+                } else {
+                    return getOriginal().super_onContextItemSelected((MenuItem) args[0]);
+                }
+            }
+        };
+        return superCall.call(item);
     }
 
     public void onContextMenuClosed(final Menu menu) {
-        callHook("onContextMenuClosed(Menu)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onContextMenuClosed(menu);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onContextMenuClosed(Menu)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onContextMenuClosed(superCall, (Menu) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onContextMenuClosed(this, (Menu) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onContextMenuClosed((Menu) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onContextMenuClosed((Menu) args[0]);
-            }
-        }, menu);
+        };
+        superCall.call(menu);
     }
 
     public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
-        callHook("onCreate(Bundle, PersistableBundle)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onCreate(savedInstanceState, persistentState);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onCreate(Bundle, PersistableBundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onCreate(superCall, (Bundle) args[0], (PersistableBundle) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onCreate(this, (Bundle) args[0], (PersistableBundle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_onCreate((Bundle) args[0], (PersistableBundle) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onCreate((Bundle) args[0], (PersistableBundle) args[1]);
-            }
-        }, savedInstanceState, persistentState);
+        };
+        superCall.call(savedInstanceState, persistentState);
     }
 
     public void onCreate(@Nullable final Bundle savedInstanceState) {
-        callHook("onCreate(Bundle)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onCreate(savedInstanceState);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onCreate(Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onCreate(superCall, (Bundle) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onCreate(this, (Bundle) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onCreate((Bundle) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onCreate((Bundle) args[0]);
-            }
-        }, savedInstanceState);
+        };
+        superCall.call(savedInstanceState);
     }
 
     public void onCreateContextMenu(final ContextMenu menu, final View v,
             final ContextMenu.ContextMenuInfo menuInfo) {
-        callHook("onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onCreateContextMenu(superCall, (ContextMenu) args[0], (View) args[1],
-                                (ContextMenu.ContextMenuInfo) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_onCreateContextMenu((ContextMenu) args[0], (View) args[1],
-                                        (ContextMenu.ContextMenuInfo) args[2]);
-                    }
-                }, menu, v, menuInfo);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onCreateContextMenu(menu, v, menuInfo);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onCreateContextMenu(this, (ContextMenu) args[0], (View) args[1],
+                                    (ContextMenu.ContextMenuInfo) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_onCreateContextMenu((ContextMenu) args[0], (View) args[1],
+                            (ContextMenu.ContextMenuInfo) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(menu, v, menuInfo);
     }
 
     public CharSequence onCreateDescription() {
-        return callFunction("onCreateDescription()",
-                new PluginCall<ActivityPlugin, CharSequence>() {
-                    @Override
-                    public CharSequence call(final NamedSuperCall<CharSequence> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreateDescription();
+        }
 
-                        return plugin.onCreateDescription(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<CharSequence>() {
-                    @Override
-                    public CharSequence call(final Object... args) {
-                        return getOriginal().super_onCreateDescription();
-                    }
-                });
+        final NamedSuperCall<CharSequence> superCall = new NamedSuperCall<CharSequence>(
+                "onCreateDescription()") {
+
+            @Override
+            public CharSequence call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onCreateDescription(this);
+                } else {
+                    return getOriginal().super_onCreateDescription();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public Dialog onCreateDialog(final int id) {
-        return callFunction("onCreateDialog(int)", new PluginCall<ActivityPlugin, Dialog>() {
-            @Override
-            public Dialog call(final NamedSuperCall<Dialog> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreateDialog(id);
+        }
 
-                return plugin.onCreateDialog(superCall, (int) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Dialog>() {
+        final NamedSuperCall<Dialog> superCall = new NamedSuperCall<Dialog>("onCreateDialog(int)") {
+
             @Override
             public Dialog call(final Object... args) {
-                return getOriginal().super_onCreateDialog((int) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onCreateDialog(this, (int) args[0]);
+                } else {
+                    return getOriginal().super_onCreateDialog((int) args[0]);
+                }
             }
-        }, id);
+        };
+        return superCall.call(id);
     }
 
     public Dialog onCreateDialog(final int id, final Bundle args) {
-        return callFunction("onCreateDialog(int, Bundle)",
-                new PluginCall<ActivityPlugin, Dialog>() {
-                    @Override
-                    public Dialog call(final NamedSuperCall<Dialog> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreateDialog(id, args);
+        }
 
-                        return plugin.onCreateDialog(superCall, (int) args[0], (Bundle) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Dialog>() {
-                    @Override
-                    public Dialog call(final Object... args) {
-                        return getOriginal().super_onCreateDialog((int) args[0], (Bundle) args[1]);
-                    }
-                }, id, args);
+        final NamedSuperCall<Dialog> superCall = new NamedSuperCall<Dialog>(
+                "onCreateDialog(int, Bundle)") {
+
+            @Override
+            public Dialog call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onCreateDialog(this, (int) args[0], (Bundle) args[1]);
+                } else {
+                    return getOriginal().super_onCreateDialog((int) args[0], (Bundle) args[1]);
+                }
+            }
+        };
+        return superCall.call(id, args);
     }
 
     public void onCreateNavigateUpTaskStack(final TaskStackBuilder builder) {
-        callHook("onCreateNavigateUpTaskStack(TaskStackBuilder)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onCreateNavigateUpTaskStack(superCall, (TaskStackBuilder) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_onCreateNavigateUpTaskStack((TaskStackBuilder) args[0]);
-                    }
-                }, builder);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onCreateNavigateUpTaskStack(builder);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onCreateNavigateUpTaskStack(TaskStackBuilder)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onCreateNavigateUpTaskStack(this, (TaskStackBuilder) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onCreateNavigateUpTaskStack((TaskStackBuilder) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(builder);
     }
 
     public boolean onCreateOptionsMenu(final Menu menu) {
-        return callFunction("onCreateOptionsMenu(Menu)", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreateOptionsMenu(menu);
+        }
 
-                return plugin.onCreateOptionsMenu(superCall, (Menu) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onCreateOptionsMenu(Menu)") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_onCreateOptionsMenu((Menu) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onCreateOptionsMenu(this, (Menu) args[0]);
+                } else {
+                    return getOriginal().super_onCreateOptionsMenu((Menu) args[0]);
+                }
             }
-        }, menu);
+        };
+        return superCall.call(menu);
     }
 
     public boolean onCreatePanelMenu(final int featureId, final Menu menu) {
-        return callFunction("onCreatePanelMenu(int, Menu)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreatePanelMenu(featureId, menu);
+        }
 
-                        return plugin.onCreatePanelMenu(superCall, (int) args[0], (Menu) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onCreatePanelMenu((int) args[0], (Menu) args[1]);
-                    }
-                }, featureId, menu);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onCreatePanelMenu(int, Menu)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onCreatePanelMenu(this, (int) args[0], (Menu) args[1]);
+                } else {
+                    return getOriginal().super_onCreatePanelMenu((int) args[0], (Menu) args[1]);
+                }
+            }
+        };
+        return superCall.call(featureId, menu);
     }
 
     public View onCreatePanelView(final int featureId) {
-        return callFunction("onCreatePanelView(int)", new PluginCall<ActivityPlugin, View>() {
-            @Override
-            public View call(final NamedSuperCall<View> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreatePanelView(featureId);
+        }
 
-                return plugin.onCreatePanelView(superCall, (int) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<View>() {
+        final NamedSuperCall<View> superCall = new NamedSuperCall<View>("onCreatePanelView(int)") {
+
             @Override
             public View call(final Object... args) {
-                return getOriginal().super_onCreatePanelView((int) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onCreatePanelView(this, (int) args[0]);
+                } else {
+                    return getOriginal().super_onCreatePanelView((int) args[0]);
+                }
             }
-        }, featureId);
+        };
+        return superCall.call(featureId);
     }
 
     public void onCreateSupportNavigateUpTaskStack(
             @NonNull final android.support.v4.app.TaskStackBuilder builder) {
-        callHook("onCreateSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onCreateSupportNavigateUpTaskStack(superCall,
-                                (android.support.v4.app.TaskStackBuilder) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_onCreateSupportNavigateUpTaskStack(
-                                (android.support.v4.app.TaskStackBuilder) args[0]);
-                    }
-                }, builder);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onCreateSupportNavigateUpTaskStack(builder);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onCreateSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onCreateSupportNavigateUpTaskStack(this,
+                            (android.support.v4.app.TaskStackBuilder) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onCreateSupportNavigateUpTaskStack(
+                            (android.support.v4.app.TaskStackBuilder) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(builder);
     }
 
     public boolean onCreateThumbnail(final Bitmap outBitmap, final Canvas canvas) {
-        return callFunction("onCreateThumbnail(Bitmap, Canvas)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreateThumbnail(outBitmap, canvas);
+        }
 
-                        return plugin
-                                .onCreateThumbnail(superCall, (Bitmap) args[0], (Canvas) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal()
-                                .super_onCreateThumbnail((Bitmap) args[0], (Canvas) args[1]);
-                    }
-                }, outBitmap, canvas);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onCreateThumbnail(Bitmap, Canvas)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onCreateThumbnail(this, (Bitmap) args[0], (Canvas) args[1]);
+                } else {
+                    return getOriginal()
+                            .super_onCreateThumbnail((Bitmap) args[0], (Canvas) args[1]);
+                }
+            }
+        };
+        return superCall.call(outBitmap, canvas);
     }
 
     public View onCreateView(final View parent, final String name, final Context context,
             final AttributeSet attrs) {
-        return callFunction("onCreateView(View, String, Context, AttributeSet)",
-                new PluginCall<ActivityPlugin, View>() {
-                    @Override
-                    public View call(final NamedSuperCall<View> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreateView(parent, name, context, attrs);
+        }
 
-                        return plugin.onCreateView(superCall, (View) args[0], (String) args[1],
-                                (Context) args[2], (AttributeSet) args[3]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<View>() {
-                    @Override
-                    public View call(final Object... args) {
-                        return getOriginal().super_onCreateView((View) args[0], (String) args[1],
-                                (Context) args[2], (AttributeSet) args[3]);
-                    }
-                }, parent, name, context, attrs);
+        final NamedSuperCall<View> superCall = new NamedSuperCall<View>(
+                "onCreateView(View, String, Context, AttributeSet)") {
+
+            @Override
+            public View call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onCreateView(this, (View) args[0], (String) args[1], (Context) args[2],
+                                    (AttributeSet) args[3]);
+                } else {
+                    return getOriginal()
+                            .super_onCreateView((View) args[0], (String) args[1], (Context) args[2],
+                                    (AttributeSet) args[3]);
+                }
+            }
+        };
+        return superCall.call(parent, name, context, attrs);
     }
 
     public View onCreateView(final String name, final Context context, final AttributeSet attrs) {
-        return callFunction("onCreateView(String, Context, AttributeSet)",
-                new PluginCall<ActivityPlugin, View>() {
-                    @Override
-                    public View call(final NamedSuperCall<View> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreateView(name, context, attrs);
+        }
 
-                        return plugin.onCreateView(superCall, (String) args[0], (Context) args[1],
-                                (AttributeSet) args[2]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<View>() {
-                    @Override
-                    public View call(final Object... args) {
-                        return getOriginal().super_onCreateView((String) args[0], (Context) args[1],
-                                (AttributeSet) args[2]);
-                    }
-                }, name, context, attrs);
+        final NamedSuperCall<View> superCall = new NamedSuperCall<View>(
+                "onCreateView(String, Context, AttributeSet)") {
+
+            @Override
+            public View call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onCreateView(this, (String) args[0], (Context) args[1],
+                                    (AttributeSet) args[2]);
+                } else {
+                    return getOriginal().super_onCreateView((String) args[0], (Context) args[1],
+                            (AttributeSet) args[2]);
+                }
+            }
+        };
+        return superCall.call(name, context, attrs);
     }
 
     public void onDestroy() {
-        callHook("onDestroy()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onDestroy();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDestroy()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onDestroy(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onDestroy(this);
+                    return null;
+                } else {
+                    getOriginal().super_onDestroy();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onDestroy();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onDetachedFromWindow() {
-        callHook("onDetachedFromWindow()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onDetachedFromWindow();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDetachedFromWindow()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onDetachedFromWindow(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onDetachedFromWindow(this);
+                    return null;
+                } else {
+                    getOriginal().super_onDetachedFromWindow();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onDetachedFromWindow();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onEnterAnimationComplete() {
-        callHook("onEnterAnimationComplete()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onEnterAnimationComplete();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onEnterAnimationComplete()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onEnterAnimationComplete(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onEnterAnimationComplete(this);
+                    return null;
+                } else {
+                    getOriginal().super_onEnterAnimationComplete();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onEnterAnimationComplete();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public boolean onGenericMotionEvent(final MotionEvent event) {
-        return callFunction("onGenericMotionEvent(MotionEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onGenericMotionEvent(event);
+        }
 
-                        return plugin.onGenericMotionEvent(superCall, (MotionEvent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onGenericMotionEvent((MotionEvent) args[0]);
-                    }
-                }, event);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onGenericMotionEvent(MotionEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onGenericMotionEvent(this, (MotionEvent) args[0]);
+                } else {
+                    return getOriginal().super_onGenericMotionEvent((MotionEvent) args[0]);
+                }
+            }
+        };
+        return superCall.call(event);
     }
 
     public boolean onKeyDown(final int keyCode, final KeyEvent event) {
-        return callFunction("onKeyDown(int, KeyEvent)", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onKeyDown(keyCode, event);
+        }
 
-                return plugin.onKeyDown(superCall, (int) args[0], (KeyEvent) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onKeyDown(int, KeyEvent)") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_onKeyDown((int) args[0], (KeyEvent) args[1]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onKeyDown(this, (int) args[0], (KeyEvent) args[1]);
+                } else {
+                    return getOriginal().super_onKeyDown((int) args[0], (KeyEvent) args[1]);
+                }
             }
-        }, keyCode, event);
+        };
+        return superCall.call(keyCode, event);
     }
 
     public boolean onKeyLongPress(final int keyCode, final KeyEvent event) {
-        return callFunction("onKeyLongPress(int, KeyEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onKeyLongPress(keyCode, event);
+        }
 
-                        return plugin.onKeyLongPress(superCall, (int) args[0], (KeyEvent) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal()
-                                .super_onKeyLongPress((int) args[0], (KeyEvent) args[1]);
-                    }
-                }, keyCode, event);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onKeyLongPress(int, KeyEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onKeyLongPress(this, (int) args[0], (KeyEvent) args[1]);
+                } else {
+                    return getOriginal().super_onKeyLongPress((int) args[0], (KeyEvent) args[1]);
+                }
+            }
+        };
+        return superCall.call(keyCode, event);
     }
 
     public boolean onKeyMultiple(final int keyCode, final int repeatCount, final KeyEvent event) {
-        return callFunction("onKeyMultiple(int, int, KeyEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onKeyMultiple(keyCode, repeatCount, event);
+        }
 
-                        return plugin.onKeyMultiple(superCall, (int) args[0], (int) args[1],
-                                (KeyEvent) args[2]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onKeyMultiple((int) args[0], (int) args[1],
-                                (KeyEvent) args[2]);
-                    }
-                }, keyCode, repeatCount, event);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onKeyMultiple(int, int, KeyEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onKeyMultiple(this, (int) args[0], (int) args[1], (KeyEvent) args[2]);
+                } else {
+                    return getOriginal()
+                            .super_onKeyMultiple((int) args[0], (int) args[1], (KeyEvent) args[2]);
+                }
+            }
+        };
+        return superCall.call(keyCode, repeatCount, event);
     }
 
     public boolean onKeyShortcut(final int keyCode, final KeyEvent event) {
-        return callFunction("onKeyShortcut(int, KeyEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onKeyShortcut(keyCode, event);
+        }
 
-                        return plugin.onKeyShortcut(superCall, (int) args[0], (KeyEvent) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onKeyShortcut((int) args[0], (KeyEvent) args[1]);
-                    }
-                }, keyCode, event);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onKeyShortcut(int, KeyEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onKeyShortcut(this, (int) args[0], (KeyEvent) args[1]);
+                } else {
+                    return getOriginal().super_onKeyShortcut((int) args[0], (KeyEvent) args[1]);
+                }
+            }
+        };
+        return superCall.call(keyCode, event);
     }
 
     public boolean onKeyUp(final int keyCode, final KeyEvent event) {
-        return callFunction("onKeyUp(int, KeyEvent)", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onKeyUp(keyCode, event);
+        }
 
-                return plugin.onKeyUp(superCall, (int) args[0], (KeyEvent) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onKeyUp(int, KeyEvent)") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_onKeyUp((int) args[0], (KeyEvent) args[1]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onKeyUp(this, (int) args[0], (KeyEvent) args[1]);
+                } else {
+                    return getOriginal().super_onKeyUp((int) args[0], (KeyEvent) args[1]);
+                }
             }
-        }, keyCode, event);
+        };
+        return superCall.call(keyCode, event);
     }
 
     public void onLowMemory() {
-        callHook("onLowMemory()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onLowMemory();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onLowMemory()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onLowMemory(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onLowMemory(this);
+                    return null;
+                } else {
+                    getOriginal().super_onLowMemory();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onLowMemory();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public boolean onMenuOpened(final int featureId, final Menu menu) {
-        return callFunction("onMenuOpened(int, Menu)", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onMenuOpened(featureId, menu);
+        }
 
-                return plugin.onMenuOpened(superCall, (int) args[0], (Menu) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onMenuOpened(int, Menu)") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_onMenuOpened((int) args[0], (Menu) args[1]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onMenuOpened(this, (int) args[0], (Menu) args[1]);
+                } else {
+                    return getOriginal().super_onMenuOpened((int) args[0], (Menu) args[1]);
+                }
             }
-        }, featureId, menu);
+        };
+        return superCall.call(featureId, menu);
     }
 
     public boolean onNavigateUp() {
-        return callFunction("onNavigateUp()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onNavigateUp();
+        }
 
-                return plugin.onNavigateUp(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("onNavigateUp()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_onNavigateUp();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onNavigateUp(this);
+                } else {
+                    return getOriginal().super_onNavigateUp();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public boolean onNavigateUpFromChild(final Activity child) {
-        return callFunction("onNavigateUpFromChild(Activity)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onNavigateUpFromChild(child);
+        }
 
-                        return plugin.onNavigateUpFromChild(superCall, (Activity) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onNavigateUpFromChild((Activity) args[0]);
-                    }
-                }, child);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onNavigateUpFromChild(Activity)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onNavigateUpFromChild(this, (Activity) args[0]);
+                } else {
+                    return getOriginal().super_onNavigateUpFromChild((Activity) args[0]);
+                }
+            }
+        };
+        return superCall.call(child);
     }
 
     public void onNewIntent(final Intent intent) {
-        callHook("onNewIntent(Intent)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onNewIntent(intent);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onNewIntent(Intent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onNewIntent(superCall, (Intent) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onNewIntent(this, (Intent) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onNewIntent((Intent) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onNewIntent((Intent) args[0]);
-            }
-        }, intent);
+        };
+        superCall.call(intent);
     }
 
     public boolean onOptionsItemSelected(final MenuItem item) {
-        return callFunction("onOptionsItemSelected(MenuItem)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onOptionsItemSelected(item);
+        }
 
-                        return plugin.onOptionsItemSelected(superCall, (MenuItem) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onOptionsItemSelected((MenuItem) args[0]);
-                    }
-                }, item);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onOptionsItemSelected(MenuItem)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onOptionsItemSelected(this, (MenuItem) args[0]);
+                } else {
+                    return getOriginal().super_onOptionsItemSelected((MenuItem) args[0]);
+                }
+            }
+        };
+        return superCall.call(item);
     }
 
     public void onOptionsMenuClosed(final Menu menu) {
-        callHook("onOptionsMenuClosed(Menu)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onOptionsMenuClosed(menu);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onOptionsMenuClosed(Menu)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onOptionsMenuClosed(superCall, (Menu) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onOptionsMenuClosed(this, (Menu) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onOptionsMenuClosed((Menu) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onOptionsMenuClosed((Menu) args[0]);
-            }
-        }, menu);
+        };
+        superCall.call(menu);
     }
 
     public void onPanelClosed(final int featureId, final Menu menu) {
-        callHook("onPanelClosed(int, Menu)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPanelClosed(featureId, menu);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onPanelClosed(int, Menu)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onPanelClosed(superCall, (int) args[0], (Menu) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onPanelClosed(this, (int) args[0], (Menu) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_onPanelClosed((int) args[0], (Menu) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onPanelClosed((int) args[0], (Menu) args[1]);
-            }
-        }, featureId, menu);
+        };
+        superCall.call(featureId, menu);
     }
 
     public void onPause() {
-        callHook("onPause()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPause();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onPause()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onPause(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onPause(this);
+                    return null;
+                } else {
+                    getOriginal().super_onPause();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onPause();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onPostCreate(final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
-        callHook("onPostCreate(Bundle, PersistableBundle)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPostCreate(savedInstanceState, persistentState);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onPostCreate(Bundle, PersistableBundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onPostCreate(superCall, (Bundle) args[0], (PersistableBundle) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onPostCreate(this, (Bundle) args[0], (PersistableBundle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_onPostCreate((Bundle) args[0], (PersistableBundle) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onPostCreate((Bundle) args[0], (PersistableBundle) args[1]);
-            }
-        }, savedInstanceState, persistentState);
+        };
+        superCall.call(savedInstanceState, persistentState);
     }
 
     public void onPostCreate(@Nullable final Bundle savedInstanceState) {
-        callHook("onPostCreate(Bundle)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPostCreate(savedInstanceState);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onPostCreate(Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onPostCreate(superCall, (Bundle) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onPostCreate(this, (Bundle) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onPostCreate((Bundle) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onPostCreate((Bundle) args[0]);
-            }
-        }, savedInstanceState);
+        };
+        superCall.call(savedInstanceState);
     }
 
     public void onPostResume() {
-        callHook("onPostResume()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPostResume();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onPostResume()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onPostResume(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onPostResume(this);
+                    return null;
+                } else {
+                    getOriginal().super_onPostResume();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onPostResume();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onPrepareDialog(final int id, final Dialog dialog) {
-        callHook("onPrepareDialog(int, Dialog)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPrepareDialog(id, dialog);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onPrepareDialog(int, Dialog)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onPrepareDialog(superCall, (int) args[0], (Dialog) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onPrepareDialog(this, (int) args[0], (Dialog) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_onPrepareDialog((int) args[0], (Dialog) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onPrepareDialog((int) args[0], (Dialog) args[1]);
-            }
-        }, id, dialog);
+        };
+        superCall.call(id, dialog);
     }
 
     public void onPrepareDialog(final int id, final Dialog dialog, final Bundle args) {
-        callHook("onPrepareDialog(int, Dialog, Bundle)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPrepareDialog(id, dialog, args);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onPrepareDialog(int, Dialog, Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onPrepareDialog(superCall, (int) args[0], (Dialog) args[1],
-                        (Bundle) args[2]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onPrepareDialog(this, (int) args[0], (Dialog) args[1],
+                            (Bundle) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_onPrepareDialog((int) args[0], (Dialog) args[1],
+                            (Bundle) args[2]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal()
-                        .super_onPrepareDialog((int) args[0], (Dialog) args[1], (Bundle) args[2]);
-            }
-        }, id, dialog, args);
+        };
+        superCall.call(id, dialog, args);
     }
 
     public void onPrepareNavigateUpTaskStack(final TaskStackBuilder builder) {
-        callHook("onPrepareNavigateUpTaskStack(TaskStackBuilder)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onPrepareNavigateUpTaskStack(superCall, (TaskStackBuilder) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_onPrepareNavigateUpTaskStack((TaskStackBuilder) args[0]);
-                    }
-                }, builder);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPrepareNavigateUpTaskStack(builder);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onPrepareNavigateUpTaskStack(TaskStackBuilder)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onPrepareNavigateUpTaskStack(this, (TaskStackBuilder) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onPrepareNavigateUpTaskStack((TaskStackBuilder) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(builder);
     }
 
     public boolean onPrepareOptionsMenu(final Menu menu) {
-        return callFunction("onPrepareOptionsMenu(Menu)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onPrepareOptionsMenu(menu);
+        }
 
-                        return plugin.onPrepareOptionsMenu(superCall, (Menu) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onPrepareOptionsMenu((Menu) args[0]);
-                    }
-                }, menu);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onPrepareOptionsMenu(Menu)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onPrepareOptionsMenu(this, (Menu) args[0]);
+                } else {
+                    return getOriginal().super_onPrepareOptionsMenu((Menu) args[0]);
+                }
+            }
+        };
+        return superCall.call(menu);
     }
 
     public boolean onPrepareOptionsPanel(final View view, final Menu menu) {
-        return callFunction("onPrepareOptionsPanel(View, Menu)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onPrepareOptionsPanel(view, menu);
+        }
 
-                        return plugin
-                                .onPrepareOptionsPanel(superCall, (View) args[0], (Menu) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal()
-                                .super_onPrepareOptionsPanel((View) args[0], (Menu) args[1]);
-                    }
-                }, view, menu);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onPrepareOptionsPanel(View, Menu)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onPrepareOptionsPanel(this, (View) args[0], (Menu) args[1]);
+                } else {
+                    return getOriginal()
+                            .super_onPrepareOptionsPanel((View) args[0], (Menu) args[1]);
+                }
+            }
+        };
+        return superCall.call(view, menu);
     }
 
     public boolean onPreparePanel(final int featureId, final View view, final Menu menu) {
-        return callFunction("onPreparePanel(int, View, Menu)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onPreparePanel(featureId, view, menu);
+        }
 
-                        return plugin.onPreparePanel(superCall, (int) args[0], (View) args[1],
-                                (Menu) args[2]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onPreparePanel((int) args[0], (View) args[1],
-                                (Menu) args[2]);
-                    }
-                }, featureId, view, menu);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onPreparePanel(int, View, Menu)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onPreparePanel(this, (int) args[0], (View) args[1], (Menu) args[2]);
+                } else {
+                    return getOriginal()
+                            .super_onPreparePanel((int) args[0], (View) args[1], (Menu) args[2]);
+                }
+            }
+        };
+        return superCall.call(featureId, view, menu);
     }
 
     public void onPrepareSupportNavigateUpTaskStack(
             @NonNull final android.support.v4.app.TaskStackBuilder builder) {
-        callHook("onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onPrepareSupportNavigateUpTaskStack(superCall,
-                                (android.support.v4.app.TaskStackBuilder) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_onPrepareSupportNavigateUpTaskStack(
-                                (android.support.v4.app.TaskStackBuilder) args[0]);
-                    }
-                }, builder);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPrepareSupportNavigateUpTaskStack(builder);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onPrepareSupportNavigateUpTaskStack(this,
+                            (android.support.v4.app.TaskStackBuilder) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onPrepareSupportNavigateUpTaskStack(
+                            (android.support.v4.app.TaskStackBuilder) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(builder);
     }
 
     public void onProvideAssistContent(final AssistContent outContent) {
-        callHook("onProvideAssistContent(AssistContent)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onProvideAssistContent(outContent);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onProvideAssistContent(AssistContent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onProvideAssistContent(superCall, (AssistContent) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onProvideAssistContent(this, (AssistContent) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onProvideAssistContent((AssistContent) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onProvideAssistContent((AssistContent) args[0]);
-            }
-        }, outContent);
+        };
+        superCall.call(outContent);
     }
 
     public void onProvideAssistData(final Bundle data) {
-        callHook("onProvideAssistData(Bundle)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onProvideAssistData(data);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onProvideAssistData(Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onProvideAssistData(superCall, (Bundle) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onProvideAssistData(this, (Bundle) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onProvideAssistData((Bundle) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onProvideAssistData((Bundle) args[0]);
-            }
-        }, data);
+        };
+        superCall.call(data);
     }
 
     public Uri onProvideReferrer() {
-        return callFunction("onProvideReferrer()", new PluginCall<ActivityPlugin, Uri>() {
-            @Override
-            public Uri call(final NamedSuperCall<Uri> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onProvideReferrer();
+        }
 
-                return plugin.onProvideReferrer(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Uri>() {
+        final NamedSuperCall<Uri> superCall = new NamedSuperCall<Uri>("onProvideReferrer()") {
+
             @Override
             public Uri call(final Object... args) {
-                return getOriginal().super_onProvideReferrer();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onProvideReferrer(this);
+                } else {
+                    return getOriginal().super_onProvideReferrer();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public void onRequestPermissionsResult(final int requestCode,
             @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        callHook("onRequestPermissionsResult(int, String[], int[])",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onRequestPermissionsResult(superCall, (int) args[0],
-                                (String[]) args[1], (int[]) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_onRequestPermissionsResult((int) args[0], (String[]) args[1],
-                                        (int[]) args[2]);
-                    }
-                }, requestCode, permissions, grantResults);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onRequestPermissionsResult(requestCode, permissions, grantResults);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onRequestPermissionsResult(int, String[], int[])") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onRequestPermissionsResult(this, (int) args[0], (String[]) args[1],
+                                    (int[]) args[2]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_onRequestPermissionsResult((int) args[0], (String[]) args[1],
+                                    (int[]) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(requestCode, permissions, grantResults);
     }
 
     public void onRestart() {
-        callHook("onRestart()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onRestart();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onRestart()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onRestart(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onRestart(this);
+                    return null;
+                } else {
+                    getOriginal().super_onRestart();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onRestart();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onRestoreInstanceState(final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
-        callHook("onRestoreInstanceState(Bundle, PersistableBundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onRestoreInstanceState(superCall, (Bundle) args[0],
-                                (PersistableBundle) args[1]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_onRestoreInstanceState((Bundle) args[0],
-                                (PersistableBundle) args[1]);
-                    }
-                }, savedInstanceState, persistentState);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onRestoreInstanceState(savedInstanceState, persistentState);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onRestoreInstanceState(Bundle, PersistableBundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onRestoreInstanceState(this, (Bundle) args[0],
+                            (PersistableBundle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_onRestoreInstanceState((Bundle) args[0],
+                            (PersistableBundle) args[1]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(savedInstanceState, persistentState);
     }
 
     public void onRestoreInstanceState(final Bundle savedInstanceState) {
-        callHook("onRestoreInstanceState(Bundle)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onRestoreInstanceState(savedInstanceState);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onRestoreInstanceState(Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onRestoreInstanceState(superCall, (Bundle) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onRestoreInstanceState(this, (Bundle) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onRestoreInstanceState((Bundle) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onRestoreInstanceState((Bundle) args[0]);
-            }
-        }, savedInstanceState);
+        };
+        superCall.call(savedInstanceState);
     }
 
     public void onResume() {
-        callHook("onResume()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onResume();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onResume()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onResume(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onResume(this);
+                    return null;
+                } else {
+                    getOriginal().super_onResume();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onResume();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onResumeFragments() {
-        callHook("onResumeFragments()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onResumeFragments();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onResumeFragments()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onResumeFragments(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onResumeFragments(this);
+                    return null;
+                } else {
+                    getOriginal().super_onResumeFragments();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onResumeFragments();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public Object onRetainNonConfigurationInstance() {
@@ -3373,2365 +4479,3484 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return all;
     }
 
-    final PluginCallVoid<ActivityPlugin> onSaveInstanceStatemethodCall = new PluginCallVoid<ActivityPlugin>() {
-        @Override
-        public void call(final NamedSuperCall<Void> superCall,
-                final ActivityPlugin plugin, final Object... args) {
-            plugin.onSaveInstanceState(superCall, (Bundle) args[0],
-                    (PersistableBundle) args[1]);
-        }
-    };
-    final SuperCallVoid onSaveInstantstateactivitySuper = new SuperCallVoid() {
-        @Override
-        public void call(final Object... args) {
-            getOriginal().super_onSaveInstanceState((Bundle) args[0],
-                    (PersistableBundle) args[1]);
-        }
-    };
     public void onSaveInstanceState(final Bundle outState,
             final PersistableBundle outPersistentState) {
-        callHook("onSaveInstanceState(Bundle, PersistableBundle)",
-                onSaveInstanceStatemethodCall, onSaveInstantstateactivitySuper, outState, outPersistentState);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onSaveInstanceState(outState, outPersistentState);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onSaveInstanceState(Bundle, PersistableBundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onSaveInstanceState(this, (Bundle) args[0],
+                            (PersistableBundle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_onSaveInstanceState((Bundle) args[0],
+                            (PersistableBundle) args[1]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(outState, outPersistentState);
     }
 
-    final PluginCallVoid<ActivityPlugin> aslkfjawer = new PluginCallVoid<ActivityPlugin>() {
-        @Override
-        public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                final Object... args) {
-            plugin.onSaveInstanceState(superCall, (Bundle) args[0]);
-        }
-    };
-    final SuperCallVoid oisanfs = new SuperCallVoid() {
-        @Override
-        public void call(final Object... args) {
-            getOriginal().super_onSaveInstanceState((Bundle) args[0]);
-        }
-    };
     public void onSaveInstanceState(final Bundle outState) {
-        callHook("onSaveInstanceState(Bundle)", aslkfjawer, oisanfs, outState);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onSaveInstanceState(outState);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onSaveInstanceState(Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onSaveInstanceState(this, (Bundle) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onSaveInstanceState((Bundle) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(outState);
     }
 
     public boolean onSearchRequested(final SearchEvent searchEvent) {
-        return callFunction("onSearchRequested(SearchEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onSearchRequested(searchEvent);
+        }
 
-                        return plugin.onSearchRequested(superCall, (SearchEvent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onSearchRequested((SearchEvent) args[0]);
-                    }
-                }, searchEvent);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onSearchRequested(SearchEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onSearchRequested(this, (SearchEvent) args[0]);
+                } else {
+                    return getOriginal().super_onSearchRequested((SearchEvent) args[0]);
+                }
+            }
+        };
+        return superCall.call(searchEvent);
     }
 
     public boolean onSearchRequested() {
-        return callFunction("onSearchRequested()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onSearchRequested();
+        }
 
-                return plugin.onSearchRequested(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onSearchRequested()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_onSearchRequested();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onSearchRequested(this);
+                } else {
+                    return getOriginal().super_onSearchRequested();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public void onStart() {
-        callHook("onStart()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onStart();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onStart()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onStart(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onStart(this);
+                    return null;
+                } else {
+                    getOriginal().super_onStart();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onStart();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onStateNotSaved() {
-        callHook("onStateNotSaved()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onStateNotSaved();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onStateNotSaved()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onStateNotSaved(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onStateNotSaved(this);
+                    return null;
+                } else {
+                    getOriginal().super_onStateNotSaved();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onStateNotSaved();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onStop() {
-        callHook("onStop()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onStop();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onStop()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onStop(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onStop(this);
+                    return null;
+                } else {
+                    getOriginal().super_onStop();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onStop();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onSupportActionModeFinished(@NonNull final ActionMode mode) {
-        callHook("onSupportActionModeFinished(ActionMode)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onSupportActionModeFinished(mode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onSupportActionModeFinished(ActionMode)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onSupportActionModeFinished(superCall, (ActionMode) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onSupportActionModeFinished(this, (ActionMode) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onSupportActionModeFinished((ActionMode) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onSupportActionModeFinished((ActionMode) args[0]);
-            }
-        }, mode);
+        };
+        superCall.call(mode);
     }
 
     public void onSupportActionModeStarted(@NonNull final ActionMode mode) {
-        callHook("onSupportActionModeStarted(ActionMode)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onSupportActionModeStarted(mode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onSupportActionModeStarted(ActionMode)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onSupportActionModeStarted(superCall, (ActionMode) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onSupportActionModeStarted(this, (ActionMode) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onSupportActionModeStarted((ActionMode) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onSupportActionModeStarted((ActionMode) args[0]);
-            }
-        }, mode);
+        };
+        superCall.call(mode);
     }
 
     public void onSupportContentChanged() {
-        callHook("onSupportContentChanged()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onSupportContentChanged();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onSupportContentChanged()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onSupportContentChanged(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onSupportContentChanged(this);
+                    return null;
+                } else {
+                    getOriginal().super_onSupportContentChanged();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onSupportContentChanged();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public boolean onSupportNavigateUp() {
-        return callFunction("onSupportNavigateUp()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onSupportNavigateUp();
+        }
 
-                return plugin.onSupportNavigateUp(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onSupportNavigateUp()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_onSupportNavigateUp();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onSupportNavigateUp(this);
+                } else {
+                    return getOriginal().super_onSupportNavigateUp();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public void onTitleChanged(final CharSequence title, final int color) {
-        callHook("onTitleChanged(CharSequence, int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onTitleChanged(title, color);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onTitleChanged(CharSequence, int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onTitleChanged(superCall, (CharSequence) args[0], (int) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onTitleChanged(this, (CharSequence) args[0], (int) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_onTitleChanged((CharSequence) args[0], (int) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onTitleChanged((CharSequence) args[0], (int) args[1]);
-            }
-        }, title, color);
+        };
+        superCall.call(title, color);
     }
 
     public boolean onTouchEvent(final MotionEvent event) {
-        return callFunction("onTouchEvent(MotionEvent)", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onTouchEvent(event);
+        }
 
-                return plugin.onTouchEvent(superCall, (MotionEvent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onTouchEvent(MotionEvent)") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_onTouchEvent((MotionEvent) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onTouchEvent(this, (MotionEvent) args[0]);
+                } else {
+                    return getOriginal().super_onTouchEvent((MotionEvent) args[0]);
+                }
             }
-        }, event);
+        };
+        return superCall.call(event);
     }
 
     public boolean onTrackballEvent(final MotionEvent event) {
-        return callFunction("onTrackballEvent(MotionEvent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onTrackballEvent(event);
+        }
 
-                        return plugin.onTrackballEvent(superCall, (MotionEvent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_onTrackballEvent((MotionEvent) args[0]);
-                    }
-                }, event);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "onTrackballEvent(MotionEvent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onTrackballEvent(this, (MotionEvent) args[0]);
+                } else {
+                    return getOriginal().super_onTrackballEvent((MotionEvent) args[0]);
+                }
+            }
+        };
+        return superCall.call(event);
     }
 
     public void onTrimMemory(final int level) {
-        callHook("onTrimMemory(int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onTrimMemory(level);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onTrimMemory(int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onTrimMemory(superCall, (int) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onTrimMemory(this, (int) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onTrimMemory((int) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onTrimMemory((int) args[0]);
-            }
-        }, level);
+        };
+        superCall.call(level);
     }
 
     public void onUserInteraction() {
-        callHook("onUserInteraction()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onUserInteraction();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onUserInteraction()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onUserInteraction(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onUserInteraction(this);
+                    return null;
+                } else {
+                    getOriginal().super_onUserInteraction();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onUserInteraction();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onUserLeaveHint() {
-        callHook("onUserLeaveHint()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onUserLeaveHint();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onUserLeaveHint()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onUserLeaveHint(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onUserLeaveHint(this);
+                    return null;
+                } else {
+                    getOriginal().super_onUserLeaveHint();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onUserLeaveHint();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onVisibleBehindCanceled() {
-        callHook("onVisibleBehindCanceled()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onVisibleBehindCanceled();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onVisibleBehindCanceled()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onVisibleBehindCanceled(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onVisibleBehindCanceled(this);
+                    return null;
+                } else {
+                    getOriginal().super_onVisibleBehindCanceled();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onVisibleBehindCanceled();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void onWindowAttributesChanged(final WindowManager.LayoutParams params) {
-        callHook("onWindowAttributesChanged(WindowManager.LayoutParams)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.onWindowAttributesChanged(superCall,
-                                (WindowManager.LayoutParams) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_onWindowAttributesChanged(
-                                (WindowManager.LayoutParams) args[0]);
-                    }
-                }, params);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onWindowAttributesChanged(params);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onWindowAttributesChanged(WindowManager.LayoutParams)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onWindowAttributesChanged(this, (WindowManager.LayoutParams) args[0]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_onWindowAttributesChanged((WindowManager.LayoutParams) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(params);
     }
 
     public void onWindowFocusChanged(final boolean hasFocus) {
-        callHook("onWindowFocusChanged(boolean)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onWindowFocusChanged(hasFocus);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "onWindowFocusChanged(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.onWindowFocusChanged(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onWindowFocusChanged(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_onWindowFocusChanged((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_onWindowFocusChanged((boolean) args[0]);
-            }
-        }, hasFocus);
+        };
+        superCall.call(hasFocus);
     }
 
     public android.view.ActionMode onWindowStartingActionMode(
             final android.view.ActionMode.Callback callback) {
-        return callFunction("onWindowStartingActionMode(android.view.ActionMode.Callback)",
-                new PluginCall<ActivityPlugin, android.view.ActionMode>() {
-                    @Override
-                    public android.view.ActionMode call(
-                            final NamedSuperCall<android.view.ActionMode> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onWindowStartingActionMode(callback);
+        }
 
-                        return plugin.onWindowStartingActionMode(superCall,
-                                (android.view.ActionMode.Callback) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<android.view.ActionMode>() {
-                    @Override
-                    public android.view.ActionMode call(final Object... args) {
-                        return getOriginal().super_onWindowStartingActionMode(
-                                (android.view.ActionMode.Callback) args[0]);
-                    }
-                }, callback);
+        final NamedSuperCall<android.view.ActionMode> superCall
+                = new NamedSuperCall<android.view.ActionMode>(
+                "onWindowStartingActionMode(android.view.ActionMode.Callback)") {
+
+            @Override
+            public android.view.ActionMode call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onWindowStartingActionMode(this,
+                            (android.view.ActionMode.Callback) args[0]);
+                } else {
+                    return getOriginal().super_onWindowStartingActionMode(
+                            (android.view.ActionMode.Callback) args[0]);
+                }
+            }
+        };
+        return superCall.call(callback);
     }
 
     public android.view.ActionMode onWindowStartingActionMode(
             final android.view.ActionMode.Callback callback, final int type) {
-        return callFunction("onWindowStartingActionMode(android.view.ActionMode.Callback, int)",
-                new PluginCall<ActivityPlugin, android.view.ActionMode>() {
-                    @Override
-                    public android.view.ActionMode call(
-                            final NamedSuperCall<android.view.ActionMode> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onWindowStartingActionMode(callback, type);
+        }
 
-                        return plugin.onWindowStartingActionMode(superCall,
-                                (android.view.ActionMode.Callback) args[0], (int) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<android.view.ActionMode>() {
-                    @Override
-                    public android.view.ActionMode call(final Object... args) {
-                        return getOriginal().super_onWindowStartingActionMode(
-                                (android.view.ActionMode.Callback) args[0], (int) args[1]);
-                    }
-                }, callback, type);
+        final NamedSuperCall<android.view.ActionMode> superCall
+                = new NamedSuperCall<android.view.ActionMode>(
+                "onWindowStartingActionMode(android.view.ActionMode.Callback, int)") {
+
+            @Override
+            public android.view.ActionMode call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onWindowStartingActionMode(this,
+                            (android.view.ActionMode.Callback) args[0], (int) args[1]);
+                } else {
+                    return getOriginal().super_onWindowStartingActionMode(
+                            (android.view.ActionMode.Callback) args[0], (int) args[1]);
+                }
+            }
+        };
+        return superCall.call(callback, type);
     }
 
     public ActionMode onWindowStartingSupportActionMode(
             @NonNull final ActionMode.Callback callback) {
-        return callFunction("onWindowStartingSupportActionMode(ActionMode.Callback)",
-                new PluginCall<ActivityPlugin, ActionMode>() {
-                    @Override
-                    public ActionMode call(final NamedSuperCall<ActionMode> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onWindowStartingSupportActionMode(callback);
+        }
 
-                        return plugin.onWindowStartingSupportActionMode(superCall,
-                                (ActionMode.Callback) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<ActionMode>() {
-                    @Override
-                    public ActionMode call(final Object... args) {
-                        return getOriginal().super_onWindowStartingSupportActionMode(
-                                (ActionMode.Callback) args[0]);
-                    }
-                }, callback);
+        final NamedSuperCall<ActionMode> superCall = new NamedSuperCall<ActionMode>(
+                "onWindowStartingSupportActionMode(ActionMode.Callback)") {
+
+            @Override
+            public ActionMode call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .onWindowStartingSupportActionMode(this, (ActionMode.Callback) args[0]);
+                } else {
+                    return getOriginal()
+                            .super_onWindowStartingSupportActionMode((ActionMode.Callback) args[0]);
+                }
+            }
+        };
+        return superCall.call(callback);
     }
 
     public void openContextMenu(final View view) {
-        callHook("openContextMenu(View)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_openContextMenu(view);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("openContextMenu(View)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.openContextMenu(superCall, (View) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().openContextMenu(this, (View) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_openContextMenu((View) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_openContextMenu((View) args[0]);
-            }
-        }, view);
+        };
+        superCall.call(view);
     }
 
-    public FileInputStream openFileInput(final String name) {
-        return callFunction("openFileInput(String)",
-                new PluginCall<ActivityPlugin, FileInputStream>() {
-                    @Override
-                    public FileInputStream call(final NamedSuperCall<FileInputStream> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        try {
-                            return plugin.openFileInput(superCall, (String) args[0]);
-                        } catch (FileNotFoundException e) {
-                            throw new SuppressedException(e);
-                        }
+    public FileInputStream openFileInput(final String name) throws FileNotFoundException {
+        if (mPlugins.isEmpty()) {
+            try {
+                return getOriginal().super_openFileInput(name);
+            } catch (FileNotFoundException e) {
+                throw new SuppressedException(e);
+            }
+        }
 
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<FileInputStream> superCall = new NamedSuperCall<FileInputStream>(
+                "openFileInput(String)") {
+
+            @Override
+            public FileInputStream call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        return iterator.previous().openFileInput(this, (String) args[0]);
+                    } catch (FileNotFoundException e) {
+                        throw new SuppressedException(e);
                     }
-                }, new SuperCall<FileInputStream>() {
-                    @Override
-                    public FileInputStream call(final Object... args) {
-                        try {
-                            return getOriginal().super_openFileInput((String) args[0]);
-                        } catch (FileNotFoundException e) {
-                            throw new SuppressedException(e);
-                        }
+                } else {
+                    try {
+                        return getOriginal().super_openFileInput((String) args[0]);
+                    } catch (FileNotFoundException e) {
+                        throw new SuppressedException(e);
                     }
-                }, name);
+                }
+            }
+        };
+        return superCall.call(name);
     }
 
-    public FileOutputStream openFileOutput(final String name, final int mode) {
-        return callFunction("openFileOutput(String, int)",
-                new PluginCall<ActivityPlugin, FileOutputStream>() {
-                    @Override
-                    public FileOutputStream call(final NamedSuperCall<FileOutputStream> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        try {
-                            return plugin
-                                    .openFileOutput(superCall, (String) args[0], (int) args[1]);
-                        } catch (FileNotFoundException e) {
-                            throw new SuppressedException(e);
-                        }
+    public FileOutputStream openFileOutput(final String name, final int mode)
+            throws FileNotFoundException {
+        if (mPlugins.isEmpty()) {
+            try {
+                return getOriginal().super_openFileOutput(name, mode);
+            } catch (FileNotFoundException e) {
+                throw new SuppressedException(e);
+            }
+        }
 
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<FileOutputStream> superCall = new NamedSuperCall<FileOutputStream>(
+                "openFileOutput(String, int)") {
+
+            @Override
+            public FileOutputStream call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        return iterator.previous()
+                                .openFileOutput(this, (String) args[0], (int) args[1]);
+                    } catch (FileNotFoundException e) {
+                        throw new SuppressedException(e);
                     }
-                }, new SuperCall<FileOutputStream>() {
-                    @Override
-                    public FileOutputStream call(final Object... args) {
-                        try {
-                            return getOriginal()
-                                    .super_openFileOutput((String) args[0], (int) args[1]);
-                        } catch (FileNotFoundException e) {
-                            throw new SuppressedException(e);
-                        }
+                } else {
+                    try {
+                        return getOriginal().super_openFileOutput((String) args[0], (int) args[1]);
+                    } catch (FileNotFoundException e) {
+                        throw new SuppressedException(e);
                     }
-                }, name, mode);
+                }
+            }
+        };
+        return superCall.call(name, mode);
     }
 
     public void openOptionsMenu() {
-        callHook("openOptionsMenu()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_openOptionsMenu();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("openOptionsMenu()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.openOptionsMenu(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().openOptionsMenu(this);
+                    return null;
+                } else {
+                    getOriginal().super_openOptionsMenu();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_openOptionsMenu();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
             final SQLiteDatabase.CursorFactory factory) {
-        return callFunction("openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory)",
-                new PluginCall<ActivityPlugin, SQLiteDatabase>() {
-                    @Override
-                    public SQLiteDatabase call(final NamedSuperCall<SQLiteDatabase> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_openOrCreateDatabase(name, mode, factory);
+        }
 
-                        return plugin
-                                .openOrCreateDatabase(superCall, (String) args[0], (int) args[1],
-                                        (SQLiteDatabase.CursorFactory) args[2]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<SQLiteDatabase>() {
-                    @Override
-                    public SQLiteDatabase call(final Object... args) {
-                        return getOriginal()
-                                .super_openOrCreateDatabase((String) args[0], (int) args[1],
-                                        (SQLiteDatabase.CursorFactory) args[2]);
-                    }
-                }, name, mode, factory);
+        final NamedSuperCall<SQLiteDatabase> superCall = new NamedSuperCall<SQLiteDatabase>(
+                "openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory)") {
+
+            @Override
+            public SQLiteDatabase call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .openOrCreateDatabase(this, (String) args[0], (int) args[1],
+                                    (SQLiteDatabase.CursorFactory) args[2]);
+                } else {
+                    return getOriginal().super_openOrCreateDatabase((String) args[0], (int) args[1],
+                            (SQLiteDatabase.CursorFactory) args[2]);
+                }
+            }
+        };
+        return superCall.call(name, mode, factory);
     }
 
     public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
             final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler) {
-        return callFunction(
-                "openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory, DatabaseErrorHandler)",
-                new PluginCall<ActivityPlugin, SQLiteDatabase>() {
-                    @Override
-                    public SQLiteDatabase call(final NamedSuperCall<SQLiteDatabase> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_openOrCreateDatabase(name, mode, factory, errorHandler);
+        }
 
-                        return plugin
-                                .openOrCreateDatabase(superCall, (String) args[0], (int) args[1],
-                                        (SQLiteDatabase.CursorFactory) args[2],
-                                        (DatabaseErrorHandler) args[3]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<SQLiteDatabase>() {
-                    @Override
-                    public SQLiteDatabase call(final Object... args) {
-                        return getOriginal()
-                                .super_openOrCreateDatabase((String) args[0], (int) args[1],
-                                        (SQLiteDatabase.CursorFactory) args[2],
-                                        (DatabaseErrorHandler) args[3]);
-                    }
-                }, name, mode, factory, errorHandler);
+        final NamedSuperCall<SQLiteDatabase> superCall = new NamedSuperCall<SQLiteDatabase>(
+                "openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory, DatabaseErrorHandler)") {
+
+            @Override
+            public SQLiteDatabase call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .openOrCreateDatabase(this, (String) args[0], (int) args[1],
+                                    (SQLiteDatabase.CursorFactory) args[2],
+                                    (DatabaseErrorHandler) args[3]);
+                } else {
+                    return getOriginal().super_openOrCreateDatabase((String) args[0], (int) args[1],
+                            (SQLiteDatabase.CursorFactory) args[2], (DatabaseErrorHandler) args[3]);
+                }
+            }
+        };
+        return superCall.call(name, mode, factory, errorHandler);
     }
 
     public void overridePendingTransition(final int enterAnim, final int exitAnim) {
-        callHook("overridePendingTransition(int, int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_overridePendingTransition(enterAnim, exitAnim);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "overridePendingTransition(int, int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.overridePendingTransition(superCall, (int) args[0], (int) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .overridePendingTransition(this, (int) args[0], (int) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_overridePendingTransition((int) args[0], (int) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_overridePendingTransition((int) args[0], (int) args[1]);
-            }
-        }, enterAnim, exitAnim);
+        };
+        superCall.call(enterAnim, exitAnim);
     }
 
     public Drawable peekWallpaper() {
-        return callFunction("peekWallpaper()", new PluginCall<ActivityPlugin, Drawable>() {
-            @Override
-            public Drawable call(final NamedSuperCall<Drawable> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_peekWallpaper();
+        }
 
-                return plugin.peekWallpaper(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Drawable>() {
+        final NamedSuperCall<Drawable> superCall = new NamedSuperCall<Drawable>("peekWallpaper()") {
+
             @Override
             public Drawable call(final Object... args) {
-                return getOriginal().super_peekWallpaper();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().peekWallpaper(this);
+                } else {
+                    return getOriginal().super_peekWallpaper();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public void postponeEnterTransition() {
-        callHook("postponeEnterTransition()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_postponeEnterTransition();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "postponeEnterTransition()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.postponeEnterTransition(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().postponeEnterTransition(this);
+                    return null;
+                } else {
+                    getOriginal().super_postponeEnterTransition();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_postponeEnterTransition();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void recreate() {
-        callHook("recreate()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_recreate();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("recreate()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.recreate(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().recreate(this);
+                    return null;
+                } else {
+                    getOriginal().super_recreate();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_recreate();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void registerComponentCallbacks(final ComponentCallbacks callback) {
-        callHook("registerComponentCallbacks(ComponentCallbacks)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.registerComponentCallbacks(superCall, (ComponentCallbacks) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_registerComponentCallbacks((ComponentCallbacks) args[0]);
-                    }
-                }, callback);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_registerComponentCallbacks(callback);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "registerComponentCallbacks(ComponentCallbacks)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .registerComponentCallbacks(this, (ComponentCallbacks) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_registerComponentCallbacks((ComponentCallbacks) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(callback);
     }
 
     public void registerForContextMenu(final View view) {
-        callHook("registerForContextMenu(View)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_registerForContextMenu(view);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "registerForContextMenu(View)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.registerForContextMenu(superCall, (View) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().registerForContextMenu(this, (View) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_registerForContextMenu((View) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_registerForContextMenu((View) args[0]);
-            }
-        }, view);
+        };
+        superCall.call(view);
     }
 
     public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter) {
-        return callFunction("registerReceiver(BroadcastReceiver, IntentFilter)",
-                new PluginCall<ActivityPlugin, Intent>() {
-                    @Override
-                    public Intent call(final NamedSuperCall<Intent> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_registerReceiver(receiver, filter);
+        }
 
-                        return plugin.registerReceiver(superCall, (BroadcastReceiver) args[0],
-                                (IntentFilter) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Intent>() {
-                    @Override
-                    public Intent call(final Object... args) {
-                        return getOriginal().super_registerReceiver((BroadcastReceiver) args[0],
-                                (IntentFilter) args[1]);
-                    }
-                }, receiver, filter);
+        final NamedSuperCall<Intent> superCall = new NamedSuperCall<Intent>(
+                "registerReceiver(BroadcastReceiver, IntentFilter)") {
+
+            @Override
+            public Intent call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().registerReceiver(this, (BroadcastReceiver) args[0],
+                            (IntentFilter) args[1]);
+                } else {
+                    return getOriginal().super_registerReceiver((BroadcastReceiver) args[0],
+                            (IntentFilter) args[1]);
+                }
+            }
+        };
+        return superCall.call(receiver, filter);
     }
 
     public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
             final String broadcastPermission, final Handler scheduler) {
-        return callFunction("registerReceiver(BroadcastReceiver, IntentFilter, String, Handler)",
-                new PluginCall<ActivityPlugin, Intent>() {
-                    @Override
-                    public Intent call(final NamedSuperCall<Intent> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal()
+                    .super_registerReceiver(receiver, filter, broadcastPermission, scheduler);
+        }
 
-                        return plugin.registerReceiver(superCall, (BroadcastReceiver) args[0],
-                                (IntentFilter) args[1], (String) args[2], (Handler) args[3]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Intent>() {
-                    @Override
-                    public Intent call(final Object... args) {
-                        return getOriginal().super_registerReceiver((BroadcastReceiver) args[0],
-                                (IntentFilter) args[1], (String) args[2], (Handler) args[3]);
-                    }
-                }, receiver, filter, broadcastPermission, scheduler);
+        final NamedSuperCall<Intent> superCall = new NamedSuperCall<Intent>(
+                "registerReceiver(BroadcastReceiver, IntentFilter, String, Handler)") {
+
+            @Override
+            public Intent call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().registerReceiver(this, (BroadcastReceiver) args[0],
+                            (IntentFilter) args[1], (String) args[2], (Handler) args[3]);
+                } else {
+                    return getOriginal().super_registerReceiver((BroadcastReceiver) args[0],
+                            (IntentFilter) args[1], (String) args[2], (Handler) args[3]);
+                }
+            }
+        };
+        return superCall.call(receiver, filter, broadcastPermission, scheduler);
     }
 
     public boolean releaseInstance() {
-        return callFunction("releaseInstance()", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_releaseInstance();
+        }
 
-                return plugin.releaseInstance(superCall);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("releaseInstance()") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_releaseInstance();
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().releaseInstance(this);
+                } else {
+                    return getOriginal().super_releaseInstance();
+                }
             }
-        });
+        };
+        return superCall.call();
     }
 
     public void removeStickyBroadcast(final Intent intent) {
-        callHook("removeStickyBroadcast(Intent)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_removeStickyBroadcast(intent);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "removeStickyBroadcast(Intent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.removeStickyBroadcast(superCall, (Intent) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().removeStickyBroadcast(this, (Intent) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_removeStickyBroadcast((Intent) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_removeStickyBroadcast((Intent) args[0]);
-            }
-        }, intent);
+        };
+        superCall.call(intent);
     }
 
     public void removeStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
-        callHook("removeStickyBroadcastAsUser(Intent, UserHandle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.removeStickyBroadcastAsUser(superCall, (Intent) args[0],
-                                (UserHandle) args[1]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_removeStickyBroadcastAsUser((Intent) args[0],
-                                (UserHandle) args[1]);
-                    }
-                }, intent, user);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_removeStickyBroadcastAsUser(intent, user);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "removeStickyBroadcastAsUser(Intent, UserHandle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().removeStickyBroadcastAsUser(this, (Intent) args[0],
+                            (UserHandle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_removeStickyBroadcastAsUser((Intent) args[0],
+                            (UserHandle) args[1]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(intent, user);
     }
 
     public void reportFullyDrawn() {
-        callHook("reportFullyDrawn()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_reportFullyDrawn();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("reportFullyDrawn()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.reportFullyDrawn(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().reportFullyDrawn(this);
+                    return null;
+                } else {
+                    getOriginal().super_reportFullyDrawn();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_reportFullyDrawn();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public boolean requestVisibleBehind(final boolean visible) {
-        return callFunction("requestVisibleBehind(boolean)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_requestVisibleBehind(visible);
+        }
 
-                        return plugin.requestVisibleBehind(superCall, (boolean) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_requestVisibleBehind((boolean) args[0]);
-                    }
-                }, visible);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "requestVisibleBehind(boolean)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().requestVisibleBehind(this, (boolean) args[0]);
+                } else {
+                    return getOriginal().super_requestVisibleBehind((boolean) args[0]);
+                }
+            }
+        };
+        return superCall.call(visible);
     }
 
     public void revokeUriPermission(final Uri uri, final int modeFlags) {
-        callHook("revokeUriPermission(Uri, int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_revokeUriPermission(uri, modeFlags);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "revokeUriPermission(Uri, int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.revokeUriPermission(superCall, (Uri) args[0], (int) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().revokeUriPermission(this, (Uri) args[0], (int) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_revokeUriPermission((Uri) args[0], (int) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_revokeUriPermission((Uri) args[0], (int) args[1]);
-            }
-        }, uri, modeFlags);
+        };
+        superCall.call(uri, modeFlags);
     }
 
     public void sendBroadcast(final Intent intent) {
-        callHook("sendBroadcast(Intent)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_sendBroadcast(intent);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("sendBroadcast(Intent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.sendBroadcast(superCall, (Intent) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().sendBroadcast(this, (Intent) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_sendBroadcast((Intent) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_sendBroadcast((Intent) args[0]);
-            }
-        }, intent);
+        };
+        superCall.call(intent);
     }
 
     public void sendBroadcast(final Intent intent, final String receiverPermission) {
-        callHook("sendBroadcast(Intent, String)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_sendBroadcast(intent, receiverPermission);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "sendBroadcast(Intent, String)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.sendBroadcast(superCall, (Intent) args[0], (String) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().sendBroadcast(this, (Intent) args[0], (String) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_sendBroadcast((Intent) args[0], (String) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_sendBroadcast((Intent) args[0], (String) args[1]);
-            }
-        }, intent, receiverPermission);
+        };
+        superCall.call(intent, receiverPermission);
     }
 
     public void sendBroadcastAsUser(final Intent intent, final UserHandle user) {
-        callHook("sendBroadcastAsUser(Intent, UserHandle)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_sendBroadcastAsUser(intent, user);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "sendBroadcastAsUser(Intent, UserHandle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.sendBroadcastAsUser(superCall, (Intent) args[0], (UserHandle) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .sendBroadcastAsUser(this, (Intent) args[0], (UserHandle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_sendBroadcastAsUser((Intent) args[0], (UserHandle) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_sendBroadcastAsUser((Intent) args[0], (UserHandle) args[1]);
-            }
-        }, intent, user);
+        };
+        superCall.call(intent, user);
     }
 
     public void sendBroadcastAsUser(final Intent intent, final UserHandle user,
             final String receiverPermission) {
-        callHook("sendBroadcastAsUser(Intent, UserHandle, String)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.sendBroadcastAsUser(superCall, (Intent) args[0],
-                                (UserHandle) args[1], (String) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_sendBroadcastAsUser((Intent) args[0], (UserHandle) args[1],
-                                        (String) args[2]);
-                    }
-                }, intent, user, receiverPermission);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_sendBroadcastAsUser(intent, user, receiverPermission);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "sendBroadcastAsUser(Intent, UserHandle, String)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .sendBroadcastAsUser(this, (Intent) args[0], (UserHandle) args[1],
+                                    (String) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_sendBroadcastAsUser((Intent) args[0], (UserHandle) args[1],
+                            (String) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(intent, user, receiverPermission);
     }
 
     public void sendOrderedBroadcast(final Intent intent, final String receiverPermission) {
-        callHook("sendOrderedBroadcast(Intent, String)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_sendOrderedBroadcast(intent, receiverPermission);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "sendOrderedBroadcast(Intent, String)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.sendOrderedBroadcast(superCall, (Intent) args[0], (String) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .sendOrderedBroadcast(this, (Intent) args[0], (String) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_sendOrderedBroadcast((Intent) args[0], (String) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_sendOrderedBroadcast((Intent) args[0], (String) args[1]);
-            }
-        }, intent, receiverPermission);
+        };
+        superCall.call(intent, receiverPermission);
     }
 
     public void sendOrderedBroadcast(final Intent intent, final String receiverPermission,
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras) {
-        callHook(
-                "sendOrderedBroadcast(Intent, String, BroadcastReceiver, Handler, int, String, Bundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.sendOrderedBroadcast(superCall, (Intent) args[0], (String) args[1],
-                                (BroadcastReceiver) args[2], (Handler) args[3], (int) args[4],
-                                (String) args[5], (Bundle) args[6]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_sendOrderedBroadcast((Intent) args[0], (String) args[1],
-                                (BroadcastReceiver) args[2], (Handler) args[3], (int) args[4],
-                                (String) args[5], (Bundle) args[6]);
-                    }
-                }, intent, receiverPermission, resultReceiver, scheduler, initialCode, initialData,
-                initialExtras);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_sendOrderedBroadcast(intent, receiverPermission, resultReceiver,
+                    scheduler, initialCode, initialData, initialExtras);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "sendOrderedBroadcast(Intent, String, BroadcastReceiver, Handler, int, String, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .sendOrderedBroadcast(this, (Intent) args[0], (String) args[1],
+                                    (BroadcastReceiver) args[2], (Handler) args[3], (int) args[4],
+                                    (String) args[5], (Bundle) args[6]);
+                    return null;
+                } else {
+                    getOriginal().super_sendOrderedBroadcast((Intent) args[0], (String) args[1],
+                            (BroadcastReceiver) args[2], (Handler) args[3], (int) args[4],
+                            (String) args[5], (Bundle) args[6]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(intent, receiverPermission, resultReceiver, scheduler, initialCode,
+                initialData, initialExtras);
     }
 
     public void sendOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
             final String receiverPermission, final BroadcastReceiver resultReceiver,
             final Handler scheduler, final int initialCode, final String initialData,
             final Bundle initialExtras) {
-        callHook(
-                "sendOrderedBroadcastAsUser(Intent, UserHandle, String, BroadcastReceiver, Handler, int, String, Bundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.sendOrderedBroadcastAsUser(superCall, (Intent) args[0],
-                                (UserHandle) args[1], (String) args[2], (BroadcastReceiver) args[3],
-                                (Handler) args[4], (int) args[5], (String) args[6],
-                                (Bundle) args[7]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_sendOrderedBroadcastAsUser((Intent) args[0],
-                                (UserHandle) args[1], (String) args[2], (BroadcastReceiver) args[3],
-                                (Handler) args[4], (int) args[5], (String) args[6],
-                                (Bundle) args[7]);
-                    }
-                }, intent, user, receiverPermission, resultReceiver, scheduler, initialCode,
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_sendOrderedBroadcastAsUser(intent, user, receiverPermission,
+                    resultReceiver, scheduler, initialCode, initialData, initialExtras);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "sendOrderedBroadcastAsUser(Intent, UserHandle, String, BroadcastReceiver, Handler, int, String, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().sendOrderedBroadcastAsUser(this, (Intent) args[0],
+                            (UserHandle) args[1], (String) args[2], (BroadcastReceiver) args[3],
+                            (Handler) args[4], (int) args[5], (String) args[6], (Bundle) args[7]);
+                    return null;
+                } else {
+                    getOriginal().super_sendOrderedBroadcastAsUser((Intent) args[0],
+                            (UserHandle) args[1], (String) args[2], (BroadcastReceiver) args[3],
+                            (Handler) args[4], (int) args[5], (String) args[6], (Bundle) args[7]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(intent, user, receiverPermission, resultReceiver, scheduler, initialCode,
                 initialData, initialExtras);
     }
 
     public void sendStickyBroadcast(final Intent intent) {
-        callHook("sendStickyBroadcast(Intent)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_sendStickyBroadcast(intent);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "sendStickyBroadcast(Intent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.sendStickyBroadcast(superCall, (Intent) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().sendStickyBroadcast(this, (Intent) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_sendStickyBroadcast((Intent) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_sendStickyBroadcast((Intent) args[0]);
-            }
-        }, intent);
+        };
+        superCall.call(intent);
     }
 
     public void sendStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
-        callHook("sendStickyBroadcastAsUser(Intent, UserHandle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.sendStickyBroadcastAsUser(superCall, (Intent) args[0],
-                                (UserHandle) args[1]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_sendStickyBroadcastAsUser((Intent) args[0],
-                                (UserHandle) args[1]);
-                    }
-                }, intent, user);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_sendStickyBroadcastAsUser(intent, user);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "sendStickyBroadcastAsUser(Intent, UserHandle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().sendStickyBroadcastAsUser(this, (Intent) args[0],
+                            (UserHandle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_sendStickyBroadcastAsUser((Intent) args[0],
+                            (UserHandle) args[1]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(intent, user);
     }
 
     public void sendStickyOrderedBroadcast(final Intent intent,
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras) {
-        callHook(
-                "sendStickyOrderedBroadcast(Intent, BroadcastReceiver, Handler, int, String, Bundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.sendStickyOrderedBroadcast(superCall, (Intent) args[0],
-                                (BroadcastReceiver) args[1], (Handler) args[2], (int) args[3],
-                                (String) args[4], (Bundle) args[5]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_sendStickyOrderedBroadcast((Intent) args[0],
-                                (BroadcastReceiver) args[1], (Handler) args[2], (int) args[3],
-                                (String) args[4], (Bundle) args[5]);
-                    }
-                }, intent, resultReceiver, scheduler, initialCode, initialData, initialExtras);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_sendStickyOrderedBroadcast(intent, resultReceiver, scheduler,
+                    initialCode, initialData, initialExtras);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "sendStickyOrderedBroadcast(Intent, BroadcastReceiver, Handler, int, String, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().sendStickyOrderedBroadcast(this, (Intent) args[0],
+                            (BroadcastReceiver) args[1], (Handler) args[2], (int) args[3],
+                            (String) args[4], (Bundle) args[5]);
+                    return null;
+                } else {
+                    getOriginal().super_sendStickyOrderedBroadcast((Intent) args[0],
+                            (BroadcastReceiver) args[1], (Handler) args[2], (int) args[3],
+                            (String) args[4], (Bundle) args[5]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(intent, resultReceiver, scheduler, initialCode, initialData, initialExtras);
     }
 
     public void sendStickyOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras) {
-        callHook(
-                "sendStickyOrderedBroadcastAsUser(Intent, UserHandle, BroadcastReceiver, Handler, int, String, Bundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.sendStickyOrderedBroadcastAsUser(superCall, (Intent) args[0],
-                                (UserHandle) args[1], (BroadcastReceiver) args[2],
-                                (Handler) args[3], (int) args[4], (String) args[5],
-                                (Bundle) args[6]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_sendStickyOrderedBroadcastAsUser((Intent) args[0],
-                                (UserHandle) args[1], (BroadcastReceiver) args[2],
-                                (Handler) args[3], (int) args[4], (String) args[5],
-                                (Bundle) args[6]);
-                    }
-                }, intent, user, resultReceiver, scheduler, initialCode, initialData,
+        if (mPlugins.isEmpty()) {
+            getOriginal()
+                    .super_sendStickyOrderedBroadcastAsUser(intent, user, resultReceiver, scheduler,
+                            initialCode, initialData, initialExtras);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "sendStickyOrderedBroadcastAsUser(Intent, UserHandle, BroadcastReceiver, Handler, int, String, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().sendStickyOrderedBroadcastAsUser(this, (Intent) args[0],
+                            (UserHandle) args[1], (BroadcastReceiver) args[2], (Handler) args[3],
+                            (int) args[4], (String) args[5], (Bundle) args[6]);
+                    return null;
+                } else {
+                    getOriginal().super_sendStickyOrderedBroadcastAsUser((Intent) args[0],
+                            (UserHandle) args[1], (BroadcastReceiver) args[2], (Handler) args[3],
+                            (int) args[4], (String) args[5], (Bundle) args[6]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(intent, user, resultReceiver, scheduler, initialCode, initialData,
                 initialExtras);
     }
 
     public void setActionBar(final Toolbar toolbar) {
-        callHook("setActionBar(Toolbar)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setActionBar(toolbar);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setActionBar(Toolbar)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setActionBar(superCall, (Toolbar) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setActionBar(this, (Toolbar) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setActionBar((Toolbar) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setActionBar((Toolbar) args[0]);
-            }
-        }, toolbar);
+        };
+        superCall.call(toolbar);
     }
 
     public void setContentTransitionManager(final TransitionManager tm) {
-        callHook("setContentTransitionManager(TransitionManager)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.setContentTransitionManager(superCall, (TransitionManager) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_setContentTransitionManager((TransitionManager) args[0]);
-                    }
-                }, tm);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setContentTransitionManager(tm);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setContentTransitionManager(TransitionManager)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .setContentTransitionManager(this, (TransitionManager) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setContentTransitionManager((TransitionManager) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(tm);
     }
 
     public void setContentView(@LayoutRes final int layoutResID) {
-        callHook("setContentView(int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setContentView(layoutResID);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setContentView(int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setContentView(superCall, (int) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setContentView(this, (int) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setContentView((int) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setContentView((int) args[0]);
-            }
-        }, layoutResID);
+        };
+        superCall.call(layoutResID);
     }
 
     public void setContentView(final View view) {
-        callHook("setContentView(View)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setContentView(view);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setContentView(View)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setContentView(superCall, (View) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setContentView(this, (View) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setContentView((View) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setContentView((View) args[0]);
-            }
-        }, view);
+        };
+        superCall.call(view);
     }
 
     public void setContentView(final View view, final ViewGroup.LayoutParams params) {
-        callHook("setContentView(View, ViewGroup.LayoutParams)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.setContentView(superCall, (View) args[0],
-                                (ViewGroup.LayoutParams) args[1]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_setContentView((View) args[0],
-                                (ViewGroup.LayoutParams) args[1]);
-                    }
-                }, view, params);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setContentView(view, params);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setContentView(View, ViewGroup.LayoutParams)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .setContentView(this, (View) args[0], (ViewGroup.LayoutParams) args[1]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_setContentView((View) args[0], (ViewGroup.LayoutParams) args[1]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(view, params);
     }
 
     public void setEnterSharedElementCallback(final SharedElementCallback callback) {
-        callHook("setEnterSharedElementCallback(SharedElementCallback)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.setEnterSharedElementCallback(superCall,
-                                (SharedElementCallback) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_setEnterSharedElementCallback(
-                                (SharedElementCallback) args[0]);
-                    }
-                }, callback);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setEnterSharedElementCallback(callback);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setEnterSharedElementCallback(SharedElementCallback)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .setEnterSharedElementCallback(this, (SharedElementCallback) args[0]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_setEnterSharedElementCallback((SharedElementCallback) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(callback);
     }
 
     public void setEnterSharedElementCallback(final android.app.SharedElementCallback callback) {
-        callHook("setEnterSharedElementCallback(android.app.SharedElementCallback)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.setEnterSharedElementCallback(superCall,
-                                (android.app.SharedElementCallback) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_setEnterSharedElementCallback(
-                                (android.app.SharedElementCallback) args[0]);
-                    }
-                }, callback);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setEnterSharedElementCallback(callback);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setEnterSharedElementCallback(android.app.SharedElementCallback)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setEnterSharedElementCallback(this,
+                            (android.app.SharedElementCallback) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setEnterSharedElementCallback(
+                            (android.app.SharedElementCallback) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(callback);
     }
 
     public void setExitSharedElementCallback(final SharedElementCallback listener) {
-        callHook("setExitSharedElementCallback(SharedElementCallback)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.setExitSharedElementCallback(superCall,
-                                (SharedElementCallback) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_setExitSharedElementCallback(
-                                (SharedElementCallback) args[0]);
-                    }
-                }, listener);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setExitSharedElementCallback(listener);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setExitSharedElementCallback(SharedElementCallback)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .setExitSharedElementCallback(this, (SharedElementCallback) args[0]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_setExitSharedElementCallback((SharedElementCallback) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(listener);
     }
 
     public void setExitSharedElementCallback(final android.app.SharedElementCallback callback) {
-        callHook("setExitSharedElementCallback(android.app.SharedElementCallback)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.setExitSharedElementCallback(superCall,
-                                (android.app.SharedElementCallback) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_setExitSharedElementCallback(
-                                (android.app.SharedElementCallback) args[0]);
-                    }
-                }, callback);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setExitSharedElementCallback(callback);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setExitSharedElementCallback(android.app.SharedElementCallback)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setExitSharedElementCallback(this,
+                            (android.app.SharedElementCallback) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setExitSharedElementCallback(
+                            (android.app.SharedElementCallback) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(callback);
     }
 
     public void setFinishOnTouchOutside(final boolean finish) {
-        callHook("setFinishOnTouchOutside(boolean)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setFinishOnTouchOutside(finish);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setFinishOnTouchOutside(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setFinishOnTouchOutside(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setFinishOnTouchOutside(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setFinishOnTouchOutside((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setFinishOnTouchOutside((boolean) args[0]);
-            }
-        }, finish);
+        };
+        superCall.call(finish);
     }
 
     public void setImmersive(final boolean i) {
-        callHook("setImmersive(boolean)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setImmersive(i);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setImmersive(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setImmersive(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setImmersive(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setImmersive((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setImmersive((boolean) args[0]);
-            }
-        }, i);
+        };
+        superCall.call(i);
     }
 
     public void setIntent(final Intent newIntent) {
-        callHook("setIntent(Intent)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setIntent(newIntent);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setIntent(Intent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setIntent(superCall, (Intent) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setIntent(this, (Intent) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setIntent((Intent) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setIntent((Intent) args[0]);
-            }
-        }, newIntent);
+        };
+        superCall.call(newIntent);
     }
 
     public void setRequestedOrientation(final int requestedOrientation) {
-        callHook("setRequestedOrientation(int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setRequestedOrientation(requestedOrientation);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setRequestedOrientation(int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setRequestedOrientation(superCall, (int) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setRequestedOrientation(this, (int) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setRequestedOrientation((int) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setRequestedOrientation((int) args[0]);
-            }
-        }, requestedOrientation);
+        };
+        superCall.call(requestedOrientation);
     }
 
     public void setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar) {
-        callHook("setSupportActionBar(android.support.v7.widget.Toolbar)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.setSupportActionBar(superCall,
-                                (android.support.v7.widget.Toolbar) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_setSupportActionBar(
-                                (android.support.v7.widget.Toolbar) args[0]);
-                    }
-                }, toolbar);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setSupportActionBar(toolbar);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setSupportActionBar(android.support.v7.widget.Toolbar)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .setSupportActionBar(this, (android.support.v7.widget.Toolbar) args[0]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_setSupportActionBar((android.support.v7.widget.Toolbar) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(toolbar);
     }
 
     public void setSupportProgress(final int progress) {
-        callHook("setSupportProgress(int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setSupportProgress(progress);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setSupportProgress(int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setSupportProgress(superCall, (int) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setSupportProgress(this, (int) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setSupportProgress((int) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setSupportProgress((int) args[0]);
-            }
-        }, progress);
+        };
+        superCall.call(progress);
     }
 
     public void setSupportProgressBarIndeterminate(final boolean indeterminate) {
-        callHook("setSupportProgressBarIndeterminate(boolean)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.setSupportProgressBarIndeterminate(superCall, (boolean) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_setSupportProgressBarIndeterminate((boolean) args[0]);
-                    }
-                }, indeterminate);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setSupportProgressBarIndeterminate(indeterminate);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setSupportProgressBarIndeterminate(boolean)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setSupportProgressBarIndeterminate(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setSupportProgressBarIndeterminate((boolean) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(indeterminate);
     }
 
     public void setSupportProgressBarIndeterminateVisibility(final boolean visible) {
-        callHook("setSupportProgressBarIndeterminateVisibility(boolean)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.setSupportProgressBarIndeterminateVisibility(superCall,
-                                (boolean) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_setSupportProgressBarIndeterminateVisibility(
-                                (boolean) args[0]);
-                    }
-                }, visible);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setSupportProgressBarIndeterminateVisibility(visible);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setSupportProgressBarIndeterminateVisibility(boolean)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .setSupportProgressBarIndeterminateVisibility(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_setSupportProgressBarIndeterminateVisibility((boolean) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(visible);
     }
 
     public void setSupportProgressBarVisibility(final boolean visible) {
-        callHook("setSupportProgressBarVisibility(boolean)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setSupportProgressBarVisibility(visible);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setSupportProgressBarVisibility(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setSupportProgressBarVisibility(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setSupportProgressBarVisibility(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setSupportProgressBarVisibility((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setSupportProgressBarVisibility((boolean) args[0]);
-            }
-        }, visible);
+        };
+        superCall.call(visible);
     }
 
     public void setTaskDescription(final ActivityManager.TaskDescription taskDescription) {
-        callHook("setTaskDescription(ActivityManager.TaskDescription)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.setTaskDescription(superCall,
-                                (ActivityManager.TaskDescription) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_setTaskDescription(
-                                (ActivityManager.TaskDescription) args[0]);
-                    }
-                }, taskDescription);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setTaskDescription(taskDescription);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setTaskDescription(ActivityManager.TaskDescription)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .setTaskDescription(this, (ActivityManager.TaskDescription) args[0]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_setTaskDescription((ActivityManager.TaskDescription) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(taskDescription);
     }
 
     public void setTheme(@StyleRes final int resid) {
-        callHook("setTheme(int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setTheme(resid);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setTheme(int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setTheme(superCall, (int) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setTheme(this, (int) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setTheme((int) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setTheme((int) args[0]);
-            }
-        }, resid);
+        };
+        superCall.call(resid);
     }
 
     public void setTitle(final CharSequence title) {
-        callHook("setTitle(CharSequence)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setTitle(title);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setTitle(CharSequence)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setTitle(superCall, (CharSequence) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setTitle(this, (CharSequence) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setTitle((CharSequence) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setTitle((CharSequence) args[0]);
-            }
-        }, title);
+        };
+        superCall.call(title);
     }
 
     public void setTitle(final int titleId) {
-        callHook("setTitle(int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setTitle(titleId);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setTitle(int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setTitle(superCall, (int) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setTitle(this, (int) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setTitle((int) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setTitle((int) args[0]);
-            }
-        }, titleId);
+        };
+        superCall.call(titleId);
     }
 
     public void setTitleColor(final int textColor) {
-        callHook("setTitleColor(int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setTitleColor(textColor);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setTitleColor(int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setTitleColor(superCall, (int) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setTitleColor(this, (int) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setTitleColor((int) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setTitleColor((int) args[0]);
-            }
-        }, textColor);
+        };
+        superCall.call(textColor);
     }
 
     public void setVisible(final boolean visible) {
-        callHook("setVisible(boolean)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setVisible(visible);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setVisible(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.setVisible(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setVisible(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_setVisible((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_setVisible((boolean) args[0]);
-            }
-        }, visible);
+        };
+        superCall.call(visible);
     }
 
     public void setWallpaper(final Bitmap bitmap) throws IOException {
-        callHook("setWallpaper(Bitmap)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal().super_setWallpaper(bitmap);
+            } catch (IOException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setWallpaper(Bitmap)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                try {
-                    plugin.setWallpaper(superCall, (Bitmap) args[0]);
-                } catch (IOException e) {
-                    throw new SuppressedException(e);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous().setWallpaper(this, (Bitmap) args[0]);
+                        return null;
+                    } catch (IOException e) {
+                        throw new SuppressedException(e);
+                    }
+                } else {
+                    try {
+                        getOriginal().super_setWallpaper((Bitmap) args[0]);
+                        return null;
+                    } catch (IOException e) {
+                        throw new SuppressedException(e);
+                    }
                 }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                try {
-                    getOriginal().super_setWallpaper((Bitmap) args[0]);
-                } catch (IOException e) {
-                    throw new SuppressedException(e);
-                }
-            }
-        }, bitmap);
+        };
+        superCall.call(bitmap);
     }
 
     public void setWallpaper(final InputStream data) throws IOException {
-        callHook("setWallpaper(InputStream)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal().super_setWallpaper(data);
+            } catch (IOException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "setWallpaper(InputStream)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                try {
-                    plugin.setWallpaper(superCall, (InputStream) args[0]);
-                } catch (IOException e) {
-                    throw new SuppressedException(e);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous().setWallpaper(this, (InputStream) args[0]);
+                        return null;
+                    } catch (IOException e) {
+                        throw new SuppressedException(e);
+                    }
+                } else {
+                    try {
+                        getOriginal().super_setWallpaper((InputStream) args[0]);
+                        return null;
+                    } catch (IOException e) {
+                        throw new SuppressedException(e);
+                    }
                 }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                try {
-                    getOriginal().super_setWallpaper((InputStream) args[0]);
-                } catch (IOException e) {
-                    throw new SuppressedException(e);
-                }
-            }
-        }, data);
+        };
+        superCall.call(data);
     }
 
     public boolean shouldShowRequestPermissionRationale(final String permission) {
-        return callFunction("shouldShowRequestPermissionRationale(String)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_shouldShowRequestPermissionRationale(permission);
+        }
 
-                        return plugin
-                                .shouldShowRequestPermissionRationale(superCall, (String) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal()
-                                .super_shouldShowRequestPermissionRationale((String) args[0]);
-                    }
-                }, permission);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "shouldShowRequestPermissionRationale(String)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .shouldShowRequestPermissionRationale(this, (String) args[0]);
+                } else {
+                    return getOriginal()
+                            .super_shouldShowRequestPermissionRationale((String) args[0]);
+                }
+            }
+        };
+        return superCall.call(permission);
     }
 
     public boolean shouldUpRecreateTask(final Intent targetIntent) {
-        return callFunction("shouldUpRecreateTask(Intent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_shouldUpRecreateTask(targetIntent);
+        }
 
-                        return plugin.shouldUpRecreateTask(superCall, (Intent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_shouldUpRecreateTask((Intent) args[0]);
-                    }
-                }, targetIntent);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "shouldUpRecreateTask(Intent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().shouldUpRecreateTask(this, (Intent) args[0]);
+                } else {
+                    return getOriginal().super_shouldUpRecreateTask((Intent) args[0]);
+                }
+            }
+        };
+        return superCall.call(targetIntent);
     }
 
     public boolean showAssist(final Bundle args) {
-        return callFunction("showAssist(Bundle)", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_showAssist(args);
+        }
 
-                return plugin.showAssist(superCall, (Bundle) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "showAssist(Bundle)") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_showAssist((Bundle) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().showAssist(this, (Bundle) args[0]);
+                } else {
+                    return getOriginal().super_showAssist((Bundle) args[0]);
+                }
             }
-        }, args);
+        };
+        return superCall.call(args);
     }
 
     public void showLockTaskEscapeMessage() {
-        callHook("showLockTaskEscapeMessage()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_showLockTaskEscapeMessage();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "showLockTaskEscapeMessage()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.showLockTaskEscapeMessage(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().showLockTaskEscapeMessage(this);
+                    return null;
+                } else {
+                    getOriginal().super_showLockTaskEscapeMessage();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_showLockTaskEscapeMessage();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public android.view.ActionMode startActionMode(
             final android.view.ActionMode.Callback callback) {
-        return callFunction("startActionMode(android.view.ActionMode.Callback)",
-                new PluginCall<ActivityPlugin, android.view.ActionMode>() {
-                    @Override
-                    public android.view.ActionMode call(
-                            final NamedSuperCall<android.view.ActionMode> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_startActionMode(callback);
+        }
 
-                        return plugin.startActionMode(superCall,
-                                (android.view.ActionMode.Callback) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<android.view.ActionMode>() {
-                    @Override
-                    public android.view.ActionMode call(final Object... args) {
-                        return getOriginal()
-                                .super_startActionMode((android.view.ActionMode.Callback) args[0]);
-                    }
-                }, callback);
+        final NamedSuperCall<android.view.ActionMode> superCall
+                = new NamedSuperCall<android.view.ActionMode>(
+                "startActionMode(android.view.ActionMode.Callback)") {
+
+            @Override
+            public android.view.ActionMode call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .startActionMode(this, (android.view.ActionMode.Callback) args[0]);
+                } else {
+                    return getOriginal()
+                            .super_startActionMode((android.view.ActionMode.Callback) args[0]);
+                }
+            }
+        };
+        return superCall.call(callback);
     }
 
     public android.view.ActionMode startActionMode(final android.view.ActionMode.Callback callback,
             final int type) {
-        return callFunction("startActionMode(android.view.ActionMode.Callback, int)",
-                new PluginCall<ActivityPlugin, android.view.ActionMode>() {
-                    @Override
-                    public android.view.ActionMode call(
-                            final NamedSuperCall<android.view.ActionMode> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_startActionMode(callback, type);
+        }
 
-                        return plugin.startActionMode(superCall,
-                                (android.view.ActionMode.Callback) args[0], (int) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<android.view.ActionMode>() {
-                    @Override
-                    public android.view.ActionMode call(final Object... args) {
-                        return getOriginal()
-                                .super_startActionMode((android.view.ActionMode.Callback) args[0],
-                                        (int) args[1]);
-                    }
-                }, callback, type);
+        final NamedSuperCall<android.view.ActionMode> superCall
+                = new NamedSuperCall<android.view.ActionMode>(
+                "startActionMode(android.view.ActionMode.Callback, int)") {
+
+            @Override
+            public android.view.ActionMode call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .startActionMode(this, (android.view.ActionMode.Callback) args[0],
+                                    (int) args[1]);
+                } else {
+                    return getOriginal()
+                            .super_startActionMode((android.view.ActionMode.Callback) args[0],
+                                    (int) args[1]);
+                }
+            }
+        };
+        return superCall.call(callback, type);
     }
 
     public void startActivities(final Intent[] intents) {
-        callHook("startActivities(Intent[])", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivities(intents);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivities(Intent[])") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.startActivities(superCall, (Intent[]) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startActivities(this, (Intent[]) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivities((Intent[]) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_startActivities((Intent[]) args[0]);
-            }
-        }, new Object[]{intents});
+        };
+        superCall.call(intents);
     }
 
     public void startActivities(final Intent[] intents, final Bundle options) {
-        callHook("startActivities(Intent[], Bundle)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivities(intents, options);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivities(Intent[], Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.startActivities(superCall, (Intent[]) args[0], (Bundle) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startActivities(this, (Intent[]) args[0], (Bundle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivities((Intent[]) args[0], (Bundle) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_startActivities((Intent[]) args[0], (Bundle) args[1]);
-            }
-        }, intents, options);
+        };
+        superCall.call(intents, options);
     }
 
     public void startActivity(final Intent intent) {
-        callHook("startActivity(Intent)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivity(intent);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("startActivity(Intent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.startActivity(superCall, (Intent) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startActivity(this, (Intent) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivity((Intent) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_startActivity((Intent) args[0]);
-            }
-        }, intent);
+        };
+        superCall.call(intent);
     }
 
     public void startActivity(final Intent intent, final Bundle options) {
-        callHook("startActivity(Intent, Bundle)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivity(intent, options);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivity(Intent, Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.startActivity(superCall, (Intent) args[0], (Bundle) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startActivity(this, (Intent) args[0], (Bundle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivity((Intent) args[0], (Bundle) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_startActivity((Intent) args[0], (Bundle) args[1]);
-            }
-        }, intent, options);
+        };
+        superCall.call(intent, options);
     }
 
     public void startActivityForResult(final Intent intent, final int requestCode) {
-        callHook("startActivityForResult(Intent, int)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityForResult(intent, requestCode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivityForResult(Intent, int)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.startActivityForResult(superCall, (Intent) args[0], (int) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityForResult(this, (Intent) args[0], (int) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1]);
-            }
-        }, intent, requestCode);
+        };
+        superCall.call(intent, requestCode);
     }
 
     public void startActivityForResult(final Intent intent, final int requestCode,
             final Bundle options) {
-        callHook("startActivityForResult(Intent, int, Bundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.startActivityForResult(superCall, (Intent) args[0], (int) args[1],
-                                (Bundle) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1],
-                                (Bundle) args[2]);
-                    }
-                }, intent, requestCode, options);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityForResult(intent, requestCode, options);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivityForResult(Intent, int, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityForResult(this, (Intent) args[0], (int) args[1],
+                                    (Bundle) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1],
+                            (Bundle) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(intent, requestCode, options);
     }
 
     public void startActivityFromChild(final Activity child, final Intent intent,
             final int requestCode) {
-        callHook("startActivityFromChild(Activity, Intent, int)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.startActivityFromChild(superCall, (Activity) args[0],
-                                (Intent) args[1], (int) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_startActivityFromChild((Activity) args[0], (Intent) args[1],
-                                        (int) args[2]);
-                    }
-                }, child, intent, requestCode);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityFromChild(child, intent, requestCode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivityFromChild(Activity, Intent, int)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityFromChild(this, (Activity) args[0], (Intent) args[1],
+                                    (int) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivityFromChild((Activity) args[0], (Intent) args[1],
+                            (int) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(child, intent, requestCode);
     }
 
     public void startActivityFromChild(final Activity child, final Intent intent,
             final int requestCode, final Bundle options) {
-        callHook("startActivityFromChild(Activity, Intent, int, Bundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.startActivityFromChild(superCall, (Activity) args[0],
-                                (Intent) args[1], (int) args[2], (Bundle) args[3]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_startActivityFromChild((Activity) args[0], (Intent) args[1],
-                                        (int) args[2], (Bundle) args[3]);
-                    }
-                }, child, intent, requestCode, options);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityFromChild(child, intent, requestCode, options);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivityFromChild(Activity, Intent, int, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityFromChild(this, (Activity) args[0], (Intent) args[1],
+                                    (int) args[2], (Bundle) args[3]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivityFromChild((Activity) args[0], (Intent) args[1],
+                            (int) args[2], (Bundle) args[3]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(child, intent, requestCode, options);
     }
 
     public void startActivityFromFragment(final Fragment fragment, final Intent intent,
             final int requestCode) {
-        callHook("startActivityFromFragment(Fragment, Intent, int)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.startActivityFromFragment(superCall, (Fragment) args[0],
-                                (Intent) args[1], (int) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_startActivityFromFragment((Fragment) args[0],
-                                (Intent) args[1], (int) args[2]);
-                    }
-                }, fragment, intent, requestCode);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityFromFragment(fragment, intent, requestCode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivityFromFragment(Fragment, Intent, int)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityFromFragment(this, (Fragment) args[0], (Intent) args[1],
+                                    (int) args[2]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_startActivityFromFragment((Fragment) args[0], (Intent) args[1],
+                                    (int) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(fragment, intent, requestCode);
     }
 
     public void startActivityFromFragment(final Fragment fragment, final Intent intent,
             final int requestCode, @Nullable final Bundle options) {
-        callHook("startActivityFromFragment(Fragment, Intent, int, Bundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.startActivityFromFragment(superCall, (Fragment) args[0],
-                                (Intent) args[1], (int) args[2], (Bundle) args[3]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_startActivityFromFragment((Fragment) args[0],
-                                (Intent) args[1], (int) args[2], (Bundle) args[3]);
-                    }
-                }, fragment, intent, requestCode, options);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityFromFragment(fragment, intent, requestCode, options);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivityFromFragment(Fragment, Intent, int, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityFromFragment(this, (Fragment) args[0], (Intent) args[1],
+                                    (int) args[2], (Bundle) args[3]);
+                    return null;
+                } else {
+                    getOriginal()
+                            .super_startActivityFromFragment((Fragment) args[0], (Intent) args[1],
+                                    (int) args[2], (Bundle) args[3]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(fragment, intent, requestCode, options);
     }
 
     public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
             final int requestCode) {
-        callHook("startActivityFromFragment(android.app.Fragment, Intent, int)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.startActivityFromFragment(superCall, (android.app.Fragment) args[0],
-                                (Intent) args[1], (int) args[2]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_startActivityFromFragment((android.app.Fragment) args[0],
-                                        (Intent) args[1], (int) args[2]);
-                    }
-                }, fragment, intent, requestCode);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityFromFragment(fragment, intent, requestCode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivityFromFragment(android.app.Fragment, Intent, int)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityFromFragment(this, (android.app.Fragment) args[0],
+                                    (Intent) args[1], (int) args[2]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivityFromFragment((android.app.Fragment) args[0],
+                            (Intent) args[1], (int) args[2]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(fragment, intent, requestCode);
     }
 
     public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
             final int requestCode, final Bundle options) {
-        callHook("startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.startActivityFromFragment(superCall, (android.app.Fragment) args[0],
-                                (Intent) args[1], (int) args[2], (Bundle) args[3]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_startActivityFromFragment((android.app.Fragment) args[0],
-                                        (Intent) args[1], (int) args[2], (Bundle) args[3]);
-                    }
-                }, fragment, intent, requestCode, options);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityFromFragment(fragment, intent, requestCode, options);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityFromFragment(this, (android.app.Fragment) args[0],
+                                    (Intent) args[1], (int) args[2], (Bundle) args[3]);
+                    return null;
+                } else {
+                    getOriginal().super_startActivityFromFragment((android.app.Fragment) args[0],
+                            (Intent) args[1], (int) args[2], (Bundle) args[3]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(fragment, intent, requestCode, options);
     }
 
     public boolean startActivityIfNeeded(final Intent intent, final int requestCode) {
-        return callFunction("startActivityIfNeeded(Intent, int)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_startActivityIfNeeded(intent, requestCode);
+        }
 
-                        return plugin
-                                .startActivityIfNeeded(superCall, (Intent) args[0], (int) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal()
-                                .super_startActivityIfNeeded((Intent) args[0], (int) args[1]);
-                    }
-                }, intent, requestCode);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "startActivityIfNeeded(Intent, int)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .startActivityIfNeeded(this, (Intent) args[0], (int) args[1]);
+                } else {
+                    return getOriginal()
+                            .super_startActivityIfNeeded((Intent) args[0], (int) args[1]);
+                }
+            }
+        };
+        return superCall.call(intent, requestCode);
     }
 
     public boolean startActivityIfNeeded(final Intent intent, final int requestCode,
             final Bundle options) {
-        return callFunction("startActivityIfNeeded(Intent, int, Bundle)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_startActivityIfNeeded(intent, requestCode, options);
+        }
 
-                        return plugin
-                                .startActivityIfNeeded(superCall, (Intent) args[0], (int) args[1],
-                                        (Bundle) args[2]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal()
-                                .super_startActivityIfNeeded((Intent) args[0], (int) args[1],
-                                        (Bundle) args[2]);
-                    }
-                }, intent, requestCode, options);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "startActivityIfNeeded(Intent, int, Bundle)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .startActivityIfNeeded(this, (Intent) args[0], (int) args[1],
+                                    (Bundle) args[2]);
+                } else {
+                    return getOriginal()
+                            .super_startActivityIfNeeded((Intent) args[0], (int) args[1],
+                                    (Bundle) args[2]);
+                }
+            }
+        };
+        return superCall.call(intent, requestCode, options);
     }
 
     public boolean startInstrumentation(final ComponentName className, final String profileFile,
             final Bundle arguments) {
-        return callFunction("startInstrumentation(ComponentName, String, Bundle)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_startInstrumentation(className, profileFile, arguments);
+        }
 
-                        return plugin.startInstrumentation(superCall, (ComponentName) args[0],
-                                (String) args[1], (Bundle) args[2]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_startInstrumentation((ComponentName) args[0],
-                                (String) args[1], (Bundle) args[2]);
-                    }
-                }, className, profileFile, arguments);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "startInstrumentation(ComponentName, String, Bundle)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .startInstrumentation(this, (ComponentName) args[0], (String) args[1],
+                                    (Bundle) args[2]);
+                } else {
+                    return getOriginal()
+                            .super_startInstrumentation((ComponentName) args[0], (String) args[1],
+                                    (Bundle) args[2]);
+                }
+            }
+        };
+        return superCall.call(className, profileFile, arguments);
     }
 
     public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags)
             throws IntentSender.SendIntentException {
-        callHook("startIntentSender(IntentSender, Intent, int, int, int)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        try {
-                            plugin.startIntentSender(superCall, (IntentSender) args[0],
-                                    (Intent) args[1], (int) args[2], (int) args[3], (int) args[4]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal().super_startIntentSender(intent, fillInIntent, flagsMask, flagsValues,
+                        extraFlags);
+            } catch (IntentSender.SendIntentException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startIntentSender(IntentSender, Intent, int, int, int)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous()
+                                .startIntentSender(this, (IntentSender) args[0], (Intent) args[1],
+                                        (int) args[2], (int) args[3], (int) args[4]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        try {
-                            getOriginal().super_startIntentSender((IntentSender) args[0],
-                                    (Intent) args[1], (int) args[2], (int) args[3], (int) args[4]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+                } else {
+                    try {
+                        getOriginal()
+                                .super_startIntentSender((IntentSender) args[0], (Intent) args[1],
+                                        (int) args[2], (int) args[3], (int) args[4]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, intent, fillInIntent, flagsMask, flagsValues, extraFlags);
+                }
+            }
+        };
+        superCall.call(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
     public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
-        callHook("startIntentSender(IntentSender, Intent, int, int, int, Bundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        try {
-                            plugin.startIntentSender(superCall, (IntentSender) args[0],
-                                    (Intent) args[1], (int) args[2], (int) args[3], (int) args[4],
-                                    (Bundle) args[5]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal().super_startIntentSender(intent, fillInIntent, flagsMask, flagsValues,
+                        extraFlags, options);
+            } catch (IntentSender.SendIntentException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startIntentSender(IntentSender, Intent, int, int, int, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous()
+                                .startIntentSender(this, (IntentSender) args[0], (Intent) args[1],
+                                        (int) args[2], (int) args[3], (int) args[4],
+                                        (Bundle) args[5]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        try {
-                            getOriginal().super_startIntentSender((IntentSender) args[0],
-                                    (Intent) args[1], (int) args[2], (int) args[3], (int) args[4],
-                                    (Bundle) args[5]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+                } else {
+                    try {
+                        getOriginal()
+                                .super_startIntentSender((IntentSender) args[0], (Intent) args[1],
+                                        (int) args[2], (int) args[3], (int) args[4],
+                                        (Bundle) args[5]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, intent, fillInIntent, flagsMask, flagsValues, extraFlags, options);
+                }
+            }
+        };
+        superCall.call(intent, fillInIntent, flagsMask, flagsValues, extraFlags, options);
     }
 
     public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
             final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags) throws IntentSender.SendIntentException {
-        callHook("startIntentSenderForResult(IntentSender, int, Intent, int, int, int)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        try {
-                            plugin.startIntentSenderForResult(superCall, (IntentSender) args[0],
-                                    (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
-                                    (int) args[5]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal().super_startIntentSenderForResult(intent, requestCode, fillInIntent,
+                        flagsMask, flagsValues, extraFlags);
+            } catch (IntentSender.SendIntentException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startIntentSenderForResult(IntentSender, int, Intent, int, int, int)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous().startIntentSenderForResult(this, (IntentSender) args[0],
+                                (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
+                                (int) args[5]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        try {
-                            getOriginal().super_startIntentSenderForResult((IntentSender) args[0],
-                                    (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
-                                    (int) args[5]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+                } else {
+                    try {
+                        getOriginal().super_startIntentSenderForResult((IntentSender) args[0],
+                                (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
+                                (int) args[5]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
+                }
+            }
+        };
+        superCall.call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
     public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
             final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
-        callHook("startIntentSenderForResult(IntentSender, int, Intent, int, int, int, Bundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        try {
-                            plugin.startIntentSenderForResult(superCall, (IntentSender) args[0],
-                                    (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
-                                    (int) args[5], (Bundle) args[6]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal().super_startIntentSenderForResult(intent, requestCode, fillInIntent,
+                        flagsMask, flagsValues, extraFlags, options);
+            } catch (IntentSender.SendIntentException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startIntentSenderForResult(IntentSender, int, Intent, int, int, int, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous().startIntentSenderForResult(this, (IntentSender) args[0],
+                                (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
+                                (int) args[5], (Bundle) args[6]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        try {
-                            getOriginal().super_startIntentSenderForResult((IntentSender) args[0],
-                                    (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
-                                    (int) args[5], (Bundle) args[6]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+                } else {
+                    try {
+                        getOriginal().super_startIntentSenderForResult((IntentSender) args[0],
+                                (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
+                                (int) args[5], (Bundle) args[6]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags, options);
+                }
+            }
+        };
+        superCall.call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
+                options);
     }
 
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
             final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
-        callHook("startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        try {
-                            plugin.startIntentSenderFromChild(superCall, (Activity) args[0],
-                                    (IntentSender) args[1], (int) args[2], (Intent) args[3],
-                                    (int) args[4], (int) args[5], (int) args[6]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal()
+                        .super_startIntentSenderFromChild(child, intent, requestCode, fillInIntent,
+                                flagsMask, flagsValues, extraFlags);
+            } catch (IntentSender.SendIntentException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous().startIntentSenderFromChild(this, (Activity) args[0],
+                                (IntentSender) args[1], (int) args[2], (Intent) args[3],
+                                (int) args[4], (int) args[5], (int) args[6]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        try {
-                            getOriginal().super_startIntentSenderFromChild((Activity) args[0],
-                                    (IntentSender) args[1], (int) args[2], (Intent) args[3],
-                                    (int) args[4], (int) args[5], (int) args[6]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+                } else {
+                    try {
+                        getOriginal().super_startIntentSenderFromChild((Activity) args[0],
+                                (IntentSender) args[1], (int) args[2], (Intent) args[3],
+                                (int) args[4], (int) args[5], (int) args[6]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, child, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
+                }
+            }
+        };
+        superCall
+                .call(child, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
             final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
-        callHook(
-                "startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int, Bundle)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        try {
-                            plugin.startIntentSenderFromChild(superCall, (Activity) args[0],
-                                    (IntentSender) args[1], (int) args[2], (Intent) args[3],
-                                    (int) args[4], (int) args[5], (int) args[6], (Bundle) args[7]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal()
+                        .super_startIntentSenderFromChild(child, intent, requestCode, fillInIntent,
+                                flagsMask, flagsValues, extraFlags, options);
+            } catch (IntentSender.SendIntentException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int, Bundle)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous().startIntentSenderFromChild(this, (Activity) args[0],
+                                (IntentSender) args[1], (int) args[2], (Intent) args[3],
+                                (int) args[4], (int) args[5], (int) args[6], (Bundle) args[7]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        try {
-                            getOriginal().super_startIntentSenderFromChild((Activity) args[0],
-                                    (IntentSender) args[1], (int) args[2], (Intent) args[3],
-                                    (int) args[4], (int) args[5], (int) args[6], (Bundle) args[7]);
-                        } catch (IntentSender.SendIntentException e) {
-                            throw new SuppressedException(e);
-                        }
+                } else {
+                    try {
+                        getOriginal().super_startIntentSenderFromChild((Activity) args[0],
+                                (IntentSender) args[1], (int) args[2], (Intent) args[3],
+                                (int) args[4], (int) args[5], (int) args[6], (Bundle) args[7]);
+                        return null;
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
                     }
-                }, child, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
+                }
+            }
+        };
+        superCall.call(child, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
                 options);
     }
 
     public void startLockTask() {
-        callHook("startLockTask()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startLockTask();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("startLockTask()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.startLockTask(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startLockTask(this);
+                    return null;
+                } else {
+                    getOriginal().super_startLockTask();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_startLockTask();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void startManagingCursor(final Cursor c) {
-        callHook("startManagingCursor(Cursor)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startManagingCursor(c);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startManagingCursor(Cursor)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.startManagingCursor(superCall, (Cursor) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startManagingCursor(this, (Cursor) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_startManagingCursor((Cursor) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_startManagingCursor((Cursor) args[0]);
-            }
-        }, c);
+        };
+        superCall.call(c);
     }
 
     public boolean startNextMatchingActivity(final Intent intent) {
-        return callFunction("startNextMatchingActivity(Intent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_startNextMatchingActivity(intent);
+        }
 
-                        return plugin.startNextMatchingActivity(superCall, (Intent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_startNextMatchingActivity((Intent) args[0]);
-                    }
-                }, intent);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "startNextMatchingActivity(Intent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().startNextMatchingActivity(this, (Intent) args[0]);
+                } else {
+                    return getOriginal().super_startNextMatchingActivity((Intent) args[0]);
+                }
+            }
+        };
+        return superCall.call(intent);
     }
 
     public boolean startNextMatchingActivity(final Intent intent, final Bundle options) {
-        return callFunction("startNextMatchingActivity(Intent, Bundle)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_startNextMatchingActivity(intent, options);
+        }
 
-                        return plugin.startNextMatchingActivity(superCall, (Intent) args[0],
-                                (Bundle) args[1]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_startNextMatchingActivity((Intent) args[0],
-                                (Bundle) args[1]);
-                    }
-                }, intent, options);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "startNextMatchingActivity(Intent, Bundle)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .startNextMatchingActivity(this, (Intent) args[0], (Bundle) args[1]);
+                } else {
+                    return getOriginal()
+                            .super_startNextMatchingActivity((Intent) args[0], (Bundle) args[1]);
+                }
+            }
+        };
+        return superCall.call(intent, options);
     }
 
     public void startPostponedEnterTransition() {
-        callHook("startPostponedEnterTransition()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startPostponedEnterTransition();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startPostponedEnterTransition()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.startPostponedEnterTransition(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startPostponedEnterTransition(this);
+                    return null;
+                } else {
+                    getOriginal().super_startPostponedEnterTransition();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_startPostponedEnterTransition();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void startSearch(final String initialQuery, final boolean selectInitialQuery,
             final Bundle appSearchData, final boolean globalSearch) {
-        callHook("startSearch(String, boolean, Bundle, boolean)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.startSearch(superCall, (String) args[0], (boolean) args[1],
-                                (Bundle) args[2], (boolean) args[3]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal().super_startSearch((String) args[0], (boolean) args[1],
-                                (Bundle) args[2], (boolean) args[3]);
-                    }
-                }, initialQuery, selectInitialQuery, appSearchData, globalSearch);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startSearch(initialQuery, selectInitialQuery, appSearchData,
+                    globalSearch);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "startSearch(String, boolean, Bundle, boolean)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startSearch(this, (String) args[0], (boolean) args[1],
+                            (Bundle) args[2], (boolean) args[3]);
+                    return null;
+                } else {
+                    getOriginal().super_startSearch((String) args[0], (boolean) args[1],
+                            (Bundle) args[2], (boolean) args[3]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
 
     public ComponentName startService(final Intent service) {
-        return callFunction("startService(Intent)",
-                new PluginCall<ActivityPlugin, ComponentName>() {
-                    @Override
-                    public ComponentName call(final NamedSuperCall<ComponentName> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_startService(service);
+        }
 
-                        return plugin.startService(superCall, (Intent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<ComponentName>() {
-                    @Override
-                    public ComponentName call(final Object... args) {
-                        return getOriginal().super_startService((Intent) args[0]);
-                    }
-                }, service);
+        final NamedSuperCall<ComponentName> superCall = new NamedSuperCall<ComponentName>(
+                "startService(Intent)") {
+
+            @Override
+            public ComponentName call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().startService(this, (Intent) args[0]);
+                } else {
+                    return getOriginal().super_startService((Intent) args[0]);
+                }
+            }
+        };
+        return superCall.call(service);
     }
 
     public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
-        return callFunction("startSupportActionMode(ActionMode.Callback)",
-                new PluginCall<ActivityPlugin, ActionMode>() {
-                    @Override
-                    public ActionMode call(final NamedSuperCall<ActionMode> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_startSupportActionMode(callback);
+        }
 
-                        return plugin
-                                .startSupportActionMode(superCall, (ActionMode.Callback) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<ActionMode>() {
-                    @Override
-                    public ActionMode call(final Object... args) {
-                        return getOriginal()
-                                .super_startSupportActionMode((ActionMode.Callback) args[0]);
-                    }
-                }, callback);
+        final NamedSuperCall<ActionMode> superCall = new NamedSuperCall<ActionMode>(
+                "startSupportActionMode(ActionMode.Callback)") {
+
+            @Override
+            public ActionMode call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .startSupportActionMode(this, (ActionMode.Callback) args[0]);
+                } else {
+                    return getOriginal()
+                            .super_startSupportActionMode((ActionMode.Callback) args[0]);
+                }
+            }
+        };
+        return superCall.call(callback);
     }
 
     public void stopLockTask() {
-        callHook("stopLockTask()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_stopLockTask();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("stopLockTask()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.stopLockTask(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().stopLockTask(this);
+                    return null;
+                } else {
+                    getOriginal().super_stopLockTask();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_stopLockTask();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void stopManagingCursor(final Cursor c) {
-        callHook("stopManagingCursor(Cursor)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_stopManagingCursor(c);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "stopManagingCursor(Cursor)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.stopManagingCursor(superCall, (Cursor) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().stopManagingCursor(this, (Cursor) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_stopManagingCursor((Cursor) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_stopManagingCursor((Cursor) args[0]);
-            }
-        }, c);
+        };
+        superCall.call(c);
     }
 
     public boolean stopService(final Intent name) {
-        return callFunction("stopService(Intent)", new PluginCall<ActivityPlugin, Boolean>() {
-            @Override
-            public Boolean call(final NamedSuperCall<Boolean> superCall,
-                    final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_stopService(name);
+        }
 
-                return plugin.stopService(superCall, (Intent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-            }
-        }, new SuperCall<Boolean>() {
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "stopService(Intent)") {
+
             @Override
             public Boolean call(final Object... args) {
-                return getOriginal().super_stopService((Intent) args[0]);
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().stopService(this, (Intent) args[0]);
+                } else {
+                    return getOriginal().super_stopService((Intent) args[0]);
+                }
             }
-        }, name);
+        };
+        return superCall.call(name);
     }
 
     public void supportFinishAfterTransition() {
-        callHook("supportFinishAfterTransition()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_supportFinishAfterTransition();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "supportFinishAfterTransition()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.supportFinishAfterTransition(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().supportFinishAfterTransition(this);
+                    return null;
+                } else {
+                    getOriginal().super_supportFinishAfterTransition();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_supportFinishAfterTransition();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void supportInvalidateOptionsMenu() {
-        callHook("supportInvalidateOptionsMenu()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_supportInvalidateOptionsMenu();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "supportInvalidateOptionsMenu()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.supportInvalidateOptionsMenu(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().supportInvalidateOptionsMenu(this);
+                    return null;
+                } else {
+                    getOriginal().super_supportInvalidateOptionsMenu();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_supportInvalidateOptionsMenu();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void supportNavigateUpTo(@NonNull final Intent upIntent) {
-        callHook("supportNavigateUpTo(Intent)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_supportNavigateUpTo(upIntent);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "supportNavigateUpTo(Intent)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.supportNavigateUpTo(superCall, (Intent) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().supportNavigateUpTo(this, (Intent) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_supportNavigateUpTo((Intent) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_supportNavigateUpTo((Intent) args[0]);
-            }
-        }, upIntent);
+        };
+        superCall.call(upIntent);
     }
 
     public void supportPostponeEnterTransition() {
-        callHook("supportPostponeEnterTransition()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_supportPostponeEnterTransition();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "supportPostponeEnterTransition()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.supportPostponeEnterTransition(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().supportPostponeEnterTransition(this);
+                    return null;
+                } else {
+                    getOriginal().super_supportPostponeEnterTransition();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_supportPostponeEnterTransition();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public boolean supportRequestWindowFeature(final int featureId) {
-        return callFunction("supportRequestWindowFeature(int)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_supportRequestWindowFeature(featureId);
+        }
 
-                        return plugin.supportRequestWindowFeature(superCall, (int) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_supportRequestWindowFeature((int) args[0]);
-                    }
-                }, featureId);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "supportRequestWindowFeature(int)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().supportRequestWindowFeature(this, (int) args[0]);
+                } else {
+                    return getOriginal().super_supportRequestWindowFeature((int) args[0]);
+                }
+            }
+        };
+        return superCall.call(featureId);
     }
 
     public boolean supportShouldUpRecreateTask(@NonNull final Intent targetIntent) {
-        return callFunction("supportShouldUpRecreateTask(Intent)",
-                new PluginCall<ActivityPlugin, Boolean>() {
-                    @Override
-                    public Boolean call(final NamedSuperCall<Boolean> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_supportShouldUpRecreateTask(targetIntent);
+        }
 
-                        return plugin.supportShouldUpRecreateTask(superCall, (Intent) args[0]);
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-                    }
-                }, new SuperCall<Boolean>() {
-                    @Override
-                    public Boolean call(final Object... args) {
-                        return getOriginal().super_supportShouldUpRecreateTask((Intent) args[0]);
-                    }
-                }, targetIntent);
+        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+                "supportShouldUpRecreateTask(Intent)") {
+
+            @Override
+            public Boolean call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().supportShouldUpRecreateTask(this, (Intent) args[0]);
+                } else {
+                    return getOriginal().super_supportShouldUpRecreateTask((Intent) args[0]);
+                }
+            }
+        };
+        return superCall.call(targetIntent);
     }
 
     public void supportStartPostponedEnterTransition() {
-        callHook("supportStartPostponedEnterTransition()", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_supportStartPostponedEnterTransition();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "supportStartPostponedEnterTransition()") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.supportStartPostponedEnterTransition(superCall);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().supportStartPostponedEnterTransition(this);
+                    return null;
+                } else {
+                    getOriginal().super_supportStartPostponedEnterTransition();
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_supportStartPostponedEnterTransition();
-            }
-        });
+        };
+        superCall.call();
     }
 
     public void takeKeyEvents(final boolean get) {
-        callHook("takeKeyEvents(boolean)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_takeKeyEvents(get);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("takeKeyEvents(boolean)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.takeKeyEvents(superCall, (boolean) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().takeKeyEvents(this, (boolean) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_takeKeyEvents((boolean) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_takeKeyEvents((boolean) args[0]);
-            }
-        }, get);
+        };
+        superCall.call(get);
     }
 
     public void triggerSearch(final String query, final Bundle appSearchData) {
-        callHook("triggerSearch(String, Bundle)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_triggerSearch(query, appSearchData);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "triggerSearch(String, Bundle)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.triggerSearch(superCall, (String) args[0], (Bundle) args[1]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().triggerSearch(this, (String) args[0], (Bundle) args[1]);
+                    return null;
+                } else {
+                    getOriginal().super_triggerSearch((String) args[0], (Bundle) args[1]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_triggerSearch((String) args[0], (Bundle) args[1]);
-            }
-        }, query, appSearchData);
+        };
+        superCall.call(query, appSearchData);
     }
 
     public void unbindService(final ServiceConnection conn) {
-        callHook("unbindService(ServiceConnection)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_unbindService(conn);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "unbindService(ServiceConnection)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.unbindService(superCall, (ServiceConnection) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().unbindService(this, (ServiceConnection) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_unbindService((ServiceConnection) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_unbindService((ServiceConnection) args[0]);
-            }
-        }, conn);
+        };
+        superCall.call(conn);
     }
 
     public void unregisterComponentCallbacks(final ComponentCallbacks callback) {
-        callHook("unregisterComponentCallbacks(ComponentCallbacks)",
-                new PluginCallVoid<ActivityPlugin>() {
-                    @Override
-                    public void call(final NamedSuperCall<Void> superCall,
-                            final ActivityPlugin plugin, final Object... args) {
-                        plugin.unregisterComponentCallbacks(superCall,
-                                (ComponentCallbacks) args[0]);
-                    }
-                }, new SuperCallVoid() {
-                    @Override
-                    public void call(final Object... args) {
-                        getOriginal()
-                                .super_unregisterComponentCallbacks((ComponentCallbacks) args[0]);
-                    }
-                }, callback);
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_unregisterComponentCallbacks(callback);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "unregisterComponentCallbacks(ComponentCallbacks)") {
+
+            @Override
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .unregisterComponentCallbacks(this, (ComponentCallbacks) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_unregisterComponentCallbacks((ComponentCallbacks) args[0]);
+                    return null;
+                }
+            }
+        };
+        superCall.call(callback);
     }
 
     public void unregisterForContextMenu(final View view) {
-        callHook("unregisterForContextMenu(View)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_unregisterForContextMenu(view);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "unregisterForContextMenu(View)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.unregisterForContextMenu(superCall, (View) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().unregisterForContextMenu(this, (View) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_unregisterForContextMenu((View) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_unregisterForContextMenu((View) args[0]);
-            }
-        }, view);
+        };
+        superCall.call(view);
     }
 
     public void unregisterReceiver(final BroadcastReceiver receiver) {
-        callHook("unregisterReceiver(BroadcastReceiver)", new PluginCallVoid<ActivityPlugin>() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_unregisterReceiver(receiver);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+                "unregisterReceiver(BroadcastReceiver)") {
+
             @Override
-            public void call(final NamedSuperCall<Void> superCall, final ActivityPlugin plugin,
-                    final Object... args) {
-                plugin.unregisterReceiver(superCall, (BroadcastReceiver) args[0]);
+            public Void call(final Object... args) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().unregisterReceiver(this, (BroadcastReceiver) args[0]);
+                    return null;
+                } else {
+                    getOriginal().super_unregisterReceiver((BroadcastReceiver) args[0]);
+                    return null;
+                }
             }
-        }, new SuperCallVoid() {
-            @Override
-            public void call(final Object... args) {
-                getOriginal().super_unregisterReceiver((BroadcastReceiver) args[0]);
-            }
-        }, receiver);
+        };
+        superCall.call(receiver);
     }
 
 }
