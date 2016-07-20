@@ -20,7 +20,8 @@ data class AnalyzedJavaMethod(
             rawParameters.split(',').forEach {
                 it.trim()
                 val split = it.split(' ')
-                paramTypes.add(split.elementAt(split.size - 2))
+                val type = split.elementAt(split.size - 2).trim()
+                paramTypes.add(type.toBoxedType())
             }
         }
         paramTypes.toList()
@@ -47,10 +48,16 @@ data class AnalyzedJavaMethod(
     }
 
     val boxedReturnType: String by lazy {
-        when (returnType) {
+        returnType.toBoxedType()
+    }
+
+    private fun String.toBoxedType(): String {
+        return when (this) {
             "boolean" -> "Boolean"
             "int" -> "Integer"
-            else -> returnType
+            "void" -> "Void"
+        // add others when needed
+            else -> this
         }
     }
 
@@ -65,4 +72,18 @@ data class AnalyzedJavaMethod(
 
     val throws: Boolean = exceptionType != null
     val signature: String = "#$name($rawParameters):$returnType"
+
+    val rawParametersBoxed: List<String> by lazy {
+        if (rawParameters != null && !rawParameters.trim().isEmpty()) {
+            rawParameters.split(',').map {
+                it.trim()
+                val split = it.split(' ')
+                val type = split.elementAt(split.size - 2).trim()
+                val name = split.elementAt(split.size - 1).trim()
+                "final ${type.toBoxedType()} $name"
+            }.toList()
+        } else {
+            emptyList()
+        }
+    }
 }

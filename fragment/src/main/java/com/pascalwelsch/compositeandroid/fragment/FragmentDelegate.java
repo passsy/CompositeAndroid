@@ -1,7 +1,14 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
 import com.pascalwelsch.compositeandroid.core.AbstractDelegate;
-import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
+import com.pascalwelsch.compositeandroid.core.CallFun0;
+import com.pascalwelsch.compositeandroid.core.CallFun1;
+import com.pascalwelsch.compositeandroid.core.CallFun3;
+import com.pascalwelsch.compositeandroid.core.CallVoid0;
+import com.pascalwelsch.compositeandroid.core.CallVoid1;
+import com.pascalwelsch.compositeandroid.core.CallVoid2;
+import com.pascalwelsch.compositeandroid.core.CallVoid3;
+import com.pascalwelsch.compositeandroid.core.CallVoid4;
 
 import android.app.Activity;
 import android.content.Context;
@@ -45,19 +52,17 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid4<String, FileDescriptor, PrintWriter, String[]> superCall
+                = new CallVoid4<String, FileDescriptor, PrintWriter, String[]>(
                 "dump(String, FileDescriptor, PrintWriter, String[])") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final String prefix, final FileDescriptor fd, final PrintWriter writer,
+                    final String[] args) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().dump(this, (String) args[0], (FileDescriptor) args[1],
-                            (PrintWriter) args[2], (String[]) args[3]);
-                    return null;
+                    iterator.previous().dump(this, prefix, fd, writer, args);
                 } else {
-                    getOriginal().super_dump((String) args[0], (FileDescriptor) args[1],
-                            (PrintWriter) args[2], (String[]) args[3]);
-                    return null;
+                    getOriginal().super_dump(prefix, fd, writer, args);
                 }
             }
         };
@@ -71,11 +76,11 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>(
                 "getAllowEnterTransitionOverlap()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getAllowEnterTransitionOverlap(this);
                 } else {
@@ -93,11 +98,11 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>(
                 "getAllowReturnTransitionOverlap()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getAllowReturnTransitionOverlap(this);
                 } else {
@@ -115,10 +120,10 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>("getContext()") {
+        final CallFun0<Context> superCall = new CallFun0<Context>("getContext()") {
 
             @Override
-            public Context call(final Object... args) {
+            public Context call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getContext(this);
                 } else {
@@ -136,11 +141,10 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
-                "getEnterTransition()") {
+        final CallFun0<Object> superCall = new CallFun0<Object>("getEnterTransition()") {
 
             @Override
-            public Object call(final Object... args) {
+            public Object call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getEnterTransition(this);
                 } else {
@@ -158,10 +162,10 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>("getExitTransition()") {
+        final CallFun0<Object> superCall = new CallFun0<Object>("getExitTransition()") {
 
             @Override
-            public Object call(final Object... args) {
+            public Object call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getExitTransition(this);
                 } else {
@@ -179,15 +183,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<LayoutInflater> superCall = new NamedSuperCall<LayoutInflater>(
+        final CallFun1<LayoutInflater, Bundle> superCall = new CallFun1<LayoutInflater, Bundle>(
                 "getLayoutInflater(Bundle)") {
 
             @Override
-            public LayoutInflater call(final Object... args) {
+            public LayoutInflater call(final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().getLayoutInflater(this, (Bundle) args[0]);
+                    return iterator.previous().getLayoutInflater(this, savedInstanceState);
                 } else {
-                    return getOriginal().super_getLayoutInflater((Bundle) args[0]);
+                    return getOriginal().super_getLayoutInflater(savedInstanceState);
                 }
             }
         };
@@ -201,11 +205,11 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<LoaderManager> superCall = new NamedSuperCall<LoaderManager>(
+        final CallFun0<LoaderManager> superCall = new CallFun0<LoaderManager>(
                 "getLoaderManager()") {
 
             @Override
-            public LoaderManager call(final Object... args) {
+            public LoaderManager call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getLoaderManager(this);
                 } else {
@@ -223,11 +227,10 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
-                "getReenterTransition()") {
+        final CallFun0<Object> superCall = new CallFun0<Object>("getReenterTransition()") {
 
             @Override
-            public Object call(final Object... args) {
+            public Object call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getReenterTransition(this);
                 } else {
@@ -245,11 +248,10 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
-                "getReturnTransition()") {
+        final CallFun0<Object> superCall = new CallFun0<Object>("getReturnTransition()") {
 
             @Override
-            public Object call(final Object... args) {
+            public Object call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getReturnTransition(this);
                 } else {
@@ -267,11 +269,11 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
+        final CallFun0<Object> superCall = new CallFun0<Object>(
                 "getSharedElementEnterTransition()") {
 
             @Override
-            public Object call(final Object... args) {
+            public Object call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getSharedElementEnterTransition(this);
                 } else {
@@ -289,11 +291,11 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
+        final CallFun0<Object> superCall = new CallFun0<Object>(
                 "getSharedElementReturnTransition()") {
 
             @Override
-            public Object call(final Object... args) {
+            public Object call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getSharedElementReturnTransition(this);
                 } else {
@@ -311,11 +313,10 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "getUserVisibleHint()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("getUserVisibleHint()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getUserVisibleHint(this);
                 } else {
@@ -333,10 +334,10 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<View> superCall = new NamedSuperCall<View>("getView()") {
+        final CallFun0<View> superCall = new CallFun0<View>("getView()") {
 
             @Override
-            public View call(final Object... args) {
+            public View call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getView(this);
                 } else {
@@ -355,17 +356,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onActivityCreated(Bundle)") {
+        final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onActivityCreated(Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onActivityCreated(this, (Bundle) args[0]);
-                    return null;
+                    iterator.previous().onActivityCreated(this, savedInstanceState);
                 } else {
-                    getOriginal().super_onActivityCreated((Bundle) args[0]);
-                    return null;
+                    getOriginal().super_onActivityCreated(savedInstanceState);
                 }
             }
         };
@@ -380,19 +378,17 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onActivityResult(int, int, Intent)") {
+        final CallVoid3<Integer, Integer, Intent> superCall
+                = new CallVoid3<Integer, Integer, Intent>(
+                "onActivityResult(Integer, Integer, Intent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer requestCode, final Integer resultCode,
+                    final Intent data) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onActivityResult(this, (int) args[0], (int) args[1], (Intent) args[2]);
-                    return null;
+                    iterator.previous().onActivityResult(this, requestCode, resultCode, data);
                 } else {
-                    getOriginal()
-                            .super_onActivityResult((int) args[0], (int) args[1], (Intent) args[2]);
-                    return null;
+                    getOriginal().super_onActivityResult(requestCode, resultCode, data);
                 }
             }
         };
@@ -407,16 +403,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onAttach(Context)") {
+        final CallVoid1<Context> superCall = new CallVoid1<Context>("onAttach(Context)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Context context) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onAttach(this, (Context) args[0]);
-                    return null;
+                    iterator.previous().onAttach(this, context);
                 } else {
-                    getOriginal().super_onAttach((Context) args[0]);
-                    return null;
+                    getOriginal().super_onAttach(context);
                 }
             }
         };
@@ -431,16 +425,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onAttach(Activity)") {
+        final CallVoid1<Activity> superCall = new CallVoid1<Activity>("onAttach(Activity)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Activity activity) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onAttach(this, (Activity) args[0]);
-                    return null;
+                    iterator.previous().onAttach(this, activity);
                 } else {
-                    getOriginal().super_onAttach((Activity) args[0]);
-                    return null;
+                    getOriginal().super_onAttach(activity);
                 }
             }
         };
@@ -455,17 +447,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<Configuration> superCall = new CallVoid1<Configuration>(
                 "onConfigurationChanged(Configuration)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Configuration newConfig) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onConfigurationChanged(this, (Configuration) args[0]);
-                    return null;
+                    iterator.previous().onConfigurationChanged(this, newConfig);
                 } else {
-                    getOriginal().super_onConfigurationChanged((Configuration) args[0]);
-                    return null;
+                    getOriginal().super_onConfigurationChanged(newConfig);
                 }
             }
         };
@@ -479,15 +469,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, MenuItem> superCall = new CallFun1<Boolean, MenuItem>(
                 "onContextItemSelected(MenuItem)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final MenuItem item) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onContextItemSelected(this, (MenuItem) args[0]);
+                    return iterator.previous().onContextItemSelected(this, item);
                 } else {
-                    return getOriginal().super_onContextItemSelected((MenuItem) args[0]);
+                    return getOriginal().super_onContextItemSelected(item);
                 }
             }
         };
@@ -502,16 +492,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onCreate(Bundle)") {
+        final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onCreate(Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onCreate(this, (Bundle) args[0]);
-                    return null;
+                    iterator.previous().onCreate(this, savedInstanceState);
                 } else {
-                    getOriginal().super_onCreate((Bundle) args[0]);
-                    return null;
+                    getOriginal().super_onCreate(savedInstanceState);
                 }
             }
         };
@@ -525,18 +513,17 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Animation> superCall = new NamedSuperCall<Animation>(
-                "onCreateAnimation(int, boolean, int)") {
+        final CallFun3<Animation, Integer, Boolean, Integer> superCall
+                = new CallFun3<Animation, Integer, Boolean, Integer>(
+                "onCreateAnimation(Integer, Boolean, Integer)") {
 
             @Override
-            public Animation call(final Object... args) {
+            public Animation call(final Integer transit, final Boolean enter,
+                    final Integer nextAnim) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onCreateAnimation(this, (int) args[0], (boolean) args[1],
-                                    (int) args[2]);
+                    return iterator.previous().onCreateAnimation(this, transit, enter, nextAnim);
                 } else {
-                    return getOriginal().super_onCreateAnimation((int) args[0], (boolean) args[1],
-                            (int) args[2]);
+                    return getOriginal().super_onCreateAnimation(transit, enter, nextAnim);
                 }
             }
         };
@@ -552,20 +539,17 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid3<ContextMenu, View, ContextMenu.ContextMenuInfo> superCall
+                = new CallVoid3<ContextMenu, View, ContextMenu.ContextMenuInfo>(
                 "onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final ContextMenu menu, final View v,
+                    final ContextMenu.ContextMenuInfo menuInfo) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onCreateContextMenu(this, (ContextMenu) args[0], (View) args[1],
-                                    (ContextMenu.ContextMenuInfo) args[2]);
-                    return null;
+                    iterator.previous().onCreateContextMenu(this, menu, v, menuInfo);
                 } else {
-                    getOriginal().super_onCreateContextMenu((ContextMenu) args[0], (View) args[1],
-                            (ContextMenu.ContextMenuInfo) args[2]);
-                    return null;
+                    getOriginal().super_onCreateContextMenu(menu, v, menuInfo);
                 }
             }
         };
@@ -580,18 +564,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Menu, MenuInflater> superCall = new CallVoid2<Menu, MenuInflater>(
                 "onCreateOptionsMenu(Menu, MenuInflater)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Menu menu, final MenuInflater inflater) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onCreateOptionsMenu(this, (Menu) args[0], (MenuInflater) args[1]);
-                    return null;
+                    iterator.previous().onCreateOptionsMenu(this, menu, inflater);
                 } else {
-                    getOriginal().super_onCreateOptionsMenu((Menu) args[0], (MenuInflater) args[1]);
-                    return null;
+                    getOriginal().super_onCreateOptionsMenu(menu, inflater);
                 }
             }
         };
@@ -606,19 +587,19 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<View> superCall = new NamedSuperCall<View>(
+        final CallFun3<View, LayoutInflater, ViewGroup, Bundle> superCall
+                = new CallFun3<View, LayoutInflater, ViewGroup, Bundle>(
                 "onCreateView(LayoutInflater, ViewGroup, Bundle)") {
 
             @Override
-            public View call(final Object... args) {
+            public View call(final LayoutInflater inflater, final ViewGroup container,
+                    final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
                     return iterator.previous()
-                            .onCreateView(this, (LayoutInflater) args[0], (ViewGroup) args[1],
-                                    (Bundle) args[2]);
+                            .onCreateView(this, inflater, container, savedInstanceState);
                 } else {
                     return getOriginal()
-                            .super_onCreateView((LayoutInflater) args[0], (ViewGroup) args[1],
-                                    (Bundle) args[2]);
+                            .super_onCreateView(inflater, container, savedInstanceState);
                 }
             }
         };
@@ -633,16 +614,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDestroy()") {
+        final CallVoid0 superCall = new CallVoid0("onDestroy()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onDestroy(this);
-                    return null;
                 } else {
                     getOriginal().super_onDestroy();
-                    return null;
                 }
             }
         };
@@ -657,16 +636,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDestroyOptionsMenu()") {
+        final CallVoid0 superCall = new CallVoid0("onDestroyOptionsMenu()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onDestroyOptionsMenu(this);
-                    return null;
                 } else {
                     getOriginal().super_onDestroyOptionsMenu();
-                    return null;
                 }
             }
         };
@@ -681,16 +658,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDestroyView()") {
+        final CallVoid0 superCall = new CallVoid0("onDestroyView()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onDestroyView(this);
-                    return null;
                 } else {
                     getOriginal().super_onDestroyView();
-                    return null;
                 }
             }
         };
@@ -705,16 +680,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDetach()") {
+        final CallVoid0 superCall = new CallVoid0("onDetach()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onDetach(this);
-                    return null;
                 } else {
                     getOriginal().super_onDetach();
-                    return null;
                 }
             }
         };
@@ -729,17 +702,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onHiddenChanged(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("onHiddenChanged(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean hidden) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onHiddenChanged(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().onHiddenChanged(this, hidden);
                 } else {
-                    getOriginal().super_onHiddenChanged((boolean) args[0]);
-                    return null;
+                    getOriginal().super_onHiddenChanged(hidden);
                 }
             }
         };
@@ -755,19 +725,17 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid3<Context, AttributeSet, Bundle> superCall
+                = new CallVoid3<Context, AttributeSet, Bundle>(
                 "onInflate(Context, AttributeSet, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Context context, final AttributeSet attrs,
+                    final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onInflate(this, (Context) args[0], (AttributeSet) args[1],
-                            (Bundle) args[2]);
-                    return null;
+                    iterator.previous().onInflate(this, context, attrs, savedInstanceState);
                 } else {
-                    getOriginal().super_onInflate((Context) args[0], (AttributeSet) args[1],
-                            (Bundle) args[2]);
-                    return null;
+                    getOriginal().super_onInflate(context, attrs, savedInstanceState);
                 }
             }
         };
@@ -783,19 +751,17 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid3<Activity, AttributeSet, Bundle> superCall
+                = new CallVoid3<Activity, AttributeSet, Bundle>(
                 "onInflate(Activity, AttributeSet, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Activity activity, final AttributeSet attrs,
+                    final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onInflate(this, (Activity) args[0], (AttributeSet) args[1],
-                            (Bundle) args[2]);
-                    return null;
+                    iterator.previous().onInflate(this, activity, attrs, savedInstanceState);
                 } else {
-                    getOriginal().super_onInflate((Activity) args[0], (AttributeSet) args[1],
-                            (Bundle) args[2]);
-                    return null;
+                    getOriginal().super_onInflate(activity, attrs, savedInstanceState);
                 }
             }
         };
@@ -810,16 +776,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onLowMemory()") {
+        final CallVoid0 superCall = new CallVoid0("onLowMemory()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onLowMemory(this);
-                    return null;
                 } else {
                     getOriginal().super_onLowMemory();
-                    return null;
                 }
             }
         };
@@ -833,15 +797,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, MenuItem> superCall = new CallFun1<Boolean, MenuItem>(
                 "onOptionsItemSelected(MenuItem)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final MenuItem item) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onOptionsItemSelected(this, (MenuItem) args[0]);
+                    return iterator.previous().onOptionsItemSelected(this, item);
                 } else {
-                    return getOriginal().super_onOptionsItemSelected((MenuItem) args[0]);
+                    return getOriginal().super_onOptionsItemSelected(item);
                 }
             }
         };
@@ -856,17 +820,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onOptionsMenuClosed(Menu)") {
+        final CallVoid1<Menu> superCall = new CallVoid1<Menu>("onOptionsMenuClosed(Menu)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Menu menu) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onOptionsMenuClosed(this, (Menu) args[0]);
-                    return null;
+                    iterator.previous().onOptionsMenuClosed(this, menu);
                 } else {
-                    getOriginal().super_onOptionsMenuClosed((Menu) args[0]);
-                    return null;
+                    getOriginal().super_onOptionsMenuClosed(menu);
                 }
             }
         };
@@ -881,16 +842,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onPause()") {
+        final CallVoid0 superCall = new CallVoid0("onPause()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onPause(this);
-                    return null;
                 } else {
                     getOriginal().super_onPause();
-                    return null;
                 }
             }
         };
@@ -905,17 +864,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onPrepareOptionsMenu(Menu)") {
+        final CallVoid1<Menu> superCall = new CallVoid1<Menu>("onPrepareOptionsMenu(Menu)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Menu menu) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onPrepareOptionsMenu(this, (Menu) args[0]);
-                    return null;
+                    iterator.previous().onPrepareOptionsMenu(this, menu);
                 } else {
-                    getOriginal().super_onPrepareOptionsMenu((Menu) args[0]);
-                    return null;
+                    getOriginal().super_onPrepareOptionsMenu(menu);
                 }
             }
         };
@@ -931,21 +887,19 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onRequestPermissionsResult(int, String[], int[])") {
+        final CallVoid3<Integer, String[], int[]> superCall
+                = new CallVoid3<Integer, String[], int[]>(
+                "onRequestPermissionsResult(Integer, String[], int[])") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer requestCode, final String[] permissions,
+                    final int[] grantResults) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onRequestPermissionsResult(this, (int) args[0], (String[]) args[1],
-                                    (int[]) args[2]);
-                    return null;
+                    iterator.previous().onRequestPermissionsResult(this, requestCode, permissions,
+                            grantResults);
                 } else {
-                    getOriginal()
-                            .super_onRequestPermissionsResult((int) args[0], (String[]) args[1],
-                                    (int[]) args[2]);
-                    return null;
+                    getOriginal().super_onRequestPermissionsResult(requestCode, permissions,
+                            grantResults);
                 }
             }
         };
@@ -960,16 +914,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onResume()") {
+        final CallVoid0 superCall = new CallVoid0("onResume()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onResume(this);
-                    return null;
                 } else {
                     getOriginal().super_onResume();
-                    return null;
                 }
             }
         };
@@ -984,17 +936,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onSaveInstanceState(Bundle)") {
+        final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onSaveInstanceState(Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle outState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onSaveInstanceState(this, (Bundle) args[0]);
-                    return null;
+                    iterator.previous().onSaveInstanceState(this, outState);
                 } else {
-                    getOriginal().super_onSaveInstanceState((Bundle) args[0]);
-                    return null;
+                    getOriginal().super_onSaveInstanceState(outState);
                 }
             }
         };
@@ -1009,16 +958,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onStart()") {
+        final CallVoid0 superCall = new CallVoid0("onStart()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onStart(this);
-                    return null;
                 } else {
                     getOriginal().super_onStart();
-                    return null;
                 }
             }
         };
@@ -1033,16 +980,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onStop()") {
+        final CallVoid0 superCall = new CallVoid0("onStop()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onStop(this);
-                    return null;
                 } else {
                     getOriginal().super_onStop();
-                    return null;
                 }
             }
         };
@@ -1057,17 +1002,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<View, Bundle> superCall = new CallVoid2<View, Bundle>(
                 "onViewCreated(View, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final View view, final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onViewCreated(this, (View) args[0], (Bundle) args[1]);
-                    return null;
+                    iterator.previous().onViewCreated(this, view, savedInstanceState);
                 } else {
-                    getOriginal().super_onViewCreated((View) args[0], (Bundle) args[1]);
-                    return null;
+                    getOriginal().super_onViewCreated(view, savedInstanceState);
                 }
             }
         };
@@ -1082,17 +1025,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onViewStateRestored(Bundle)") {
+        final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onViewStateRestored(Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onViewStateRestored(this, (Bundle) args[0]);
-                    return null;
+                    iterator.previous().onViewStateRestored(this, savedInstanceState);
                 } else {
-                    getOriginal().super_onViewStateRestored((Bundle) args[0]);
-                    return null;
+                    getOriginal().super_onViewStateRestored(savedInstanceState);
                 }
             }
         };
@@ -1107,17 +1047,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "registerForContextMenu(View)") {
+        final CallVoid1<View> superCall = new CallVoid1<View>("registerForContextMenu(View)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final View view) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().registerForContextMenu(this, (View) args[0]);
-                    return null;
+                    iterator.previous().registerForContextMenu(this, view);
                 } else {
-                    getOriginal().super_registerForContextMenu((View) args[0]);
-                    return null;
+                    getOriginal().super_registerForContextMenu(view);
                 }
             }
         };
@@ -1132,17 +1069,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setAllowEnterTransitionOverlap(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "setAllowEnterTransitionOverlap(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean allow) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setAllowEnterTransitionOverlap(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setAllowEnterTransitionOverlap(this, allow);
                 } else {
-                    getOriginal().super_setAllowEnterTransitionOverlap((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setAllowEnterTransitionOverlap(allow);
                 }
             }
         };
@@ -1157,17 +1092,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setAllowReturnTransitionOverlap(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "setAllowReturnTransitionOverlap(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean allow) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setAllowReturnTransitionOverlap(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setAllowReturnTransitionOverlap(this, allow);
                 } else {
-                    getOriginal().super_setAllowReturnTransitionOverlap((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setAllowReturnTransitionOverlap(allow);
                 }
             }
         };
@@ -1182,16 +1115,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setArguments(Bundle)") {
+        final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("setArguments(Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle args) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setArguments(this, (Bundle) args[0]);
-                    return null;
+                    iterator.previous().setArguments(this, args);
                 } else {
-                    getOriginal().super_setArguments((Bundle) args[0]);
-                    return null;
+                    getOriginal().super_setArguments(args);
                 }
             }
         };
@@ -1206,19 +1137,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<SharedElementCallback> superCall = new CallVoid1<SharedElementCallback>(
                 "setEnterSharedElementCallback(SharedElementCallback)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final SharedElementCallback callback) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .setEnterSharedElementCallback(this, (SharedElementCallback) args[0]);
-                    return null;
+                    iterator.previous().setEnterSharedElementCallback(this, callback);
                 } else {
-                    getOriginal()
-                            .super_setEnterSharedElementCallback((SharedElementCallback) args[0]);
-                    return null;
+                    getOriginal().super_setEnterSharedElementCallback(callback);
                 }
             }
         };
@@ -1233,17 +1160,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setEnterTransition(Object)") {
+        final CallVoid1<Object> superCall = new CallVoid1<Object>("setEnterTransition(Object)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Object transition) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setEnterTransition(this, (Object) args[0]);
-                    return null;
+                    iterator.previous().setEnterTransition(this, transition);
                 } else {
-                    getOriginal().super_setEnterTransition((Object) args[0]);
-                    return null;
+                    getOriginal().super_setEnterTransition(transition);
                 }
             }
         };
@@ -1258,19 +1182,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<SharedElementCallback> superCall = new CallVoid1<SharedElementCallback>(
                 "setExitSharedElementCallback(SharedElementCallback)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final SharedElementCallback callback) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .setExitSharedElementCallback(this, (SharedElementCallback) args[0]);
-                    return null;
+                    iterator.previous().setExitSharedElementCallback(this, callback);
                 } else {
-                    getOriginal()
-                            .super_setExitSharedElementCallback((SharedElementCallback) args[0]);
-                    return null;
+                    getOriginal().super_setExitSharedElementCallback(callback);
                 }
             }
         };
@@ -1285,17 +1205,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setExitTransition(Object)") {
+        final CallVoid1<Object> superCall = new CallVoid1<Object>("setExitTransition(Object)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Object transition) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setExitTransition(this, (Object) args[0]);
-                    return null;
+                    iterator.previous().setExitTransition(this, transition);
                 } else {
-                    getOriginal().super_setExitTransition((Object) args[0]);
-                    return null;
+                    getOriginal().super_setExitTransition(transition);
                 }
             }
         };
@@ -1310,17 +1227,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setHasOptionsMenu(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setHasOptionsMenu(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean hasMenu) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setHasOptionsMenu(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setHasOptionsMenu(this, hasMenu);
                 } else {
-                    getOriginal().super_setHasOptionsMenu((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setHasOptionsMenu(hasMenu);
                 }
             }
         };
@@ -1335,17 +1249,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<Fragment.SavedState> superCall = new CallVoid1<Fragment.SavedState>(
                 "setInitialSavedState(Fragment.SavedState)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Fragment.SavedState state) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setInitialSavedState(this, (Fragment.SavedState) args[0]);
-                    return null;
+                    iterator.previous().setInitialSavedState(this, state);
                 } else {
-                    getOriginal().super_setInitialSavedState((Fragment.SavedState) args[0]);
-                    return null;
+                    getOriginal().super_setInitialSavedState(state);
                 }
             }
         };
@@ -1360,17 +1272,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setMenuVisibility(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setMenuVisibility(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean menuVisible) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setMenuVisibility(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setMenuVisibility(this, menuVisible);
                 } else {
-                    getOriginal().super_setMenuVisibility((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setMenuVisibility(menuVisible);
                 }
             }
         };
@@ -1385,17 +1294,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setReenterTransition(Object)") {
+        final CallVoid1<Object> superCall = new CallVoid1<Object>("setReenterTransition(Object)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Object transition) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setReenterTransition(this, (Object) args[0]);
-                    return null;
+                    iterator.previous().setReenterTransition(this, transition);
                 } else {
-                    getOriginal().super_setReenterTransition((Object) args[0]);
-                    return null;
+                    getOriginal().super_setReenterTransition(transition);
                 }
             }
         };
@@ -1410,17 +1316,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setRetainInstance(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setRetainInstance(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean retain) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setRetainInstance(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setRetainInstance(this, retain);
                 } else {
-                    getOriginal().super_setRetainInstance((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setRetainInstance(retain);
                 }
             }
         };
@@ -1435,17 +1338,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setReturnTransition(Object)") {
+        final CallVoid1<Object> superCall = new CallVoid1<Object>("setReturnTransition(Object)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Object transition) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setReturnTransition(this, (Object) args[0]);
-                    return null;
+                    iterator.previous().setReturnTransition(this, transition);
                 } else {
-                    getOriginal().super_setReturnTransition((Object) args[0]);
-                    return null;
+                    getOriginal().super_setReturnTransition(transition);
                 }
             }
         };
@@ -1460,17 +1360,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<Object> superCall = new CallVoid1<Object>(
                 "setSharedElementEnterTransition(Object)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Object transition) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setSharedElementEnterTransition(this, (Object) args[0]);
-                    return null;
+                    iterator.previous().setSharedElementEnterTransition(this, transition);
                 } else {
-                    getOriginal().super_setSharedElementEnterTransition((Object) args[0]);
-                    return null;
+                    getOriginal().super_setSharedElementEnterTransition(transition);
                 }
             }
         };
@@ -1485,17 +1383,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<Object> superCall = new CallVoid1<Object>(
                 "setSharedElementReturnTransition(Object)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Object transition) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setSharedElementReturnTransition(this, (Object) args[0]);
-                    return null;
+                    iterator.previous().setSharedElementReturnTransition(this, transition);
                 } else {
-                    getOriginal().super_setSharedElementReturnTransition((Object) args[0]);
-                    return null;
+                    getOriginal().super_setSharedElementReturnTransition(transition);
                 }
             }
         };
@@ -1510,17 +1406,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setTargetFragment(Fragment, int)") {
+        final CallVoid2<Fragment, Integer> superCall = new CallVoid2<Fragment, Integer>(
+                "setTargetFragment(Fragment, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Fragment fragment, final Integer requestCode) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setTargetFragment(this, (Fragment) args[0], (int) args[1]);
-                    return null;
+                    iterator.previous().setTargetFragment(this, fragment, requestCode);
                 } else {
-                    getOriginal().super_setTargetFragment((Fragment) args[0], (int) args[1]);
-                    return null;
+                    getOriginal().super_setTargetFragment(fragment, requestCode);
                 }
             }
         };
@@ -1535,17 +1429,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setUserVisibleHint(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setUserVisibleHint(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean isVisibleToUser) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setUserVisibleHint(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setUserVisibleHint(this, isVisibleToUser);
                 } else {
-                    getOriginal().super_setUserVisibleHint((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setUserVisibleHint(isVisibleToUser);
                 }
             }
         };
@@ -1559,17 +1450,16 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, String> superCall = new CallFun1<Boolean, String>(
                 "shouldShowRequestPermissionRationale(String)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final String permission) {
                 if (iterator.hasPrevious()) {
                     return iterator.previous()
-                            .shouldShowRequestPermissionRationale(this, (String) args[0]);
+                            .shouldShowRequestPermissionRationale(this, permission);
                 } else {
-                    return getOriginal()
-                            .super_shouldShowRequestPermissionRationale((String) args[0]);
+                    return getOriginal().super_shouldShowRequestPermissionRationale(permission);
                 }
             }
         };
@@ -1584,16 +1474,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("startActivity(Intent)") {
+        final CallVoid1<Intent> superCall = new CallVoid1<Intent>("startActivity(Intent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().startActivity(this, (Intent) args[0]);
-                    return null;
+                    iterator.previous().startActivity(this, intent);
                 } else {
-                    getOriginal().super_startActivity((Intent) args[0]);
-                    return null;
+                    getOriginal().super_startActivity(intent);
                 }
             }
         };
@@ -1608,17 +1496,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Intent, Bundle> superCall = new CallVoid2<Intent, Bundle>(
                 "startActivity(Intent, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final Bundle options) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().startActivity(this, (Intent) args[0], (Bundle) args[1]);
-                    return null;
+                    iterator.previous().startActivity(this, intent, options);
                 } else {
-                    getOriginal().super_startActivity((Intent) args[0], (Bundle) args[1]);
-                    return null;
+                    getOriginal().super_startActivity(intent, options);
                 }
             }
         };
@@ -1633,18 +1519,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startActivityForResult(Intent, int)") {
+        final CallVoid2<Intent, Integer> superCall = new CallVoid2<Intent, Integer>(
+                "startActivityForResult(Intent, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final Integer requestCode) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .startActivityForResult(this, (Intent) args[0], (int) args[1]);
-                    return null;
+                    iterator.previous().startActivityForResult(this, intent, requestCode);
                 } else {
-                    getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1]);
-                    return null;
+                    getOriginal().super_startActivityForResult(intent, requestCode);
                 }
             }
         };
@@ -1660,20 +1543,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startActivityForResult(Intent, int, Bundle)") {
+        final CallVoid3<Intent, Integer, Bundle> superCall = new CallVoid3<Intent, Integer, Bundle>(
+                "startActivityForResult(Intent, Integer, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final Integer requestCode, final Bundle options) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .startActivityForResult(this, (Intent) args[0], (int) args[1],
-                                    (Bundle) args[2]);
-                    return null;
+                    iterator.previous().startActivityForResult(this, intent, requestCode, options);
                 } else {
-                    getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1],
-                            (Bundle) args[2]);
-                    return null;
+                    getOriginal().super_startActivityForResult(intent, requestCode, options);
                 }
             }
         };
@@ -1687,10 +1565,10 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<String> superCall = new NamedSuperCall<String>("toString()") {
+        final CallFun0<String> superCall = new CallFun0<String>("toString()") {
 
             @Override
-            public String call(final Object... args) {
+            public String call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().toString(this);
                 } else {
@@ -1709,17 +1587,14 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "unregisterForContextMenu(View)") {
+        final CallVoid1<View> superCall = new CallVoid1<View>("unregisterForContextMenu(View)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final View view) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().unregisterForContextMenu(this, (View) args[0]);
-                    return null;
+                    iterator.previous().unregisterForContextMenu(this, view);
                 } else {
-                    getOriginal().super_unregisterForContextMenu((View) args[0]);
-                    return null;
+                    getOriginal().super_unregisterForContextMenu(view);
                 }
             }
         };

@@ -1,7 +1,21 @@
 package com.pascalwelsch.compositeandroid.activity;
 
 import com.pascalwelsch.compositeandroid.core.AbstractDelegate;
-import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
+import com.pascalwelsch.compositeandroid.core.CallFun0;
+import com.pascalwelsch.compositeandroid.core.CallFun1;
+import com.pascalwelsch.compositeandroid.core.CallFun2;
+import com.pascalwelsch.compositeandroid.core.CallFun3;
+import com.pascalwelsch.compositeandroid.core.CallFun4;
+import com.pascalwelsch.compositeandroid.core.CallFun6;
+import com.pascalwelsch.compositeandroid.core.CallVoid0;
+import com.pascalwelsch.compositeandroid.core.CallVoid1;
+import com.pascalwelsch.compositeandroid.core.CallVoid2;
+import com.pascalwelsch.compositeandroid.core.CallVoid3;
+import com.pascalwelsch.compositeandroid.core.CallVoid4;
+import com.pascalwelsch.compositeandroid.core.CallVoid5;
+import com.pascalwelsch.compositeandroid.core.CallVoid6;
+import com.pascalwelsch.compositeandroid.core.CallVoid7;
+import com.pascalwelsch.compositeandroid.core.CallVoid8;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -96,19 +110,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<View, ViewGroup.LayoutParams> superCall
+                = new CallVoid2<View, ViewGroup.LayoutParams>(
                 "addContentView(View, ViewGroup.LayoutParams)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final View view, final ViewGroup.LayoutParams params) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .addContentView(this, (View) args[0], (ViewGroup.LayoutParams) args[1]);
-                    return null;
+                    iterator.previous().addContentView(this, view, params);
                 } else {
-                    getOriginal()
-                            .super_addContentView((View) args[0], (ViewGroup.LayoutParams) args[1]);
-                    return null;
+                    getOriginal().super_addContentView(view, params);
                 }
             }
         };
@@ -123,17 +134,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<Configuration> superCall = new CallVoid1<Configuration>(
                 "applyOverrideConfiguration(Configuration)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Configuration overrideConfiguration) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().applyOverrideConfiguration(this, (Configuration) args[0]);
-                    return null;
+                    iterator.previous().applyOverrideConfiguration(this, overrideConfiguration);
                 } else {
-                    getOriginal().super_applyOverrideConfiguration((Configuration) args[0]);
-                    return null;
+                    getOriginal().super_applyOverrideConfiguration(overrideConfiguration);
                 }
             }
         };
@@ -148,17 +157,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "attachBaseContext(Context)") {
+        final CallVoid1<Context> superCall = new CallVoid1<Context>("attachBaseContext(Context)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Context newBase) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().attachBaseContext(this, (Context) args[0]);
-                    return null;
+                    iterator.previous().attachBaseContext(this, newBase);
                 } else {
-                    getOriginal().super_attachBaseContext((Context) args[0]);
-                    return null;
+                    getOriginal().super_attachBaseContext(newBase);
                 }
             }
         };
@@ -173,19 +179,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "bindService(Intent, ServiceConnection, int)") {
+        final CallFun3<Boolean, Intent, ServiceConnection, Integer> superCall
+                = new CallFun3<Boolean, Intent, ServiceConnection, Integer>(
+                "bindService(Intent, ServiceConnection, Integer)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Intent service, final ServiceConnection conn,
+                    final Integer flags) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .bindService(this, (Intent) args[0], (ServiceConnection) args[1],
-                                    (int) args[2]);
+                    return iterator.previous().bindService(this, service, conn, flags);
                 } else {
-                    return getOriginal()
-                            .super_bindService((Intent) args[0], (ServiceConnection) args[1],
-                                    (int) args[2]);
+                    return getOriginal().super_bindService(service, conn, flags);
                 }
             }
         };
@@ -199,15 +203,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+        final CallFun1<Integer, String> superCall = new CallFun1<Integer, String>(
                 "checkCallingOrSelfPermission(String)") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call(final String permission) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().checkCallingOrSelfPermission(this, (String) args[0]);
+                    return iterator.previous().checkCallingOrSelfPermission(this, permission);
                 } else {
-                    return getOriginal().super_checkCallingOrSelfPermission((String) args[0]);
+                    return getOriginal().super_checkCallingOrSelfPermission(permission);
                 }
             }
         };
@@ -221,17 +225,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
-                "checkCallingOrSelfUriPermission(Uri, int)") {
+        final CallFun2<Integer, Uri, Integer> superCall = new CallFun2<Integer, Uri, Integer>(
+                "checkCallingOrSelfUriPermission(Uri, Integer)") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call(final Uri uri, final Integer modeFlags) {
                 if (iterator.hasPrevious()) {
                     return iterator.previous()
-                            .checkCallingOrSelfUriPermission(this, (Uri) args[0], (int) args[1]);
+                            .checkCallingOrSelfUriPermission(this, uri, modeFlags);
                 } else {
-                    return getOriginal()
-                            .super_checkCallingOrSelfUriPermission((Uri) args[0], (int) args[1]);
+                    return getOriginal().super_checkCallingOrSelfUriPermission(uri, modeFlags);
                 }
             }
         };
@@ -245,15 +248,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+        final CallFun1<Integer, String> superCall = new CallFun1<Integer, String>(
                 "checkCallingPermission(String)") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call(final String permission) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().checkCallingPermission(this, (String) args[0]);
+                    return iterator.previous().checkCallingPermission(this, permission);
                 } else {
-                    return getOriginal().super_checkCallingPermission((String) args[0]);
+                    return getOriginal().super_checkCallingPermission(permission);
                 }
             }
         };
@@ -267,17 +270,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
-                "checkCallingUriPermission(Uri, int)") {
+        final CallFun2<Integer, Uri, Integer> superCall = new CallFun2<Integer, Uri, Integer>(
+                "checkCallingUriPermission(Uri, Integer)") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call(final Uri uri, final Integer modeFlags) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .checkCallingUriPermission(this, (Uri) args[0], (int) args[1]);
+                    return iterator.previous().checkCallingUriPermission(this, uri, modeFlags);
                 } else {
-                    return getOriginal()
-                            .super_checkCallingUriPermission((Uri) args[0], (int) args[1]);
+                    return getOriginal().super_checkCallingUriPermission(uri, modeFlags);
                 }
             }
         };
@@ -291,17 +292,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
-                "checkPermission(String, int, int)") {
+        final CallFun3<Integer, String, Integer, Integer> superCall
+                = new CallFun3<Integer, String, Integer, Integer>(
+                "checkPermission(String, Integer, Integer)") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call(final String permission, final Integer pid, final Integer uid) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .checkPermission(this, (String) args[0], (int) args[1], (int) args[2]);
+                    return iterator.previous().checkPermission(this, permission, pid, uid);
                 } else {
-                    return getOriginal()
-                            .super_checkPermission((String) args[0], (int) args[1], (int) args[2]);
+                    return getOriginal().super_checkPermission(permission, pid, uid);
                 }
             }
         };
@@ -315,15 +315,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+        final CallFun1<Integer, String> superCall = new CallFun1<Integer, String>(
                 "checkSelfPermission(String)") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call(final String permission) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().checkSelfPermission(this, (String) args[0]);
+                    return iterator.previous().checkSelfPermission(this, permission);
                 } else {
-                    return getOriginal().super_checkSelfPermission((String) args[0]);
+                    return getOriginal().super_checkSelfPermission(permission);
                 }
             }
         };
@@ -338,19 +338,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
-                "checkUriPermission(Uri, int, int, int)") {
+        final CallFun4<Integer, Uri, Integer, Integer, Integer> superCall
+                = new CallFun4<Integer, Uri, Integer, Integer, Integer>(
+                "checkUriPermission(Uri, Integer, Integer, Integer)") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call(final Uri uri, final Integer pid, final Integer uid,
+                    final Integer modeFlags) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .checkUriPermission(this, (Uri) args[0], (int) args[1], (int) args[2],
-                                    (int) args[3]);
+                    return iterator.previous().checkUriPermission(this, uri, pid, uid, modeFlags);
                 } else {
-                    return getOriginal()
-                            .super_checkUriPermission((Uri) args[0], (int) args[1], (int) args[2],
-                                    (int) args[3]);
+                    return getOriginal().super_checkUriPermission(uri, pid, uid, modeFlags);
                 }
             }
         };
@@ -367,18 +365,22 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
-                "checkUriPermission(Uri, String, String, int, int, int)") {
+        final CallFun6<Integer, Uri, String, String, Integer, Integer, Integer> superCall
+                = new CallFun6<Integer, Uri, String, String, Integer, Integer, Integer>(
+                "checkUriPermission(Uri, String, String, Integer, Integer, Integer)") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call(final Uri uri, final String readPermission,
+                    final String writePermission, final Integer pid, final Integer uid,
+                    final Integer modeFlags) {
                 if (iterator.hasPrevious()) {
                     return iterator.previous()
-                            .checkUriPermission(this, (Uri) args[0], (String) args[1],
-                                    (String) args[2], (int) args[3], (int) args[4], (int) args[5]);
+                            .checkUriPermission(this, uri, readPermission, writePermission, pid,
+                                    uid, modeFlags);
                 } else {
-                    return getOriginal().super_checkUriPermission((Uri) args[0], (String) args[1],
-                            (String) args[2], (int) args[3], (int) args[4], (int) args[5]);
+                    return getOriginal()
+                            .super_checkUriPermission(uri, readPermission, writePermission, pid,
+                                    uid, modeFlags);
                 }
             }
         };
@@ -397,21 +399,19 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("clearWallpaper()") {
+        final CallVoid0 superCall = new CallVoid0("clearWallpaper()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     try {
                         iterator.previous().clearWallpaper(this);
-                        return null;
                     } catch (IOException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
                         getOriginal().super_clearWallpaper();
-                        return null;
                     } catch (IOException e) {
                         throw new SuppressedException(e);
                     }
@@ -429,16 +429,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("closeContextMenu()") {
+        final CallVoid0 superCall = new CallVoid0("closeContextMenu()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().closeContextMenu(this);
-                    return null;
                 } else {
                     getOriginal().super_closeContextMenu();
-                    return null;
                 }
             }
         };
@@ -453,16 +451,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("closeOptionsMenu()") {
+        final CallVoid0 superCall = new CallVoid0("closeOptionsMenu()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().closeOptionsMenu(this);
-                    return null;
                 } else {
                     getOriginal().super_closeOptionsMenu();
-                    return null;
                 }
             }
         };
@@ -476,16 +472,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>(
+        final CallFun1<Context, Configuration> superCall = new CallFun1<Context, Configuration>(
                 "createConfigurationContext(Configuration)") {
 
             @Override
-            public Context call(final Object... args) {
+            public Context call(final Configuration overrideConfiguration) {
                 if (iterator.hasPrevious()) {
                     return iterator.previous()
-                            .createConfigurationContext(this, (Configuration) args[0]);
+                            .createConfigurationContext(this, overrideConfiguration);
                 } else {
-                    return getOriginal().super_createConfigurationContext((Configuration) args[0]);
+                    return getOriginal().super_createConfigurationContext(overrideConfiguration);
                 }
             }
         };
@@ -499,15 +495,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>(
+        final CallFun1<Context, Display> superCall = new CallFun1<Context, Display>(
                 "createDisplayContext(Display)") {
 
             @Override
-            public Context call(final Object... args) {
+            public Context call(final Display display) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().createDisplayContext(this, (Display) args[0]);
+                    return iterator.previous().createDisplayContext(this, display);
                 } else {
-                    return getOriginal().super_createDisplayContext((Display) args[0]);
+                    return getOriginal().super_createDisplayContext(display);
                 }
             }
         };
@@ -526,22 +522,20 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>(
-                "createPackageContext(String, int)") {
+        final CallFun2<Context, String, Integer> superCall = new CallFun2<Context, String, Integer>(
+                "createPackageContext(String, Integer)") {
 
             @Override
-            public Context call(final Object... args) {
+            public Context call(final String packageName, final Integer flags) {
                 if (iterator.hasPrevious()) {
                     try {
-                        return iterator.previous()
-                                .createPackageContext(this, (String) args[0], (int) args[1]);
+                        return iterator.previous().createPackageContext(this, packageName, flags);
                     } catch (PackageManager.NameNotFoundException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
-                        return getOriginal()
-                                .super_createPackageContext((String) args[0], (int) args[1]);
+                        return getOriginal().super_createPackageContext(packageName, flags);
                     } catch (PackageManager.NameNotFoundException e) {
                         throw new SuppressedException(e);
                     }
@@ -559,18 +553,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<PendingIntent> superCall = new NamedSuperCall<PendingIntent>(
-                "createPendingResult(int, Intent, int)") {
+        final CallFun3<PendingIntent, Integer, Intent, Integer> superCall
+                = new CallFun3<PendingIntent, Integer, Intent, Integer>(
+                "createPendingResult(Integer, Intent, Integer)") {
 
             @Override
-            public PendingIntent call(final Object... args) {
+            public PendingIntent call(final Integer requestCode, final Intent data,
+                    final Integer flags) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .createPendingResult(this, (int) args[0], (Intent) args[1],
-                                    (int) args[2]);
+                    return iterator.previous().createPendingResult(this, requestCode, data, flags);
                 } else {
-                    return getOriginal().super_createPendingResult((int) args[0], (Intent) args[1],
-                            (int) args[2]);
+                    return getOriginal().super_createPendingResult(requestCode, data, flags);
                 }
             }
         };
@@ -584,10 +577,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<String[]> superCall = new NamedSuperCall<String[]>("databaseList()") {
+        final CallFun0<String[]> superCall = new CallFun0<String[]>("databaseList()") {
 
             @Override
-            public String[] call(final Object... args) {
+            public String[] call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().databaseList(this);
                 } else {
@@ -605,15 +598,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, String> superCall = new CallFun1<Boolean, String>(
                 "deleteDatabase(String)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final String name) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().deleteDatabase(this, (String) args[0]);
+                    return iterator.previous().deleteDatabase(this, name);
                 } else {
-                    return getOriginal().super_deleteDatabase((String) args[0]);
+                    return getOriginal().super_deleteDatabase(name);
                 }
             }
         };
@@ -627,15 +620,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, String> superCall = new CallFun1<Boolean, String>(
                 "deleteFile(String)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final String name) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().deleteFile(this, (String) args[0]);
+                    return iterator.previous().deleteFile(this, name);
                 } else {
-                    return getOriginal().super_deleteFile((String) args[0]);
+                    return getOriginal().super_deleteFile(name);
                 }
             }
         };
@@ -649,16 +642,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, MotionEvent> superCall = new CallFun1<Boolean, MotionEvent>(
                 "dispatchGenericMotionEvent(MotionEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final MotionEvent ev) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .dispatchGenericMotionEvent(this, (MotionEvent) args[0]);
+                    return iterator.previous().dispatchGenericMotionEvent(this, ev);
                 } else {
-                    return getOriginal().super_dispatchGenericMotionEvent((MotionEvent) args[0]);
+                    return getOriginal().super_dispatchGenericMotionEvent(ev);
                 }
             }
         };
@@ -672,15 +664,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, KeyEvent> superCall = new CallFun1<Boolean, KeyEvent>(
                 "dispatchKeyEvent(KeyEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final KeyEvent event) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().dispatchKeyEvent(this, (KeyEvent) args[0]);
+                    return iterator.previous().dispatchKeyEvent(this, event);
                 } else {
-                    return getOriginal().super_dispatchKeyEvent((KeyEvent) args[0]);
+                    return getOriginal().super_dispatchKeyEvent(event);
                 }
             }
         };
@@ -694,15 +686,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, KeyEvent> superCall = new CallFun1<Boolean, KeyEvent>(
                 "dispatchKeyShortcutEvent(KeyEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final KeyEvent event) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().dispatchKeyShortcutEvent(this, (KeyEvent) args[0]);
+                    return iterator.previous().dispatchKeyShortcutEvent(this, event);
                 } else {
-                    return getOriginal().super_dispatchKeyShortcutEvent((KeyEvent) args[0]);
+                    return getOriginal().super_dispatchKeyShortcutEvent(event);
                 }
             }
         };
@@ -716,17 +708,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, AccessibilityEvent> superCall
+                = new CallFun1<Boolean, AccessibilityEvent>(
                 "dispatchPopulateAccessibilityEvent(AccessibilityEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final AccessibilityEvent event) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .dispatchPopulateAccessibilityEvent(this, (AccessibilityEvent) args[0]);
+                    return iterator.previous().dispatchPopulateAccessibilityEvent(this, event);
                 } else {
-                    return getOriginal()
-                            .super_dispatchPopulateAccessibilityEvent((AccessibilityEvent) args[0]);
+                    return getOriginal().super_dispatchPopulateAccessibilityEvent(event);
                 }
             }
         };
@@ -740,15 +731,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, MotionEvent> superCall = new CallFun1<Boolean, MotionEvent>(
                 "dispatchTouchEvent(MotionEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final MotionEvent ev) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().dispatchTouchEvent(this, (MotionEvent) args[0]);
+                    return iterator.previous().dispatchTouchEvent(this, ev);
                 } else {
-                    return getOriginal().super_dispatchTouchEvent((MotionEvent) args[0]);
+                    return getOriginal().super_dispatchTouchEvent(ev);
                 }
             }
         };
@@ -762,15 +753,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, MotionEvent> superCall = new CallFun1<Boolean, MotionEvent>(
                 "dispatchTrackballEvent(MotionEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final MotionEvent ev) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().dispatchTrackballEvent(this, (MotionEvent) args[0]);
+                    return iterator.previous().dispatchTrackballEvent(this, ev);
                 } else {
-                    return getOriginal().super_dispatchTrackballEvent((MotionEvent) args[0]);
+                    return getOriginal().super_dispatchTrackballEvent(ev);
                 }
             }
         };
@@ -786,19 +777,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid4<String, FileDescriptor, PrintWriter, String[]> superCall
+                = new CallVoid4<String, FileDescriptor, PrintWriter, String[]>(
                 "dump(String, FileDescriptor, PrintWriter, String[])") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final String prefix, final FileDescriptor fd, final PrintWriter writer,
+                    final String[] args) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().dump(this, (String) args[0], (FileDescriptor) args[1],
-                            (PrintWriter) args[2], (String[]) args[3]);
-                    return null;
+                    iterator.previous().dump(this, prefix, fd, writer, args);
                 } else {
-                    getOriginal().super_dump((String) args[0], (FileDescriptor) args[1],
-                            (PrintWriter) args[2], (String[]) args[3]);
-                    return null;
+                    getOriginal().super_dump(prefix, fd, writer, args);
                 }
             }
         };
@@ -813,19 +802,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<String, String> superCall = new CallVoid2<String, String>(
                 "enforceCallingOrSelfPermission(String, String)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final String permission, final String message) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().enforceCallingOrSelfPermission(this, (String) args[0],
-                            (String) args[1]);
-                    return null;
+                    iterator.previous().enforceCallingOrSelfPermission(this, permission, message);
                 } else {
-                    getOriginal().super_enforceCallingOrSelfPermission((String) args[0],
-                            (String) args[1]);
-                    return null;
+                    getOriginal().super_enforceCallingOrSelfPermission(permission, message);
                 }
             }
         };
@@ -841,21 +826,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "enforceCallingOrSelfUriPermission(Uri, int, String)") {
+        final CallVoid3<Uri, Integer, String> superCall = new CallVoid3<Uri, Integer, String>(
+                "enforceCallingOrSelfUriPermission(Uri, Integer, String)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Uri uri, final Integer modeFlags, final String message) {
                 if (iterator.hasPrevious()) {
                     iterator.previous()
-                            .enforceCallingOrSelfUriPermission(this, (Uri) args[0], (int) args[1],
-                                    (String) args[2]);
-                    return null;
+                            .enforceCallingOrSelfUriPermission(this, uri, modeFlags, message);
                 } else {
-                    getOriginal()
-                            .super_enforceCallingOrSelfUriPermission((Uri) args[0], (int) args[1],
-                                    (String) args[2]);
-                    return null;
+                    getOriginal().super_enforceCallingOrSelfUriPermission(uri, modeFlags, message);
                 }
             }
         };
@@ -870,19 +850,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<String, String> superCall = new CallVoid2<String, String>(
                 "enforceCallingPermission(String, String)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final String permission, final String message) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .enforceCallingPermission(this, (String) args[0], (String) args[1]);
-                    return null;
+                    iterator.previous().enforceCallingPermission(this, permission, message);
                 } else {
-                    getOriginal()
-                            .super_enforceCallingPermission((String) args[0], (String) args[1]);
-                    return null;
+                    getOriginal().super_enforceCallingPermission(permission, message);
                 }
             }
         };
@@ -898,20 +874,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "enforceCallingUriPermission(Uri, int, String)") {
+        final CallVoid3<Uri, Integer, String> superCall = new CallVoid3<Uri, Integer, String>(
+                "enforceCallingUriPermission(Uri, Integer, String)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Uri uri, final Integer modeFlags, final String message) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .enforceCallingUriPermission(this, (Uri) args[0], (int) args[1],
-                                    (String) args[2]);
-                    return null;
+                    iterator.previous().enforceCallingUriPermission(this, uri, modeFlags, message);
                 } else {
-                    getOriginal().super_enforceCallingUriPermission((Uri) args[0], (int) args[1],
-                            (String) args[2]);
-                    return null;
+                    getOriginal().super_enforceCallingUriPermission(uri, modeFlags, message);
                 }
             }
         };
@@ -927,21 +898,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "enforcePermission(String, int, int, String)") {
+        final CallVoid4<String, Integer, Integer, String> superCall
+                = new CallVoid4<String, Integer, Integer, String>(
+                "enforcePermission(String, Integer, Integer, String)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final String permission, final Integer pid, final Integer uid,
+                    final String message) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .enforcePermission(this, (String) args[0], (int) args[1], (int) args[2],
-                                    (String) args[3]);
-                    return null;
+                    iterator.previous().enforcePermission(this, permission, pid, uid, message);
                 } else {
-                    getOriginal()
-                            .super_enforcePermission((String) args[0], (int) args[1], (int) args[2],
-                                    (String) args[3]);
-                    return null;
+                    getOriginal().super_enforcePermission(permission, pid, uid, message);
                 }
             }
         };
@@ -957,21 +924,18 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "enforceUriPermission(Uri, int, int, int, String)") {
+        final CallVoid5<Uri, Integer, Integer, Integer, String> superCall
+                = new CallVoid5<Uri, Integer, Integer, Integer, String>(
+                "enforceUriPermission(Uri, Integer, Integer, Integer, String)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Uri uri, final Integer pid, final Integer uid,
+                    final Integer modeFlags, final String message) {
                 if (iterator.hasPrevious()) {
                     iterator.previous()
-                            .enforceUriPermission(this, (Uri) args[0], (int) args[1], (int) args[2],
-                                    (int) args[3], (String) args[4]);
-                    return null;
+                            .enforceUriPermission(this, uri, pid, uid, modeFlags, message);
                 } else {
-                    getOriginal()
-                            .super_enforceUriPermission((Uri) args[0], (int) args[1], (int) args[2],
-                                    (int) args[3], (String) args[4]);
-                    return null;
+                    getOriginal().super_enforceUriPermission(uri, pid, uid, modeFlags, message);
                 }
             }
         };
@@ -989,21 +953,22 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "enforceUriPermission(Uri, String, String, int, int, int, String)") {
+        final CallVoid7<Uri, String, String, Integer, Integer, Integer, String> superCall
+                = new CallVoid7<Uri, String, String, Integer, Integer, Integer, String>(
+                "enforceUriPermission(Uri, String, String, Integer, Integer, Integer, String)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Uri uri, final String readPermission,
+                    final String writePermission, final Integer pid, final Integer uid,
+                    final Integer modeFlags, final String message) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().enforceUriPermission(this, (Uri) args[0], (String) args[1],
-                            (String) args[2], (int) args[3], (int) args[4], (int) args[5],
-                            (String) args[6]);
-                    return null;
+                    iterator.previous()
+                            .enforceUriPermission(this, uri, readPermission, writePermission, pid,
+                                    uid, modeFlags, message);
                 } else {
-                    getOriginal().super_enforceUriPermission((Uri) args[0], (String) args[1],
-                            (String) args[2], (int) args[3], (int) args[4], (int) args[5],
-                            (String) args[6]);
-                    return null;
+                    getOriginal()
+                            .super_enforceUriPermission(uri, readPermission, writePermission, pid,
+                                    uid, modeFlags, message);
                 }
             }
         };
@@ -1017,10 +982,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<String[]> superCall = new NamedSuperCall<String[]>("fileList()") {
+        final CallFun0<String[]> superCall = new CallFun0<String[]>("fileList()") {
 
             @Override
-            public String[] call(final Object... args) {
+            public String[] call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().fileList(this);
                 } else {
@@ -1038,14 +1003,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<View> superCall = new NamedSuperCall<View>("findViewById(int)") {
+        final CallFun1<View, Integer> superCall = new CallFun1<View, Integer>(
+                "findViewById(Integer)") {
 
             @Override
-            public View call(final Object... args) {
+            public View call(final Integer id) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().findViewById(this, (int) args[0]);
+                    return iterator.previous().findViewById(this, id);
                 } else {
-                    return getOriginal().super_findViewById((int) args[0]);
+                    return getOriginal().super_findViewById(id);
                 }
             }
         };
@@ -1060,16 +1026,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("finish()") {
+        final CallVoid0 superCall = new CallVoid0("finish()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().finish(this);
-                    return null;
                 } else {
                     getOriginal().super_finish();
-                    return null;
                 }
             }
         };
@@ -1084,16 +1048,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("finishActivity(int)") {
+        final CallVoid1<Integer> superCall = new CallVoid1<Integer>("finishActivity(Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer requestCode) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().finishActivity(this, (int) args[0]);
-                    return null;
+                    iterator.previous().finishActivity(this, requestCode);
                 } else {
-                    getOriginal().super_finishActivity((int) args[0]);
-                    return null;
+                    getOriginal().super_finishActivity(requestCode);
                 }
             }
         };
@@ -1108,18 +1070,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "finishActivityFromChild(Activity, int)") {
+        final CallVoid2<Activity, Integer> superCall = new CallVoid2<Activity, Integer>(
+                "finishActivityFromChild(Activity, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Activity child, final Integer requestCode) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .finishActivityFromChild(this, (Activity) args[0], (int) args[1]);
-                    return null;
+                    iterator.previous().finishActivityFromChild(this, child, requestCode);
                 } else {
-                    getOriginal().super_finishActivityFromChild((Activity) args[0], (int) args[1]);
-                    return null;
+                    getOriginal().super_finishActivityFromChild(child, requestCode);
                 }
             }
         };
@@ -1134,16 +1093,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("finishAffinity()") {
+        final CallVoid0 superCall = new CallVoid0("finishAffinity()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().finishAffinity(this);
-                    return null;
                 } else {
                     getOriginal().super_finishAffinity();
-                    return null;
                 }
             }
         };
@@ -1158,16 +1115,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("finishAfterTransition()") {
+        final CallVoid0 superCall = new CallVoid0("finishAfterTransition()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().finishAfterTransition(this);
-                    return null;
                 } else {
                     getOriginal().super_finishAfterTransition();
-                    return null;
                 }
             }
         };
@@ -1182,16 +1137,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("finishAndRemoveTask()") {
+        final CallVoid0 superCall = new CallVoid0("finishAndRemoveTask()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().finishAndRemoveTask(this);
-                    return null;
                 } else {
                     getOriginal().super_finishAndRemoveTask();
-                    return null;
                 }
             }
         };
@@ -1206,17 +1159,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "finishFromChild(Activity)") {
+        final CallVoid1<Activity> superCall = new CallVoid1<Activity>("finishFromChild(Activity)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Activity child) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().finishFromChild(this, (Activity) args[0]);
-                    return null;
+                    iterator.previous().finishFromChild(this, child);
                 } else {
-                    getOriginal().super_finishFromChild((Activity) args[0]);
-                    return null;
+                    getOriginal().super_finishFromChild(child);
                 }
             }
         };
@@ -1230,11 +1180,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<android.app.ActionBar> superCall
-                = new NamedSuperCall<android.app.ActionBar>("getActionBar()") {
+        final CallFun0<android.app.ActionBar> superCall = new CallFun0<android.app.ActionBar>(
+                "getActionBar()") {
 
             @Override
-            public android.app.ActionBar call(final Object... args) {
+            public android.app.ActionBar call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getActionBar(this);
                 } else {
@@ -1252,11 +1202,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>(
-                "getApplicationContext()") {
+        final CallFun0<Context> superCall = new CallFun0<Context>("getApplicationContext()") {
 
             @Override
-            public Context call(final Object... args) {
+            public Context call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getApplicationContext(this);
                 } else {
@@ -1274,11 +1223,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<ApplicationInfo> superCall = new NamedSuperCall<ApplicationInfo>(
+        final CallFun0<ApplicationInfo> superCall = new CallFun0<ApplicationInfo>(
                 "getApplicationInfo()") {
 
             @Override
-            public ApplicationInfo call(final Object... args) {
+            public ApplicationInfo call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getApplicationInfo(this);
                 } else {
@@ -1296,11 +1245,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<AssetManager> superCall = new NamedSuperCall<AssetManager>(
-                "getAssets()") {
+        final CallFun0<AssetManager> superCall = new CallFun0<AssetManager>("getAssets()") {
 
             @Override
-            public AssetManager call(final Object... args) {
+            public AssetManager call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getAssets(this);
                 } else {
@@ -1318,10 +1266,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Context> superCall = new NamedSuperCall<Context>("getBaseContext()") {
+        final CallFun0<Context> superCall = new CallFun0<Context>("getBaseContext()") {
 
             @Override
-            public Context call(final Object... args) {
+            public Context call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getBaseContext(this);
                 } else {
@@ -1339,10 +1287,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getCacheDir()") {
+        final CallFun0<File> superCall = new CallFun0<File>("getCacheDir()") {
 
             @Override
-            public File call(final Object... args) {
+            public File call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getCacheDir(this);
                 } else {
@@ -1360,11 +1308,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<ComponentName> superCall = new NamedSuperCall<ComponentName>(
+        final CallFun0<ComponentName> superCall = new CallFun0<ComponentName>(
                 "getCallingActivity()") {
 
             @Override
-            public ComponentName call(final Object... args) {
+            public ComponentName call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getCallingActivity(this);
                 } else {
@@ -1382,10 +1330,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<String> superCall = new NamedSuperCall<String>("getCallingPackage()") {
+        final CallFun0<String> superCall = new CallFun0<String>("getCallingPackage()") {
 
             @Override
-            public String call(final Object... args) {
+            public String call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getCallingPackage(this);
                 } else {
@@ -1403,11 +1351,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
-                "getChangingConfigurations()") {
+        final CallFun0<Integer> superCall = new CallFun0<Integer>("getChangingConfigurations()") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getChangingConfigurations(this);
                 } else {
@@ -1425,11 +1372,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<ClassLoader> superCall = new NamedSuperCall<ClassLoader>(
-                "getClassLoader()") {
+        final CallFun0<ClassLoader> superCall = new CallFun0<ClassLoader>("getClassLoader()") {
 
             @Override
-            public ClassLoader call(final Object... args) {
+            public ClassLoader call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getClassLoader(this);
                 } else {
@@ -1447,10 +1393,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getCodeCacheDir()") {
+        final CallFun0<File> superCall = new CallFun0<File>("getCodeCacheDir()") {
 
             @Override
-            public File call(final Object... args) {
+            public File call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getCodeCacheDir(this);
                 } else {
@@ -1468,11 +1414,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<ComponentName> superCall = new NamedSuperCall<ComponentName>(
+        final CallFun0<ComponentName> superCall = new CallFun0<ComponentName>(
                 "getComponentName()") {
 
             @Override
-            public ComponentName call(final Object... args) {
+            public ComponentName call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getComponentName(this);
                 } else {
@@ -1490,11 +1436,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<ContentResolver> superCall = new NamedSuperCall<ContentResolver>(
+        final CallFun0<ContentResolver> superCall = new CallFun0<ContentResolver>(
                 "getContentResolver()") {
 
             @Override
-            public ContentResolver call(final Object... args) {
+            public ContentResolver call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getContentResolver(this);
                 } else {
@@ -1512,10 +1458,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Scene> superCall = new NamedSuperCall<Scene>("getContentScene()") {
+        final CallFun0<Scene> superCall = new CallFun0<Scene>("getContentScene()") {
 
             @Override
-            public Scene call(final Object... args) {
+            public Scene call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getContentScene(this);
                 } else {
@@ -1533,11 +1479,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<TransitionManager> superCall = new NamedSuperCall<TransitionManager>(
+        final CallFun0<TransitionManager> superCall = new CallFun0<TransitionManager>(
                 "getContentTransitionManager()") {
 
             @Override
-            public TransitionManager call(final Object... args) {
+            public TransitionManager call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getContentTransitionManager(this);
                 } else {
@@ -1555,10 +1501,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<View> superCall = new NamedSuperCall<View>("getCurrentFocus()") {
+        final CallFun0<View> superCall = new CallFun0<View>("getCurrentFocus()") {
 
             @Override
-            public View call(final Object... args) {
+            public View call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getCurrentFocus(this);
                 } else {
@@ -1576,14 +1522,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getDatabasePath(String)") {
+        final CallFun1<File, String> superCall = new CallFun1<File, String>(
+                "getDatabasePath(String)") {
 
             @Override
-            public File call(final Object... args) {
+            public File call(final String name) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().getDatabasePath(this, (String) args[0]);
+                    return iterator.previous().getDatabasePath(this, name);
                 } else {
-                    return getOriginal().super_getDatabasePath((String) args[0]);
+                    return getOriginal().super_getDatabasePath(name);
                 }
             }
         };
@@ -1597,11 +1544,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<AppCompatDelegate> superCall = new NamedSuperCall<AppCompatDelegate>(
+        final CallFun0<AppCompatDelegate> superCall = new CallFun0<AppCompatDelegate>(
                 "getDelegate()") {
 
             @Override
-            public AppCompatDelegate call(final Object... args) {
+            public AppCompatDelegate call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getDelegate(this);
                 } else {
@@ -1619,14 +1566,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getDir(String, int)") {
+        final CallFun2<File, String, Integer> superCall = new CallFun2<File, String, Integer>(
+                "getDir(String, Integer)") {
 
             @Override
-            public File call(final Object... args) {
+            public File call(final String name, final Integer mode) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().getDir(this, (String) args[0], (int) args[1]);
+                    return iterator.previous().getDir(this, name, mode);
                 } else {
-                    return getOriginal().super_getDir((String) args[0], (int) args[1]);
+                    return getOriginal().super_getDir(name, mode);
                 }
             }
         };
@@ -1640,11 +1588,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<ActionBarDrawerToggle.Delegate> superCall
-                = new NamedSuperCall<ActionBarDrawerToggle.Delegate>("getDrawerToggleDelegate()") {
+        final CallFun0<ActionBarDrawerToggle.Delegate> superCall
+                = new CallFun0<ActionBarDrawerToggle.Delegate>("getDrawerToggleDelegate()") {
 
             @Override
-            public ActionBarDrawerToggle.Delegate call(final Object... args) {
+            public ActionBarDrawerToggle.Delegate call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getDrawerToggleDelegate(this);
                 } else {
@@ -1662,10 +1610,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getExternalCacheDir()") {
+        final CallFun0<File> superCall = new CallFun0<File>("getExternalCacheDir()") {
 
             @Override
-            public File call(final Object... args) {
+            public File call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getExternalCacheDir(this);
                 } else {
@@ -1683,11 +1631,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File[]> superCall = new NamedSuperCall<File[]>(
-                "getExternalCacheDirs()") {
+        final CallFun0<File[]> superCall = new CallFun0<File[]>("getExternalCacheDirs()") {
 
             @Override
-            public File[] call(final Object... args) {
+            public File[] call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getExternalCacheDirs(this);
                 } else {
@@ -1705,15 +1652,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File> superCall = new NamedSuperCall<File>(
+        final CallFun1<File, String> superCall = new CallFun1<File, String>(
                 "getExternalFilesDir(String)") {
 
             @Override
-            public File call(final Object... args) {
+            public File call(final String type) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().getExternalFilesDir(this, (String) args[0]);
+                    return iterator.previous().getExternalFilesDir(this, type);
                 } else {
-                    return getOriginal().super_getExternalFilesDir((String) args[0]);
+                    return getOriginal().super_getExternalFilesDir(type);
                 }
             }
         };
@@ -1727,15 +1674,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File[]> superCall = new NamedSuperCall<File[]>(
+        final CallFun1<File[], String> superCall = new CallFun1<File[], String>(
                 "getExternalFilesDirs(String)") {
 
             @Override
-            public File[] call(final Object... args) {
+            public File[] call(final String type) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().getExternalFilesDirs(this, (String) args[0]);
+                    return iterator.previous().getExternalFilesDirs(this, type);
                 } else {
-                    return getOriginal().super_getExternalFilesDirs((String) args[0]);
+                    return getOriginal().super_getExternalFilesDirs(type);
                 }
             }
         };
@@ -1749,11 +1696,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File[]> superCall = new NamedSuperCall<File[]>(
-                "getExternalMediaDirs()") {
+        final CallFun0<File[]> superCall = new CallFun0<File[]>("getExternalMediaDirs()") {
 
             @Override
-            public File[] call(final Object... args) {
+            public File[] call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getExternalMediaDirs(this);
                 } else {
@@ -1771,15 +1717,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File> superCall = new NamedSuperCall<File>(
+        final CallFun1<File, String> superCall = new CallFun1<File, String>(
                 "getFileStreamPath(String)") {
 
             @Override
-            public File call(final Object... args) {
+            public File call(final String name) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().getFileStreamPath(this, (String) args[0]);
+                    return iterator.previous().getFileStreamPath(this, name);
                 } else {
-                    return getOriginal().super_getFileStreamPath((String) args[0]);
+                    return getOriginal().super_getFileStreamPath(name);
                 }
             }
         };
@@ -1793,10 +1739,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getFilesDir()") {
+        final CallFun0<File> superCall = new CallFun0<File>("getFilesDir()") {
 
             @Override
-            public File call(final Object... args) {
+            public File call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getFilesDir(this);
                 } else {
@@ -1814,11 +1760,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<android.app.FragmentManager> superCall
-                = new NamedSuperCall<android.app.FragmentManager>("getFragmentManager()") {
+        final CallFun0<android.app.FragmentManager> superCall
+                = new CallFun0<android.app.FragmentManager>("getFragmentManager()") {
 
             @Override
-            public android.app.FragmentManager call(final Object... args) {
+            public android.app.FragmentManager call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getFragmentManager(this);
                 } else {
@@ -1836,10 +1782,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Intent> superCall = new NamedSuperCall<Intent>("getIntent()") {
+        final CallFun0<Intent> superCall = new CallFun0<Intent>("getIntent()") {
 
             @Override
-            public Intent call(final Object... args) {
+            public Intent call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getIntent(this);
                 } else {
@@ -1875,11 +1821,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<LayoutInflater> superCall = new NamedSuperCall<LayoutInflater>(
+        final CallFun0<LayoutInflater> superCall = new CallFun0<LayoutInflater>(
                 "getLayoutInflater()") {
 
             @Override
-            public LayoutInflater call(final Object... args) {
+            public LayoutInflater call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getLayoutInflater(this);
                 } else {
@@ -1897,11 +1843,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<android.app.LoaderManager> superCall
-                = new NamedSuperCall<android.app.LoaderManager>("getLoaderManager()") {
+        final CallFun0<android.app.LoaderManager> superCall
+                = new CallFun0<android.app.LoaderManager>("getLoaderManager()") {
 
             @Override
-            public android.app.LoaderManager call(final Object... args) {
+            public android.app.LoaderManager call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getLoaderManager(this);
                 } else {
@@ -1919,10 +1865,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<String> superCall = new NamedSuperCall<String>("getLocalClassName()") {
+        final CallFun0<String> superCall = new CallFun0<String>("getLocalClassName()") {
 
             @Override
-            public String call(final Object... args) {
+            public String call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getLocalClassName(this);
                 } else {
@@ -1940,10 +1886,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Looper> superCall = new NamedSuperCall<Looper>("getMainLooper()") {
+        final CallFun0<Looper> superCall = new CallFun0<Looper>("getMainLooper()") {
 
             @Override
-            public Looper call(final Object... args) {
+            public Looper call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getMainLooper(this);
                 } else {
@@ -1961,11 +1907,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<MenuInflater> superCall = new NamedSuperCall<MenuInflater>(
-                "getMenuInflater()") {
+        final CallFun0<MenuInflater> superCall = new CallFun0<MenuInflater>("getMenuInflater()") {
 
             @Override
-            public MenuInflater call(final Object... args) {
+            public MenuInflater call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getMenuInflater(this);
                 } else {
@@ -1983,10 +1928,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getNoBackupFilesDir()") {
+        final CallFun0<File> superCall = new CallFun0<File>("getNoBackupFilesDir()") {
 
             @Override
-            public File call(final Object... args) {
+            public File call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getNoBackupFilesDir(this);
                 } else {
@@ -2004,10 +1949,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File> superCall = new NamedSuperCall<File>("getObbDir()") {
+        final CallFun0<File> superCall = new CallFun0<File>("getObbDir()") {
 
             @Override
-            public File call(final Object... args) {
+            public File call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getObbDir(this);
                 } else {
@@ -2025,10 +1970,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<File[]> superCall = new NamedSuperCall<File[]>("getObbDirs()") {
+        final CallFun0<File[]> superCall = new CallFun0<File[]>("getObbDirs()") {
 
             @Override
-            public File[] call(final Object... args) {
+            public File[] call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getObbDirs(this);
                 } else {
@@ -2046,11 +1991,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<String> superCall = new NamedSuperCall<String>(
-                "getPackageCodePath()") {
+        final CallFun0<String> superCall = new CallFun0<String>("getPackageCodePath()") {
 
             @Override
-            public String call(final Object... args) {
+            public String call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getPackageCodePath(this);
                 } else {
@@ -2068,11 +2012,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<PackageManager> superCall = new NamedSuperCall<PackageManager>(
+        final CallFun0<PackageManager> superCall = new CallFun0<PackageManager>(
                 "getPackageManager()") {
 
             @Override
-            public PackageManager call(final Object... args) {
+            public PackageManager call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getPackageManager(this);
                 } else {
@@ -2090,10 +2034,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<String> superCall = new NamedSuperCall<String>("getPackageName()") {
+        final CallFun0<String> superCall = new CallFun0<String>("getPackageName()") {
 
             @Override
-            public String call(final Object... args) {
+            public String call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getPackageName(this);
                 } else {
@@ -2111,11 +2055,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<String> superCall = new NamedSuperCall<String>(
-                "getPackageResourcePath()") {
+        final CallFun0<String> superCall = new CallFun0<String>("getPackageResourcePath()") {
 
             @Override
-            public String call(final Object... args) {
+            public String call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getPackageResourcePath(this);
                 } else {
@@ -2133,11 +2076,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Intent> superCall = new NamedSuperCall<Intent>(
-                "getParentActivityIntent()") {
+        final CallFun0<Intent> superCall = new CallFun0<Intent>("getParentActivityIntent()") {
 
             @Override
-            public Intent call(final Object... args) {
+            public Intent call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getParentActivityIntent(this);
                 } else {
@@ -2155,15 +2097,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<SharedPreferences> superCall = new NamedSuperCall<SharedPreferences>(
-                "getPreferences(int)") {
+        final CallFun1<SharedPreferences, Integer> superCall
+                = new CallFun1<SharedPreferences, Integer>("getPreferences(Integer)") {
 
             @Override
-            public SharedPreferences call(final Object... args) {
+            public SharedPreferences call(final Integer mode) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().getPreferences(this, (int) args[0]);
+                    return iterator.previous().getPreferences(this, mode);
                 } else {
-                    return getOriginal().super_getPreferences((int) args[0]);
+                    return getOriginal().super_getPreferences(mode);
                 }
             }
         };
@@ -2177,10 +2119,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Uri> superCall = new NamedSuperCall<Uri>("getReferrer()") {
+        final CallFun0<Uri> superCall = new CallFun0<Uri>("getReferrer()") {
 
             @Override
-            public Uri call(final Object... args) {
+            public Uri call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getReferrer(this);
                 } else {
@@ -2198,11 +2140,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
-                "getRequestedOrientation()") {
+        final CallFun0<Integer> superCall = new CallFun0<Integer>("getRequestedOrientation()") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getRequestedOrientation(this);
                 } else {
@@ -2220,11 +2161,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Resources> superCall = new NamedSuperCall<Resources>(
-                "getResources()") {
+        final CallFun0<Resources> superCall = new CallFun0<Resources>("getResources()") {
 
             @Override
-            public Resources call(final Object... args) {
+            public Resources call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getResources(this);
                 } else {
@@ -2242,17 +2182,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<SharedPreferences> superCall = new NamedSuperCall<SharedPreferences>(
-                "getSharedPreferences(String, int)") {
+        final CallFun2<SharedPreferences, String, Integer> superCall
+                = new CallFun2<SharedPreferences, String, Integer>(
+                "getSharedPreferences(String, Integer)") {
 
             @Override
-            public SharedPreferences call(final Object... args) {
+            public SharedPreferences call(final String name, final Integer mode) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .getSharedPreferences(this, (String) args[0], (int) args[1]);
+                    return iterator.previous().getSharedPreferences(this, name, mode);
                 } else {
-                    return getOriginal()
-                            .super_getSharedPreferences((String) args[0], (int) args[1]);
+                    return getOriginal().super_getSharedPreferences(name, mode);
                 }
             }
         };
@@ -2266,11 +2205,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<ActionBar> superCall = new NamedSuperCall<ActionBar>(
-                "getSupportActionBar()") {
+        final CallFun0<ActionBar> superCall = new CallFun0<ActionBar>("getSupportActionBar()") {
 
             @Override
-            public ActionBar call(final Object... args) {
+            public ActionBar call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getSupportActionBar(this);
                 } else {
@@ -2288,11 +2226,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<FragmentManager> superCall = new NamedSuperCall<FragmentManager>(
+        final CallFun0<FragmentManager> superCall = new CallFun0<FragmentManager>(
                 "getSupportFragmentManager()") {
 
             @Override
-            public FragmentManager call(final Object... args) {
+            public FragmentManager call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getSupportFragmentManager(this);
                 } else {
@@ -2310,11 +2248,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<LoaderManager> superCall = new NamedSuperCall<LoaderManager>(
+        final CallFun0<LoaderManager> superCall = new CallFun0<LoaderManager>(
                 "getSupportLoaderManager()") {
 
             @Override
-            public LoaderManager call(final Object... args) {
+            public LoaderManager call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getSupportLoaderManager(this);
                 } else {
@@ -2332,11 +2270,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Intent> superCall = new NamedSuperCall<Intent>(
+        final CallFun0<Intent> superCall = new CallFun0<Intent>(
                 "getSupportParentActivityIntent()") {
 
             @Override
-            public Intent call(final Object... args) {
+            public Intent call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getSupportParentActivityIntent(this);
                 } else {
@@ -2354,15 +2292,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Object> superCall = new NamedSuperCall<Object>(
+        final CallFun1<Object, String> superCall = new CallFun1<Object, String>(
                 "getSystemService(String)") {
 
             @Override
-            public Object call(final Object... args) {
+            public Object call(final String name) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().getSystemService(this, (String) args[0]);
+                    return iterator.previous().getSystemService(this, name);
                 } else {
-                    return getOriginal().super_getSystemService((String) args[0]);
+                    return getOriginal().super_getSystemService(name);
                 }
             }
         };
@@ -2376,15 +2314,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<String> superCall = new NamedSuperCall<String>(
+        final CallFun1<String, Class<?>> superCall = new CallFun1<String, Class<?>>(
                 "getSystemServiceName(Class<?>)") {
 
             @Override
-            public String call(final Object... args) {
+            public String call(final Class<?> serviceClass) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().getSystemServiceName(this, (Class<?>) args[0]);
+                    return iterator.previous().getSystemServiceName(this, serviceClass);
                 } else {
-                    return getOriginal().super_getSystemServiceName((Class<?>) args[0]);
+                    return getOriginal().super_getSystemServiceName(serviceClass);
                 }
             }
         };
@@ -2398,10 +2336,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>("getTaskId()") {
+        final CallFun0<Integer> superCall = new CallFun0<Integer>("getTaskId()") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getTaskId(this);
                 } else {
@@ -2419,11 +2357,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Resources.Theme> superCall = new NamedSuperCall<Resources.Theme>(
-                "getTheme()") {
+        final CallFun0<Resources.Theme> superCall = new CallFun0<Resources.Theme>("getTheme()") {
 
             @Override
-            public Resources.Theme call(final Object... args) {
+            public Resources.Theme call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getTheme(this);
                 } else {
@@ -2441,11 +2378,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<VoiceInteractor> superCall = new NamedSuperCall<VoiceInteractor>(
+        final CallFun0<VoiceInteractor> superCall = new CallFun0<VoiceInteractor>(
                 "getVoiceInteractor()") {
 
             @Override
-            public VoiceInteractor call(final Object... args) {
+            public VoiceInteractor call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getVoiceInteractor(this);
                 } else {
@@ -2463,10 +2400,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Drawable> superCall = new NamedSuperCall<Drawable>("getWallpaper()") {
+        final CallFun0<Drawable> superCall = new CallFun0<Drawable>("getWallpaper()") {
 
             @Override
-            public Drawable call(final Object... args) {
+            public Drawable call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getWallpaper(this);
                 } else {
@@ -2484,11 +2421,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+        final CallFun0<Integer> superCall = new CallFun0<Integer>(
                 "getWallpaperDesiredMinimumHeight()") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getWallpaperDesiredMinimumHeight(this);
                 } else {
@@ -2506,11 +2443,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+        final CallFun0<Integer> superCall = new CallFun0<Integer>(
                 "getWallpaperDesiredMinimumWidth()") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getWallpaperDesiredMinimumWidth(this);
                 } else {
@@ -2528,10 +2465,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Window> superCall = new NamedSuperCall<Window>("getWindow()") {
+        final CallFun0<Window> superCall = new CallFun0<Window>("getWindow()") {
 
             @Override
-            public Window call(final Object... args) {
+            public Window call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getWindow(this);
                 } else {
@@ -2549,11 +2486,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<WindowManager> superCall = new NamedSuperCall<WindowManager>(
+        final CallFun0<WindowManager> superCall = new CallFun0<WindowManager>(
                 "getWindowManager()") {
 
             @Override
-            public WindowManager call(final Object... args) {
+            public WindowManager call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getWindowManager(this);
                 } else {
@@ -2572,19 +2509,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "grantUriPermission(String, Uri, int)") {
+        final CallVoid3<String, Uri, Integer> superCall = new CallVoid3<String, Uri, Integer>(
+                "grantUriPermission(String, Uri, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final String toPackage, final Uri uri, final Integer modeFlags) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().grantUriPermission(this, (String) args[0], (Uri) args[1],
-                            (int) args[2]);
-                    return null;
+                    iterator.previous().grantUriPermission(this, toPackage, uri, modeFlags);
                 } else {
-                    getOriginal().super_grantUriPermission((String) args[0], (Uri) args[1],
-                            (int) args[2]);
-                    return null;
+                    getOriginal().super_grantUriPermission(toPackage, uri, modeFlags);
                 }
             }
         };
@@ -2598,10 +2531,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("hasWindowFocus()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("hasWindowFocus()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().hasWindowFocus(this);
                 } else {
@@ -2620,16 +2553,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("invalidateOptionsMenu()") {
+        final CallVoid0 superCall = new CallVoid0("invalidateOptionsMenu()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().invalidateOptionsMenu(this);
-                    return null;
                 } else {
                     getOriginal().super_invalidateOptionsMenu();
-                    return null;
                 }
             }
         };
@@ -2643,11 +2574,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "isChangingConfigurations()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isChangingConfigurations()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().isChangingConfigurations(this);
                 } else {
@@ -2665,10 +2595,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("isDestroyed()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isDestroyed()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().isDestroyed(this);
                 } else {
@@ -2686,10 +2616,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("isFinishing()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isFinishing()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().isFinishing(this);
                 } else {
@@ -2707,10 +2637,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("isImmersive()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isImmersive()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().isImmersive(this);
                 } else {
@@ -2728,10 +2658,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("isRestricted()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isRestricted()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().isRestricted(this);
                 } else {
@@ -2749,10 +2679,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("isTaskRoot()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isTaskRoot()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().isTaskRoot(this);
                 } else {
@@ -2770,11 +2700,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "isVoiceInteraction()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isVoiceInteraction()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().isVoiceInteraction(this);
                 } else {
@@ -2792,11 +2721,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "isVoiceInteractionRoot()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isVoiceInteractionRoot()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().isVoiceInteractionRoot(this);
                 } else {
@@ -2814,15 +2742,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "moveTaskToBack(boolean)") {
+        final CallFun1<Boolean, Boolean> superCall = new CallFun1<Boolean, Boolean>(
+                "moveTaskToBack(Boolean)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Boolean nonRoot) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().moveTaskToBack(this, (boolean) args[0]);
+                    return iterator.previous().moveTaskToBack(this, nonRoot);
                 } else {
-                    return getOriginal().super_moveTaskToBack((boolean) args[0]);
+                    return getOriginal().super_moveTaskToBack(nonRoot);
                 }
             }
         };
@@ -2836,15 +2764,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, Intent> superCall = new CallFun1<Boolean, Intent>(
                 "navigateUpTo(Intent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Intent upIntent) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().navigateUpTo(this, (Intent) args[0]);
+                    return iterator.previous().navigateUpTo(this, upIntent);
                 } else {
-                    return getOriginal().super_navigateUpTo((Intent) args[0]);
+                    return getOriginal().super_navigateUpTo(upIntent);
                 }
             }
         };
@@ -2858,17 +2786,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun2<Boolean, Activity, Intent> superCall
+                = new CallFun2<Boolean, Activity, Intent>(
                 "navigateUpToFromChild(Activity, Intent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Activity child, final Intent upIntent) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .navigateUpToFromChild(this, (Activity) args[0], (Intent) args[1]);
+                    return iterator.previous().navigateUpToFromChild(this, child, upIntent);
                 } else {
-                    return getOriginal()
-                            .super_navigateUpToFromChild((Activity) args[0], (Intent) args[1]);
+                    return getOriginal().super_navigateUpToFromChild(child, upIntent);
                 }
             }
         };
@@ -2883,18 +2810,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<android.view.ActionMode> superCall = new CallVoid1<android.view.ActionMode>(
                 "onActionModeFinished(android.view.ActionMode)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final android.view.ActionMode mode) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onActionModeFinished(this, (android.view.ActionMode) args[0]);
-                    return null;
+                    iterator.previous().onActionModeFinished(this, mode);
                 } else {
-                    getOriginal().super_onActionModeFinished((android.view.ActionMode) args[0]);
-                    return null;
+                    getOriginal().super_onActionModeFinished(mode);
                 }
             }
         };
@@ -2909,18 +2833,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<android.view.ActionMode> superCall = new CallVoid1<android.view.ActionMode>(
                 "onActionModeStarted(android.view.ActionMode)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final android.view.ActionMode mode) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onActionModeStarted(this, (android.view.ActionMode) args[0]);
-                    return null;
+                    iterator.previous().onActionModeStarted(this, mode);
                 } else {
-                    getOriginal().super_onActionModeStarted((android.view.ActionMode) args[0]);
-                    return null;
+                    getOriginal().super_onActionModeStarted(mode);
                 }
             }
         };
@@ -2935,17 +2856,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onActivityReenter(int, Intent)") {
+        final CallVoid2<Integer, Intent> superCall = new CallVoid2<Integer, Intent>(
+                "onActivityReenter(Integer, Intent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer resultCode, final Intent data) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onActivityReenter(this, (int) args[0], (Intent) args[1]);
-                    return null;
+                    iterator.previous().onActivityReenter(this, resultCode, data);
                 } else {
-                    getOriginal().super_onActivityReenter((int) args[0], (Intent) args[1]);
-                    return null;
+                    getOriginal().super_onActivityReenter(resultCode, data);
                 }
             }
         };
@@ -2960,19 +2879,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onActivityResult(int, int, Intent)") {
+        final CallVoid3<Integer, Integer, Intent> superCall
+                = new CallVoid3<Integer, Integer, Intent>(
+                "onActivityResult(Integer, Integer, Intent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer requestCode, final Integer resultCode,
+                    final Intent data) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onActivityResult(this, (int) args[0], (int) args[1], (Intent) args[2]);
-                    return null;
+                    iterator.previous().onActivityResult(this, requestCode, resultCode, data);
                 } else {
-                    getOriginal()
-                            .super_onActivityResult((int) args[0], (int) args[1], (Intent) args[2]);
-                    return null;
+                    getOriginal().super_onActivityResult(requestCode, resultCode, data);
                 }
             }
         };
@@ -2988,21 +2905,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onApplyThemeResource(Resources.Theme, int, boolean)") {
+        final CallVoid3<Resources.Theme, Integer, Boolean> superCall
+                = new CallVoid3<Resources.Theme, Integer, Boolean>(
+                "onApplyThemeResource(Resources.Theme, Integer, Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Resources.Theme theme, final Integer resid,
+                    final Boolean first) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onApplyThemeResource(this, (Resources.Theme) args[0], (int) args[1],
-                                    (boolean) args[2]);
-                    return null;
+                    iterator.previous().onApplyThemeResource(this, theme, resid, first);
                 } else {
-                    getOriginal()
-                            .super_onApplyThemeResource((Resources.Theme) args[0], (int) args[1],
-                                    (boolean) args[2]);
-                    return null;
+                    getOriginal().super_onApplyThemeResource(theme, resid, first);
                 }
             }
         };
@@ -3017,17 +2930,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<Fragment> superCall = new CallVoid1<Fragment>(
                 "onAttachFragment(Fragment)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Fragment fragment) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onAttachFragment(this, (Fragment) args[0]);
-                    return null;
+                    iterator.previous().onAttachFragment(this, fragment);
                 } else {
-                    getOriginal().super_onAttachFragment((Fragment) args[0]);
-                    return null;
+                    getOriginal().super_onAttachFragment(fragment);
                 }
             }
         };
@@ -3042,17 +2953,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<android.app.Fragment> superCall = new CallVoid1<android.app.Fragment>(
                 "onAttachFragment(android.app.Fragment)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final android.app.Fragment fragment) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onAttachFragment(this, (android.app.Fragment) args[0]);
-                    return null;
+                    iterator.previous().onAttachFragment(this, fragment);
                 } else {
-                    getOriginal().super_onAttachFragment((android.app.Fragment) args[0]);
-                    return null;
+                    getOriginal().super_onAttachFragment(fragment);
                 }
             }
         };
@@ -3067,16 +2976,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onAttachedToWindow()") {
+        final CallVoid0 superCall = new CallVoid0("onAttachedToWindow()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onAttachedToWindow(this);
-                    return null;
                 } else {
                     getOriginal().super_onAttachedToWindow();
-                    return null;
                 }
             }
         };
@@ -3091,16 +2998,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onBackPressed()") {
+        final CallVoid0 superCall = new CallVoid0("onBackPressed()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onBackPressed(this);
-                    return null;
                 } else {
                     getOriginal().super_onBackPressed();
-                    return null;
                 }
             }
         };
@@ -3115,19 +3020,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Activity, CharSequence> superCall = new CallVoid2<Activity, CharSequence>(
                 "onChildTitleChanged(Activity, CharSequence)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Activity childActivity, final CharSequence title) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onChildTitleChanged(this, (Activity) args[0], (CharSequence) args[1]);
-                    return null;
+                    iterator.previous().onChildTitleChanged(this, childActivity, title);
                 } else {
-                    getOriginal()
-                            .super_onChildTitleChanged((Activity) args[0], (CharSequence) args[1]);
-                    return null;
+                    getOriginal().super_onChildTitleChanged(childActivity, title);
                 }
             }
         };
@@ -3142,17 +3043,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<Configuration> superCall = new CallVoid1<Configuration>(
                 "onConfigurationChanged(Configuration)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Configuration newConfig) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onConfigurationChanged(this, (Configuration) args[0]);
-                    return null;
+                    iterator.previous().onConfigurationChanged(this, newConfig);
                 } else {
-                    getOriginal().super_onConfigurationChanged((Configuration) args[0]);
-                    return null;
+                    getOriginal().super_onConfigurationChanged(newConfig);
                 }
             }
         };
@@ -3167,16 +3066,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onContentChanged()") {
+        final CallVoid0 superCall = new CallVoid0("onContentChanged()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onContentChanged(this);
-                    return null;
                 } else {
                     getOriginal().super_onContentChanged();
-                    return null;
                 }
             }
         };
@@ -3190,15 +3087,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, MenuItem> superCall = new CallFun1<Boolean, MenuItem>(
                 "onContextItemSelected(MenuItem)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final MenuItem item) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onContextItemSelected(this, (MenuItem) args[0]);
+                    return iterator.previous().onContextItemSelected(this, item);
                 } else {
-                    return getOriginal().super_onContextItemSelected((MenuItem) args[0]);
+                    return getOriginal().super_onContextItemSelected(item);
                 }
             }
         };
@@ -3213,17 +3110,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onContextMenuClosed(Menu)") {
+        final CallVoid1<Menu> superCall = new CallVoid1<Menu>("onContextMenuClosed(Menu)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Menu menu) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onContextMenuClosed(this, (Menu) args[0]);
-                    return null;
+                    iterator.previous().onContextMenuClosed(this, menu);
                 } else {
-                    getOriginal().super_onContextMenuClosed((Menu) args[0]);
-                    return null;
+                    getOriginal().super_onContextMenuClosed(menu);
                 }
             }
         };
@@ -3238,18 +3132,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onCreate(Bundle, PersistableBundle)") {
+        final CallVoid2<Bundle, PersistableBundle> superCall
+                = new CallVoid2<Bundle, PersistableBundle>("onCreate(Bundle, PersistableBundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle savedInstanceState,
+                    final PersistableBundle persistentState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onCreate(this, (Bundle) args[0], (PersistableBundle) args[1]);
-                    return null;
+                    iterator.previous().onCreate(this, savedInstanceState, persistentState);
                 } else {
-                    getOriginal().super_onCreate((Bundle) args[0], (PersistableBundle) args[1]);
-                    return null;
+                    getOriginal().super_onCreate(savedInstanceState, persistentState);
                 }
             }
         };
@@ -3264,16 +3156,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onCreate(Bundle)") {
+        final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onCreate(Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onCreate(this, (Bundle) args[0]);
-                    return null;
+                    iterator.previous().onCreate(this, savedInstanceState);
                 } else {
-                    getOriginal().super_onCreate((Bundle) args[0]);
-                    return null;
+                    getOriginal().super_onCreate(savedInstanceState);
                 }
             }
         };
@@ -3289,20 +3179,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid3<ContextMenu, View, ContextMenu.ContextMenuInfo> superCall
+                = new CallVoid3<ContextMenu, View, ContextMenu.ContextMenuInfo>(
                 "onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final ContextMenu menu, final View v,
+                    final ContextMenu.ContextMenuInfo menuInfo) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onCreateContextMenu(this, (ContextMenu) args[0], (View) args[1],
-                                    (ContextMenu.ContextMenuInfo) args[2]);
-                    return null;
+                    iterator.previous().onCreateContextMenu(this, menu, v, menuInfo);
                 } else {
-                    getOriginal().super_onCreateContextMenu((ContextMenu) args[0], (View) args[1],
-                            (ContextMenu.ContextMenuInfo) args[2]);
-                    return null;
+                    getOriginal().super_onCreateContextMenu(menu, v, menuInfo);
                 }
             }
         };
@@ -3316,11 +3203,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<CharSequence> superCall = new NamedSuperCall<CharSequence>(
+        final CallFun0<CharSequence> superCall = new CallFun0<CharSequence>(
                 "onCreateDescription()") {
 
             @Override
-            public CharSequence call(final Object... args) {
+            public CharSequence call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().onCreateDescription(this);
                 } else {
@@ -3338,14 +3225,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Dialog> superCall = new NamedSuperCall<Dialog>("onCreateDialog(int)") {
+        final CallFun1<Dialog, Integer> superCall = new CallFun1<Dialog, Integer>(
+                "onCreateDialog(Integer)") {
 
             @Override
-            public Dialog call(final Object... args) {
+            public Dialog call(final Integer id) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onCreateDialog(this, (int) args[0]);
+                    return iterator.previous().onCreateDialog(this, id);
                 } else {
-                    return getOriginal().super_onCreateDialog((int) args[0]);
+                    return getOriginal().super_onCreateDialog(id);
                 }
             }
         };
@@ -3359,16 +3247,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Dialog> superCall = new NamedSuperCall<Dialog>(
-                "onCreateDialog(int, Bundle)") {
+        final CallFun2<Dialog, Integer, Bundle> superCall = new CallFun2<Dialog, Integer, Bundle>(
+                "onCreateDialog(Integer, Bundle)") {
 
             @Override
-            public Dialog call(final Object... args) {
+            public Dialog call(final Integer id, final Bundle args) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onCreateDialog(this, (int) args[0], (Bundle) args[1]);
+                    return iterator.previous().onCreateDialog(this, id, args);
                 } else {
-                    return getOriginal().super_onCreateDialog((int) args[0], (Bundle) args[1]);
+                    return getOriginal().super_onCreateDialog(id, args);
                 }
             }
         };
@@ -3383,18 +3270,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<TaskStackBuilder> superCall = new CallVoid1<TaskStackBuilder>(
                 "onCreateNavigateUpTaskStack(TaskStackBuilder)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final TaskStackBuilder builder) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onCreateNavigateUpTaskStack(this, (TaskStackBuilder) args[0]);
-                    return null;
+                    iterator.previous().onCreateNavigateUpTaskStack(this, builder);
                 } else {
-                    getOriginal().super_onCreateNavigateUpTaskStack((TaskStackBuilder) args[0]);
-                    return null;
+                    getOriginal().super_onCreateNavigateUpTaskStack(builder);
                 }
             }
         };
@@ -3408,15 +3292,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, Menu> superCall = new CallFun1<Boolean, Menu>(
                 "onCreateOptionsMenu(Menu)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Menu menu) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onCreateOptionsMenu(this, (Menu) args[0]);
+                    return iterator.previous().onCreateOptionsMenu(this, menu);
                 } else {
-                    return getOriginal().super_onCreateOptionsMenu((Menu) args[0]);
+                    return getOriginal().super_onCreateOptionsMenu(menu);
                 }
             }
         };
@@ -3430,16 +3314,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "onCreatePanelMenu(int, Menu)") {
+        final CallFun2<Boolean, Integer, Menu> superCall = new CallFun2<Boolean, Integer, Menu>(
+                "onCreatePanelMenu(Integer, Menu)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Integer featureId, final Menu menu) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onCreatePanelMenu(this, (int) args[0], (Menu) args[1]);
+                    return iterator.previous().onCreatePanelMenu(this, featureId, menu);
                 } else {
-                    return getOriginal().super_onCreatePanelMenu((int) args[0], (Menu) args[1]);
+                    return getOriginal().super_onCreatePanelMenu(featureId, menu);
                 }
             }
         };
@@ -3453,14 +3336,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<View> superCall = new NamedSuperCall<View>("onCreatePanelView(int)") {
+        final CallFun1<View, Integer> superCall = new CallFun1<View, Integer>(
+                "onCreatePanelView(Integer)") {
 
             @Override
-            public View call(final Object... args) {
+            public View call(final Integer featureId) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onCreatePanelView(this, (int) args[0]);
+                    return iterator.previous().onCreatePanelView(this, featureId);
                 } else {
-                    return getOriginal().super_onCreatePanelView((int) args[0]);
+                    return getOriginal().super_onCreatePanelView(featureId);
                 }
             }
         };
@@ -3476,19 +3360,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<android.support.v4.app.TaskStackBuilder> superCall
+                = new CallVoid1<android.support.v4.app.TaskStackBuilder>(
                 "onCreateSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final android.support.v4.app.TaskStackBuilder builder) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onCreateSupportNavigateUpTaskStack(this,
-                            (android.support.v4.app.TaskStackBuilder) args[0]);
-                    return null;
+                    iterator.previous().onCreateSupportNavigateUpTaskStack(this, builder);
                 } else {
-                    getOriginal().super_onCreateSupportNavigateUpTaskStack(
-                            (android.support.v4.app.TaskStackBuilder) args[0]);
-                    return null;
+                    getOriginal().super_onCreateSupportNavigateUpTaskStack(builder);
                 }
             }
         };
@@ -3502,17 +3383,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun2<Boolean, Bitmap, Canvas> superCall = new CallFun2<Boolean, Bitmap, Canvas>(
                 "onCreateThumbnail(Bitmap, Canvas)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Bitmap outBitmap, final Canvas canvas) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onCreateThumbnail(this, (Bitmap) args[0], (Canvas) args[1]);
+                    return iterator.previous().onCreateThumbnail(this, outBitmap, canvas);
                 } else {
-                    return getOriginal()
-                            .super_onCreateThumbnail((Bitmap) args[0], (Canvas) args[1]);
+                    return getOriginal().super_onCreateThumbnail(outBitmap, canvas);
                 }
             }
         };
@@ -3527,19 +3406,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<View> superCall = new NamedSuperCall<View>(
+        final CallFun4<View, View, String, Context, AttributeSet> superCall
+                = new CallFun4<View, View, String, Context, AttributeSet>(
                 "onCreateView(View, String, Context, AttributeSet)") {
 
             @Override
-            public View call(final Object... args) {
+            public View call(final View parent, final String name, final Context context,
+                    final AttributeSet attrs) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onCreateView(this, (View) args[0], (String) args[1], (Context) args[2],
-                                    (AttributeSet) args[3]);
+                    return iterator.previous().onCreateView(this, parent, name, context, attrs);
                 } else {
-                    return getOriginal()
-                            .super_onCreateView((View) args[0], (String) args[1], (Context) args[2],
-                                    (AttributeSet) args[3]);
+                    return getOriginal().super_onCreateView(parent, name, context, attrs);
                 }
             }
         };
@@ -3553,18 +3430,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<View> superCall = new NamedSuperCall<View>(
+        final CallFun3<View, String, Context, AttributeSet> superCall
+                = new CallFun3<View, String, Context, AttributeSet>(
                 "onCreateView(String, Context, AttributeSet)") {
 
             @Override
-            public View call(final Object... args) {
+            public View call(final String name, final Context context, final AttributeSet attrs) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onCreateView(this, (String) args[0], (Context) args[1],
-                                    (AttributeSet) args[2]);
+                    return iterator.previous().onCreateView(this, name, context, attrs);
                 } else {
-                    return getOriginal().super_onCreateView((String) args[0], (Context) args[1],
-                            (AttributeSet) args[2]);
+                    return getOriginal().super_onCreateView(name, context, attrs);
                 }
             }
         };
@@ -3579,16 +3454,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDestroy()") {
+        final CallVoid0 superCall = new CallVoid0("onDestroy()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onDestroy(this);
-                    return null;
                 } else {
                     getOriginal().super_onDestroy();
-                    return null;
                 }
             }
         };
@@ -3603,16 +3476,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onDetachedFromWindow()") {
+        final CallVoid0 superCall = new CallVoid0("onDetachedFromWindow()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onDetachedFromWindow(this);
-                    return null;
                 } else {
                     getOriginal().super_onDetachedFromWindow();
-                    return null;
                 }
             }
         };
@@ -3627,17 +3498,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onEnterAnimationComplete()") {
+        final CallVoid0 superCall = new CallVoid0("onEnterAnimationComplete()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onEnterAnimationComplete(this);
-                    return null;
                 } else {
                     getOriginal().super_onEnterAnimationComplete();
-                    return null;
                 }
             }
         };
@@ -3651,15 +3519,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, MotionEvent> superCall = new CallFun1<Boolean, MotionEvent>(
                 "onGenericMotionEvent(MotionEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final MotionEvent event) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onGenericMotionEvent(this, (MotionEvent) args[0]);
+                    return iterator.previous().onGenericMotionEvent(this, event);
                 } else {
-                    return getOriginal().super_onGenericMotionEvent((MotionEvent) args[0]);
+                    return getOriginal().super_onGenericMotionEvent(event);
                 }
             }
         };
@@ -3673,15 +3541,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "onKeyDown(int, KeyEvent)") {
+        final CallFun2<Boolean, Integer, KeyEvent> superCall
+                = new CallFun2<Boolean, Integer, KeyEvent>("onKeyDown(Integer, KeyEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Integer keyCode, final KeyEvent event) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onKeyDown(this, (int) args[0], (KeyEvent) args[1]);
+                    return iterator.previous().onKeyDown(this, keyCode, event);
                 } else {
-                    return getOriginal().super_onKeyDown((int) args[0], (KeyEvent) args[1]);
+                    return getOriginal().super_onKeyDown(keyCode, event);
                 }
             }
         };
@@ -3695,16 +3563,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "onKeyLongPress(int, KeyEvent)") {
+        final CallFun2<Boolean, Integer, KeyEvent> superCall
+                = new CallFun2<Boolean, Integer, KeyEvent>("onKeyLongPress(Integer, KeyEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Integer keyCode, final KeyEvent event) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onKeyLongPress(this, (int) args[0], (KeyEvent) args[1]);
+                    return iterator.previous().onKeyLongPress(this, keyCode, event);
                 } else {
-                    return getOriginal().super_onKeyLongPress((int) args[0], (KeyEvent) args[1]);
+                    return getOriginal().super_onKeyLongPress(keyCode, event);
                 }
             }
         };
@@ -3718,17 +3585,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "onKeyMultiple(int, int, KeyEvent)") {
+        final CallFun3<Boolean, Integer, Integer, KeyEvent> superCall
+                = new CallFun3<Boolean, Integer, Integer, KeyEvent>(
+                "onKeyMultiple(Integer, Integer, KeyEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Integer keyCode, final Integer repeatCount,
+                    final KeyEvent event) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onKeyMultiple(this, (int) args[0], (int) args[1], (KeyEvent) args[2]);
+                    return iterator.previous().onKeyMultiple(this, keyCode, repeatCount, event);
                 } else {
-                    return getOriginal()
-                            .super_onKeyMultiple((int) args[0], (int) args[1], (KeyEvent) args[2]);
+                    return getOriginal().super_onKeyMultiple(keyCode, repeatCount, event);
                 }
             }
         };
@@ -3742,16 +3609,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "onKeyShortcut(int, KeyEvent)") {
+        final CallFun2<Boolean, Integer, KeyEvent> superCall
+                = new CallFun2<Boolean, Integer, KeyEvent>("onKeyShortcut(Integer, KeyEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Integer keyCode, final KeyEvent event) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onKeyShortcut(this, (int) args[0], (KeyEvent) args[1]);
+                    return iterator.previous().onKeyShortcut(this, keyCode, event);
                 } else {
-                    return getOriginal().super_onKeyShortcut((int) args[0], (KeyEvent) args[1]);
+                    return getOriginal().super_onKeyShortcut(keyCode, event);
                 }
             }
         };
@@ -3765,15 +3631,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "onKeyUp(int, KeyEvent)") {
+        final CallFun2<Boolean, Integer, KeyEvent> superCall
+                = new CallFun2<Boolean, Integer, KeyEvent>("onKeyUp(Integer, KeyEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Integer keyCode, final KeyEvent event) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onKeyUp(this, (int) args[0], (KeyEvent) args[1]);
+                    return iterator.previous().onKeyUp(this, keyCode, event);
                 } else {
-                    return getOriginal().super_onKeyUp((int) args[0], (KeyEvent) args[1]);
+                    return getOriginal().super_onKeyUp(keyCode, event);
                 }
             }
         };
@@ -3788,16 +3654,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onLowMemory()") {
+        final CallVoid0 superCall = new CallVoid0("onLowMemory()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onLowMemory(this);
-                    return null;
                 } else {
                     getOriginal().super_onLowMemory();
-                    return null;
                 }
             }
         };
@@ -3811,15 +3675,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "onMenuOpened(int, Menu)") {
+        final CallFun2<Boolean, Integer, Menu> superCall = new CallFun2<Boolean, Integer, Menu>(
+                "onMenuOpened(Integer, Menu)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Integer featureId, final Menu menu) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onMenuOpened(this, (int) args[0], (Menu) args[1]);
+                    return iterator.previous().onMenuOpened(this, featureId, menu);
                 } else {
-                    return getOriginal().super_onMenuOpened((int) args[0], (Menu) args[1]);
+                    return getOriginal().super_onMenuOpened(featureId, menu);
                 }
             }
         };
@@ -3833,10 +3697,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("onNavigateUp()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("onNavigateUp()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().onNavigateUp(this);
                 } else {
@@ -3854,15 +3718,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, Activity> superCall = new CallFun1<Boolean, Activity>(
                 "onNavigateUpFromChild(Activity)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Activity child) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onNavigateUpFromChild(this, (Activity) args[0]);
+                    return iterator.previous().onNavigateUpFromChild(this, child);
                 } else {
-                    return getOriginal().super_onNavigateUpFromChild((Activity) args[0]);
+                    return getOriginal().super_onNavigateUpFromChild(child);
                 }
             }
         };
@@ -3877,16 +3741,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onNewIntent(Intent)") {
+        final CallVoid1<Intent> superCall = new CallVoid1<Intent>("onNewIntent(Intent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onNewIntent(this, (Intent) args[0]);
-                    return null;
+                    iterator.previous().onNewIntent(this, intent);
                 } else {
-                    getOriginal().super_onNewIntent((Intent) args[0]);
-                    return null;
+                    getOriginal().super_onNewIntent(intent);
                 }
             }
         };
@@ -3900,15 +3762,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, MenuItem> superCall = new CallFun1<Boolean, MenuItem>(
                 "onOptionsItemSelected(MenuItem)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final MenuItem item) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onOptionsItemSelected(this, (MenuItem) args[0]);
+                    return iterator.previous().onOptionsItemSelected(this, item);
                 } else {
-                    return getOriginal().super_onOptionsItemSelected((MenuItem) args[0]);
+                    return getOriginal().super_onOptionsItemSelected(item);
                 }
             }
         };
@@ -3923,17 +3785,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onOptionsMenuClosed(Menu)") {
+        final CallVoid1<Menu> superCall = new CallVoid1<Menu>("onOptionsMenuClosed(Menu)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Menu menu) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onOptionsMenuClosed(this, (Menu) args[0]);
-                    return null;
+                    iterator.previous().onOptionsMenuClosed(this, menu);
                 } else {
-                    getOriginal().super_onOptionsMenuClosed((Menu) args[0]);
-                    return null;
+                    getOriginal().super_onOptionsMenuClosed(menu);
                 }
             }
         };
@@ -3948,17 +3807,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onPanelClosed(int, Menu)") {
+        final CallVoid2<Integer, Menu> superCall = new CallVoid2<Integer, Menu>(
+                "onPanelClosed(Integer, Menu)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer featureId, final Menu menu) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onPanelClosed(this, (int) args[0], (Menu) args[1]);
-                    return null;
+                    iterator.previous().onPanelClosed(this, featureId, menu);
                 } else {
-                    getOriginal().super_onPanelClosed((int) args[0], (Menu) args[1]);
-                    return null;
+                    getOriginal().super_onPanelClosed(featureId, menu);
                 }
             }
         };
@@ -3973,16 +3830,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onPause()") {
+        final CallVoid0 superCall = new CallVoid0("onPause()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onPause(this);
-                    return null;
                 } else {
                     getOriginal().super_onPause();
-                    return null;
                 }
             }
         };
@@ -3998,18 +3853,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Bundle, PersistableBundle> superCall
+                = new CallVoid2<Bundle, PersistableBundle>(
                 "onPostCreate(Bundle, PersistableBundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle savedInstanceState,
+                    final PersistableBundle persistentState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onPostCreate(this, (Bundle) args[0], (PersistableBundle) args[1]);
-                    return null;
+                    iterator.previous().onPostCreate(this, savedInstanceState, persistentState);
                 } else {
-                    getOriginal().super_onPostCreate((Bundle) args[0], (PersistableBundle) args[1]);
-                    return null;
+                    getOriginal().super_onPostCreate(savedInstanceState, persistentState);
                 }
             }
         };
@@ -4024,16 +3878,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onPostCreate(Bundle)") {
+        final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onPostCreate(Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onPostCreate(this, (Bundle) args[0]);
-                    return null;
+                    iterator.previous().onPostCreate(this, savedInstanceState);
                 } else {
-                    getOriginal().super_onPostCreate((Bundle) args[0]);
-                    return null;
+                    getOriginal().super_onPostCreate(savedInstanceState);
                 }
             }
         };
@@ -4048,16 +3900,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onPostResume()") {
+        final CallVoid0 superCall = new CallVoid0("onPostResume()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onPostResume(this);
-                    return null;
                 } else {
                     getOriginal().super_onPostResume();
-                    return null;
                 }
             }
         };
@@ -4072,17 +3922,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onPrepareDialog(int, Dialog)") {
+        final CallVoid2<Integer, Dialog> superCall = new CallVoid2<Integer, Dialog>(
+                "onPrepareDialog(Integer, Dialog)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer id, final Dialog dialog) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onPrepareDialog(this, (int) args[0], (Dialog) args[1]);
-                    return null;
+                    iterator.previous().onPrepareDialog(this, id, dialog);
                 } else {
-                    getOriginal().super_onPrepareDialog((int) args[0], (Dialog) args[1]);
-                    return null;
+                    getOriginal().super_onPrepareDialog(id, dialog);
                 }
             }
         };
@@ -4097,19 +3945,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onPrepareDialog(int, Dialog, Bundle)") {
+        final CallVoid3<Integer, Dialog, Bundle> superCall = new CallVoid3<Integer, Dialog, Bundle>(
+                "onPrepareDialog(Integer, Dialog, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer id, final Dialog dialog, final Bundle args) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onPrepareDialog(this, (int) args[0], (Dialog) args[1],
-                            (Bundle) args[2]);
-                    return null;
+                    iterator.previous().onPrepareDialog(this, id, dialog, args);
                 } else {
-                    getOriginal().super_onPrepareDialog((int) args[0], (Dialog) args[1],
-                            (Bundle) args[2]);
-                    return null;
+                    getOriginal().super_onPrepareDialog(id, dialog, args);
                 }
             }
         };
@@ -4124,18 +3968,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<TaskStackBuilder> superCall = new CallVoid1<TaskStackBuilder>(
                 "onPrepareNavigateUpTaskStack(TaskStackBuilder)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final TaskStackBuilder builder) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onPrepareNavigateUpTaskStack(this, (TaskStackBuilder) args[0]);
-                    return null;
+                    iterator.previous().onPrepareNavigateUpTaskStack(this, builder);
                 } else {
-                    getOriginal().super_onPrepareNavigateUpTaskStack((TaskStackBuilder) args[0]);
-                    return null;
+                    getOriginal().super_onPrepareNavigateUpTaskStack(builder);
                 }
             }
         };
@@ -4149,15 +3990,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, Menu> superCall = new CallFun1<Boolean, Menu>(
                 "onPrepareOptionsMenu(Menu)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Menu menu) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onPrepareOptionsMenu(this, (Menu) args[0]);
+                    return iterator.previous().onPrepareOptionsMenu(this, menu);
                 } else {
-                    return getOriginal().super_onPrepareOptionsMenu((Menu) args[0]);
+                    return getOriginal().super_onPrepareOptionsMenu(menu);
                 }
             }
         };
@@ -4171,17 +4012,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun2<Boolean, View, Menu> superCall = new CallFun2<Boolean, View, Menu>(
                 "onPrepareOptionsPanel(View, Menu)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final View view, final Menu menu) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onPrepareOptionsPanel(this, (View) args[0], (Menu) args[1]);
+                    return iterator.previous().onPrepareOptionsPanel(this, view, menu);
                 } else {
-                    return getOriginal()
-                            .super_onPrepareOptionsPanel((View) args[0], (Menu) args[1]);
+                    return getOriginal().super_onPrepareOptionsPanel(view, menu);
                 }
             }
         };
@@ -4195,17 +4034,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "onPreparePanel(int, View, Menu)") {
+        final CallFun3<Boolean, Integer, View, Menu> superCall
+                = new CallFun3<Boolean, Integer, View, Menu>(
+                "onPreparePanel(Integer, View, Menu)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Integer featureId, final View view, final Menu menu) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onPreparePanel(this, (int) args[0], (View) args[1], (Menu) args[2]);
+                    return iterator.previous().onPreparePanel(this, featureId, view, menu);
                 } else {
-                    return getOriginal()
-                            .super_onPreparePanel((int) args[0], (View) args[1], (Menu) args[2]);
+                    return getOriginal().super_onPreparePanel(featureId, view, menu);
                 }
             }
         };
@@ -4221,19 +4059,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<android.support.v4.app.TaskStackBuilder> superCall
+                = new CallVoid1<android.support.v4.app.TaskStackBuilder>(
                 "onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final android.support.v4.app.TaskStackBuilder builder) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onPrepareSupportNavigateUpTaskStack(this,
-                            (android.support.v4.app.TaskStackBuilder) args[0]);
-                    return null;
+                    iterator.previous().onPrepareSupportNavigateUpTaskStack(this, builder);
                 } else {
-                    getOriginal().super_onPrepareSupportNavigateUpTaskStack(
-                            (android.support.v4.app.TaskStackBuilder) args[0]);
-                    return null;
+                    getOriginal().super_onPrepareSupportNavigateUpTaskStack(builder);
                 }
             }
         };
@@ -4248,17 +4083,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<AssistContent> superCall = new CallVoid1<AssistContent>(
                 "onProvideAssistContent(AssistContent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final AssistContent outContent) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onProvideAssistContent(this, (AssistContent) args[0]);
-                    return null;
+                    iterator.previous().onProvideAssistContent(this, outContent);
                 } else {
-                    getOriginal().super_onProvideAssistContent((AssistContent) args[0]);
-                    return null;
+                    getOriginal().super_onProvideAssistContent(outContent);
                 }
             }
         };
@@ -4273,17 +4106,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onProvideAssistData(Bundle)") {
+        final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onProvideAssistData(Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle data) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onProvideAssistData(this, (Bundle) args[0]);
-                    return null;
+                    iterator.previous().onProvideAssistData(this, data);
                 } else {
-                    getOriginal().super_onProvideAssistData((Bundle) args[0]);
-                    return null;
+                    getOriginal().super_onProvideAssistData(data);
                 }
             }
         };
@@ -4297,10 +4127,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Uri> superCall = new NamedSuperCall<Uri>("onProvideReferrer()") {
+        final CallFun0<Uri> superCall = new CallFun0<Uri>("onProvideReferrer()") {
 
             @Override
-            public Uri call(final Object... args) {
+            public Uri call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().onProvideReferrer(this);
                 } else {
@@ -4320,21 +4150,19 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onRequestPermissionsResult(int, String[], int[])") {
+        final CallVoid3<Integer, String[], int[]> superCall
+                = new CallVoid3<Integer, String[], int[]>(
+                "onRequestPermissionsResult(Integer, String[], int[])") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer requestCode, final String[] permissions,
+                    final int[] grantResults) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onRequestPermissionsResult(this, (int) args[0], (String[]) args[1],
-                                    (int[]) args[2]);
-                    return null;
+                    iterator.previous().onRequestPermissionsResult(this, requestCode, permissions,
+                            grantResults);
                 } else {
-                    getOriginal()
-                            .super_onRequestPermissionsResult((int) args[0], (String[]) args[1],
-                                    (int[]) args[2]);
-                    return null;
+                    getOriginal().super_onRequestPermissionsResult(requestCode, permissions,
+                            grantResults);
                 }
             }
         };
@@ -4349,16 +4177,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onRestart()") {
+        final CallVoid0 superCall = new CallVoid0("onRestart()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onRestart(this);
-                    return null;
                 } else {
                     getOriginal().super_onRestart();
-                    return null;
                 }
             }
         };
@@ -4374,19 +4200,18 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Bundle, PersistableBundle> superCall
+                = new CallVoid2<Bundle, PersistableBundle>(
                 "onRestoreInstanceState(Bundle, PersistableBundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle savedInstanceState,
+                    final PersistableBundle persistentState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onRestoreInstanceState(this, (Bundle) args[0],
-                            (PersistableBundle) args[1]);
-                    return null;
+                    iterator.previous()
+                            .onRestoreInstanceState(this, savedInstanceState, persistentState);
                 } else {
-                    getOriginal().super_onRestoreInstanceState((Bundle) args[0],
-                            (PersistableBundle) args[1]);
-                    return null;
+                    getOriginal().super_onRestoreInstanceState(savedInstanceState, persistentState);
                 }
             }
         };
@@ -4401,17 +4226,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>(
                 "onRestoreInstanceState(Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onRestoreInstanceState(this, (Bundle) args[0]);
-                    return null;
+                    iterator.previous().onRestoreInstanceState(this, savedInstanceState);
                 } else {
-                    getOriginal().super_onRestoreInstanceState((Bundle) args[0]);
-                    return null;
+                    getOriginal().super_onRestoreInstanceState(savedInstanceState);
                 }
             }
         };
@@ -4426,16 +4249,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onResume()") {
+        final CallVoid0 superCall = new CallVoid0("onResume()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onResume(this);
-                    return null;
                 } else {
                     getOriginal().super_onResume();
-                    return null;
                 }
             }
         };
@@ -4450,16 +4271,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onResumeFragments()") {
+        final CallVoid0 superCall = new CallVoid0("onResumeFragments()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onResumeFragments(this);
-                    return null;
                 } else {
                     getOriginal().super_onResumeFragments();
-                    return null;
                 }
             }
         };
@@ -4488,19 +4307,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Bundle, PersistableBundle> superCall
+                = new CallVoid2<Bundle, PersistableBundle>(
                 "onSaveInstanceState(Bundle, PersistableBundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle outState, final PersistableBundle outPersistentState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onSaveInstanceState(this, (Bundle) args[0],
-                            (PersistableBundle) args[1]);
-                    return null;
+                    iterator.previous().onSaveInstanceState(this, outState, outPersistentState);
                 } else {
-                    getOriginal().super_onSaveInstanceState((Bundle) args[0],
-                            (PersistableBundle) args[1]);
-                    return null;
+                    getOriginal().super_onSaveInstanceState(outState, outPersistentState);
                 }
             }
         };
@@ -4515,17 +4331,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onSaveInstanceState(Bundle)") {
+        final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onSaveInstanceState(Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bundle outState) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onSaveInstanceState(this, (Bundle) args[0]);
-                    return null;
+                    iterator.previous().onSaveInstanceState(this, outState);
                 } else {
-                    getOriginal().super_onSaveInstanceState((Bundle) args[0]);
-                    return null;
+                    getOriginal().super_onSaveInstanceState(outState);
                 }
             }
         };
@@ -4539,15 +4352,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, SearchEvent> superCall = new CallFun1<Boolean, SearchEvent>(
                 "onSearchRequested(SearchEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final SearchEvent searchEvent) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onSearchRequested(this, (SearchEvent) args[0]);
+                    return iterator.previous().onSearchRequested(this, searchEvent);
                 } else {
-                    return getOriginal().super_onSearchRequested((SearchEvent) args[0]);
+                    return getOriginal().super_onSearchRequested(searchEvent);
                 }
             }
         };
@@ -4561,11 +4374,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "onSearchRequested()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("onSearchRequested()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().onSearchRequested(this);
                 } else {
@@ -4584,16 +4396,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onStart()") {
+        final CallVoid0 superCall = new CallVoid0("onStart()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onStart(this);
-                    return null;
                 } else {
                     getOriginal().super_onStart();
-                    return null;
                 }
             }
         };
@@ -4608,16 +4418,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onStateNotSaved()") {
+        final CallVoid0 superCall = new CallVoid0("onStateNotSaved()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onStateNotSaved(this);
-                    return null;
                 } else {
                     getOriginal().super_onStateNotSaved();
-                    return null;
                 }
             }
         };
@@ -4632,16 +4440,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onStop()") {
+        final CallVoid0 superCall = new CallVoid0("onStop()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onStop(this);
-                    return null;
                 } else {
                     getOriginal().super_onStop();
-                    return null;
                 }
             }
         };
@@ -4656,17 +4462,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<ActionMode> superCall = new CallVoid1<ActionMode>(
                 "onSupportActionModeFinished(ActionMode)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final ActionMode mode) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onSupportActionModeFinished(this, (ActionMode) args[0]);
-                    return null;
+                    iterator.previous().onSupportActionModeFinished(this, mode);
                 } else {
-                    getOriginal().super_onSupportActionModeFinished((ActionMode) args[0]);
-                    return null;
+                    getOriginal().super_onSupportActionModeFinished(mode);
                 }
             }
         };
@@ -4681,17 +4485,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<ActionMode> superCall = new CallVoid1<ActionMode>(
                 "onSupportActionModeStarted(ActionMode)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final ActionMode mode) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onSupportActionModeStarted(this, (ActionMode) args[0]);
-                    return null;
+                    iterator.previous().onSupportActionModeStarted(this, mode);
                 } else {
-                    getOriginal().super_onSupportActionModeStarted((ActionMode) args[0]);
-                    return null;
+                    getOriginal().super_onSupportActionModeStarted(mode);
                 }
             }
         };
@@ -4706,17 +4508,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onSupportContentChanged()") {
+        final CallVoid0 superCall = new CallVoid0("onSupportContentChanged()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onSupportContentChanged(this);
-                    return null;
                 } else {
                     getOriginal().super_onSupportContentChanged();
-                    return null;
                 }
             }
         };
@@ -4730,11 +4529,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "onSupportNavigateUp()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("onSupportNavigateUp()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().onSupportNavigateUp(this);
                 } else {
@@ -4753,17 +4551,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onTitleChanged(CharSequence, int)") {
+        final CallVoid2<CharSequence, Integer> superCall = new CallVoid2<CharSequence, Integer>(
+                "onTitleChanged(CharSequence, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final CharSequence title, final Integer color) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onTitleChanged(this, (CharSequence) args[0], (int) args[1]);
-                    return null;
+                    iterator.previous().onTitleChanged(this, title, color);
                 } else {
-                    getOriginal().super_onTitleChanged((CharSequence) args[0], (int) args[1]);
-                    return null;
+                    getOriginal().super_onTitleChanged(title, color);
                 }
             }
         };
@@ -4777,15 +4573,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, MotionEvent> superCall = new CallFun1<Boolean, MotionEvent>(
                 "onTouchEvent(MotionEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final MotionEvent event) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onTouchEvent(this, (MotionEvent) args[0]);
+                    return iterator.previous().onTouchEvent(this, event);
                 } else {
-                    return getOriginal().super_onTouchEvent((MotionEvent) args[0]);
+                    return getOriginal().super_onTouchEvent(event);
                 }
             }
         };
@@ -4799,15 +4595,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, MotionEvent> superCall = new CallFun1<Boolean, MotionEvent>(
                 "onTrackballEvent(MotionEvent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final MotionEvent event) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onTrackballEvent(this, (MotionEvent) args[0]);
+                    return iterator.previous().onTrackballEvent(this, event);
                 } else {
-                    return getOriginal().super_onTrackballEvent((MotionEvent) args[0]);
+                    return getOriginal().super_onTrackballEvent(event);
                 }
             }
         };
@@ -4822,16 +4618,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onTrimMemory(int)") {
+        final CallVoid1<Integer> superCall = new CallVoid1<Integer>("onTrimMemory(Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer level) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onTrimMemory(this, (int) args[0]);
-                    return null;
+                    iterator.previous().onTrimMemory(this, level);
                 } else {
-                    getOriginal().super_onTrimMemory((int) args[0]);
-                    return null;
+                    getOriginal().super_onTrimMemory(level);
                 }
             }
         };
@@ -4846,16 +4640,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onUserInteraction()") {
+        final CallVoid0 superCall = new CallVoid0("onUserInteraction()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onUserInteraction(this);
-                    return null;
                 } else {
                     getOriginal().super_onUserInteraction();
-                    return null;
                 }
             }
         };
@@ -4870,16 +4662,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("onUserLeaveHint()") {
+        final CallVoid0 superCall = new CallVoid0("onUserLeaveHint()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onUserLeaveHint(this);
-                    return null;
                 } else {
                     getOriginal().super_onUserLeaveHint();
-                    return null;
                 }
             }
         };
@@ -4894,17 +4684,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onVisibleBehindCanceled()") {
+        final CallVoid0 superCall = new CallVoid0("onVisibleBehindCanceled()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onVisibleBehindCanceled(this);
-                    return null;
                 } else {
                     getOriginal().super_onVisibleBehindCanceled();
-                    return null;
                 }
             }
         };
@@ -4919,19 +4706,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<WindowManager.LayoutParams> superCall
+                = new CallVoid1<WindowManager.LayoutParams>(
                 "onWindowAttributesChanged(WindowManager.LayoutParams)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final WindowManager.LayoutParams params) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .onWindowAttributesChanged(this, (WindowManager.LayoutParams) args[0]);
-                    return null;
+                    iterator.previous().onWindowAttributesChanged(this, params);
                 } else {
-                    getOriginal()
-                            .super_onWindowAttributesChanged((WindowManager.LayoutParams) args[0]);
-                    return null;
+                    getOriginal().super_onWindowAttributesChanged(params);
                 }
             }
         };
@@ -4946,17 +4730,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "onWindowFocusChanged(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "onWindowFocusChanged(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean hasFocus) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onWindowFocusChanged(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().onWindowFocusChanged(this, hasFocus);
                 } else {
-                    getOriginal().super_onWindowFocusChanged((boolean) args[0]);
-                    return null;
+                    getOriginal().super_onWindowFocusChanged(hasFocus);
                 }
             }
         };
@@ -4971,18 +4753,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<android.view.ActionMode> superCall
-                = new NamedSuperCall<android.view.ActionMode>(
+        final CallFun1<android.view.ActionMode, android.view.ActionMode.Callback> superCall
+                = new CallFun1<android.view.ActionMode, android.view.ActionMode.Callback>(
                 "onWindowStartingActionMode(android.view.ActionMode.Callback)") {
 
             @Override
-            public android.view.ActionMode call(final Object... args) {
+            public android.view.ActionMode call(final android.view.ActionMode.Callback callback) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onWindowStartingActionMode(this,
-                            (android.view.ActionMode.Callback) args[0]);
+                    return iterator.previous().onWindowStartingActionMode(this, callback);
                 } else {
-                    return getOriginal().super_onWindowStartingActionMode(
-                            (android.view.ActionMode.Callback) args[0]);
+                    return getOriginal().super_onWindowStartingActionMode(callback);
                 }
             }
         };
@@ -4997,18 +4777,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<android.view.ActionMode> superCall
-                = new NamedSuperCall<android.view.ActionMode>(
-                "onWindowStartingActionMode(android.view.ActionMode.Callback, int)") {
+        final CallFun2<android.view.ActionMode, android.view.ActionMode.Callback, Integer> superCall
+                = new CallFun2<android.view.ActionMode, android.view.ActionMode.Callback, Integer>(
+                "onWindowStartingActionMode(android.view.ActionMode.Callback, Integer)") {
 
             @Override
-            public android.view.ActionMode call(final Object... args) {
+            public android.view.ActionMode call(final android.view.ActionMode.Callback callback,
+                    final Integer type) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onWindowStartingActionMode(this,
-                            (android.view.ActionMode.Callback) args[0], (int) args[1]);
+                    return iterator.previous().onWindowStartingActionMode(this, callback, type);
                 } else {
-                    return getOriginal().super_onWindowStartingActionMode(
-                            (android.view.ActionMode.Callback) args[0], (int) args[1]);
+                    return getOriginal().super_onWindowStartingActionMode(callback, type);
                 }
             }
         };
@@ -5023,17 +4802,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<ActionMode> superCall = new NamedSuperCall<ActionMode>(
+        final CallFun1<ActionMode, ActionMode.Callback> superCall
+                = new CallFun1<ActionMode, ActionMode.Callback>(
                 "onWindowStartingSupportActionMode(ActionMode.Callback)") {
 
             @Override
-            public ActionMode call(final Object... args) {
+            public ActionMode call(final ActionMode.Callback callback) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .onWindowStartingSupportActionMode(this, (ActionMode.Callback) args[0]);
+                    return iterator.previous().onWindowStartingSupportActionMode(this, callback);
                 } else {
-                    return getOriginal()
-                            .super_onWindowStartingSupportActionMode((ActionMode.Callback) args[0]);
+                    return getOriginal().super_onWindowStartingSupportActionMode(callback);
                 }
             }
         };
@@ -5048,16 +4826,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("openContextMenu(View)") {
+        final CallVoid1<View> superCall = new CallVoid1<View>("openContextMenu(View)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final View view) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().openContextMenu(this, (View) args[0]);
-                    return null;
+                    iterator.previous().openContextMenu(this, view);
                 } else {
-                    getOriginal().super_openContextMenu((View) args[0]);
-                    return null;
+                    getOriginal().super_openContextMenu(view);
                 }
             }
         };
@@ -5075,20 +4851,20 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<FileInputStream> superCall = new NamedSuperCall<FileInputStream>(
+        final CallFun1<FileInputStream, String> superCall = new CallFun1<FileInputStream, String>(
                 "openFileInput(String)") {
 
             @Override
-            public FileInputStream call(final Object... args) {
+            public FileInputStream call(final String name) {
                 if (iterator.hasPrevious()) {
                     try {
-                        return iterator.previous().openFileInput(this, (String) args[0]);
+                        return iterator.previous().openFileInput(this, name);
                     } catch (FileNotFoundException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
-                        return getOriginal().super_openFileInput((String) args[0]);
+                        return getOriginal().super_openFileInput(name);
                     } catch (FileNotFoundException e) {
                         throw new SuppressedException(e);
                     }
@@ -5110,21 +4886,21 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<FileOutputStream> superCall = new NamedSuperCall<FileOutputStream>(
-                "openFileOutput(String, int)") {
+        final CallFun2<FileOutputStream, String, Integer> superCall
+                = new CallFun2<FileOutputStream, String, Integer>(
+                "openFileOutput(String, Integer)") {
 
             @Override
-            public FileOutputStream call(final Object... args) {
+            public FileOutputStream call(final String name, final Integer mode) {
                 if (iterator.hasPrevious()) {
                     try {
-                        return iterator.previous()
-                                .openFileOutput(this, (String) args[0], (int) args[1]);
+                        return iterator.previous().openFileOutput(this, name, mode);
                     } catch (FileNotFoundException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
-                        return getOriginal().super_openFileOutput((String) args[0], (int) args[1]);
+                        return getOriginal().super_openFileOutput(name, mode);
                     } catch (FileNotFoundException e) {
                         throw new SuppressedException(e);
                     }
@@ -5142,16 +4918,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("openOptionsMenu()") {
+        final CallVoid0 superCall = new CallVoid0("openOptionsMenu()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().openOptionsMenu(this);
-                    return null;
                 } else {
                     getOriginal().super_openOptionsMenu();
-                    return null;
                 }
             }
         };
@@ -5166,18 +4940,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<SQLiteDatabase> superCall = new NamedSuperCall<SQLiteDatabase>(
-                "openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory)") {
+        final CallFun3<SQLiteDatabase, String, Integer, SQLiteDatabase.CursorFactory> superCall
+                = new CallFun3<SQLiteDatabase, String, Integer, SQLiteDatabase.CursorFactory>(
+                "openOrCreateDatabase(String, Integer, SQLiteDatabase.CursorFactory)") {
 
             @Override
-            public SQLiteDatabase call(final Object... args) {
+            public SQLiteDatabase call(final String name, final Integer mode,
+                    final SQLiteDatabase.CursorFactory factory) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .openOrCreateDatabase(this, (String) args[0], (int) args[1],
-                                    (SQLiteDatabase.CursorFactory) args[2]);
+                    return iterator.previous().openOrCreateDatabase(this, name, mode, factory);
                 } else {
-                    return getOriginal().super_openOrCreateDatabase((String) args[0], (int) args[1],
-                            (SQLiteDatabase.CursorFactory) args[2]);
+                    return getOriginal().super_openOrCreateDatabase(name, mode, factory);
                 }
             }
         };
@@ -5192,19 +4965,21 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<SQLiteDatabase> superCall = new NamedSuperCall<SQLiteDatabase>(
-                "openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory, DatabaseErrorHandler)") {
+        final CallFun4<SQLiteDatabase, String, Integer, SQLiteDatabase.CursorFactory, DatabaseErrorHandler>
+                superCall
+                = new CallFun4<SQLiteDatabase, String, Integer, SQLiteDatabase.CursorFactory, DatabaseErrorHandler>(
+                "openOrCreateDatabase(String, Integer, SQLiteDatabase.CursorFactory, DatabaseErrorHandler)") {
 
             @Override
-            public SQLiteDatabase call(final Object... args) {
+            public SQLiteDatabase call(final String name, final Integer mode,
+                    final SQLiteDatabase.CursorFactory factory,
+                    final DatabaseErrorHandler errorHandler) {
                 if (iterator.hasPrevious()) {
                     return iterator.previous()
-                            .openOrCreateDatabase(this, (String) args[0], (int) args[1],
-                                    (SQLiteDatabase.CursorFactory) args[2],
-                                    (DatabaseErrorHandler) args[3]);
+                            .openOrCreateDatabase(this, name, mode, factory, errorHandler);
                 } else {
-                    return getOriginal().super_openOrCreateDatabase((String) args[0], (int) args[1],
-                            (SQLiteDatabase.CursorFactory) args[2], (DatabaseErrorHandler) args[3]);
+                    return getOriginal()
+                            .super_openOrCreateDatabase(name, mode, factory, errorHandler);
                 }
             }
         };
@@ -5219,18 +4994,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "overridePendingTransition(int, int)") {
+        final CallVoid2<Integer, Integer> superCall = new CallVoid2<Integer, Integer>(
+                "overridePendingTransition(Integer, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer enterAnim, final Integer exitAnim) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .overridePendingTransition(this, (int) args[0], (int) args[1]);
-                    return null;
+                    iterator.previous().overridePendingTransition(this, enterAnim, exitAnim);
                 } else {
-                    getOriginal().super_overridePendingTransition((int) args[0], (int) args[1]);
-                    return null;
+                    getOriginal().super_overridePendingTransition(enterAnim, exitAnim);
                 }
             }
         };
@@ -5244,10 +5016,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Drawable> superCall = new NamedSuperCall<Drawable>("peekWallpaper()") {
+        final CallFun0<Drawable> superCall = new CallFun0<Drawable>("peekWallpaper()") {
 
             @Override
-            public Drawable call(final Object... args) {
+            public Drawable call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().peekWallpaper(this);
                 } else {
@@ -5266,17 +5038,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "postponeEnterTransition()") {
+        final CallVoid0 superCall = new CallVoid0("postponeEnterTransition()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().postponeEnterTransition(this);
-                    return null;
                 } else {
                     getOriginal().super_postponeEnterTransition();
-                    return null;
                 }
             }
         };
@@ -5291,16 +5060,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("recreate()") {
+        final CallVoid0 superCall = new CallVoid0("recreate()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().recreate(this);
-                    return null;
                 } else {
                     getOriginal().super_recreate();
-                    return null;
                 }
             }
         };
@@ -5315,18 +5082,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<ComponentCallbacks> superCall = new CallVoid1<ComponentCallbacks>(
                 "registerComponentCallbacks(ComponentCallbacks)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final ComponentCallbacks callback) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .registerComponentCallbacks(this, (ComponentCallbacks) args[0]);
-                    return null;
+                    iterator.previous().registerComponentCallbacks(this, callback);
                 } else {
-                    getOriginal().super_registerComponentCallbacks((ComponentCallbacks) args[0]);
-                    return null;
+                    getOriginal().super_registerComponentCallbacks(callback);
                 }
             }
         };
@@ -5341,17 +5105,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "registerForContextMenu(View)") {
+        final CallVoid1<View> superCall = new CallVoid1<View>("registerForContextMenu(View)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final View view) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().registerForContextMenu(this, (View) args[0]);
-                    return null;
+                    iterator.previous().registerForContextMenu(this, view);
                 } else {
-                    getOriginal().super_registerForContextMenu((View) args[0]);
-                    return null;
+                    getOriginal().super_registerForContextMenu(view);
                 }
             }
         };
@@ -5365,17 +5126,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Intent> superCall = new NamedSuperCall<Intent>(
+        final CallFun2<Intent, BroadcastReceiver, IntentFilter> superCall
+                = new CallFun2<Intent, BroadcastReceiver, IntentFilter>(
                 "registerReceiver(BroadcastReceiver, IntentFilter)") {
 
             @Override
-            public Intent call(final Object... args) {
+            public Intent call(final BroadcastReceiver receiver, final IntentFilter filter) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().registerReceiver(this, (BroadcastReceiver) args[0],
-                            (IntentFilter) args[1]);
+                    return iterator.previous().registerReceiver(this, receiver, filter);
                 } else {
-                    return getOriginal().super_registerReceiver((BroadcastReceiver) args[0],
-                            (IntentFilter) args[1]);
+                    return getOriginal().super_registerReceiver(receiver, filter);
                 }
             }
         };
@@ -5391,17 +5151,21 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Intent> superCall = new NamedSuperCall<Intent>(
+        final CallFun4<Intent, BroadcastReceiver, IntentFilter, String, Handler> superCall
+                = new CallFun4<Intent, BroadcastReceiver, IntentFilter, String, Handler>(
                 "registerReceiver(BroadcastReceiver, IntentFilter, String, Handler)") {
 
             @Override
-            public Intent call(final Object... args) {
+            public Intent call(final BroadcastReceiver receiver, final IntentFilter filter,
+                    final String broadcastPermission, final Handler scheduler) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().registerReceiver(this, (BroadcastReceiver) args[0],
-                            (IntentFilter) args[1], (String) args[2], (Handler) args[3]);
+                    return iterator.previous()
+                            .registerReceiver(this, receiver, filter, broadcastPermission,
+                                    scheduler);
                 } else {
-                    return getOriginal().super_registerReceiver((BroadcastReceiver) args[0],
-                            (IntentFilter) args[1], (String) args[2], (Handler) args[3]);
+                    return getOriginal()
+                            .super_registerReceiver(receiver, filter, broadcastPermission,
+                                    scheduler);
                 }
             }
         };
@@ -5415,10 +5179,10 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("releaseInstance()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("releaseInstance()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().releaseInstance(this);
                 } else {
@@ -5437,17 +5201,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "removeStickyBroadcast(Intent)") {
+        final CallVoid1<Intent> superCall = new CallVoid1<Intent>("removeStickyBroadcast(Intent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().removeStickyBroadcast(this, (Intent) args[0]);
-                    return null;
+                    iterator.previous().removeStickyBroadcast(this, intent);
                 } else {
-                    getOriginal().super_removeStickyBroadcast((Intent) args[0]);
-                    return null;
+                    getOriginal().super_removeStickyBroadcast(intent);
                 }
             }
         };
@@ -5462,19 +5223,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Intent, UserHandle> superCall = new CallVoid2<Intent, UserHandle>(
                 "removeStickyBroadcastAsUser(Intent, UserHandle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final UserHandle user) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().removeStickyBroadcastAsUser(this, (Intent) args[0],
-                            (UserHandle) args[1]);
-                    return null;
+                    iterator.previous().removeStickyBroadcastAsUser(this, intent, user);
                 } else {
-                    getOriginal().super_removeStickyBroadcastAsUser((Intent) args[0],
-                            (UserHandle) args[1]);
-                    return null;
+                    getOriginal().super_removeStickyBroadcastAsUser(intent, user);
                 }
             }
         };
@@ -5489,16 +5246,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("reportFullyDrawn()") {
+        final CallVoid0 superCall = new CallVoid0("reportFullyDrawn()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().reportFullyDrawn(this);
-                    return null;
                 } else {
                     getOriginal().super_reportFullyDrawn();
-                    return null;
                 }
             }
         };
@@ -5512,15 +5267,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "requestVisibleBehind(boolean)") {
+        final CallFun1<Boolean, Boolean> superCall = new CallFun1<Boolean, Boolean>(
+                "requestVisibleBehind(Boolean)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Boolean visible) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().requestVisibleBehind(this, (boolean) args[0]);
+                    return iterator.previous().requestVisibleBehind(this, visible);
                 } else {
-                    return getOriginal().super_requestVisibleBehind((boolean) args[0]);
+                    return getOriginal().super_requestVisibleBehind(visible);
                 }
             }
         };
@@ -5535,17 +5290,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "revokeUriPermission(Uri, int)") {
+        final CallVoid2<Uri, Integer> superCall = new CallVoid2<Uri, Integer>(
+                "revokeUriPermission(Uri, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Uri uri, final Integer modeFlags) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().revokeUriPermission(this, (Uri) args[0], (int) args[1]);
-                    return null;
+                    iterator.previous().revokeUriPermission(this, uri, modeFlags);
                 } else {
-                    getOriginal().super_revokeUriPermission((Uri) args[0], (int) args[1]);
-                    return null;
+                    getOriginal().super_revokeUriPermission(uri, modeFlags);
                 }
             }
         };
@@ -5560,16 +5313,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("sendBroadcast(Intent)") {
+        final CallVoid1<Intent> superCall = new CallVoid1<Intent>("sendBroadcast(Intent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().sendBroadcast(this, (Intent) args[0]);
-                    return null;
+                    iterator.previous().sendBroadcast(this, intent);
                 } else {
-                    getOriginal().super_sendBroadcast((Intent) args[0]);
-                    return null;
+                    getOriginal().super_sendBroadcast(intent);
                 }
             }
         };
@@ -5584,17 +5335,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Intent, String> superCall = new CallVoid2<Intent, String>(
                 "sendBroadcast(Intent, String)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final String receiverPermission) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().sendBroadcast(this, (Intent) args[0], (String) args[1]);
-                    return null;
+                    iterator.previous().sendBroadcast(this, intent, receiverPermission);
                 } else {
-                    getOriginal().super_sendBroadcast((Intent) args[0], (String) args[1]);
-                    return null;
+                    getOriginal().super_sendBroadcast(intent, receiverPermission);
                 }
             }
         };
@@ -5609,18 +5358,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Intent, UserHandle> superCall = new CallVoid2<Intent, UserHandle>(
                 "sendBroadcastAsUser(Intent, UserHandle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final UserHandle user) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .sendBroadcastAsUser(this, (Intent) args[0], (UserHandle) args[1]);
-                    return null;
+                    iterator.previous().sendBroadcastAsUser(this, intent, user);
                 } else {
-                    getOriginal().super_sendBroadcastAsUser((Intent) args[0], (UserHandle) args[1]);
-                    return null;
+                    getOriginal().super_sendBroadcastAsUser(intent, user);
                 }
             }
         };
@@ -5636,20 +5382,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid3<Intent, UserHandle, String> superCall
+                = new CallVoid3<Intent, UserHandle, String>(
                 "sendBroadcastAsUser(Intent, UserHandle, String)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final UserHandle user,
+                    final String receiverPermission) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .sendBroadcastAsUser(this, (Intent) args[0], (UserHandle) args[1],
-                                    (String) args[2]);
-                    return null;
+                    iterator.previous().sendBroadcastAsUser(this, intent, user, receiverPermission);
                 } else {
-                    getOriginal().super_sendBroadcastAsUser((Intent) args[0], (UserHandle) args[1],
-                            (String) args[2]);
-                    return null;
+                    getOriginal().super_sendBroadcastAsUser(intent, user, receiverPermission);
                 }
             }
         };
@@ -5664,18 +5407,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Intent, String> superCall = new CallVoid2<Intent, String>(
                 "sendOrderedBroadcast(Intent, String)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final String receiverPermission) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .sendOrderedBroadcast(this, (Intent) args[0], (String) args[1]);
-                    return null;
+                    iterator.previous().sendOrderedBroadcast(this, intent, receiverPermission);
                 } else {
-                    getOriginal().super_sendOrderedBroadcast((Intent) args[0], (String) args[1]);
-                    return null;
+                    getOriginal().super_sendOrderedBroadcast(intent, receiverPermission);
                 }
             }
         };
@@ -5693,22 +5433,24 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "sendOrderedBroadcast(Intent, String, BroadcastReceiver, Handler, int, String, Bundle)") {
+        final CallVoid7<Intent, String, BroadcastReceiver, Handler, Integer, String, Bundle>
+                superCall
+                = new CallVoid7<Intent, String, BroadcastReceiver, Handler, Integer, String, Bundle>(
+                "sendOrderedBroadcast(Intent, String, BroadcastReceiver, Handler, Integer, String, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final String receiverPermission,
+                    final BroadcastReceiver resultReceiver, final Handler scheduler,
+                    final Integer initialCode, final String initialData,
+                    final Bundle initialExtras) {
                 if (iterator.hasPrevious()) {
                     iterator.previous()
-                            .sendOrderedBroadcast(this, (Intent) args[0], (String) args[1],
-                                    (BroadcastReceiver) args[2], (Handler) args[3], (int) args[4],
-                                    (String) args[5], (Bundle) args[6]);
-                    return null;
+                            .sendOrderedBroadcast(this, intent, receiverPermission, resultReceiver,
+                                    scheduler, initialCode, initialData, initialExtras);
                 } else {
-                    getOriginal().super_sendOrderedBroadcast((Intent) args[0], (String) args[1],
-                            (BroadcastReceiver) args[2], (Handler) args[3], (int) args[4],
-                            (String) args[5], (Bundle) args[6]);
-                    return null;
+                    getOriginal()
+                            .super_sendOrderedBroadcast(intent, receiverPermission, resultReceiver,
+                                    scheduler, initialCode, initialData, initialExtras);
                 }
             }
         };
@@ -5728,21 +5470,24 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "sendOrderedBroadcastAsUser(Intent, UserHandle, String, BroadcastReceiver, Handler, int, String, Bundle)") {
+        final CallVoid8<Intent, UserHandle, String, BroadcastReceiver, Handler, Integer, String, Bundle>
+                superCall
+                = new CallVoid8<Intent, UserHandle, String, BroadcastReceiver, Handler, Integer, String, Bundle>(
+                "sendOrderedBroadcastAsUser(Intent, UserHandle, String, BroadcastReceiver, Handler, Integer, String, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final UserHandle user,
+                    final String receiverPermission, final BroadcastReceiver resultReceiver,
+                    final Handler scheduler, final Integer initialCode, final String initialData,
+                    final Bundle initialExtras) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().sendOrderedBroadcastAsUser(this, (Intent) args[0],
-                            (UserHandle) args[1], (String) args[2], (BroadcastReceiver) args[3],
-                            (Handler) args[4], (int) args[5], (String) args[6], (Bundle) args[7]);
-                    return null;
+                    iterator.previous()
+                            .sendOrderedBroadcastAsUser(this, intent, user, receiverPermission,
+                                    resultReceiver, scheduler, initialCode, initialData,
+                                    initialExtras);
                 } else {
-                    getOriginal().super_sendOrderedBroadcastAsUser((Intent) args[0],
-                            (UserHandle) args[1], (String) args[2], (BroadcastReceiver) args[3],
-                            (Handler) args[4], (int) args[5], (String) args[6], (Bundle) args[7]);
-                    return null;
+                    getOriginal().super_sendOrderedBroadcastAsUser(intent, user, receiverPermission,
+                            resultReceiver, scheduler, initialCode, initialData, initialExtras);
                 }
             }
         };
@@ -5758,17 +5503,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "sendStickyBroadcast(Intent)") {
+        final CallVoid1<Intent> superCall = new CallVoid1<Intent>("sendStickyBroadcast(Intent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().sendStickyBroadcast(this, (Intent) args[0]);
-                    return null;
+                    iterator.previous().sendStickyBroadcast(this, intent);
                 } else {
-                    getOriginal().super_sendStickyBroadcast((Intent) args[0]);
-                    return null;
+                    getOriginal().super_sendStickyBroadcast(intent);
                 }
             }
         };
@@ -5783,19 +5525,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Intent, UserHandle> superCall = new CallVoid2<Intent, UserHandle>(
                 "sendStickyBroadcastAsUser(Intent, UserHandle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final UserHandle user) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().sendStickyBroadcastAsUser(this, (Intent) args[0],
-                            (UserHandle) args[1]);
-                    return null;
+                    iterator.previous().sendStickyBroadcastAsUser(this, intent, user);
                 } else {
-                    getOriginal().super_sendStickyBroadcastAsUser((Intent) args[0],
-                            (UserHandle) args[1]);
-                    return null;
+                    getOriginal().super_sendStickyBroadcastAsUser(intent, user);
                 }
             }
         };
@@ -5813,21 +5551,22 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "sendStickyOrderedBroadcast(Intent, BroadcastReceiver, Handler, int, String, Bundle)") {
+        final CallVoid6<Intent, BroadcastReceiver, Handler, Integer, String, Bundle> superCall
+                = new CallVoid6<Intent, BroadcastReceiver, Handler, Integer, String, Bundle>(
+                "sendStickyOrderedBroadcast(Intent, BroadcastReceiver, Handler, Integer, String, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final BroadcastReceiver resultReceiver,
+                    final Handler scheduler, final Integer initialCode, final String initialData,
+                    final Bundle initialExtras) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().sendStickyOrderedBroadcast(this, (Intent) args[0],
-                            (BroadcastReceiver) args[1], (Handler) args[2], (int) args[3],
-                            (String) args[4], (Bundle) args[5]);
-                    return null;
+                    iterator.previous()
+                            .sendStickyOrderedBroadcast(this, intent, resultReceiver, scheduler,
+                                    initialCode, initialData, initialExtras);
                 } else {
-                    getOriginal().super_sendStickyOrderedBroadcast((Intent) args[0],
-                            (BroadcastReceiver) args[1], (Handler) args[2], (int) args[3],
-                            (String) args[4], (Bundle) args[5]);
-                    return null;
+                    getOriginal()
+                            .super_sendStickyOrderedBroadcast(intent, resultReceiver, scheduler,
+                                    initialCode, initialData, initialExtras);
                 }
             }
         };
@@ -5846,21 +5585,24 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "sendStickyOrderedBroadcastAsUser(Intent, UserHandle, BroadcastReceiver, Handler, int, String, Bundle)") {
+        final CallVoid7<Intent, UserHandle, BroadcastReceiver, Handler, Integer, String, Bundle>
+                superCall
+                = new CallVoid7<Intent, UserHandle, BroadcastReceiver, Handler, Integer, String, Bundle>(
+                "sendStickyOrderedBroadcastAsUser(Intent, UserHandle, BroadcastReceiver, Handler, Integer, String, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final UserHandle user,
+                    final BroadcastReceiver resultReceiver, final Handler scheduler,
+                    final Integer initialCode, final String initialData,
+                    final Bundle initialExtras) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().sendStickyOrderedBroadcastAsUser(this, (Intent) args[0],
-                            (UserHandle) args[1], (BroadcastReceiver) args[2], (Handler) args[3],
-                            (int) args[4], (String) args[5], (Bundle) args[6]);
-                    return null;
+                    iterator.previous()
+                            .sendStickyOrderedBroadcastAsUser(this, intent, user, resultReceiver,
+                                    scheduler, initialCode, initialData, initialExtras);
                 } else {
-                    getOriginal().super_sendStickyOrderedBroadcastAsUser((Intent) args[0],
-                            (UserHandle) args[1], (BroadcastReceiver) args[2], (Handler) args[3],
-                            (int) args[4], (String) args[5], (Bundle) args[6]);
-                    return null;
+                    getOriginal()
+                            .super_sendStickyOrderedBroadcastAsUser(intent, user, resultReceiver,
+                                    scheduler, initialCode, initialData, initialExtras);
                 }
             }
         };
@@ -5876,16 +5618,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setActionBar(Toolbar)") {
+        final CallVoid1<Toolbar> superCall = new CallVoid1<Toolbar>("setActionBar(Toolbar)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Toolbar toolbar) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setActionBar(this, (Toolbar) args[0]);
-                    return null;
+                    iterator.previous().setActionBar(this, toolbar);
                 } else {
-                    getOriginal().super_setActionBar((Toolbar) args[0]);
-                    return null;
+                    getOriginal().super_setActionBar(toolbar);
                 }
             }
         };
@@ -5900,18 +5640,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<TransitionManager> superCall = new CallVoid1<TransitionManager>(
                 "setContentTransitionManager(TransitionManager)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final TransitionManager tm) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .setContentTransitionManager(this, (TransitionManager) args[0]);
-                    return null;
+                    iterator.previous().setContentTransitionManager(this, tm);
                 } else {
-                    getOriginal().super_setContentTransitionManager((TransitionManager) args[0]);
-                    return null;
+                    getOriginal().super_setContentTransitionManager(tm);
                 }
             }
         };
@@ -5926,16 +5663,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setContentView(int)") {
+        final CallVoid1<Integer> superCall = new CallVoid1<Integer>("setContentView(Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer layoutResID) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setContentView(this, (int) args[0]);
-                    return null;
+                    iterator.previous().setContentView(this, layoutResID);
                 } else {
-                    getOriginal().super_setContentView((int) args[0]);
-                    return null;
+                    getOriginal().super_setContentView(layoutResID);
                 }
             }
         };
@@ -5950,16 +5685,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setContentView(View)") {
+        final CallVoid1<View> superCall = new CallVoid1<View>("setContentView(View)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final View view) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setContentView(this, (View) args[0]);
-                    return null;
+                    iterator.previous().setContentView(this, view);
                 } else {
-                    getOriginal().super_setContentView((View) args[0]);
-                    return null;
+                    getOriginal().super_setContentView(view);
                 }
             }
         };
@@ -5974,19 +5707,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<View, ViewGroup.LayoutParams> superCall
+                = new CallVoid2<View, ViewGroup.LayoutParams>(
                 "setContentView(View, ViewGroup.LayoutParams)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final View view, final ViewGroup.LayoutParams params) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .setContentView(this, (View) args[0], (ViewGroup.LayoutParams) args[1]);
-                    return null;
+                    iterator.previous().setContentView(this, view, params);
                 } else {
-                    getOriginal()
-                            .super_setContentView((View) args[0], (ViewGroup.LayoutParams) args[1]);
-                    return null;
+                    getOriginal().super_setContentView(view, params);
                 }
             }
         };
@@ -6001,19 +5731,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<SharedElementCallback> superCall = new CallVoid1<SharedElementCallback>(
                 "setEnterSharedElementCallback(SharedElementCallback)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final SharedElementCallback callback) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .setEnterSharedElementCallback(this, (SharedElementCallback) args[0]);
-                    return null;
+                    iterator.previous().setEnterSharedElementCallback(this, callback);
                 } else {
-                    getOriginal()
-                            .super_setEnterSharedElementCallback((SharedElementCallback) args[0]);
-                    return null;
+                    getOriginal().super_setEnterSharedElementCallback(callback);
                 }
             }
         };
@@ -6028,19 +5754,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<android.app.SharedElementCallback> superCall
+                = new CallVoid1<android.app.SharedElementCallback>(
                 "setEnterSharedElementCallback(android.app.SharedElementCallback)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final android.app.SharedElementCallback callback) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setEnterSharedElementCallback(this,
-                            (android.app.SharedElementCallback) args[0]);
-                    return null;
+                    iterator.previous().setEnterSharedElementCallback(this, callback);
                 } else {
-                    getOriginal().super_setEnterSharedElementCallback(
-                            (android.app.SharedElementCallback) args[0]);
-                    return null;
+                    getOriginal().super_setEnterSharedElementCallback(callback);
                 }
             }
         };
@@ -6055,19 +5778,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<SharedElementCallback> superCall = new CallVoid1<SharedElementCallback>(
                 "setExitSharedElementCallback(SharedElementCallback)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final SharedElementCallback listener) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .setExitSharedElementCallback(this, (SharedElementCallback) args[0]);
-                    return null;
+                    iterator.previous().setExitSharedElementCallback(this, listener);
                 } else {
-                    getOriginal()
-                            .super_setExitSharedElementCallback((SharedElementCallback) args[0]);
-                    return null;
+                    getOriginal().super_setExitSharedElementCallback(listener);
                 }
             }
         };
@@ -6082,19 +5801,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<android.app.SharedElementCallback> superCall
+                = new CallVoid1<android.app.SharedElementCallback>(
                 "setExitSharedElementCallback(android.app.SharedElementCallback)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final android.app.SharedElementCallback callback) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setExitSharedElementCallback(this,
-                            (android.app.SharedElementCallback) args[0]);
-                    return null;
+                    iterator.previous().setExitSharedElementCallback(this, callback);
                 } else {
-                    getOriginal().super_setExitSharedElementCallback(
-                            (android.app.SharedElementCallback) args[0]);
-                    return null;
+                    getOriginal().super_setExitSharedElementCallback(callback);
                 }
             }
         };
@@ -6109,17 +5825,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setFinishOnTouchOutside(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "setFinishOnTouchOutside(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean finish) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setFinishOnTouchOutside(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setFinishOnTouchOutside(this, finish);
                 } else {
-                    getOriginal().super_setFinishOnTouchOutside((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setFinishOnTouchOutside(finish);
                 }
             }
         };
@@ -6134,16 +5848,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setImmersive(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setImmersive(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean i) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setImmersive(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setImmersive(this, i);
                 } else {
-                    getOriginal().super_setImmersive((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setImmersive(i);
                 }
             }
         };
@@ -6158,16 +5870,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setIntent(Intent)") {
+        final CallVoid1<Intent> superCall = new CallVoid1<Intent>("setIntent(Intent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent newIntent) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setIntent(this, (Intent) args[0]);
-                    return null;
+                    iterator.previous().setIntent(this, newIntent);
                 } else {
-                    getOriginal().super_setIntent((Intent) args[0]);
-                    return null;
+                    getOriginal().super_setIntent(newIntent);
                 }
             }
         };
@@ -6182,17 +5892,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setRequestedOrientation(int)") {
+        final CallVoid1<Integer> superCall = new CallVoid1<Integer>(
+                "setRequestedOrientation(Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer requestedOrientation) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setRequestedOrientation(this, (int) args[0]);
-                    return null;
+                    iterator.previous().setRequestedOrientation(this, requestedOrientation);
                 } else {
-                    getOriginal().super_setRequestedOrientation((int) args[0]);
-                    return null;
+                    getOriginal().super_setRequestedOrientation(requestedOrientation);
                 }
             }
         };
@@ -6207,19 +5915,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<android.support.v7.widget.Toolbar> superCall
+                = new CallVoid1<android.support.v7.widget.Toolbar>(
                 "setSupportActionBar(android.support.v7.widget.Toolbar)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final android.support.v7.widget.Toolbar toolbar) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .setSupportActionBar(this, (android.support.v7.widget.Toolbar) args[0]);
-                    return null;
+                    iterator.previous().setSupportActionBar(this, toolbar);
                 } else {
-                    getOriginal()
-                            .super_setSupportActionBar((android.support.v7.widget.Toolbar) args[0]);
-                    return null;
+                    getOriginal().super_setSupportActionBar(toolbar);
                 }
             }
         };
@@ -6234,16 +5939,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setSupportProgress(int)") {
+        final CallVoid1<Integer> superCall = new CallVoid1<Integer>("setSupportProgress(Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer progress) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setSupportProgress(this, (int) args[0]);
-                    return null;
+                    iterator.previous().setSupportProgress(this, progress);
                 } else {
-                    getOriginal().super_setSupportProgress((int) args[0]);
-                    return null;
+                    getOriginal().super_setSupportProgress(progress);
                 }
             }
         };
@@ -6258,17 +5961,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setSupportProgressBarIndeterminate(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "setSupportProgressBarIndeterminate(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean indeterminate) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setSupportProgressBarIndeterminate(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setSupportProgressBarIndeterminate(this, indeterminate);
                 } else {
-                    getOriginal().super_setSupportProgressBarIndeterminate((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setSupportProgressBarIndeterminate(indeterminate);
                 }
             }
         };
@@ -6283,19 +5984,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setSupportProgressBarIndeterminateVisibility(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "setSupportProgressBarIndeterminateVisibility(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean visible) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .setSupportProgressBarIndeterminateVisibility(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setSupportProgressBarIndeterminateVisibility(this, visible);
                 } else {
-                    getOriginal()
-                            .super_setSupportProgressBarIndeterminateVisibility((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setSupportProgressBarIndeterminateVisibility(visible);
                 }
             }
         };
@@ -6310,17 +6007,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setSupportProgressBarVisibility(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "setSupportProgressBarVisibility(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean visible) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setSupportProgressBarVisibility(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setSupportProgressBarVisibility(this, visible);
                 } else {
-                    getOriginal().super_setSupportProgressBarVisibility((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setSupportProgressBarVisibility(visible);
                 }
             }
         };
@@ -6335,19 +6030,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<ActivityManager.TaskDescription> superCall
+                = new CallVoid1<ActivityManager.TaskDescription>(
                 "setTaskDescription(ActivityManager.TaskDescription)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final ActivityManager.TaskDescription taskDescription) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .setTaskDescription(this, (ActivityManager.TaskDescription) args[0]);
-                    return null;
+                    iterator.previous().setTaskDescription(this, taskDescription);
                 } else {
-                    getOriginal()
-                            .super_setTaskDescription((ActivityManager.TaskDescription) args[0]);
-                    return null;
+                    getOriginal().super_setTaskDescription(taskDescription);
                 }
             }
         };
@@ -6362,16 +6054,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setTheme(int)") {
+        final CallVoid1<Integer> superCall = new CallVoid1<Integer>("setTheme(Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer resid) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setTheme(this, (int) args[0]);
-                    return null;
+                    iterator.previous().setTheme(this, resid);
                 } else {
-                    getOriginal().super_setTheme((int) args[0]);
-                    return null;
+                    getOriginal().super_setTheme(resid);
                 }
             }
         };
@@ -6386,16 +6076,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setTitle(CharSequence)") {
+        final CallVoid1<CharSequence> superCall = new CallVoid1<CharSequence>(
+                "setTitle(CharSequence)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final CharSequence title) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setTitle(this, (CharSequence) args[0]);
-                    return null;
+                    iterator.previous().setTitle(this, title);
                 } else {
-                    getOriginal().super_setTitle((CharSequence) args[0]);
-                    return null;
+                    getOriginal().super_setTitle(title);
                 }
             }
         };
@@ -6410,16 +6099,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setTitle(int)") {
+        final CallVoid1<Integer> superCall = new CallVoid1<Integer>("setTitle(Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer titleId) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setTitle(this, (int) args[0]);
-                    return null;
+                    iterator.previous().setTitle(this, titleId);
                 } else {
-                    getOriginal().super_setTitle((int) args[0]);
-                    return null;
+                    getOriginal().super_setTitle(titleId);
                 }
             }
         };
@@ -6434,16 +6121,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setTitleColor(int)") {
+        final CallVoid1<Integer> superCall = new CallVoid1<Integer>("setTitleColor(Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer textColor) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setTitleColor(this, (int) args[0]);
-                    return null;
+                    iterator.previous().setTitleColor(this, textColor);
                 } else {
-                    getOriginal().super_setTitleColor((int) args[0]);
-                    return null;
+                    getOriginal().super_setTitleColor(textColor);
                 }
             }
         };
@@ -6458,16 +6143,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setVisible(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setVisible(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean visible) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setVisible(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setVisible(this, visible);
                 } else {
-                    getOriginal().super_setVisible((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setVisible(visible);
                 }
             }
         };
@@ -6486,21 +6169,19 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setWallpaper(Bitmap)") {
+        final CallVoid1<Bitmap> superCall = new CallVoid1<Bitmap>("setWallpaper(Bitmap)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Bitmap bitmap) {
                 if (iterator.hasPrevious()) {
                     try {
-                        iterator.previous().setWallpaper(this, (Bitmap) args[0]);
-                        return null;
+                        iterator.previous().setWallpaper(this, bitmap);
                     } catch (IOException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
-                        getOriginal().super_setWallpaper((Bitmap) args[0]);
-                        return null;
+                        getOriginal().super_setWallpaper(bitmap);
                     } catch (IOException e) {
                         throw new SuppressedException(e);
                     }
@@ -6522,22 +6203,20 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<InputStream> superCall = new CallVoid1<InputStream>(
                 "setWallpaper(InputStream)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final InputStream data) {
                 if (iterator.hasPrevious()) {
                     try {
-                        iterator.previous().setWallpaper(this, (InputStream) args[0]);
-                        return null;
+                        iterator.previous().setWallpaper(this, data);
                     } catch (IOException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
-                        getOriginal().super_setWallpaper((InputStream) args[0]);
-                        return null;
+                        getOriginal().super_setWallpaper(data);
                     } catch (IOException e) {
                         throw new SuppressedException(e);
                     }
@@ -6554,17 +6233,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, String> superCall = new CallFun1<Boolean, String>(
                 "shouldShowRequestPermissionRationale(String)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final String permission) {
                 if (iterator.hasPrevious()) {
                     return iterator.previous()
-                            .shouldShowRequestPermissionRationale(this, (String) args[0]);
+                            .shouldShowRequestPermissionRationale(this, permission);
                 } else {
-                    return getOriginal()
-                            .super_shouldShowRequestPermissionRationale((String) args[0]);
+                    return getOriginal().super_shouldShowRequestPermissionRationale(permission);
                 }
             }
         };
@@ -6578,15 +6256,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, Intent> superCall = new CallFun1<Boolean, Intent>(
                 "shouldUpRecreateTask(Intent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Intent targetIntent) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().shouldUpRecreateTask(this, (Intent) args[0]);
+                    return iterator.previous().shouldUpRecreateTask(this, targetIntent);
                 } else {
-                    return getOriginal().super_shouldUpRecreateTask((Intent) args[0]);
+                    return getOriginal().super_shouldUpRecreateTask(targetIntent);
                 }
             }
         };
@@ -6600,15 +6278,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, Bundle> superCall = new CallFun1<Boolean, Bundle>(
                 "showAssist(Bundle)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Bundle args) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().showAssist(this, (Bundle) args[0]);
+                    return iterator.previous().showAssist(this, args);
                 } else {
-                    return getOriginal().super_showAssist((Bundle) args[0]);
+                    return getOriginal().super_showAssist(args);
                 }
             }
         };
@@ -6623,17 +6301,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "showLockTaskEscapeMessage()") {
+        final CallVoid0 superCall = new CallVoid0("showLockTaskEscapeMessage()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().showLockTaskEscapeMessage(this);
-                    return null;
                 } else {
                     getOriginal().super_showLockTaskEscapeMessage();
-                    return null;
                 }
             }
         };
@@ -6648,18 +6323,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<android.view.ActionMode> superCall
-                = new NamedSuperCall<android.view.ActionMode>(
+        final CallFun1<android.view.ActionMode, android.view.ActionMode.Callback> superCall
+                = new CallFun1<android.view.ActionMode, android.view.ActionMode.Callback>(
                 "startActionMode(android.view.ActionMode.Callback)") {
 
             @Override
-            public android.view.ActionMode call(final Object... args) {
+            public android.view.ActionMode call(final android.view.ActionMode.Callback callback) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .startActionMode(this, (android.view.ActionMode.Callback) args[0]);
+                    return iterator.previous().startActionMode(this, callback);
                 } else {
-                    return getOriginal()
-                            .super_startActionMode((android.view.ActionMode.Callback) args[0]);
+                    return getOriginal().super_startActionMode(callback);
                 }
             }
         };
@@ -6674,20 +6347,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<android.view.ActionMode> superCall
-                = new NamedSuperCall<android.view.ActionMode>(
-                "startActionMode(android.view.ActionMode.Callback, int)") {
+        final CallFun2<android.view.ActionMode, android.view.ActionMode.Callback, Integer> superCall
+                = new CallFun2<android.view.ActionMode, android.view.ActionMode.Callback, Integer>(
+                "startActionMode(android.view.ActionMode.Callback, Integer)") {
 
             @Override
-            public android.view.ActionMode call(final Object... args) {
+            public android.view.ActionMode call(final android.view.ActionMode.Callback callback,
+                    final Integer type) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .startActionMode(this, (android.view.ActionMode.Callback) args[0],
-                                    (int) args[1]);
+                    return iterator.previous().startActionMode(this, callback, type);
                 } else {
-                    return getOriginal()
-                            .super_startActionMode((android.view.ActionMode.Callback) args[0],
-                                    (int) args[1]);
+                    return getOriginal().super_startActionMode(callback, type);
                 }
             }
         };
@@ -6702,17 +6372,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startActivities(Intent[])") {
+        final CallVoid1<Intent[]> superCall = new CallVoid1<Intent[]>("startActivities(Intent[])") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent[] intents) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().startActivities(this, (Intent[]) args[0]);
-                    return null;
+                    iterator.previous().startActivities(this, intents);
                 } else {
-                    getOriginal().super_startActivities((Intent[]) args[0]);
-                    return null;
+                    getOriginal().super_startActivities(intents);
                 }
             }
         };
@@ -6727,17 +6394,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Intent[], Bundle> superCall = new CallVoid2<Intent[], Bundle>(
                 "startActivities(Intent[], Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent[] intents, final Bundle options) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().startActivities(this, (Intent[]) args[0], (Bundle) args[1]);
-                    return null;
+                    iterator.previous().startActivities(this, intents, options);
                 } else {
-                    getOriginal().super_startActivities((Intent[]) args[0], (Bundle) args[1]);
-                    return null;
+                    getOriginal().super_startActivities(intents, options);
                 }
             }
         };
@@ -6752,16 +6417,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("startActivity(Intent)") {
+        final CallVoid1<Intent> superCall = new CallVoid1<Intent>("startActivity(Intent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().startActivity(this, (Intent) args[0]);
-                    return null;
+                    iterator.previous().startActivity(this, intent);
                 } else {
-                    getOriginal().super_startActivity((Intent) args[0]);
-                    return null;
+                    getOriginal().super_startActivity(intent);
                 }
             }
         };
@@ -6776,17 +6439,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<Intent, Bundle> superCall = new CallVoid2<Intent, Bundle>(
                 "startActivity(Intent, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final Bundle options) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().startActivity(this, (Intent) args[0], (Bundle) args[1]);
-                    return null;
+                    iterator.previous().startActivity(this, intent, options);
                 } else {
-                    getOriginal().super_startActivity((Intent) args[0], (Bundle) args[1]);
-                    return null;
+                    getOriginal().super_startActivity(intent, options);
                 }
             }
         };
@@ -6801,18 +6462,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startActivityForResult(Intent, int)") {
+        final CallVoid2<Intent, Integer> superCall = new CallVoid2<Intent, Integer>(
+                "startActivityForResult(Intent, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final Integer requestCode) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .startActivityForResult(this, (Intent) args[0], (int) args[1]);
-                    return null;
+                    iterator.previous().startActivityForResult(this, intent, requestCode);
                 } else {
-                    getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1]);
-                    return null;
+                    getOriginal().super_startActivityForResult(intent, requestCode);
                 }
             }
         };
@@ -6828,20 +6486,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startActivityForResult(Intent, int, Bundle)") {
+        final CallVoid3<Intent, Integer, Bundle> superCall = new CallVoid3<Intent, Integer, Bundle>(
+                "startActivityForResult(Intent, Integer, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent intent, final Integer requestCode, final Bundle options) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .startActivityForResult(this, (Intent) args[0], (int) args[1],
-                                    (Bundle) args[2]);
-                    return null;
+                    iterator.previous().startActivityForResult(this, intent, requestCode, options);
                 } else {
-                    getOriginal().super_startActivityForResult((Intent) args[0], (int) args[1],
-                            (Bundle) args[2]);
-                    return null;
+                    getOriginal().super_startActivityForResult(intent, requestCode, options);
                 }
             }
         };
@@ -6857,20 +6510,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startActivityFromChild(Activity, Intent, int)") {
+        final CallVoid3<Activity, Intent, Integer> superCall
+                = new CallVoid3<Activity, Intent, Integer>(
+                "startActivityFromChild(Activity, Intent, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Activity child, final Intent intent, final Integer requestCode) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .startActivityFromChild(this, (Activity) args[0], (Intent) args[1],
-                                    (int) args[2]);
-                    return null;
+                    iterator.previous().startActivityFromChild(this, child, intent, requestCode);
                 } else {
-                    getOriginal().super_startActivityFromChild((Activity) args[0], (Intent) args[1],
-                            (int) args[2]);
-                    return null;
+                    getOriginal().super_startActivityFromChild(child, intent, requestCode);
                 }
             }
         };
@@ -6886,20 +6535,18 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startActivityFromChild(Activity, Intent, int, Bundle)") {
+        final CallVoid4<Activity, Intent, Integer, Bundle> superCall
+                = new CallVoid4<Activity, Intent, Integer, Bundle>(
+                "startActivityFromChild(Activity, Intent, Integer, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Activity child, final Intent intent, final Integer requestCode,
+                    final Bundle options) {
                 if (iterator.hasPrevious()) {
                     iterator.previous()
-                            .startActivityFromChild(this, (Activity) args[0], (Intent) args[1],
-                                    (int) args[2], (Bundle) args[3]);
-                    return null;
+                            .startActivityFromChild(this, child, intent, requestCode, options);
                 } else {
-                    getOriginal().super_startActivityFromChild((Activity) args[0], (Intent) args[1],
-                            (int) args[2], (Bundle) args[3]);
-                    return null;
+                    getOriginal().super_startActivityFromChild(child, intent, requestCode, options);
                 }
             }
         };
@@ -6915,21 +6562,18 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startActivityFromFragment(Fragment, Intent, int)") {
+        final CallVoid3<Fragment, Intent, Integer> superCall
+                = new CallVoid3<Fragment, Intent, Integer>(
+                "startActivityFromFragment(Fragment, Intent, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Fragment fragment, final Intent intent,
+                    final Integer requestCode) {
                 if (iterator.hasPrevious()) {
                     iterator.previous()
-                            .startActivityFromFragment(this, (Fragment) args[0], (Intent) args[1],
-                                    (int) args[2]);
-                    return null;
+                            .startActivityFromFragment(this, fragment, intent, requestCode);
                 } else {
-                    getOriginal()
-                            .super_startActivityFromFragment((Fragment) args[0], (Intent) args[1],
-                                    (int) args[2]);
-                    return null;
+                    getOriginal().super_startActivityFromFragment(fragment, intent, requestCode);
                 }
             }
         };
@@ -6945,21 +6589,20 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startActivityFromFragment(Fragment, Intent, int, Bundle)") {
+        final CallVoid4<Fragment, Intent, Integer, Bundle> superCall
+                = new CallVoid4<Fragment, Intent, Integer, Bundle>(
+                "startActivityFromFragment(Fragment, Intent, Integer, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Fragment fragment, final Intent intent,
+                    final Integer requestCode, final Bundle options) {
                 if (iterator.hasPrevious()) {
                     iterator.previous()
-                            .startActivityFromFragment(this, (Fragment) args[0], (Intent) args[1],
-                                    (int) args[2], (Bundle) args[3]);
-                    return null;
+                            .startActivityFromFragment(this, fragment, intent, requestCode,
+                                    options);
                 } else {
-                    getOriginal()
-                            .super_startActivityFromFragment((Fragment) args[0], (Intent) args[1],
-                                    (int) args[2], (Bundle) args[3]);
-                    return null;
+                    getOriginal().super_startActivityFromFragment(fragment, intent, requestCode,
+                            options);
                 }
             }
         };
@@ -6975,20 +6618,18 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startActivityFromFragment(android.app.Fragment, Intent, int)") {
+        final CallVoid3<android.app.Fragment, Intent, Integer> superCall
+                = new CallVoid3<android.app.Fragment, Intent, Integer>(
+                "startActivityFromFragment(android.app.Fragment, Intent, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final android.app.Fragment fragment, final Intent intent,
+                    final Integer requestCode) {
                 if (iterator.hasPrevious()) {
                     iterator.previous()
-                            .startActivityFromFragment(this, (android.app.Fragment) args[0],
-                                    (Intent) args[1], (int) args[2]);
-                    return null;
+                            .startActivityFromFragment(this, fragment, intent, requestCode);
                 } else {
-                    getOriginal().super_startActivityFromFragment((android.app.Fragment) args[0],
-                            (Intent) args[1], (int) args[2]);
-                    return null;
+                    getOriginal().super_startActivityFromFragment(fragment, intent, requestCode);
                 }
             }
         };
@@ -7004,20 +6645,20 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)") {
+        final CallVoid4<android.app.Fragment, Intent, Integer, Bundle> superCall
+                = new CallVoid4<android.app.Fragment, Intent, Integer, Bundle>(
+                "startActivityFromFragment(android.app.Fragment, Intent, Integer, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final android.app.Fragment fragment, final Intent intent,
+                    final Integer requestCode, final Bundle options) {
                 if (iterator.hasPrevious()) {
                     iterator.previous()
-                            .startActivityFromFragment(this, (android.app.Fragment) args[0],
-                                    (Intent) args[1], (int) args[2], (Bundle) args[3]);
-                    return null;
+                            .startActivityFromFragment(this, fragment, intent, requestCode,
+                                    options);
                 } else {
-                    getOriginal().super_startActivityFromFragment((android.app.Fragment) args[0],
-                            (Intent) args[1], (int) args[2], (Bundle) args[3]);
-                    return null;
+                    getOriginal().super_startActivityFromFragment(fragment, intent, requestCode,
+                            options);
                 }
             }
         };
@@ -7031,17 +6672,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "startActivityIfNeeded(Intent, int)") {
+        final CallFun2<Boolean, Intent, Integer> superCall = new CallFun2<Boolean, Intent, Integer>(
+                "startActivityIfNeeded(Intent, Integer)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Intent intent, final Integer requestCode) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .startActivityIfNeeded(this, (Intent) args[0], (int) args[1]);
+                    return iterator.previous().startActivityIfNeeded(this, intent, requestCode);
                 } else {
-                    return getOriginal()
-                            .super_startActivityIfNeeded((Intent) args[0], (int) args[1]);
+                    return getOriginal().super_startActivityIfNeeded(intent, requestCode);
                 }
             }
         };
@@ -7056,19 +6695,18 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "startActivityIfNeeded(Intent, int, Bundle)") {
+        final CallFun3<Boolean, Intent, Integer, Bundle> superCall
+                = new CallFun3<Boolean, Intent, Integer, Bundle>(
+                "startActivityIfNeeded(Intent, Integer, Bundle)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Intent intent, final Integer requestCode,
+                    final Bundle options) {
                 if (iterator.hasPrevious()) {
                     return iterator.previous()
-                            .startActivityIfNeeded(this, (Intent) args[0], (int) args[1],
-                                    (Bundle) args[2]);
+                            .startActivityIfNeeded(this, intent, requestCode, options);
                 } else {
-                    return getOriginal()
-                            .super_startActivityIfNeeded((Intent) args[0], (int) args[1],
-                                    (Bundle) args[2]);
+                    return getOriginal().super_startActivityIfNeeded(intent, requestCode, options);
                 }
             }
         };
@@ -7083,19 +6721,19 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun3<Boolean, ComponentName, String, Bundle> superCall
+                = new CallFun3<Boolean, ComponentName, String, Bundle>(
                 "startInstrumentation(ComponentName, String, Bundle)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final ComponentName className, final String profileFile,
+                    final Bundle arguments) {
                 if (iterator.hasPrevious()) {
                     return iterator.previous()
-                            .startInstrumentation(this, (ComponentName) args[0], (String) args[1],
-                                    (Bundle) args[2]);
+                            .startInstrumentation(this, className, profileFile, arguments);
                 } else {
                     return getOriginal()
-                            .super_startInstrumentation((ComponentName) args[0], (String) args[1],
-                                    (Bundle) args[2]);
+                            .super_startInstrumentation(className, profileFile, arguments);
                 }
             }
         };
@@ -7117,26 +6755,24 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startIntentSender(IntentSender, Intent, int, int, int)") {
+        final CallVoid5<IntentSender, Intent, Integer, Integer, Integer> superCall
+                = new CallVoid5<IntentSender, Intent, Integer, Integer, Integer>(
+                "startIntentSender(IntentSender, Intent, Integer, Integer, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final IntentSender intent, final Intent fillInIntent,
+                    final Integer flagsMask, final Integer flagsValues, final Integer extraFlags) {
                 if (iterator.hasPrevious()) {
                     try {
-                        iterator.previous()
-                                .startIntentSender(this, (IntentSender) args[0], (Intent) args[1],
-                                        (int) args[2], (int) args[3], (int) args[4]);
-                        return null;
+                        iterator.previous().startIntentSender(this, intent, fillInIntent, flagsMask,
+                                flagsValues, extraFlags);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
-                        getOriginal()
-                                .super_startIntentSender((IntentSender) args[0], (Intent) args[1],
-                                        (int) args[2], (int) args[3], (int) args[4]);
-                        return null;
+                        getOriginal().super_startIntentSender(intent, fillInIntent, flagsMask,
+                                flagsValues, extraFlags);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
@@ -7161,28 +6797,25 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startIntentSender(IntentSender, Intent, int, int, int, Bundle)") {
+        final CallVoid6<IntentSender, Intent, Integer, Integer, Integer, Bundle> superCall
+                = new CallVoid6<IntentSender, Intent, Integer, Integer, Integer, Bundle>(
+                "startIntentSender(IntentSender, Intent, Integer, Integer, Integer, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final IntentSender intent, final Intent fillInIntent,
+                    final Integer flagsMask, final Integer flagsValues, final Integer extraFlags,
+                    final Bundle options) {
                 if (iterator.hasPrevious()) {
                     try {
-                        iterator.previous()
-                                .startIntentSender(this, (IntentSender) args[0], (Intent) args[1],
-                                        (int) args[2], (int) args[3], (int) args[4],
-                                        (Bundle) args[5]);
-                        return null;
+                        iterator.previous().startIntentSender(this, intent, fillInIntent, flagsMask,
+                                flagsValues, extraFlags, options);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
-                        getOriginal()
-                                .super_startIntentSender((IntentSender) args[0], (Intent) args[1],
-                                        (int) args[2], (int) args[3], (int) args[4],
-                                        (Bundle) args[5]);
-                        return null;
+                        getOriginal().super_startIntentSender(intent, fillInIntent, flagsMask,
+                                flagsValues, extraFlags, options);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
@@ -7207,26 +6840,27 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startIntentSenderForResult(IntentSender, int, Intent, int, int, int)") {
+        final CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer> superCall
+                = new CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer>(
+                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final IntentSender intent, final Integer requestCode,
+                    final Intent fillInIntent, final Integer flagsMask, final Integer flagsValues,
+                    final Integer extraFlags) {
                 if (iterator.hasPrevious()) {
                     try {
-                        iterator.previous().startIntentSenderForResult(this, (IntentSender) args[0],
-                                (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
-                                (int) args[5]);
-                        return null;
+                        iterator.previous()
+                                .startIntentSenderForResult(this, intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
-                        getOriginal().super_startIntentSenderForResult((IntentSender) args[0],
-                                (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
-                                (int) args[5]);
-                        return null;
+                        getOriginal()
+                                .super_startIntentSenderForResult(intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
@@ -7251,26 +6885,27 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startIntentSenderForResult(IntentSender, int, Intent, int, int, int, Bundle)") {
+        final CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle> superCall
+                = new CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>(
+                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final IntentSender intent, final Integer requestCode,
+                    final Intent fillInIntent, final Integer flagsMask, final Integer flagsValues,
+                    final Integer extraFlags, final Bundle options) {
                 if (iterator.hasPrevious()) {
                     try {
-                        iterator.previous().startIntentSenderForResult(this, (IntentSender) args[0],
-                                (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
-                                (int) args[5], (Bundle) args[6]);
-                        return null;
+                        iterator.previous()
+                                .startIntentSenderForResult(this, intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags, options);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
-                        getOriginal().super_startIntentSenderForResult((IntentSender) args[0],
-                                (int) args[1], (Intent) args[2], (int) args[3], (int) args[4],
-                                (int) args[5], (Bundle) args[6]);
-                        return null;
+                        getOriginal()
+                                .super_startIntentSenderForResult(intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags, options);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
@@ -7297,26 +6932,27 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int)") {
+        final CallVoid7<Activity, IntentSender, Integer, Intent, Integer, Integer, Integer>
+                superCall
+                = new CallVoid7<Activity, IntentSender, Integer, Intent, Integer, Integer, Integer>(
+                "startIntentSenderFromChild(Activity, IntentSender, Integer, Intent, Integer, Integer, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Activity child, final IntentSender intent,
+                    final Integer requestCode, final Intent fillInIntent, final Integer flagsMask,
+                    final Integer flagsValues, final Integer extraFlags) {
                 if (iterator.hasPrevious()) {
                     try {
-                        iterator.previous().startIntentSenderFromChild(this, (Activity) args[0],
-                                (IntentSender) args[1], (int) args[2], (Intent) args[3],
-                                (int) args[4], (int) args[5], (int) args[6]);
-                        return null;
+                        iterator.previous()
+                                .startIntentSenderFromChild(this, child, intent, requestCode,
+                                        fillInIntent, flagsMask, flagsValues, extraFlags);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
-                        getOriginal().super_startIntentSenderFromChild((Activity) args[0],
-                                (IntentSender) args[1], (int) args[2], (Intent) args[3],
-                                (int) args[4], (int) args[5], (int) args[6]);
-                        return null;
+                        getOriginal().super_startIntentSenderFromChild(child, intent, requestCode,
+                                fillInIntent, flagsMask, flagsValues, extraFlags);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
@@ -7344,26 +6980,27 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int, Bundle)") {
+        final CallVoid8<Activity, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>
+                superCall
+                = new CallVoid8<Activity, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>(
+                "startIntentSenderFromChild(Activity, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Activity child, final IntentSender intent,
+                    final Integer requestCode, final Intent fillInIntent, final Integer flagsMask,
+                    final Integer flagsValues, final Integer extraFlags, final Bundle options) {
                 if (iterator.hasPrevious()) {
                     try {
-                        iterator.previous().startIntentSenderFromChild(this, (Activity) args[0],
-                                (IntentSender) args[1], (int) args[2], (Intent) args[3],
-                                (int) args[4], (int) args[5], (int) args[6], (Bundle) args[7]);
-                        return null;
+                        iterator.previous()
+                                .startIntentSenderFromChild(this, child, intent, requestCode,
+                                        fillInIntent, flagsMask, flagsValues, extraFlags, options);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
                 } else {
                     try {
-                        getOriginal().super_startIntentSenderFromChild((Activity) args[0],
-                                (IntentSender) args[1], (int) args[2], (Intent) args[3],
-                                (int) args[4], (int) args[5], (int) args[6], (Bundle) args[7]);
-                        return null;
+                        getOriginal().super_startIntentSenderFromChild(child, intent, requestCode,
+                                fillInIntent, flagsMask, flagsValues, extraFlags, options);
                     } catch (IntentSender.SendIntentException e) {
                         throw new SuppressedException(e);
                     }
@@ -7382,16 +7019,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("startLockTask()") {
+        final CallVoid0 superCall = new CallVoid0("startLockTask()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().startLockTask(this);
-                    return null;
                 } else {
                     getOriginal().super_startLockTask();
-                    return null;
                 }
             }
         };
@@ -7406,17 +7041,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startManagingCursor(Cursor)") {
+        final CallVoid1<Cursor> superCall = new CallVoid1<Cursor>("startManagingCursor(Cursor)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Cursor c) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().startManagingCursor(this, (Cursor) args[0]);
-                    return null;
+                    iterator.previous().startManagingCursor(this, c);
                 } else {
-                    getOriginal().super_startManagingCursor((Cursor) args[0]);
-                    return null;
+                    getOriginal().super_startManagingCursor(c);
                 }
             }
         };
@@ -7430,15 +7062,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, Intent> superCall = new CallFun1<Boolean, Intent>(
                 "startNextMatchingActivity(Intent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Intent intent) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().startNextMatchingActivity(this, (Intent) args[0]);
+                    return iterator.previous().startNextMatchingActivity(this, intent);
                 } else {
-                    return getOriginal().super_startNextMatchingActivity((Intent) args[0]);
+                    return getOriginal().super_startNextMatchingActivity(intent);
                 }
             }
         };
@@ -7452,17 +7084,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun2<Boolean, Intent, Bundle> superCall = new CallFun2<Boolean, Intent, Bundle>(
                 "startNextMatchingActivity(Intent, Bundle)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Intent intent, final Bundle options) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .startNextMatchingActivity(this, (Intent) args[0], (Bundle) args[1]);
+                    return iterator.previous().startNextMatchingActivity(this, intent, options);
                 } else {
-                    return getOriginal()
-                            .super_startNextMatchingActivity((Intent) args[0], (Bundle) args[1]);
+                    return getOriginal().super_startNextMatchingActivity(intent, options);
                 }
             }
         };
@@ -7477,17 +7107,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startPostponedEnterTransition()") {
+        final CallVoid0 superCall = new CallVoid0("startPostponedEnterTransition()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().startPostponedEnterTransition(this);
-                    return null;
                 } else {
                     getOriginal().super_startPostponedEnterTransition();
-                    return null;
                 }
             }
         };
@@ -7504,19 +7131,20 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "startSearch(String, boolean, Bundle, boolean)") {
+        final CallVoid4<String, Boolean, Bundle, Boolean> superCall
+                = new CallVoid4<String, Boolean, Bundle, Boolean>(
+                "startSearch(String, Boolean, Bundle, Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final String initialQuery, final Boolean selectInitialQuery,
+                    final Bundle appSearchData, final Boolean globalSearch) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().startSearch(this, (String) args[0], (boolean) args[1],
-                            (Bundle) args[2], (boolean) args[3]);
-                    return null;
+                    iterator.previous()
+                            .startSearch(this, initialQuery, selectInitialQuery, appSearchData,
+                                    globalSearch);
                 } else {
-                    getOriginal().super_startSearch((String) args[0], (boolean) args[1],
-                            (Bundle) args[2], (boolean) args[3]);
-                    return null;
+                    getOriginal().super_startSearch(initialQuery, selectInitialQuery, appSearchData,
+                            globalSearch);
                 }
             }
         };
@@ -7530,15 +7158,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<ComponentName> superCall = new NamedSuperCall<ComponentName>(
+        final CallFun1<ComponentName, Intent> superCall = new CallFun1<ComponentName, Intent>(
                 "startService(Intent)") {
 
             @Override
-            public ComponentName call(final Object... args) {
+            public ComponentName call(final Intent service) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().startService(this, (Intent) args[0]);
+                    return iterator.previous().startService(this, service);
                 } else {
-                    return getOriginal().super_startService((Intent) args[0]);
+                    return getOriginal().super_startService(service);
                 }
             }
         };
@@ -7552,17 +7180,16 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<ActionMode> superCall = new NamedSuperCall<ActionMode>(
+        final CallFun1<ActionMode, ActionMode.Callback> superCall
+                = new CallFun1<ActionMode, ActionMode.Callback>(
                 "startSupportActionMode(ActionMode.Callback)") {
 
             @Override
-            public ActionMode call(final Object... args) {
+            public ActionMode call(final ActionMode.Callback callback) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .startSupportActionMode(this, (ActionMode.Callback) args[0]);
+                    return iterator.previous().startSupportActionMode(this, callback);
                 } else {
-                    return getOriginal()
-                            .super_startSupportActionMode((ActionMode.Callback) args[0]);
+                    return getOriginal().super_startSupportActionMode(callback);
                 }
             }
         };
@@ -7577,16 +7204,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("stopLockTask()") {
+        final CallVoid0 superCall = new CallVoid0("stopLockTask()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().stopLockTask(this);
-                    return null;
                 } else {
                     getOriginal().super_stopLockTask();
-                    return null;
                 }
             }
         };
@@ -7601,17 +7226,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "stopManagingCursor(Cursor)") {
+        final CallVoid1<Cursor> superCall = new CallVoid1<Cursor>("stopManagingCursor(Cursor)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Cursor c) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().stopManagingCursor(this, (Cursor) args[0]);
-                    return null;
+                    iterator.previous().stopManagingCursor(this, c);
                 } else {
-                    getOriginal().super_stopManagingCursor((Cursor) args[0]);
-                    return null;
+                    getOriginal().super_stopManagingCursor(c);
                 }
             }
         };
@@ -7625,15 +7247,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, Intent> superCall = new CallFun1<Boolean, Intent>(
                 "stopService(Intent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Intent name) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().stopService(this, (Intent) args[0]);
+                    return iterator.previous().stopService(this, name);
                 } else {
-                    return getOriginal().super_stopService((Intent) args[0]);
+                    return getOriginal().super_stopService(name);
                 }
             }
         };
@@ -7648,17 +7270,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "supportFinishAfterTransition()") {
+        final CallVoid0 superCall = new CallVoid0("supportFinishAfterTransition()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().supportFinishAfterTransition(this);
-                    return null;
                 } else {
                     getOriginal().super_supportFinishAfterTransition();
-                    return null;
                 }
             }
         };
@@ -7673,17 +7292,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "supportInvalidateOptionsMenu()") {
+        final CallVoid0 superCall = new CallVoid0("supportInvalidateOptionsMenu()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().supportInvalidateOptionsMenu(this);
-                    return null;
                 } else {
                     getOriginal().super_supportInvalidateOptionsMenu();
-                    return null;
                 }
             }
         };
@@ -7698,17 +7314,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "supportNavigateUpTo(Intent)") {
+        final CallVoid1<Intent> superCall = new CallVoid1<Intent>("supportNavigateUpTo(Intent)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Intent upIntent) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().supportNavigateUpTo(this, (Intent) args[0]);
-                    return null;
+                    iterator.previous().supportNavigateUpTo(this, upIntent);
                 } else {
-                    getOriginal().super_supportNavigateUpTo((Intent) args[0]);
-                    return null;
+                    getOriginal().super_supportNavigateUpTo(upIntent);
                 }
             }
         };
@@ -7723,17 +7336,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "supportPostponeEnterTransition()") {
+        final CallVoid0 superCall = new CallVoid0("supportPostponeEnterTransition()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().supportPostponeEnterTransition(this);
-                    return null;
                 } else {
                     getOriginal().super_supportPostponeEnterTransition();
-                    return null;
                 }
             }
         };
@@ -7747,15 +7357,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
-                "supportRequestWindowFeature(int)") {
+        final CallFun1<Boolean, Integer> superCall = new CallFun1<Boolean, Integer>(
+                "supportRequestWindowFeature(Integer)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Integer featureId) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().supportRequestWindowFeature(this, (int) args[0]);
+                    return iterator.previous().supportRequestWindowFeature(this, featureId);
                 } else {
-                    return getOriginal().super_supportRequestWindowFeature((int) args[0]);
+                    return getOriginal().super_supportRequestWindowFeature(featureId);
                 }
             }
         };
@@ -7769,15 +7379,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>(
+        final CallFun1<Boolean, Intent> superCall = new CallFun1<Boolean, Intent>(
                 "supportShouldUpRecreateTask(Intent)") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call(final Intent targetIntent) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().supportShouldUpRecreateTask(this, (Intent) args[0]);
+                    return iterator.previous().supportShouldUpRecreateTask(this, targetIntent);
                 } else {
-                    return getOriginal().super_supportShouldUpRecreateTask((Intent) args[0]);
+                    return getOriginal().super_supportShouldUpRecreateTask(targetIntent);
                 }
             }
         };
@@ -7792,17 +7402,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "supportStartPostponedEnterTransition()") {
+        final CallVoid0 superCall = new CallVoid0("supportStartPostponedEnterTransition()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().supportStartPostponedEnterTransition(this);
-                    return null;
                 } else {
                     getOriginal().super_supportStartPostponedEnterTransition();
-                    return null;
                 }
             }
         };
@@ -7817,16 +7424,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("takeKeyEvents(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("takeKeyEvents(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean get) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().takeKeyEvents(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().takeKeyEvents(this, get);
                 } else {
-                    getOriginal().super_takeKeyEvents((boolean) args[0]);
-                    return null;
+                    getOriginal().super_takeKeyEvents(get);
                 }
             }
         };
@@ -7841,17 +7446,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<String, Bundle> superCall = new CallVoid2<String, Bundle>(
                 "triggerSearch(String, Bundle)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final String query, final Bundle appSearchData) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().triggerSearch(this, (String) args[0], (Bundle) args[1]);
-                    return null;
+                    iterator.previous().triggerSearch(this, query, appSearchData);
                 } else {
-                    getOriginal().super_triggerSearch((String) args[0], (Bundle) args[1]);
-                    return null;
+                    getOriginal().super_triggerSearch(query, appSearchData);
                 }
             }
         };
@@ -7866,17 +7469,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<ServiceConnection> superCall = new CallVoid1<ServiceConnection>(
                 "unbindService(ServiceConnection)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final ServiceConnection conn) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().unbindService(this, (ServiceConnection) args[0]);
-                    return null;
+                    iterator.previous().unbindService(this, conn);
                 } else {
-                    getOriginal().super_unbindService((ServiceConnection) args[0]);
-                    return null;
+                    getOriginal().super_unbindService(conn);
                 }
             }
         };
@@ -7891,18 +7492,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<ComponentCallbacks> superCall = new CallVoid1<ComponentCallbacks>(
                 "unregisterComponentCallbacks(ComponentCallbacks)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final ComponentCallbacks callback) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .unregisterComponentCallbacks(this, (ComponentCallbacks) args[0]);
-                    return null;
+                    iterator.previous().unregisterComponentCallbacks(this, callback);
                 } else {
-                    getOriginal().super_unregisterComponentCallbacks((ComponentCallbacks) args[0]);
-                    return null;
+                    getOriginal().super_unregisterComponentCallbacks(callback);
                 }
             }
         };
@@ -7917,17 +7515,14 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "unregisterForContextMenu(View)") {
+        final CallVoid1<View> superCall = new CallVoid1<View>("unregisterForContextMenu(View)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final View view) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().unregisterForContextMenu(this, (View) args[0]);
-                    return null;
+                    iterator.previous().unregisterForContextMenu(this, view);
                 } else {
-                    getOriginal().super_unregisterForContextMenu((View) args[0]);
-                    return null;
+                    getOriginal().super_unregisterForContextMenu(view);
                 }
             }
         };
@@ -7942,17 +7537,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<BroadcastReceiver> superCall = new CallVoid1<BroadcastReceiver>(
                 "unregisterReceiver(BroadcastReceiver)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final BroadcastReceiver receiver) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().unregisterReceiver(this, (BroadcastReceiver) args[0]);
-                    return null;
+                    iterator.previous().unregisterReceiver(this, receiver);
                 } else {
-                    getOriginal().super_unregisterReceiver((BroadcastReceiver) args[0]);
-                    return null;
+                    getOriginal().super_unregisterReceiver(receiver);
                 }
             }
         };

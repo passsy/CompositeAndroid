@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class AbstractPlugin<T, D> {
 
-    final public Stack<NamedSuperCall<?>> mSuperListeners = new Stack<>();
+    final public Stack<NamedSuperCall> mSuperListeners = new Stack<>();
 
     private D mDelegate;
 

@@ -1,7 +1,12 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
 import com.pascalwelsch.compositeandroid.core.AbstractDelegate;
-import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
+import com.pascalwelsch.compositeandroid.core.CallFun0;
+import com.pascalwelsch.compositeandroid.core.CallFun1;
+import com.pascalwelsch.compositeandroid.core.CallFun2;
+import com.pascalwelsch.compositeandroid.core.CallVoid0;
+import com.pascalwelsch.compositeandroid.core.CallVoid1;
+import com.pascalwelsch.compositeandroid.core.CallVoid2;
 import com.pascalwelsch.compositeandroid.core.Removable;
 
 import android.app.Activity;
@@ -68,16 +73,14 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("dismiss()") {
+        final CallVoid0 superCall = new CallVoid0("dismiss()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().dismiss(this);
-                    return null;
                 } else {
                     getOriginal().super_dismiss();
-                    return null;
                 }
             }
         };
@@ -92,17 +95,14 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "dismissAllowingStateLoss()") {
+        final CallVoid0 superCall = new CallVoid0("dismissAllowingStateLoss()") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call() {
                 if (iterator.hasPrevious()) {
                     iterator.previous().dismissAllowingStateLoss(this);
-                    return null;
                 } else {
                     getOriginal().super_dismissAllowingStateLoss();
-                    return null;
                 }
             }
         };
@@ -133,10 +133,10 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Dialog> superCall = new NamedSuperCall<Dialog>("getDialog()") {
+        final CallFun0<Dialog> superCall = new CallFun0<Dialog>("getDialog()") {
 
             @Override
-            public Dialog call(final Object... args) {
+            public Dialog call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getDialog(this);
                 } else {
@@ -186,10 +186,10 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("getShowsDialog()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("getShowsDialog()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getShowsDialog(this);
                 } else {
@@ -207,10 +207,10 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>("getTheme()") {
+        final CallFun0<Integer> superCall = new CallFun0<Integer>("getTheme()") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getTheme(this);
                 } else {
@@ -236,10 +236,10 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Boolean> superCall = new NamedSuperCall<Boolean>("isCancelable()") {
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isCancelable()") {
 
             @Override
-            public Boolean call(final Object... args) {
+            public Boolean call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().isCancelable(this);
                 } else {
@@ -274,17 +274,15 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<DialogInterface> superCall = new CallVoid1<DialogInterface>(
                 "onCancel(DialogInterface)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final DialogInterface dialog) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onCancel(this, (DialogInterface) args[0]);
-                    return null;
+                    iterator.previous().onCancel(this, dialog);
                 } else {
-                    getOriginal().super_onCancel((DialogInterface) args[0]);
-                    return null;
+                    getOriginal().super_onCancel(dialog);
                 }
             }
         };
@@ -319,15 +317,15 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Dialog> superCall = new NamedSuperCall<Dialog>(
+        final CallFun1<Dialog, Bundle> superCall = new CallFun1<Dialog, Bundle>(
                 "onCreateDialog(Bundle)") {
 
             @Override
-            public Dialog call(final Object... args) {
+            public Dialog call(final Bundle savedInstanceState) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().onCreateDialog(this, (Bundle) args[0]);
+                    return iterator.previous().onCreateDialog(this, savedInstanceState);
                 } else {
-                    return getOriginal().super_onCreateDialog((Bundle) args[0]);
+                    return getOriginal().super_onCreateDialog(savedInstanceState);
                 }
             }
         };
@@ -367,17 +365,15 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid1<DialogInterface> superCall = new CallVoid1<DialogInterface>(
                 "onDismiss(DialogInterface)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final DialogInterface dialog) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().onDismiss(this, (DialogInterface) args[0]);
-                    return null;
+                    iterator.previous().onDismiss(this, dialog);
                 } else {
-                    getOriginal().super_onDismiss((DialogInterface) args[0]);
-                    return null;
+                    getOriginal().super_onDismiss(dialog);
                 }
             }
         };
@@ -471,16 +467,14 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setCancelable(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setCancelable(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean cancelable) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setCancelable(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setCancelable(this, cancelable);
                 } else {
-                    getOriginal().super_setCancelable((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setCancelable(cancelable);
                 }
             }
         };
@@ -543,16 +537,14 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setShowsDialog(boolean)") {
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setShowsDialog(Boolean)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Boolean showsDialog) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setShowsDialog(this, (boolean) args[0]);
-                    return null;
+                    iterator.previous().setShowsDialog(this, showsDialog);
                 } else {
-                    getOriginal().super_setShowsDialog((boolean) args[0]);
-                    return null;
+                    getOriginal().super_setShowsDialog(showsDialog);
                 }
             }
         };
@@ -567,16 +559,15 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>("setStyle(int, int)") {
+        final CallVoid2<Integer, Integer> superCall = new CallVoid2<Integer, Integer>(
+                "setStyle(Integer, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Integer style, final Integer theme) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setStyle(this, (int) args[0], (int) args[1]);
-                    return null;
+                    iterator.previous().setStyle(this, style, theme);
                 } else {
-                    getOriginal().super_setStyle((int) args[0], (int) args[1]);
-                    return null;
+                    getOriginal().super_setStyle(style, theme);
                 }
             }
         };
@@ -599,17 +590,15 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
-                "setupDialog(Dialog, int)") {
+        final CallVoid2<Dialog, Integer> superCall = new CallVoid2<Dialog, Integer>(
+                "setupDialog(Dialog, Integer)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final Dialog dialog, final Integer style) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().setupDialog(this, (Dialog) args[0], (int) args[1]);
-                    return null;
+                    iterator.previous().setupDialog(this, dialog, style);
                 } else {
-                    getOriginal().super_setupDialog((Dialog) args[0], (int) args[1]);
-                    return null;
+                    getOriginal().super_setupDialog(dialog, style);
                 }
             }
         };
@@ -628,17 +617,15 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Void> superCall = new NamedSuperCall<Void>(
+        final CallVoid2<FragmentManager, String> superCall = new CallVoid2<FragmentManager, String>(
                 "show(FragmentManager, String)") {
 
             @Override
-            public Void call(final Object... args) {
+            public void call(final FragmentManager manager, final String tag) {
                 if (iterator.hasPrevious()) {
-                    iterator.previous().show(this, (FragmentManager) args[0], (String) args[1]);
-                    return null;
+                    iterator.previous().show(this, manager, tag);
                 } else {
-                    getOriginal().super_show((FragmentManager) args[0], (String) args[1]);
-                    return null;
+                    getOriginal().super_show(manager, tag);
                 }
             }
         };
@@ -652,17 +639,16 @@ public class DialogFragmentDelegate
 
         final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final NamedSuperCall<Integer> superCall = new NamedSuperCall<Integer>(
+        final CallFun2<Integer, FragmentTransaction, String> superCall
+                = new CallFun2<Integer, FragmentTransaction, String>(
                 "show(FragmentTransaction, String)") {
 
             @Override
-            public Integer call(final Object... args) {
+            public Integer call(final FragmentTransaction transaction, final String tag) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous()
-                            .show(this, (FragmentTransaction) args[0], (String) args[1]);
+                    return iterator.previous().show(this, transaction, tag);
                 } else {
-                    return getOriginal()
-                            .super_show((FragmentTransaction) args[0], (String) args[1]);
+                    return getOriginal().super_show(transaction, tag);
                 }
             }
         };

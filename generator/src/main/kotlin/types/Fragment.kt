@@ -30,6 +30,7 @@ fun generateFragments() {
 val replaceSavedState: (String) -> String = {
     it.replace(" SavedState", " Fragment.SavedState")
             .replace("(SavedState)", "(Fragment.SavedState)")
+            .replace("<SavedState", "<Fragment.SavedState")
 }
 
 private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
@@ -70,6 +71,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import android.view.animation.*;
             |import android.util.*;
             |import android.content.res.*;
+            |import java.util.ListIterator;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             extends = "AbstractDelegate<ICompositeDialogFragment, DialogFragmentPlugin>",
