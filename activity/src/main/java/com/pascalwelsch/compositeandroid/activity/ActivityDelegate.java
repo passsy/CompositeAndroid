@@ -16,6 +16,7 @@ import com.pascalwelsch.compositeandroid.core.CallVoid5;
 import com.pascalwelsch.compositeandroid.core.CallVoid6;
 import com.pascalwelsch.compositeandroid.core.CallVoid7;
 import com.pascalwelsch.compositeandroid.core.CallVoid8;
+import com.pascalwelsch.compositeandroid.core.Removable;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -56,6 +57,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
@@ -91,16 +93,28 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ListIterator;
 
 public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, ActivityPlugin> {
 
 
+    @VisibleForTesting
+    static final int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
+
+    private int mGetResourcesCallCount = 0;
+
+    private transient boolean mIsGetResourcesOverridden = true;
+
+    private final HashMap<String, List<ActivityPlugin>> mMethodImplementingPlugins
+            = new HashMap<>();
+
     public ActivityDelegate(final ICompositeActivity icompositeactivity) {
         super(icompositeactivity);
 
     }
-
 
     public void addContentView(final View view, final ViewGroup.LayoutParams params) {
         if (mPlugins.isEmpty()) {
@@ -124,6 +138,15 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call(view, params);
+    }
+
+    @Override
+    public Removable addPlugin(final ActivityPlugin plugin) {
+        synchronized (mPlugins) {
+            mIsGetResourcesOverridden = true;
+            mMethodImplementingPlugins.clear();
+        }
+        return super.addPlugin(plugin);
     }
 
     public void applyOverrideConfiguration(final Configuration overrideConfiguration) {
@@ -2155,11 +2178,25 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     }
 
     public Resources getResources() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsGetResourcesOverridden) {
             return getOriginal().super_getResources();
         }
 
-        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<ActivityPlugin> iterator;
+        if (mGetResourcesCallCount < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mGetResourcesCallCount++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getResources()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getResources");
+                mMethodImplementingPlugins.put("getResources()", implementingPlugins);
+                mIsGetResourcesOverridden = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Resources> superCall = new CallFun0<Resources>("getResources()") {
 
@@ -2176,9 +2213,6 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     }
 
     public SharedPreferences getSharedPreferences(final String name, final int mode) {
-        if (mPlugins.isEmpty()) {
-            return getOriginal().super_getSharedPreferences(name, mode);
-        }
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
@@ -7550,6 +7584,20 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call(receiver);
+    }
+
+    private List<ActivityPlugin> getImplementingPlugins(final String methodName,
+            final Class<?>... parameterTypes) {
+        synchronized (mPlugins) {
+            final ArrayList<ActivityPlugin> implementingPlugins = new ArrayList<>();
+            for (int i = 0; i < mPlugins.size(); i++) {
+                final ActivityPlugin plugin = mPlugins.get(i);
+                if (plugin.isMethodOverridden(methodName, parameterTypes)) {
+                    implementingPlugins.add(plugin);
+                }
+            }
+            return implementingPlugins;
+        }
     }
 
 }

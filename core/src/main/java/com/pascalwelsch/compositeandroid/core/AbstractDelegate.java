@@ -11,7 +11,7 @@ public class AbstractDelegate<T, P extends AbstractPlugin> {
 
     protected final T mOriginal;
 
-    protected List<P> mPlugins = new CopyOnWriteArrayList<>();
+    protected final List<P> mPlugins = new CopyOnWriteArrayList<>();
 
     public AbstractDelegate(final T original) {
         mOriginal = original;
@@ -19,14 +19,18 @@ public class AbstractDelegate<T, P extends AbstractPlugin> {
 
     @SuppressWarnings("unchecked")
     public Removable addPlugin(final P plugin) {
-        plugin.addToDelegate(this, mOriginal);
-        mPlugins.add(plugin);
+        synchronized (mPlugins) {
+            plugin.addToDelegate(this, mOriginal);
+            mPlugins.add(plugin);
+        }
 
         return new Removable() {
             @Override
             public void remove() {
-                mPlugins.remove(plugin);
-                plugin.removeFromDelegate();
+                synchronized (mPlugins) {
+                    mPlugins.remove(plugin);
+                    plugin.removeFromDelegate();
+                }
             }
         };
     }

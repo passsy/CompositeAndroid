@@ -91,10 +91,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
 
 
 @SuppressWarnings("unused")
 public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDelegate> {
+
 
     public void addContentView(final View view, final ViewGroup.LayoutParams params) {
         verifyMethodCalledFromDelegate("addContentView(View, ViewGroup.LayoutParams)");
@@ -2675,6 +2677,18 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
             mSuperListeners.push(superCall);
             return isImmersive();
         }
+    }
+
+    boolean isMethodOverridden(final String methodName, final Class<?>... parameterTypes) {
+        try {
+            final Class<? extends ActivityPlugin> myClass = this.getClass();
+            final Method method = myClass.getMethod(methodName, parameterTypes);
+            if (method.getDeclaringClass() == ActivityPlugin.class) {
+                return false;
+            }
+        } catch (NoSuchMethodException e) {
+        }
+        return true;
     }
 
     boolean isRestricted(final CallFun0<Boolean> superCall) {
