@@ -28,48 +28,55 @@ public class CompositePerformanceTestActivity extends CompositeActivity {
         }
 
         @Override
-        public Resources getResources() {
-            return super.getResources();
-        }
-
-        @Override
         public void onSaveInstanceState(final Bundle outState) {
             super.onSaveInstanceState(outState);
             outState.putString(mName, mName);
         }
     }
 
+    private static class PerformanceTestPluginOverridden extends PerformanceTestPlugin {
+
+        public PerformanceTestPluginOverridden(final String name) {
+            super(name);
+        }
+
+        @Override
+        public Resources getResources() {
+            return super.getResources();
+        }
+
+        @Override
+        public File getCacheDir() {
+            return super.getCacheDir();
+        }
+    }
+
     private static final String TAG = CompositePerformanceTestActivity.class.getSimpleName();
 
-    public static final int ITERATIONS = 10000;
+    public static final int ITERATIONS = 50000;
 
     private final String mName = "0";
 
     public CompositePerformanceTestActivity() {
-        addPlugin(new PerformanceTestPlugin("1"));
+        addPlugin(new PerformanceTestPluginOverridden("1"));
+        addPlugin(new PerformanceTestPluginOverridden("2"));
+        addPlugin(new PerformanceTestPluginOverridden("3"));
+        addPlugin(new PerformanceTestPluginOverridden("4"));
+        addPlugin(new PerformanceTestPluginOverridden("5"));
+        /*addPlugin(new PerformanceTestPlugin("1"));
         addPlugin(new PerformanceTestPlugin("2"));
         addPlugin(new PerformanceTestPlugin("3"));
         addPlugin(new PerformanceTestPlugin("4"));
-        addPlugin(new PerformanceTestPlugin("5"));
-        /*addPlugin(new PerformanceTestPlugin("6"));
-        addPlugin(new PerformanceTestPlugin("7"));
-        addPlugin(new PerformanceTestPlugin("8"));
-        addPlugin(new PerformanceTestPlugin("9"));
-        addPlugin(new PerformanceTestPlugin("10"));
-        addPlugin(new PerformanceTestPlugin("12"));
-        addPlugin(new PerformanceTestPlugin("13"));
-        addPlugin(new PerformanceTestPlugin("14"));
-        addPlugin(new PerformanceTestPlugin("15"));
-        addPlugin(new PerformanceTestPlugin("16"));
-        addPlugin(new PerformanceTestPlugin("17"));
-        addPlugin(new PerformanceTestPlugin("18"));
-        addPlugin(new PerformanceTestPlugin("19"));
-        addPlugin(new PerformanceTestPlugin("20"));*/
+        addPlugin(new PerformanceTestPlugin("5"));*/
     }
 
-    @Override
-    public File getCacheDir() {
+
+    public File getFastCacheDir() {
         return super_getCacheDir();
+    }
+
+    public Resources getFastResources() {
+        return super_getResources();
     }
 
     @Override
@@ -94,52 +101,55 @@ public class CompositePerformanceTestActivity extends CompositeActivity {
 
     private void runPerformanceTest() {
 
-        for (int j = 0; j < 10; j++) {
+        String number = "5 plugins: ";
 
-            String number = j + " plugins: ";
+        System.gc();
+        final int iterations = 1;
+        float duration = 0;
 
-            System.gc();
-            final int iterations = 2;
-            float duration = 0;
-
-            duration = 0;
-            for (int i = 0; i < iterations; i++) {
-                duration += testGetCacheDir();
-            }
-            duration /= iterations;
-            Log.v(TAG, number + "getCacheDir() in " + duration + "ms");
-
-            duration = 0;
-            for (int i = 0; i < iterations; i++) {
-                duration += testGetResources();
-            }
-            duration /= iterations;
-            Log.v(TAG, number + "getResources() in " + duration + "ms");
-
-            duration = 0;
-            for (int i = 0; i < iterations; i++) {
-                duration += testGetDelegate();
-            }
-            duration /= iterations;
-            Log.v(TAG, number + "getDelegate() in " + duration + "ms");
-
-            duration = 0;
-            for (int i = 0; i < iterations; i++) {
-                duration += testGetFile();
-            }
-            duration /= iterations;
-            Log.v(TAG, number + "getFile() in " + duration + "ms");
-
-            duration = 0;
-            for (int i = 0; i < iterations; i++) {
-                duration += testOnSaveInstanceState();
-            }
-            duration /= iterations;
-            Log.v(TAG, number + "onSaveInstanceState() in " + duration + "ms");
-
-
-            addPlugin(new PerformanceTestPlugin(String.valueOf(j)));
+        duration = 0;
+        for (int i = 0; i < iterations; i++) {
+            duration += testGetCacheDir();
         }
+        duration /= iterations;
+        Log.v(TAG, number + "getCacheDir() in " + duration + "ms");
+
+        duration = 0;
+        for (int i = 0; i < iterations; i++) {
+            duration += testFastGetCacheDir();
+        }
+        duration /= iterations;
+        Log.v(TAG, number + "getCacheDir() in " + duration + "ms  (direct)");
+
+        duration = 0;
+        for (int i = 0; i < iterations; i++) {
+            duration += testGetResources();
+        }
+        duration /= iterations;
+        Log.v(TAG, number + "getResources() in " + duration + "ms");
+
+        duration = 0;
+        for (int i = 0; i < iterations; i++) {
+            duration += testFastGetResources();
+        }
+        duration /= iterations;
+        Log.v(TAG, number + "getResources() in " + duration + "ms (direct)");
+
+
+        duration = 0;
+        for (int i = 0; i < iterations; i++) {
+            duration += testOnSaveInstanceState();
+        }
+        duration /= iterations;
+        Log.v(TAG, number + "onSaveInstanceState() in " + duration + "ms");
+
+
+        duration = 0;
+        for (int i = 0; i < iterations; i++) {
+            duration += testFastOnSaveInstanceState();
+        }
+        duration /= iterations;
+        Log.v(TAG, number + "onSaveInstanceState() in " + duration + "ms (direct)");
     }
 
     private long testGetCacheDir() {
@@ -147,6 +157,16 @@ public class CompositePerformanceTestActivity extends CompositeActivity {
         final long start = System.currentTimeMillis();
         for (long i = 0; i < ITERATIONS; i++) {
             final File file = getCacheDir();
+            results.add(file);
+        }
+        return System.currentTimeMillis() - start;
+    }
+
+    private long testFastGetCacheDir() {
+        final List<File> results = new ArrayList<>();
+        final long start = System.currentTimeMillis();
+        for (long i = 0; i < ITERATIONS; i++) {
+            final File file = getFastCacheDir();
             results.add(file);
         }
         return System.currentTimeMillis() - start;
@@ -182,6 +202,16 @@ public class CompositePerformanceTestActivity extends CompositeActivity {
         return System.currentTimeMillis() - start;
     }
 
+    private long testFastGetResources() {
+        final List<Resources> results = new ArrayList<>();
+        final long start = System.currentTimeMillis();
+        for (long i = 0; i < ITERATIONS; i++) {
+            final Resources resources = getFastResources();
+            results.add(resources);
+        }
+        return System.currentTimeMillis() - start;
+    }
+
     @SuppressLint("Assert")
     private long testOnSaveInstanceState() {
         final List<Bundle> results = new ArrayList<>();
@@ -189,6 +219,25 @@ public class CompositePerformanceTestActivity extends CompositeActivity {
         for (long i = 0; i < ITERATIONS; i++) {
             final Bundle outState = new Bundle();
             onSaveInstanceState(outState);
+            results.add(outState);
+        }
+        final long end = System.currentTimeMillis();
+
+        assert results.get(0).getString("1") == "1";
+        assert results.get(0).getString("20") == "20";
+        assert results.get(results.size()).getString("1") == "1";
+        assert results.get(results.size()).getString("20") == "20";
+
+        return end - start;
+    }
+
+    @SuppressLint("Assert")
+    private long testFastOnSaveInstanceState() {
+        final List<Bundle> results = new ArrayList<>();
+        final long start = System.currentTimeMillis();
+        for (long i = 0; i < ITERATIONS; i++) {
+            final Bundle outState = new Bundle();
+            super_onSaveInstanceState(outState);
             results.add(outState);
         }
         final long end = System.currentTimeMillis();

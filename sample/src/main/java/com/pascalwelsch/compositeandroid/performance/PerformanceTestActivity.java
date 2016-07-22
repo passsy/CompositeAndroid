@@ -18,7 +18,7 @@ public class PerformanceTestActivity extends PerformanceTestActivity1 {
 
     private static final String TAG = PerformanceTestActivity.class.getSimpleName();
 
-    public static final int ITERATIONS = 10000;
+    public static final int ITERATIONS = 50000;
 
     private final String mName = "0";
 
@@ -52,7 +52,7 @@ public class PerformanceTestActivity extends PerformanceTestActivity1 {
         String number = "5 stages: ";
 
         System.gc();
-        final int iterations = 2;
+        final int iterations = 1;
         float duration = 0;
 
         duration = 0;
@@ -60,7 +60,6 @@ public class PerformanceTestActivity extends PerformanceTestActivity1 {
             duration += testGetCacheDir();
         }
         duration /= iterations;
-        duration /= ITERATIONS;
         Log.v(TAG, number + "getCacheDir() in " + duration + "ms");
 
         duration = 0;
@@ -68,7 +67,6 @@ public class PerformanceTestActivity extends PerformanceTestActivity1 {
             duration += testGetResources();
         }
         duration /= iterations;
-        duration /= ITERATIONS;
         Log.v(TAG, number + "getResources() in " + duration + "ms");
 
         duration = 0;
@@ -76,7 +74,6 @@ public class PerformanceTestActivity extends PerformanceTestActivity1 {
             duration += testGetDelegate();
         }
         duration /= iterations;
-        duration /= ITERATIONS;
         Log.v(TAG, number + "getDelegate() in " + duration + "ms");
 
         duration = 0;
@@ -84,7 +81,6 @@ public class PerformanceTestActivity extends PerformanceTestActivity1 {
             duration += testGetFile();
         }
         duration /= iterations;
-        duration /= ITERATIONS;
         Log.v(TAG, number + "getFile() in " + duration + "ms");
 
         duration = 0;
@@ -92,7 +88,6 @@ public class PerformanceTestActivity extends PerformanceTestActivity1 {
             duration += testOnSaveInstanceState();
         }
         duration /= iterations;
-        duration /= ITERATIONS;
         Log.v(TAG, number + "onSaveInstanceState() in " + duration + "ms");
 
     }
