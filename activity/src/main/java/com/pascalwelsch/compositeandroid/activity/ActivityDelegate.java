@@ -106,7 +106,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
     private int mGetResourcesCallCount = 0;
 
-    private transient boolean mIsGetResourcesOverridden = true;
+    private transient boolean mIsGetResourcesOverridden = false;
 
     private final HashMap<String, List<ActivityPlugin>> mMethodImplementingPlugins
             = new HashMap<>();
