@@ -97,7 +97,6 @@ import java.lang.reflect.Method;
 @SuppressWarnings("unused")
 public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDelegate> {
 
-
     public void addContentView(final View view, final ViewGroup.LayoutParams params) {
         verifyMethodCalledFromDelegate("addContentView(View, ViewGroup.LayoutParams)");
         ((CallVoid2<View, ViewGroup.LayoutParams>) mSuperListeners.pop()).call(view, params);
@@ -2686,7 +2685,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
             if (method.getDeclaringClass() == ActivityPlugin.class) {
                 return false;
             }
-        } catch (NoSuchMethodException e) {
+        } catch (NoSuchMethodException ignore) {
         }
         return true;
     }

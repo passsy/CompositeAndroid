@@ -39,7 +39,9 @@ fun generateActivity() {
             "ICompositeActivity",
             "ActivityPlugin",
             extends = "AbstractDelegate<ICompositeActivity, ActivityPlugin>",
-            additionalImports = "import java.util.ListIterator;",
+            additionalImports = """
+            |import android.support.v4.app.*;
+            """.replaceIndentByMargin(),
             addCodeToClass = delegate_custom_nonConfigurationInstance_handling)
 
     writePlugin(outPath,

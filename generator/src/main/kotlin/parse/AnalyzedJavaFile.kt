@@ -86,4 +86,8 @@ data class AnalyzedJavaMethod(
             emptyList()
         }
     }
+
+    val identifier = "$name(${parameterTypes.joinToString()})"
+    val uniqueName = "$name${parameterTypes.map { "${it.first()}${it.last{it.isLetter()}}" }.joinToString("")}"
+
 }
