@@ -11,7 +11,6 @@ fun writeDelegate(outPath: String,
                   javaClassName: String,
                   compositeName: String,
                   pluginName: String,
-                  originalGetterName: String = "getOriginal()",
                   extends: String,
                   additionalImports: String? = null,
                   transform: ((String) -> String)? = null,
@@ -45,9 +44,9 @@ fun writeDelegate(outPath: String,
         //        "//${method.signature} inSuperComposite: $definedInSuperComposite, inComposite: $definedInComposite")
         methodsSb.appendln(when {
             definedInComposite && !definedInSuperComposite && isVoid ->
-                method.hook(originalGetterName, pluginName)
+                method.hook(pluginName)
             definedInComposite && !definedInSuperComposite && !isVoid ->
-                method.callFunction(originalGetterName, pluginName)
+                method.callFunction(pluginName)
 
             definedInSuperComposite && isVoid ->
                 method.forwardToDelegate(superClassDelegateName)
@@ -150,7 +149,7 @@ fun AnalyzedJavaMethod.forwardToDelegateWithReturn(delegateName: String): String
 }
 
 
-fun AnalyzedJavaMethod.hook(originalGetterName: String = "getOriginal()",
+/*fun AnalyzedJavaMethod.hook(originalGetterName: String = "getOriginal()",
                             pluginType: String = "Plugin"): String {
 
 
@@ -194,40 +193,92 @@ fun AnalyzedJavaMethod.hook(originalGetterName: String = "getOriginal()",
     sb.appendln("    }")
 
     return sb.toString();
+}*/
+
+fun AnalyzedJavaMethod.hook(pluginType: String = "Plugin"): String {
+
+    val varargs = if (parameterNames.size == 1 && parameterNames[0].contains("[]")) {
+        "new Object[]{${parameterNames[0]}}"
+    } else parameterNames.joinToString()
+
+    val genericTypeCallType = if (parameterTypes.size == 0) "" else "<${parameterTypes.joinToString()}>"
+
+    return """
+    |public void $name($rawParameters) $exceptions {
+    |    if (mPlugins.isEmpty()) {
+    |${"getOriginal().super_$name($varargs);"
+            .wrapWithTryCatch(exceptionType).prependIndent("            ")}
+    |        return;
+    |    }
+    |
+    |    final ListIterator<$pluginType> iterator = mPlugins.listIterator(mPlugins.size());
+    |
+    |    final CallVoid${parameterNames.size}$genericTypeCallType superCall = new CallVoid${parameterNames.size}$genericTypeCallType("$name(${parameterTypes.joinToString()})") {
+    |
+    |        @Override
+    |        public void call(${rawParametersBoxed.joinToString()}) {
+    |            if (iterator.hasPrevious()) {
+    |${"iterator.previous().$name(this${if (parameterNames.size > 0) ", " else ""}$varargs);"
+            .wrapWithTryCatch(exceptionType).prependIndent("                    ")}
+    |            } else {
+    |${"getOriginal().super_$name($varargs);"
+            .wrapWithTryCatch(exceptionType).prependIndent("                    ")}
+    |            }
+    |        }
+    |    };
+    |    superCall.call($varargs);
+    |}
+    """.replaceIndentByMargin("    ")
 }
 
-
-fun AnalyzedJavaMethod.callFunction(originalGetterName: String = "getOriginal()",
-                                    pluginType: String = "Plugin"): String {
+fun AnalyzedJavaMethod.callFunction(pluginType: String = "Plugin"): String {
     val typedArgs = parameterTypes.mapIndexed { i, type -> "($type) args[$i]" }
 
     val varargs = if (parameterNames.size == 1 && parameterNames[0].contains("[]")) {
         "new Object[]{${parameterNames[0]}}"
     } else parameterNames.joinToString()
 
-    return """
-    public $returnType $name($rawParameters) {
-        return callFunction("$name(${parameterTypes.joinToString()})", new PluginCall<$pluginType, $boxedReturnType>() {
-            @Override
-            public $boxedReturnType call(final NamedSuperCall<$boxedReturnType> superCall, final $pluginType plugin, final Object... args) {
-            ${if (throws) "                try {" else ""}
-                return plugin.$name(${listOf("superCall").plus(typedArgs).joinToString()});
-                ${if (throws) {
-        val sb = StringBuilder()
-        sb.appendln("            } catch ($exceptionType e) {")
-        sb.appendln("                throw new SuppressedException(e);")
-        sb.appendln("            }").toString()
-    } else ""}
-            }
-        }, new SuperCall<$boxedReturnType>() {
-            @Override
-            public $boxedReturnType call(final Object... args) { ${if (throws) "\ntry {" else ""}
-                return $originalGetterName.super_${name}(${typedArgs.joinToString()}); ${if (throws) "\n} catch ($exceptionType e) {\n throw new SuppressedException(e);\n }" else ""}
-            }
-        }${if (parameterNames.size > 0) ", " else ""}$varargs);
+    val genericTypes = mutableListOf<String>().apply {
+        add(boxedReturnType)
+        addAll(parameterTypes)
     }
-    """
+    val genericTypeCallType = "<${genericTypes.joinToString()}>"
+
+    return """
+    |public $returnType $name($rawParameters) $exceptions {
+    |    if (mPlugins.isEmpty()) {
+    |${"return getOriginal().super_$name($varargs);"
+            .wrapWithTryCatch(exceptionType).prependIndent("            ")}
+    |    }
+    |
+    |    final ListIterator<$pluginType> iterator = mPlugins.listIterator(mPlugins.size());
+    |
+    |    final CallFun${parameterNames.size}$genericTypeCallType superCall = new CallFun${parameterNames.size}$genericTypeCallType("$name(${parameterTypes.joinToString()})") {
+    |
+    |        @Override
+    |        public $boxedReturnType call(${rawParametersBoxed.joinToString()}) {
+    |            if (iterator.hasPrevious()) {
+    |${"return iterator.previous().$name(this${if (parameterNames.size > 0) ", " else ""}$varargs);"
+            .wrapWithTryCatch(exceptionType).prependIndent("                    ")}
+    |            } else {
+    |${"return getOriginal().super_$name($varargs);"
+            .wrapWithTryCatch(exceptionType).prependIndent("                    ")}
+    |            }
+    |        }
+    |    };
+    |    return superCall.call($varargs);
+    |}
+    """.replaceIndentByMargin("    ")
 }
+
+fun String.wrapWithTryCatch(exceptionType: String?): String =
+        if (exceptionType == null) this else """
+            |try{
+            |    $this
+            |} catch ($exceptionType e) {
+            |    throw new SuppressedException(e);
+            |}
+            """.replaceIndentByMargin()
 
 
 fun AnalyzedJavaMethod.notImplemented(): String {

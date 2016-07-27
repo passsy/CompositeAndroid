@@ -1,10 +1,10 @@
 package com.pascalwelsch.compositeandroid.core;
 
-public abstract class NamedSuperCall {
+public abstract class NamedSuperCallVoid implements SuperCall {
 
     private final String mMethodName;
 
-    public NamedSuperCall(final String methodName) {
+    public NamedSuperCallVoid(final String methodName) {
         mMethodName = methodName;
     }
 

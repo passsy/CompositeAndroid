@@ -1,7 +1,21 @@
 package com.pascalwelsch.compositeandroid.activity;
 
 import com.pascalwelsch.compositeandroid.core.AbstractPlugin;
-import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
+import com.pascalwelsch.compositeandroid.core.CallFun0;
+import com.pascalwelsch.compositeandroid.core.CallFun1;
+import com.pascalwelsch.compositeandroid.core.CallFun2;
+import com.pascalwelsch.compositeandroid.core.CallFun3;
+import com.pascalwelsch.compositeandroid.core.CallFun4;
+import com.pascalwelsch.compositeandroid.core.CallFun6;
+import com.pascalwelsch.compositeandroid.core.CallVoid0;
+import com.pascalwelsch.compositeandroid.core.CallVoid1;
+import com.pascalwelsch.compositeandroid.core.CallVoid2;
+import com.pascalwelsch.compositeandroid.core.CallVoid3;
+import com.pascalwelsch.compositeandroid.core.CallVoid4;
+import com.pascalwelsch.compositeandroid.core.CallVoid5;
+import com.pascalwelsch.compositeandroid.core.CallVoid6;
+import com.pascalwelsch.compositeandroid.core.CallVoid7;
+import com.pascalwelsch.compositeandroid.core.CallVoid8;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -84,247 +98,258 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     public void addContentView(final View view, final ViewGroup.LayoutParams params) {
         verifyMethodCalledFromDelegate("addContentView(View, ViewGroup.LayoutParams)");
-        mSuperListeners.pop().call(view, params);
+        ((CallVoid2<View, ViewGroup.LayoutParams>) mSuperListeners.pop()).call(view, params);
     }
 
     public void applyOverrideConfiguration(final Configuration overrideConfiguration) {
         verifyMethodCalledFromDelegate("applyOverrideConfiguration(Configuration)");
-        mSuperListeners.pop().call(overrideConfiguration);
+        ((CallVoid1<Configuration>) mSuperListeners.pop()).call(overrideConfiguration);
     }
 
     public void attachBaseContext(final Context newBase) {
         verifyMethodCalledFromDelegate("attachBaseContext(Context)");
-        mSuperListeners.pop().call(newBase);
+        ((CallVoid1<Context>) mSuperListeners.pop()).call(newBase);
     }
 
     public boolean bindService(final Intent service, final ServiceConnection conn,
             final int flags) {
-        verifyMethodCalledFromDelegate("bindService(Intent, ServiceConnection, int)");
-        return (Boolean) mSuperListeners.pop().call(service, conn, flags);
+        verifyMethodCalledFromDelegate("bindService(Intent, ServiceConnection, Integer)");
+        return ((CallFun3<Boolean, Intent, ServiceConnection, Integer>) mSuperListeners.pop())
+                .call(service, conn, flags);
     }
 
     public int checkCallingOrSelfPermission(final String permission) {
         verifyMethodCalledFromDelegate("checkCallingOrSelfPermission(String)");
-        return (Integer) mSuperListeners.pop().call(permission);
+        return ((CallFun1<Integer, String>) mSuperListeners.pop()).call(permission);
     }
 
     public int checkCallingOrSelfUriPermission(final Uri uri, final int modeFlags) {
-        verifyMethodCalledFromDelegate("checkCallingOrSelfUriPermission(Uri, int)");
-        return (Integer) mSuperListeners.pop().call(uri, modeFlags);
+        verifyMethodCalledFromDelegate("checkCallingOrSelfUriPermission(Uri, Integer)");
+        return ((CallFun2<Integer, Uri, Integer>) mSuperListeners.pop()).call(uri, modeFlags);
     }
 
     public int checkCallingPermission(final String permission) {
         verifyMethodCalledFromDelegate("checkCallingPermission(String)");
-        return (Integer) mSuperListeners.pop().call(permission);
+        return ((CallFun1<Integer, String>) mSuperListeners.pop()).call(permission);
     }
 
     public int checkCallingUriPermission(final Uri uri, final int modeFlags) {
-        verifyMethodCalledFromDelegate("checkCallingUriPermission(Uri, int)");
-        return (Integer) mSuperListeners.pop().call(uri, modeFlags);
+        verifyMethodCalledFromDelegate("checkCallingUriPermission(Uri, Integer)");
+        return ((CallFun2<Integer, Uri, Integer>) mSuperListeners.pop()).call(uri, modeFlags);
     }
 
     public int checkPermission(final String permission, final int pid, final int uid) {
-        verifyMethodCalledFromDelegate("checkPermission(String, int, int)");
-        return (Integer) mSuperListeners.pop().call(permission, pid, uid);
+        verifyMethodCalledFromDelegate("checkPermission(String, Integer, Integer)");
+        return ((CallFun3<Integer, String, Integer, Integer>) mSuperListeners.pop())
+                .call(permission, pid, uid);
     }
 
     public int checkSelfPermission(final String permission) {
         verifyMethodCalledFromDelegate("checkSelfPermission(String)");
-        return (Integer) mSuperListeners.pop().call(permission);
+        return ((CallFun1<Integer, String>) mSuperListeners.pop()).call(permission);
     }
 
     public int checkUriPermission(final Uri uri, final int pid, final int uid,
             final int modeFlags) {
-        verifyMethodCalledFromDelegate("checkUriPermission(Uri, int, int, int)");
-        return (Integer) mSuperListeners.pop().call(uri, pid, uid, modeFlags);
+        verifyMethodCalledFromDelegate("checkUriPermission(Uri, Integer, Integer, Integer)");
+        return ((CallFun4<Integer, Uri, Integer, Integer, Integer>) mSuperListeners.pop())
+                .call(uri, pid, uid, modeFlags);
     }
 
     public int checkUriPermission(final Uri uri, final String readPermission,
             final String writePermission, final int pid, final int uid, final int modeFlags) {
-        verifyMethodCalledFromDelegate("checkUriPermission(Uri, String, String, int, int, int)");
-        return (Integer) mSuperListeners.pop()
-                .call(uri, readPermission, writePermission, pid, uid, modeFlags);
+        verifyMethodCalledFromDelegate(
+                "checkUriPermission(Uri, String, String, Integer, Integer, Integer)");
+        return ((CallFun6<Integer, Uri, String, String, Integer, Integer, Integer>) mSuperListeners
+                .pop()).call(uri, readPermission, writePermission, pid, uid, modeFlags);
     }
 
     public void clearWallpaper() throws IOException {
         verifyMethodCalledFromDelegate("clearWallpaper()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void closeContextMenu() {
         verifyMethodCalledFromDelegate("closeContextMenu()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void closeOptionsMenu() {
         verifyMethodCalledFromDelegate("closeOptionsMenu()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public Context createConfigurationContext(final Configuration overrideConfiguration) {
         verifyMethodCalledFromDelegate("createConfigurationContext(Configuration)");
-        return (Context) mSuperListeners.pop().call(overrideConfiguration);
+        return ((CallFun1<Context, Configuration>) mSuperListeners.pop())
+                .call(overrideConfiguration);
     }
 
     public Context createDisplayContext(final Display display) {
         verifyMethodCalledFromDelegate("createDisplayContext(Display)");
-        return (Context) mSuperListeners.pop().call(display);
+        return ((CallFun1<Context, Display>) mSuperListeners.pop()).call(display);
     }
 
     public Context createPackageContext(final String packageName, final int flags)
             throws PackageManager.NameNotFoundException {
-        verifyMethodCalledFromDelegate("createPackageContext(String, int)");
-        return (Context) mSuperListeners.pop().call(packageName, flags);
+        verifyMethodCalledFromDelegate("createPackageContext(String, Integer)");
+        return ((CallFun2<Context, String, Integer>) mSuperListeners.pop())
+                .call(packageName, flags);
     }
 
     public PendingIntent createPendingResult(final int requestCode, final Intent data,
             final int flags) {
-        verifyMethodCalledFromDelegate("createPendingResult(int, Intent, int)");
-        return (PendingIntent) mSuperListeners.pop().call(requestCode, data, flags);
+        verifyMethodCalledFromDelegate("createPendingResult(Integer, Intent, Integer)");
+        return ((CallFun3<PendingIntent, Integer, Intent, Integer>) mSuperListeners.pop())
+                .call(requestCode, data, flags);
     }
 
     public String[] databaseList() {
         verifyMethodCalledFromDelegate("databaseList()");
-        return (String[]) mSuperListeners.pop().call();
+        return ((CallFun0<String[]>) mSuperListeners.pop()).call();
     }
 
     public boolean deleteDatabase(final String name) {
         verifyMethodCalledFromDelegate("deleteDatabase(String)");
-        return (Boolean) mSuperListeners.pop().call(name);
+        return ((CallFun1<Boolean, String>) mSuperListeners.pop()).call(name);
     }
 
     public boolean deleteFile(final String name) {
         verifyMethodCalledFromDelegate("deleteFile(String)");
-        return (Boolean) mSuperListeners.pop().call(name);
+        return ((CallFun1<Boolean, String>) mSuperListeners.pop()).call(name);
     }
 
     public boolean dispatchGenericMotionEvent(final MotionEvent ev) {
         verifyMethodCalledFromDelegate("dispatchGenericMotionEvent(MotionEvent)");
-        return (Boolean) mSuperListeners.pop().call(ev);
+        return ((CallFun1<Boolean, MotionEvent>) mSuperListeners.pop()).call(ev);
     }
 
     public boolean dispatchKeyEvent(final KeyEvent event) {
         verifyMethodCalledFromDelegate("dispatchKeyEvent(KeyEvent)");
-        return (Boolean) mSuperListeners.pop().call(event);
+        return ((CallFun1<Boolean, KeyEvent>) mSuperListeners.pop()).call(event);
     }
 
     public boolean dispatchKeyShortcutEvent(final KeyEvent event) {
         verifyMethodCalledFromDelegate("dispatchKeyShortcutEvent(KeyEvent)");
-        return (Boolean) mSuperListeners.pop().call(event);
+        return ((CallFun1<Boolean, KeyEvent>) mSuperListeners.pop()).call(event);
     }
 
     public boolean dispatchPopulateAccessibilityEvent(final AccessibilityEvent event) {
         verifyMethodCalledFromDelegate("dispatchPopulateAccessibilityEvent(AccessibilityEvent)");
-        return (Boolean) mSuperListeners.pop().call(event);
+        return ((CallFun1<Boolean, AccessibilityEvent>) mSuperListeners.pop()).call(event);
     }
 
     public boolean dispatchTouchEvent(final MotionEvent ev) {
         verifyMethodCalledFromDelegate("dispatchTouchEvent(MotionEvent)");
-        return (Boolean) mSuperListeners.pop().call(ev);
+        return ((CallFun1<Boolean, MotionEvent>) mSuperListeners.pop()).call(ev);
     }
 
     public boolean dispatchTrackballEvent(final MotionEvent ev) {
         verifyMethodCalledFromDelegate("dispatchTrackballEvent(MotionEvent)");
-        return (Boolean) mSuperListeners.pop().call(ev);
+        return ((CallFun1<Boolean, MotionEvent>) mSuperListeners.pop()).call(ev);
     }
 
     public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
             final String[] args) {
         verifyMethodCalledFromDelegate("dump(String, FileDescriptor, PrintWriter, String[])");
-        mSuperListeners.pop().call(prefix, fd, writer, args);
+        ((CallVoid4<String, FileDescriptor, PrintWriter, String[]>) mSuperListeners.pop())
+                .call(prefix, fd, writer, args);
     }
 
     public void enforceCallingOrSelfPermission(final String permission, final String message) {
         verifyMethodCalledFromDelegate("enforceCallingOrSelfPermission(String, String)");
-        mSuperListeners.pop().call(permission, message);
+        ((CallVoid2<String, String>) mSuperListeners.pop()).call(permission, message);
     }
 
     public void enforceCallingOrSelfUriPermission(final Uri uri, final int modeFlags,
             final String message) {
-        verifyMethodCalledFromDelegate("enforceCallingOrSelfUriPermission(Uri, int, String)");
-        mSuperListeners.pop().call(uri, modeFlags, message);
+        verifyMethodCalledFromDelegate("enforceCallingOrSelfUriPermission(Uri, Integer, String)");
+        ((CallVoid3<Uri, Integer, String>) mSuperListeners.pop()).call(uri, modeFlags, message);
     }
 
     public void enforceCallingPermission(final String permission, final String message) {
         verifyMethodCalledFromDelegate("enforceCallingPermission(String, String)");
-        mSuperListeners.pop().call(permission, message);
+        ((CallVoid2<String, String>) mSuperListeners.pop()).call(permission, message);
     }
 
     public void enforceCallingUriPermission(final Uri uri, final int modeFlags,
             final String message) {
-        verifyMethodCalledFromDelegate("enforceCallingUriPermission(Uri, int, String)");
-        mSuperListeners.pop().call(uri, modeFlags, message);
+        verifyMethodCalledFromDelegate("enforceCallingUriPermission(Uri, Integer, String)");
+        ((CallVoid3<Uri, Integer, String>) mSuperListeners.pop()).call(uri, modeFlags, message);
     }
 
     public void enforcePermission(final String permission, final int pid, final int uid,
             final String message) {
-        verifyMethodCalledFromDelegate("enforcePermission(String, int, int, String)");
-        mSuperListeners.pop().call(permission, pid, uid, message);
+        verifyMethodCalledFromDelegate("enforcePermission(String, Integer, Integer, String)");
+        ((CallVoid4<String, Integer, Integer, String>) mSuperListeners.pop())
+                .call(permission, pid, uid, message);
     }
 
     public void enforceUriPermission(final Uri uri, final int pid, final int uid,
             final int modeFlags, final String message) {
-        verifyMethodCalledFromDelegate("enforceUriPermission(Uri, int, int, int, String)");
-        mSuperListeners.pop().call(uri, pid, uid, modeFlags, message);
+        verifyMethodCalledFromDelegate(
+                "enforceUriPermission(Uri, Integer, Integer, Integer, String)");
+        ((CallVoid5<Uri, Integer, Integer, Integer, String>) mSuperListeners.pop())
+                .call(uri, pid, uid, modeFlags, message);
     }
 
     public void enforceUriPermission(final Uri uri, final String readPermission,
             final String writePermission, final int pid, final int uid, final int modeFlags,
             final String message) {
         verifyMethodCalledFromDelegate(
-                "enforceUriPermission(Uri, String, String, int, int, int, String)");
-        mSuperListeners.pop()
+                "enforceUriPermission(Uri, String, String, Integer, Integer, Integer, String)");
+        ((CallVoid7<Uri, String, String, Integer, Integer, Integer, String>) mSuperListeners.pop())
                 .call(uri, readPermission, writePermission, pid, uid, modeFlags, message);
     }
 
     public String[] fileList() {
         verifyMethodCalledFromDelegate("fileList()");
-        return (String[]) mSuperListeners.pop().call();
+        return ((CallFun0<String[]>) mSuperListeners.pop()).call();
     }
 
     public View findViewById(@IdRes final int id) {
-        verifyMethodCalledFromDelegate("findViewById(int)");
-        return (View) mSuperListeners.pop().call(id);
+        verifyMethodCalledFromDelegate("findViewById(Integer)");
+        return ((CallFun1<View, Integer>) mSuperListeners.pop()).call(id);
     }
 
     public void finish() {
         verifyMethodCalledFromDelegate("finish()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void finishActivity(final int requestCode) {
-        verifyMethodCalledFromDelegate("finishActivity(int)");
-        mSuperListeners.pop().call(requestCode);
+        verifyMethodCalledFromDelegate("finishActivity(Integer)");
+        ((CallVoid1<Integer>) mSuperListeners.pop()).call(requestCode);
     }
 
     public void finishActivityFromChild(final Activity child, final int requestCode) {
-        verifyMethodCalledFromDelegate("finishActivityFromChild(Activity, int)");
-        mSuperListeners.pop().call(child, requestCode);
+        verifyMethodCalledFromDelegate("finishActivityFromChild(Activity, Integer)");
+        ((CallVoid2<Activity, Integer>) mSuperListeners.pop()).call(child, requestCode);
     }
 
     public void finishAffinity() {
         verifyMethodCalledFromDelegate("finishAffinity()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void finishAfterTransition() {
         verifyMethodCalledFromDelegate("finishAfterTransition()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void finishAndRemoveTask() {
         verifyMethodCalledFromDelegate("finishAndRemoveTask()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void finishFromChild(final Activity child) {
         verifyMethodCalledFromDelegate("finishFromChild(Activity)");
-        mSuperListeners.pop().call(child);
+        ((CallVoid1<Activity>) mSuperListeners.pop()).call(child);
     }
 
     public android.app.ActionBar getActionBar() {
         verifyMethodCalledFromDelegate("getActionBar()");
-        return (android.app.ActionBar) mSuperListeners.pop().call();
+        return ((CallFun0<android.app.ActionBar>) mSuperListeners.pop()).call();
     }
 
     public Activity getActivity() {
@@ -333,142 +358,142 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     public Context getApplicationContext() {
         verifyMethodCalledFromDelegate("getApplicationContext()");
-        return (Context) mSuperListeners.pop().call();
+        return ((CallFun0<Context>) mSuperListeners.pop()).call();
     }
 
     public ApplicationInfo getApplicationInfo() {
         verifyMethodCalledFromDelegate("getApplicationInfo()");
-        return (ApplicationInfo) mSuperListeners.pop().call();
+        return ((CallFun0<ApplicationInfo>) mSuperListeners.pop()).call();
     }
 
     public AssetManager getAssets() {
         verifyMethodCalledFromDelegate("getAssets()");
-        return (AssetManager) mSuperListeners.pop().call();
+        return ((CallFun0<AssetManager>) mSuperListeners.pop()).call();
     }
 
     public Context getBaseContext() {
         verifyMethodCalledFromDelegate("getBaseContext()");
-        return (Context) mSuperListeners.pop().call();
+        return ((CallFun0<Context>) mSuperListeners.pop()).call();
     }
 
     public File getCacheDir() {
         verifyMethodCalledFromDelegate("getCacheDir()");
-        return (File) mSuperListeners.pop().call();
+        return ((CallFun0<File>) mSuperListeners.pop()).call();
     }
 
     public ComponentName getCallingActivity() {
         verifyMethodCalledFromDelegate("getCallingActivity()");
-        return (ComponentName) mSuperListeners.pop().call();
+        return ((CallFun0<ComponentName>) mSuperListeners.pop()).call();
     }
 
     public String getCallingPackage() {
         verifyMethodCalledFromDelegate("getCallingPackage()");
-        return (String) mSuperListeners.pop().call();
+        return ((CallFun0<String>) mSuperListeners.pop()).call();
     }
 
     public int getChangingConfigurations() {
         verifyMethodCalledFromDelegate("getChangingConfigurations()");
-        return (Integer) mSuperListeners.pop().call();
+        return ((CallFun0<Integer>) mSuperListeners.pop()).call();
     }
 
     public ClassLoader getClassLoader() {
         verifyMethodCalledFromDelegate("getClassLoader()");
-        return (ClassLoader) mSuperListeners.pop().call();
+        return ((CallFun0<ClassLoader>) mSuperListeners.pop()).call();
     }
 
     public File getCodeCacheDir() {
         verifyMethodCalledFromDelegate("getCodeCacheDir()");
-        return (File) mSuperListeners.pop().call();
+        return ((CallFun0<File>) mSuperListeners.pop()).call();
     }
 
     public ComponentName getComponentName() {
         verifyMethodCalledFromDelegate("getComponentName()");
-        return (ComponentName) mSuperListeners.pop().call();
+        return ((CallFun0<ComponentName>) mSuperListeners.pop()).call();
     }
 
     public ContentResolver getContentResolver() {
         verifyMethodCalledFromDelegate("getContentResolver()");
-        return (ContentResolver) mSuperListeners.pop().call();
+        return ((CallFun0<ContentResolver>) mSuperListeners.pop()).call();
     }
 
     public Scene getContentScene() {
         verifyMethodCalledFromDelegate("getContentScene()");
-        return (Scene) mSuperListeners.pop().call();
+        return ((CallFun0<Scene>) mSuperListeners.pop()).call();
     }
 
     public TransitionManager getContentTransitionManager() {
         verifyMethodCalledFromDelegate("getContentTransitionManager()");
-        return (TransitionManager) mSuperListeners.pop().call();
+        return ((CallFun0<TransitionManager>) mSuperListeners.pop()).call();
     }
 
     public View getCurrentFocus() {
         verifyMethodCalledFromDelegate("getCurrentFocus()");
-        return (View) mSuperListeners.pop().call();
+        return ((CallFun0<View>) mSuperListeners.pop()).call();
     }
 
     public File getDatabasePath(final String name) {
         verifyMethodCalledFromDelegate("getDatabasePath(String)");
-        return (File) mSuperListeners.pop().call(name);
+        return ((CallFun1<File, String>) mSuperListeners.pop()).call(name);
     }
 
     public AppCompatDelegate getDelegate() {
         verifyMethodCalledFromDelegate("getDelegate()");
-        return (AppCompatDelegate) mSuperListeners.pop().call();
+        return ((CallFun0<AppCompatDelegate>) mSuperListeners.pop()).call();
     }
 
     public File getDir(final String name, final int mode) {
-        verifyMethodCalledFromDelegate("getDir(String, int)");
-        return (File) mSuperListeners.pop().call(name, mode);
+        verifyMethodCalledFromDelegate("getDir(String, Integer)");
+        return ((CallFun2<File, String, Integer>) mSuperListeners.pop()).call(name, mode);
     }
 
     public ActionBarDrawerToggle.Delegate getDrawerToggleDelegate() {
         verifyMethodCalledFromDelegate("getDrawerToggleDelegate()");
-        return (ActionBarDrawerToggle.Delegate) mSuperListeners.pop().call();
+        return ((CallFun0<ActionBarDrawerToggle.Delegate>) mSuperListeners.pop()).call();
     }
 
     public File getExternalCacheDir() {
         verifyMethodCalledFromDelegate("getExternalCacheDir()");
-        return (File) mSuperListeners.pop().call();
+        return ((CallFun0<File>) mSuperListeners.pop()).call();
     }
 
     public File[] getExternalCacheDirs() {
         verifyMethodCalledFromDelegate("getExternalCacheDirs()");
-        return (File[]) mSuperListeners.pop().call();
+        return ((CallFun0<File[]>) mSuperListeners.pop()).call();
     }
 
     public File getExternalFilesDir(final String type) {
         verifyMethodCalledFromDelegate("getExternalFilesDir(String)");
-        return (File) mSuperListeners.pop().call(type);
+        return ((CallFun1<File, String>) mSuperListeners.pop()).call(type);
     }
 
     public File[] getExternalFilesDirs(final String type) {
         verifyMethodCalledFromDelegate("getExternalFilesDirs(String)");
-        return (File[]) mSuperListeners.pop().call(type);
+        return ((CallFun1<File[], String>) mSuperListeners.pop()).call(type);
     }
 
     public File[] getExternalMediaDirs() {
         verifyMethodCalledFromDelegate("getExternalMediaDirs()");
-        return (File[]) mSuperListeners.pop().call();
+        return ((CallFun0<File[]>) mSuperListeners.pop()).call();
     }
 
     public File getFileStreamPath(final String name) {
         verifyMethodCalledFromDelegate("getFileStreamPath(String)");
-        return (File) mSuperListeners.pop().call(name);
+        return ((CallFun1<File, String>) mSuperListeners.pop()).call(name);
     }
 
     public File getFilesDir() {
         verifyMethodCalledFromDelegate("getFilesDir()");
-        return (File) mSuperListeners.pop().call();
+        return ((CallFun0<File>) mSuperListeners.pop()).call();
     }
 
     public android.app.FragmentManager getFragmentManager() {
         verifyMethodCalledFromDelegate("getFragmentManager()");
-        return (android.app.FragmentManager) mSuperListeners.pop().call();
+        return ((CallFun0<android.app.FragmentManager>) mSuperListeners.pop()).call();
     }
 
     public Intent getIntent() {
         verifyMethodCalledFromDelegate("getIntent()");
-        return (Intent) mSuperListeners.pop().call();
+        return ((CallFun0<Intent>) mSuperListeners.pop()).call();
     }
 
     public Object getLastNonConfigurationInstance(final String key) {
@@ -477,568 +502,580 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     public LayoutInflater getLayoutInflater() {
         verifyMethodCalledFromDelegate("getLayoutInflater()");
-        return (LayoutInflater) mSuperListeners.pop().call();
+        return ((CallFun0<LayoutInflater>) mSuperListeners.pop()).call();
     }
 
     public android.app.LoaderManager getLoaderManager() {
         verifyMethodCalledFromDelegate("getLoaderManager()");
-        return (android.app.LoaderManager) mSuperListeners.pop().call();
+        return ((CallFun0<android.app.LoaderManager>) mSuperListeners.pop()).call();
     }
 
     public String getLocalClassName() {
         verifyMethodCalledFromDelegate("getLocalClassName()");
-        return (String) mSuperListeners.pop().call();
+        return ((CallFun0<String>) mSuperListeners.pop()).call();
     }
 
     public Looper getMainLooper() {
         verifyMethodCalledFromDelegate("getMainLooper()");
-        return (Looper) mSuperListeners.pop().call();
+        return ((CallFun0<Looper>) mSuperListeners.pop()).call();
     }
 
     public MenuInflater getMenuInflater() {
         verifyMethodCalledFromDelegate("getMenuInflater()");
-        return (MenuInflater) mSuperListeners.pop().call();
+        return ((CallFun0<MenuInflater>) mSuperListeners.pop()).call();
     }
 
     public File getNoBackupFilesDir() {
         verifyMethodCalledFromDelegate("getNoBackupFilesDir()");
-        return (File) mSuperListeners.pop().call();
+        return ((CallFun0<File>) mSuperListeners.pop()).call();
     }
 
     public File getObbDir() {
         verifyMethodCalledFromDelegate("getObbDir()");
-        return (File) mSuperListeners.pop().call();
+        return ((CallFun0<File>) mSuperListeners.pop()).call();
     }
 
     public File[] getObbDirs() {
         verifyMethodCalledFromDelegate("getObbDirs()");
-        return (File[]) mSuperListeners.pop().call();
+        return ((CallFun0<File[]>) mSuperListeners.pop()).call();
     }
 
     public String getPackageCodePath() {
         verifyMethodCalledFromDelegate("getPackageCodePath()");
-        return (String) mSuperListeners.pop().call();
+        return ((CallFun0<String>) mSuperListeners.pop()).call();
     }
 
     public PackageManager getPackageManager() {
         verifyMethodCalledFromDelegate("getPackageManager()");
-        return (PackageManager) mSuperListeners.pop().call();
+        return ((CallFun0<PackageManager>) mSuperListeners.pop()).call();
     }
 
     public String getPackageName() {
         verifyMethodCalledFromDelegate("getPackageName()");
-        return (String) mSuperListeners.pop().call();
+        return ((CallFun0<String>) mSuperListeners.pop()).call();
     }
 
     public String getPackageResourcePath() {
         verifyMethodCalledFromDelegate("getPackageResourcePath()");
-        return (String) mSuperListeners.pop().call();
+        return ((CallFun0<String>) mSuperListeners.pop()).call();
     }
 
     public Intent getParentActivityIntent() {
         verifyMethodCalledFromDelegate("getParentActivityIntent()");
-        return (Intent) mSuperListeners.pop().call();
+        return ((CallFun0<Intent>) mSuperListeners.pop()).call();
     }
 
     public SharedPreferences getPreferences(final int mode) {
-        verifyMethodCalledFromDelegate("getPreferences(int)");
-        return (SharedPreferences) mSuperListeners.pop().call(mode);
+        verifyMethodCalledFromDelegate("getPreferences(Integer)");
+        return ((CallFun1<SharedPreferences, Integer>) mSuperListeners.pop()).call(mode);
     }
 
     public Uri getReferrer() {
         verifyMethodCalledFromDelegate("getReferrer()");
-        return (Uri) mSuperListeners.pop().call();
+        return ((CallFun0<Uri>) mSuperListeners.pop()).call();
     }
 
     public int getRequestedOrientation() {
         verifyMethodCalledFromDelegate("getRequestedOrientation()");
-        return (Integer) mSuperListeners.pop().call();
+        return ((CallFun0<Integer>) mSuperListeners.pop()).call();
     }
 
     public Resources getResources() {
         verifyMethodCalledFromDelegate("getResources()");
-        return (Resources) mSuperListeners.pop().call();
+        return ((CallFun0<Resources>) mSuperListeners.pop()).call();
     }
 
     public SharedPreferences getSharedPreferences(final String name, final int mode) {
-        verifyMethodCalledFromDelegate("getSharedPreferences(String, int)");
-        return (SharedPreferences) mSuperListeners.pop().call(name, mode);
+        verifyMethodCalledFromDelegate("getSharedPreferences(String, Integer)");
+        return ((CallFun2<SharedPreferences, String, Integer>) mSuperListeners.pop())
+                .call(name, mode);
     }
 
     public ActionBar getSupportActionBar() {
         verifyMethodCalledFromDelegate("getSupportActionBar()");
-        return (ActionBar) mSuperListeners.pop().call();
+        return ((CallFun0<ActionBar>) mSuperListeners.pop()).call();
     }
 
     public FragmentManager getSupportFragmentManager() {
         verifyMethodCalledFromDelegate("getSupportFragmentManager()");
-        return (FragmentManager) mSuperListeners.pop().call();
+        return ((CallFun0<FragmentManager>) mSuperListeners.pop()).call();
     }
 
     public LoaderManager getSupportLoaderManager() {
         verifyMethodCalledFromDelegate("getSupportLoaderManager()");
-        return (LoaderManager) mSuperListeners.pop().call();
+        return ((CallFun0<LoaderManager>) mSuperListeners.pop()).call();
     }
 
     public Intent getSupportParentActivityIntent() {
         verifyMethodCalledFromDelegate("getSupportParentActivityIntent()");
-        return (Intent) mSuperListeners.pop().call();
+        return ((CallFun0<Intent>) mSuperListeners.pop()).call();
     }
 
     public Object getSystemService(final String name) {
         verifyMethodCalledFromDelegate("getSystemService(String)");
-        return (Object) mSuperListeners.pop().call(name);
+        return ((CallFun1<Object, String>) mSuperListeners.pop()).call(name);
     }
 
     public String getSystemServiceName(final Class<?> serviceClass) {
         verifyMethodCalledFromDelegate("getSystemServiceName(Class<?>)");
-        return (String) mSuperListeners.pop().call(serviceClass);
+        return ((CallFun1<String, Class<?>>) mSuperListeners.pop()).call(serviceClass);
     }
 
     public int getTaskId() {
         verifyMethodCalledFromDelegate("getTaskId()");
-        return (Integer) mSuperListeners.pop().call();
+        return ((CallFun0<Integer>) mSuperListeners.pop()).call();
     }
 
     public Resources.Theme getTheme() {
         verifyMethodCalledFromDelegate("getTheme()");
-        return (Resources.Theme) mSuperListeners.pop().call();
+        return ((CallFun0<Resources.Theme>) mSuperListeners.pop()).call();
     }
 
     public VoiceInteractor getVoiceInteractor() {
         verifyMethodCalledFromDelegate("getVoiceInteractor()");
-        return (VoiceInteractor) mSuperListeners.pop().call();
+        return ((CallFun0<VoiceInteractor>) mSuperListeners.pop()).call();
     }
 
     public Drawable getWallpaper() {
         verifyMethodCalledFromDelegate("getWallpaper()");
-        return (Drawable) mSuperListeners.pop().call();
+        return ((CallFun0<Drawable>) mSuperListeners.pop()).call();
     }
 
     public int getWallpaperDesiredMinimumHeight() {
         verifyMethodCalledFromDelegate("getWallpaperDesiredMinimumHeight()");
-        return (Integer) mSuperListeners.pop().call();
+        return ((CallFun0<Integer>) mSuperListeners.pop()).call();
     }
 
     public int getWallpaperDesiredMinimumWidth() {
         verifyMethodCalledFromDelegate("getWallpaperDesiredMinimumWidth()");
-        return (Integer) mSuperListeners.pop().call();
+        return ((CallFun0<Integer>) mSuperListeners.pop()).call();
     }
 
     public Window getWindow() {
         verifyMethodCalledFromDelegate("getWindow()");
-        return (Window) mSuperListeners.pop().call();
+        return ((CallFun0<Window>) mSuperListeners.pop()).call();
     }
 
     public WindowManager getWindowManager() {
         verifyMethodCalledFromDelegate("getWindowManager()");
-        return (WindowManager) mSuperListeners.pop().call();
+        return ((CallFun0<WindowManager>) mSuperListeners.pop()).call();
     }
 
     public void grantUriPermission(final String toPackage, final Uri uri, final int modeFlags) {
-        verifyMethodCalledFromDelegate("grantUriPermission(String, Uri, int)");
-        mSuperListeners.pop().call(toPackage, uri, modeFlags);
+        verifyMethodCalledFromDelegate("grantUriPermission(String, Uri, Integer)");
+        ((CallVoid3<String, Uri, Integer>) mSuperListeners.pop()).call(toPackage, uri, modeFlags);
     }
 
     public boolean hasWindowFocus() {
         verifyMethodCalledFromDelegate("hasWindowFocus()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public void invalidateOptionsMenu() {
         verifyMethodCalledFromDelegate("invalidateOptionsMenu()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public boolean isChangingConfigurations() {
         verifyMethodCalledFromDelegate("isChangingConfigurations()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public boolean isDestroyed() {
         verifyMethodCalledFromDelegate("isDestroyed()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public boolean isFinishing() {
         verifyMethodCalledFromDelegate("isFinishing()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public boolean isImmersive() {
         verifyMethodCalledFromDelegate("isImmersive()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public boolean isRestricted() {
         verifyMethodCalledFromDelegate("isRestricted()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public boolean isTaskRoot() {
         verifyMethodCalledFromDelegate("isTaskRoot()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public boolean isVoiceInteraction() {
         verifyMethodCalledFromDelegate("isVoiceInteraction()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public boolean isVoiceInteractionRoot() {
         verifyMethodCalledFromDelegate("isVoiceInteractionRoot()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public boolean moveTaskToBack(final boolean nonRoot) {
-        verifyMethodCalledFromDelegate("moveTaskToBack(boolean)");
-        return (Boolean) mSuperListeners.pop().call(nonRoot);
+        verifyMethodCalledFromDelegate("moveTaskToBack(Boolean)");
+        return ((CallFun1<Boolean, Boolean>) mSuperListeners.pop()).call(nonRoot);
     }
 
     public boolean navigateUpTo(final Intent upIntent) {
         verifyMethodCalledFromDelegate("navigateUpTo(Intent)");
-        return (Boolean) mSuperListeners.pop().call(upIntent);
+        return ((CallFun1<Boolean, Intent>) mSuperListeners.pop()).call(upIntent);
     }
 
     public boolean navigateUpToFromChild(final Activity child, final Intent upIntent) {
         verifyMethodCalledFromDelegate("navigateUpToFromChild(Activity, Intent)");
-        return (Boolean) mSuperListeners.pop().call(child, upIntent);
+        return ((CallFun2<Boolean, Activity, Intent>) mSuperListeners.pop()).call(child, upIntent);
     }
 
     public void onActionModeFinished(final android.view.ActionMode mode) {
         verifyMethodCalledFromDelegate("onActionModeFinished(android.view.ActionMode)");
-        mSuperListeners.pop().call(mode);
+        ((CallVoid1<android.view.ActionMode>) mSuperListeners.pop()).call(mode);
     }
 
     public void onActionModeStarted(final android.view.ActionMode mode) {
         verifyMethodCalledFromDelegate("onActionModeStarted(android.view.ActionMode)");
-        mSuperListeners.pop().call(mode);
+        ((CallVoid1<android.view.ActionMode>) mSuperListeners.pop()).call(mode);
     }
 
     public void onActivityReenter(final int resultCode, final Intent data) {
-        verifyMethodCalledFromDelegate("onActivityReenter(int, Intent)");
-        mSuperListeners.pop().call(resultCode, data);
+        verifyMethodCalledFromDelegate("onActivityReenter(Integer, Intent)");
+        ((CallVoid2<Integer, Intent>) mSuperListeners.pop()).call(resultCode, data);
     }
 
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        verifyMethodCalledFromDelegate("onActivityResult(int, int, Intent)");
-        mSuperListeners.pop().call(requestCode, resultCode, data);
+        verifyMethodCalledFromDelegate("onActivityResult(Integer, Integer, Intent)");
+        ((CallVoid3<Integer, Integer, Intent>) mSuperListeners.pop())
+                .call(requestCode, resultCode, data);
     }
 
     public void onApplyThemeResource(final Resources.Theme theme, final int resid,
             final boolean first) {
-        verifyMethodCalledFromDelegate("onApplyThemeResource(Resources.Theme, int, boolean)");
-        mSuperListeners.pop().call(theme, resid, first);
+        verifyMethodCalledFromDelegate("onApplyThemeResource(Resources.Theme, Integer, Boolean)");
+        ((CallVoid3<Resources.Theme, Integer, Boolean>) mSuperListeners.pop())
+                .call(theme, resid, first);
     }
 
     public void onAttachFragment(final Fragment fragment) {
         verifyMethodCalledFromDelegate("onAttachFragment(Fragment)");
-        mSuperListeners.pop().call(fragment);
+        ((CallVoid1<Fragment>) mSuperListeners.pop()).call(fragment);
     }
 
     public void onAttachFragment(final android.app.Fragment fragment) {
         verifyMethodCalledFromDelegate("onAttachFragment(android.app.Fragment)");
-        mSuperListeners.pop().call(fragment);
+        ((CallVoid1<android.app.Fragment>) mSuperListeners.pop()).call(fragment);
     }
 
     public void onAttachedToWindow() {
         verifyMethodCalledFromDelegate("onAttachedToWindow()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onBackPressed() {
         verifyMethodCalledFromDelegate("onBackPressed()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onChildTitleChanged(final Activity childActivity, final CharSequence title) {
         verifyMethodCalledFromDelegate("onChildTitleChanged(Activity, CharSequence)");
-        mSuperListeners.pop().call(childActivity, title);
+        ((CallVoid2<Activity, CharSequence>) mSuperListeners.pop()).call(childActivity, title);
     }
 
     public void onConfigurationChanged(final Configuration newConfig) {
         verifyMethodCalledFromDelegate("onConfigurationChanged(Configuration)");
-        mSuperListeners.pop().call(newConfig);
+        ((CallVoid1<Configuration>) mSuperListeners.pop()).call(newConfig);
     }
 
     public void onContentChanged() {
         verifyMethodCalledFromDelegate("onContentChanged()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public boolean onContextItemSelected(final MenuItem item) {
         verifyMethodCalledFromDelegate("onContextItemSelected(MenuItem)");
-        return (Boolean) mSuperListeners.pop().call(item);
+        return ((CallFun1<Boolean, MenuItem>) mSuperListeners.pop()).call(item);
     }
 
     public void onContextMenuClosed(final Menu menu) {
         verifyMethodCalledFromDelegate("onContextMenuClosed(Menu)");
-        mSuperListeners.pop().call(menu);
+        ((CallVoid1<Menu>) mSuperListeners.pop()).call(menu);
     }
 
     public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
         verifyMethodCalledFromDelegate("onCreate(Bundle, PersistableBundle)");
-        mSuperListeners.pop().call(savedInstanceState, persistentState);
+        ((CallVoid2<Bundle, PersistableBundle>) mSuperListeners.pop())
+                .call(savedInstanceState, persistentState);
     }
 
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onCreate(Bundle)");
-        mSuperListeners.pop().call(savedInstanceState);
+        ((CallVoid1<Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
     public void onCreateContextMenu(final ContextMenu menu, final View v,
             final ContextMenu.ContextMenuInfo menuInfo) {
         verifyMethodCalledFromDelegate(
                 "onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)");
-        mSuperListeners.pop().call(menu, v, menuInfo);
+        ((CallVoid3<ContextMenu, View, ContextMenu.ContextMenuInfo>) mSuperListeners.pop())
+                .call(menu, v, menuInfo);
     }
 
     public CharSequence onCreateDescription() {
         verifyMethodCalledFromDelegate("onCreateDescription()");
-        return (CharSequence) mSuperListeners.pop().call();
+        return ((CallFun0<CharSequence>) mSuperListeners.pop()).call();
     }
 
     public Dialog onCreateDialog(final int id) {
-        verifyMethodCalledFromDelegate("onCreateDialog(int)");
-        return (Dialog) mSuperListeners.pop().call(id);
+        verifyMethodCalledFromDelegate("onCreateDialog(Integer)");
+        return ((CallFun1<Dialog, Integer>) mSuperListeners.pop()).call(id);
     }
 
     public Dialog onCreateDialog(final int id, final Bundle args) {
-        verifyMethodCalledFromDelegate("onCreateDialog(int, Bundle)");
-        return (Dialog) mSuperListeners.pop().call(id, args);
+        verifyMethodCalledFromDelegate("onCreateDialog(Integer, Bundle)");
+        return ((CallFun2<Dialog, Integer, Bundle>) mSuperListeners.pop()).call(id, args);
     }
 
     public void onCreateNavigateUpTaskStack(final TaskStackBuilder builder) {
         verifyMethodCalledFromDelegate("onCreateNavigateUpTaskStack(TaskStackBuilder)");
-        mSuperListeners.pop().call(builder);
+        ((CallVoid1<TaskStackBuilder>) mSuperListeners.pop()).call(builder);
     }
 
     public boolean onCreateOptionsMenu(final Menu menu) {
         verifyMethodCalledFromDelegate("onCreateOptionsMenu(Menu)");
-        return (Boolean) mSuperListeners.pop().call(menu);
+        return ((CallFun1<Boolean, Menu>) mSuperListeners.pop()).call(menu);
     }
 
     public boolean onCreatePanelMenu(final int featureId, final Menu menu) {
-        verifyMethodCalledFromDelegate("onCreatePanelMenu(int, Menu)");
-        return (Boolean) mSuperListeners.pop().call(featureId, menu);
+        verifyMethodCalledFromDelegate("onCreatePanelMenu(Integer, Menu)");
+        return ((CallFun2<Boolean, Integer, Menu>) mSuperListeners.pop()).call(featureId, menu);
     }
 
     public View onCreatePanelView(final int featureId) {
-        verifyMethodCalledFromDelegate("onCreatePanelView(int)");
-        return (View) mSuperListeners.pop().call(featureId);
+        verifyMethodCalledFromDelegate("onCreatePanelView(Integer)");
+        return ((CallFun1<View, Integer>) mSuperListeners.pop()).call(featureId);
     }
 
     public void onCreateSupportNavigateUpTaskStack(
             @NonNull final android.support.v4.app.TaskStackBuilder builder) {
         verifyMethodCalledFromDelegate(
                 "onCreateSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)");
-        mSuperListeners.pop().call(builder);
+        ((CallVoid1<android.support.v4.app.TaskStackBuilder>) mSuperListeners.pop()).call(builder);
     }
 
     public boolean onCreateThumbnail(final Bitmap outBitmap, final Canvas canvas) {
         verifyMethodCalledFromDelegate("onCreateThumbnail(Bitmap, Canvas)");
-        return (Boolean) mSuperListeners.pop().call(outBitmap, canvas);
+        return ((CallFun2<Boolean, Bitmap, Canvas>) mSuperListeners.pop()).call(outBitmap, canvas);
     }
 
     public View onCreateView(final View parent, final String name, final Context context,
             final AttributeSet attrs) {
         verifyMethodCalledFromDelegate("onCreateView(View, String, Context, AttributeSet)");
-        return (View) mSuperListeners.pop().call(parent, name, context, attrs);
+        return ((CallFun4<View, View, String, Context, AttributeSet>) mSuperListeners.pop())
+                .call(parent, name, context, attrs);
     }
 
     public View onCreateView(final String name, final Context context, final AttributeSet attrs) {
         verifyMethodCalledFromDelegate("onCreateView(String, Context, AttributeSet)");
-        return (View) mSuperListeners.pop().call(name, context, attrs);
+        return ((CallFun3<View, String, Context, AttributeSet>) mSuperListeners.pop())
+                .call(name, context, attrs);
     }
 
     public void onDestroy() {
         verifyMethodCalledFromDelegate("onDestroy()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onDetachedFromWindow() {
         verifyMethodCalledFromDelegate("onDetachedFromWindow()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onEnterAnimationComplete() {
         verifyMethodCalledFromDelegate("onEnterAnimationComplete()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public boolean onGenericMotionEvent(final MotionEvent event) {
         verifyMethodCalledFromDelegate("onGenericMotionEvent(MotionEvent)");
-        return (Boolean) mSuperListeners.pop().call(event);
+        return ((CallFun1<Boolean, MotionEvent>) mSuperListeners.pop()).call(event);
     }
 
     public boolean onKeyDown(final int keyCode, final KeyEvent event) {
-        verifyMethodCalledFromDelegate("onKeyDown(int, KeyEvent)");
-        return (Boolean) mSuperListeners.pop().call(keyCode, event);
+        verifyMethodCalledFromDelegate("onKeyDown(Integer, KeyEvent)");
+        return ((CallFun2<Boolean, Integer, KeyEvent>) mSuperListeners.pop()).call(keyCode, event);
     }
 
     public boolean onKeyLongPress(final int keyCode, final KeyEvent event) {
-        verifyMethodCalledFromDelegate("onKeyLongPress(int, KeyEvent)");
-        return (Boolean) mSuperListeners.pop().call(keyCode, event);
+        verifyMethodCalledFromDelegate("onKeyLongPress(Integer, KeyEvent)");
+        return ((CallFun2<Boolean, Integer, KeyEvent>) mSuperListeners.pop()).call(keyCode, event);
     }
 
     public boolean onKeyMultiple(final int keyCode, final int repeatCount, final KeyEvent event) {
-        verifyMethodCalledFromDelegate("onKeyMultiple(int, int, KeyEvent)");
-        return (Boolean) mSuperListeners.pop().call(keyCode, repeatCount, event);
+        verifyMethodCalledFromDelegate("onKeyMultiple(Integer, Integer, KeyEvent)");
+        return ((CallFun3<Boolean, Integer, Integer, KeyEvent>) mSuperListeners.pop())
+                .call(keyCode, repeatCount, event);
     }
 
     public boolean onKeyShortcut(final int keyCode, final KeyEvent event) {
-        verifyMethodCalledFromDelegate("onKeyShortcut(int, KeyEvent)");
-        return (Boolean) mSuperListeners.pop().call(keyCode, event);
+        verifyMethodCalledFromDelegate("onKeyShortcut(Integer, KeyEvent)");
+        return ((CallFun2<Boolean, Integer, KeyEvent>) mSuperListeners.pop()).call(keyCode, event);
     }
 
     public boolean onKeyUp(final int keyCode, final KeyEvent event) {
-        verifyMethodCalledFromDelegate("onKeyUp(int, KeyEvent)");
-        return (Boolean) mSuperListeners.pop().call(keyCode, event);
+        verifyMethodCalledFromDelegate("onKeyUp(Integer, KeyEvent)");
+        return ((CallFun2<Boolean, Integer, KeyEvent>) mSuperListeners.pop()).call(keyCode, event);
     }
 
     public void onLowMemory() {
         verifyMethodCalledFromDelegate("onLowMemory()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public boolean onMenuOpened(final int featureId, final Menu menu) {
-        verifyMethodCalledFromDelegate("onMenuOpened(int, Menu)");
-        return (Boolean) mSuperListeners.pop().call(featureId, menu);
+        verifyMethodCalledFromDelegate("onMenuOpened(Integer, Menu)");
+        return ((CallFun2<Boolean, Integer, Menu>) mSuperListeners.pop()).call(featureId, menu);
     }
 
     public boolean onNavigateUp() {
         verifyMethodCalledFromDelegate("onNavigateUp()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public boolean onNavigateUpFromChild(final Activity child) {
         verifyMethodCalledFromDelegate("onNavigateUpFromChild(Activity)");
-        return (Boolean) mSuperListeners.pop().call(child);
+        return ((CallFun1<Boolean, Activity>) mSuperListeners.pop()).call(child);
     }
 
     public void onNewIntent(final Intent intent) {
         verifyMethodCalledFromDelegate("onNewIntent(Intent)");
-        mSuperListeners.pop().call(intent);
+        ((CallVoid1<Intent>) mSuperListeners.pop()).call(intent);
     }
 
     public boolean onOptionsItemSelected(final MenuItem item) {
         verifyMethodCalledFromDelegate("onOptionsItemSelected(MenuItem)");
-        return (Boolean) mSuperListeners.pop().call(item);
+        return ((CallFun1<Boolean, MenuItem>) mSuperListeners.pop()).call(item);
     }
 
     public void onOptionsMenuClosed(final Menu menu) {
         verifyMethodCalledFromDelegate("onOptionsMenuClosed(Menu)");
-        mSuperListeners.pop().call(menu);
+        ((CallVoid1<Menu>) mSuperListeners.pop()).call(menu);
     }
 
     public void onPanelClosed(final int featureId, final Menu menu) {
-        verifyMethodCalledFromDelegate("onPanelClosed(int, Menu)");
-        mSuperListeners.pop().call(featureId, menu);
+        verifyMethodCalledFromDelegate("onPanelClosed(Integer, Menu)");
+        ((CallVoid2<Integer, Menu>) mSuperListeners.pop()).call(featureId, menu);
     }
 
     public void onPause() {
         verifyMethodCalledFromDelegate("onPause()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onPostCreate(final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
         verifyMethodCalledFromDelegate("onPostCreate(Bundle, PersistableBundle)");
-        mSuperListeners.pop().call(savedInstanceState, persistentState);
+        ((CallVoid2<Bundle, PersistableBundle>) mSuperListeners.pop())
+                .call(savedInstanceState, persistentState);
     }
 
     public void onPostCreate(@Nullable final Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onPostCreate(Bundle)");
-        mSuperListeners.pop().call(savedInstanceState);
+        ((CallVoid1<Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
     public void onPostResume() {
         verifyMethodCalledFromDelegate("onPostResume()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onPrepareDialog(final int id, final Dialog dialog) {
-        verifyMethodCalledFromDelegate("onPrepareDialog(int, Dialog)");
-        mSuperListeners.pop().call(id, dialog);
+        verifyMethodCalledFromDelegate("onPrepareDialog(Integer, Dialog)");
+        ((CallVoid2<Integer, Dialog>) mSuperListeners.pop()).call(id, dialog);
     }
 
     public void onPrepareDialog(final int id, final Dialog dialog, final Bundle args) {
-        verifyMethodCalledFromDelegate("onPrepareDialog(int, Dialog, Bundle)");
-        mSuperListeners.pop().call(id, dialog, args);
+        verifyMethodCalledFromDelegate("onPrepareDialog(Integer, Dialog, Bundle)");
+        ((CallVoid3<Integer, Dialog, Bundle>) mSuperListeners.pop()).call(id, dialog, args);
     }
 
     public void onPrepareNavigateUpTaskStack(final TaskStackBuilder builder) {
         verifyMethodCalledFromDelegate("onPrepareNavigateUpTaskStack(TaskStackBuilder)");
-        mSuperListeners.pop().call(builder);
+        ((CallVoid1<TaskStackBuilder>) mSuperListeners.pop()).call(builder);
     }
 
     public boolean onPrepareOptionsMenu(final Menu menu) {
         verifyMethodCalledFromDelegate("onPrepareOptionsMenu(Menu)");
-        return (Boolean) mSuperListeners.pop().call(menu);
+        return ((CallFun1<Boolean, Menu>) mSuperListeners.pop()).call(menu);
     }
 
     public boolean onPrepareOptionsPanel(final View view, final Menu menu) {
         verifyMethodCalledFromDelegate("onPrepareOptionsPanel(View, Menu)");
-        return (Boolean) mSuperListeners.pop().call(view, menu);
+        return ((CallFun2<Boolean, View, Menu>) mSuperListeners.pop()).call(view, menu);
     }
 
     public boolean onPreparePanel(final int featureId, final View view, final Menu menu) {
-        verifyMethodCalledFromDelegate("onPreparePanel(int, View, Menu)");
-        return (Boolean) mSuperListeners.pop().call(featureId, view, menu);
+        verifyMethodCalledFromDelegate("onPreparePanel(Integer, View, Menu)");
+        return ((CallFun3<Boolean, Integer, View, Menu>) mSuperListeners.pop())
+                .call(featureId, view, menu);
     }
 
     public void onPrepareSupportNavigateUpTaskStack(
             @NonNull final android.support.v4.app.TaskStackBuilder builder) {
         verifyMethodCalledFromDelegate(
                 "onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)");
-        mSuperListeners.pop().call(builder);
+        ((CallVoid1<android.support.v4.app.TaskStackBuilder>) mSuperListeners.pop()).call(builder);
     }
 
     public void onProvideAssistContent(final AssistContent outContent) {
         verifyMethodCalledFromDelegate("onProvideAssistContent(AssistContent)");
-        mSuperListeners.pop().call(outContent);
+        ((CallVoid1<AssistContent>) mSuperListeners.pop()).call(outContent);
     }
 
     public void onProvideAssistData(final Bundle data) {
         verifyMethodCalledFromDelegate("onProvideAssistData(Bundle)");
-        mSuperListeners.pop().call(data);
+        ((CallVoid1<Bundle>) mSuperListeners.pop()).call(data);
     }
 
     public Uri onProvideReferrer() {
         verifyMethodCalledFromDelegate("onProvideReferrer()");
-        return (Uri) mSuperListeners.pop().call();
+        return ((CallFun0<Uri>) mSuperListeners.pop()).call();
     }
 
     public void onRequestPermissionsResult(final int requestCode,
             @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        verifyMethodCalledFromDelegate("onRequestPermissionsResult(int, String[], int[])");
-        mSuperListeners.pop().call(requestCode, permissions, grantResults);
+        verifyMethodCalledFromDelegate("onRequestPermissionsResult(Integer, String[], int[])");
+        ((CallVoid3<Integer, String[], int[]>) mSuperListeners.pop())
+                .call(requestCode, permissions, grantResults);
     }
 
     public void onRestart() {
         verifyMethodCalledFromDelegate("onRestart()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onRestoreInstanceState(final Bundle savedInstanceState,
             final PersistableBundle persistentState) {
         verifyMethodCalledFromDelegate("onRestoreInstanceState(Bundle, PersistableBundle)");
-        mSuperListeners.pop().call(savedInstanceState, persistentState);
+        ((CallVoid2<Bundle, PersistableBundle>) mSuperListeners.pop())
+                .call(savedInstanceState, persistentState);
     }
 
     public void onRestoreInstanceState(final Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onRestoreInstanceState(Bundle)");
-        mSuperListeners.pop().call(savedInstanceState);
+        ((CallVoid1<Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
     public void onResume() {
         verifyMethodCalledFromDelegate("onResume()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onResumeFragments() {
         verifyMethodCalledFromDelegate("onResumeFragments()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public CompositeNonConfigurationInstance onRetainNonConfigurationInstance() {
@@ -1048,266 +1085,274 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     public void onSaveInstanceState(final Bundle outState,
             final PersistableBundle outPersistentState) {
         verifyMethodCalledFromDelegate("onSaveInstanceState(Bundle, PersistableBundle)");
-        mSuperListeners.pop().call(outState, outPersistentState);
+        ((CallVoid2<Bundle, PersistableBundle>) mSuperListeners.pop())
+                .call(outState, outPersistentState);
     }
 
     public void onSaveInstanceState(final Bundle outState) {
         verifyMethodCalledFromDelegate("onSaveInstanceState(Bundle)");
-        mSuperListeners.pop().call(outState);
+        ((CallVoid1<Bundle>) mSuperListeners.pop()).call(outState);
     }
 
     public boolean onSearchRequested(final SearchEvent searchEvent) {
         verifyMethodCalledFromDelegate("onSearchRequested(SearchEvent)");
-        return (Boolean) mSuperListeners.pop().call(searchEvent);
+        return ((CallFun1<Boolean, SearchEvent>) mSuperListeners.pop()).call(searchEvent);
     }
 
     public boolean onSearchRequested() {
         verifyMethodCalledFromDelegate("onSearchRequested()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public void onStart() {
         verifyMethodCalledFromDelegate("onStart()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onStateNotSaved() {
         verifyMethodCalledFromDelegate("onStateNotSaved()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onStop() {
         verifyMethodCalledFromDelegate("onStop()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onSupportActionModeFinished(@NonNull final ActionMode mode) {
         verifyMethodCalledFromDelegate("onSupportActionModeFinished(ActionMode)");
-        mSuperListeners.pop().call(mode);
+        ((CallVoid1<ActionMode>) mSuperListeners.pop()).call(mode);
     }
 
     public void onSupportActionModeStarted(@NonNull final ActionMode mode) {
         verifyMethodCalledFromDelegate("onSupportActionModeStarted(ActionMode)");
-        mSuperListeners.pop().call(mode);
+        ((CallVoid1<ActionMode>) mSuperListeners.pop()).call(mode);
     }
 
     public void onSupportContentChanged() {
         verifyMethodCalledFromDelegate("onSupportContentChanged()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public boolean onSupportNavigateUp() {
         verifyMethodCalledFromDelegate("onSupportNavigateUp()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public void onTitleChanged(final CharSequence title, final int color) {
-        verifyMethodCalledFromDelegate("onTitleChanged(CharSequence, int)");
-        mSuperListeners.pop().call(title, color);
+        verifyMethodCalledFromDelegate("onTitleChanged(CharSequence, Integer)");
+        ((CallVoid2<CharSequence, Integer>) mSuperListeners.pop()).call(title, color);
     }
 
     public boolean onTouchEvent(final MotionEvent event) {
         verifyMethodCalledFromDelegate("onTouchEvent(MotionEvent)");
-        return (Boolean) mSuperListeners.pop().call(event);
+        return ((CallFun1<Boolean, MotionEvent>) mSuperListeners.pop()).call(event);
     }
 
     public boolean onTrackballEvent(final MotionEvent event) {
         verifyMethodCalledFromDelegate("onTrackballEvent(MotionEvent)");
-        return (Boolean) mSuperListeners.pop().call(event);
+        return ((CallFun1<Boolean, MotionEvent>) mSuperListeners.pop()).call(event);
     }
 
     public void onTrimMemory(final int level) {
-        verifyMethodCalledFromDelegate("onTrimMemory(int)");
-        mSuperListeners.pop().call(level);
+        verifyMethodCalledFromDelegate("onTrimMemory(Integer)");
+        ((CallVoid1<Integer>) mSuperListeners.pop()).call(level);
     }
 
     public void onUserInteraction() {
         verifyMethodCalledFromDelegate("onUserInteraction()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onUserLeaveHint() {
         verifyMethodCalledFromDelegate("onUserLeaveHint()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onVisibleBehindCanceled() {
         verifyMethodCalledFromDelegate("onVisibleBehindCanceled()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onWindowAttributesChanged(final WindowManager.LayoutParams params) {
         verifyMethodCalledFromDelegate("onWindowAttributesChanged(WindowManager.LayoutParams)");
-        mSuperListeners.pop().call(params);
+        ((CallVoid1<WindowManager.LayoutParams>) mSuperListeners.pop()).call(params);
     }
 
     public void onWindowFocusChanged(final boolean hasFocus) {
-        verifyMethodCalledFromDelegate("onWindowFocusChanged(boolean)");
-        mSuperListeners.pop().call(hasFocus);
+        verifyMethodCalledFromDelegate("onWindowFocusChanged(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(hasFocus);
     }
 
     public android.view.ActionMode onWindowStartingActionMode(
             final android.view.ActionMode.Callback callback) {
         verifyMethodCalledFromDelegate(
                 "onWindowStartingActionMode(android.view.ActionMode.Callback)");
-        return (android.view.ActionMode) mSuperListeners.pop().call(callback);
+        return ((CallFun1<android.view.ActionMode, android.view.ActionMode.Callback>) mSuperListeners
+                .pop()).call(callback);
     }
 
     public android.view.ActionMode onWindowStartingActionMode(
             final android.view.ActionMode.Callback callback, final int type) {
         verifyMethodCalledFromDelegate(
-                "onWindowStartingActionMode(android.view.ActionMode.Callback, int)");
-        return (android.view.ActionMode) mSuperListeners.pop().call(callback, type);
+                "onWindowStartingActionMode(android.view.ActionMode.Callback, Integer)");
+        return ((CallFun2<android.view.ActionMode, android.view.ActionMode.Callback, Integer>) mSuperListeners
+                .pop()).call(callback, type);
     }
 
     public ActionMode onWindowStartingSupportActionMode(
             @NonNull final ActionMode.Callback callback) {
         verifyMethodCalledFromDelegate("onWindowStartingSupportActionMode(ActionMode.Callback)");
-        return (ActionMode) mSuperListeners.pop().call(callback);
+        return ((CallFun1<ActionMode, ActionMode.Callback>) mSuperListeners.pop()).call(callback);
     }
 
     public void openContextMenu(final View view) {
         verifyMethodCalledFromDelegate("openContextMenu(View)");
-        mSuperListeners.pop().call(view);
+        ((CallVoid1<View>) mSuperListeners.pop()).call(view);
     }
 
     public FileInputStream openFileInput(final String name) throws FileNotFoundException {
         verifyMethodCalledFromDelegate("openFileInput(String)");
-        return (FileInputStream) mSuperListeners.pop().call(name);
+        return ((CallFun1<FileInputStream, String>) mSuperListeners.pop()).call(name);
     }
 
     public FileOutputStream openFileOutput(final String name, final int mode)
             throws FileNotFoundException {
-        verifyMethodCalledFromDelegate("openFileOutput(String, int)");
-        return (FileOutputStream) mSuperListeners.pop().call(name, mode);
+        verifyMethodCalledFromDelegate("openFileOutput(String, Integer)");
+        return ((CallFun2<FileOutputStream, String, Integer>) mSuperListeners.pop())
+                .call(name, mode);
     }
 
     public void openOptionsMenu() {
         verifyMethodCalledFromDelegate("openOptionsMenu()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
             final SQLiteDatabase.CursorFactory factory) {
         verifyMethodCalledFromDelegate(
-                "openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory)");
-        return (SQLiteDatabase) mSuperListeners.pop().call(name, mode, factory);
+                "openOrCreateDatabase(String, Integer, SQLiteDatabase.CursorFactory)");
+        return ((CallFun3<SQLiteDatabase, String, Integer, SQLiteDatabase.CursorFactory>) mSuperListeners
+                .pop()).call(name, mode, factory);
     }
 
     public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
             final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler) {
         verifyMethodCalledFromDelegate(
-                "openOrCreateDatabase(String, int, SQLiteDatabase.CursorFactory, DatabaseErrorHandler)");
-        return (SQLiteDatabase) mSuperListeners.pop().call(name, mode, factory, errorHandler);
+                "openOrCreateDatabase(String, Integer, SQLiteDatabase.CursorFactory, DatabaseErrorHandler)");
+        return ((CallFun4<SQLiteDatabase, String, Integer, SQLiteDatabase.CursorFactory, DatabaseErrorHandler>) mSuperListeners
+                .pop()).call(name, mode, factory, errorHandler);
     }
 
     public void overridePendingTransition(final int enterAnim, final int exitAnim) {
-        verifyMethodCalledFromDelegate("overridePendingTransition(int, int)");
-        mSuperListeners.pop().call(enterAnim, exitAnim);
+        verifyMethodCalledFromDelegate("overridePendingTransition(Integer, Integer)");
+        ((CallVoid2<Integer, Integer>) mSuperListeners.pop()).call(enterAnim, exitAnim);
     }
 
     public Drawable peekWallpaper() {
         verifyMethodCalledFromDelegate("peekWallpaper()");
-        return (Drawable) mSuperListeners.pop().call();
+        return ((CallFun0<Drawable>) mSuperListeners.pop()).call();
     }
 
     public void postponeEnterTransition() {
         verifyMethodCalledFromDelegate("postponeEnterTransition()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void recreate() {
         verifyMethodCalledFromDelegate("recreate()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void registerComponentCallbacks(final ComponentCallbacks callback) {
         verifyMethodCalledFromDelegate("registerComponentCallbacks(ComponentCallbacks)");
-        mSuperListeners.pop().call(callback);
+        ((CallVoid1<ComponentCallbacks>) mSuperListeners.pop()).call(callback);
     }
 
     public void registerForContextMenu(final View view) {
         verifyMethodCalledFromDelegate("registerForContextMenu(View)");
-        mSuperListeners.pop().call(view);
+        ((CallVoid1<View>) mSuperListeners.pop()).call(view);
     }
 
     public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter) {
         verifyMethodCalledFromDelegate("registerReceiver(BroadcastReceiver, IntentFilter)");
-        return (Intent) mSuperListeners.pop().call(receiver, filter);
+        return ((CallFun2<Intent, BroadcastReceiver, IntentFilter>) mSuperListeners.pop())
+                .call(receiver, filter);
     }
 
     public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
             final String broadcastPermission, final Handler scheduler) {
         verifyMethodCalledFromDelegate(
                 "registerReceiver(BroadcastReceiver, IntentFilter, String, Handler)");
-        return (Intent) mSuperListeners.pop()
-                .call(receiver, filter, broadcastPermission, scheduler);
+        return ((CallFun4<Intent, BroadcastReceiver, IntentFilter, String, Handler>) mSuperListeners
+                .pop()).call(receiver, filter, broadcastPermission, scheduler);
     }
 
     public boolean releaseInstance() {
         verifyMethodCalledFromDelegate("releaseInstance()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public void removeStickyBroadcast(final Intent intent) {
         verifyMethodCalledFromDelegate("removeStickyBroadcast(Intent)");
-        mSuperListeners.pop().call(intent);
+        ((CallVoid1<Intent>) mSuperListeners.pop()).call(intent);
     }
 
     public void removeStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
         verifyMethodCalledFromDelegate("removeStickyBroadcastAsUser(Intent, UserHandle)");
-        mSuperListeners.pop().call(intent, user);
+        ((CallVoid2<Intent, UserHandle>) mSuperListeners.pop()).call(intent, user);
     }
 
     public void reportFullyDrawn() {
         verifyMethodCalledFromDelegate("reportFullyDrawn()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public boolean requestVisibleBehind(final boolean visible) {
-        verifyMethodCalledFromDelegate("requestVisibleBehind(boolean)");
-        return (Boolean) mSuperListeners.pop().call(visible);
+        verifyMethodCalledFromDelegate("requestVisibleBehind(Boolean)");
+        return ((CallFun1<Boolean, Boolean>) mSuperListeners.pop()).call(visible);
     }
 
     public void revokeUriPermission(final Uri uri, final int modeFlags) {
-        verifyMethodCalledFromDelegate("revokeUriPermission(Uri, int)");
-        mSuperListeners.pop().call(uri, modeFlags);
+        verifyMethodCalledFromDelegate("revokeUriPermission(Uri, Integer)");
+        ((CallVoid2<Uri, Integer>) mSuperListeners.pop()).call(uri, modeFlags);
     }
 
     public void sendBroadcast(final Intent intent) {
         verifyMethodCalledFromDelegate("sendBroadcast(Intent)");
-        mSuperListeners.pop().call(intent);
+        ((CallVoid1<Intent>) mSuperListeners.pop()).call(intent);
     }
 
     public void sendBroadcast(final Intent intent, final String receiverPermission) {
         verifyMethodCalledFromDelegate("sendBroadcast(Intent, String)");
-        mSuperListeners.pop().call(intent, receiverPermission);
+        ((CallVoid2<Intent, String>) mSuperListeners.pop()).call(intent, receiverPermission);
     }
 
     public void sendBroadcastAsUser(final Intent intent, final UserHandle user) {
         verifyMethodCalledFromDelegate("sendBroadcastAsUser(Intent, UserHandle)");
-        mSuperListeners.pop().call(intent, user);
+        ((CallVoid2<Intent, UserHandle>) mSuperListeners.pop()).call(intent, user);
     }
 
     public void sendBroadcastAsUser(final Intent intent, final UserHandle user,
             final String receiverPermission) {
         verifyMethodCalledFromDelegate("sendBroadcastAsUser(Intent, UserHandle, String)");
-        mSuperListeners.pop().call(intent, user, receiverPermission);
+        ((CallVoid3<Intent, UserHandle, String>) mSuperListeners.pop())
+                .call(intent, user, receiverPermission);
     }
 
     public void sendOrderedBroadcast(final Intent intent, final String receiverPermission) {
         verifyMethodCalledFromDelegate("sendOrderedBroadcast(Intent, String)");
-        mSuperListeners.pop().call(intent, receiverPermission);
+        ((CallVoid2<Intent, String>) mSuperListeners.pop()).call(intent, receiverPermission);
     }
 
     public void sendOrderedBroadcast(final Intent intent, final String receiverPermission,
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras) {
         verifyMethodCalledFromDelegate(
-                "sendOrderedBroadcast(Intent, String, BroadcastReceiver, Handler, int, String, Bundle)");
-        mSuperListeners.pop()
-                .call(intent, receiverPermission, resultReceiver, scheduler, initialCode,
-                        initialData, initialExtras);
+                "sendOrderedBroadcast(Intent, String, BroadcastReceiver, Handler, Integer, String, Bundle)");
+        ((CallVoid7<Intent, String, BroadcastReceiver, Handler, Integer, String, Bundle>) mSuperListeners
+                .pop()).call(intent, receiverPermission, resultReceiver, scheduler, initialCode,
+                initialData, initialExtras);
     }
 
     public void sendOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
@@ -1315,28 +1360,30 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
             final Handler scheduler, final int initialCode, final String initialData,
             final Bundle initialExtras) {
         verifyMethodCalledFromDelegate(
-                "sendOrderedBroadcastAsUser(Intent, UserHandle, String, BroadcastReceiver, Handler, int, String, Bundle)");
-        mSuperListeners.pop()
+                "sendOrderedBroadcastAsUser(Intent, UserHandle, String, BroadcastReceiver, Handler, Integer, String, Bundle)");
+        ((CallVoid8<Intent, UserHandle, String, BroadcastReceiver, Handler, Integer, String, Bundle>) mSuperListeners
+                .pop())
                 .call(intent, user, receiverPermission, resultReceiver, scheduler, initialCode,
                         initialData, initialExtras);
     }
 
     public void sendStickyBroadcast(final Intent intent) {
         verifyMethodCalledFromDelegate("sendStickyBroadcast(Intent)");
-        mSuperListeners.pop().call(intent);
+        ((CallVoid1<Intent>) mSuperListeners.pop()).call(intent);
     }
 
     public void sendStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
         verifyMethodCalledFromDelegate("sendStickyBroadcastAsUser(Intent, UserHandle)");
-        mSuperListeners.pop().call(intent, user);
+        ((CallVoid2<Intent, UserHandle>) mSuperListeners.pop()).call(intent, user);
     }
 
     public void sendStickyOrderedBroadcast(final Intent intent,
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras) {
         verifyMethodCalledFromDelegate(
-                "sendStickyOrderedBroadcast(Intent, BroadcastReceiver, Handler, int, String, Bundle)");
-        mSuperListeners.pop()
+                "sendStickyOrderedBroadcast(Intent, BroadcastReceiver, Handler, Integer, String, Bundle)");
+        ((CallVoid6<Intent, BroadcastReceiver, Handler, Integer, String, Bundle>) mSuperListeners
+                .pop())
                 .call(intent, resultReceiver, scheduler, initialCode, initialData, initialExtras);
     }
 
@@ -1344,275 +1391,291 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras) {
         verifyMethodCalledFromDelegate(
-                "sendStickyOrderedBroadcastAsUser(Intent, UserHandle, BroadcastReceiver, Handler, int, String, Bundle)");
-        mSuperListeners.pop()
-                .call(intent, user, resultReceiver, scheduler, initialCode, initialData,
-                        initialExtras);
+                "sendStickyOrderedBroadcastAsUser(Intent, UserHandle, BroadcastReceiver, Handler, Integer, String, Bundle)");
+        ((CallVoid7<Intent, UserHandle, BroadcastReceiver, Handler, Integer, String, Bundle>) mSuperListeners
+                .pop()).call(intent, user, resultReceiver, scheduler, initialCode, initialData,
+                initialExtras);
     }
 
     public void setActionBar(final Toolbar toolbar) {
         verifyMethodCalledFromDelegate("setActionBar(Toolbar)");
-        mSuperListeners.pop().call(toolbar);
+        ((CallVoid1<Toolbar>) mSuperListeners.pop()).call(toolbar);
     }
 
     public void setContentTransitionManager(final TransitionManager tm) {
         verifyMethodCalledFromDelegate("setContentTransitionManager(TransitionManager)");
-        mSuperListeners.pop().call(tm);
+        ((CallVoid1<TransitionManager>) mSuperListeners.pop()).call(tm);
     }
 
     public void setContentView(@LayoutRes final int layoutResID) {
-        verifyMethodCalledFromDelegate("setContentView(int)");
-        mSuperListeners.pop().call(layoutResID);
+        verifyMethodCalledFromDelegate("setContentView(Integer)");
+        ((CallVoid1<Integer>) mSuperListeners.pop()).call(layoutResID);
     }
 
     public void setContentView(final View view) {
         verifyMethodCalledFromDelegate("setContentView(View)");
-        mSuperListeners.pop().call(view);
+        ((CallVoid1<View>) mSuperListeners.pop()).call(view);
     }
 
     public void setContentView(final View view, final ViewGroup.LayoutParams params) {
         verifyMethodCalledFromDelegate("setContentView(View, ViewGroup.LayoutParams)");
-        mSuperListeners.pop().call(view, params);
+        ((CallVoid2<View, ViewGroup.LayoutParams>) mSuperListeners.pop()).call(view, params);
     }
 
     public void setEnterSharedElementCallback(final SharedElementCallback callback) {
         verifyMethodCalledFromDelegate("setEnterSharedElementCallback(SharedElementCallback)");
-        mSuperListeners.pop().call(callback);
+        ((CallVoid1<SharedElementCallback>) mSuperListeners.pop()).call(callback);
     }
 
     public void setEnterSharedElementCallback(final android.app.SharedElementCallback callback) {
         verifyMethodCalledFromDelegate(
                 "setEnterSharedElementCallback(android.app.SharedElementCallback)");
-        mSuperListeners.pop().call(callback);
+        ((CallVoid1<android.app.SharedElementCallback>) mSuperListeners.pop()).call(callback);
     }
 
     public void setExitSharedElementCallback(final SharedElementCallback listener) {
         verifyMethodCalledFromDelegate("setExitSharedElementCallback(SharedElementCallback)");
-        mSuperListeners.pop().call(listener);
+        ((CallVoid1<SharedElementCallback>) mSuperListeners.pop()).call(listener);
     }
 
     public void setExitSharedElementCallback(final android.app.SharedElementCallback callback) {
         verifyMethodCalledFromDelegate(
                 "setExitSharedElementCallback(android.app.SharedElementCallback)");
-        mSuperListeners.pop().call(callback);
+        ((CallVoid1<android.app.SharedElementCallback>) mSuperListeners.pop()).call(callback);
     }
 
     public void setFinishOnTouchOutside(final boolean finish) {
-        verifyMethodCalledFromDelegate("setFinishOnTouchOutside(boolean)");
-        mSuperListeners.pop().call(finish);
+        verifyMethodCalledFromDelegate("setFinishOnTouchOutside(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(finish);
     }
 
     public void setImmersive(final boolean i) {
-        verifyMethodCalledFromDelegate("setImmersive(boolean)");
-        mSuperListeners.pop().call(i);
+        verifyMethodCalledFromDelegate("setImmersive(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(i);
     }
 
     public void setIntent(final Intent newIntent) {
         verifyMethodCalledFromDelegate("setIntent(Intent)");
-        mSuperListeners.pop().call(newIntent);
+        ((CallVoid1<Intent>) mSuperListeners.pop()).call(newIntent);
     }
 
     public void setRequestedOrientation(final int requestedOrientation) {
-        verifyMethodCalledFromDelegate("setRequestedOrientation(int)");
-        mSuperListeners.pop().call(requestedOrientation);
+        verifyMethodCalledFromDelegate("setRequestedOrientation(Integer)");
+        ((CallVoid1<Integer>) mSuperListeners.pop()).call(requestedOrientation);
     }
 
     public void setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar) {
         verifyMethodCalledFromDelegate("setSupportActionBar(android.support.v7.widget.Toolbar)");
-        mSuperListeners.pop().call(toolbar);
+        ((CallVoid1<android.support.v7.widget.Toolbar>) mSuperListeners.pop()).call(toolbar);
     }
 
     public void setSupportProgress(final int progress) {
-        verifyMethodCalledFromDelegate("setSupportProgress(int)");
-        mSuperListeners.pop().call(progress);
+        verifyMethodCalledFromDelegate("setSupportProgress(Integer)");
+        ((CallVoid1<Integer>) mSuperListeners.pop()).call(progress);
     }
 
     public void setSupportProgressBarIndeterminate(final boolean indeterminate) {
-        verifyMethodCalledFromDelegate("setSupportProgressBarIndeterminate(boolean)");
-        mSuperListeners.pop().call(indeterminate);
+        verifyMethodCalledFromDelegate("setSupportProgressBarIndeterminate(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(indeterminate);
     }
 
     public void setSupportProgressBarIndeterminateVisibility(final boolean visible) {
-        verifyMethodCalledFromDelegate("setSupportProgressBarIndeterminateVisibility(boolean)");
-        mSuperListeners.pop().call(visible);
+        verifyMethodCalledFromDelegate("setSupportProgressBarIndeterminateVisibility(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(visible);
     }
 
     public void setSupportProgressBarVisibility(final boolean visible) {
-        verifyMethodCalledFromDelegate("setSupportProgressBarVisibility(boolean)");
-        mSuperListeners.pop().call(visible);
+        verifyMethodCalledFromDelegate("setSupportProgressBarVisibility(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(visible);
     }
 
     public void setTaskDescription(final ActivityManager.TaskDescription taskDescription) {
         verifyMethodCalledFromDelegate("setTaskDescription(ActivityManager.TaskDescription)");
-        mSuperListeners.pop().call(taskDescription);
+        ((CallVoid1<ActivityManager.TaskDescription>) mSuperListeners.pop()).call(taskDescription);
     }
 
     public void setTheme(@StyleRes final int resid) {
-        verifyMethodCalledFromDelegate("setTheme(int)");
-        mSuperListeners.pop().call(resid);
+        verifyMethodCalledFromDelegate("setTheme(Integer)");
+        ((CallVoid1<Integer>) mSuperListeners.pop()).call(resid);
     }
 
     public void setTitle(final CharSequence title) {
         verifyMethodCalledFromDelegate("setTitle(CharSequence)");
-        mSuperListeners.pop().call(title);
+        ((CallVoid1<CharSequence>) mSuperListeners.pop()).call(title);
     }
 
     public void setTitle(final int titleId) {
-        verifyMethodCalledFromDelegate("setTitle(int)");
-        mSuperListeners.pop().call(titleId);
+        verifyMethodCalledFromDelegate("setTitle(Integer)");
+        ((CallVoid1<Integer>) mSuperListeners.pop()).call(titleId);
     }
 
     public void setTitleColor(final int textColor) {
-        verifyMethodCalledFromDelegate("setTitleColor(int)");
-        mSuperListeners.pop().call(textColor);
+        verifyMethodCalledFromDelegate("setTitleColor(Integer)");
+        ((CallVoid1<Integer>) mSuperListeners.pop()).call(textColor);
     }
 
     public void setVisible(final boolean visible) {
-        verifyMethodCalledFromDelegate("setVisible(boolean)");
-        mSuperListeners.pop().call(visible);
+        verifyMethodCalledFromDelegate("setVisible(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(visible);
     }
 
     public void setWallpaper(final Bitmap bitmap) throws IOException {
         verifyMethodCalledFromDelegate("setWallpaper(Bitmap)");
-        mSuperListeners.pop().call(bitmap);
+        ((CallVoid1<Bitmap>) mSuperListeners.pop()).call(bitmap);
     }
 
     public void setWallpaper(final InputStream data) throws IOException {
         verifyMethodCalledFromDelegate("setWallpaper(InputStream)");
-        mSuperListeners.pop().call(data);
+        ((CallVoid1<InputStream>) mSuperListeners.pop()).call(data);
     }
 
     public boolean shouldShowRequestPermissionRationale(final String permission) {
         verifyMethodCalledFromDelegate("shouldShowRequestPermissionRationale(String)");
-        return (Boolean) mSuperListeners.pop().call(permission);
+        return ((CallFun1<Boolean, String>) mSuperListeners.pop()).call(permission);
     }
 
     public boolean shouldUpRecreateTask(final Intent targetIntent) {
         verifyMethodCalledFromDelegate("shouldUpRecreateTask(Intent)");
-        return (Boolean) mSuperListeners.pop().call(targetIntent);
+        return ((CallFun1<Boolean, Intent>) mSuperListeners.pop()).call(targetIntent);
     }
 
     public boolean showAssist(final Bundle args) {
         verifyMethodCalledFromDelegate("showAssist(Bundle)");
-        return (Boolean) mSuperListeners.pop().call(args);
+        return ((CallFun1<Boolean, Bundle>) mSuperListeners.pop()).call(args);
     }
 
     public void showLockTaskEscapeMessage() {
         verifyMethodCalledFromDelegate("showLockTaskEscapeMessage()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public android.view.ActionMode startActionMode(
             final android.view.ActionMode.Callback callback) {
         verifyMethodCalledFromDelegate("startActionMode(android.view.ActionMode.Callback)");
-        return (android.view.ActionMode) mSuperListeners.pop().call(callback);
+        return ((CallFun1<android.view.ActionMode, android.view.ActionMode.Callback>) mSuperListeners
+                .pop()).call(callback);
     }
 
     public android.view.ActionMode startActionMode(final android.view.ActionMode.Callback callback,
             final int type) {
-        verifyMethodCalledFromDelegate("startActionMode(android.view.ActionMode.Callback, int)");
-        return (android.view.ActionMode) mSuperListeners.pop().call(callback, type);
+        verifyMethodCalledFromDelegate(
+                "startActionMode(android.view.ActionMode.Callback, Integer)");
+        return ((CallFun2<android.view.ActionMode, android.view.ActionMode.Callback, Integer>) mSuperListeners
+                .pop()).call(callback, type);
     }
 
     public void startActivities(final Intent[] intents) {
         verifyMethodCalledFromDelegate("startActivities(Intent[])");
-        mSuperListeners.pop().call(intents);
+        ((CallVoid1<Intent[]>) mSuperListeners.pop()).call(intents);
     }
 
     public void startActivities(final Intent[] intents, final Bundle options) {
         verifyMethodCalledFromDelegate("startActivities(Intent[], Bundle)");
-        mSuperListeners.pop().call(intents, options);
+        ((CallVoid2<Intent[], Bundle>) mSuperListeners.pop()).call(intents, options);
     }
 
     public void startActivity(final Intent intent) {
         verifyMethodCalledFromDelegate("startActivity(Intent)");
-        mSuperListeners.pop().call(intent);
+        ((CallVoid1<Intent>) mSuperListeners.pop()).call(intent);
     }
 
     public void startActivity(final Intent intent, final Bundle options) {
         verifyMethodCalledFromDelegate("startActivity(Intent, Bundle)");
-        mSuperListeners.pop().call(intent, options);
+        ((CallVoid2<Intent, Bundle>) mSuperListeners.pop()).call(intent, options);
     }
 
     public void startActivityForResult(final Intent intent, final int requestCode) {
-        verifyMethodCalledFromDelegate("startActivityForResult(Intent, int)");
-        mSuperListeners.pop().call(intent, requestCode);
+        verifyMethodCalledFromDelegate("startActivityForResult(Intent, Integer)");
+        ((CallVoid2<Intent, Integer>) mSuperListeners.pop()).call(intent, requestCode);
     }
 
     public void startActivityForResult(final Intent intent, final int requestCode,
             final Bundle options) {
-        verifyMethodCalledFromDelegate("startActivityForResult(Intent, int, Bundle)");
-        mSuperListeners.pop().call(intent, requestCode, options);
+        verifyMethodCalledFromDelegate("startActivityForResult(Intent, Integer, Bundle)");
+        ((CallVoid3<Intent, Integer, Bundle>) mSuperListeners.pop())
+                .call(intent, requestCode, options);
     }
 
     public void startActivityFromChild(final Activity child, final Intent intent,
             final int requestCode) {
-        verifyMethodCalledFromDelegate("startActivityFromChild(Activity, Intent, int)");
-        mSuperListeners.pop().call(child, intent, requestCode);
+        verifyMethodCalledFromDelegate("startActivityFromChild(Activity, Intent, Integer)");
+        ((CallVoid3<Activity, Intent, Integer>) mSuperListeners.pop())
+                .call(child, intent, requestCode);
     }
 
     public void startActivityFromChild(final Activity child, final Intent intent,
             final int requestCode, final Bundle options) {
-        verifyMethodCalledFromDelegate("startActivityFromChild(Activity, Intent, int, Bundle)");
-        mSuperListeners.pop().call(child, intent, requestCode, options);
+        verifyMethodCalledFromDelegate("startActivityFromChild(Activity, Intent, Integer, Bundle)");
+        ((CallVoid4<Activity, Intent, Integer, Bundle>) mSuperListeners.pop())
+                .call(child, intent, requestCode, options);
     }
 
     public void startActivityFromFragment(final Fragment fragment, final Intent intent,
             final int requestCode) {
-        verifyMethodCalledFromDelegate("startActivityFromFragment(Fragment, Intent, int)");
-        mSuperListeners.pop().call(fragment, intent, requestCode);
+        verifyMethodCalledFromDelegate("startActivityFromFragment(Fragment, Intent, Integer)");
+        ((CallVoid3<Fragment, Intent, Integer>) mSuperListeners.pop())
+                .call(fragment, intent, requestCode);
     }
 
     public void startActivityFromFragment(final Fragment fragment, final Intent intent,
             final int requestCode, @Nullable final Bundle options) {
-        verifyMethodCalledFromDelegate("startActivityFromFragment(Fragment, Intent, int, Bundle)");
-        mSuperListeners.pop().call(fragment, intent, requestCode, options);
+        verifyMethodCalledFromDelegate(
+                "startActivityFromFragment(Fragment, Intent, Integer, Bundle)");
+        ((CallVoid4<Fragment, Intent, Integer, Bundle>) mSuperListeners.pop())
+                .call(fragment, intent, requestCode, options);
     }
 
     public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
             final int requestCode) {
         verifyMethodCalledFromDelegate(
-                "startActivityFromFragment(android.app.Fragment, Intent, int)");
-        mSuperListeners.pop().call(fragment, intent, requestCode);
+                "startActivityFromFragment(android.app.Fragment, Intent, Integer)");
+        ((CallVoid3<android.app.Fragment, Intent, Integer>) mSuperListeners.pop())
+                .call(fragment, intent, requestCode);
     }
 
     public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
             final int requestCode, final Bundle options) {
         verifyMethodCalledFromDelegate(
-                "startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)");
-        mSuperListeners.pop().call(fragment, intent, requestCode, options);
+                "startActivityFromFragment(android.app.Fragment, Intent, Integer, Bundle)");
+        ((CallVoid4<android.app.Fragment, Intent, Integer, Bundle>) mSuperListeners.pop())
+                .call(fragment, intent, requestCode, options);
     }
 
     public boolean startActivityIfNeeded(final Intent intent, final int requestCode) {
-        verifyMethodCalledFromDelegate("startActivityIfNeeded(Intent, int)");
-        return (Boolean) mSuperListeners.pop().call(intent, requestCode);
+        verifyMethodCalledFromDelegate("startActivityIfNeeded(Intent, Integer)");
+        return ((CallFun2<Boolean, Intent, Integer>) mSuperListeners.pop())
+                .call(intent, requestCode);
     }
 
     public boolean startActivityIfNeeded(final Intent intent, final int requestCode,
             final Bundle options) {
-        verifyMethodCalledFromDelegate("startActivityIfNeeded(Intent, int, Bundle)");
-        return (Boolean) mSuperListeners.pop().call(intent, requestCode, options);
+        verifyMethodCalledFromDelegate("startActivityIfNeeded(Intent, Integer, Bundle)");
+        return ((CallFun3<Boolean, Intent, Integer, Bundle>) mSuperListeners.pop())
+                .call(intent, requestCode, options);
     }
 
     public boolean startInstrumentation(final ComponentName className, final String profileFile,
             final Bundle arguments) {
         verifyMethodCalledFromDelegate("startInstrumentation(ComponentName, String, Bundle)");
-        return (Boolean) mSuperListeners.pop().call(className, profileFile, arguments);
+        return ((CallFun3<Boolean, ComponentName, String, Bundle>) mSuperListeners.pop())
+                .call(className, profileFile, arguments);
     }
 
     public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags)
             throws IntentSender.SendIntentException {
-        verifyMethodCalledFromDelegate("startIntentSender(IntentSender, Intent, int, int, int)");
-        mSuperListeners.pop().call(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
+        verifyMethodCalledFromDelegate(
+                "startIntentSender(IntentSender, Intent, Integer, Integer, Integer)");
+        ((CallVoid5<IntentSender, Intent, Integer, Integer, Integer>) mSuperListeners.pop())
+                .call(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
     public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
         verifyMethodCalledFromDelegate(
-                "startIntentSender(IntentSender, Intent, int, int, int, Bundle)");
-        mSuperListeners.pop()
+                "startIntentSender(IntentSender, Intent, Integer, Integer, Integer, Bundle)");
+        ((CallVoid6<IntentSender, Intent, Integer, Integer, Integer, Bundle>) mSuperListeners.pop())
                 .call(intent, fillInIntent, flagsMask, flagsValues, extraFlags, options);
     }
 
@@ -1620,27 +1683,28 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
             final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags) throws IntentSender.SendIntentException {
         verifyMethodCalledFromDelegate(
-                "startIntentSenderForResult(IntentSender, int, Intent, int, int, int)");
-        mSuperListeners.pop()
-                .call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
+                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)");
+        ((CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer>) mSuperListeners
+                .pop()).call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
     public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
             final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         verifyMethodCalledFromDelegate(
-                "startIntentSenderForResult(IntentSender, int, Intent, int, int, int, Bundle)");
-        mSuperListeners.pop()
-                .call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
-                        options);
+                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)");
+        ((CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>) mSuperListeners
+                .pop()).call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
+                options);
     }
 
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
             final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
         verifyMethodCalledFromDelegate(
-                "startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int)");
-        mSuperListeners.pop()
+                "startIntentSenderFromChild(Activity, IntentSender, Integer, Intent, Integer, Integer, Integer)");
+        ((CallVoid7<Activity, IntentSender, Integer, Intent, Integer, Integer, Integer>) mSuperListeners
+                .pop())
                 .call(child, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
@@ -1649,134 +1713,136 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
             final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
         verifyMethodCalledFromDelegate(
-                "startIntentSenderFromChild(Activity, IntentSender, int, Intent, int, int, int, Bundle)");
-        mSuperListeners.pop()
+                "startIntentSenderFromChild(Activity, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)");
+        ((CallVoid8<Activity, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>) mSuperListeners
+                .pop())
                 .call(child, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
                         options);
     }
 
     public void startLockTask() {
         verifyMethodCalledFromDelegate("startLockTask()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void startManagingCursor(final Cursor c) {
         verifyMethodCalledFromDelegate("startManagingCursor(Cursor)");
-        mSuperListeners.pop().call(c);
+        ((CallVoid1<Cursor>) mSuperListeners.pop()).call(c);
     }
 
     public boolean startNextMatchingActivity(final Intent intent) {
         verifyMethodCalledFromDelegate("startNextMatchingActivity(Intent)");
-        return (Boolean) mSuperListeners.pop().call(intent);
+        return ((CallFun1<Boolean, Intent>) mSuperListeners.pop()).call(intent);
     }
 
     public boolean startNextMatchingActivity(final Intent intent, final Bundle options) {
         verifyMethodCalledFromDelegate("startNextMatchingActivity(Intent, Bundle)");
-        return (Boolean) mSuperListeners.pop().call(intent, options);
+        return ((CallFun2<Boolean, Intent, Bundle>) mSuperListeners.pop()).call(intent, options);
     }
 
     public void startPostponedEnterTransition() {
         verifyMethodCalledFromDelegate("startPostponedEnterTransition()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void startSearch(final String initialQuery, final boolean selectInitialQuery,
             final Bundle appSearchData, final boolean globalSearch) {
-        verifyMethodCalledFromDelegate("startSearch(String, boolean, Bundle, boolean)");
-        mSuperListeners.pop().call(initialQuery, selectInitialQuery, appSearchData, globalSearch);
+        verifyMethodCalledFromDelegate("startSearch(String, Boolean, Bundle, Boolean)");
+        ((CallVoid4<String, Boolean, Bundle, Boolean>) mSuperListeners.pop())
+                .call(initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
 
     public ComponentName startService(final Intent service) {
         verifyMethodCalledFromDelegate("startService(Intent)");
-        return (ComponentName) mSuperListeners.pop().call(service);
+        return ((CallFun1<ComponentName, Intent>) mSuperListeners.pop()).call(service);
     }
 
     public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
         verifyMethodCalledFromDelegate("startSupportActionMode(ActionMode.Callback)");
-        return (ActionMode) mSuperListeners.pop().call(callback);
+        return ((CallFun1<ActionMode, ActionMode.Callback>) mSuperListeners.pop()).call(callback);
     }
 
     public void stopLockTask() {
         verifyMethodCalledFromDelegate("stopLockTask()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void stopManagingCursor(final Cursor c) {
         verifyMethodCalledFromDelegate("stopManagingCursor(Cursor)");
-        mSuperListeners.pop().call(c);
+        ((CallVoid1<Cursor>) mSuperListeners.pop()).call(c);
     }
 
     public boolean stopService(final Intent name) {
         verifyMethodCalledFromDelegate("stopService(Intent)");
-        return (Boolean) mSuperListeners.pop().call(name);
+        return ((CallFun1<Boolean, Intent>) mSuperListeners.pop()).call(name);
     }
 
     public void supportFinishAfterTransition() {
         verifyMethodCalledFromDelegate("supportFinishAfterTransition()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void supportInvalidateOptionsMenu() {
         verifyMethodCalledFromDelegate("supportInvalidateOptionsMenu()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void supportNavigateUpTo(@NonNull final Intent upIntent) {
         verifyMethodCalledFromDelegate("supportNavigateUpTo(Intent)");
-        mSuperListeners.pop().call(upIntent);
+        ((CallVoid1<Intent>) mSuperListeners.pop()).call(upIntent);
     }
 
     public void supportPostponeEnterTransition() {
         verifyMethodCalledFromDelegate("supportPostponeEnterTransition()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public boolean supportRequestWindowFeature(final int featureId) {
-        verifyMethodCalledFromDelegate("supportRequestWindowFeature(int)");
-        return (Boolean) mSuperListeners.pop().call(featureId);
+        verifyMethodCalledFromDelegate("supportRequestWindowFeature(Integer)");
+        return ((CallFun1<Boolean, Integer>) mSuperListeners.pop()).call(featureId);
     }
 
     public boolean supportShouldUpRecreateTask(@NonNull final Intent targetIntent) {
         verifyMethodCalledFromDelegate("supportShouldUpRecreateTask(Intent)");
-        return (Boolean) mSuperListeners.pop().call(targetIntent);
+        return ((CallFun1<Boolean, Intent>) mSuperListeners.pop()).call(targetIntent);
     }
 
     public void supportStartPostponedEnterTransition() {
         verifyMethodCalledFromDelegate("supportStartPostponedEnterTransition()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void takeKeyEvents(final boolean get) {
-        verifyMethodCalledFromDelegate("takeKeyEvents(boolean)");
-        mSuperListeners.pop().call(get);
+        verifyMethodCalledFromDelegate("takeKeyEvents(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(get);
     }
 
     public void triggerSearch(final String query, final Bundle appSearchData) {
         verifyMethodCalledFromDelegate("triggerSearch(String, Bundle)");
-        mSuperListeners.pop().call(query, appSearchData);
+        ((CallVoid2<String, Bundle>) mSuperListeners.pop()).call(query, appSearchData);
     }
 
     public void unbindService(final ServiceConnection conn) {
         verifyMethodCalledFromDelegate("unbindService(ServiceConnection)");
-        mSuperListeners.pop().call(conn);
+        ((CallVoid1<ServiceConnection>) mSuperListeners.pop()).call(conn);
     }
 
     public void unregisterComponentCallbacks(final ComponentCallbacks callback) {
         verifyMethodCalledFromDelegate("unregisterComponentCallbacks(ComponentCallbacks)");
-        mSuperListeners.pop().call(callback);
+        ((CallVoid1<ComponentCallbacks>) mSuperListeners.pop()).call(callback);
     }
 
     public void unregisterForContextMenu(final View view) {
         verifyMethodCalledFromDelegate("unregisterForContextMenu(View)");
-        mSuperListeners.pop().call(view);
+        ((CallVoid1<View>) mSuperListeners.pop()).call(view);
     }
 
     public void unregisterReceiver(final BroadcastReceiver receiver) {
         verifyMethodCalledFromDelegate("unregisterReceiver(BroadcastReceiver)");
-        mSuperListeners.pop().call(receiver);
+        ((CallVoid1<BroadcastReceiver>) mSuperListeners.pop()).call(receiver);
     }
 
-    void addContentView(final NamedSuperCall<Void> superCall, final View view,
+    void addContentView(final CallVoid2<View, ViewGroup.LayoutParams> superCall, final View view,
             final ViewGroup.LayoutParams params) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1784,7 +1850,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void applyOverrideConfiguration(final NamedSuperCall<Void> superCall,
+    void applyOverrideConfiguration(final CallVoid1<Configuration> superCall,
             final Configuration overrideConfiguration) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1792,22 +1858,22 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void attachBaseContext(final NamedSuperCall<Void> superCall, final Context newBase) {
+    void attachBaseContext(final CallVoid1<Context> superCall, final Context newBase) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             attachBaseContext(newBase);
         }
     }
 
-    boolean bindService(final NamedSuperCall<Boolean> superCall, final Intent service,
-            final ServiceConnection conn, final int flags) {
+    boolean bindService(final CallFun3<Boolean, Intent, ServiceConnection, Integer> superCall,
+            final Intent service, final ServiceConnection conn, final int flags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return bindService(service, conn, flags);
         }
     }
 
-    int checkCallingOrSelfPermission(final NamedSuperCall<Integer> superCall,
+    int checkCallingOrSelfPermission(final CallFun1<Integer, String> superCall,
             final String permission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1815,22 +1881,22 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    int checkCallingOrSelfUriPermission(final NamedSuperCall<Integer> superCall, final Uri uri,
-            final int modeFlags) {
+    int checkCallingOrSelfUriPermission(final CallFun2<Integer, Uri, Integer> superCall,
+            final Uri uri, final int modeFlags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return checkCallingOrSelfUriPermission(uri, modeFlags);
         }
     }
 
-    int checkCallingPermission(final NamedSuperCall<Integer> superCall, final String permission) {
+    int checkCallingPermission(final CallFun1<Integer, String> superCall, final String permission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return checkCallingPermission(permission);
         }
     }
 
-    int checkCallingUriPermission(final NamedSuperCall<Integer> superCall, final Uri uri,
+    int checkCallingUriPermission(final CallFun2<Integer, Uri, Integer> superCall, final Uri uri,
             final int modeFlags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1838,60 +1904,61 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    int checkPermission(final NamedSuperCall<Integer> superCall, final String permission,
-            final int pid, final int uid) {
+    int checkPermission(final CallFun3<Integer, String, Integer, Integer> superCall,
+            final String permission, final int pid, final int uid) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return checkPermission(permission, pid, uid);
         }
     }
 
-    int checkSelfPermission(final NamedSuperCall<Integer> superCall, final String permission) {
+    int checkSelfPermission(final CallFun1<Integer, String> superCall, final String permission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return checkSelfPermission(permission);
         }
     }
 
-    int checkUriPermission(final NamedSuperCall<Integer> superCall, final Uri uri, final int pid,
-            final int uid, final int modeFlags) {
+    int checkUriPermission(final CallFun4<Integer, Uri, Integer, Integer, Integer> superCall,
+            final Uri uri, final int pid, final int uid, final int modeFlags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return checkUriPermission(uri, pid, uid, modeFlags);
         }
     }
 
-    int checkUriPermission(final NamedSuperCall<Integer> superCall, final Uri uri,
-            final String readPermission, final String writePermission, final int pid, final int uid,
-            final int modeFlags) {
+    int checkUriPermission(
+            final CallFun6<Integer, Uri, String, String, Integer, Integer, Integer> superCall,
+            final Uri uri, final String readPermission, final String writePermission, final int pid,
+            final int uid, final int modeFlags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return checkUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags);
         }
     }
 
-    void clearWallpaper(final NamedSuperCall<Void> superCall) throws IOException {
+    void clearWallpaper(final CallVoid0 superCall) throws IOException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             clearWallpaper();
         }
     }
 
-    void closeContextMenu(final NamedSuperCall<Void> superCall) {
+    void closeContextMenu(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             closeContextMenu();
         }
     }
 
-    void closeOptionsMenu(final NamedSuperCall<Void> superCall) {
+    void closeOptionsMenu(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             closeOptionsMenu();
         }
     }
 
-    Context createConfigurationContext(final NamedSuperCall<Context> superCall,
+    Context createConfigurationContext(final CallFun1<Context, Configuration> superCall,
             final Configuration overrideConfiguration) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1899,22 +1966,24 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    Context createDisplayContext(final NamedSuperCall<Context> superCall, final Display display) {
+    Context createDisplayContext(final CallFun1<Context, Display> superCall,
+            final Display display) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return createDisplayContext(display);
         }
     }
 
-    Context createPackageContext(final NamedSuperCall<Context> superCall, final String packageName,
-            final int flags) throws PackageManager.NameNotFoundException {
+    Context createPackageContext(final CallFun2<Context, String, Integer> superCall,
+            final String packageName, final int flags) throws PackageManager.NameNotFoundException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return createPackageContext(packageName, flags);
         }
     }
 
-    PendingIntent createPendingResult(final NamedSuperCall<PendingIntent> superCall,
+    PendingIntent createPendingResult(
+            final CallFun3<PendingIntent, Integer, Intent, Integer> superCall,
             final int requestCode, final Intent data, final int flags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1922,28 +1991,28 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    String[] databaseList(final NamedSuperCall<String[]> superCall) {
+    String[] databaseList(final CallFun0<String[]> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return databaseList();
         }
     }
 
-    boolean deleteDatabase(final NamedSuperCall<Boolean> superCall, final String name) {
+    boolean deleteDatabase(final CallFun1<Boolean, String> superCall, final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return deleteDatabase(name);
         }
     }
 
-    boolean deleteFile(final NamedSuperCall<Boolean> superCall, final String name) {
+    boolean deleteFile(final CallFun1<Boolean, String> superCall, final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return deleteFile(name);
         }
     }
 
-    boolean dispatchGenericMotionEvent(final NamedSuperCall<Boolean> superCall,
+    boolean dispatchGenericMotionEvent(final CallFun1<Boolean, MotionEvent> superCall,
             final MotionEvent ev) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1951,14 +2020,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean dispatchKeyEvent(final NamedSuperCall<Boolean> superCall, final KeyEvent event) {
+    boolean dispatchKeyEvent(final CallFun1<Boolean, KeyEvent> superCall, final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return dispatchKeyEvent(event);
         }
     }
 
-    boolean dispatchKeyShortcutEvent(final NamedSuperCall<Boolean> superCall,
+    boolean dispatchKeyShortcutEvent(final CallFun1<Boolean, KeyEvent> superCall,
             final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -1966,37 +2035,40 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean dispatchPopulateAccessibilityEvent(final NamedSuperCall<Boolean> superCall,
-            final AccessibilityEvent event) {
+    boolean dispatchPopulateAccessibilityEvent(
+            final CallFun1<Boolean, AccessibilityEvent> superCall, final AccessibilityEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return dispatchPopulateAccessibilityEvent(event);
         }
     }
 
-    boolean dispatchTouchEvent(final NamedSuperCall<Boolean> superCall, final MotionEvent ev) {
+    boolean dispatchTouchEvent(final CallFun1<Boolean, MotionEvent> superCall,
+            final MotionEvent ev) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return dispatchTouchEvent(ev);
         }
     }
 
-    boolean dispatchTrackballEvent(final NamedSuperCall<Boolean> superCall, final MotionEvent ev) {
+    boolean dispatchTrackballEvent(final CallFun1<Boolean, MotionEvent> superCall,
+            final MotionEvent ev) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return dispatchTrackballEvent(ev);
         }
     }
 
-    void dump(final NamedSuperCall<Void> superCall, final String prefix, final FileDescriptor fd,
-            final PrintWriter writer, final String[] args) {
+    void dump(final CallVoid4<String, FileDescriptor, PrintWriter, String[]> superCall,
+            final String prefix, final FileDescriptor fd, final PrintWriter writer,
+            final String[] args) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             dump(prefix, fd, writer, args);
         }
     }
 
-    void enforceCallingOrSelfPermission(final NamedSuperCall<Void> superCall,
+    void enforceCallingOrSelfPermission(final CallVoid2<String, String> superCall,
             final String permission, final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2004,23 +2076,23 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void enforceCallingOrSelfUriPermission(final NamedSuperCall<Void> superCall, final Uri uri,
-            final int modeFlags, final String message) {
+    void enforceCallingOrSelfUriPermission(final CallVoid3<Uri, Integer, String> superCall,
+            final Uri uri, final int modeFlags, final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             enforceCallingOrSelfUriPermission(uri, modeFlags, message);
         }
     }
 
-    void enforceCallingPermission(final NamedSuperCall<Void> superCall, final String permission,
-            final String message) {
+    void enforceCallingPermission(final CallVoid2<String, String> superCall,
+            final String permission, final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             enforceCallingPermission(permission, message);
         }
     }
 
-    void enforceCallingUriPermission(final NamedSuperCall<Void> superCall, final Uri uri,
+    void enforceCallingUriPermission(final CallVoid3<Uri, Integer, String> superCall, final Uri uri,
             final int modeFlags, final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2028,25 +2100,27 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void enforcePermission(final NamedSuperCall<Void> superCall, final String permission,
-            final int pid, final int uid, final String message) {
+    void enforcePermission(final CallVoid4<String, Integer, Integer, String> superCall,
+            final String permission, final int pid, final int uid, final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             enforcePermission(permission, pid, uid, message);
         }
     }
 
-    void enforceUriPermission(final NamedSuperCall<Void> superCall, final Uri uri, final int pid,
-            final int uid, final int modeFlags, final String message) {
+    void enforceUriPermission(final CallVoid5<Uri, Integer, Integer, Integer, String> superCall,
+            final Uri uri, final int pid, final int uid, final int modeFlags,
+            final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             enforceUriPermission(uri, pid, uid, modeFlags, message);
         }
     }
 
-    void enforceUriPermission(final NamedSuperCall<Void> superCall, final Uri uri,
-            final String readPermission, final String writePermission, final int pid, final int uid,
-            final int modeFlags, final String message) {
+    void enforceUriPermission(
+            final CallVoid7<Uri, String, String, Integer, Integer, Integer, String> superCall,
+            final Uri uri, final String readPermission, final String writePermission, final int pid,
+            final int uid, final int modeFlags, final String message) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             enforceUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags,
@@ -2054,35 +2128,35 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    String[] fileList(final NamedSuperCall<String[]> superCall) {
+    String[] fileList(final CallFun0<String[]> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return fileList();
         }
     }
 
-    View findViewById(final NamedSuperCall<View> superCall, @IdRes final int id) {
+    View findViewById(final CallFun1<View, Integer> superCall, @IdRes final int id) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return findViewById(id);
         }
     }
 
-    void finish(final NamedSuperCall<Void> superCall) {
+    void finish(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finish();
         }
     }
 
-    void finishActivity(final NamedSuperCall<Void> superCall, final int requestCode) {
+    void finishActivity(final CallVoid1<Integer> superCall, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishActivity(requestCode);
         }
     }
 
-    void finishActivityFromChild(final NamedSuperCall<Void> superCall, final Activity child,
+    void finishActivityFromChild(final CallVoid2<Activity, Integer> superCall, final Activity child,
             final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2090,162 +2164,162 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void finishAffinity(final NamedSuperCall<Void> superCall) {
+    void finishAffinity(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishAffinity();
         }
     }
 
-    void finishAfterTransition(final NamedSuperCall<Void> superCall) {
+    void finishAfterTransition(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishAfterTransition();
         }
     }
 
-    void finishAndRemoveTask(final NamedSuperCall<Void> superCall) {
+    void finishAndRemoveTask(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishAndRemoveTask();
         }
     }
 
-    void finishFromChild(final NamedSuperCall<Void> superCall, final Activity child) {
+    void finishFromChild(final CallVoid1<Activity> superCall, final Activity child) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishFromChild(child);
         }
     }
 
-    android.app.ActionBar getActionBar(final NamedSuperCall<android.app.ActionBar> superCall) {
+    android.app.ActionBar getActionBar(final CallFun0<android.app.ActionBar> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getActionBar();
         }
     }
 
-    Context getApplicationContext(final NamedSuperCall<Context> superCall) {
+    Context getApplicationContext(final CallFun0<Context> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getApplicationContext();
         }
     }
 
-    ApplicationInfo getApplicationInfo(final NamedSuperCall<ApplicationInfo> superCall) {
+    ApplicationInfo getApplicationInfo(final CallFun0<ApplicationInfo> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getApplicationInfo();
         }
     }
 
-    AssetManager getAssets(final NamedSuperCall<AssetManager> superCall) {
+    AssetManager getAssets(final CallFun0<AssetManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getAssets();
         }
     }
 
-    Context getBaseContext(final NamedSuperCall<Context> superCall) {
+    Context getBaseContext(final CallFun0<Context> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getBaseContext();
         }
     }
 
-    File getCacheDir(final NamedSuperCall<File> superCall) {
+    File getCacheDir(final CallFun0<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getCacheDir();
         }
     }
 
-    ComponentName getCallingActivity(final NamedSuperCall<ComponentName> superCall) {
+    ComponentName getCallingActivity(final CallFun0<ComponentName> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getCallingActivity();
         }
     }
 
-    String getCallingPackage(final NamedSuperCall<String> superCall) {
+    String getCallingPackage(final CallFun0<String> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getCallingPackage();
         }
     }
 
-    int getChangingConfigurations(final NamedSuperCall<Integer> superCall) {
+    int getChangingConfigurations(final CallFun0<Integer> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getChangingConfigurations();
         }
     }
 
-    ClassLoader getClassLoader(final NamedSuperCall<ClassLoader> superCall) {
+    ClassLoader getClassLoader(final CallFun0<ClassLoader> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getClassLoader();
         }
     }
 
-    File getCodeCacheDir(final NamedSuperCall<File> superCall) {
+    File getCodeCacheDir(final CallFun0<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getCodeCacheDir();
         }
     }
 
-    ComponentName getComponentName(final NamedSuperCall<ComponentName> superCall) {
+    ComponentName getComponentName(final CallFun0<ComponentName> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getComponentName();
         }
     }
 
-    ContentResolver getContentResolver(final NamedSuperCall<ContentResolver> superCall) {
+    ContentResolver getContentResolver(final CallFun0<ContentResolver> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getContentResolver();
         }
     }
 
-    Scene getContentScene(final NamedSuperCall<Scene> superCall) {
+    Scene getContentScene(final CallFun0<Scene> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getContentScene();
         }
     }
 
-    TransitionManager getContentTransitionManager(
-            final NamedSuperCall<TransitionManager> superCall) {
+    TransitionManager getContentTransitionManager(final CallFun0<TransitionManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getContentTransitionManager();
         }
     }
 
-    View getCurrentFocus(final NamedSuperCall<View> superCall) {
+    View getCurrentFocus(final CallFun0<View> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getCurrentFocus();
         }
     }
 
-    File getDatabasePath(final NamedSuperCall<File> superCall, final String name) {
+    File getDatabasePath(final CallFun1<File, String> superCall, final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getDatabasePath(name);
         }
     }
 
-    AppCompatDelegate getDelegate(final NamedSuperCall<AppCompatDelegate> superCall) {
+    AppCompatDelegate getDelegate(final CallFun0<AppCompatDelegate> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getDelegate();
         }
     }
 
-    File getDir(final NamedSuperCall<File> superCall, final String name, final int mode) {
+    File getDir(final CallFun2<File, String, Integer> superCall, final String name,
+            final int mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getDir(name, mode);
@@ -2253,56 +2327,56 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     ActionBarDrawerToggle.Delegate getDrawerToggleDelegate(
-            final NamedSuperCall<ActionBarDrawerToggle.Delegate> superCall) {
+            final CallFun0<ActionBarDrawerToggle.Delegate> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getDrawerToggleDelegate();
         }
     }
 
-    File getExternalCacheDir(final NamedSuperCall<File> superCall) {
+    File getExternalCacheDir(final CallFun0<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getExternalCacheDir();
         }
     }
 
-    File[] getExternalCacheDirs(final NamedSuperCall<File[]> superCall) {
+    File[] getExternalCacheDirs(final CallFun0<File[]> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getExternalCacheDirs();
         }
     }
 
-    File getExternalFilesDir(final NamedSuperCall<File> superCall, final String type) {
+    File getExternalFilesDir(final CallFun1<File, String> superCall, final String type) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getExternalFilesDir(type);
         }
     }
 
-    File[] getExternalFilesDirs(final NamedSuperCall<File[]> superCall, final String type) {
+    File[] getExternalFilesDirs(final CallFun1<File[], String> superCall, final String type) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getExternalFilesDirs(type);
         }
     }
 
-    File[] getExternalMediaDirs(final NamedSuperCall<File[]> superCall) {
+    File[] getExternalMediaDirs(final CallFun0<File[]> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getExternalMediaDirs();
         }
     }
 
-    File getFileStreamPath(final NamedSuperCall<File> superCall, final String name) {
+    File getFileStreamPath(final CallFun1<File, String> superCall, final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getFileStreamPath(name);
         }
     }
 
-    File getFilesDir(final NamedSuperCall<File> superCall) {
+    File getFilesDir(final CallFun0<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getFilesDir();
@@ -2310,21 +2384,21 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     android.app.FragmentManager getFragmentManager(
-            final NamedSuperCall<android.app.FragmentManager> superCall) {
+            final CallFun0<android.app.FragmentManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getFragmentManager();
         }
     }
 
-    Intent getIntent(final NamedSuperCall<Intent> superCall) {
+    Intent getIntent(final CallFun0<Intent> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getIntent();
         }
     }
 
-    LayoutInflater getLayoutInflater(final NamedSuperCall<LayoutInflater> superCall) {
+    LayoutInflater getLayoutInflater(final CallFun0<LayoutInflater> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getLayoutInflater();
@@ -2332,91 +2406,91 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     android.app.LoaderManager getLoaderManager(
-            final NamedSuperCall<android.app.LoaderManager> superCall) {
+            final CallFun0<android.app.LoaderManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getLoaderManager();
         }
     }
 
-    String getLocalClassName(final NamedSuperCall<String> superCall) {
+    String getLocalClassName(final CallFun0<String> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getLocalClassName();
         }
     }
 
-    Looper getMainLooper(final NamedSuperCall<Looper> superCall) {
+    Looper getMainLooper(final CallFun0<Looper> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getMainLooper();
         }
     }
 
-    MenuInflater getMenuInflater(final NamedSuperCall<MenuInflater> superCall) {
+    MenuInflater getMenuInflater(final CallFun0<MenuInflater> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getMenuInflater();
         }
     }
 
-    File getNoBackupFilesDir(final NamedSuperCall<File> superCall) {
+    File getNoBackupFilesDir(final CallFun0<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getNoBackupFilesDir();
         }
     }
 
-    File getObbDir(final NamedSuperCall<File> superCall) {
+    File getObbDir(final CallFun0<File> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getObbDir();
         }
     }
 
-    File[] getObbDirs(final NamedSuperCall<File[]> superCall) {
+    File[] getObbDirs(final CallFun0<File[]> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getObbDirs();
         }
     }
 
-    String getPackageCodePath(final NamedSuperCall<String> superCall) {
+    String getPackageCodePath(final CallFun0<String> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getPackageCodePath();
         }
     }
 
-    PackageManager getPackageManager(final NamedSuperCall<PackageManager> superCall) {
+    PackageManager getPackageManager(final CallFun0<PackageManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getPackageManager();
         }
     }
 
-    String getPackageName(final NamedSuperCall<String> superCall) {
+    String getPackageName(final CallFun0<String> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getPackageName();
         }
     }
 
-    String getPackageResourcePath(final NamedSuperCall<String> superCall) {
+    String getPackageResourcePath(final CallFun0<String> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getPackageResourcePath();
         }
     }
 
-    Intent getParentActivityIntent(final NamedSuperCall<Intent> superCall) {
+    Intent getParentActivityIntent(final CallFun0<Intent> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getParentActivityIntent();
         }
     }
 
-    SharedPreferences getPreferences(final NamedSuperCall<SharedPreferences> superCall,
+    SharedPreferences getPreferences(final CallFun1<SharedPreferences, Integer> superCall,
             final int mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2424,71 +2498,72 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    Uri getReferrer(final NamedSuperCall<Uri> superCall) {
+    Uri getReferrer(final CallFun0<Uri> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getReferrer();
         }
     }
 
-    int getRequestedOrientation(final NamedSuperCall<Integer> superCall) {
+    int getRequestedOrientation(final CallFun0<Integer> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getRequestedOrientation();
         }
     }
 
-    Resources getResources(final NamedSuperCall<Resources> superCall) {
+    Resources getResources(final CallFun0<Resources> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getResources();
         }
     }
 
-    SharedPreferences getSharedPreferences(final NamedSuperCall<SharedPreferences> superCall,
-            final String name, final int mode) {
+    SharedPreferences getSharedPreferences(
+            final CallFun2<SharedPreferences, String, Integer> superCall, final String name,
+            final int mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSharedPreferences(name, mode);
         }
     }
 
-    ActionBar getSupportActionBar(final NamedSuperCall<ActionBar> superCall) {
+    ActionBar getSupportActionBar(final CallFun0<ActionBar> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSupportActionBar();
         }
     }
 
-    FragmentManager getSupportFragmentManager(final NamedSuperCall<FragmentManager> superCall) {
+    FragmentManager getSupportFragmentManager(final CallFun0<FragmentManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSupportFragmentManager();
         }
     }
 
-    LoaderManager getSupportLoaderManager(final NamedSuperCall<LoaderManager> superCall) {
+    LoaderManager getSupportLoaderManager(final CallFun0<LoaderManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSupportLoaderManager();
         }
     }
 
-    Intent getSupportParentActivityIntent(final NamedSuperCall<Intent> superCall) {
+    Intent getSupportParentActivityIntent(final CallFun0<Intent> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSupportParentActivityIntent();
         }
     }
 
-    Object getSystemService(final NamedSuperCall<Object> superCall, final String name) {
+    Object getSystemService(final CallFun1<Object, String> superCall, final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSystemService(name);
         }
     }
 
-    String getSystemServiceName(final NamedSuperCall<String> superCall,
+    String getSystemServiceName(final CallFun1<String, Class<?>> superCall,
             final Class<?> serviceClass) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2496,63 +2571,63 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    int getTaskId(final NamedSuperCall<Integer> superCall) {
+    int getTaskId(final CallFun0<Integer> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getTaskId();
         }
     }
 
-    Resources.Theme getTheme(final NamedSuperCall<Resources.Theme> superCall) {
+    Resources.Theme getTheme(final CallFun0<Resources.Theme> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getTheme();
         }
     }
 
-    VoiceInteractor getVoiceInteractor(final NamedSuperCall<VoiceInteractor> superCall) {
+    VoiceInteractor getVoiceInteractor(final CallFun0<VoiceInteractor> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getVoiceInteractor();
         }
     }
 
-    Drawable getWallpaper(final NamedSuperCall<Drawable> superCall) {
+    Drawable getWallpaper(final CallFun0<Drawable> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getWallpaper();
         }
     }
 
-    int getWallpaperDesiredMinimumHeight(final NamedSuperCall<Integer> superCall) {
+    int getWallpaperDesiredMinimumHeight(final CallFun0<Integer> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getWallpaperDesiredMinimumHeight();
         }
     }
 
-    int getWallpaperDesiredMinimumWidth(final NamedSuperCall<Integer> superCall) {
+    int getWallpaperDesiredMinimumWidth(final CallFun0<Integer> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getWallpaperDesiredMinimumWidth();
         }
     }
 
-    Window getWindow(final NamedSuperCall<Window> superCall) {
+    Window getWindow(final CallFun0<Window> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getWindow();
         }
     }
 
-    WindowManager getWindowManager(final NamedSuperCall<WindowManager> superCall) {
+    WindowManager getWindowManager(final CallFun0<WindowManager> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getWindowManager();
         }
     }
 
-    void grantUriPermission(final NamedSuperCall<Void> superCall, final String toPackage,
+    void grantUriPermission(final CallVoid3<String, Uri, Integer> superCall, final String toPackage,
             final Uri uri, final int modeFlags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2560,99 +2635,99 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean hasWindowFocus(final NamedSuperCall<Boolean> superCall) {
+    boolean hasWindowFocus(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return hasWindowFocus();
         }
     }
 
-    void invalidateOptionsMenu(final NamedSuperCall<Void> superCall) {
+    void invalidateOptionsMenu(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             invalidateOptionsMenu();
         }
     }
 
-    boolean isChangingConfigurations(final NamedSuperCall<Boolean> superCall) {
+    boolean isChangingConfigurations(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isChangingConfigurations();
         }
     }
 
-    boolean isDestroyed(final NamedSuperCall<Boolean> superCall) {
+    boolean isDestroyed(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isDestroyed();
         }
     }
 
-    boolean isFinishing(final NamedSuperCall<Boolean> superCall) {
+    boolean isFinishing(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isFinishing();
         }
     }
 
-    boolean isImmersive(final NamedSuperCall<Boolean> superCall) {
+    boolean isImmersive(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isImmersive();
         }
     }
 
-    boolean isRestricted(final NamedSuperCall<Boolean> superCall) {
+    boolean isRestricted(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isRestricted();
         }
     }
 
-    boolean isTaskRoot(final NamedSuperCall<Boolean> superCall) {
+    boolean isTaskRoot(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isTaskRoot();
         }
     }
 
-    boolean isVoiceInteraction(final NamedSuperCall<Boolean> superCall) {
+    boolean isVoiceInteraction(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isVoiceInteraction();
         }
     }
 
-    boolean isVoiceInteractionRoot(final NamedSuperCall<Boolean> superCall) {
+    boolean isVoiceInteractionRoot(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isVoiceInteractionRoot();
         }
     }
 
-    boolean moveTaskToBack(final NamedSuperCall<Boolean> superCall, final boolean nonRoot) {
+    boolean moveTaskToBack(final CallFun1<Boolean, Boolean> superCall, final boolean nonRoot) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return moveTaskToBack(nonRoot);
         }
     }
 
-    boolean navigateUpTo(final NamedSuperCall<Boolean> superCall, final Intent upIntent) {
+    boolean navigateUpTo(final CallFun1<Boolean, Intent> superCall, final Intent upIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return navigateUpTo(upIntent);
         }
     }
 
-    boolean navigateUpToFromChild(final NamedSuperCall<Boolean> superCall, final Activity child,
-            final Intent upIntent) {
+    boolean navigateUpToFromChild(final CallFun2<Boolean, Activity, Intent> superCall,
+            final Activity child, final Intent upIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return navigateUpToFromChild(child, upIntent);
         }
     }
 
-    void onActionModeFinished(final NamedSuperCall<Void> superCall,
+    void onActionModeFinished(final CallVoid1<android.view.ActionMode> superCall,
             final android.view.ActionMode mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2660,7 +2735,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onActionModeStarted(final NamedSuperCall<Void> superCall,
+    void onActionModeStarted(final CallVoid1<android.view.ActionMode> superCall,
             final android.view.ActionMode mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2668,7 +2743,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onActivityReenter(final NamedSuperCall<Void> superCall, final int resultCode,
+    void onActivityReenter(final CallVoid2<Integer, Intent> superCall, final int resultCode,
             final Intent data) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2676,30 +2751,30 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onActivityResult(final NamedSuperCall<Void> superCall, final int requestCode,
-            final int resultCode, final Intent data) {
+    void onActivityResult(final CallVoid3<Integer, Integer, Intent> superCall,
+            final int requestCode, final int resultCode, final Intent data) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    void onApplyThemeResource(final NamedSuperCall<Void> superCall, final Resources.Theme theme,
-            final int resid, final boolean first) {
+    void onApplyThemeResource(final CallVoid3<Resources.Theme, Integer, Boolean> superCall,
+            final Resources.Theme theme, final int resid, final boolean first) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onApplyThemeResource(theme, resid, first);
         }
     }
 
-    void onAttachFragment(final NamedSuperCall<Void> superCall, final Fragment fragment) {
+    void onAttachFragment(final CallVoid1<Fragment> superCall, final Fragment fragment) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onAttachFragment(fragment);
         }
     }
 
-    void onAttachFragment(final NamedSuperCall<Void> superCall,
+    void onAttachFragment(final CallVoid1<android.app.Fragment> superCall,
             final android.app.Fragment fragment) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2707,29 +2782,29 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onAttachedToWindow(final NamedSuperCall<Void> superCall) {
+    void onAttachedToWindow(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onAttachedToWindow();
         }
     }
 
-    void onBackPressed(final NamedSuperCall<Void> superCall) {
+    void onBackPressed(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onBackPressed();
         }
     }
 
-    void onChildTitleChanged(final NamedSuperCall<Void> superCall, final Activity childActivity,
-            final CharSequence title) {
+    void onChildTitleChanged(final CallVoid2<Activity, CharSequence> superCall,
+            final Activity childActivity, final CharSequence title) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onChildTitleChanged(childActivity, title);
         }
     }
 
-    void onConfigurationChanged(final NamedSuperCall<Void> superCall,
+    void onConfigurationChanged(final CallVoid1<Configuration> superCall,
             final Configuration newConfig) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2737,72 +2812,75 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onContentChanged(final NamedSuperCall<Void> superCall) {
+    void onContentChanged(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onContentChanged();
         }
     }
 
-    boolean onContextItemSelected(final NamedSuperCall<Boolean> superCall, final MenuItem item) {
+    boolean onContextItemSelected(final CallFun1<Boolean, MenuItem> superCall,
+            final MenuItem item) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onContextItemSelected(item);
         }
     }
 
-    void onContextMenuClosed(final NamedSuperCall<Void> superCall, final Menu menu) {
+    void onContextMenuClosed(final CallVoid1<Menu> superCall, final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onContextMenuClosed(menu);
         }
     }
 
-    void onCreate(final NamedSuperCall<Void> superCall, final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    void onCreate(final CallVoid2<Bundle, PersistableBundle> superCall,
+            final Bundle savedInstanceState, final PersistableBundle persistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onCreate(savedInstanceState, persistentState);
         }
     }
 
-    void onCreate(final NamedSuperCall<Void> superCall, @Nullable final Bundle savedInstanceState) {
+    void onCreate(final CallVoid1<Bundle> superCall, @Nullable final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onCreate(savedInstanceState);
         }
     }
 
-    void onCreateContextMenu(final NamedSuperCall<Void> superCall, final ContextMenu menu,
-            final View v, final ContextMenu.ContextMenuInfo menuInfo) {
+    void onCreateContextMenu(
+            final CallVoid3<ContextMenu, View, ContextMenu.ContextMenuInfo> superCall,
+            final ContextMenu menu, final View v, final ContextMenu.ContextMenuInfo menuInfo) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onCreateContextMenu(menu, v, menuInfo);
         }
     }
 
-    CharSequence onCreateDescription(final NamedSuperCall<CharSequence> superCall) {
+    CharSequence onCreateDescription(final CallFun0<CharSequence> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateDescription();
         }
     }
 
-    Dialog onCreateDialog(final NamedSuperCall<Dialog> superCall, final int id) {
+    Dialog onCreateDialog(final CallFun1<Dialog, Integer> superCall, final int id) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateDialog(id);
         }
     }
 
-    Dialog onCreateDialog(final NamedSuperCall<Dialog> superCall, final int id, final Bundle args) {
+    Dialog onCreateDialog(final CallFun2<Dialog, Integer, Bundle> superCall, final int id,
+            final Bundle args) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateDialog(id, args);
         }
     }
 
-    void onCreateNavigateUpTaskStack(final NamedSuperCall<Void> superCall,
+    void onCreateNavigateUpTaskStack(final CallVoid1<TaskStackBuilder> superCall,
             final TaskStackBuilder builder) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2810,14 +2888,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean onCreateOptionsMenu(final NamedSuperCall<Boolean> superCall, final Menu menu) {
+    boolean onCreateOptionsMenu(final CallFun1<Boolean, Menu> superCall, final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateOptionsMenu(menu);
         }
     }
 
-    boolean onCreatePanelMenu(final NamedSuperCall<Boolean> superCall, final int featureId,
+    boolean onCreatePanelMenu(final CallFun2<Boolean, Integer, Menu> superCall, final int featureId,
             final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2825,14 +2903,15 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    View onCreatePanelView(final NamedSuperCall<View> superCall, final int featureId) {
+    View onCreatePanelView(final CallFun1<View, Integer> superCall, final int featureId) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreatePanelView(featureId);
         }
     }
 
-    void onCreateSupportNavigateUpTaskStack(final NamedSuperCall<Void> superCall,
+    void onCreateSupportNavigateUpTaskStack(
+            final CallVoid1<android.support.v4.app.TaskStackBuilder> superCall,
             @NonNull final android.support.v4.app.TaskStackBuilder builder) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2840,59 +2919,60 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean onCreateThumbnail(final NamedSuperCall<Boolean> superCall, final Bitmap outBitmap,
-            final Canvas canvas) {
+    boolean onCreateThumbnail(final CallFun2<Boolean, Bitmap, Canvas> superCall,
+            final Bitmap outBitmap, final Canvas canvas) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateThumbnail(outBitmap, canvas);
         }
     }
 
-    View onCreateView(final NamedSuperCall<View> superCall, final View parent, final String name,
-            final Context context, final AttributeSet attrs) {
+    View onCreateView(final CallFun4<View, View, String, Context, AttributeSet> superCall,
+            final View parent, final String name, final Context context, final AttributeSet attrs) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateView(parent, name, context, attrs);
         }
     }
 
-    View onCreateView(final NamedSuperCall<View> superCall, final String name,
-            final Context context, final AttributeSet attrs) {
+    View onCreateView(final CallFun3<View, String, Context, AttributeSet> superCall,
+            final String name, final Context context, final AttributeSet attrs) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateView(name, context, attrs);
         }
     }
 
-    void onDestroy(final NamedSuperCall<Void> superCall) {
+    void onDestroy(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onDestroy();
         }
     }
 
-    void onDetachedFromWindow(final NamedSuperCall<Void> superCall) {
+    void onDetachedFromWindow(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onDetachedFromWindow();
         }
     }
 
-    void onEnterAnimationComplete(final NamedSuperCall<Void> superCall) {
+    void onEnterAnimationComplete(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onEnterAnimationComplete();
         }
     }
 
-    boolean onGenericMotionEvent(final NamedSuperCall<Boolean> superCall, final MotionEvent event) {
+    boolean onGenericMotionEvent(final CallFun1<Boolean, MotionEvent> superCall,
+            final MotionEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onGenericMotionEvent(event);
         }
     }
 
-    boolean onKeyDown(final NamedSuperCall<Boolean> superCall, final int keyCode,
+    boolean onKeyDown(final CallFun2<Boolean, Integer, KeyEvent> superCall, final int keyCode,
             final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2900,7 +2980,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean onKeyLongPress(final NamedSuperCall<Boolean> superCall, final int keyCode,
+    boolean onKeyLongPress(final CallFun2<Boolean, Integer, KeyEvent> superCall, final int keyCode,
             final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2908,15 +2988,15 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean onKeyMultiple(final NamedSuperCall<Boolean> superCall, final int keyCode,
-            final int repeatCount, final KeyEvent event) {
+    boolean onKeyMultiple(final CallFun3<Boolean, Integer, Integer, KeyEvent> superCall,
+            final int keyCode, final int repeatCount, final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onKeyMultiple(keyCode, repeatCount, event);
         }
     }
 
-    boolean onKeyShortcut(final NamedSuperCall<Boolean> superCall, final int keyCode,
+    boolean onKeyShortcut(final CallFun2<Boolean, Integer, KeyEvent> superCall, final int keyCode,
             final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2924,7 +3004,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean onKeyUp(final NamedSuperCall<Boolean> superCall, final int keyCode,
+    boolean onKeyUp(final CallFun2<Boolean, Integer, KeyEvent> superCall, final int keyCode,
             final KeyEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2932,14 +3012,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onLowMemory(final NamedSuperCall<Void> superCall) {
+    void onLowMemory(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onLowMemory();
         }
     }
 
-    boolean onMenuOpened(final NamedSuperCall<Boolean> superCall, final int featureId,
+    boolean onMenuOpened(final CallFun2<Boolean, Integer, Menu> superCall, final int featureId,
             final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2947,64 +3027,67 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean onNavigateUp(final NamedSuperCall<Boolean> superCall) {
+    boolean onNavigateUp(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onNavigateUp();
         }
     }
 
-    boolean onNavigateUpFromChild(final NamedSuperCall<Boolean> superCall, final Activity child) {
+    boolean onNavigateUpFromChild(final CallFun1<Boolean, Activity> superCall,
+            final Activity child) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onNavigateUpFromChild(child);
         }
     }
 
-    void onNewIntent(final NamedSuperCall<Void> superCall, final Intent intent) {
+    void onNewIntent(final CallVoid1<Intent> superCall, final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onNewIntent(intent);
         }
     }
 
-    boolean onOptionsItemSelected(final NamedSuperCall<Boolean> superCall, final MenuItem item) {
+    boolean onOptionsItemSelected(final CallFun1<Boolean, MenuItem> superCall,
+            final MenuItem item) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onOptionsItemSelected(item);
         }
     }
 
-    void onOptionsMenuClosed(final NamedSuperCall<Void> superCall, final Menu menu) {
+    void onOptionsMenuClosed(final CallVoid1<Menu> superCall, final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onOptionsMenuClosed(menu);
         }
     }
 
-    void onPanelClosed(final NamedSuperCall<Void> superCall, final int featureId, final Menu menu) {
+    void onPanelClosed(final CallVoid2<Integer, Menu> superCall, final int featureId,
+            final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPanelClosed(featureId, menu);
         }
     }
 
-    void onPause(final NamedSuperCall<Void> superCall) {
+    void onPause(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPause();
         }
     }
 
-    void onPostCreate(final NamedSuperCall<Void> superCall, final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    void onPostCreate(final CallVoid2<Bundle, PersistableBundle> superCall,
+            final Bundle savedInstanceState, final PersistableBundle persistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPostCreate(savedInstanceState, persistentState);
         }
     }
 
-    void onPostCreate(final NamedSuperCall<Void> superCall,
+    void onPostCreate(final CallVoid1<Bundle> superCall,
             @Nullable final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3012,29 +3095,30 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onPostResume(final NamedSuperCall<Void> superCall) {
+    void onPostResume(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPostResume();
         }
     }
 
-    void onPrepareDialog(final NamedSuperCall<Void> superCall, final int id, final Dialog dialog) {
+    void onPrepareDialog(final CallVoid2<Integer, Dialog> superCall, final int id,
+            final Dialog dialog) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPrepareDialog(id, dialog);
         }
     }
 
-    void onPrepareDialog(final NamedSuperCall<Void> superCall, final int id, final Dialog dialog,
-            final Bundle args) {
+    void onPrepareDialog(final CallVoid3<Integer, Dialog, Bundle> superCall, final int id,
+            final Dialog dialog, final Bundle args) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPrepareDialog(id, dialog, args);
         }
     }
 
-    void onPrepareNavigateUpTaskStack(final NamedSuperCall<Void> superCall,
+    void onPrepareNavigateUpTaskStack(final CallVoid1<TaskStackBuilder> superCall,
             final TaskStackBuilder builder) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3042,14 +3126,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean onPrepareOptionsMenu(final NamedSuperCall<Boolean> superCall, final Menu menu) {
+    boolean onPrepareOptionsMenu(final CallFun1<Boolean, Menu> superCall, final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onPrepareOptionsMenu(menu);
         }
     }
 
-    boolean onPrepareOptionsPanel(final NamedSuperCall<Boolean> superCall, final View view,
+    boolean onPrepareOptionsPanel(final CallFun2<Boolean, View, Menu> superCall, final View view,
             final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3057,15 +3141,16 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean onPreparePanel(final NamedSuperCall<Boolean> superCall, final int featureId,
-            final View view, final Menu menu) {
+    boolean onPreparePanel(final CallFun3<Boolean, Integer, View, Menu> superCall,
+            final int featureId, final View view, final Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onPreparePanel(featureId, view, menu);
         }
     }
 
-    void onPrepareSupportNavigateUpTaskStack(final NamedSuperCall<Void> superCall,
+    void onPrepareSupportNavigateUpTaskStack(
+            final CallVoid1<android.support.v4.app.TaskStackBuilder> superCall,
             @NonNull final android.support.v4.app.TaskStackBuilder builder) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3073,7 +3158,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onProvideAssistContent(final NamedSuperCall<Void> superCall,
+    void onProvideAssistContent(final CallVoid1<AssistContent> superCall,
             final AssistContent outContent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3081,36 +3166,37 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onProvideAssistData(final NamedSuperCall<Void> superCall, final Bundle data) {
+    void onProvideAssistData(final CallVoid1<Bundle> superCall, final Bundle data) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onProvideAssistData(data);
         }
     }
 
-    Uri onProvideReferrer(final NamedSuperCall<Uri> superCall) {
+    Uri onProvideReferrer(final CallFun0<Uri> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onProvideReferrer();
         }
     }
 
-    void onRequestPermissionsResult(final NamedSuperCall<Void> superCall, final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+    void onRequestPermissionsResult(final CallVoid3<Integer, String[], int[]> superCall,
+            final int requestCode, @NonNull final String[] permissions,
+            @NonNull final int[] grantResults) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
-    void onRestart(final NamedSuperCall<Void> superCall) {
+    void onRestart(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onRestart();
         }
     }
 
-    void onRestoreInstanceState(final NamedSuperCall<Void> superCall,
+    void onRestoreInstanceState(final CallVoid2<Bundle, PersistableBundle> superCall,
             final Bundle savedInstanceState, final PersistableBundle persistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3118,7 +3204,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onRestoreInstanceState(final NamedSuperCall<Void> superCall,
+    void onRestoreInstanceState(final CallVoid1<Bundle> superCall,
             final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3126,36 +3212,36 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onResume(final NamedSuperCall<Void> superCall) {
+    void onResume(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onResume();
         }
     }
 
-    void onResumeFragments(final NamedSuperCall<Void> superCall) {
+    void onResumeFragments(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onResumeFragments();
         }
     }
 
-    void onSaveInstanceState(final NamedSuperCall<Void> superCall, final Bundle outState,
-            final PersistableBundle outPersistentState) {
+    void onSaveInstanceState(final CallVoid2<Bundle, PersistableBundle> superCall,
+            final Bundle outState, final PersistableBundle outPersistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onSaveInstanceState(outState, outPersistentState);
         }
     }
 
-    void onSaveInstanceState(final NamedSuperCall<Void> superCall, final Bundle outState) {
+    void onSaveInstanceState(final CallVoid1<Bundle> superCall, final Bundle outState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onSaveInstanceState(outState);
         }
     }
 
-    boolean onSearchRequested(final NamedSuperCall<Boolean> superCall,
+    boolean onSearchRequested(final CallFun1<Boolean, SearchEvent> superCall,
             final SearchEvent searchEvent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3163,35 +3249,35 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean onSearchRequested(final NamedSuperCall<Boolean> superCall) {
+    boolean onSearchRequested(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onSearchRequested();
         }
     }
 
-    void onStart(final NamedSuperCall<Void> superCall) {
+    void onStart(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onStart();
         }
     }
 
-    void onStateNotSaved(final NamedSuperCall<Void> superCall) {
+    void onStateNotSaved(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onStateNotSaved();
         }
     }
 
-    void onStop(final NamedSuperCall<Void> superCall) {
+    void onStop(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onStop();
         }
     }
 
-    void onSupportActionModeFinished(final NamedSuperCall<Void> superCall,
+    void onSupportActionModeFinished(final CallVoid1<ActionMode> superCall,
             @NonNull final ActionMode mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3199,7 +3285,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onSupportActionModeStarted(final NamedSuperCall<Void> superCall,
+    void onSupportActionModeStarted(final CallVoid1<ActionMode> superCall,
             @NonNull final ActionMode mode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3207,21 +3293,21 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onSupportContentChanged(final NamedSuperCall<Void> superCall) {
+    void onSupportContentChanged(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onSupportContentChanged();
         }
     }
 
-    boolean onSupportNavigateUp(final NamedSuperCall<Boolean> superCall) {
+    boolean onSupportNavigateUp(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onSupportNavigateUp();
         }
     }
 
-    void onTitleChanged(final NamedSuperCall<Void> superCall, final CharSequence title,
+    void onTitleChanged(final CallVoid2<CharSequence, Integer> superCall, final CharSequence title,
             final int color) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3229,49 +3315,50 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean onTouchEvent(final NamedSuperCall<Boolean> superCall, final MotionEvent event) {
+    boolean onTouchEvent(final CallFun1<Boolean, MotionEvent> superCall, final MotionEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onTouchEvent(event);
         }
     }
 
-    boolean onTrackballEvent(final NamedSuperCall<Boolean> superCall, final MotionEvent event) {
+    boolean onTrackballEvent(final CallFun1<Boolean, MotionEvent> superCall,
+            final MotionEvent event) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onTrackballEvent(event);
         }
     }
 
-    void onTrimMemory(final NamedSuperCall<Void> superCall, final int level) {
+    void onTrimMemory(final CallVoid1<Integer> superCall, final int level) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onTrimMemory(level);
         }
     }
 
-    void onUserInteraction(final NamedSuperCall<Void> superCall) {
+    void onUserInteraction(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onUserInteraction();
         }
     }
 
-    void onUserLeaveHint(final NamedSuperCall<Void> superCall) {
+    void onUserLeaveHint(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onUserLeaveHint();
         }
     }
 
-    void onVisibleBehindCanceled(final NamedSuperCall<Void> superCall) {
+    void onVisibleBehindCanceled(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onVisibleBehindCanceled();
         }
     }
 
-    void onWindowAttributesChanged(final NamedSuperCall<Void> superCall,
+    void onWindowAttributesChanged(final CallVoid1<WindowManager.LayoutParams> superCall,
             final WindowManager.LayoutParams params) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3279,7 +3366,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onWindowFocusChanged(final NamedSuperCall<Void> superCall, final boolean hasFocus) {
+    void onWindowFocusChanged(final CallVoid1<Boolean> superCall, final boolean hasFocus) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onWindowFocusChanged(hasFocus);
@@ -3287,7 +3374,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     android.view.ActionMode onWindowStartingActionMode(
-            final NamedSuperCall<android.view.ActionMode> superCall,
+            final CallFun1<android.view.ActionMode, android.view.ActionMode.Callback> superCall,
             final android.view.ActionMode.Callback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3296,7 +3383,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     android.view.ActionMode onWindowStartingActionMode(
-            final NamedSuperCall<android.view.ActionMode> superCall,
+            final CallFun2<android.view.ActionMode, android.view.ActionMode.Callback, Integer> superCall,
             final android.view.ActionMode.Callback callback, final int type) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3304,7 +3391,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    ActionMode onWindowStartingSupportActionMode(final NamedSuperCall<ActionMode> superCall,
+    ActionMode onWindowStartingSupportActionMode(
+            final CallFun1<ActionMode, ActionMode.Callback> superCall,
             @NonNull final ActionMode.Callback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3312,14 +3400,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void openContextMenu(final NamedSuperCall<Void> superCall, final View view) {
+    void openContextMenu(final CallVoid1<View> superCall, final View view) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             openContextMenu(view);
         }
     }
 
-    FileInputStream openFileInput(final NamedSuperCall<FileInputStream> superCall,
+    FileInputStream openFileInput(final CallFun1<FileInputStream, String> superCall,
             final String name) throws FileNotFoundException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3327,7 +3415,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    FileOutputStream openFileOutput(final NamedSuperCall<FileOutputStream> superCall,
+    FileOutputStream openFileOutput(final CallFun2<FileOutputStream, String, Integer> superCall,
             final String name, final int mode) throws FileNotFoundException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3335,14 +3423,15 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void openOptionsMenu(final NamedSuperCall<Void> superCall) {
+    void openOptionsMenu(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             openOptionsMenu();
         }
     }
 
-    SQLiteDatabase openOrCreateDatabase(final NamedSuperCall<SQLiteDatabase> superCall,
+    SQLiteDatabase openOrCreateDatabase(
+            final CallFun3<SQLiteDatabase, String, Integer, SQLiteDatabase.CursorFactory> superCall,
             final String name, final int mode, final SQLiteDatabase.CursorFactory factory) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3350,7 +3439,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    SQLiteDatabase openOrCreateDatabase(final NamedSuperCall<SQLiteDatabase> superCall,
+    SQLiteDatabase openOrCreateDatabase(
+            final CallFun4<SQLiteDatabase, String, Integer, SQLiteDatabase.CursorFactory, DatabaseErrorHandler> superCall,
             final String name, final int mode, final SQLiteDatabase.CursorFactory factory,
             final DatabaseErrorHandler errorHandler) {
         synchronized (mSuperListeners) {
@@ -3359,7 +3449,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void overridePendingTransition(final NamedSuperCall<Void> superCall, final int enterAnim,
+    void overridePendingTransition(final CallVoid2<Integer, Integer> superCall, final int enterAnim,
             final int exitAnim) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3367,28 +3457,28 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    Drawable peekWallpaper(final NamedSuperCall<Drawable> superCall) {
+    Drawable peekWallpaper(final CallFun0<Drawable> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return peekWallpaper();
         }
     }
 
-    void postponeEnterTransition(final NamedSuperCall<Void> superCall) {
+    void postponeEnterTransition(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             postponeEnterTransition();
         }
     }
 
-    void recreate(final NamedSuperCall<Void> superCall) {
+    void recreate(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             recreate();
         }
     }
 
-    void registerComponentCallbacks(final NamedSuperCall<Void> superCall,
+    void registerComponentCallbacks(final CallVoid1<ComponentCallbacks> superCall,
             final ComponentCallbacks callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3396,14 +3486,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void registerForContextMenu(final NamedSuperCall<Void> superCall, final View view) {
+    void registerForContextMenu(final CallVoid1<View> superCall, final View view) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             registerForContextMenu(view);
         }
     }
 
-    Intent registerReceiver(final NamedSuperCall<Intent> superCall,
+    Intent registerReceiver(final CallFun2<Intent, BroadcastReceiver, IntentFilter> superCall,
             final BroadcastReceiver receiver, final IntentFilter filter) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3411,7 +3501,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    Intent registerReceiver(final NamedSuperCall<Intent> superCall,
+    Intent registerReceiver(
+            final CallFun4<Intent, BroadcastReceiver, IntentFilter, String, Handler> superCall,
             final BroadcastReceiver receiver, final IntentFilter filter,
             final String broadcastPermission, final Handler scheduler) {
         synchronized (mSuperListeners) {
@@ -3420,43 +3511,44 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean releaseInstance(final NamedSuperCall<Boolean> superCall) {
+    boolean releaseInstance(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return releaseInstance();
         }
     }
 
-    void removeStickyBroadcast(final NamedSuperCall<Void> superCall, final Intent intent) {
+    void removeStickyBroadcast(final CallVoid1<Intent> superCall, final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             removeStickyBroadcast(intent);
         }
     }
 
-    void removeStickyBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
-            final UserHandle user) {
+    void removeStickyBroadcastAsUser(final CallVoid2<Intent, UserHandle> superCall,
+            final Intent intent, final UserHandle user) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             removeStickyBroadcastAsUser(intent, user);
         }
     }
 
-    void reportFullyDrawn(final NamedSuperCall<Void> superCall) {
+    void reportFullyDrawn(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             reportFullyDrawn();
         }
     }
 
-    boolean requestVisibleBehind(final NamedSuperCall<Boolean> superCall, final boolean visible) {
+    boolean requestVisibleBehind(final CallFun1<Boolean, Boolean> superCall,
+            final boolean visible) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return requestVisibleBehind(visible);
         }
     }
 
-    void revokeUriPermission(final NamedSuperCall<Void> superCall, final Uri uri,
+    void revokeUriPermission(final CallVoid2<Uri, Integer> superCall, final Uri uri,
             final int modeFlags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3464,14 +3556,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void sendBroadcast(final NamedSuperCall<Void> superCall, final Intent intent) {
+    void sendBroadcast(final CallVoid1<Intent> superCall, final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             sendBroadcast(intent);
         }
     }
 
-    void sendBroadcast(final NamedSuperCall<Void> superCall, final Intent intent,
+    void sendBroadcast(final CallVoid2<Intent, String> superCall, final Intent intent,
             final String receiverPermission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3479,7 +3571,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void sendBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
+    void sendBroadcastAsUser(final CallVoid2<Intent, UserHandle> superCall, final Intent intent,
             final UserHandle user) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3487,15 +3579,15 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void sendBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
-            final UserHandle user, final String receiverPermission) {
+    void sendBroadcastAsUser(final CallVoid3<Intent, UserHandle, String> superCall,
+            final Intent intent, final UserHandle user, final String receiverPermission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             sendBroadcastAsUser(intent, user, receiverPermission);
         }
     }
 
-    void sendOrderedBroadcast(final NamedSuperCall<Void> superCall, final Intent intent,
+    void sendOrderedBroadcast(final CallVoid2<Intent, String> superCall, final Intent intent,
             final String receiverPermission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3503,10 +3595,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void sendOrderedBroadcast(final NamedSuperCall<Void> superCall, final Intent intent,
-            final String receiverPermission, final BroadcastReceiver resultReceiver,
-            final Handler scheduler, final int initialCode, final String initialData,
-            final Bundle initialExtras) {
+    void sendOrderedBroadcast(
+            final CallVoid7<Intent, String, BroadcastReceiver, Handler, Integer, String, Bundle> superCall,
+            final Intent intent, final String receiverPermission,
+            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
+            final String initialData, final Bundle initialExtras) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             sendOrderedBroadcast(intent, receiverPermission, resultReceiver, scheduler, initialCode,
@@ -3514,8 +3607,9 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void sendOrderedBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
-            final UserHandle user, final String receiverPermission,
+    void sendOrderedBroadcastAsUser(
+            final CallVoid8<Intent, UserHandle, String, BroadcastReceiver, Handler, Integer, String, Bundle> superCall,
+            final Intent intent, final UserHandle user, final String receiverPermission,
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras) {
         synchronized (mSuperListeners) {
@@ -3525,24 +3619,25 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void sendStickyBroadcast(final NamedSuperCall<Void> superCall, final Intent intent) {
+    void sendStickyBroadcast(final CallVoid1<Intent> superCall, final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             sendStickyBroadcast(intent);
         }
     }
 
-    void sendStickyBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
-            final UserHandle user) {
+    void sendStickyBroadcastAsUser(final CallVoid2<Intent, UserHandle> superCall,
+            final Intent intent, final UserHandle user) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             sendStickyBroadcastAsUser(intent, user);
         }
     }
 
-    void sendStickyOrderedBroadcast(final NamedSuperCall<Void> superCall, final Intent intent,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
+    void sendStickyOrderedBroadcast(
+            final CallVoid6<Intent, BroadcastReceiver, Handler, Integer, String, Bundle> superCall,
+            final Intent intent, final BroadcastReceiver resultReceiver, final Handler scheduler,
+            final int initialCode, final String initialData, final Bundle initialExtras) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             sendStickyOrderedBroadcast(intent, resultReceiver, scheduler, initialCode, initialData,
@@ -3550,9 +3645,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void sendStickyOrderedBroadcastAsUser(final NamedSuperCall<Void> superCall, final Intent intent,
-            final UserHandle user, final BroadcastReceiver resultReceiver, final Handler scheduler,
-            final int initialCode, final String initialData, final Bundle initialExtras) {
+    void sendStickyOrderedBroadcastAsUser(
+            final CallVoid7<Intent, UserHandle, BroadcastReceiver, Handler, Integer, String, Bundle> superCall,
+            final Intent intent, final UserHandle user, final BroadcastReceiver resultReceiver,
+            final Handler scheduler, final int initialCode, final String initialData,
+            final Bundle initialExtras) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             sendStickyOrderedBroadcastAsUser(intent, user, resultReceiver, scheduler, initialCode,
@@ -3560,14 +3657,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setActionBar(final NamedSuperCall<Void> superCall, final Toolbar toolbar) {
+    void setActionBar(final CallVoid1<Toolbar> superCall, final Toolbar toolbar) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setActionBar(toolbar);
         }
     }
 
-    void setContentTransitionManager(final NamedSuperCall<Void> superCall,
+    void setContentTransitionManager(final CallVoid1<TransitionManager> superCall,
             final TransitionManager tm) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3575,21 +3672,21 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setContentView(final NamedSuperCall<Void> superCall, @LayoutRes final int layoutResID) {
+    void setContentView(final CallVoid1<Integer> superCall, @LayoutRes final int layoutResID) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setContentView(layoutResID);
         }
     }
 
-    void setContentView(final NamedSuperCall<Void> superCall, final View view) {
+    void setContentView(final CallVoid1<View> superCall, final View view) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setContentView(view);
         }
     }
 
-    void setContentView(final NamedSuperCall<Void> superCall, final View view,
+    void setContentView(final CallVoid2<View, ViewGroup.LayoutParams> superCall, final View view,
             final ViewGroup.LayoutParams params) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3597,7 +3694,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setEnterSharedElementCallback(final NamedSuperCall<Void> superCall,
+    void setEnterSharedElementCallback(final CallVoid1<SharedElementCallback> superCall,
             final SharedElementCallback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3605,7 +3702,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setEnterSharedElementCallback(final NamedSuperCall<Void> superCall,
+    void setEnterSharedElementCallback(final CallVoid1<android.app.SharedElementCallback> superCall,
             final android.app.SharedElementCallback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3613,7 +3710,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setExitSharedElementCallback(final NamedSuperCall<Void> superCall,
+    void setExitSharedElementCallback(final CallVoid1<SharedElementCallback> superCall,
             final SharedElementCallback listener) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3621,7 +3718,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setExitSharedElementCallback(final NamedSuperCall<Void> superCall,
+    void setExitSharedElementCallback(final CallVoid1<android.app.SharedElementCallback> superCall,
             final android.app.SharedElementCallback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3629,28 +3726,28 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setFinishOnTouchOutside(final NamedSuperCall<Void> superCall, final boolean finish) {
+    void setFinishOnTouchOutside(final CallVoid1<Boolean> superCall, final boolean finish) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setFinishOnTouchOutside(finish);
         }
     }
 
-    void setImmersive(final NamedSuperCall<Void> superCall, final boolean i) {
+    void setImmersive(final CallVoid1<Boolean> superCall, final boolean i) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setImmersive(i);
         }
     }
 
-    void setIntent(final NamedSuperCall<Void> superCall, final Intent newIntent) {
+    void setIntent(final CallVoid1<Intent> superCall, final Intent newIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setIntent(newIntent);
         }
     }
 
-    void setRequestedOrientation(final NamedSuperCall<Void> superCall,
+    void setRequestedOrientation(final CallVoid1<Integer> superCall,
             final int requestedOrientation) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3658,7 +3755,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setSupportActionBar(final NamedSuperCall<Void> superCall,
+    void setSupportActionBar(final CallVoid1<android.support.v7.widget.Toolbar> superCall,
             @Nullable final android.support.v7.widget.Toolbar toolbar) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3666,14 +3763,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setSupportProgress(final NamedSuperCall<Void> superCall, final int progress) {
+    void setSupportProgress(final CallVoid1<Integer> superCall, final int progress) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setSupportProgress(progress);
         }
     }
 
-    void setSupportProgressBarIndeterminate(final NamedSuperCall<Void> superCall,
+    void setSupportProgressBarIndeterminate(final CallVoid1<Boolean> superCall,
             final boolean indeterminate) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3681,7 +3778,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setSupportProgressBarIndeterminateVisibility(final NamedSuperCall<Void> superCall,
+    void setSupportProgressBarIndeterminateVisibility(final CallVoid1<Boolean> superCall,
             final boolean visible) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3689,7 +3786,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setSupportProgressBarVisibility(final NamedSuperCall<Void> superCall,
+    void setSupportProgressBarVisibility(final CallVoid1<Boolean> superCall,
             final boolean visible) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3697,7 +3794,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setTaskDescription(final NamedSuperCall<Void> superCall,
+    void setTaskDescription(final CallVoid1<ActivityManager.TaskDescription> superCall,
             final ActivityManager.TaskDescription taskDescription) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3705,50 +3802,49 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setTheme(final NamedSuperCall<Void> superCall, @StyleRes final int resid) {
+    void setTheme(final CallVoid1<Integer> superCall, @StyleRes final int resid) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setTheme(resid);
         }
     }
 
-    void setTitle(final NamedSuperCall<Void> superCall, final CharSequence title) {
+    void setTitle(final CallVoid1<CharSequence> superCall, final CharSequence title) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setTitle(title);
         }
     }
 
-    void setTitle(final NamedSuperCall<Void> superCall, final int titleId) {
+    void setTitle(final CallVoid1<Integer> superCall, final int titleId) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setTitle(titleId);
         }
     }
 
-    void setTitleColor(final NamedSuperCall<Void> superCall, final int textColor) {
+    void setTitleColor(final CallVoid1<Integer> superCall, final int textColor) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setTitleColor(textColor);
         }
     }
 
-    void setVisible(final NamedSuperCall<Void> superCall, final boolean visible) {
+    void setVisible(final CallVoid1<Boolean> superCall, final boolean visible) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setVisible(visible);
         }
     }
 
-    void setWallpaper(final NamedSuperCall<Void> superCall, final Bitmap bitmap)
-            throws IOException {
+    void setWallpaper(final CallVoid1<Bitmap> superCall, final Bitmap bitmap) throws IOException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setWallpaper(bitmap);
         }
     }
 
-    void setWallpaper(final NamedSuperCall<Void> superCall, final InputStream data)
+    void setWallpaper(final CallVoid1<InputStream> superCall, final InputStream data)
             throws IOException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3756,7 +3852,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean shouldShowRequestPermissionRationale(final NamedSuperCall<Boolean> superCall,
+    boolean shouldShowRequestPermissionRationale(final CallFun1<Boolean, String> superCall,
             final String permission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3764,7 +3860,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean shouldUpRecreateTask(final NamedSuperCall<Boolean> superCall,
+    boolean shouldUpRecreateTask(final CallFun1<Boolean, Intent> superCall,
             final Intent targetIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3772,21 +3868,22 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean showAssist(final NamedSuperCall<Boolean> superCall, final Bundle args) {
+    boolean showAssist(final CallFun1<Boolean, Bundle> superCall, final Bundle args) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return showAssist(args);
         }
     }
 
-    void showLockTaskEscapeMessage(final NamedSuperCall<Void> superCall) {
+    void showLockTaskEscapeMessage(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             showLockTaskEscapeMessage();
         }
     }
 
-    android.view.ActionMode startActionMode(final NamedSuperCall<android.view.ActionMode> superCall,
+    android.view.ActionMode startActionMode(
+            final CallFun1<android.view.ActionMode, android.view.ActionMode.Callback> superCall,
             final android.view.ActionMode.Callback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3794,7 +3891,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    android.view.ActionMode startActionMode(final NamedSuperCall<android.view.ActionMode> superCall,
+    android.view.ActionMode startActionMode(
+            final CallFun2<android.view.ActionMode, android.view.ActionMode.Callback, Integer> superCall,
             final android.view.ActionMode.Callback callback, final int type) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3802,14 +3900,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startActivities(final NamedSuperCall<Void> superCall, final Intent[] intents) {
+    void startActivities(final CallVoid1<Intent[]> superCall, final Intent[] intents) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivities(intents);
         }
     }
 
-    void startActivities(final NamedSuperCall<Void> superCall, final Intent[] intents,
+    void startActivities(final CallVoid2<Intent[], Bundle> superCall, final Intent[] intents,
             final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3817,14 +3915,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startActivity(final NamedSuperCall<Void> superCall, final Intent intent) {
+    void startActivity(final CallVoid1<Intent> superCall, final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivity(intent);
         }
     }
 
-    void startActivity(final NamedSuperCall<Void> superCall, final Intent intent,
+    void startActivity(final CallVoid2<Intent, Bundle> superCall, final Intent intent,
             final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3832,7 +3930,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startActivityForResult(final NamedSuperCall<Void> superCall, final Intent intent,
+    void startActivityForResult(final CallVoid2<Intent, Integer> superCall, final Intent intent,
             final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3840,47 +3938,49 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startActivityForResult(final NamedSuperCall<Void> superCall, final Intent intent,
-            final int requestCode, final Bundle options) {
+    void startActivityForResult(final CallVoid3<Intent, Integer, Bundle> superCall,
+            final Intent intent, final int requestCode, final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityForResult(intent, requestCode, options);
         }
     }
 
-    void startActivityFromChild(final NamedSuperCall<Void> superCall, final Activity child,
-            final Intent intent, final int requestCode) {
+    void startActivityFromChild(final CallVoid3<Activity, Intent, Integer> superCall,
+            final Activity child, final Intent intent, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromChild(child, intent, requestCode);
         }
     }
 
-    void startActivityFromChild(final NamedSuperCall<Void> superCall, final Activity child,
-            final Intent intent, final int requestCode, final Bundle options) {
+    void startActivityFromChild(final CallVoid4<Activity, Intent, Integer, Bundle> superCall,
+            final Activity child, final Intent intent, final int requestCode,
+            final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromChild(child, intent, requestCode, options);
         }
     }
 
-    void startActivityFromFragment(final NamedSuperCall<Void> superCall, final Fragment fragment,
-            final Intent intent, final int requestCode) {
+    void startActivityFromFragment(final CallVoid3<Fragment, Intent, Integer> superCall,
+            final Fragment fragment, final Intent intent, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromFragment(fragment, intent, requestCode);
         }
     }
 
-    void startActivityFromFragment(final NamedSuperCall<Void> superCall, final Fragment fragment,
-            final Intent intent, final int requestCode, @Nullable final Bundle options) {
+    void startActivityFromFragment(final CallVoid4<Fragment, Intent, Integer, Bundle> superCall,
+            final Fragment fragment, final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromFragment(fragment, intent, requestCode, options);
         }
     }
 
-    void startActivityFromFragment(final NamedSuperCall<Void> superCall,
+    void startActivityFromFragment(final CallVoid3<android.app.Fragment, Intent, Integer> superCall,
             final android.app.Fragment fragment, final Intent intent, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3888,7 +3988,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startActivityFromFragment(final NamedSuperCall<Void> superCall,
+    void startActivityFromFragment(
+            final CallVoid4<android.app.Fragment, Intent, Integer, Bundle> superCall,
             final android.app.Fragment fragment, final Intent intent, final int requestCode,
             final Bundle options) {
         synchronized (mSuperListeners) {
@@ -3897,23 +3998,23 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean startActivityIfNeeded(final NamedSuperCall<Boolean> superCall, final Intent intent,
-            final int requestCode) {
+    boolean startActivityIfNeeded(final CallFun2<Boolean, Intent, Integer> superCall,
+            final Intent intent, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startActivityIfNeeded(intent, requestCode);
         }
     }
 
-    boolean startActivityIfNeeded(final NamedSuperCall<Boolean> superCall, final Intent intent,
-            final int requestCode, final Bundle options) {
+    boolean startActivityIfNeeded(final CallFun3<Boolean, Intent, Integer, Bundle> superCall,
+            final Intent intent, final int requestCode, final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startActivityIfNeeded(intent, requestCode, options);
         }
     }
 
-    boolean startInstrumentation(final NamedSuperCall<Boolean> superCall,
+    boolean startInstrumentation(final CallFun3<Boolean, ComponentName, String, Bundle> superCall,
             final ComponentName className, final String profileFile, final Bundle arguments) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3921,27 +4022,32 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startIntentSender(final NamedSuperCall<Void> superCall, final IntentSender intent,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException {
+    void startIntentSender(
+            final CallVoid5<IntentSender, Intent, Integer, Integer, Integer> superCall,
+            final IntentSender intent, final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
         }
     }
 
-    void startIntentSender(final NamedSuperCall<Void> superCall, final IntentSender intent,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+    void startIntentSender(
+            final CallVoid6<IntentSender, Intent, Integer, Integer, Integer, Bundle> superCall,
+            final IntentSender intent, final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags, options);
         }
     }
 
-    void startIntentSenderForResult(final NamedSuperCall<Void> superCall, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
+    void startIntentSenderForResult(
+            final CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer> superCall,
+            final IntentSender intent, final int requestCode, final Intent fillInIntent,
+            final int flagsMask, final int flagsValues, final int extraFlags)
+            throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
@@ -3949,9 +4055,10 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startIntentSenderForResult(final NamedSuperCall<Void> superCall, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+    void startIntentSenderForResult(
+            final CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle> superCall,
+            final IntentSender intent, final int requestCode, final Intent fillInIntent,
+            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3960,10 +4067,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startIntentSenderFromChild(final NamedSuperCall<Void> superCall, final Activity child,
-            final IntentSender intent, final int requestCode, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags)
-            throws IntentSender.SendIntentException {
+    void startIntentSenderFromChild(
+            final CallVoid7<Activity, IntentSender, Integer, Intent, Integer, Integer, Integer> superCall,
+            final Activity child, final IntentSender intent, final int requestCode,
+            final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags) throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
@@ -3971,10 +4079,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startIntentSenderFromChild(final NamedSuperCall<Void> superCall, final Activity child,
-            final IntentSender intent, final int requestCode, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
-            throws IntentSender.SendIntentException {
+    void startIntentSenderFromChild(
+            final CallVoid8<Activity, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle> superCall,
+            final Activity child, final IntentSender intent, final int requestCode,
+            final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
@@ -3982,21 +4091,21 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startLockTask(final NamedSuperCall<Void> superCall) {
+    void startLockTask(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startLockTask();
         }
     }
 
-    void startManagingCursor(final NamedSuperCall<Void> superCall, final Cursor c) {
+    void startManagingCursor(final CallVoid1<Cursor> superCall, final Cursor c) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startManagingCursor(c);
         }
     }
 
-    boolean startNextMatchingActivity(final NamedSuperCall<Boolean> superCall,
+    boolean startNextMatchingActivity(final CallFun1<Boolean, Intent> superCall,
             final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4004,23 +4113,23 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean startNextMatchingActivity(final NamedSuperCall<Boolean> superCall, final Intent intent,
-            final Bundle options) {
+    boolean startNextMatchingActivity(final CallFun2<Boolean, Intent, Bundle> superCall,
+            final Intent intent, final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startNextMatchingActivity(intent, options);
         }
     }
 
-    void startPostponedEnterTransition(final NamedSuperCall<Void> superCall) {
+    void startPostponedEnterTransition(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startPostponedEnterTransition();
         }
     }
 
-    void startSearch(final NamedSuperCall<Void> superCall, final String initialQuery,
-            final boolean selectInitialQuery, final Bundle appSearchData,
+    void startSearch(final CallVoid4<String, Boolean, Bundle, Boolean> superCall,
+            final String initialQuery, final boolean selectInitialQuery, final Bundle appSearchData,
             final boolean globalSearch) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4028,7 +4137,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    ComponentName startService(final NamedSuperCall<ComponentName> superCall,
+    ComponentName startService(final CallFun1<ComponentName, Intent> superCall,
             final Intent service) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4036,7 +4145,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    ActionMode startSupportActionMode(final NamedSuperCall<ActionMode> superCall,
+    ActionMode startSupportActionMode(final CallFun1<ActionMode, ActionMode.Callback> superCall,
             @NonNull final ActionMode.Callback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4044,56 +4153,56 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void stopLockTask(final NamedSuperCall<Void> superCall) {
+    void stopLockTask(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             stopLockTask();
         }
     }
 
-    void stopManagingCursor(final NamedSuperCall<Void> superCall, final Cursor c) {
+    void stopManagingCursor(final CallVoid1<Cursor> superCall, final Cursor c) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             stopManagingCursor(c);
         }
     }
 
-    boolean stopService(final NamedSuperCall<Boolean> superCall, final Intent name) {
+    boolean stopService(final CallFun1<Boolean, Intent> superCall, final Intent name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return stopService(name);
         }
     }
 
-    void supportFinishAfterTransition(final NamedSuperCall<Void> superCall) {
+    void supportFinishAfterTransition(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             supportFinishAfterTransition();
         }
     }
 
-    void supportInvalidateOptionsMenu(final NamedSuperCall<Void> superCall) {
+    void supportInvalidateOptionsMenu(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             supportInvalidateOptionsMenu();
         }
     }
 
-    void supportNavigateUpTo(final NamedSuperCall<Void> superCall, @NonNull final Intent upIntent) {
+    void supportNavigateUpTo(final CallVoid1<Intent> superCall, @NonNull final Intent upIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             supportNavigateUpTo(upIntent);
         }
     }
 
-    void supportPostponeEnterTransition(final NamedSuperCall<Void> superCall) {
+    void supportPostponeEnterTransition(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             supportPostponeEnterTransition();
         }
     }
 
-    boolean supportRequestWindowFeature(final NamedSuperCall<Boolean> superCall,
+    boolean supportRequestWindowFeature(final CallFun1<Boolean, Integer> superCall,
             final int featureId) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4101,7 +4210,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    boolean supportShouldUpRecreateTask(final NamedSuperCall<Boolean> superCall,
+    boolean supportShouldUpRecreateTask(final CallFun1<Boolean, Intent> superCall,
             @NonNull final Intent targetIntent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4109,21 +4218,21 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void supportStartPostponedEnterTransition(final NamedSuperCall<Void> superCall) {
+    void supportStartPostponedEnterTransition(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             supportStartPostponedEnterTransition();
         }
     }
 
-    void takeKeyEvents(final NamedSuperCall<Void> superCall, final boolean get) {
+    void takeKeyEvents(final CallVoid1<Boolean> superCall, final boolean get) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             takeKeyEvents(get);
         }
     }
 
-    void triggerSearch(final NamedSuperCall<Void> superCall, final String query,
+    void triggerSearch(final CallVoid2<String, Bundle> superCall, final String query,
             final Bundle appSearchData) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4131,14 +4240,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void unbindService(final NamedSuperCall<Void> superCall, final ServiceConnection conn) {
+    void unbindService(final CallVoid1<ServiceConnection> superCall, final ServiceConnection conn) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             unbindService(conn);
         }
     }
 
-    void unregisterComponentCallbacks(final NamedSuperCall<Void> superCall,
+    void unregisterComponentCallbacks(final CallVoid1<ComponentCallbacks> superCall,
             final ComponentCallbacks callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4146,14 +4255,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void unregisterForContextMenu(final NamedSuperCall<Void> superCall, final View view) {
+    void unregisterForContextMenu(final CallVoid1<View> superCall, final View view) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             unregisterForContextMenu(view);
         }
     }
 
-    void unregisterReceiver(final NamedSuperCall<Void> superCall,
+    void unregisterReceiver(final CallVoid1<BroadcastReceiver> superCall,
             final BroadcastReceiver receiver) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);

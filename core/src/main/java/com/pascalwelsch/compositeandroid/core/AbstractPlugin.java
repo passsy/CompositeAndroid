@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class AbstractPlugin<T, D> {
 
-    final public Stack<NamedSuperCall<?>> mSuperListeners = new Stack<>();
+    final public Stack<NamedSuperCall> mSuperListeners = new Stack<>();
 
     private D mDelegate;
 
@@ -39,7 +39,7 @@ public class AbstractPlugin<T, D> {
         final String superListener = mSuperListeners.peek().getMethodName();
         if (!superListener.equals(method)) {
             throw new IllegalStateException("You may have called "
-                    + method + " from " + superListener + " instead of calling getActivity()."
+                    + method + " from " + superListener + " instead of calling getOriginal()."
                     + method + ". Do not call " + method
                     + " on a ActivityPlugin directly. You have to call mDelegate." + method
                     + " or the call order of the plugins would be mixed up.");

@@ -62,13 +62,18 @@ fun writePlugin(outPath: String,
 }
 
 fun AnalyzedJavaMethod.returnSuperListener(): String {
+    val genericTypes = mutableListOf<String>().apply {
+        add(boxedReturnType)
+        addAll(parameterTypes)
+    }
+
     return """
     public $returnType $name($rawParameters) $exceptions{
         verifyMethodCalledFromDelegate("$name(${parameterTypes.joinToString()})");
-        return ($boxedReturnType) mSuperListeners.pop().call(${parameterNames.joinToString()});
+        return ((CallFun${parameterNames.size}<${genericTypes.joinToString()}>) mSuperListeners.pop()).call(${parameterNames.joinToString()});
     }
 
-    $returnType $name(final NamedSuperCall<$boxedReturnType> superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
+    $returnType $name(final CallFun${parameterNames.size}<${genericTypes.joinToString()}> superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return $name(${parameterNames.joinToString()});
@@ -78,13 +83,15 @@ fun AnalyzedJavaMethod.returnSuperListener(): String {
 }
 
 fun AnalyzedJavaMethod.callListener(): String {
+    val genericTypeCallType = if(parameterTypes.isEmpty()) "" else "<${parameterTypes.joinToString()}>"
+
     return """
     public void $name($rawParameters) $exceptions{
         verifyMethodCalledFromDelegate("$name(${parameterTypes.joinToString()})");
-        mSuperListeners.pop().call(${parameterNames.joinToString()});
+        ((CallVoid${parameterNames.size}$genericTypeCallType) mSuperListeners.pop()).call(${parameterNames.joinToString()});
     }
 
-    void $name(final NamedSuperCall<Void> superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
+    void $name(final CallVoid${parameterNames.size}$genericTypeCallType superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             $name(${parameterNames.joinToString()});

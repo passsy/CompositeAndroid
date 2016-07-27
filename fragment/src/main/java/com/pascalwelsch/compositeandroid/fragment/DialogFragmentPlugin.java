@@ -1,6 +1,11 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
-import com.pascalwelsch.compositeandroid.core.NamedSuperCall;
+import com.pascalwelsch.compositeandroid.core.CallFun0;
+import com.pascalwelsch.compositeandroid.core.CallFun1;
+import com.pascalwelsch.compositeandroid.core.CallFun2;
+import com.pascalwelsch.compositeandroid.core.CallVoid0;
+import com.pascalwelsch.compositeandroid.core.CallVoid1;
+import com.pascalwelsch.compositeandroid.core.CallVoid2;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -19,17 +24,17 @@ public class DialogFragmentPlugin extends FragmentPlugin {
 
     public void dismiss() {
         verifyMethodCalledFromDelegate("dismiss()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void dismissAllowingStateLoss() {
         verifyMethodCalledFromDelegate("dismissAllowingStateLoss()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public Dialog getDialog() {
         verifyMethodCalledFromDelegate("getDialog()");
-        return (Dialog) mSuperListeners.pop().call();
+        return ((CallFun0<Dialog>) mSuperListeners.pop()).call();
     }
 
     public DialogFragment getDialogFragment() {
@@ -38,131 +43,132 @@ public class DialogFragmentPlugin extends FragmentPlugin {
 
     public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("getLayoutInflater(Bundle)");
-        return (LayoutInflater) mSuperListeners.pop().call(savedInstanceState);
+        return ((CallFun1<LayoutInflater, Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
     public boolean getShowsDialog() {
         verifyMethodCalledFromDelegate("getShowsDialog()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public int getTheme() {
         verifyMethodCalledFromDelegate("getTheme()");
-        return (Integer) mSuperListeners.pop().call();
+        return ((CallFun0<Integer>) mSuperListeners.pop()).call();
     }
 
     public boolean isCancelable() {
         verifyMethodCalledFromDelegate("isCancelable()");
-        return (Boolean) mSuperListeners.pop().call();
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
     public void onActivityCreated(final Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onActivityCreated(Bundle)");
-        mSuperListeners.pop().call(savedInstanceState);
+        ((CallVoid1<Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
     public void onAttach(final Activity activity) {
         verifyMethodCalledFromDelegate("onAttach(Activity)");
-        mSuperListeners.pop().call(activity);
+        ((CallVoid1<Activity>) mSuperListeners.pop()).call(activity);
     }
 
     public void onCancel(final DialogInterface dialog) {
         verifyMethodCalledFromDelegate("onCancel(DialogInterface)");
-        mSuperListeners.pop().call(dialog);
+        ((CallVoid1<DialogInterface>) mSuperListeners.pop()).call(dialog);
     }
 
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onCreate(Bundle)");
-        mSuperListeners.pop().call(savedInstanceState);
+        ((CallVoid1<Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onCreateDialog(Bundle)");
-        return (Dialog) mSuperListeners.pop().call(savedInstanceState);
+        return ((CallFun1<Dialog, Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
     public void onDestroyView() {
         verifyMethodCalledFromDelegate("onDestroyView()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onDetach() {
         verifyMethodCalledFromDelegate("onDetach()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onDismiss(final DialogInterface dialog) {
         verifyMethodCalledFromDelegate("onDismiss(DialogInterface)");
-        mSuperListeners.pop().call(dialog);
+        ((CallVoid1<DialogInterface>) mSuperListeners.pop()).call(dialog);
     }
 
     public void onSaveInstanceState(final Bundle outState) {
         verifyMethodCalledFromDelegate("onSaveInstanceState(Bundle)");
-        mSuperListeners.pop().call(outState);
+        ((CallVoid1<Bundle>) mSuperListeners.pop()).call(outState);
     }
 
     public void onStart() {
         verifyMethodCalledFromDelegate("onStart()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void onStop() {
         verifyMethodCalledFromDelegate("onStop()");
-        mSuperListeners.pop().call();
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void setCancelable(final boolean cancelable) {
-        verifyMethodCalledFromDelegate("setCancelable(boolean)");
-        mSuperListeners.pop().call(cancelable);
+        verifyMethodCalledFromDelegate("setCancelable(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(cancelable);
     }
 
     public void setShowsDialog(final boolean showsDialog) {
-        verifyMethodCalledFromDelegate("setShowsDialog(boolean)");
-        mSuperListeners.pop().call(showsDialog);
+        verifyMethodCalledFromDelegate("setShowsDialog(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(showsDialog);
     }
 
     public void setStyle(final int style, @StyleRes final int theme) {
-        verifyMethodCalledFromDelegate("setStyle(int, int)");
-        mSuperListeners.pop().call(style, theme);
+        verifyMethodCalledFromDelegate("setStyle(Integer, Integer)");
+        ((CallVoid2<Integer, Integer>) mSuperListeners.pop()).call(style, theme);
     }
 
     public void setupDialog(final Dialog dialog, final int style) {
-        verifyMethodCalledFromDelegate("setupDialog(Dialog, int)");
-        mSuperListeners.pop().call(dialog, style);
+        verifyMethodCalledFromDelegate("setupDialog(Dialog, Integer)");
+        ((CallVoid2<Dialog, Integer>) mSuperListeners.pop()).call(dialog, style);
     }
 
     public void show(final FragmentManager manager, final String tag) {
         verifyMethodCalledFromDelegate("show(FragmentManager, String)");
-        mSuperListeners.pop().call(manager, tag);
+        ((CallVoid2<FragmentManager, String>) mSuperListeners.pop()).call(manager, tag);
     }
 
     public int show(final FragmentTransaction transaction, final String tag) {
         verifyMethodCalledFromDelegate("show(FragmentTransaction, String)");
-        return (Integer) mSuperListeners.pop().call(transaction, tag);
+        return ((CallFun2<Integer, FragmentTransaction, String>) mSuperListeners.pop())
+                .call(transaction, tag);
     }
 
-    void dismiss(final NamedSuperCall<Void> superCall) {
+    void dismiss(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             dismiss();
         }
     }
 
-    void dismissAllowingStateLoss(final NamedSuperCall<Void> superCall) {
+    void dismissAllowingStateLoss(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             dismissAllowingStateLoss();
         }
     }
 
-    Dialog getDialog(final NamedSuperCall<Dialog> superCall) {
+    Dialog getDialog(final CallFun0<Dialog> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getDialog();
         }
     }
 
-    LayoutInflater getLayoutInflater(final NamedSuperCall<LayoutInflater> superCall,
+    LayoutInflater getLayoutInflater(final CallFun1<LayoutInflater, Bundle> superCall,
             final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -170,119 +176,120 @@ public class DialogFragmentPlugin extends FragmentPlugin {
         }
     }
 
-    boolean getShowsDialog(final NamedSuperCall<Boolean> superCall) {
+    boolean getShowsDialog(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getShowsDialog();
         }
     }
 
-    int getTheme(final NamedSuperCall<Integer> superCall) {
+    int getTheme(final CallFun0<Integer> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getTheme();
         }
     }
 
-    boolean isCancelable(final NamedSuperCall<Boolean> superCall) {
+    boolean isCancelable(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isCancelable();
         }
     }
 
-    void onActivityCreated(final NamedSuperCall<Void> superCall, final Bundle savedInstanceState) {
+    void onActivityCreated(final CallVoid1<Bundle> superCall, final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onActivityCreated(savedInstanceState);
         }
     }
 
-    void onAttach(final NamedSuperCall<Void> superCall, final Activity activity) {
+    void onAttach(final CallVoid1<Activity> superCall, final Activity activity) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onAttach(activity);
         }
     }
 
-    void onCancel(final NamedSuperCall<Void> superCall, final DialogInterface dialog) {
+    void onCancel(final CallVoid1<DialogInterface> superCall, final DialogInterface dialog) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onCancel(dialog);
         }
     }
 
-    void onCreate(final NamedSuperCall<Void> superCall, @Nullable final Bundle savedInstanceState) {
+    void onCreate(final CallVoid1<Bundle> superCall, @Nullable final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onCreate(savedInstanceState);
         }
     }
 
-    Dialog onCreateDialog(final NamedSuperCall<Dialog> superCall, final Bundle savedInstanceState) {
+    Dialog onCreateDialog(final CallFun1<Dialog, Bundle> superCall,
+            final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateDialog(savedInstanceState);
         }
     }
 
-    void onDestroyView(final NamedSuperCall<Void> superCall) {
+    void onDestroyView(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onDestroyView();
         }
     }
 
-    void onDetach(final NamedSuperCall<Void> superCall) {
+    void onDetach(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onDetach();
         }
     }
 
-    void onDismiss(final NamedSuperCall<Void> superCall, final DialogInterface dialog) {
+    void onDismiss(final CallVoid1<DialogInterface> superCall, final DialogInterface dialog) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onDismiss(dialog);
         }
     }
 
-    void onSaveInstanceState(final NamedSuperCall<Void> superCall, final Bundle outState) {
+    void onSaveInstanceState(final CallVoid1<Bundle> superCall, final Bundle outState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onSaveInstanceState(outState);
         }
     }
 
-    void onStart(final NamedSuperCall<Void> superCall) {
+    void onStart(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onStart();
         }
     }
 
-    void onStop(final NamedSuperCall<Void> superCall) {
+    void onStop(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onStop();
         }
     }
 
-    void setCancelable(final NamedSuperCall<Void> superCall, final boolean cancelable) {
+    void setCancelable(final CallVoid1<Boolean> superCall, final boolean cancelable) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setCancelable(cancelable);
         }
     }
 
-    void setShowsDialog(final NamedSuperCall<Void> superCall, final boolean showsDialog) {
+    void setShowsDialog(final CallVoid1<Boolean> superCall, final boolean showsDialog) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setShowsDialog(showsDialog);
         }
     }
 
-    void setStyle(final NamedSuperCall<Void> superCall, final int style,
+    void setStyle(final CallVoid2<Integer, Integer> superCall, final int style,
             @StyleRes final int theme) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -290,14 +297,15 @@ public class DialogFragmentPlugin extends FragmentPlugin {
         }
     }
 
-    void setupDialog(final NamedSuperCall<Void> superCall, final Dialog dialog, final int style) {
+    void setupDialog(final CallVoid2<Dialog, Integer> superCall, final Dialog dialog,
+            final int style) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setupDialog(dialog, style);
         }
     }
 
-    void show(final NamedSuperCall<Void> superCall, final FragmentManager manager,
+    void show(final CallVoid2<FragmentManager, String> superCall, final FragmentManager manager,
             final String tag) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -305,8 +313,8 @@ public class DialogFragmentPlugin extends FragmentPlugin {
         }
     }
 
-    int show(final NamedSuperCall<Integer> superCall, final FragmentTransaction transaction,
-            final String tag) {
+    int show(final CallFun2<Integer, FragmentTransaction, String> superCall,
+            final FragmentTransaction transaction, final String tag) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return show(transaction, tag);
