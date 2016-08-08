@@ -59,7 +59,7 @@ public class TrackedTweetStreamActivity extends TweetStreamActivity {
 }
 ```
 
-Both solutions work but don't scale well. You'll most likely end up with big inheritance strictures:
+Both solutions work but don't scale well. You'll most likely end up with big inheritance structures:
 
 ```java
 class MvpActivity extends AppCompatActivity { ... }
