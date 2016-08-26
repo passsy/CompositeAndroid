@@ -3,6 +3,7 @@ package com.pascalwelsch.compositeandroid.fragment;
 import com.pascalwelsch.compositeandroid.core.Removable;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;

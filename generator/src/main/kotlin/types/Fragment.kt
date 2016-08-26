@@ -43,6 +43,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             "DialogFragment implements ICompositeDialogFragment",
             additionalImports = """
             |import android.support.v4.app.*;
+            |import android.app.Activity;
             |import java.io.*;
             |import android.content.*;
             |import android.view.*;
@@ -65,6 +66,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             "DialogFragmentPlugin",
             additionalImports = """
             |import android.support.v4.app.*;
+            |import android.app.Activity;
             |import java.io.*;
             |import android.content.*;
             |import android.view.*;
