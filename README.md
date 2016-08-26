@@ -128,17 +128,17 @@ CompositeAndroid is available via [jcenter](http://blog.bintray.com/2015/02/09/a
 
 ```gradle
 dependencies {
-    // based on support library 23.4.0
+    // based on support library 24.2.0
     
     // contains CompositeActivity
-    compile 'com.pascalwelsch.compositeandroid:activity:0.2.1'
+    compile 'com.pascalwelsch.compositeandroid:activity:0.2.2'
 
     // contains CompositeFragment and CompositeDialogFragment
-    compile 'com.pascalwelsch.compositeandroid:fragment:0.2.1'
+    compile 'com.pascalwelsch.compositeandroid:fragment:0.2.2'
 
 
     // core module (not required, only abstract classes and utils)
-    compile 'com.pascalwelsch.compositeandroid:core:0.2.1'
+    compile 'com.pascalwelsch.compositeandroid:core:0.2.2'
 }
 ```
 
