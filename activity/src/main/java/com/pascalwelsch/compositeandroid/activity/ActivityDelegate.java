@@ -3690,6 +3690,29 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call(featureId, menu);
     }
 
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "onMultiWindowModeChanged(Boolean)") {
+
+            @Override
+            public void call(final Boolean isInMultiWindowMode) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onMultiWindowModeChanged(this, isInMultiWindowMode);
+                } else {
+                    getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode);
+                }
+            }
+        };
+        superCall.call(isInMultiWindowMode);
+    }
+
     public boolean onNavigateUp() {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_onNavigateUp();
@@ -3842,6 +3865,30 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call();
+    }
+
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "onPictureInPictureModeChanged(Boolean)") {
+
+            @Override
+            public void call(final Boolean isInPictureInPictureMode) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onPictureInPictureModeChanged(this, isInPictureInPictureMode);
+                } else {
+                    getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode);
+                }
+            }
+        };
+        superCall.call(isInPictureInPictureMode);
     }
 
     public void onPostCreate(final Bundle savedInstanceState,
@@ -6478,7 +6525,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     }
 
     public void startActivityForResult(final Intent intent, final int requestCode,
-            final Bundle options) {
+            @Nullable final Bundle options) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startActivityForResult(intent, requestCode, options);
             return;
@@ -6826,52 +6873,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     }
 
     public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException {
-        if (mPlugins.isEmpty()) {
-            try {
-                getOriginal().super_startIntentSenderForResult(intent, requestCode, fillInIntent,
-                        flagsMask, flagsValues, extraFlags);
-            } catch (IntentSender.SendIntentException e) {
-                throw new SuppressedException(e);
-            }
-            return;
-        }
-
-        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
-
-        final CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer> superCall
-                = new CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer>(
-                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)") {
-
-            @Override
-            public void call(final IntentSender intent, final Integer requestCode,
-                    final Intent fillInIntent, final Integer flagsMask, final Integer flagsValues,
-                    final Integer extraFlags) {
-                if (iterator.hasPrevious()) {
-                    try {
-                        iterator.previous()
-                                .startIntentSenderForResult(this, intent, requestCode, fillInIntent,
-                                        flagsMask, flagsValues, extraFlags);
-                    } catch (IntentSender.SendIntentException e) {
-                        throw new SuppressedException(e);
-                    }
-                } else {
-                    try {
-                        getOriginal()
-                                .super_startIntentSenderForResult(intent, requestCode, fillInIntent,
-                                        flagsMask, flagsValues, extraFlags);
-                    } catch (IntentSender.SendIntentException e) {
-                        throw new SuppressedException(e);
-                    }
-                }
-            }
-        };
-        superCall.call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
-    }
-
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         if (mPlugins.isEmpty()) {
             try {
@@ -6914,6 +6916,51 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         };
         superCall.call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
                 options);
+    }
+
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags) throws IntentSender.SendIntentException {
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal().super_startIntentSenderForResult(intent, requestCode, fillInIntent,
+                        flagsMask, flagsValues, extraFlags);
+            } catch (IntentSender.SendIntentException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer> superCall
+                = new CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer>(
+                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)") {
+
+            @Override
+            public void call(final IntentSender intent, final Integer requestCode,
+                    final Intent fillInIntent, final Integer flagsMask, final Integer flagsValues,
+                    final Integer extraFlags) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous()
+                                .startIntentSenderForResult(this, intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                } else {
+                    try {
+                        getOriginal()
+                                .super_startIntentSenderForResult(intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                }
+            }
+        };
+        superCall.call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
@@ -7009,6 +7056,54 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         };
         superCall.call(child, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
                 options);
+    }
+
+    public void startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
+            final int requestCode, @Nullable final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException {
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal().super_startIntentSenderFromFragment(fragment, intent, requestCode,
+                        fillInIntent, flagsMask, flagsValues, extraFlags, options);
+            } catch (IntentSender.SendIntentException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid8<Fragment, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>
+                superCall
+                = new CallVoid8<Fragment, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>(
+                "startIntentSenderFromFragment(Fragment, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)") {
+
+            @Override
+            public void call(final Fragment fragment, final IntentSender intent,
+                    final Integer requestCode, final Intent fillInIntent, final Integer flagsMask,
+                    final Integer flagsValues, final Integer extraFlags, final Bundle options) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous()
+                                .startIntentSenderFromFragment(this, fragment, intent, requestCode,
+                                        fillInIntent, flagsMask, flagsValues, extraFlags, options);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                } else {
+                    try {
+                        getOriginal()
+                                .super_startIntentSenderFromFragment(fragment, intent, requestCode,
+                                        fillInIntent, flagsMask, flagsValues, extraFlags, options);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                }
+            }
+        };
+        superCall.call(fragment, intent, requestCode, fillInIntent, flagsMask, flagsValues,
+                extraFlags, options);
     }
 
     public void startLockTask() {

@@ -23,13 +23,13 @@ allprojects {
 }
 
 ext {
-    supportLibraryVersion = '23.4.0'
-    VERSION_NAME = "0.2.1"
-    VERSION_CODE = 6
+    supportLibraryVersion = '24.2.0'
+    VERSION_NAME = "0.2.2"
+    VERSION_CODE = 7
     MIN_SDK_VERSION = 14
-    TARGET_SDK_VERSION = 23
-    COMPILE_SDK_VERSION = 23
-    BUILD_TOOLS_VERSION = '23.0.3'
+    TARGET_SDK_VERSION = 24
+    COMPILE_SDK_VERSION = 24
+    BUILD_TOOLS_VERSION = '24.0.1'
 
 
     ciBuild = System.getenv("TRAVIS") == "true"

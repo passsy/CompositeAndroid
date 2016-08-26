@@ -3,6 +3,7 @@ package com.pascalwelsch.compositeandroid.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -64,6 +65,8 @@ public interface ICompositeFragment {
 
     void onAttach(final Activity activity);
 
+    void onAttachFragment(final Fragment childFragment);
+
     void onConfigurationChanged(final Configuration newConfig);
 
     boolean onContextItemSelected(final MenuItem item);
@@ -98,11 +101,15 @@ public interface ICompositeFragment {
 
     void onLowMemory();
 
+    void onMultiWindowModeChanged(final boolean isInMultiWindowMode);
+
     boolean onOptionsItemSelected(final MenuItem item);
 
     void onOptionsMenuClosed(final Menu menu);
 
     void onPause();
+
+    void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
 
     void onPrepareOptionsMenu(final Menu menu);
 
@@ -168,6 +175,10 @@ public interface ICompositeFragment {
     void startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options);
 
+    void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
+
     void super_dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
             final String[] args);
 
@@ -205,6 +216,8 @@ public interface ICompositeFragment {
 
     void super_onAttach(final Activity activity);
 
+    void super_onAttachFragment(final Fragment childFragment);
+
     void super_onConfigurationChanged(final Configuration newConfig);
 
     boolean super_onContextItemSelected(final MenuItem item);
@@ -239,11 +252,15 @@ public interface ICompositeFragment {
 
     void super_onLowMemory();
 
+    void super_onMultiWindowModeChanged(final boolean isInMultiWindowMode);
+
     boolean super_onOptionsItemSelected(final MenuItem item);
 
     void super_onOptionsMenuClosed(final Menu menu);
 
     void super_onPause();
+
+    void super_onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
 
     void super_onPrepareOptionsMenu(final Menu menu);
 
@@ -308,6 +325,10 @@ public interface ICompositeFragment {
 
     void super_startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options);
+
+    void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
 
     String super_toString();
 

@@ -9,10 +9,12 @@ import com.pascalwelsch.compositeandroid.core.CallVoid1;
 import com.pascalwelsch.compositeandroid.core.CallVoid2;
 import com.pascalwelsch.compositeandroid.core.CallVoid3;
 import com.pascalwelsch.compositeandroid.core.CallVoid4;
+import com.pascalwelsch.compositeandroid.core.CallVoid7;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -133,6 +135,11 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid1<Activity>) mSuperListeners.pop()).call(activity);
     }
 
+    public void onAttachFragment(final Fragment childFragment) {
+        verifyMethodCalledFromDelegate("onAttachFragment(Fragment)");
+        ((CallVoid1<Fragment>) mSuperListeners.pop()).call(childFragment);
+    }
+
     public void onConfigurationChanged(final Configuration newConfig) {
         verifyMethodCalledFromDelegate("onConfigurationChanged(Configuration)");
         ((CallVoid1<Configuration>) mSuperListeners.pop()).call(newConfig);
@@ -218,6 +225,11 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid0) mSuperListeners.pop()).call();
     }
 
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+        verifyMethodCalledFromDelegate("onMultiWindowModeChanged(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(isInMultiWindowMode);
+    }
+
     public boolean onOptionsItemSelected(final MenuItem item) {
         verifyMethodCalledFromDelegate("onOptionsItemSelected(MenuItem)");
         return ((CallFun1<Boolean, MenuItem>) mSuperListeners.pop()).call(item);
@@ -231,6 +243,11 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     public void onPause() {
         verifyMethodCalledFromDelegate("onPause()");
         ((CallVoid0) mSuperListeners.pop()).call();
+    }
+
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+        verifyMethodCalledFromDelegate("onPictureInPictureModeChanged(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(isInPictureInPictureMode);
     }
 
     public void onPrepareOptionsMenu(final Menu menu) {
@@ -392,6 +409,16 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
                 .call(intent, requestCode, options);
     }
 
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+        verifyMethodCalledFromDelegate(
+                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)");
+        ((CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>) mSuperListeners
+                .pop()).call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
+                options);
+    }
+
     public String toString() {
         verifyMethodCalledFromDelegate("toString()");
         return ((CallFun0<String>) mSuperListeners.pop()).call();
@@ -533,6 +560,13 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
+    void onAttachFragment(final CallVoid1<Fragment> superCall, final Fragment childFragment) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onAttachFragment(childFragment);
+        }
+    }
+
     void onConfigurationChanged(final CallVoid1<Configuration> superCall,
             final Configuration newConfig) {
         synchronized (mSuperListeners) {
@@ -648,6 +682,14 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
+    void onMultiWindowModeChanged(final CallVoid1<Boolean> superCall,
+            final boolean isInMultiWindowMode) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onMultiWindowModeChanged(isInMultiWindowMode);
+        }
+    }
+
     boolean onOptionsItemSelected(final CallFun1<Boolean, MenuItem> superCall,
             final MenuItem item) {
         synchronized (mSuperListeners) {
@@ -667,6 +709,14 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPause();
+        }
+    }
+
+    void onPictureInPictureModeChanged(final CallVoid1<Boolean> superCall,
+            final boolean isInPictureInPictureMode) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onPictureInPictureModeChanged(isInPictureInPictureMode);
         }
     }
 
@@ -898,6 +948,18 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityForResult(intent, requestCode, options);
+        }
+    }
+
+    void startIntentSenderForResult(
+            final CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle> superCall,
+            final IntentSender intent, final int requestCode, @Nullable final Intent fillInIntent,
+            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
+                    extraFlags, options);
         }
     }
 

@@ -3,6 +3,7 @@ package com.pascalwelsch.compositeandroid.blueprints;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -262,11 +263,26 @@ public class BlueprintFragment extends Fragment {
     /**
      * Called when a fragment is first attached to its activity.
      * {@link #onCreate(Bundle)} will be called after this.
-     * <p>Deprecated. See {@link #onAttach(Context)}.
+     *
+     * @deprecated See {@link #onAttach(Context)}.
      */
     @Override
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
+    }
+
+    /**
+     * Called when a fragment is attached as a child of this fragment.
+     *
+     * <p>This is called after the attached fragment's <code>onAttach</code> and before
+     * the attached fragment's <code>onCreate</code> if the fragment has not yet had a previous
+     * call to <code>onCreate</code>.</p>
+     *
+     * @param childFragment child fragment being attached
+     */
+    @Override
+    public void onAttachFragment(final Fragment childFragment) {
+        super.onAttachFragment(childFragment);
     }
 
     @Override
@@ -306,6 +322,9 @@ public class BlueprintFragment extends Fragment {
      * on things like the activity's content view hierarchy being initialized
      * at this point.  If you want to do work once the activity itself is
      * created, see {@link #onActivityCreated(Bundle)}.
+     *
+     * <p>Any restored child fragments will be created before the base
+     * <code>Fragment.onCreate</code> method returns.</p>
      *
      * @param savedInstanceState If the fragment is being re-created from
      *                           a previous saved state, this is the state.
@@ -347,7 +366,7 @@ public class BlueprintFragment extends Fragment {
     }
 
     /**
-     * Initialize the contents of the Activity's standard options menu.  You
+     * Initialize the contents of the Fragment host's standard options menu.  You
      * should place your menu items in to <var>menu</var>.  For this method
      * to be called, you must have first called {@link #setHasOptionsMenu}.  See
      * {@link Activity#onCreateOptionsMenu(Menu) Activity.onCreateOptionsMenu}
@@ -438,8 +457,7 @@ public class BlueprintFragment extends Fragment {
      * the fragment has changed.  Fragments start out not hidden; this will
      * be called whenever the fragment changes state from that.
      *
-     * @param hidden True if the fragment is now hidden, false if it is not
-     *               visible.
+     * @param hidden True if the fragment is now hidden, false otherwise.
      */
     @Override
     public void onHiddenChanged(final boolean hidden) {
@@ -462,24 +480,25 @@ public class BlueprintFragment extends Fragment {
      * <p>Here is a typical implementation of a fragment that can take parameters
      * both through attributes supplied here as well from {@link #getArguments()}:</p>
      *
-     * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentArguments.java
+     * {@sample frameworks/support/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentArgumentsSupport.java
      * fragment}
      *
      * <p>Note that parsing the XML attributes uses a "styleable" resource.  The
      * declaration for the styleable used here is:</p>
      *
-     * {@sample development/samples/ApiDemos/res/values/attrs.xml fragment_arguments}
+     * {@sample frameworks/support/samples/Support4Demos/res/values/attrs.xml fragment_arguments}
      *
      * <p>The fragment can then be declared within its activity's content layout
      * through a tag like this:</p>
      *
-     * {@sample development/samples/ApiDemos/res/layout/fragment_arguments.xml from_attributes}
+     * {@sample frameworks/support/samples/Support4Demos/res/layout/fragment_arguments_support.xml
+     * from_attributes}
      *
      * <p>This fragment can also be created dynamically from arguments given
      * at runtime in the arguments Bundle; here is an example of doing so at
      * creation of the containing activity:</p>
      *
-     * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentArguments.java
+     * {@sample frameworks/support/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentArgumentsSupport.java
      * create}
      *
      * @param context            The Activity that is inflating this fragment.
@@ -496,7 +515,8 @@ public class BlueprintFragment extends Fragment {
     /**
      * Called when a fragment is being created as part of a view layout
      * inflation, typically from setting the content view of an activity.
-     * <p>Deprecated. See {@link #onInflate(Context, AttributeSet, Bundle)}.
+     *
+     * @deprecated See {@link #onInflate(Context, AttributeSet, Bundle)}.
      */
     @Override
     public void onInflate(final Activity activity, final AttributeSet attrs,
@@ -507,6 +527,18 @@ public class BlueprintFragment extends Fragment {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+    }
+
+    /**
+     * Called when the Fragment's activity changes from fullscreen mode to multi-window mode and
+     * visa-versa. This is generally tied to {@link Activity#onMultiWindowModeChanged} of the
+     * containing Activity.
+     *
+     * @param isInMultiWindowMode True if the activity is in multi-window mode.
+     */
+    @Override
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+        super.onMultiWindowModeChanged(isInMultiWindowMode);
     }
 
     /**
@@ -553,7 +585,18 @@ public class BlueprintFragment extends Fragment {
     }
 
     /**
-     * Prepare the Screen's standard options menu to be displayed.  This is
+     * Called by the system when the activity changes to and from picture-in-picture mode. This is
+     * generally tied to {@link Activity#onPictureInPictureModeChanged} of the containing Activity.
+     *
+     * @param isInPictureInPictureMode True if the activity is in picture-in-picture mode.
+     */
+    @Override
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode);
+    }
+
+    /**
+     * Prepare the Fragment host's standard options menu to be displayed.  This is
      * called right before the menu is shown, every time it is shown.  You can
      * use this method to efficiently enable/disable items or otherwise
      * dynamically modify the contents.  See
@@ -942,6 +985,9 @@ public class BlueprintFragment extends Fragment {
      * This may be used by the system to prioritize operations such as fragment lifecycle updates
      * or loader ordering behavior.</p>
      *
+     * <p><strong>Note:</strong> This method may be called outside of the fragment lifecycle.
+     * and thus has no ordering guarantees with regard to fragment lifecycle method calls.</p>
+     *
      * @param isVisibleToUser true if this fragment's UI is currently visible to the user
      *                        (default),
      *                        false if it is not.
@@ -1010,6 +1056,19 @@ public class BlueprintFragment extends Fragment {
     public void startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options) {
         super.startActivityForResult(intent, requestCode, options);
+    }
+
+    /**
+     * Call {@link Activity#startIntentSenderForResult(IntentSender, int, Intent, int, int, int,
+     * Bundle)} from the fragment's containing Activity.
+     */
+    @Override
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags,
+            final Bundle options) throws IntentSender.SendIntentException {
+        super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
+                extraFlags, options);
     }
 
     @Override
