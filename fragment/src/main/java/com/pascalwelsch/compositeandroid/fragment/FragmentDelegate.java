@@ -10,6 +10,7 @@ import com.pascalwelsch.compositeandroid.core.CallVoid2;
 import com.pascalwelsch.compositeandroid.core.CallVoid3;
 import com.pascalwelsch.compositeandroid.core.CallVoid4;
 import com.pascalwelsch.compositeandroid.core.CallVoid7;
+import com.pascalwelsch.compositeandroid.core.SuppressedException;
 
 import android.app.Activity;
 import android.content.Context;
