@@ -398,7 +398,6 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
         return delegate.fileList();
     }
 
-    @Nullable
     @Override
     public View findViewById(@IdRes final int id) {
         return delegate.findViewById(id);
@@ -1273,6 +1272,10 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     /**
      * Called when a fragment is attached to the activity.
+     *
+     * <p>This is called after the attached fragment's <code>onAttach</code> and before
+     * the attached fragment's <code>onCreate</code> if the fragment has not yet had a previous
+     * call to <code>onCreate</code>.</p>
      */
     @Override
     public void onAttachFragment(final Fragment fragment) {
@@ -1676,7 +1679,30 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * Take care of calling onBackPressed() for pre-Eclair platforms.
+     * Called when a key was pressed down and not handled by any of the views
+     * inside of the activity. So, for example, key presses while the cursor
+     * is inside a TextView will not trigger the event (unless it is a navigation
+     * to another object) because TextView handles its own key presses.
+     *
+     * <p>If the focused view didn't want this event, this method is called.
+     *
+     * <p>The default implementation takes care of {@link KeyEvent#KEYCODE_BACK}
+     * by calling {@link #onBackPressed()}, though the behavior varies based
+     * on the application compatibility mode: for
+     * {@link Build.VERSION_CODES#ECLAIR} or later applications,
+     * it will set up the dispatch to call {@link #onKeyUp} where the action
+     * will be performed; for earlier applications, it will perform the
+     * action immediately in on-down, as those versions of the platform
+     * behaved.
+     *
+     * <p>Other additional default key handling may be performed
+     * if configured with {@link #setDefaultKeyMode}.
+     *
+     * @return Return <code>true</code> to prevent this event from being propagated
+     * further, or <code>false</code> to indicate that you have not handled
+     * this event and it should continue to be propagated.
+     * @see #onKeyUp
+     * @see KeyEvent
      */
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent event) {
@@ -1755,6 +1781,20 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     @Override
     public boolean onMenuOpened(final int featureId, final Menu menu) {
         return delegate.onMenuOpened(featureId, menu);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p><strong>Note:</strong> If you override this method you must call
+     * <code>super.onMultiWindowModeChanged</code> to correctly dispatch the event
+     * to support fragments attached to this activity.</p>
+     *
+     * @param isInMultiWindowMode True if the activity is in multi-window mode.
+     */
+    @Override
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+        delegate.onMultiWindowModeChanged(isInMultiWindowMode);
     }
 
     /**
@@ -1863,6 +1903,20 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     @Override
     public void onPause() {
         delegate.onPause();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p><strong>Note:</strong> If you override this method you must call
+     * <code>super.onPictureInPictureModeChanged</code> to correctly dispatch the event
+     * to support fragments attached to this activity.</p>
+     *
+     * @param isInPictureInPictureMode True if the activity is in picture-in-picture mode.
+     */
+    @Override
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+        delegate.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
     /**
@@ -2255,10 +2309,6 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
         return delegate.onSearchRequested();
     }
 
-    /**
-     * Dispatch onStart() to all fragments.  Ensure any created loaders are
-     * now started.
-     */
     @Override
     public void onStart() {
         delegate.onStart();
@@ -3311,40 +3361,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
         delegate.startActivityForResult(intent, requestCode);
     }
 
-    /**
-     * Launch an activity for which you would like a result when it finished.
-     * When this activity exits, your
-     * onActivityResult() method will be called with the given requestCode.
-     * Using a negative requestCode is the same as calling
-     * {@link #startActivity} (the activity is not launched as a sub-activity).
-     *
-     * <p>Note that this method should only be used with Intent protocols
-     * that are defined to return a result.  In other protocols (such as
-     * {@link Intent#ACTION_MAIN} or {@link Intent#ACTION_VIEW}), you may
-     * not get the result when you expect.  For example, if the activity you
-     * are launching uses the singleTask launch mode, it will not run in your
-     * task and thus you will immediately receive a cancel result.
-     *
-     * <p>As a special case, if you call startActivityForResult() with a requestCode
-     * >= 0 during the initial onCreate(Bundle savedInstanceState)/onResume() of your
-     * activity, then your window will not be displayed until a result is
-     * returned back from the started activity.  This is to avoid visible
-     * flickering when redirecting to another activity.
-     *
-     * <p>This method throws {@link ActivityNotFoundException}
-     * if there was no Activity found to run the given Intent.
-     *
-     * @param intent      The intent to start.
-     * @param requestCode If >= 0, this code will be returned in
-     *                    onActivityResult() when the activity exits.
-     * @param options     Additional options for how the Activity should be started.
-     *                    See {@link Context#startActivity(Intent, Bundle)
-     *                    Context.startActivity(Intent, Bundle)} for more details.
-     * @see #startActivity
-     */
     @Override
     public void startActivityForResult(final Intent intent, final int requestCode,
-            final Bundle options) {
+            @Nullable final Bundle options) {
         delegate.startActivityForResult(intent, requestCode, options);
     }
 
@@ -3557,64 +3576,25 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
         }
     }
 
-    /**
-     * Same as calling {@link #startIntentSenderForResult(IntentSender, int,
-     * Intent, int, int, int, Bundle)} with no options.
-     *
-     * @param intent       The IntentSender to launch.
-     * @param requestCode  If >= 0, this code will be returned in
-     *                     onActivityResult() when the activity exits.
-     * @param fillInIntent If non-null, this will be provided as the
-     *                     intent parameter to {@link IntentSender#sendIntent}.
-     * @param flagsMask    Intent flags in the original IntentSender that you
-     *                     would like to change.
-     * @param flagsValues  Desired values for any bits set in
-     *                     <var>flagsMask</var>
-     * @param extraFlags   Always set to 0.
-     */
     @Override
     public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException {
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
-                    flagsValues, extraFlags);
+                    flagsValues, extraFlags, options);
         } catch (SuppressedException e) {
             throw (IntentSender.SendIntentException) e.getCause();
         }
     }
 
-    /**
-     * Like {@link #startActivityForResult(Intent, int)}, but allowing you
-     * to use a IntentSender to describe the activity to be started.  If
-     * the IntentSender is for an activity, that activity will be started
-     * as if you had called the regular {@link #startActivityForResult(Intent, int)}
-     * here; otherwise, its associated action will be executed (such as
-     * sending a broadcast) as if you had called
-     * {@link IntentSender#sendIntent IntentSender.sendIntent} on it.
-     *
-     * @param intent       The IntentSender to launch.
-     * @param requestCode  If >= 0, this code will be returned in
-     *                     onActivityResult() when the activity exits.
-     * @param fillInIntent If non-null, this will be provided as the
-     *                     intent parameter to {@link IntentSender#sendIntent}.
-     * @param flagsMask    Intent flags in the original IntentSender that you
-     *                     would like to change.
-     * @param flagsValues  Desired values for any bits set in
-     *                     <var>flagsMask</var>
-     * @param extraFlags   Always set to 0.
-     * @param options      Additional options for how the Activity should be started.
-     *                     See {@link Context#startActivity(Intent, Bundle)
-     *                     Context.startActivity(Intent, Bundle)} for more details.  If options
-     *                     have also been supplied by the IntentSender, options given here will
-     */
     @Override
     public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags) throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
-                    flagsValues, extraFlags, options);
+                    flagsValues, extraFlags);
         } catch (SuppressedException e) {
             throw (IntentSender.SendIntentException) e.getCause();
         }
@@ -3650,6 +3630,22 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
         try {
             delegate.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
                     flagsValues, extraFlags, options);
+        } catch (SuppressedException e) {
+            throw (IntentSender.SendIntentException) e.getCause();
+        }
+    }
+
+    /**
+     * Called by Fragment.startIntentSenderForResult() to implement its behavior.
+     */
+    @Override
+    public void startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
+            final int requestCode, @Nullable final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException {
+        try {
+            delegate.startIntentSenderFromFragment(fragment, intent, requestCode, fillInIntent,
+                    flagsMask, flagsValues, extraFlags, options);
         } catch (SuppressedException e) {
             throw (IntentSender.SendIntentException) e.getCause();
         }
@@ -4074,7 +4070,6 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
         return super.fileList();
     }
 
-    @Nullable
     @Override
     public View super_findViewById(@IdRes final int id) {
         return super.findViewById(id);
@@ -4710,6 +4705,11 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
+    public void super_onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+        super.onMultiWindowModeChanged(isInMultiWindowMode);
+    }
+
+    @Override
     public boolean super_onNavigateUp() {
         return super.onNavigateUp();
     }
@@ -4742,6 +4742,11 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     @Override
     public void super_onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void super_onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
     @Override
@@ -5333,7 +5338,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     @Override
     public void super_startActivityForResult(final Intent intent, final int requestCode,
-            final Bundle options) {
+            @Nullable final Bundle options) {
         super.startActivityForResult(intent, requestCode, options);
     }
 
@@ -5406,18 +5411,18 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     @Override
     public void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException {
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
-                extraFlags);
+                extraFlags, options);
     }
 
     @Override
     public void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags) throws IntentSender.SendIntentException {
         super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
-                extraFlags, options);
+                extraFlags);
     }
 
     @Override
@@ -5434,6 +5439,15 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
             final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
         super.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
+                flagsValues, extraFlags, options);
+    }
+
+    @Override
+    public void super_startIntentSenderFromFragment(final Fragment fragment,
+            final IntentSender intent, final int requestCode, @Nullable final Intent fillInIntent,
+            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException {
+        super.startIntentSenderFromFragment(fragment, intent, requestCode, fillInIntent, flagsMask,
                 flagsValues, extraFlags, options);
     }
 

@@ -421,6 +421,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
     private int mCallCount_onMenuOpenedIrMu = 0;
 
+    private int mCallCount_onMultiWindowModeChangedBn = 0;
+
     private int mCallCount_onNavigateUp = 0;
 
     private int mCallCount_onNavigateUpFromChildAy = 0;
@@ -434,6 +436,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     private int mCallCount_onPanelClosedIrMu = 0;
 
     private int mCallCount_onPause = 0;
+
+    private int mCallCount_onPictureInPictureModeChangedBn = 0;
 
     private int mCallCount_onPostCreateBe = 0;
 
@@ -682,6 +686,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     private int mCallCount_startIntentSenderFromChildAyIrIrItIrIrIr = 0;
 
     private int mCallCount_startIntentSenderFromChildAyIrIrItIrIrIrBe = 0;
+
+    private int mCallCount_startIntentSenderFromFragmentFtIrIrItIrIrIrBe = 0;
 
     private int mCallCount_startIntentSenderIrItIrIrIr = 0;
 
@@ -1053,6 +1059,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
     private boolean mIsOverridden_onMenuOpenedIrMu = false;
 
+    private boolean mIsOverridden_onMultiWindowModeChangedBn = false;
+
     private boolean mIsOverridden_onNavigateUp = false;
 
     private boolean mIsOverridden_onNavigateUpFromChildAy = false;
@@ -1066,6 +1074,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     private boolean mIsOverridden_onPanelClosedIrMu = false;
 
     private boolean mIsOverridden_onPause = false;
+
+    private boolean mIsOverridden_onPictureInPictureModeChangedBn = false;
 
     private boolean mIsOverridden_onPostCreateBe = false;
 
@@ -1314,6 +1324,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     private boolean mIsOverridden_startIntentSenderFromChildAyIrIrItIrIrIr = false;
 
     private boolean mIsOverridden_startIntentSenderFromChildAyIrIrItIrIrIrBe = false;
+
+    private boolean mIsOverridden_startIntentSenderFromFragmentFtIrIrItIrIrIrBe = false;
 
     private boolean mIsOverridden_startIntentSenderIrItIrIrIr = false;
 
@@ -1569,11 +1581,13 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         mIsOverridden_onKeyUpIrKt = true;
         mIsOverridden_onLowMemory = true;
         mIsOverridden_onMenuOpenedIrMu = true;
+        mIsOverridden_onMultiWindowModeChangedBn = true;
         mIsOverridden_onNavigateUp = true;
         mIsOverridden_onNavigateUpFromChildAy = true;
         mIsOverridden_onOptionsItemSelectedMm = true;
         mIsOverridden_onOptionsMenuClosedMu = true;
         mIsOverridden_onPanelClosedIrMu = true;
+        mIsOverridden_onPictureInPictureModeChangedBn = true;
         mIsOverridden_onPostCreateBePe = true;
         mIsOverridden_onPrepareNavigateUpTaskStackTr = true;
         mIsOverridden_onPrepareOptionsMenuMu = true;
@@ -1682,10 +1696,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         mIsOverridden_startInstrumentationCeSgBe = true;
         mIsOverridden_startIntentSenderIrItIrIrIr = true;
         mIsOverridden_startIntentSenderIrItIrIrIrBe = true;
-        mIsOverridden_startIntentSenderForResultIrIrItIrIrIr = true;
         mIsOverridden_startIntentSenderForResultIrIrItIrIrIrBe = true;
+        mIsOverridden_startIntentSenderForResultIrIrItIrIrIr = true;
         mIsOverridden_startIntentSenderFromChildAyIrIrItIrIrIr = true;
         mIsOverridden_startIntentSenderFromChildAyIrIrItIrIrIrBe = true;
+        mIsOverridden_startIntentSenderFromFragmentFtIrIrItIrIrIrBe = true;
         mIsOverridden_startLockTask = true;
         mIsOverridden_startManagingCursorCr = true;
         mIsOverridden_startNextMatchingActivityIt = true;
@@ -7627,6 +7642,45 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call(featureId, menu);
     }
 
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+        if (!mIsOverridden_onMultiWindowModeChangedBn) {
+            getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator;
+        if (mCallCount_onMultiWindowModeChangedBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onMultiWindowModeChangedBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onMultiWindowModeChanged(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onMultiWindowModeChanged",
+                        Boolean.class);
+                mMethodImplementingPlugins
+                        .put("onMultiWindowModeChanged(Boolean)", implementingPlugins);
+                mIsOverridden_onMultiWindowModeChangedBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
+
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "onMultiWindowModeChanged(Boolean)") {
+
+            @Override
+            public void call(final Boolean isInMultiWindowMode) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onMultiWindowModeChanged(this, isInMultiWindowMode);
+                } else {
+                    getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode);
+                }
+            }
+        };
+        superCall.call(isInMultiWindowMode);
+    }
+
     public boolean onNavigateUp() {
         if (!mIsOverridden_onNavigateUp) {
             return getOriginal().super_onNavigateUp();
@@ -7881,6 +7935,46 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call();
+    }
+
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+        if (!mIsOverridden_onPictureInPictureModeChangedBn) {
+            getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator;
+        if (mCallCount_onPictureInPictureModeChangedBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onPictureInPictureModeChangedBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onPictureInPictureModeChanged(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onPictureInPictureModeChanged",
+                        Boolean.class);
+                mMethodImplementingPlugins
+                        .put("onPictureInPictureModeChanged(Boolean)", implementingPlugins);
+                mIsOverridden_onPictureInPictureModeChangedBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
+
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "onPictureInPictureModeChanged(Boolean)") {
+
+            @Override
+            public void call(final Boolean isInPictureInPictureMode) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onPictureInPictureModeChanged(this, isInPictureInPictureMode);
+                } else {
+                    getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode);
+                }
+            }
+        };
+        superCall.call(isInPictureInPictureMode);
     }
 
     public void onPostCreate(final Bundle savedInstanceState,
@@ -12190,7 +12284,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     }
 
     public void startActivityForResult(final Intent intent, final int requestCode,
-            final Bundle options) {
+            @Nullable final Bundle options) {
         if (!mIsOverridden_startActivityForResultItIrBe) {
             getOriginal().super_startActivityForResult(intent, requestCode, options);
             return;
@@ -12732,68 +12826,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     }
 
     public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException {
-        if (!mIsOverridden_startIntentSenderForResultIrIrItIrIrIr) {
-            getOriginal()
-                    .super_startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
-                            flagsValues, extraFlags);
-            return;
-        }
-
-        final ListIterator<ActivityPlugin> iterator;
-        if (mCallCount_startIntentSenderForResultIrIrItIrIrIr < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
-            mCallCount_startIntentSenderForResultIrIrItIrIrIr++;
-            iterator = mPlugins.listIterator(mPlugins.size());
-        } else {
-            List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
-                    .get("startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)");
-            if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("startIntentSenderForResult",
-                        IntentSender.class, Integer.class, Intent.class, Integer.class,
-                        Integer.class, Integer.class);
-                mMethodImplementingPlugins
-                        .put("startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)",
-                                implementingPlugins);
-                mIsOverridden_startIntentSenderForResultIrIrItIrIrIr = implementingPlugins.size()
-                        > 0;
-            }
-
-            iterator = implementingPlugins.listIterator(implementingPlugins.size());
-        }
-
-        final CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer> superCall
-                = new CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer>(
-                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)") {
-
-            @Override
-            public void call(final IntentSender intent, final Integer requestCode,
-                    final Intent fillInIntent, final Integer flagsMask, final Integer flagsValues,
-                    final Integer extraFlags) {
-                if (iterator.hasPrevious()) {
-                    try {
-                        iterator.previous()
-                                .startIntentSenderForResult(this, intent, requestCode, fillInIntent,
-                                        flagsMask, flagsValues, extraFlags);
-                    } catch (IntentSender.SendIntentException e) {
-                        throw new SuppressedException(e);
-                    }
-                } else {
-                    try {
-                        getOriginal()
-                                .super_startIntentSenderForResult(intent, requestCode, fillInIntent,
-                                        flagsMask, flagsValues, extraFlags);
-                    } catch (IntentSender.SendIntentException e) {
-                        throw new SuppressedException(e);
-                    }
-                }
-            }
-        };
-        superCall.call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
-    }
-
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         if (!mIsOverridden_startIntentSenderForResultIrIrItIrIrIrBe) {
             getOriginal()
@@ -12853,6 +12886,67 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         };
         superCall.call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
                 options);
+    }
+
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags) throws IntentSender.SendIntentException {
+        if (!mIsOverridden_startIntentSenderForResultIrIrItIrIrIr) {
+            getOriginal()
+                    .super_startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
+                            flagsValues, extraFlags);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator;
+        if (mCallCount_startIntentSenderForResultIrIrItIrIrIr < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_startIntentSenderForResultIrIrItIrIrIr++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("startIntentSenderForResult",
+                        IntentSender.class, Integer.class, Intent.class, Integer.class,
+                        Integer.class, Integer.class);
+                mMethodImplementingPlugins
+                        .put("startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)",
+                                implementingPlugins);
+                mIsOverridden_startIntentSenderForResultIrIrItIrIrIr = implementingPlugins.size()
+                        > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
+
+        final CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer> superCall
+                = new CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer>(
+                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)") {
+
+            @Override
+            public void call(final IntentSender intent, final Integer requestCode,
+                    final Intent fillInIntent, final Integer flagsMask, final Integer flagsValues,
+                    final Integer extraFlags) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous()
+                                .startIntentSenderForResult(this, intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                } else {
+                    try {
+                        getOriginal()
+                                .super_startIntentSenderForResult(intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                }
+            }
+        };
+        superCall.call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
@@ -12978,6 +13072,70 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         };
         superCall.call(child, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
                 options);
+    }
+
+    public void startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
+            final int requestCode, @Nullable final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException {
+        if (!mIsOverridden_startIntentSenderFromFragmentFtIrIrItIrIrIrBe) {
+            getOriginal().super_startIntentSenderFromFragment(fragment, intent, requestCode,
+                    fillInIntent, flagsMask, flagsValues, extraFlags, options);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator;
+        if (mCallCount_startIntentSenderFromFragmentFtIrIrItIrIrIrBe
+                < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_startIntentSenderFromFragmentFtIrIrItIrIrIrBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("startIntentSenderFromFragment(Fragment, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("startIntentSenderFromFragment",
+                        Fragment.class, IntentSender.class, Integer.class, Intent.class,
+                        Integer.class, Integer.class, Integer.class, Bundle.class);
+                mMethodImplementingPlugins
+                        .put("startIntentSenderFromFragment(Fragment, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)",
+                                implementingPlugins);
+                mIsOverridden_startIntentSenderFromFragmentFtIrIrItIrIrIrBe =
+                        implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
+
+        final CallVoid8<Fragment, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>
+                superCall
+                = new CallVoid8<Fragment, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>(
+                "startIntentSenderFromFragment(Fragment, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)") {
+
+            @Override
+            public void call(final Fragment fragment, final IntentSender intent,
+                    final Integer requestCode, final Intent fillInIntent, final Integer flagsMask,
+                    final Integer flagsValues, final Integer extraFlags, final Bundle options) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous()
+                                .startIntentSenderFromFragment(this, fragment, intent, requestCode,
+                                        fillInIntent, flagsMask, flagsValues, extraFlags, options);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                } else {
+                    try {
+                        getOriginal()
+                                .super_startIntentSenderFromFragment(fragment, intent, requestCode,
+                                        fillInIntent, flagsMask, flagsValues, extraFlags, options);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                }
+            }
+        };
+        superCall.call(fragment, intent, requestCode, fillInIntent, flagsMask, flagsValues,
+                extraFlags, options);
     }
 
     public void startLockTask() {

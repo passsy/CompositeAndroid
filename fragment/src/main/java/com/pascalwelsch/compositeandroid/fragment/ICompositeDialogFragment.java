@@ -1,7 +1,7 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,7 +30,7 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
 
     void onActivityCreated(final Bundle savedInstanceState);
 
-    void onAttach(final Activity activity);
+    void onAttach(final Context context);
 
     void onCancel(final DialogInterface dialog);
 
@@ -78,7 +78,7 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
 
     void super_onActivityCreated(final Bundle savedInstanceState);
 
-    void super_onAttach(final Activity activity);
+    void super_onAttach(final Context context);
 
     void super_onCancel(final DialogInterface dialog);
 

@@ -9,11 +9,14 @@ import com.pascalwelsch.compositeandroid.core.CallVoid1;
 import com.pascalwelsch.compositeandroid.core.CallVoid2;
 import com.pascalwelsch.compositeandroid.core.CallVoid3;
 import com.pascalwelsch.compositeandroid.core.CallVoid4;
+import com.pascalwelsch.compositeandroid.core.CallVoid7;
 import com.pascalwelsch.compositeandroid.core.Removable;
+import com.pascalwelsch.compositeandroid.core.SuppressedException;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -80,6 +83,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     private int mCallCount_onAttachCt = 0;
 
+    private int mCallCount_onAttachFragmentFt = 0;
+
     private int mCallCount_onConfigurationChangedCn = 0;
 
     private int mCallCount_onContextItemSelectedMm = 0;
@@ -110,11 +115,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     private int mCallCount_onLowMemory = 0;
 
+    private int mCallCount_onMultiWindowModeChangedBn = 0;
+
     private int mCallCount_onOptionsItemSelectedMm = 0;
 
     private int mCallCount_onOptionsMenuClosedMu = 0;
 
     private int mCallCount_onPause = 0;
+
+    private int mCallCount_onPictureInPictureModeChangedBn = 0;
 
     private int mCallCount_onPrepareOptionsMenuMu = 0;
 
@@ -178,6 +187,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     private int mCallCount_startActivityItBe = 0;
 
+    private int mCallCount_startIntentSenderForResultIrIrItIrIrIrBe = 0;
+
     private int mCallCount_toString = 0;
 
     private int mCallCount_unregisterForContextMenuVw = 0;
@@ -218,6 +229,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     private boolean mIsOverridden_onAttachCt = false;
 
+    private boolean mIsOverridden_onAttachFragmentFt = false;
+
     private boolean mIsOverridden_onConfigurationChangedCn = false;
 
     private boolean mIsOverridden_onContextItemSelectedMm = false;
@@ -248,11 +261,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     private boolean mIsOverridden_onLowMemory = false;
 
+    private boolean mIsOverridden_onMultiWindowModeChangedBn = false;
+
     private boolean mIsOverridden_onOptionsItemSelectedMm = false;
 
     private boolean mIsOverridden_onOptionsMenuClosedMu = false;
 
     private boolean mIsOverridden_onPause = false;
+
+    private boolean mIsOverridden_onPictureInPictureModeChangedBn = false;
 
     private boolean mIsOverridden_onPrepareOptionsMenuMu = false;
 
@@ -316,6 +333,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     private boolean mIsOverridden_startActivityItBe = false;
 
+    private boolean mIsOverridden_startIntentSenderForResultIrIrItIrIrIrBe = false;
+
     private boolean mIsOverridden_toString = false;
 
     private boolean mIsOverridden_unregisterForContextMenuVw = false;
@@ -349,6 +368,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         mIsOverridden_onActivityResultIrIrIt = true;
         mIsOverridden_onAttachCt = true;
         mIsOverridden_onAttachAy = true;
+        mIsOverridden_onAttachFragmentFt = true;
         mIsOverridden_onConfigurationChangedCn = true;
         mIsOverridden_onContextItemSelectedMm = true;
         mIsOverridden_onCreateBe = true;
@@ -364,9 +384,11 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         mIsOverridden_onInflateCtAtBe = true;
         mIsOverridden_onInflateAyAtBe = true;
         mIsOverridden_onLowMemory = true;
+        mIsOverridden_onMultiWindowModeChangedBn = true;
         mIsOverridden_onOptionsItemSelectedMm = true;
         mIsOverridden_onOptionsMenuClosedMu = true;
         mIsOverridden_onPause = true;
+        mIsOverridden_onPictureInPictureModeChangedBn = true;
         mIsOverridden_onPrepareOptionsMenuMu = true;
         mIsOverridden_onRequestPermissionsResultIrSgit = true;
         mIsOverridden_onResume = true;
@@ -398,6 +420,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         mIsOverridden_startActivityItBe = true;
         mIsOverridden_startActivityForResultItIr = true;
         mIsOverridden_startActivityForResultItIrBe = true;
+        mIsOverridden_startIntentSenderForResultIrIrItIrIrIrBe = true;
         mIsOverridden_toString = true;
         mIsOverridden_unregisterForContextMenuVw = true;
 
@@ -1060,6 +1083,43 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(activity);
     }
 
+    public void onAttachFragment(final Fragment childFragment) {
+        if (!mIsOverridden_onAttachFragmentFt) {
+            getOriginal().super_onAttachFragment(childFragment);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onAttachFragmentFt < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onAttachFragmentFt++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onAttachFragment(Fragment)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onAttachFragment", Fragment.class);
+                mMethodImplementingPlugins.put("onAttachFragment(Fragment)", implementingPlugins);
+                mIsOverridden_onAttachFragmentFt = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
+
+        final CallVoid1<Fragment> superCall = new CallVoid1<Fragment>(
+                "onAttachFragment(Fragment)") {
+
+            @Override
+            public void call(final Fragment childFragment) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onAttachFragment(this, childFragment);
+                } else {
+                    getOriginal().super_onAttachFragment(childFragment);
+                }
+            }
+        };
+        superCall.call(childFragment);
+    }
+
     public void onConfigurationChanged(final Configuration newConfig) {
         if (!mIsOverridden_onConfigurationChangedCn) {
             getOriginal().super_onConfigurationChanged(newConfig);
@@ -1637,6 +1697,45 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call();
     }
 
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+        if (!mIsOverridden_onMultiWindowModeChangedBn) {
+            getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onMultiWindowModeChangedBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onMultiWindowModeChangedBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onMultiWindowModeChanged(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onMultiWindowModeChanged",
+                        Boolean.class);
+                mMethodImplementingPlugins
+                        .put("onMultiWindowModeChanged(Boolean)", implementingPlugins);
+                mIsOverridden_onMultiWindowModeChangedBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
+
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "onMultiWindowModeChanged(Boolean)") {
+
+            @Override
+            public void call(final Boolean isInMultiWindowMode) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onMultiWindowModeChanged(this, isInMultiWindowMode);
+                } else {
+                    getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode);
+                }
+            }
+        };
+        superCall.call(isInMultiWindowMode);
+    }
+
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (!mIsOverridden_onOptionsItemSelectedMm) {
             return getOriginal().super_onOptionsItemSelected(item);
@@ -1744,6 +1843,46 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
             }
         };
         superCall.call();
+    }
+
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+        if (!mIsOverridden_onPictureInPictureModeChangedBn) {
+            getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onPictureInPictureModeChangedBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onPictureInPictureModeChangedBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onPictureInPictureModeChanged(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onPictureInPictureModeChanged",
+                        Boolean.class);
+                mMethodImplementingPlugins
+                        .put("onPictureInPictureModeChanged(Boolean)", implementingPlugins);
+                mIsOverridden_onPictureInPictureModeChangedBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
+
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "onPictureInPictureModeChanged(Boolean)") {
+
+            @Override
+            public void call(final Boolean isInPictureInPictureMode) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onPictureInPictureModeChanged(this, isInPictureInPictureMode);
+                } else {
+                    getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode);
+                }
+            }
+        };
+        superCall.call(isInPictureInPictureMode);
     }
 
     public void onPrepareOptionsMenu(final Menu menu) {
@@ -2908,6 +3047,69 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
             }
         };
         superCall.call(intent, requestCode, options);
+    }
+
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+        if (!mIsOverridden_startIntentSenderForResultIrIrItIrIrIrBe) {
+            getOriginal()
+                    .super_startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
+                            flagsValues, extraFlags, options);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_startIntentSenderForResultIrIrItIrIrIrBe
+                < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_startIntentSenderForResultIrIrItIrIrIrBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("startIntentSenderForResult",
+                        IntentSender.class, Integer.class, Intent.class, Integer.class,
+                        Integer.class, Integer.class, Bundle.class);
+                mMethodImplementingPlugins
+                        .put("startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)",
+                                implementingPlugins);
+                mIsOverridden_startIntentSenderForResultIrIrItIrIrIrBe = implementingPlugins.size()
+                        > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
+
+        final CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle> superCall
+                = new CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>(
+                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)") {
+
+            @Override
+            public void call(final IntentSender intent, final Integer requestCode,
+                    final Intent fillInIntent, final Integer flagsMask, final Integer flagsValues,
+                    final Integer extraFlags, final Bundle options) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous()
+                                .startIntentSenderForResult(this, intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags, options);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                } else {
+                    try {
+                        getOriginal()
+                                .super_startIntentSenderForResult(intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags, options);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                }
+            }
+        };
+        superCall.call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
+                options);
     }
 
     public String toString() {

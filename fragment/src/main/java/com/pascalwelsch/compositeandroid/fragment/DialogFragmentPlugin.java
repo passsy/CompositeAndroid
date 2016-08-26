@@ -7,8 +7,8 @@ import com.pascalwelsch.compositeandroid.core.CallVoid0;
 import com.pascalwelsch.compositeandroid.core.CallVoid1;
 import com.pascalwelsch.compositeandroid.core.CallVoid2;
 
-import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -68,9 +68,9 @@ public class DialogFragmentPlugin extends FragmentPlugin {
         ((CallVoid1<Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
-    public void onAttach(final Activity activity) {
-        verifyMethodCalledFromDelegate("onAttach(Activity)");
-        ((CallVoid1<Activity>) mSuperListeners.pop()).call(activity);
+    public void onAttach(final Context context) {
+        verifyMethodCalledFromDelegate("onAttach(Context)");
+        ((CallVoid1<Context>) mSuperListeners.pop()).call(context);
     }
 
     public void onCancel(final DialogInterface dialog) {
@@ -218,10 +218,10 @@ public class DialogFragmentPlugin extends FragmentPlugin {
         }
     }
 
-    void onAttach(final CallVoid1<Activity> superCall, final Activity activity) {
+    void onAttach(final CallVoid1<Context> superCall, final Context context) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
-            onAttach(activity);
+            onAttach(context);
         }
     }
 

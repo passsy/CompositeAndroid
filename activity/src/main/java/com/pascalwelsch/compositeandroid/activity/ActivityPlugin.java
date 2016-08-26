@@ -940,6 +940,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         return ((CallFun2<Boolean, Integer, Menu>) mSuperListeners.pop()).call(featureId, menu);
     }
 
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+        verifyMethodCalledFromDelegate("onMultiWindowModeChanged(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(isInMultiWindowMode);
+    }
+
     public boolean onNavigateUp() {
         verifyMethodCalledFromDelegate("onNavigateUp()");
         return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
@@ -973,6 +978,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     public void onPause() {
         verifyMethodCalledFromDelegate("onPause()");
         ((CallVoid0) mSuperListeners.pop()).call();
+    }
+
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+        verifyMethodCalledFromDelegate("onPictureInPictureModeChanged(Boolean)");
+        ((CallVoid1<Boolean>) mSuperListeners.pop()).call(isInPictureInPictureMode);
     }
 
     public void onPostCreate(final Bundle savedInstanceState,
@@ -1591,7 +1601,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     public void startActivityForResult(final Intent intent, final int requestCode,
-            final Bundle options) {
+            @Nullable final Bundle options) {
         verifyMethodCalledFromDelegate("startActivityForResult(Intent, Integer, Bundle)");
         ((CallVoid3<Intent, Integer, Bundle>) mSuperListeners.pop())
                 .call(intent, requestCode, options);
@@ -1681,22 +1691,22 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException {
-        verifyMethodCalledFromDelegate(
-                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)");
-        ((CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer>) mSuperListeners
-                .pop()).call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
-    }
-
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         verifyMethodCalledFromDelegate(
                 "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)");
         ((CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>) mSuperListeners
                 .pop()).call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
                 options);
+    }
+
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags) throws IntentSender.SendIntentException {
+        verifyMethodCalledFromDelegate(
+                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer)");
+        ((CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer>) mSuperListeners
+                .pop()).call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
@@ -1719,6 +1729,17 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
                 .pop())
                 .call(child, intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
                         options);
+    }
+
+    public void startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
+            final int requestCode, @Nullable final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException {
+        verifyMethodCalledFromDelegate(
+                "startIntentSenderFromFragment(Fragment, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)");
+        ((CallVoid8<Fragment, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>) mSuperListeners
+                .pop()).call(fragment, intent, requestCode, fillInIntent, flagsMask, flagsValues,
+                extraFlags, options);
     }
 
     public void startLockTask() {
@@ -3040,6 +3061,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
+    void onMultiWindowModeChanged(final CallVoid1<Boolean> superCall,
+            final boolean isInMultiWindowMode) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onMultiWindowModeChanged(isInMultiWindowMode);
+        }
+    }
+
     boolean onNavigateUp(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3089,6 +3118,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPause();
+        }
+    }
+
+    void onPictureInPictureModeChanged(final CallVoid1<Boolean> superCall,
+            final boolean isInPictureInPictureMode) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onPictureInPictureModeChanged(isInPictureInPictureMode);
         }
     }
 
@@ -3952,7 +3989,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void startActivityForResult(final CallVoid3<Intent, Integer, Bundle> superCall,
-            final Intent intent, final int requestCode, final Bundle options) {
+            final Intent intent, final int requestCode, @Nullable final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityForResult(intent, requestCode, options);
@@ -4057,26 +4094,26 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void startIntentSenderForResult(
-            final CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer> superCall,
-            final IntentSender intent, final int requestCode, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags)
-            throws IntentSender.SendIntentException {
-        synchronized (mSuperListeners) {
-            mSuperListeners.push(superCall);
-            startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
-                    extraFlags);
-        }
-    }
-
-    void startIntentSenderForResult(
             final CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle> superCall,
-            final IntentSender intent, final int requestCode, final Intent fillInIntent,
+            final IntentSender intent, final int requestCode, @Nullable final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
                     extraFlags, options);
+        }
+    }
+
+    void startIntentSenderForResult(
+            final CallVoid6<IntentSender, Integer, Intent, Integer, Integer, Integer> superCall,
+            final IntentSender intent, final int requestCode, @Nullable final Intent fillInIntent,
+            final int flagsMask, final int flagsValues, final int extraFlags)
+            throws IntentSender.SendIntentException {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
+                    extraFlags);
         }
     }
 
@@ -4100,6 +4137,18 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
+                    flagsValues, extraFlags, options);
+        }
+    }
+
+    void startIntentSenderFromFragment(
+            final CallVoid8<Fragment, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle> superCall,
+            final Fragment fragment, final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            startIntentSenderFromFragment(fragment, intent, requestCode, fillInIntent, flagsMask,
                     flagsValues, extraFlags, options);
         }
     }

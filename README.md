@@ -59,7 +59,7 @@ public class TrackedTweetStreamActivity extends TweetStreamActivity {
 }
 ```
 
-Both solutions work but don't scale well. You'll most likely end up with big inheritance strictures:
+Both solutions work but don't scale well. You'll most likely end up with big inheritance structures:
 
 ```java
 class MvpActivity extends AppCompatActivity { ... }
@@ -128,17 +128,17 @@ CompositeAndroid is available via [jcenter](http://blog.bintray.com/2015/02/09/a
 
 ```gradle
 dependencies {
-    // based on support library 23.4.0
+    // based on support library 24.2.0
     
     // contains CompositeActivity
-    compile 'com.pascalwelsch.compositeandroid:activity:0.2.1'
+    compile 'com.pascalwelsch.compositeandroid:activity:0.2.2'
 
     // contains CompositeFragment and CompositeDialogFragment
-    compile 'com.pascalwelsch.compositeandroid:fragment:0.2.1'
+    compile 'com.pascalwelsch.compositeandroid:fragment:0.2.2'
 
 
     // core module (not required, only abstract classes and utils)
-    compile 'com.pascalwelsch.compositeandroid:core:0.2.1'
+    compile 'com.pascalwelsch.compositeandroid:core:0.2.2'
 }
 ```
 
@@ -237,11 +237,12 @@ Here some information about plugins. The Activity example is used but it works t
 Not everything works exactly like you'd use inheritance. Here is a small list of minor things you have to know:
 
 #### Important for all Plugin authors
-- you can't call an `Activity` method of a `Plugin` such as `onResume()` or `getResources()`. Otherwise the call order of the added plugins is not guaranteed. Instead call those methods on the real `Activity` with `getCompositeActivity.onResume()` or `getCompositeActivity.getResources()`.
+- you can't call an `Activity` method of a `Plugin` such as `onResume()` or `getResources()`. Otherwise the call order of the added plugins is not guaranteed. Instead call those methods on the real `Activity` with `getActivity.onResume()` or `getActivity.getResources()`.
 
-#### Absolute edgecases
-- you can't really override `Activity#onRetainCustomNonConfigurationInstance()` and `Activity#getLastCustomNonConfigurationInstance()` in sense of intercepting what the actual Activity or other Plugins save or read. But you can use those methods to save and get a non configuration instance object as you would use it in an `Activity`. Make sure you use the same `key` for saving and reading the instance.
-
+#### onRetainNonConfigurationInstace
+- `CompositeActivity#onRetainCustomNonConfigurationInstance()` is final and required for internal usage, use `CompositeActivity#onRetainCompositeCustomNonConfigurationInstance()` instead
+- `CompositeActivity#getLastCustomNonConfigurationInstance()` is final and required for internal usage, use `CompositeActivity#getLastCompositeCustomNonConfigurationInstance()` instead
+- Saving a NonConfigurationInstance inside of a `Plugin` works by overriding `onRetainNonConfigurationInstance()` and returning an instance of `CompositeNonConfigurationInstance(key, object)`. Get the data again with `getLastNonConfigurationInstance(key)` and make sure you use the correct `key`.
 
 ## Project stage
 

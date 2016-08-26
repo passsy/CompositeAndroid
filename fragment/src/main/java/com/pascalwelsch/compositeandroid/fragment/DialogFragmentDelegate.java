@@ -14,6 +14,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -125,21 +126,21 @@ public class DialogFragmentDelegate
     @Override
     public Removable addPlugin(final DialogFragmentPlugin plugin) {
         mMethodImplementingPlugins.clear();
+        mIsOverridden_setStyleIrIr = true;
+        mIsOverridden_showFrSg = true;
+        mIsOverridden_showFnSg = true;
         mIsOverridden_dismiss = true;
         mIsOverridden_dismissAllowingStateLoss = true;
         mIsOverridden_getDialog = true;
-        mIsOverridden_getShowsDialog = true;
         mIsOverridden_getTheme = true;
-        mIsOverridden_isCancelable = true;
-        mIsOverridden_onCancelDe = true;
-        mIsOverridden_onCreateDialogBe = true;
-        mIsOverridden_onDismissDe = true;
         mIsOverridden_setCancelableBn = true;
+        mIsOverridden_isCancelable = true;
         mIsOverridden_setShowsDialogBn = true;
-        mIsOverridden_setStyleIrIr = true;
+        mIsOverridden_getShowsDialog = true;
         mIsOverridden_setupDialogDgIr = true;
-        mIsOverridden_showFrSg = true;
-        mIsOverridden_showFnSg = true;
+        mIsOverridden_onCreateDialogBe = true;
+        mIsOverridden_onCancelDe = true;
+        mIsOverridden_onDismissDe = true;
 
         final Removable removable = super.addPlugin(plugin);
         final Removable superRemovable = mFragmentDelegate.addPlugin(plugin);
@@ -437,6 +438,10 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onAttach(activity);
     }
 
+    public void onAttachFragment(final Fragment childFragment) {
+        mFragmentDelegate.onAttachFragment(childFragment);
+    }
+
     public void onCancel(final DialogInterface dialog) {
         if (!mIsOverridden_onCancelDe) {
             getOriginal().super_onCancel(dialog);
@@ -611,6 +616,10 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onLowMemory();
     }
 
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+        mFragmentDelegate.onMultiWindowModeChanged(isInMultiWindowMode);
+    }
+
     public boolean onOptionsItemSelected(final MenuItem item) {
         return mFragmentDelegate.onOptionsItemSelected(item);
     }
@@ -621,6 +630,10 @@ public class DialogFragmentDelegate
 
     public void onPause() {
         mFragmentDelegate.onPause();
+    }
+
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+        mFragmentDelegate.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
     public void onPrepareOptionsMenu(final Menu menu) {
@@ -973,6 +986,13 @@ public class DialogFragmentDelegate
     public void startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options) {
         mFragmentDelegate.startActivityForResult(intent, requestCode, options);
+    }
+
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+        mFragmentDelegate.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
+                flagsValues, extraFlags, options);
     }
 
     public String toString() {
