@@ -420,6 +420,8 @@ public interface ICompositeActivity
 
     boolean onMenuOpened(final int featureId, final Menu menu);
 
+    void onMultiWindowModeChanged(final boolean isInMultiWindowMode);
+
     boolean onNavigateUp();
 
     boolean onNavigateUpFromChild(final Activity child);
@@ -433,6 +435,8 @@ public interface ICompositeActivity
     void onPanelClosed(final int featureId, final Menu menu);
 
     void onPause();
+
+    void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
 
     void onPostCreate(final Bundle savedInstanceState, final PersistableBundle persistentState);
 
@@ -677,7 +681,8 @@ public interface ICompositeActivity
 
     void startActivityForResult(final Intent intent, final int requestCode);
 
-    void startActivityForResult(final Intent intent, final int requestCode, final Bundle options);
+    void startActivityForResult(final Intent intent, final int requestCode,
+            @Nullable final Bundle options);
 
     void startActivityFromChild(final Activity child, final Intent intent, final int requestCode);
 
@@ -712,12 +717,12 @@ public interface ICompositeActivity
             throws IntentSender.SendIntentException;
 
     void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException;
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
 
     void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags) throws IntentSender.SendIntentException;
 
     void startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
@@ -725,6 +730,11 @@ public interface ICompositeActivity
 
     void startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException;
+
+    void startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
+            final int requestCode, @Nullable final Intent fillInIntent, final int flagsMask,
             final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException;
 
@@ -1083,6 +1093,8 @@ public interface ICompositeActivity
 
     boolean super_onMenuOpened(final int featureId, final Menu menu);
 
+    void super_onMultiWindowModeChanged(final boolean isInMultiWindowMode);
+
     boolean super_onNavigateUp();
 
     boolean super_onNavigateUpFromChild(final Activity child);
@@ -1096,6 +1108,8 @@ public interface ICompositeActivity
     void super_onPanelClosed(final int featureId, final Menu menu);
 
     void super_onPause();
+
+    void super_onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
 
     void super_onPostCreate(final Bundle savedInstanceState,
             final PersistableBundle persistentState);
@@ -1340,7 +1354,7 @@ public interface ICompositeActivity
     void super_startActivityForResult(final Intent intent, final int requestCode);
 
     void super_startActivityForResult(final Intent intent, final int requestCode,
-            final Bundle options);
+            @Nullable final Bundle options);
 
     void super_startActivityFromChild(final Activity child, final Intent intent,
             final int requestCode);
@@ -1377,12 +1391,12 @@ public interface ICompositeActivity
             throws IntentSender.SendIntentException;
 
     void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException;
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
 
     void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags) throws IntentSender.SendIntentException;
 
     void super_startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
@@ -1390,6 +1404,11 @@ public interface ICompositeActivity
 
     void super_startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
+            final int flagsValues, final int extraFlags, final Bundle options)
+            throws IntentSender.SendIntentException;
+
+    void super_startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
+            final int requestCode, @Nullable final Intent fillInIntent, final int flagsMask,
             final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException;
 

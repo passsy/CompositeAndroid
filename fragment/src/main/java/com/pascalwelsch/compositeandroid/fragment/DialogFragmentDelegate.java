@@ -9,11 +9,11 @@ import com.pascalwelsch.compositeandroid.core.CallVoid1;
 import com.pascalwelsch.compositeandroid.core.CallVoid2;
 import com.pascalwelsch.compositeandroid.core.Removable;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -266,6 +266,10 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onAttach(activity);
     }
 
+    public void onAttachFragment(final Fragment childFragment) {
+        mFragmentDelegate.onAttachFragment(childFragment);
+    }
+
     public void onCancel(final DialogInterface dialog) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onCancel(dialog);
@@ -398,6 +402,10 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onLowMemory();
     }
 
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+        mFragmentDelegate.onMultiWindowModeChanged(isInMultiWindowMode);
+    }
+
     public boolean onOptionsItemSelected(final MenuItem item) {
         return mFragmentDelegate.onOptionsItemSelected(item);
     }
@@ -408,6 +416,10 @@ public class DialogFragmentDelegate
 
     public void onPause() {
         mFragmentDelegate.onPause();
+    }
+
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+        mFragmentDelegate.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
     public void onPrepareOptionsMenu(final Menu menu) {
@@ -670,6 +682,13 @@ public class DialogFragmentDelegate
     public void startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options) {
         mFragmentDelegate.startActivityForResult(intent, requestCode, options);
+    }
+
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+        mFragmentDelegate.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
+                flagsValues, extraFlags, options);
     }
 
     public String toString() {

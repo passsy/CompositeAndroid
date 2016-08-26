@@ -9,10 +9,12 @@ import com.pascalwelsch.compositeandroid.core.CallVoid1;
 import com.pascalwelsch.compositeandroid.core.CallVoid2;
 import com.pascalwelsch.compositeandroid.core.CallVoid3;
 import com.pascalwelsch.compositeandroid.core.CallVoid4;
+import com.pascalwelsch.compositeandroid.core.CallVoid7;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -439,6 +441,29 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(activity);
     }
 
+    public void onAttachFragment(final Fragment childFragment) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onAttachFragment(childFragment);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid1<Fragment> superCall = new CallVoid1<Fragment>(
+                "onAttachFragment(Fragment)") {
+
+            @Override
+            public void call(final Fragment childFragment) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onAttachFragment(this, childFragment);
+                } else {
+                    getOriginal().super_onAttachFragment(childFragment);
+                }
+            }
+        };
+        superCall.call(childFragment);
+    }
+
     public void onConfigurationChanged(final Configuration newConfig) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onConfigurationChanged(newConfig);
@@ -790,6 +815,29 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call();
     }
 
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "onMultiWindowModeChanged(Boolean)") {
+
+            @Override
+            public void call(final Boolean isInMultiWindowMode) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onMultiWindowModeChanged(this, isInMultiWindowMode);
+                } else {
+                    getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode);
+                }
+            }
+        };
+        superCall.call(isInMultiWindowMode);
+    }
+
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_onOptionsItemSelected(item);
@@ -854,6 +902,30 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
             }
         };
         superCall.call();
+    }
+
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode);
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
+                "onPictureInPictureModeChanged(Boolean)") {
+
+            @Override
+            public void call(final Boolean isInPictureInPictureMode) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onPictureInPictureModeChanged(this, isInPictureInPictureMode);
+                } else {
+                    getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode);
+                }
+            }
+        };
+        superCall.call(isInPictureInPictureMode);
     }
 
     public void onPrepareOptionsMenu(final Menu menu) {
@@ -1556,6 +1628,52 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
             }
         };
         superCall.call(intent, requestCode, options);
+    }
+
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal().super_startIntentSenderForResult(intent, requestCode, fillInIntent,
+                        flagsMask, flagsValues, extraFlags, options);
+            } catch (IntentSender.SendIntentException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle> superCall
+                = new CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>(
+                "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)") {
+
+            @Override
+            public void call(final IntentSender intent, final Integer requestCode,
+                    final Intent fillInIntent, final Integer flagsMask, final Integer flagsValues,
+                    final Integer extraFlags, final Bundle options) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous()
+                                .startIntentSenderForResult(this, intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags, options);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                } else {
+                    try {
+                        getOriginal()
+                                .super_startIntentSenderForResult(intent, requestCode, fillInIntent,
+                                        flagsMask, flagsValues, extraFlags, options);
+                    } catch (IntentSender.SendIntentException e) {
+                        throw new SuppressedException(e);
+                    }
+                }
+            }
+        };
+        superCall.call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
+                options);
     }
 
     public String toString() {
