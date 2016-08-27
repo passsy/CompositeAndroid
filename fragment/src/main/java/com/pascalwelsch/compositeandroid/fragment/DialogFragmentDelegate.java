@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -37,12 +38,81 @@ import android.view.animation.Animation;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ListIterator;
 
 public class DialogFragmentDelegate
         extends AbstractDelegate<ICompositeDialogFragment, DialogFragmentPlugin> {
 
+    @VisibleForTesting
+    int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
+
+    private int mCallCount_dismiss = 0;
+
+    private int mCallCount_dismissAllowingStateLoss = 0;
+
+    private int mCallCount_getDialog = 0;
+
+    private int mCallCount_getShowsDialog = 0;
+
+    private int mCallCount_getTheme = 0;
+
+    private int mCallCount_isCancelable = 0;
+
+    private int mCallCount_onCancelDe = 0;
+
+    private int mCallCount_onCreateDialogBe = 0;
+
+    private int mCallCount_onDismissDe = 0;
+
+    private int mCallCount_setCancelableBn = 0;
+
+    private int mCallCount_setShowsDialogBn = 0;
+
+    private int mCallCount_setStyleIrIr = 0;
+
+    private int mCallCount_setupDialogDgIr = 0;
+
+    private int mCallCount_showFnSg = 0;
+
+    private int mCallCount_showFrSg = 0;
+
     private final FragmentDelegate mFragmentDelegate;
+
+    private boolean mIsOverridden_dismiss = false;
+
+    private boolean mIsOverridden_dismissAllowingStateLoss = false;
+
+    private boolean mIsOverridden_getDialog = false;
+
+    private boolean mIsOverridden_getShowsDialog = false;
+
+    private boolean mIsOverridden_getTheme = false;
+
+    private boolean mIsOverridden_isCancelable = false;
+
+    private boolean mIsOverridden_onCancelDe = false;
+
+    private boolean mIsOverridden_onCreateDialogBe = false;
+
+    private boolean mIsOverridden_onDismissDe = false;
+
+    private boolean mIsOverridden_setCancelableBn = false;
+
+    private boolean mIsOverridden_setShowsDialogBn = false;
+
+    private boolean mIsOverridden_setStyleIrIr = false;
+
+    private boolean mIsOverridden_setupDialogDgIr = false;
+
+    private boolean mIsOverridden_showFnSg = false;
+
+    private boolean mIsOverridden_showFrSg = false;
+
+    private final HashMap<String, List<DialogFragmentPlugin>> mMethodImplementingPlugins
+            = new HashMap<>();
 
     public DialogFragmentDelegate(final ICompositeDialogFragment icompositedialogfragment) {
         super(icompositedialogfragment);
@@ -55,6 +125,23 @@ public class DialogFragmentDelegate
 
     @Override
     public Removable addPlugin(final DialogFragmentPlugin plugin) {
+        mMethodImplementingPlugins.clear();
+        mIsOverridden_setStyleIrIr = true;
+        mIsOverridden_showFrSg = true;
+        mIsOverridden_showFnSg = true;
+        mIsOverridden_dismiss = true;
+        mIsOverridden_dismissAllowingStateLoss = true;
+        mIsOverridden_getDialog = true;
+        mIsOverridden_getTheme = true;
+        mIsOverridden_setCancelableBn = true;
+        mIsOverridden_isCancelable = true;
+        mIsOverridden_setShowsDialogBn = true;
+        mIsOverridden_getShowsDialog = true;
+        mIsOverridden_setupDialogDgIr = true;
+        mIsOverridden_onCreateDialogBe = true;
+        mIsOverridden_onCancelDe = true;
+        mIsOverridden_onDismissDe = true;
+
         final Removable removable = super.addPlugin(plugin);
         final Removable superRemovable = mFragmentDelegate.addPlugin(plugin);
         return new Removable() {
@@ -67,12 +154,26 @@ public class DialogFragmentDelegate
     }
 
     public void dismiss() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_dismiss) {
             getOriginal().super_dismiss();
             return;
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_dismiss < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_dismiss++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("dismiss()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("dismiss");
+                mMethodImplementingPlugins.put("dismiss()", implementingPlugins);
+                mIsOverridden_dismiss = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid0 superCall = new CallVoid0("dismiss()") {
 
@@ -89,12 +190,26 @@ public class DialogFragmentDelegate
     }
 
     public void dismissAllowingStateLoss() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_dismissAllowingStateLoss) {
             getOriginal().super_dismissAllowingStateLoss();
             return;
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_dismissAllowingStateLoss < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_dismissAllowingStateLoss++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("dismissAllowingStateLoss()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("dismissAllowingStateLoss");
+                mMethodImplementingPlugins.put("dismissAllowingStateLoss()", implementingPlugins);
+                mIsOverridden_dismissAllowingStateLoss = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid0 superCall = new CallVoid0("dismissAllowingStateLoss()") {
 
@@ -128,11 +243,25 @@ public class DialogFragmentDelegate
     }
 
     public Dialog getDialog() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getDialog) {
             return getOriginal().super_getDialog();
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_getDialog < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getDialog++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getDialog()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getDialog");
+                mMethodImplementingPlugins.put("getDialog()", implementingPlugins);
+                mIsOverridden_getDialog = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Dialog> superCall = new CallFun0<Dialog>("getDialog()") {
 
@@ -181,11 +310,25 @@ public class DialogFragmentDelegate
     }
 
     public boolean getShowsDialog() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getShowsDialog) {
             return getOriginal().super_getShowsDialog();
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_getShowsDialog < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getShowsDialog++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getShowsDialog()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getShowsDialog");
+                mMethodImplementingPlugins.put("getShowsDialog()", implementingPlugins);
+                mIsOverridden_getShowsDialog = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Boolean> superCall = new CallFun0<Boolean>("getShowsDialog()") {
 
@@ -202,11 +345,25 @@ public class DialogFragmentDelegate
     }
 
     public int getTheme() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getTheme) {
             return getOriginal().super_getTheme();
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_getTheme < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getTheme++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getTheme()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getTheme");
+                mMethodImplementingPlugins.put("getTheme()", implementingPlugins);
+                mIsOverridden_getTheme = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Integer> superCall = new CallFun0<Integer>("getTheme()") {
 
@@ -231,11 +388,25 @@ public class DialogFragmentDelegate
     }
 
     public boolean isCancelable() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_isCancelable) {
             return getOriginal().super_isCancelable();
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_isCancelable < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_isCancelable++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("isCancelable()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("isCancelable");
+                mMethodImplementingPlugins.put("isCancelable()", implementingPlugins);
+                mIsOverridden_isCancelable = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isCancelable()") {
 
@@ -272,12 +443,26 @@ public class DialogFragmentDelegate
     }
 
     public void onCancel(final DialogInterface dialog) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onCancelDe) {
             getOriginal().super_onCancel(dialog);
             return;
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_onCancelDe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onCancelDe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onCancel(DialogInterface)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onCancel", DialogInterface.class);
+                mMethodImplementingPlugins.put("onCancel(DialogInterface)", implementingPlugins);
+                mIsOverridden_onCancelDe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<DialogInterface> superCall = new CallVoid1<DialogInterface>(
                 "onCancel(DialogInterface)") {
@@ -316,11 +501,25 @@ public class DialogFragmentDelegate
     }
 
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onCreateDialogBe) {
             return getOriginal().super_onCreateDialog(savedInstanceState);
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_onCreateDialogBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onCreateDialogBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onCreateDialog(Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onCreateDialog", Bundle.class);
+                mMethodImplementingPlugins.put("onCreateDialog(Bundle)", implementingPlugins);
+                mIsOverridden_onCreateDialogBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun1<Dialog, Bundle> superCall = new CallFun1<Dialog, Bundle>(
                 "onCreateDialog(Bundle)") {
@@ -363,12 +562,26 @@ public class DialogFragmentDelegate
     }
 
     public void onDismiss(final DialogInterface dialog) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onDismissDe) {
             getOriginal().super_onDismiss(dialog);
             return;
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_onDismissDe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onDismissDe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onDismiss(DialogInterface)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onDismiss", DialogInterface.class);
+                mMethodImplementingPlugins.put("onDismiss(DialogInterface)", implementingPlugins);
+                mIsOverridden_onDismissDe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<DialogInterface> superCall = new CallVoid1<DialogInterface>(
                 "onDismiss(DialogInterface)") {
@@ -473,12 +686,26 @@ public class DialogFragmentDelegate
     }
 
     public void setCancelable(final boolean cancelable) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setCancelableBn) {
             getOriginal().super_setCancelable(cancelable);
             return;
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_setCancelableBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setCancelableBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setCancelable(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setCancelable", Boolean.class);
+                mMethodImplementingPlugins.put("setCancelable(Boolean)", implementingPlugins);
+                mIsOverridden_setCancelableBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setCancelable(Boolean)") {
 
@@ -543,12 +770,26 @@ public class DialogFragmentDelegate
     }
 
     public void setShowsDialog(final boolean showsDialog) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setShowsDialogBn) {
             getOriginal().super_setShowsDialog(showsDialog);
             return;
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_setShowsDialogBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setShowsDialogBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setShowsDialog(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setShowsDialog", Boolean.class);
+                mMethodImplementingPlugins.put("setShowsDialog(Boolean)", implementingPlugins);
+                mIsOverridden_setShowsDialogBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setShowsDialog(Boolean)") {
 
@@ -565,12 +806,27 @@ public class DialogFragmentDelegate
     }
 
     public void setStyle(final int style, @StyleRes final int theme) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setStyleIrIr) {
             getOriginal().super_setStyle(style, theme);
             return;
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_setStyleIrIr < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setStyleIrIr++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setStyle(Integer, Integer)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setStyle", Integer.class,
+                        Integer.class);
+                mMethodImplementingPlugins.put("setStyle(Integer, Integer)", implementingPlugins);
+                mIsOverridden_setStyleIrIr = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid2<Integer, Integer> superCall = new CallVoid2<Integer, Integer>(
                 "setStyle(Integer, Integer)") {
@@ -596,12 +852,27 @@ public class DialogFragmentDelegate
     }
 
     public void setupDialog(final Dialog dialog, final int style) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setupDialogDgIr) {
             getOriginal().super_setupDialog(dialog, style);
             return;
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_setupDialogDgIr < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setupDialogDgIr++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setupDialog(Dialog, Integer)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setupDialog", Dialog.class,
+                        Integer.class);
+                mMethodImplementingPlugins.put("setupDialog(Dialog, Integer)", implementingPlugins);
+                mIsOverridden_setupDialogDgIr = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid2<Dialog, Integer> superCall = new CallVoid2<Dialog, Integer>(
                 "setupDialog(Dialog, Integer)") {
@@ -623,12 +894,28 @@ public class DialogFragmentDelegate
     }
 
     public void show(final FragmentManager manager, final String tag) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_showFrSg) {
             getOriginal().super_show(manager, tag);
             return;
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_showFrSg < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_showFrSg++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("show(FragmentManager, String)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("show", FragmentManager.class,
+                        String.class);
+                mMethodImplementingPlugins
+                        .put("show(FragmentManager, String)", implementingPlugins);
+                mIsOverridden_showFrSg = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid2<FragmentManager, String> superCall = new CallVoid2<FragmentManager, String>(
                 "show(FragmentManager, String)") {
@@ -646,11 +933,27 @@ public class DialogFragmentDelegate
     }
 
     public int show(final FragmentTransaction transaction, final String tag) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_showFnSg) {
             return getOriginal().super_show(transaction, tag);
         }
 
-        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<DialogFragmentPlugin> iterator;
+        if (mCallCount_showFnSg < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_showFnSg++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<DialogFragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("show(FragmentTransaction, String)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("show", FragmentTransaction.class,
+                        String.class);
+                mMethodImplementingPlugins
+                        .put("show(FragmentTransaction, String)", implementingPlugins);
+                mIsOverridden_showFnSg = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun2<Integer, FragmentTransaction, String> superCall
                 = new CallFun2<Integer, FragmentTransaction, String>(
@@ -698,6 +1001,20 @@ public class DialogFragmentDelegate
 
     public void unregisterForContextMenu(final View view) {
         mFragmentDelegate.unregisterForContextMenu(view);
+    }
+
+    private List<DialogFragmentPlugin> getImplementingPlugins(final String methodName,
+            final Class<?>... parameterTypes) {
+        synchronized (mPlugins) {
+            final ArrayList<DialogFragmentPlugin> implementingPlugins = new ArrayList<>();
+            for (int i = 0; i < mPlugins.size(); i++) {
+                final DialogFragmentPlugin plugin = mPlugins.get(i);
+                if (plugin.isMethodOverridden(methodName, parameterTypes)) {
+                    implementingPlugins.add(plugin);
+                }
+            }
+            return implementingPlugins;
+        }
     }
 
 

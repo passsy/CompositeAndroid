@@ -18,6 +18,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 
+import java.lang.reflect.Method;
+
 
 @SuppressWarnings("unused")
 public class DialogFragmentPlugin extends FragmentPlugin {
@@ -194,6 +196,16 @@ public class DialogFragmentPlugin extends FragmentPlugin {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isCancelable();
+        }
+    }
+
+    boolean isMethodOverridden(final String methodName, final Class<?>... parameterTypes) {
+        try {
+            final Class<? extends DialogFragmentPlugin> myClass = this.getClass();
+            final Method method = myClass.getMethod(methodName, parameterTypes);
+            return method.getDeclaringClass() != DialogFragmentPlugin.class;
+        } catch (NoSuchMethodException ignore) {
+            return false;
         }
     }
 

@@ -91,6 +91,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
 
 
 @SuppressWarnings("unused")
@@ -2695,6 +2696,16 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isImmersive();
+        }
+    }
+
+    boolean isMethodOverridden(final String methodName, final Class<?>... parameterTypes) {
+        try {
+            final Class<? extends ActivityPlugin> myClass = this.getClass();
+            final Method method = myClass.getMethod(methodName, parameterTypes);
+            return method.getDeclaringClass() != ActivityPlugin.class;
+        } catch (NoSuchMethodException ignore) {
+            return false;
         }
     }
 

@@ -34,6 +34,7 @@ import android.view.animation.Animation;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
 
 @SuppressWarnings("unused")
 public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
@@ -527,6 +528,16 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getView();
+        }
+    }
+
+    boolean isMethodOverridden(final String methodName, final Class<?>... parameterTypes) {
+        try {
+            final Class<? extends FragmentPlugin> myClass = this.getClass();
+            final Method method = myClass.getMethod(methodName, parameterTypes);
+            return method.getDeclaringClass() != FragmentPlugin.class;
+        } catch (NoSuchMethodException ignore) {
+            return false;
         }
     }
 

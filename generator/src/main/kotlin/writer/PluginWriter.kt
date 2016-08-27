@@ -36,6 +36,7 @@ fun writePlugin(outPath: String,
         |package com.pascalwelsch.compositeandroid.$javaPackage;
         |
         |import com.pascalwelsch.compositeandroid.core.*;
+        |import java.lang.reflect.Method;
         |
         |${javaFile.imports}
         |
@@ -46,6 +47,17 @@ fun writePlugin(outPath: String,
         |$methods
         |
         |$niceGetter
+        |
+        |        boolean isMethodOverridden(final String methodName, final Class<?>... parameterTypes) {
+        |            try {
+        |                final Class<? extends $javaClassName> myClass = this.getClass();
+        |                final Method method = myClass.getMethod(methodName, parameterTypes);
+        |                return method.getDeclaringClass() != $javaClassName.class;
+        |            } catch (NoSuchMethodException ignore) {
+        |                return false;
+        |            }
+        |        }
+        |
         |
         |${addCodeToClass ?: ""}
         |}

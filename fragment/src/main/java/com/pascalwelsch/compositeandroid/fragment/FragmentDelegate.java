@@ -10,6 +10,7 @@ import com.pascalwelsch.compositeandroid.core.CallVoid2;
 import com.pascalwelsch.compositeandroid.core.CallVoid3;
 import com.pascalwelsch.compositeandroid.core.CallVoid4;
 import com.pascalwelsch.compositeandroid.core.CallVoid7;
+import com.pascalwelsch.compositeandroid.core.Removable;
 import com.pascalwelsch.compositeandroid.core.SuppressedException;
 
 import android.app.Activity;
@@ -20,6 +21,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
@@ -35,25 +37,421 @@ import android.view.animation.Animation;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ListIterator;
 
 public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, FragmentPlugin> {
 
+    @VisibleForTesting
+    int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
+
+    private int mCallCount_dumpSgFrPrSg = 0;
+
+    private int mCallCount_getAllowEnterTransitionOverlap = 0;
+
+    private int mCallCount_getAllowReturnTransitionOverlap = 0;
+
+    private int mCallCount_getContext = 0;
+
+    private int mCallCount_getEnterTransition = 0;
+
+    private int mCallCount_getExitTransition = 0;
+
+    private int mCallCount_getLayoutInflaterBe = 0;
+
+    private int mCallCount_getLoaderManager = 0;
+
+    private int mCallCount_getReenterTransition = 0;
+
+    private int mCallCount_getReturnTransition = 0;
+
+    private int mCallCount_getSharedElementEnterTransition = 0;
+
+    private int mCallCount_getSharedElementReturnTransition = 0;
+
+    private int mCallCount_getUserVisibleHint = 0;
+
+    private int mCallCount_getView = 0;
+
+    private int mCallCount_onActivityCreatedBe = 0;
+
+    private int mCallCount_onActivityResultIrIrIt = 0;
+
+    private int mCallCount_onAttachAy = 0;
+
+    private int mCallCount_onAttachCt = 0;
+
+    private int mCallCount_onAttachFragmentFt = 0;
+
+    private int mCallCount_onConfigurationChangedCn = 0;
+
+    private int mCallCount_onContextItemSelectedMm = 0;
+
+    private int mCallCount_onCreateAnimationIrBnIr = 0;
+
+    private int mCallCount_onCreateBe = 0;
+
+    private int mCallCount_onCreateContextMenuCuVwCo = 0;
+
+    private int mCallCount_onCreateOptionsMenuMuMr = 0;
+
+    private int mCallCount_onCreateViewLrVpBe = 0;
+
+    private int mCallCount_onDestroy = 0;
+
+    private int mCallCount_onDestroyOptionsMenu = 0;
+
+    private int mCallCount_onDestroyView = 0;
+
+    private int mCallCount_onDetach = 0;
+
+    private int mCallCount_onHiddenChangedBn = 0;
+
+    private int mCallCount_onInflateAyAtBe = 0;
+
+    private int mCallCount_onInflateCtAtBe = 0;
+
+    private int mCallCount_onLowMemory = 0;
+
+    private int mCallCount_onMultiWindowModeChangedBn = 0;
+
+    private int mCallCount_onOptionsItemSelectedMm = 0;
+
+    private int mCallCount_onOptionsMenuClosedMu = 0;
+
+    private int mCallCount_onPause = 0;
+
+    private int mCallCount_onPictureInPictureModeChangedBn = 0;
+
+    private int mCallCount_onPrepareOptionsMenuMu = 0;
+
+    private int mCallCount_onRequestPermissionsResultIrSgit = 0;
+
+    private int mCallCount_onResume = 0;
+
+    private int mCallCount_onSaveInstanceStateBe = 0;
+
+    private int mCallCount_onStart = 0;
+
+    private int mCallCount_onStop = 0;
+
+    private int mCallCount_onViewCreatedVwBe = 0;
+
+    private int mCallCount_onViewStateRestoredBe = 0;
+
+    private int mCallCount_registerForContextMenuVw = 0;
+
+    private int mCallCount_setAllowEnterTransitionOverlapBn = 0;
+
+    private int mCallCount_setAllowReturnTransitionOverlapBn = 0;
+
+    private int mCallCount_setArgumentsBe = 0;
+
+    private int mCallCount_setEnterSharedElementCallbackSk = 0;
+
+    private int mCallCount_setEnterTransitionOt = 0;
+
+    private int mCallCount_setExitSharedElementCallbackSk = 0;
+
+    private int mCallCount_setExitTransitionOt = 0;
+
+    private int mCallCount_setHasOptionsMenuBn = 0;
+
+    private int mCallCount_setInitialSavedStateSe = 0;
+
+    private int mCallCount_setMenuVisibilityBn = 0;
+
+    private int mCallCount_setReenterTransitionOt = 0;
+
+    private int mCallCount_setRetainInstanceBn = 0;
+
+    private int mCallCount_setReturnTransitionOt = 0;
+
+    private int mCallCount_setSharedElementEnterTransitionOt = 0;
+
+    private int mCallCount_setSharedElementReturnTransitionOt = 0;
+
+    private int mCallCount_setTargetFragmentFtIr = 0;
+
+    private int mCallCount_setUserVisibleHintBn = 0;
+
+    private int mCallCount_shouldShowRequestPermissionRationaleSg = 0;
+
+    private int mCallCount_startActivityForResultItIr = 0;
+
+    private int mCallCount_startActivityForResultItIrBe = 0;
+
+    private int mCallCount_startActivityIt = 0;
+
+    private int mCallCount_startActivityItBe = 0;
+
+    private int mCallCount_startIntentSenderForResultIrIrItIrIrIrBe = 0;
+
+    private int mCallCount_toString = 0;
+
+    private int mCallCount_unregisterForContextMenuVw = 0;
+
+    private boolean mIsOverridden_dumpSgFrPrSg = false;
+
+    private boolean mIsOverridden_getAllowEnterTransitionOverlap = false;
+
+    private boolean mIsOverridden_getAllowReturnTransitionOverlap = false;
+
+    private boolean mIsOverridden_getContext = false;
+
+    private boolean mIsOverridden_getEnterTransition = false;
+
+    private boolean mIsOverridden_getExitTransition = false;
+
+    private boolean mIsOverridden_getLayoutInflaterBe = false;
+
+    private boolean mIsOverridden_getLoaderManager = false;
+
+    private boolean mIsOverridden_getReenterTransition = false;
+
+    private boolean mIsOverridden_getReturnTransition = false;
+
+    private boolean mIsOverridden_getSharedElementEnterTransition = false;
+
+    private boolean mIsOverridden_getSharedElementReturnTransition = false;
+
+    private boolean mIsOverridden_getUserVisibleHint = false;
+
+    private boolean mIsOverridden_getView = false;
+
+    private boolean mIsOverridden_onActivityCreatedBe = false;
+
+    private boolean mIsOverridden_onActivityResultIrIrIt = false;
+
+    private boolean mIsOverridden_onAttachAy = false;
+
+    private boolean mIsOverridden_onAttachCt = false;
+
+    private boolean mIsOverridden_onAttachFragmentFt = false;
+
+    private boolean mIsOverridden_onConfigurationChangedCn = false;
+
+    private boolean mIsOverridden_onContextItemSelectedMm = false;
+
+    private boolean mIsOverridden_onCreateAnimationIrBnIr = false;
+
+    private boolean mIsOverridden_onCreateBe = false;
+
+    private boolean mIsOverridden_onCreateContextMenuCuVwCo = false;
+
+    private boolean mIsOverridden_onCreateOptionsMenuMuMr = false;
+
+    private boolean mIsOverridden_onCreateViewLrVpBe = false;
+
+    private boolean mIsOverridden_onDestroy = false;
+
+    private boolean mIsOverridden_onDestroyOptionsMenu = false;
+
+    private boolean mIsOverridden_onDestroyView = false;
+
+    private boolean mIsOverridden_onDetach = false;
+
+    private boolean mIsOverridden_onHiddenChangedBn = false;
+
+    private boolean mIsOverridden_onInflateAyAtBe = false;
+
+    private boolean mIsOverridden_onInflateCtAtBe = false;
+
+    private boolean mIsOverridden_onLowMemory = false;
+
+    private boolean mIsOverridden_onMultiWindowModeChangedBn = false;
+
+    private boolean mIsOverridden_onOptionsItemSelectedMm = false;
+
+    private boolean mIsOverridden_onOptionsMenuClosedMu = false;
+
+    private boolean mIsOverridden_onPause = false;
+
+    private boolean mIsOverridden_onPictureInPictureModeChangedBn = false;
+
+    private boolean mIsOverridden_onPrepareOptionsMenuMu = false;
+
+    private boolean mIsOverridden_onRequestPermissionsResultIrSgit = false;
+
+    private boolean mIsOverridden_onResume = false;
+
+    private boolean mIsOverridden_onSaveInstanceStateBe = false;
+
+    private boolean mIsOverridden_onStart = false;
+
+    private boolean mIsOverridden_onStop = false;
+
+    private boolean mIsOverridden_onViewCreatedVwBe = false;
+
+    private boolean mIsOverridden_onViewStateRestoredBe = false;
+
+    private boolean mIsOverridden_registerForContextMenuVw = false;
+
+    private boolean mIsOverridden_setAllowEnterTransitionOverlapBn = false;
+
+    private boolean mIsOverridden_setAllowReturnTransitionOverlapBn = false;
+
+    private boolean mIsOverridden_setArgumentsBe = false;
+
+    private boolean mIsOverridden_setEnterSharedElementCallbackSk = false;
+
+    private boolean mIsOverridden_setEnterTransitionOt = false;
+
+    private boolean mIsOverridden_setExitSharedElementCallbackSk = false;
+
+    private boolean mIsOverridden_setExitTransitionOt = false;
+
+    private boolean mIsOverridden_setHasOptionsMenuBn = false;
+
+    private boolean mIsOverridden_setInitialSavedStateSe = false;
+
+    private boolean mIsOverridden_setMenuVisibilityBn = false;
+
+    private boolean mIsOverridden_setReenterTransitionOt = false;
+
+    private boolean mIsOverridden_setRetainInstanceBn = false;
+
+    private boolean mIsOverridden_setReturnTransitionOt = false;
+
+    private boolean mIsOverridden_setSharedElementEnterTransitionOt = false;
+
+    private boolean mIsOverridden_setSharedElementReturnTransitionOt = false;
+
+    private boolean mIsOverridden_setTargetFragmentFtIr = false;
+
+    private boolean mIsOverridden_setUserVisibleHintBn = false;
+
+    private boolean mIsOverridden_shouldShowRequestPermissionRationaleSg = false;
+
+    private boolean mIsOverridden_startActivityForResultItIr = false;
+
+    private boolean mIsOverridden_startActivityForResultItIrBe = false;
+
+    private boolean mIsOverridden_startActivityIt = false;
+
+    private boolean mIsOverridden_startActivityItBe = false;
+
+    private boolean mIsOverridden_startIntentSenderForResultIrIrItIrIrIrBe = false;
+
+    private boolean mIsOverridden_toString = false;
+
+    private boolean mIsOverridden_unregisterForContextMenuVw = false;
+
+    private final HashMap<String, List<FragmentPlugin>> mMethodImplementingPlugins
+            = new HashMap<>();
 
     public FragmentDelegate(final ICompositeFragment icompositefragment) {
         super(icompositefragment);
 
     }
 
+    @Override
+    public Removable addPlugin(final FragmentPlugin plugin) {
+        mMethodImplementingPlugins.clear();
+        mIsOverridden_dumpSgFrPrSg = true;
+        mIsOverridden_getAllowEnterTransitionOverlap = true;
+        mIsOverridden_getAllowReturnTransitionOverlap = true;
+        mIsOverridden_getContext = true;
+        mIsOverridden_getEnterTransition = true;
+        mIsOverridden_getExitTransition = true;
+        mIsOverridden_getLayoutInflaterBe = true;
+        mIsOverridden_getLoaderManager = true;
+        mIsOverridden_getReenterTransition = true;
+        mIsOverridden_getReturnTransition = true;
+        mIsOverridden_getSharedElementEnterTransition = true;
+        mIsOverridden_getSharedElementReturnTransition = true;
+        mIsOverridden_getUserVisibleHint = true;
+        mIsOverridden_getView = true;
+        mIsOverridden_onActivityCreatedBe = true;
+        mIsOverridden_onActivityResultIrIrIt = true;
+        mIsOverridden_onAttachCt = true;
+        mIsOverridden_onAttachAy = true;
+        mIsOverridden_onAttachFragmentFt = true;
+        mIsOverridden_onConfigurationChangedCn = true;
+        mIsOverridden_onContextItemSelectedMm = true;
+        mIsOverridden_onCreateBe = true;
+        mIsOverridden_onCreateAnimationIrBnIr = true;
+        mIsOverridden_onCreateContextMenuCuVwCo = true;
+        mIsOverridden_onCreateOptionsMenuMuMr = true;
+        mIsOverridden_onCreateViewLrVpBe = true;
+        mIsOverridden_onDestroy = true;
+        mIsOverridden_onDestroyOptionsMenu = true;
+        mIsOverridden_onDestroyView = true;
+        mIsOverridden_onDetach = true;
+        mIsOverridden_onHiddenChangedBn = true;
+        mIsOverridden_onInflateCtAtBe = true;
+        mIsOverridden_onInflateAyAtBe = true;
+        mIsOverridden_onLowMemory = true;
+        mIsOverridden_onMultiWindowModeChangedBn = true;
+        mIsOverridden_onOptionsItemSelectedMm = true;
+        mIsOverridden_onOptionsMenuClosedMu = true;
+        mIsOverridden_onPause = true;
+        mIsOverridden_onPictureInPictureModeChangedBn = true;
+        mIsOverridden_onPrepareOptionsMenuMu = true;
+        mIsOverridden_onRequestPermissionsResultIrSgit = true;
+        mIsOverridden_onResume = true;
+        mIsOverridden_onSaveInstanceStateBe = true;
+        mIsOverridden_onStart = true;
+        mIsOverridden_onStop = true;
+        mIsOverridden_onViewCreatedVwBe = true;
+        mIsOverridden_onViewStateRestoredBe = true;
+        mIsOverridden_registerForContextMenuVw = true;
+        mIsOverridden_setAllowEnterTransitionOverlapBn = true;
+        mIsOverridden_setAllowReturnTransitionOverlapBn = true;
+        mIsOverridden_setArgumentsBe = true;
+        mIsOverridden_setEnterSharedElementCallbackSk = true;
+        mIsOverridden_setEnterTransitionOt = true;
+        mIsOverridden_setExitSharedElementCallbackSk = true;
+        mIsOverridden_setExitTransitionOt = true;
+        mIsOverridden_setHasOptionsMenuBn = true;
+        mIsOverridden_setInitialSavedStateSe = true;
+        mIsOverridden_setMenuVisibilityBn = true;
+        mIsOverridden_setReenterTransitionOt = true;
+        mIsOverridden_setRetainInstanceBn = true;
+        mIsOverridden_setReturnTransitionOt = true;
+        mIsOverridden_setSharedElementEnterTransitionOt = true;
+        mIsOverridden_setSharedElementReturnTransitionOt = true;
+        mIsOverridden_setTargetFragmentFtIr = true;
+        mIsOverridden_setUserVisibleHintBn = true;
+        mIsOverridden_shouldShowRequestPermissionRationaleSg = true;
+        mIsOverridden_startActivityIt = true;
+        mIsOverridden_startActivityItBe = true;
+        mIsOverridden_startActivityForResultItIr = true;
+        mIsOverridden_startActivityForResultItIrBe = true;
+        mIsOverridden_startIntentSenderForResultIrIrItIrIrIrBe = true;
+        mIsOverridden_toString = true;
+        mIsOverridden_unregisterForContextMenuVw = true;
+
+        return super.addPlugin(plugin);
+    }
 
     public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
             final String[] args) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_dumpSgFrPrSg) {
             getOriginal().super_dump(prefix, fd, writer, args);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_dumpSgFrPrSg < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_dumpSgFrPrSg++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("dump(String, FileDescriptor, PrintWriter, String[])");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("dump", String.class,
+                        FileDescriptor.class, PrintWriter.class, String[].class);
+                mMethodImplementingPlugins
+                        .put("dump(String, FileDescriptor, PrintWriter, String[])",
+                                implementingPlugins);
+                mIsOverridden_dumpSgFrPrSg = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid4<String, FileDescriptor, PrintWriter, String[]> superCall
                 = new CallVoid4<String, FileDescriptor, PrintWriter, String[]>(
@@ -73,11 +471,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public boolean getAllowEnterTransitionOverlap() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getAllowEnterTransitionOverlap) {
             return getOriginal().super_getAllowEnterTransitionOverlap();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getAllowEnterTransitionOverlap < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getAllowEnterTransitionOverlap++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getAllowEnterTransitionOverlap()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getAllowEnterTransitionOverlap");
+                mMethodImplementingPlugins
+                        .put("getAllowEnterTransitionOverlap()", implementingPlugins);
+                mIsOverridden_getAllowEnterTransitionOverlap = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Boolean> superCall = new CallFun0<Boolean>(
                 "getAllowEnterTransitionOverlap()") {
@@ -95,11 +508,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public boolean getAllowReturnTransitionOverlap() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getAllowReturnTransitionOverlap) {
             return getOriginal().super_getAllowReturnTransitionOverlap();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getAllowReturnTransitionOverlap < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getAllowReturnTransitionOverlap++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getAllowReturnTransitionOverlap()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getAllowReturnTransitionOverlap");
+                mMethodImplementingPlugins
+                        .put("getAllowReturnTransitionOverlap()", implementingPlugins);
+                mIsOverridden_getAllowReturnTransitionOverlap = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Boolean> superCall = new CallFun0<Boolean>(
                 "getAllowReturnTransitionOverlap()") {
@@ -117,11 +545,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public Context getContext() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getContext) {
             return getOriginal().super_getContext();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getContext < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getContext++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getContext()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getContext");
+                mMethodImplementingPlugins.put("getContext()", implementingPlugins);
+                mIsOverridden_getContext = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Context> superCall = new CallFun0<Context>("getContext()") {
 
@@ -138,11 +580,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public Object getEnterTransition() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getEnterTransition) {
             return getOriginal().super_getEnterTransition();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getEnterTransition < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getEnterTransition++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getEnterTransition()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getEnterTransition");
+                mMethodImplementingPlugins.put("getEnterTransition()", implementingPlugins);
+                mIsOverridden_getEnterTransition = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Object> superCall = new CallFun0<Object>("getEnterTransition()") {
 
@@ -159,11 +615,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public Object getExitTransition() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getExitTransition) {
             return getOriginal().super_getExitTransition();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getExitTransition < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getExitTransition++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getExitTransition()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getExitTransition");
+                mMethodImplementingPlugins.put("getExitTransition()", implementingPlugins);
+                mIsOverridden_getExitTransition = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Object> superCall = new CallFun0<Object>("getExitTransition()") {
 
@@ -180,11 +650,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getLayoutInflaterBe) {
             return getOriginal().super_getLayoutInflater(savedInstanceState);
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getLayoutInflaterBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getLayoutInflaterBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getLayoutInflater(Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getLayoutInflater", Bundle.class);
+                mMethodImplementingPlugins.put("getLayoutInflater(Bundle)", implementingPlugins);
+                mIsOverridden_getLayoutInflaterBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun1<LayoutInflater, Bundle> superCall = new CallFun1<LayoutInflater, Bundle>(
                 "getLayoutInflater(Bundle)") {
@@ -202,11 +686,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public LoaderManager getLoaderManager() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getLoaderManager) {
             return getOriginal().super_getLoaderManager();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getLoaderManager < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getLoaderManager++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getLoaderManager()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getLoaderManager");
+                mMethodImplementingPlugins.put("getLoaderManager()", implementingPlugins);
+                mIsOverridden_getLoaderManager = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<LoaderManager> superCall = new CallFun0<LoaderManager>(
                 "getLoaderManager()") {
@@ -224,11 +722,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public Object getReenterTransition() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getReenterTransition) {
             return getOriginal().super_getReenterTransition();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getReenterTransition < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getReenterTransition++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getReenterTransition()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getReenterTransition");
+                mMethodImplementingPlugins.put("getReenterTransition()", implementingPlugins);
+                mIsOverridden_getReenterTransition = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Object> superCall = new CallFun0<Object>("getReenterTransition()") {
 
@@ -245,11 +757,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public Object getReturnTransition() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getReturnTransition) {
             return getOriginal().super_getReturnTransition();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getReturnTransition < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getReturnTransition++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getReturnTransition()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getReturnTransition");
+                mMethodImplementingPlugins.put("getReturnTransition()", implementingPlugins);
+                mIsOverridden_getReturnTransition = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Object> superCall = new CallFun0<Object>("getReturnTransition()") {
 
@@ -266,11 +792,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public Object getSharedElementEnterTransition() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getSharedElementEnterTransition) {
             return getOriginal().super_getSharedElementEnterTransition();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getSharedElementEnterTransition < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getSharedElementEnterTransition++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getSharedElementEnterTransition()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getSharedElementEnterTransition");
+                mMethodImplementingPlugins
+                        .put("getSharedElementEnterTransition()", implementingPlugins);
+                mIsOverridden_getSharedElementEnterTransition = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Object> superCall = new CallFun0<Object>(
                 "getSharedElementEnterTransition()") {
@@ -288,11 +829,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public Object getSharedElementReturnTransition() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getSharedElementReturnTransition) {
             return getOriginal().super_getSharedElementReturnTransition();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getSharedElementReturnTransition < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getSharedElementReturnTransition++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getSharedElementReturnTransition()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getSharedElementReturnTransition");
+                mMethodImplementingPlugins
+                        .put("getSharedElementReturnTransition()", implementingPlugins);
+                mIsOverridden_getSharedElementReturnTransition = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Object> superCall = new CallFun0<Object>(
                 "getSharedElementReturnTransition()") {
@@ -310,11 +866,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public boolean getUserVisibleHint() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getUserVisibleHint) {
             return getOriginal().super_getUserVisibleHint();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getUserVisibleHint < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getUserVisibleHint++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("getUserVisibleHint()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getUserVisibleHint");
+                mMethodImplementingPlugins.put("getUserVisibleHint()", implementingPlugins);
+                mIsOverridden_getUserVisibleHint = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<Boolean> superCall = new CallFun0<Boolean>("getUserVisibleHint()") {
 
@@ -331,11 +901,24 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public View getView() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_getView) {
             return getOriginal().super_getView();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_getView < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_getView++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins.get("getView()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("getView");
+                mMethodImplementingPlugins.put("getView()", implementingPlugins);
+                mIsOverridden_getView = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<View> superCall = new CallFun0<View>("getView()") {
 
@@ -352,12 +935,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onActivityCreatedBe) {
             getOriginal().super_onActivityCreated(savedInstanceState);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onActivityCreatedBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onActivityCreatedBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onActivityCreated(Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onActivityCreated", Bundle.class);
+                mMethodImplementingPlugins.put("onActivityCreated(Bundle)", implementingPlugins);
+                mIsOverridden_onActivityCreatedBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onActivityCreated(Bundle)") {
 
@@ -374,12 +971,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onActivityResultIrIrIt) {
             getOriginal().super_onActivityResult(requestCode, resultCode, data);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onActivityResultIrIrIt < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onActivityResultIrIrIt++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onActivityResult(Integer, Integer, Intent)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onActivityResult", Integer.class,
+                        Integer.class, Intent.class);
+                mMethodImplementingPlugins
+                        .put("onActivityResult(Integer, Integer, Intent)", implementingPlugins);
+                mIsOverridden_onActivityResultIrIrIt = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid3<Integer, Integer, Intent> superCall
                 = new CallVoid3<Integer, Integer, Intent>(
@@ -399,12 +1012,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onAttach(final Context context) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onAttachCt) {
             getOriginal().super_onAttach(context);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onAttachCt < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onAttachCt++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onAttach(Context)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onAttach", Context.class);
+                mMethodImplementingPlugins.put("onAttach(Context)", implementingPlugins);
+                mIsOverridden_onAttachCt = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Context> superCall = new CallVoid1<Context>("onAttach(Context)") {
 
@@ -421,12 +1048,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onAttach(final Activity activity) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onAttachAy) {
             getOriginal().super_onAttach(activity);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onAttachAy < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onAttachAy++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onAttach(Activity)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onAttach", Activity.class);
+                mMethodImplementingPlugins.put("onAttach(Activity)", implementingPlugins);
+                mIsOverridden_onAttachAy = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Activity> superCall = new CallVoid1<Activity>("onAttach(Activity)") {
 
@@ -443,12 +1084,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onAttachFragment(final Fragment childFragment) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onAttachFragmentFt) {
             getOriginal().super_onAttachFragment(childFragment);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onAttachFragmentFt < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onAttachFragmentFt++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onAttachFragment(Fragment)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onAttachFragment", Fragment.class);
+                mMethodImplementingPlugins.put("onAttachFragment(Fragment)", implementingPlugins);
+                mIsOverridden_onAttachFragmentFt = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Fragment> superCall = new CallVoid1<Fragment>(
                 "onAttachFragment(Fragment)") {
@@ -466,12 +1121,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onConfigurationChanged(final Configuration newConfig) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onConfigurationChangedCn) {
             getOriginal().super_onConfigurationChanged(newConfig);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onConfigurationChangedCn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onConfigurationChangedCn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onConfigurationChanged(Configuration)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onConfigurationChanged",
+                        Configuration.class);
+                mMethodImplementingPlugins
+                        .put("onConfigurationChanged(Configuration)", implementingPlugins);
+                mIsOverridden_onConfigurationChangedCn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Configuration> superCall = new CallVoid1<Configuration>(
                 "onConfigurationChanged(Configuration)") {
@@ -489,11 +1160,27 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public boolean onContextItemSelected(final MenuItem item) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onContextItemSelectedMm) {
             return getOriginal().super_onContextItemSelected(item);
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onContextItemSelectedMm < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onContextItemSelectedMm++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onContextItemSelected(MenuItem)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onContextItemSelected",
+                        MenuItem.class);
+                mMethodImplementingPlugins
+                        .put("onContextItemSelected(MenuItem)", implementingPlugins);
+                mIsOverridden_onContextItemSelectedMm = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun1<Boolean, MenuItem> superCall = new CallFun1<Boolean, MenuItem>(
                 "onContextItemSelected(MenuItem)") {
@@ -511,12 +1198,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onCreate(@Nullable final Bundle savedInstanceState) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onCreateBe) {
             getOriginal().super_onCreate(savedInstanceState);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onCreateBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onCreateBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onCreate(Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onCreate", Bundle.class);
+                mMethodImplementingPlugins.put("onCreate(Bundle)", implementingPlugins);
+                mIsOverridden_onCreateBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onCreate(Bundle)") {
 
@@ -533,11 +1234,27 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onCreateAnimationIrBnIr) {
             return getOriginal().super_onCreateAnimation(transit, enter, nextAnim);
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onCreateAnimationIrBnIr < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onCreateAnimationIrBnIr++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onCreateAnimation(Integer, Boolean, Integer)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onCreateAnimation", Integer.TYPE,
+                        Boolean.TYPE, Integer.TYPE);
+                mMethodImplementingPlugins
+                        .put("onCreateAnimation(Integer, Boolean, Integer)", implementingPlugins);
+                mIsOverridden_onCreateAnimationIrBnIr = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun3<Animation, Integer, Boolean, Integer> superCall
                 = new CallFun3<Animation, Integer, Boolean, Integer>(
@@ -558,12 +1275,29 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     public void onCreateContextMenu(final ContextMenu menu, final View v,
             final ContextMenu.ContextMenuInfo menuInfo) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onCreateContextMenuCuVwCo) {
             getOriginal().super_onCreateContextMenu(menu, v, menuInfo);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onCreateContextMenuCuVwCo < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onCreateContextMenuCuVwCo++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onCreateContextMenu",
+                        ContextMenu.class, View.class, ContextMenu.ContextMenuInfo.class);
+                mMethodImplementingPlugins
+                        .put("onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)",
+                                implementingPlugins);
+                mIsOverridden_onCreateContextMenuCuVwCo = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid3<ContextMenu, View, ContextMenu.ContextMenuInfo> superCall
                 = new CallVoid3<ContextMenu, View, ContextMenu.ContextMenuInfo>(
@@ -583,12 +1317,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onCreateOptionsMenuMuMr) {
             getOriginal().super_onCreateOptionsMenu(menu, inflater);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onCreateOptionsMenuMuMr < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onCreateOptionsMenuMuMr++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onCreateOptionsMenu(Menu, MenuInflater)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onCreateOptionsMenu", Menu.class,
+                        MenuInflater.class);
+                mMethodImplementingPlugins
+                        .put("onCreateOptionsMenu(Menu, MenuInflater)", implementingPlugins);
+                mIsOverridden_onCreateOptionsMenuMuMr = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid2<Menu, MenuInflater> superCall = new CallVoid2<Menu, MenuInflater>(
                 "onCreateOptionsMenu(Menu, MenuInflater)") {
@@ -607,11 +1357,27 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
             @Nullable final Bundle savedInstanceState) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onCreateViewLrVpBe) {
             return getOriginal().super_onCreateView(inflater, container, savedInstanceState);
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onCreateViewLrVpBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onCreateViewLrVpBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onCreateView(LayoutInflater, ViewGroup, Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onCreateView", LayoutInflater.class,
+                        ViewGroup.class, Bundle.class);
+                mMethodImplementingPlugins.put("onCreateView(LayoutInflater, ViewGroup, Bundle)",
+                        implementingPlugins);
+                mIsOverridden_onCreateViewLrVpBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun3<View, LayoutInflater, ViewGroup, Bundle> superCall
                 = new CallFun3<View, LayoutInflater, ViewGroup, Bundle>(
@@ -633,12 +1399,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onDestroy() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onDestroy) {
             getOriginal().super_onDestroy();
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onDestroy < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onDestroy++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onDestroy()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onDestroy");
+                mMethodImplementingPlugins.put("onDestroy()", implementingPlugins);
+                mIsOverridden_onDestroy = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid0 superCall = new CallVoid0("onDestroy()") {
 
@@ -655,12 +1435,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onDestroyOptionsMenu() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onDestroyOptionsMenu) {
             getOriginal().super_onDestroyOptionsMenu();
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onDestroyOptionsMenu < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onDestroyOptionsMenu++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onDestroyOptionsMenu()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onDestroyOptionsMenu");
+                mMethodImplementingPlugins.put("onDestroyOptionsMenu()", implementingPlugins);
+                mIsOverridden_onDestroyOptionsMenu = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid0 superCall = new CallVoid0("onDestroyOptionsMenu()") {
 
@@ -677,12 +1471,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onDestroyView() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onDestroyView) {
             getOriginal().super_onDestroyView();
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onDestroyView < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onDestroyView++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onDestroyView()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onDestroyView");
+                mMethodImplementingPlugins.put("onDestroyView()", implementingPlugins);
+                mIsOverridden_onDestroyView = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid0 superCall = new CallVoid0("onDestroyView()") {
 
@@ -699,12 +1507,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onDetach() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onDetach) {
             getOriginal().super_onDetach();
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onDetach < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onDetach++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins.get("onDetach()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onDetach");
+                mMethodImplementingPlugins.put("onDetach()", implementingPlugins);
+                mIsOverridden_onDetach = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid0 superCall = new CallVoid0("onDetach()") {
 
@@ -721,12 +1542,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onHiddenChanged(final boolean hidden) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onHiddenChangedBn) {
             getOriginal().super_onHiddenChanged(hidden);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onHiddenChangedBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onHiddenChangedBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onHiddenChanged(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onHiddenChanged", Boolean.class);
+                mMethodImplementingPlugins.put("onHiddenChanged(Boolean)", implementingPlugins);
+                mIsOverridden_onHiddenChangedBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("onHiddenChanged(Boolean)") {
 
@@ -744,12 +1579,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     public void onInflate(final Context context, final AttributeSet attrs,
             final Bundle savedInstanceState) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onInflateCtAtBe) {
             getOriginal().super_onInflate(context, attrs, savedInstanceState);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onInflateCtAtBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onInflateCtAtBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onInflate(Context, AttributeSet, Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onInflate", Context.class,
+                        AttributeSet.class, Bundle.class);
+                mMethodImplementingPlugins
+                        .put("onInflate(Context, AttributeSet, Bundle)", implementingPlugins);
+                mIsOverridden_onInflateCtAtBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid3<Context, AttributeSet, Bundle> superCall
                 = new CallVoid3<Context, AttributeSet, Bundle>(
@@ -770,12 +1621,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     public void onInflate(final Activity activity, final AttributeSet attrs,
             final Bundle savedInstanceState) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onInflateAyAtBe) {
             getOriginal().super_onInflate(activity, attrs, savedInstanceState);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onInflateAyAtBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onInflateAyAtBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onInflate(Activity, AttributeSet, Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onInflate", Activity.class,
+                        AttributeSet.class, Bundle.class);
+                mMethodImplementingPlugins
+                        .put("onInflate(Activity, AttributeSet, Bundle)", implementingPlugins);
+                mIsOverridden_onInflateAyAtBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid3<Activity, AttributeSet, Bundle> superCall
                 = new CallVoid3<Activity, AttributeSet, Bundle>(
@@ -795,12 +1662,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onLowMemory() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onLowMemory) {
             getOriginal().super_onLowMemory();
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onLowMemory < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onLowMemory++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onLowMemory()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onLowMemory");
+                mMethodImplementingPlugins.put("onLowMemory()", implementingPlugins);
+                mIsOverridden_onLowMemory = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid0 superCall = new CallVoid0("onLowMemory()") {
 
@@ -817,12 +1698,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onMultiWindowModeChangedBn) {
             getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onMultiWindowModeChangedBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onMultiWindowModeChangedBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onMultiWindowModeChanged(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onMultiWindowModeChanged",
+                        Boolean.class);
+                mMethodImplementingPlugins
+                        .put("onMultiWindowModeChanged(Boolean)", implementingPlugins);
+                mIsOverridden_onMultiWindowModeChangedBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
                 "onMultiWindowModeChanged(Boolean)") {
@@ -840,11 +1737,27 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public boolean onOptionsItemSelected(final MenuItem item) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onOptionsItemSelectedMm) {
             return getOriginal().super_onOptionsItemSelected(item);
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onOptionsItemSelectedMm < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onOptionsItemSelectedMm++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onOptionsItemSelected(MenuItem)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onOptionsItemSelected",
+                        MenuItem.class);
+                mMethodImplementingPlugins
+                        .put("onOptionsItemSelected(MenuItem)", implementingPlugins);
+                mIsOverridden_onOptionsItemSelectedMm = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun1<Boolean, MenuItem> superCall = new CallFun1<Boolean, MenuItem>(
                 "onOptionsItemSelected(MenuItem)") {
@@ -862,12 +1775,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onOptionsMenuClosed(final Menu menu) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onOptionsMenuClosedMu) {
             getOriginal().super_onOptionsMenuClosed(menu);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onOptionsMenuClosedMu < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onOptionsMenuClosedMu++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onOptionsMenuClosed(Menu)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onOptionsMenuClosed", Menu.class);
+                mMethodImplementingPlugins.put("onOptionsMenuClosed(Menu)", implementingPlugins);
+                mIsOverridden_onOptionsMenuClosedMu = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Menu> superCall = new CallVoid1<Menu>("onOptionsMenuClosed(Menu)") {
 
@@ -884,12 +1811,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onPause() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onPause) {
             getOriginal().super_onPause();
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onPause < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onPause++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins.get("onPause()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onPause");
+                mMethodImplementingPlugins.put("onPause()", implementingPlugins);
+                mIsOverridden_onPause = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid0 superCall = new CallVoid0("onPause()") {
 
@@ -906,12 +1846,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onPictureInPictureModeChangedBn) {
             getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onPictureInPictureModeChangedBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onPictureInPictureModeChangedBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onPictureInPictureModeChanged(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onPictureInPictureModeChanged",
+                        Boolean.class);
+                mMethodImplementingPlugins
+                        .put("onPictureInPictureModeChanged(Boolean)", implementingPlugins);
+                mIsOverridden_onPictureInPictureModeChangedBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
                 "onPictureInPictureModeChanged(Boolean)") {
@@ -930,12 +1886,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onPrepareOptionsMenu(final Menu menu) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onPrepareOptionsMenuMu) {
             getOriginal().super_onPrepareOptionsMenu(menu);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onPrepareOptionsMenuMu < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onPrepareOptionsMenuMu++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onPrepareOptionsMenu(Menu)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onPrepareOptionsMenu", Menu.class);
+                mMethodImplementingPlugins.put("onPrepareOptionsMenu(Menu)", implementingPlugins);
+                mIsOverridden_onPrepareOptionsMenuMu = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Menu> superCall = new CallVoid1<Menu>("onPrepareOptionsMenu(Menu)") {
 
@@ -953,12 +1923,29 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     public void onRequestPermissionsResult(final int requestCode,
             @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onRequestPermissionsResultIrSgit) {
             getOriginal().super_onRequestPermissionsResult(requestCode, permissions, grantResults);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onRequestPermissionsResultIrSgit < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onRequestPermissionsResultIrSgit++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onRequestPermissionsResult(Integer, String[], int[])");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onRequestPermissionsResult",
+                        Integer.class, String[].class, int[].class);
+                mMethodImplementingPlugins
+                        .put("onRequestPermissionsResult(Integer, String[], int[])",
+                                implementingPlugins);
+                mIsOverridden_onRequestPermissionsResultIrSgit = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid3<Integer, String[], int[]> superCall
                 = new CallVoid3<Integer, String[], int[]>(
@@ -980,12 +1967,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onResume() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onResume) {
             getOriginal().super_onResume();
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onResume < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onResume++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins.get("onResume()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onResume");
+                mMethodImplementingPlugins.put("onResume()", implementingPlugins);
+                mIsOverridden_onResume = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid0 superCall = new CallVoid0("onResume()") {
 
@@ -1002,12 +2002,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onSaveInstanceState(final Bundle outState) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onSaveInstanceStateBe) {
             getOriginal().super_onSaveInstanceState(outState);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onSaveInstanceStateBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onSaveInstanceStateBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onSaveInstanceState(Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onSaveInstanceState", Bundle.class);
+                mMethodImplementingPlugins.put("onSaveInstanceState(Bundle)", implementingPlugins);
+                mIsOverridden_onSaveInstanceStateBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onSaveInstanceState(Bundle)") {
 
@@ -1024,12 +2038,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onStart() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onStart) {
             getOriginal().super_onStart();
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onStart < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onStart++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins.get("onStart()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onStart");
+                mMethodImplementingPlugins.put("onStart()", implementingPlugins);
+                mIsOverridden_onStart = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid0 superCall = new CallVoid0("onStart()") {
 
@@ -1046,12 +2073,25 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onStop() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onStop) {
             getOriginal().super_onStop();
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onStop < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onStop++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins.get("onStop()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onStop");
+                mMethodImplementingPlugins.put("onStop()", implementingPlugins);
+                mIsOverridden_onStop = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid0 superCall = new CallVoid0("onStop()") {
 
@@ -1068,12 +2108,27 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onViewCreatedVwBe) {
             getOriginal().super_onViewCreated(view, savedInstanceState);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onViewCreatedVwBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onViewCreatedVwBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onViewCreated(View, Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onViewCreated", View.class,
+                        Bundle.class);
+                mMethodImplementingPlugins.put("onViewCreated(View, Bundle)", implementingPlugins);
+                mIsOverridden_onViewCreatedVwBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid2<View, Bundle> superCall = new CallVoid2<View, Bundle>(
                 "onViewCreated(View, Bundle)") {
@@ -1091,12 +2146,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_onViewStateRestoredBe) {
             getOriginal().super_onViewStateRestored(savedInstanceState);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_onViewStateRestoredBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_onViewStateRestoredBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("onViewStateRestored(Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("onViewStateRestored", Bundle.class);
+                mMethodImplementingPlugins.put("onViewStateRestored(Bundle)", implementingPlugins);
+                mIsOverridden_onViewStateRestoredBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("onViewStateRestored(Bundle)") {
 
@@ -1113,12 +2182,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void registerForContextMenu(final View view) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_registerForContextMenuVw) {
             getOriginal().super_registerForContextMenu(view);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_registerForContextMenuVw < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_registerForContextMenuVw++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("registerForContextMenu(View)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("registerForContextMenu", View.class);
+                mMethodImplementingPlugins.put("registerForContextMenu(View)", implementingPlugins);
+                mIsOverridden_registerForContextMenuVw = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<View> superCall = new CallVoid1<View>("registerForContextMenu(View)") {
 
@@ -1135,12 +2218,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setAllowEnterTransitionOverlap(final boolean allow) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setAllowEnterTransitionOverlapBn) {
             getOriginal().super_setAllowEnterTransitionOverlap(allow);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setAllowEnterTransitionOverlapBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setAllowEnterTransitionOverlapBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setAllowEnterTransitionOverlap(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setAllowEnterTransitionOverlap",
+                        Boolean.class);
+                mMethodImplementingPlugins
+                        .put("setAllowEnterTransitionOverlap(Boolean)", implementingPlugins);
+                mIsOverridden_setAllowEnterTransitionOverlapBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
                 "setAllowEnterTransitionOverlap(Boolean)") {
@@ -1158,12 +2257,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setAllowReturnTransitionOverlap(final boolean allow) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setAllowReturnTransitionOverlapBn) {
             getOriginal().super_setAllowReturnTransitionOverlap(allow);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setAllowReturnTransitionOverlapBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setAllowReturnTransitionOverlapBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setAllowReturnTransitionOverlap(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setAllowReturnTransitionOverlap",
+                        Boolean.class);
+                mMethodImplementingPlugins
+                        .put("setAllowReturnTransitionOverlap(Boolean)", implementingPlugins);
+                mIsOverridden_setAllowReturnTransitionOverlapBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>(
                 "setAllowReturnTransitionOverlap(Boolean)") {
@@ -1181,12 +2296,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setArguments(final Bundle args) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setArgumentsBe) {
             getOriginal().super_setArguments(args);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setArgumentsBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setArgumentsBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setArguments(Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setArguments", Bundle.class);
+                mMethodImplementingPlugins.put("setArguments(Bundle)", implementingPlugins);
+                mIsOverridden_setArgumentsBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>("setArguments(Bundle)") {
 
@@ -1203,12 +2332,29 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setEnterSharedElementCallback(final SharedElementCallback callback) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setEnterSharedElementCallbackSk) {
             getOriginal().super_setEnterSharedElementCallback(callback);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setEnterSharedElementCallbackSk < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setEnterSharedElementCallbackSk++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setEnterSharedElementCallback(SharedElementCallback)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setEnterSharedElementCallback",
+                        SharedElementCallback.class);
+                mMethodImplementingPlugins
+                        .put("setEnterSharedElementCallback(SharedElementCallback)",
+                                implementingPlugins);
+                mIsOverridden_setEnterSharedElementCallbackSk = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<SharedElementCallback> superCall = new CallVoid1<SharedElementCallback>(
                 "setEnterSharedElementCallback(SharedElementCallback)") {
@@ -1226,12 +2372,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setEnterTransition(final Object transition) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setEnterTransitionOt) {
             getOriginal().super_setEnterTransition(transition);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setEnterTransitionOt < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setEnterTransitionOt++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setEnterTransition(Object)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setEnterTransition", Object.class);
+                mMethodImplementingPlugins.put("setEnterTransition(Object)", implementingPlugins);
+                mIsOverridden_setEnterTransitionOt = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Object> superCall = new CallVoid1<Object>("setEnterTransition(Object)") {
 
@@ -1248,12 +2408,29 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setExitSharedElementCallback(final SharedElementCallback callback) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setExitSharedElementCallbackSk) {
             getOriginal().super_setExitSharedElementCallback(callback);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setExitSharedElementCallbackSk < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setExitSharedElementCallbackSk++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setExitSharedElementCallback(SharedElementCallback)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setExitSharedElementCallback",
+                        SharedElementCallback.class);
+                mMethodImplementingPlugins
+                        .put("setExitSharedElementCallback(SharedElementCallback)",
+                                implementingPlugins);
+                mIsOverridden_setExitSharedElementCallbackSk = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<SharedElementCallback> superCall = new CallVoid1<SharedElementCallback>(
                 "setExitSharedElementCallback(SharedElementCallback)") {
@@ -1271,12 +2448,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setExitTransition(final Object transition) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setExitTransitionOt) {
             getOriginal().super_setExitTransition(transition);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setExitTransitionOt < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setExitTransitionOt++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setExitTransition(Object)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setExitTransition", Object.class);
+                mMethodImplementingPlugins.put("setExitTransition(Object)", implementingPlugins);
+                mIsOverridden_setExitTransitionOt = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Object> superCall = new CallVoid1<Object>("setExitTransition(Object)") {
 
@@ -1293,12 +2484,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setHasOptionsMenu(final boolean hasMenu) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setHasOptionsMenuBn) {
             getOriginal().super_setHasOptionsMenu(hasMenu);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setHasOptionsMenuBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setHasOptionsMenuBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setHasOptionsMenu(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setHasOptionsMenu", Boolean.class);
+                mMethodImplementingPlugins.put("setHasOptionsMenu(Boolean)", implementingPlugins);
+                mIsOverridden_setHasOptionsMenuBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setHasOptionsMenu(Boolean)") {
 
@@ -1315,12 +2520,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setInitialSavedState(final Fragment.SavedState state) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setInitialSavedStateSe) {
             getOriginal().super_setInitialSavedState(state);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setInitialSavedStateSe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setInitialSavedStateSe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setInitialSavedState(Fragment.SavedState)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setInitialSavedState",
+                        Fragment.SavedState.class);
+                mMethodImplementingPlugins
+                        .put("setInitialSavedState(Fragment.SavedState)", implementingPlugins);
+                mIsOverridden_setInitialSavedStateSe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Fragment.SavedState> superCall = new CallVoid1<Fragment.SavedState>(
                 "setInitialSavedState(Fragment.SavedState)") {
@@ -1338,12 +2559,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setMenuVisibility(final boolean menuVisible) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setMenuVisibilityBn) {
             getOriginal().super_setMenuVisibility(menuVisible);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setMenuVisibilityBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setMenuVisibilityBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setMenuVisibility(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setMenuVisibility", Boolean.class);
+                mMethodImplementingPlugins.put("setMenuVisibility(Boolean)", implementingPlugins);
+                mIsOverridden_setMenuVisibilityBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setMenuVisibility(Boolean)") {
 
@@ -1360,12 +2595,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setReenterTransition(final Object transition) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setReenterTransitionOt) {
             getOriginal().super_setReenterTransition(transition);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setReenterTransitionOt < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setReenterTransitionOt++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setReenterTransition(Object)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setReenterTransition", Object.class);
+                mMethodImplementingPlugins.put("setReenterTransition(Object)", implementingPlugins);
+                mIsOverridden_setReenterTransitionOt = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Object> superCall = new CallVoid1<Object>("setReenterTransition(Object)") {
 
@@ -1382,12 +2631,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setRetainInstance(final boolean retain) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setRetainInstanceBn) {
             getOriginal().super_setRetainInstance(retain);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setRetainInstanceBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setRetainInstanceBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setRetainInstance(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setRetainInstance", Boolean.class);
+                mMethodImplementingPlugins.put("setRetainInstance(Boolean)", implementingPlugins);
+                mIsOverridden_setRetainInstanceBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setRetainInstance(Boolean)") {
 
@@ -1404,12 +2667,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setReturnTransition(final Object transition) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setReturnTransitionOt) {
             getOriginal().super_setReturnTransition(transition);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setReturnTransitionOt < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setReturnTransitionOt++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setReturnTransition(Object)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setReturnTransition", Object.class);
+                mMethodImplementingPlugins.put("setReturnTransition(Object)", implementingPlugins);
+                mIsOverridden_setReturnTransitionOt = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Object> superCall = new CallVoid1<Object>("setReturnTransition(Object)") {
 
@@ -1426,12 +2703,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setSharedElementEnterTransition(final Object transition) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setSharedElementEnterTransitionOt) {
             getOriginal().super_setSharedElementEnterTransition(transition);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setSharedElementEnterTransitionOt < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setSharedElementEnterTransitionOt++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setSharedElementEnterTransition(Object)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setSharedElementEnterTransition",
+                        Object.class);
+                mMethodImplementingPlugins
+                        .put("setSharedElementEnterTransition(Object)", implementingPlugins);
+                mIsOverridden_setSharedElementEnterTransitionOt = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Object> superCall = new CallVoid1<Object>(
                 "setSharedElementEnterTransition(Object)") {
@@ -1449,12 +2742,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setSharedElementReturnTransition(final Object transition) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setSharedElementReturnTransitionOt) {
             getOriginal().super_setSharedElementReturnTransition(transition);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setSharedElementReturnTransitionOt < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setSharedElementReturnTransitionOt++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setSharedElementReturnTransition(Object)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setSharedElementReturnTransition",
+                        Object.class);
+                mMethodImplementingPlugins
+                        .put("setSharedElementReturnTransition(Object)", implementingPlugins);
+                mIsOverridden_setSharedElementReturnTransitionOt = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Object> superCall = new CallVoid1<Object>(
                 "setSharedElementReturnTransition(Object)") {
@@ -1472,12 +2781,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setTargetFragment(final Fragment fragment, final int requestCode) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setTargetFragmentFtIr) {
             getOriginal().super_setTargetFragment(fragment, requestCode);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setTargetFragmentFtIr < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setTargetFragmentFtIr++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setTargetFragment(Fragment, Integer)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setTargetFragment", Fragment.class,
+                        Integer.class);
+                mMethodImplementingPlugins
+                        .put("setTargetFragment(Fragment, Integer)", implementingPlugins);
+                mIsOverridden_setTargetFragmentFtIr = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid2<Fragment, Integer> superCall = new CallVoid2<Fragment, Integer>(
                 "setTargetFragment(Fragment, Integer)") {
@@ -1495,12 +2820,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void setUserVisibleHint(final boolean isVisibleToUser) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_setUserVisibleHintBn) {
             getOriginal().super_setUserVisibleHint(isVisibleToUser);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_setUserVisibleHintBn < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_setUserVisibleHintBn++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("setUserVisibleHint(Boolean)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("setUserVisibleHint", Boolean.class);
+                mMethodImplementingPlugins.put("setUserVisibleHint(Boolean)", implementingPlugins);
+                mIsOverridden_setUserVisibleHintBn = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setUserVisibleHint(Boolean)") {
 
@@ -1517,11 +2856,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_shouldShowRequestPermissionRationaleSg) {
             return getOriginal().super_shouldShowRequestPermissionRationale(permission);
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_shouldShowRequestPermissionRationaleSg < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_shouldShowRequestPermissionRationaleSg++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("shouldShowRequestPermissionRationale(String)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("shouldShowRequestPermissionRationale",
+                        String.class);
+                mMethodImplementingPlugins
+                        .put("shouldShowRequestPermissionRationale(String)", implementingPlugins);
+                mIsOverridden_shouldShowRequestPermissionRationaleSg = implementingPlugins.size()
+                        > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun1<Boolean, String> superCall = new CallFun1<Boolean, String>(
                 "shouldShowRequestPermissionRationale(String)") {
@@ -1540,12 +2896,26 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void startActivity(final Intent intent) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_startActivityIt) {
             getOriginal().super_startActivity(intent);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_startActivityIt < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_startActivityIt++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("startActivity(Intent)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("startActivity", Intent.class);
+                mMethodImplementingPlugins.put("startActivity(Intent)", implementingPlugins);
+                mIsOverridden_startActivityIt = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<Intent> superCall = new CallVoid1<Intent>("startActivity(Intent)") {
 
@@ -1562,12 +2932,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void startActivity(final Intent intent, @Nullable final Bundle options) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_startActivityItBe) {
             getOriginal().super_startActivity(intent, options);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_startActivityItBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_startActivityItBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("startActivity(Intent, Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("startActivity", Intent.class,
+                        Bundle.class);
+                mMethodImplementingPlugins
+                        .put("startActivity(Intent, Bundle)", implementingPlugins);
+                mIsOverridden_startActivityItBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid2<Intent, Bundle> superCall = new CallVoid2<Intent, Bundle>(
                 "startActivity(Intent, Bundle)") {
@@ -1585,12 +2971,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void startActivityForResult(final Intent intent, final int requestCode) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_startActivityForResultItIr) {
             getOriginal().super_startActivityForResult(intent, requestCode);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_startActivityForResultItIr < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_startActivityForResultItIr++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("startActivityForResult(Intent, Integer)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("startActivityForResult", Intent.class,
+                        Integer.class);
+                mMethodImplementingPlugins
+                        .put("startActivityForResult(Intent, Integer)", implementingPlugins);
+                mIsOverridden_startActivityForResultItIr = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid2<Intent, Integer> superCall = new CallVoid2<Intent, Integer>(
                 "startActivityForResult(Intent, Integer)") {
@@ -1609,12 +3011,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
 
     public void startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_startActivityForResultItIrBe) {
             getOriginal().super_startActivityForResult(intent, requestCode, options);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_startActivityForResultItIrBe < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_startActivityForResultItIrBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("startActivityForResult(Intent, Integer, Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("startActivityForResult", Intent.class,
+                        Integer.class, Bundle.class);
+                mMethodImplementingPlugins.put("startActivityForResult(Intent, Integer, Bundle)",
+                        implementingPlugins);
+                mIsOverridden_startActivityForResultItIrBe = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid3<Intent, Integer, Bundle> superCall = new CallVoid3<Intent, Integer, Bundle>(
                 "startActivityForResult(Intent, Integer, Bundle)") {
@@ -1634,17 +3052,34 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
             @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
-        if (mPlugins.isEmpty()) {
-            try {
-                getOriginal().super_startIntentSenderForResult(intent, requestCode, fillInIntent,
-                        flagsMask, flagsValues, extraFlags, options);
-            } catch (IntentSender.SendIntentException e) {
-                throw new SuppressedException(e);
-            }
+        if (!mIsOverridden_startIntentSenderForResultIrIrItIrIrIrBe) {
+            getOriginal()
+                    .super_startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
+                            flagsValues, extraFlags, options);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_startIntentSenderForResultIrIrItIrIrIrBe
+                < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_startIntentSenderForResultIrIrItIrIrIrBe++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("startIntentSenderForResult",
+                        IntentSender.class, Integer.class, Intent.class, Integer.class,
+                        Integer.class, Integer.class, Bundle.class);
+                mMethodImplementingPlugins
+                        .put("startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)",
+                                implementingPlugins);
+                mIsOverridden_startIntentSenderForResultIrIrItIrIrIrBe = implementingPlugins.size()
+                        > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle> superCall
                 = new CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>(
@@ -1678,11 +3113,24 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public String toString() {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_toString) {
             return getOriginal().super_toString();
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_toString < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_toString++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins.get("toString()");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("toString");
+                mMethodImplementingPlugins.put("toString()", implementingPlugins);
+                mIsOverridden_toString = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallFun0<String> superCall = new CallFun0<String>("toString()") {
 
@@ -1699,12 +3147,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
     public void unregisterForContextMenu(final View view) {
-        if (mPlugins.isEmpty()) {
+        if (!mIsOverridden_unregisterForContextMenuVw) {
             getOriginal().super_unregisterForContextMenu(view);
             return;
         }
 
-        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+        final ListIterator<FragmentPlugin> iterator;
+        if (mCallCount_unregisterForContextMenuVw < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+            mCallCount_unregisterForContextMenuVw++;
+            iterator = mPlugins.listIterator(mPlugins.size());
+        } else {
+            List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
+                    .get("unregisterForContextMenu(View)");
+            if (implementingPlugins == null) {
+                implementingPlugins = getImplementingPlugins("unregisterForContextMenu",
+                        View.class);
+                mMethodImplementingPlugins
+                        .put("unregisterForContextMenu(View)", implementingPlugins);
+                mIsOverridden_unregisterForContextMenuVw = implementingPlugins.size() > 0;
+            }
+
+            iterator = implementingPlugins.listIterator(implementingPlugins.size());
+        }
 
         final CallVoid1<View> superCall = new CallVoid1<View>("unregisterForContextMenu(View)") {
 
@@ -1718,6 +3182,21 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
             }
         };
         superCall.call(view);
+    }
+
+
+    private List<FragmentPlugin> getImplementingPlugins(final String methodName,
+            final Class<?>... parameterTypes) {
+        synchronized (mPlugins) {
+            final ArrayList<FragmentPlugin> implementingPlugins = new ArrayList<>();
+            for (int i = 0; i < mPlugins.size(); i++) {
+                final FragmentPlugin plugin = mPlugins.get(i);
+                if (plugin.isMethodOverridden(methodName, parameterTypes)) {
+                    implementingPlugins.add(plugin);
+                }
+            }
+            return implementingPlugins;
+        }
     }
 
 

@@ -75,33 +75,58 @@ fun writeDelegate(outPath: String,
         """.replaceIndentByMargin()
     }
 
-    fun addPlugin(): String {
-        return if (superClassDelegateName.isEmpty()) "" else """
-        |@Override
-        |public Removable addPlugin(final $pluginName plugin) {
-        |    final Removable removable = super.addPlugin(plugin);
-        |    final Removable superRemovable = m$superClassDelegateName.addPlugin(plugin);
-        |    return new Removable() {
-        |        @Override
-        |        public void remove() {
-        |            removable.remove();
-        |            superRemovable.remove();
-        |        }
-        |    };
-        |}
-        """.replaceIndentByMargin()
+
+    fun resetOptimizations(): String {
+        val sb = StringBuilder()
+        sb.appendln("    mMethodImplementingPlugins.clear();")
+        for (method in distinctMethods) {
+            val isSameMethod: (AnalyzedJavaMethod) -> Boolean = { method.name == it.name && method.parameterTypes == it.parameterTypes }
+            val definedInSuperComposite = superClassInputFile?.methods
+                    ?.filter(isSameMethod)?.isNotEmpty() ?: false
+
+            if (!definedInSuperComposite)
+                sb.appendln("        mIsOverridden_${method.uniqueName} = true;")
+        }
+
+        return sb.toString()
     }
+
+    fun addPluginSuper(): String =
+            if (superClassDelegateName.isEmpty()) "return super.addPlugin(plugin);"
+            else """
+            |    final Removable removable = super.addPlugin(plugin);
+            |    final Removable superRemovable = m$superClassDelegateName.addPlugin(plugin);
+            |    return new Removable() {
+            |        @Override
+            |        public void remove() {
+            |            removable.remove();
+            |            superRemovable.remove();
+            |        }
+            |    };
+            """.replaceIndentByMargin()
+
 
     var activityDelegate = """
         |package com.pascalwelsch.compositeandroid.$javaPackage;
         |
         |import com.pascalwelsch.compositeandroid.core.*;
+        |import java.util.ArrayList;
+        |import java.util.List;
+        |import java.util.ListIterator;
+        |import java.util.HashMap;
+        |import android.support.annotation.VisibleForTesting;
         |
         |${javaFile.imports}
         |
         |${additionalImports ?: ""}
         |
         |public class $javaClassName extends $extends {
+        |
+        |    @VisibleForTesting
+        |    int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
+        |
+        |    private final HashMap<String, List<$pluginName>> mMethodImplementingPlugins
+            = new HashMap<>();
         |
         |    ${superDelegateDeclaration()}
         |
@@ -111,9 +136,27 @@ fun writeDelegate(outPath: String,
         |    }
         |
         |${addSuperDelegatePlugin().prependIndent()}
-        |${addPlugin().prependIndent()}
+        |
+        |    @Override
+        |    public Removable addPlugin(final $pluginName plugin) {
+        |${resetOptimizations()}
+        |${addPluginSuper().prependIndent()}
+        |    }
         |
         |${methodsSb.toString()}
+        |
+        |    private List<$pluginName> getImplementingPlugins(final String methodName, final Class<?>... parameterTypes) {
+        |        synchronized (mPlugins) {
+        |            final ArrayList<$pluginName> implementingPlugins = new ArrayList<>();
+        |            for (int i = 0; i < mPlugins.size(); i++) {
+        |                final $pluginName plugin = mPlugins.get(i);
+        |                if (plugin.isMethodOverridden(methodName, parameterTypes)) {
+        |                    implementingPlugins.add(plugin);
+        |                }
+        |            }
+        |            return implementingPlugins;
+        |        }
+        |    }
         |
         |${addCodeToClass ?: ""}
         |
@@ -126,9 +169,12 @@ fun writeDelegate(outPath: String,
 
     val out = File("$outPath${javaPackage.replace('.', '/')}/$javaClassName.java")
     out.parentFile.mkdirs()
-    out.printWriter().use { it.write(activityDelegate) }
+    out.printWriter().use {
+        it.write(activityDelegate)
+    }
     System.out.println("wrote ${out.absolutePath}")
 }
+
 
 fun AnalyzedJavaMethod.forwardToDelegate(delegateName: String): String {
     return """
@@ -148,53 +194,6 @@ fun AnalyzedJavaMethod.forwardToDelegateWithReturn(delegateName: String): String
     """.replaceIndentByMargin("    ")
 }
 
-
-/*fun AnalyzedJavaMethod.hook(originalGetterName: String = "getOriginal()",
-                            pluginType: String = "Plugin"): String {
-
-
-    val typedArgs = parameterTypes.mapIndexed { i, type -> "($type) args[$i]" }
-
-    val varargs = if (parameterTypes.size == 1
-            && parameterTypes[0].contains("[]")) {
-        "new Object[]{${parameterNames[0]}}"
-    } else parameterNames.joinToString()
-
-
-    val sb = StringBuilder()
-    sb.appendln("    public void $name($rawParameters) $exceptions {")
-    sb.appendln(
-            "        callHook(\"$name(${parameterTypes.joinToString()})\", new PluginCallVoid<$pluginType>() {")
-    sb.appendln("            @Override")
-    sb.appendln(
-            "            public void call(final NamedSuperCall<Void> superCall, final $pluginType plugin, final Object... args) {")
-    if (throws) sb.appendln("                try {")
-    sb.appendln("                plugin.$name(${listOf("superCall").plus(
-            typedArgs).joinToString()});")
-    if (throws) {
-        sb.appendln("            } catch ($exceptionType e) {")
-        sb.appendln("                throw new SuppressedException(e);")
-        sb.appendln("            }")
-    }
-    sb.appendln("            }")
-    sb.appendln("        }, new SuperCallVoid() {")
-    sb.appendln("            @Override")
-    sb.appendln("            public void call(final Object... args) {")
-    if (throws) sb.appendln("                try {")
-    sb.appendln("                $originalGetterName.super_$name(${typedArgs.joinToString()});")
-    if (throws) {
-        sb.appendln("            } catch ($exceptionType e) {")
-        sb.appendln("                throw new SuppressedException(e);")
-        sb.appendln("            }")
-    }
-    sb.appendln("            }")
-    sb.appendln(
-            "        }${if (parameterNames.size > 0) ", " else ""}$varargs);")
-    sb.appendln("    }")
-
-    return sb.toString();
-}*/
-
 fun AnalyzedJavaMethod.hook(pluginType: String = "Plugin"): String {
 
     val varargs = if (parameterNames.size == 1 && parameterNames[0].contains("[]")) {
@@ -204,14 +203,33 @@ fun AnalyzedJavaMethod.hook(pluginType: String = "Plugin"): String {
     val genericTypeCallType = if (parameterTypes.size == 0) "" else "<${parameterTypes.joinToString()}>"
 
     return """
+    |
+    |private int mCallCount_$uniqueName = 0;
+    |
+    |private boolean mIsOverridden_$uniqueName = false;
+    |
     |public void $name($rawParameters) $exceptions {
-    |    if (mPlugins.isEmpty()) {
-    |${"getOriginal().super_$name($varargs);"
-            .wrapWithTryCatch(exceptionType).prependIndent("            ")}
+    |    if (!mIsOverridden_$uniqueName) {
+    |        getOriginal().super_$name($varargs);
     |        return;
     |    }
     |
-    |    final ListIterator<$pluginType> iterator = mPlugins.listIterator(mPlugins.size());
+    |    final ListIterator<$pluginType> iterator;
+    |    if (mCallCount_$uniqueName < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+    |        mCallCount_$uniqueName++;
+    |        iterator = mPlugins.listIterator(mPlugins.size());
+    |    } else {
+    |        List<$pluginType> implementingPlugins = mMethodImplementingPlugins.get("$identifier");
+    |        if (implementingPlugins == null) {
+    |            implementingPlugins = getImplementingPlugins("$name"${if (parameterTypes.isEmpty()) "" else ", "}${parameterTypes.map {
+        it.removeSuffix("<?>")
+    }.map { "$it.class" }.joinToString()});
+    |            mMethodImplementingPlugins.put("$identifier", implementingPlugins);
+    |            mIsOverridden_$uniqueName = implementingPlugins.size() > 0;
+    |        }
+    |
+    |        iterator = implementingPlugins.listIterator(implementingPlugins.size());
+    |    }
     |
     |    final CallVoid${parameterNames.size}$genericTypeCallType superCall = new CallVoid${parameterNames.size}$genericTypeCallType("$name(${parameterTypes.joinToString()})") {
     |
@@ -232,7 +250,6 @@ fun AnalyzedJavaMethod.hook(pluginType: String = "Plugin"): String {
 }
 
 fun AnalyzedJavaMethod.callFunction(pluginType: String = "Plugin"): String {
-    val typedArgs = parameterTypes.mapIndexed { i, type -> "($type) args[$i]" }
 
     val varargs = if (parameterNames.size == 1 && parameterNames[0].contains("[]")) {
         "new Object[]{${parameterNames[0]}}"
@@ -245,15 +262,32 @@ fun AnalyzedJavaMethod.callFunction(pluginType: String = "Plugin"): String {
     val genericTypeCallType = "<${genericTypes.joinToString()}>"
 
     return """
+    |
+    |private int mCallCount_$uniqueName = 0;
+    |
+    |private boolean mIsOverridden_$uniqueName = false;
+    |
     |public $returnType $name($rawParameters) $exceptions {
-    |    if (mPlugins.isEmpty()) {
-    |${"return getOriginal().super_$name($varargs);"
-            .wrapWithTryCatch(exceptionType).prependIndent("            ")}
+    |    if (!mIsOverridden_$uniqueName) {
+    |        return getOriginal().super_$name($varargs);
     |    }
     |
-    |    final ListIterator<$pluginType> iterator = mPlugins.listIterator(mPlugins.size());
+    |    final ListIterator<$pluginType> iterator;
+    |    if (mCallCount_$uniqueName < CALL_COUNT_OPTIMIZATION_THRESHOLD) {
+    |        mCallCount_$uniqueName++;
+    |        iterator = mPlugins.listIterator(mPlugins.size());
+    |    } else {
+    |        List<$pluginType> implementingPlugins = mMethodImplementingPlugins.get("$identifier");
+    |        if (implementingPlugins == null) {
+    |            implementingPlugins = getImplementingPlugins("$name"${if (parameterTypes.isEmpty()) "" else ", "}${parameterTypeClasses()});
+    |            mMethodImplementingPlugins.put("$identifier", implementingPlugins);
+    |            mIsOverridden_$uniqueName = implementingPlugins.size() > 0;
+    |        }
     |
-    |    final CallFun${parameterNames.size}$genericTypeCallType superCall = new CallFun${parameterNames.size}$genericTypeCallType("$name(${parameterTypes.joinToString()})") {
+    |        iterator = implementingPlugins.listIterator(implementingPlugins.size());
+    |    }
+    |
+    |    final CallFun${parameterNames.size}$genericTypeCallType superCall = new CallFun${parameterNames.size}$genericTypeCallType("$identifier") {
     |
     |        @Override
     |        public $boxedReturnType call(${rawParametersBoxed.joinToString()}) {
@@ -270,6 +304,26 @@ fun AnalyzedJavaMethod.callFunction(pluginType: String = "Plugin"): String {
     |}
     """.replaceIndentByMargin("    ")
 }
+
+private fun AnalyzedJavaMethod.parameterTypeClasses() = parameterTypes
+        .map { it.removeSuffix("<?>") }
+        .map { "$it.class" }
+        .map {
+            // replace primitive types
+            when (it) {
+                "Boolean.class" -> "Boolean.TYPE"
+                "Byte.class" -> "Byte.TYPE"
+                "Char.class" -> "Char.TYPE"
+                "Double.class" -> "Double.TYPE"
+                "Float.class" -> "Float.TYPE"
+                "Integer.class" -> "Integer.TYPE"
+                "Long.class" -> "Long.TYPE"
+                "Short.class" -> "Short.TYPE"
+                "Void.class" -> "Void.TYPE"
+                else -> it
+            }
+        }
+        .joinToString()
 
 fun String.wrapWithTryCatch(exceptionType: String?): String =
         if (exceptionType == null) this else """
