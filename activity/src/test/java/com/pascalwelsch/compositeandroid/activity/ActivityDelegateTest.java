@@ -7,14 +7,17 @@ import android.support.annotation.LayoutRes;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class ActivityDelegateTest {
 
@@ -240,55 +243,41 @@ public class ActivityDelegateTest {
         verify(a).onKeyDown(1, event);
         verify(activity).super_onKeyDown(1, event);
     }
-/*
+
     @Test
     public void testNonConfigurationInstance() throws Exception {
 
         final ActivityPlugin a = spy(new ActivityPlugin());
         final ActivityPlugin b = spy(new ActivityPlugin() {
+
             @Override
-            public Object onRetainCustomNonConfigurationInstance() {
-                final Object superNic = super.onRetainCustomNonConfigurationInstance();
-                assertEquals("c", superNic.toString());
-                return new NonConfigurationInstanceWrapper(superNic) {
-                    @Override
-                    public String toString() {
-                        return "b";
-                    }
-                };
+            public CompositeNonConfigurationInstance onRetainNonConfigurationInstance() {
+                return new CompositeNonConfigurationInstance("testB", "b");
             }
         });
         final ActivityPlugin c = spy(new ActivityPlugin() {
             @Override
-            public Object onRetainCustomNonConfigurationInstance() {
-                return new NonConfigurationInstanceWrapper(
-                        super.onRetainCustomNonConfigurationInstance()) {
-                    @Override
-                    public String toString() {
-                        return "c";
-                    }
-                };
+            public CompositeNonConfigurationInstance onRetainNonConfigurationInstance() {
+                return new CompositeNonConfigurationInstance("testC", "c");
             }
         });
 
-        final CompositeActivity activity = mock(CompositeActivity.class);
-        doReturn("SuperObject").when(activity).onRetainCustomNonConfigurationInstance_super();
+        final ICompositeActivity activity = mock(ICompositeActivity.class);
+        doReturn("super").when(activity).onRetainCompositeCustomNonConfigurationInstance();
         final ActivityDelegate delegate = new ActivityDelegate(activity);
 
         delegate.addPlugin(a);
         delegate.addPlugin(b);
         delegate.addPlugin(c);
 
-        Object o = delegate.onRetainCustomNonConfigurationInstance();
-        assertEquals("b", o.toString());
+        NonConfigurationInstanceWrapper nci = (NonConfigurationInstanceWrapper) delegate.onRetainNonConfigurationInstance();
+        assertEquals("super", nci.getSuperNonConfigurationInstance());
 
+        when(activity.getLastCustomNonConfigurationInstance()).thenReturn(nci);
 
-        doReturn(o).when(activity).getLastCustomNonConfigurationInstance_super();
-
-        assertEquals("SuperObject", a.getLastCustomNonConfigurationInstance().toString());
-        assertEquals("b", b.getLastCustomNonConfigurationInstance().toString());
-        assertEquals("c", c.getLastCustomNonConfigurationInstance().toString());
-    }*/
+        assertEquals("b", b.getLastNonConfigurationInstance("testB"));
+        assertEquals("c", c.getLastNonConfigurationInstance("testC"));
+    }
 
     @Test
     public void testStopPropagatingEvent() throws Exception {
