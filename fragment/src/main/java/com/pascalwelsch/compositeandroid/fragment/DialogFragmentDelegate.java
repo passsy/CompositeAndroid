@@ -47,7 +47,7 @@ public class DialogFragmentDelegate
         extends AbstractDelegate<ICompositeDialogFragment, DialogFragmentPlugin> {
 
     @VisibleForTesting
-    static final int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
+    int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
 
     private int mCallCount_dismiss = 0;
 

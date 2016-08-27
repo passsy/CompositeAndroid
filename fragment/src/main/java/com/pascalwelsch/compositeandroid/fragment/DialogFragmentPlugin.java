@@ -203,12 +203,10 @@ public class DialogFragmentPlugin extends FragmentPlugin {
         try {
             final Class<? extends DialogFragmentPlugin> myClass = this.getClass();
             final Method method = myClass.getMethod(methodName, parameterTypes);
-            if (method.getDeclaringClass() == DialogFragmentPlugin.class) {
-                return false;
-            }
+            return method.getDeclaringClass() != DialogFragmentPlugin.class;
         } catch (NoSuchMethodException ignore) {
+            return false;
         }
-        return true;
     }
 
     void onActivityCreated(final CallVoid1<Bundle> superCall, final Bundle savedInstanceState) {

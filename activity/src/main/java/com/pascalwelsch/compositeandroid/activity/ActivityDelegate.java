@@ -101,7 +101,7 @@ import java.util.ListIterator;
 public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, ActivityPlugin> {
 
     @VisibleForTesting
-    static final int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
+    int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
 
     private int mCallCount_addContentViewVwVs = 0;
 
@@ -1843,7 +1843,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("bindService(Intent, ServiceConnection, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("bindService", Intent.class,
-                        ServiceConnection.class, Integer.class);
+                        ServiceConnection.class, Integer.TYPE);
                 mMethodImplementingPlugins.put("bindService(Intent, ServiceConnection, Integer)",
                         implementingPlugins);
                 mIsOverridden_bindServiceItSnIr = implementingPlugins.size() > 0;
@@ -1921,7 +1921,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("checkCallingOrSelfUriPermission(Uri, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("checkCallingOrSelfUriPermission",
-                        Uri.class, Integer.class);
+                        Uri.class, Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("checkCallingOrSelfUriPermission(Uri, Integer)", implementingPlugins);
                 mIsOverridden_checkCallingOrSelfUriPermissionUiIr = implementingPlugins.size() > 0;
@@ -1998,7 +1998,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("checkCallingUriPermission(Uri, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("checkCallingUriPermission", Uri.class,
-                        Integer.class);
+                        Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("checkCallingUriPermission(Uri, Integer)", implementingPlugins);
                 mIsOverridden_checkCallingUriPermissionUiIr = implementingPlugins.size() > 0;
@@ -2036,7 +2036,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("checkPermission(String, Integer, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("checkPermission", String.class,
-                        Integer.class, Integer.class);
+                        Integer.TYPE, Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("checkPermission(String, Integer, Integer)", implementingPlugins);
                 mIsOverridden_checkPermissionSgIrIr = implementingPlugins.size() > 0;
@@ -2112,7 +2112,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("checkUriPermission(Uri, Integer, Integer, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("checkUriPermission", Uri.class,
-                        Integer.class, Integer.class, Integer.class);
+                        Integer.TYPE, Integer.TYPE, Integer.TYPE);
                 mMethodImplementingPlugins.put("checkUriPermission(Uri, Integer, Integer, Integer)",
                         implementingPlugins);
                 mIsOverridden_checkUriPermissionUiIrIrIr = implementingPlugins.size() > 0;
@@ -2155,7 +2155,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("checkUriPermission(Uri, String, String, Integer, Integer, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("checkUriPermission", Uri.class,
-                        String.class, String.class, Integer.class, Integer.class, Integer.class);
+                        String.class, String.class, Integer.TYPE, Integer.TYPE, Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("checkUriPermission(Uri, String, String, Integer, Integer, Integer)",
                                 implementingPlugins);
@@ -2394,7 +2394,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("createPackageContext(String, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("createPackageContext", String.class,
-                        Integer.class);
+                        Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("createPackageContext(String, Integer)", implementingPlugins);
                 mIsOverridden_createPackageContextSgIr = implementingPlugins.size() > 0;
@@ -2440,8 +2440,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("createPendingResult(Integer, Intent, Integer)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("createPendingResult", Integer.class,
-                        Intent.class, Integer.class);
+                implementingPlugins = getImplementingPlugins("createPendingResult", Integer.TYPE,
+                        Intent.class, Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("createPendingResult(Integer, Intent, Integer)", implementingPlugins);
                 mIsOverridden_createPendingResultIrItIr = implementingPlugins.size() > 0;
@@ -3192,7 +3192,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("findViewById(Integer)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("findViewById", Integer.class);
+                implementingPlugins = getImplementingPlugins("findViewById", Integer.TYPE);
                 mMethodImplementingPlugins.put("findViewById(Integer)", implementingPlugins);
                 mIsOverridden_findViewByIdIr = implementingPlugins.size() > 0;
             }
@@ -4121,7 +4121,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("getDir(String, Integer)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("getDir", String.class, Integer.class);
+                implementingPlugins = getImplementingPlugins("getDir", String.class, Integer.TYPE);
                 mMethodImplementingPlugins.put("getDir(String, Integer)", implementingPlugins);
                 mIsOverridden_getDirSgIr = implementingPlugins.size() > 0;
             }
@@ -4988,7 +4988,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("getPreferences(Integer)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("getPreferences", Integer.class);
+                implementingPlugins = getImplementingPlugins("getPreferences", Integer.TYPE);
                 mMethodImplementingPlugins.put("getPreferences(Integer)", implementingPlugins);
                 mIsOverridden_getPreferencesIr = implementingPlugins.size() > 0;
             }
@@ -5130,7 +5130,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("getSharedPreferences(String, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("getSharedPreferences", String.class,
-                        Integer.class);
+                        Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("getSharedPreferences(String, Integer)", implementingPlugins);
                 mIsOverridden_getSharedPreferencesSgIr = implementingPlugins.size() > 0;
@@ -6060,7 +6060,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("moveTaskToBack(Boolean)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("moveTaskToBack", Boolean.class);
+                implementingPlugins = getImplementingPlugins("moveTaskToBack", Boolean.TYPE);
                 mMethodImplementingPlugins.put("moveTaskToBack(Boolean)", implementingPlugins);
                 mIsOverridden_moveTaskToBackBn = implementingPlugins.size() > 0;
             }
@@ -6863,7 +6863,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onCreateDialog(Integer)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onCreateDialog", Integer.class);
+                implementingPlugins = getImplementingPlugins("onCreateDialog", Integer.TYPE);
                 mMethodImplementingPlugins.put("onCreateDialog(Integer)", implementingPlugins);
                 mIsOverridden_onCreateDialogIr = implementingPlugins.size() > 0;
             }
@@ -6899,7 +6899,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onCreateDialog(Integer, Bundle)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onCreateDialog", Integer.class,
+                implementingPlugins = getImplementingPlugins("onCreateDialog", Integer.TYPE,
                         Bundle.class);
                 mMethodImplementingPlugins
                         .put("onCreateDialog(Integer, Bundle)", implementingPlugins);
@@ -7012,7 +7012,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onCreatePanelMenu(Integer, Menu)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onCreatePanelMenu", Integer.class,
+                implementingPlugins = getImplementingPlugins("onCreatePanelMenu", Integer.TYPE,
                         Menu.class);
                 mMethodImplementingPlugins
                         .put("onCreatePanelMenu(Integer, Menu)", implementingPlugins);
@@ -7050,7 +7050,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onCreatePanelView(Integer)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onCreatePanelView", Integer.class);
+                implementingPlugins = getImplementingPlugins("onCreatePanelView", Integer.TYPE);
                 mMethodImplementingPlugins.put("onCreatePanelView(Integer)", implementingPlugins);
                 mIsOverridden_onCreatePanelViewIr = implementingPlugins.size() > 0;
             }
@@ -7392,7 +7392,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onKeyDown(Integer, KeyEvent)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onKeyDown", Integer.class,
+                implementingPlugins = getImplementingPlugins("onKeyDown", Integer.TYPE,
                         KeyEvent.class);
                 mMethodImplementingPlugins.put("onKeyDown(Integer, KeyEvent)", implementingPlugins);
                 mIsOverridden_onKeyDownIrKt = implementingPlugins.size() > 0;
@@ -7429,7 +7429,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onKeyLongPress(Integer, KeyEvent)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onKeyLongPress", Integer.class,
+                implementingPlugins = getImplementingPlugins("onKeyLongPress", Integer.TYPE,
                         KeyEvent.class);
                 mMethodImplementingPlugins
                         .put("onKeyLongPress(Integer, KeyEvent)", implementingPlugins);
@@ -7467,8 +7467,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onKeyMultiple(Integer, Integer, KeyEvent)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onKeyMultiple", Integer.class,
-                        Integer.class, KeyEvent.class);
+                implementingPlugins = getImplementingPlugins("onKeyMultiple", Integer.TYPE,
+                        Integer.TYPE, KeyEvent.class);
                 mMethodImplementingPlugins
                         .put("onKeyMultiple(Integer, Integer, KeyEvent)", implementingPlugins);
                 mIsOverridden_onKeyMultipleIrIrKt = implementingPlugins.size() > 0;
@@ -7507,7 +7507,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onKeyShortcut(Integer, KeyEvent)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onKeyShortcut", Integer.class,
+                implementingPlugins = getImplementingPlugins("onKeyShortcut", Integer.TYPE,
                         KeyEvent.class);
                 mMethodImplementingPlugins
                         .put("onKeyShortcut(Integer, KeyEvent)", implementingPlugins);
@@ -7545,7 +7545,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onKeyUp(Integer, KeyEvent)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onKeyUp", Integer.class,
+                implementingPlugins = getImplementingPlugins("onKeyUp", Integer.TYPE,
                         KeyEvent.class);
                 mMethodImplementingPlugins.put("onKeyUp(Integer, KeyEvent)", implementingPlugins);
                 mIsOverridden_onKeyUpIrKt = implementingPlugins.size() > 0;
@@ -7618,7 +7618,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onMenuOpened(Integer, Menu)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onMenuOpened", Integer.class,
+                implementingPlugins = getImplementingPlugins("onMenuOpened", Integer.TYPE,
                         Menu.class);
                 mMethodImplementingPlugins.put("onMenuOpened(Integer, Menu)", implementingPlugins);
                 mIsOverridden_onMenuOpenedIrMu = implementingPlugins.size() > 0;
@@ -8295,7 +8295,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onPreparePanel(Integer, View, Menu)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onPreparePanel", Integer.class,
+                implementingPlugins = getImplementingPlugins("onPreparePanel", Integer.TYPE,
                         View.class, Menu.class);
                 mMethodImplementingPlugins
                         .put("onPreparePanel(Integer, View, Menu)", implementingPlugins);
@@ -9517,7 +9517,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("onWindowStartingActionMode(android.view.ActionMode.Callback, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("onWindowStartingActionMode",
-                        android.view.ActionMode.Callback.class, Integer.class);
+                        android.view.ActionMode.Callback.class, Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("onWindowStartingActionMode(android.view.ActionMode.Callback, Integer)",
                                 implementingPlugins);
@@ -9680,7 +9680,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("openFileOutput(String, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("openFileOutput", String.class,
-                        Integer.class);
+                        Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("openFileOutput(String, Integer)", implementingPlugins);
                 mIsOverridden_openFileOutputSgIr = implementingPlugins.size() > 0;
@@ -9764,7 +9764,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("openOrCreateDatabase(String, Integer, SQLiteDatabase.CursorFactory)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("openOrCreateDatabase", String.class,
-                        Integer.class, SQLiteDatabase.CursorFactory.class);
+                        Integer.TYPE, SQLiteDatabase.CursorFactory.class);
                 mMethodImplementingPlugins
                         .put("openOrCreateDatabase(String, Integer, SQLiteDatabase.CursorFactory)",
                                 implementingPlugins);
@@ -9806,7 +9806,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("openOrCreateDatabase(String, Integer, SQLiteDatabase.CursorFactory, DatabaseErrorHandler)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("openOrCreateDatabase", String.class,
-                        Integer.class, SQLiteDatabase.CursorFactory.class,
+                        Integer.TYPE, SQLiteDatabase.CursorFactory.class,
                         DatabaseErrorHandler.class);
                 mMethodImplementingPlugins
                         .put("openOrCreateDatabase(String, Integer, SQLiteDatabase.CursorFactory, DatabaseErrorHandler)",
@@ -10304,7 +10304,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             List<ActivityPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("requestVisibleBehind(Boolean)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("requestVisibleBehind", Boolean.class);
+                implementingPlugins = getImplementingPlugins("requestVisibleBehind", Boolean.TYPE);
                 mMethodImplementingPlugins
                         .put("requestVisibleBehind(Boolean)", implementingPlugins);
                 mIsOverridden_requestVisibleBehindBn = implementingPlugins.size() > 0;
@@ -12067,7 +12067,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("startActionMode(android.view.ActionMode.Callback, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("startActionMode",
-                        android.view.ActionMode.Callback.class, Integer.class);
+                        android.view.ActionMode.Callback.class, Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("startActionMode(android.view.ActionMode.Callback, Integer)",
                                 implementingPlugins);
@@ -12602,7 +12602,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("startActivityIfNeeded(Intent, Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("startActivityIfNeeded", Intent.class,
-                        Integer.class);
+                        Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("startActivityIfNeeded(Intent, Integer)", implementingPlugins);
                 mIsOverridden_startActivityIfNeededItIr = implementingPlugins.size() > 0;
@@ -12641,7 +12641,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("startActivityIfNeeded(Intent, Integer, Bundle)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("startActivityIfNeeded", Intent.class,
-                        Integer.class, Bundle.class);
+                        Integer.TYPE, Bundle.class);
                 mMethodImplementingPlugins
                         .put("startActivityIfNeeded(Intent, Integer, Bundle)", implementingPlugins);
                 mIsOverridden_startActivityIfNeededItIrBe = implementingPlugins.size() > 0;
@@ -13713,7 +13713,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     .get("supportRequestWindowFeature(Integer)");
             if (implementingPlugins == null) {
                 implementingPlugins = getImplementingPlugins("supportRequestWindowFeature",
-                        Integer.class);
+                        Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("supportRequestWindowFeature(Integer)", implementingPlugins);
                 mIsOverridden_supportRequestWindowFeatureIr = implementingPlugins.size() > 0;

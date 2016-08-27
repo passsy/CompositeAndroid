@@ -7,6 +7,9 @@ import android.support.annotation.LayoutRes;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -95,7 +98,7 @@ public class ActivityDelegateTest {
         try {
             b.setContentView(layoutResID);
             fail("no exception thrown");
-        } catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             assertThat(e).hasMessageContaining("setContentView")
                     .hasMessageContaining("Delegate");
         }
@@ -124,7 +127,7 @@ public class ActivityDelegateTest {
         try {
             b.setContentView(layoutResID);
             fail("no exception thrown");
-        } catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             assertThat(e).hasMessageContaining("setContentView")
                     .hasMessageContaining("Delegate");
         }
@@ -228,23 +231,6 @@ public class ActivityDelegateTest {
     }
 
     @Test
-    public void testSingleEvent() throws Exception {
-
-        final ActivityPlugin a = spy(new ActivityPlugin());
-
-        final CompositeActivity activity = mock(CompositeActivity.class);
-        final ActivityDelegate delegate = new ActivityDelegate(activity);
-
-        delegate.addPlugin(a);
-
-        final KeyEvent event = mock(KeyEvent.class);
-        delegate.onKeyDown(1, event);
-
-        verify(a).onKeyDown(1, event);
-        verify(activity).super_onKeyDown(1, event);
-    }
-
-    @Test
     public void testNonConfigurationInstance() throws Exception {
 
         final ActivityPlugin a = spy(new ActivityPlugin());
@@ -270,13 +256,88 @@ public class ActivityDelegateTest {
         delegate.addPlugin(b);
         delegate.addPlugin(c);
 
-        NonConfigurationInstanceWrapper nci = (NonConfigurationInstanceWrapper) delegate.onRetainNonConfigurationInstance();
+        NonConfigurationInstanceWrapper nci = (NonConfigurationInstanceWrapper) delegate
+                .onRetainNonConfigurationInstance();
         assertEquals("super", nci.getSuperNonConfigurationInstance());
 
         when(activity.getLastCustomNonConfigurationInstance()).thenReturn(nci);
 
         assertEquals("b", b.getLastNonConfigurationInstance("testB"));
         assertEquals("c", c.getLastNonConfigurationInstance("testC"));
+    }
+
+    @Test
+    public void testOptimizedButCallsOverriddenPluginMethods_primitiveParameter() throws Exception {
+        final List calls = new ArrayList();
+        final ActivityPlugin a = new ActivityPlugin();
+        final ActivityPlugin b = new ActivityPlugin() {
+            @Override
+            public boolean onKeyDown(final int keyCode, final KeyEvent event) {
+                calls.add(keyCode);
+                calls.add(event);
+                return true;
+            }
+        };
+        final ActivityPlugin c = new ActivityPlugin();
+
+        final CompositeActivity activity = mock(CompositeActivity.class);
+        final ActivityDelegate delegate = new ActivityDelegate(activity);
+        delegate.CALL_COUNT_OPTIMIZATION_THRESHOLD = -1;
+
+        delegate.addPlugin(a);
+        delegate.addPlugin(b);
+        delegate.addPlugin(c);
+
+        final KeyEvent event = mock(KeyEvent.class);
+        delegate.onKeyDown(1, event);
+
+        assertEquals(2, calls.size());
+        assertEquals(1, calls.get(0));
+        assertEquals(event, calls.get(1));
+    }
+
+    @Test
+    public void testOptimizedButCallsOverriddenPluginMethods_void() throws Exception {
+        final List calls = new ArrayList();
+        final ActivityPlugin a = new ActivityPlugin();
+        final ActivityPlugin b = new ActivityPlugin() {
+            @Override
+            public void onResume() {
+                super.onResume();
+                calls.add("called");
+            }
+        };
+        final ActivityPlugin c = new ActivityPlugin();
+
+        final CompositeActivity activity = mock(CompositeActivity.class);
+        final ActivityDelegate delegate = new ActivityDelegate(activity);
+        delegate.CALL_COUNT_OPTIMIZATION_THRESHOLD = -1;
+
+        delegate.addPlugin(a);
+        delegate.addPlugin(b);
+        delegate.addPlugin(c);
+
+        delegate.onResume();
+
+        assertEquals(1, calls.size());
+        assertEquals("called", calls.get(0));
+    }
+
+    @Test
+    public void testSingleEvent() throws Exception {
+
+        final ActivityPlugin a = spy(new ActivityPlugin());
+
+        final CompositeActivity activity = mock(CompositeActivity.class);
+        final ActivityDelegate delegate = new ActivityDelegate(activity);
+
+        delegate.addPlugin(a);
+
+        final KeyEvent event = mock(KeyEvent.class);
+        delegate.onKeyDown(1, event);
+
+        verify(a).onKeyDown(1, event);
+        verify(activity).super_onKeyDown(1, event);
     }
 
     @Test
@@ -292,7 +353,7 @@ public class ActivityDelegateTest {
                 return super.onKeyDown(keyCode, event);
             }
         });
-        final ActivityPlugin c = spy(new ActivityPlugin(){
+        final ActivityPlugin c = spy(new ActivityPlugin() {
             @Override
             public boolean onKeyDown(final int keyCode, final KeyEvent event) {
                 return super.onKeyDown(25, event);
@@ -305,7 +366,6 @@ public class ActivityDelegateTest {
         delegate.addPlugin(a);
         delegate.addPlugin(b);
         delegate.addPlugin(c);
-
 
         final KeyEvent event = mock(KeyEvent.class);
         delegate.onKeyDown(1, event);

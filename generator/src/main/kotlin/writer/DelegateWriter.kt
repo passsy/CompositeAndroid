@@ -123,7 +123,7 @@ fun writeDelegate(outPath: String,
         |public class $javaClassName extends $extends {
         |
         |    @VisibleForTesting
-        |    static final int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
+        |    int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
         |
         |    private final HashMap<String, List<$pluginName>> mMethodImplementingPlugins
             = new HashMap<>();
@@ -279,9 +279,7 @@ fun AnalyzedJavaMethod.callFunction(pluginType: String = "Plugin"): String {
     |    } else {
     |        List<$pluginType> implementingPlugins = mMethodImplementingPlugins.get("$identifier");
     |        if (implementingPlugins == null) {
-    |            implementingPlugins = getImplementingPlugins("$name"${if (parameterTypes.isEmpty()) "" else ", "}${parameterTypes.map {
-        it.removeSuffix("<?>")
-    }.map { "$it.class" }.joinToString()});
+    |            implementingPlugins = getImplementingPlugins("$name"${if (parameterTypes.isEmpty()) "" else ", "}${parameterTypeClasses()});
     |            mMethodImplementingPlugins.put("$identifier", implementingPlugins);
     |            mIsOverridden_$uniqueName = implementingPlugins.size() > 0;
     |        }
@@ -306,6 +304,26 @@ fun AnalyzedJavaMethod.callFunction(pluginType: String = "Plugin"): String {
     |}
     """.replaceIndentByMargin("    ")
 }
+
+private fun AnalyzedJavaMethod.parameterTypeClasses() = parameterTypes
+        .map { it.removeSuffix("<?>") }
+        .map { "$it.class" }
+        .map {
+            // replace primitive types
+            when (it) {
+                "Boolean.class" -> "Boolean.TYPE"
+                "Byte.class" -> "Byte.TYPE"
+                "Char.class" -> "Char.TYPE"
+                "Double.class" -> "Double.TYPE"
+                "Float.class" -> "Float.TYPE"
+                "Integer.class" -> "Integer.TYPE"
+                "Long.class" -> "Long.TYPE"
+                "Short.class" -> "Short.TYPE"
+                "Void.class" -> "Void.TYPE"
+                else -> it
+            }
+        }
+        .joinToString()
 
 fun String.wrapWithTryCatch(exceptionType: String?): String =
         if (exceptionType == null) this else """

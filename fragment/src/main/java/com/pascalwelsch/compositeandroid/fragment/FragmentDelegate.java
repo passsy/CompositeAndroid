@@ -45,7 +45,7 @@ import java.util.ListIterator;
 public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, FragmentPlugin> {
 
     @VisibleForTesting
-    static final int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
+    int CALL_COUNT_OPTIMIZATION_THRESHOLD = 100;
 
     private int mCallCount_dumpSgFrPrSg = 0;
 
@@ -1246,8 +1246,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
             List<FragmentPlugin> implementingPlugins = mMethodImplementingPlugins
                     .get("onCreateAnimation(Integer, Boolean, Integer)");
             if (implementingPlugins == null) {
-                implementingPlugins = getImplementingPlugins("onCreateAnimation", Integer.class,
-                        Boolean.class, Integer.class);
+                implementingPlugins = getImplementingPlugins("onCreateAnimation", Integer.TYPE,
+                        Boolean.TYPE, Integer.TYPE);
                 mMethodImplementingPlugins
                         .put("onCreateAnimation(Integer, Boolean, Integer)", implementingPlugins);
                 mIsOverridden_onCreateAnimationIrBnIr = implementingPlugins.size() > 0;

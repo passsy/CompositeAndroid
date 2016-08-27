@@ -52,12 +52,10 @@ fun writePlugin(outPath: String,
         |            try {
         |                final Class<? extends $javaClassName> myClass = this.getClass();
         |                final Method method = myClass.getMethod(methodName, parameterTypes);
-        |                if (method.getDeclaringClass() == $javaClassName.class) {
-        |                    return false;
-        |                }
+        |                return method.getDeclaringClass() != $javaClassName.class;
         |            } catch (NoSuchMethodException ignore) {
+        |                return false;
         |            }
-        |            return true;
         |        }
         |
         |

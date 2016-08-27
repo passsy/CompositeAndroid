@@ -2703,12 +2703,10 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         try {
             final Class<? extends ActivityPlugin> myClass = this.getClass();
             final Method method = myClass.getMethod(methodName, parameterTypes);
-            if (method.getDeclaringClass() == ActivityPlugin.class) {
-                return false;
-            }
+            return method.getDeclaringClass() != ActivityPlugin.class;
         } catch (NoSuchMethodException ignore) {
+            return false;
         }
-        return true;
     }
 
     boolean isRestricted(final CallFun0<Boolean> superCall) {

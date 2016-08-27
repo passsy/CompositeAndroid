@@ -535,12 +535,10 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         try {
             final Class<? extends FragmentPlugin> myClass = this.getClass();
             final Method method = myClass.getMethod(methodName, parameterTypes);
-            if (method.getDeclaringClass() == FragmentPlugin.class) {
-                return false;
-            }
+            return method.getDeclaringClass() != FragmentPlugin.class;
         } catch (NoSuchMethodException ignore) {
+            return false;
         }
-        return true;
     }
 
     void onActivityCreated(final CallVoid1<Bundle> superCall,
