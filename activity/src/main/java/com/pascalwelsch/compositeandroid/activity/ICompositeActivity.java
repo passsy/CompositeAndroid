@@ -55,7 +55,10 @@ import android.transition.TransitionManager;
 import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Display;
+import android.view.DragAndDropPermissions;
+import android.view.DragEvent;
 import android.view.KeyEvent;
+import android.view.KeyboardShortcutGroup;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -77,6 +80,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.List;
 
 public interface ICompositeActivity
         extends LayoutInflater.Factory2, Window.Callback, KeyEvent.Callback,
@@ -118,6 +122,8 @@ public interface ICompositeActivity
 
     Context createConfigurationContext(final Configuration overrideConfiguration);
 
+    Context createDeviceProtectedStorageContext();
+
     Context createDisplayContext(final Display display);
 
     Context createPackageContext(final String packageName, final int flags)
@@ -130,6 +136,8 @@ public interface ICompositeActivity
     boolean deleteDatabase(final String name);
 
     boolean deleteFile(final String name);
+
+    boolean deleteSharedPreferences(final String name);
 
     boolean dispatchGenericMotionEvent(final MotionEvent ev);
 
@@ -164,6 +172,8 @@ public interface ICompositeActivity
     void enforceUriPermission(final Uri uri, final String readPermission,
             final String writePermission, final int pid, final int uid, final int modeFlags,
             final String message);
+
+    void enterPictureInPictureMode();
 
     String[] fileList();
 
@@ -214,6 +224,8 @@ public interface ICompositeActivity
     TransitionManager getContentTransitionManager();
 
     View getCurrentFocus();
+
+    File getDataDir();
 
     File getDatabasePath(final String name);
 
@@ -321,9 +333,17 @@ public interface ICompositeActivity
 
     boolean isDestroyed();
 
+    boolean isDeviceProtectedStorage();
+
     boolean isFinishing();
 
     boolean isImmersive();
+
+    boolean isInMultiWindowMode();
+
+    boolean isInPictureInPictureMode();
+
+    boolean isLocalVoiceInteractionSupported();
 
     boolean isRestricted();
 
@@ -332,6 +352,10 @@ public interface ICompositeActivity
     boolean isVoiceInteraction();
 
     boolean isVoiceInteractionRoot();
+
+    boolean moveDatabaseFrom(final Context sourceContext, final String name);
+
+    boolean moveSharedPreferencesFrom(final Context sourceContext, final String name);
 
     boolean moveTaskToBack(final boolean nonRoot);
 
@@ -349,9 +373,9 @@ public interface ICompositeActivity
 
     void onApplyThemeResource(final Resources.Theme theme, final int resid, final boolean first);
 
-    void onAttachFragment(final Fragment fragment);
-
     void onAttachFragment(final android.app.Fragment fragment);
+
+    void onAttachFragment(final Fragment fragment);
 
     void onAttachedToWindow();
 
@@ -416,6 +440,10 @@ public interface ICompositeActivity
 
     boolean onKeyUp(final int keyCode, final KeyEvent event);
 
+    void onLocalVoiceInteractionStarted();
+
+    void onLocalVoiceInteractionStopped();
+
     void onLowMemory();
 
     boolean onMenuOpened(final int featureId, final Menu menu);
@@ -462,6 +490,9 @@ public interface ICompositeActivity
     void onProvideAssistContent(final AssistContent outContent);
 
     void onProvideAssistData(final Bundle data);
+
+    void onProvideKeyboardShortcuts(final List<KeyboardShortcutGroup> data, final Menu menu,
+            final int deviceId);
 
     Uri onProvideReferrer();
 
@@ -570,6 +601,8 @@ public interface ICompositeActivity
 
     void reportFullyDrawn();
 
+    DragAndDropPermissions requestDragAndDropPermissions(final DragEvent event);
+
     boolean requestVisibleBehind(final boolean visible);
 
     void revokeUriPermission(final Uri uri, final int modeFlags);
@@ -654,6 +687,9 @@ public interface ICompositeActivity
 
     void setVisible(final boolean visible);
 
+    void setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+            throws PackageManager.NameNotFoundException;
+
     void setWallpaper(final Bitmap bitmap) throws IOException;
 
     void setWallpaper(final InputStream data) throws IOException;
@@ -679,27 +715,27 @@ public interface ICompositeActivity
 
     void startActivity(final Intent intent, final Bundle options);
 
-    void startActivityForResult(final Intent intent, final int requestCode);
-
     void startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options);
+
+    void startActivityForResult(final Intent intent, final int requestCode);
 
     void startActivityFromChild(final Activity child, final Intent intent, final int requestCode);
 
     void startActivityFromChild(final Activity child, final Intent intent, final int requestCode,
             final Bundle options);
 
-    void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode);
-
-    void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode, @Nullable final Bundle options);
-
     void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
             final int requestCode);
 
     void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
             final int requestCode, final Bundle options);
+
+    void startActivityFromFragment(final Fragment fragment, final Intent intent,
+            final int requestCode);
+
+    void startActivityFromFragment(final Fragment fragment, final Intent intent,
+            final int requestCode, @Nullable final Bundle options);
 
     boolean startActivityIfNeeded(final Intent intent, final int requestCode);
 
@@ -738,6 +774,8 @@ public interface ICompositeActivity
             final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException;
 
+    void startLocalVoiceInteraction(final Bundle privateOptions);
+
     void startLockTask();
 
     void startManagingCursor(final Cursor c);
@@ -754,6 +792,8 @@ public interface ICompositeActivity
     ComponentName startService(final Intent service);
 
     ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback);
+
+    void stopLocalVoiceInteraction();
 
     void stopLockTask();
 
@@ -794,6 +834,8 @@ public interface ICompositeActivity
 
     Context super_createConfigurationContext(final Configuration overrideConfiguration);
 
+    Context super_createDeviceProtectedStorageContext();
+
     Context super_createDisplayContext(final Display display);
 
     Context super_createPackageContext(final String packageName, final int flags)
@@ -807,6 +849,8 @@ public interface ICompositeActivity
     boolean super_deleteDatabase(final String name);
 
     boolean super_deleteFile(final String name);
+
+    boolean super_deleteSharedPreferences(final String name);
 
     boolean super_dispatchGenericMotionEvent(final MotionEvent ev);
 
@@ -842,6 +886,8 @@ public interface ICompositeActivity
     void super_enforceUriPermission(final Uri uri, final String readPermission,
             final String writePermission, final int pid, final int uid, final int modeFlags,
             final String message);
+
+    void super_enterPictureInPictureMode();
 
     String[] super_fileList();
 
@@ -892,6 +938,8 @@ public interface ICompositeActivity
     TransitionManager super_getContentTransitionManager();
 
     View super_getCurrentFocus();
+
+    File super_getDataDir();
 
     File super_getDatabasePath(final String name);
 
@@ -993,9 +1041,17 @@ public interface ICompositeActivity
 
     boolean super_isDestroyed();
 
+    boolean super_isDeviceProtectedStorage();
+
     boolean super_isFinishing();
 
     boolean super_isImmersive();
+
+    boolean super_isInMultiWindowMode();
+
+    boolean super_isInPictureInPictureMode();
+
+    boolean super_isLocalVoiceInteractionSupported();
 
     boolean super_isRestricted();
 
@@ -1004,6 +1060,10 @@ public interface ICompositeActivity
     boolean super_isVoiceInteraction();
 
     boolean super_isVoiceInteractionRoot();
+
+    boolean super_moveDatabaseFrom(final Context sourceContext, final String name);
+
+    boolean super_moveSharedPreferencesFrom(final Context sourceContext, final String name);
 
     boolean super_moveTaskToBack(final boolean nonRoot);
 
@@ -1022,9 +1082,9 @@ public interface ICompositeActivity
     void super_onApplyThemeResource(final Resources.Theme theme, final int resid,
             final boolean first);
 
-    void super_onAttachFragment(final Fragment fragment);
-
     void super_onAttachFragment(final android.app.Fragment fragment);
+
+    void super_onAttachFragment(final Fragment fragment);
 
     void super_onAttachedToWindow();
 
@@ -1089,6 +1149,10 @@ public interface ICompositeActivity
 
     boolean super_onKeyUp(final int keyCode, final KeyEvent event);
 
+    void super_onLocalVoiceInteractionStarted();
+
+    void super_onLocalVoiceInteractionStopped();
+
     void super_onLowMemory();
 
     boolean super_onMenuOpened(final int featureId, final Menu menu);
@@ -1136,6 +1200,9 @@ public interface ICompositeActivity
     void super_onProvideAssistContent(final AssistContent outContent);
 
     void super_onProvideAssistData(final Bundle data);
+
+    void super_onProvideKeyboardShortcuts(final List<KeyboardShortcutGroup> data, final Menu menu,
+            final int deviceId);
 
     Uri super_onProvideReferrer();
 
@@ -1242,6 +1309,8 @@ public interface ICompositeActivity
 
     void super_reportFullyDrawn();
 
+    DragAndDropPermissions super_requestDragAndDropPermissions(final DragEvent event);
+
     boolean super_requestVisibleBehind(final boolean visible);
 
     void super_revokeUriPermission(final Uri uri, final int modeFlags);
@@ -1326,6 +1395,9 @@ public interface ICompositeActivity
 
     void super_setVisible(final boolean visible);
 
+    void super_setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+            throws PackageManager.NameNotFoundException;
+
     void super_setWallpaper(final Bitmap bitmap) throws IOException;
 
     void super_setWallpaper(final InputStream data) throws IOException;
@@ -1351,15 +1423,21 @@ public interface ICompositeActivity
 
     void super_startActivity(final Intent intent, final Bundle options);
 
-    void super_startActivityForResult(final Intent intent, final int requestCode);
-
     void super_startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options);
+
+    void super_startActivityForResult(final Intent intent, final int requestCode);
 
     void super_startActivityFromChild(final Activity child, final Intent intent,
             final int requestCode);
 
     void super_startActivityFromChild(final Activity child, final Intent intent,
+            final int requestCode, final Bundle options);
+
+    void super_startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
+            final int requestCode);
+
+    void super_startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
             final int requestCode, final Bundle options);
 
     void super_startActivityFromFragment(final Fragment fragment, final Intent intent,
@@ -1367,12 +1445,6 @@ public interface ICompositeActivity
 
     void super_startActivityFromFragment(final Fragment fragment, final Intent intent,
             final int requestCode, @Nullable final Bundle options);
-
-    void super_startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode);
-
-    void super_startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode, final Bundle options);
 
     boolean super_startActivityIfNeeded(final Intent intent, final int requestCode);
 
@@ -1412,6 +1484,8 @@ public interface ICompositeActivity
             final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException;
 
+    void super_startLocalVoiceInteraction(final Bundle privateOptions);
+
     void super_startLockTask();
 
     void super_startManagingCursor(final Cursor c);
@@ -1428,6 +1502,8 @@ public interface ICompositeActivity
     ComponentName super_startService(final Intent service);
 
     ActionMode super_startSupportActionMode(@NonNull final ActionMode.Callback callback);
+
+    void super_stopLocalVoiceInteraction();
 
     void super_stopLockTask();
 

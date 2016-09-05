@@ -470,7 +470,8 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * the fragment has changed.  Fragments start out not hidden; this will
      * be called whenever the fragment changes state from that.
      *
-     * @param hidden True if the fragment is now hidden, false otherwise.
+     * @param hidden True if the fragment is now hidden, false if it is not
+     *               visible.
      */
     @Override
     public void onHiddenChanged(final boolean hidden) {
@@ -493,25 +494,24 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * <p>Here is a typical implementation of a fragment that can take parameters
      * both through attributes supplied here as well from {@link #getArguments()}:</p>
      *
-     * {@sample frameworks/support/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentArgumentsSupport.java
+     * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentArguments.java
      * fragment}
      *
      * <p>Note that parsing the XML attributes uses a "styleable" resource.  The
      * declaration for the styleable used here is:</p>
      *
-     * {@sample frameworks/support/samples/Support4Demos/res/values/attrs.xml fragment_arguments}
+     * {@sample development/samples/ApiDemos/res/values/attrs.xml fragment_arguments}
      *
      * <p>The fragment can then be declared within its activity's content layout
      * through a tag like this:</p>
      *
-     * {@sample frameworks/support/samples/Support4Demos/res/layout/fragment_arguments_support.xml
-     * from_attributes}
+     * {@sample development/samples/ApiDemos/res/layout/fragment_arguments.xml from_attributes}
      *
      * <p>This fragment can also be created dynamically from arguments given
      * at runtime in the arguments Bundle; here is an example of doing so at
      * creation of the containing activity:</p>
      *
-     * {@sample frameworks/support/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentArgumentsSupport.java
+     * {@sample development/samples/ApiDemos/src/com/example/android/apis/app/FragmentArguments.java
      * create}
      *
      * @param context            The Activity that is inflating this fragment.
@@ -996,9 +996,6 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * scrolled out of visibility or is otherwise not directly visible to the user.
      * This may be used by the system to prioritize operations such as fragment lifecycle updates
      * or loader ordering behavior.</p>
-     *
-     * <p><strong>Note:</strong> This method may be called outside of the fragment lifecycle.
-     * and thus has no ordering guarantees with regard to fragment lifecycle method calls.</p>
      *
      * @param isVisibleToUser true if this fragment's UI is currently visible to the user
      *                        (default),

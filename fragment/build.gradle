@@ -45,7 +45,9 @@ android {
 dependencies {
     compile project(':core')
     testCompile 'junit:junit:4.12'
-    compile "com.android.support:support-fragment:$supportLibraryVersion"
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:support-v4:$supportLibraryVersion"
+
 
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile 'org.assertj:assertj-core:2.4.1'

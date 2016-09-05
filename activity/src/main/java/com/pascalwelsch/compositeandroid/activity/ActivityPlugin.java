@@ -69,7 +69,10 @@ import android.transition.TransitionManager;
 import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Display;
+import android.view.DragAndDropPermissions;
+import android.view.DragEvent;
 import android.view.KeyEvent;
+import android.view.KeyboardShortcutGroup;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -91,6 +94,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.List;
 
 
 @SuppressWarnings("unused")
@@ -185,6 +189,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
                 .call(overrideConfiguration);
     }
 
+    public Context createDeviceProtectedStorageContext() {
+        verifyMethodCalledFromDelegate("createDeviceProtectedStorageContext()");
+        return ((CallFun0<Context>) mSuperListeners.pop()).call();
+    }
+
     public Context createDisplayContext(final Display display) {
         verifyMethodCalledFromDelegate("createDisplayContext(Display)");
         return ((CallFun1<Context, Display>) mSuperListeners.pop()).call(display);
@@ -216,6 +225,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     public boolean deleteFile(final String name) {
         verifyMethodCalledFromDelegate("deleteFile(String)");
+        return ((CallFun1<Boolean, String>) mSuperListeners.pop()).call(name);
+    }
+
+    public boolean deleteSharedPreferences(final String name) {
+        verifyMethodCalledFromDelegate("deleteSharedPreferences(String)");
         return ((CallFun1<Boolean, String>) mSuperListeners.pop()).call(name);
     }
 
@@ -300,6 +314,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
                 "enforceUriPermission(Uri, String, String, Integer, Integer, Integer, String)");
         ((CallVoid7<Uri, String, String, Integer, Integer, Integer, String>) mSuperListeners.pop())
                 .call(uri, readPermission, writePermission, pid, uid, modeFlags, message);
+    }
+
+    public void enterPictureInPictureMode() {
+        verifyMethodCalledFromDelegate("enterPictureInPictureMode()");
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public String[] fileList() {
@@ -429,6 +448,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     public View getCurrentFocus() {
         verifyMethodCalledFromDelegate("getCurrentFocus()");
         return ((CallFun0<View>) mSuperListeners.pop()).call();
+    }
+
+    public File getDataDir() {
+        verifyMethodCalledFromDelegate("getDataDir()");
+        return ((CallFun0<File>) mSuperListeners.pop()).call();
     }
 
     public File getDatabasePath(final String name) {
@@ -686,6 +710,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
+    public boolean isDeviceProtectedStorage() {
+        verifyMethodCalledFromDelegate("isDeviceProtectedStorage()");
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
+    }
+
     public boolean isFinishing() {
         verifyMethodCalledFromDelegate("isFinishing()");
         return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
@@ -693,6 +722,21 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     public boolean isImmersive() {
         verifyMethodCalledFromDelegate("isImmersive()");
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
+    }
+
+    public boolean isInMultiWindowMode() {
+        verifyMethodCalledFromDelegate("isInMultiWindowMode()");
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
+    }
+
+    public boolean isInPictureInPictureMode() {
+        verifyMethodCalledFromDelegate("isInPictureInPictureMode()");
+        return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
+    }
+
+    public boolean isLocalVoiceInteractionSupported() {
+        verifyMethodCalledFromDelegate("isLocalVoiceInteractionSupported()");
         return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
     }
 
@@ -714,6 +758,18 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     public boolean isVoiceInteractionRoot() {
         verifyMethodCalledFromDelegate("isVoiceInteractionRoot()");
         return ((CallFun0<Boolean>) mSuperListeners.pop()).call();
+    }
+
+    public boolean moveDatabaseFrom(final Context sourceContext, final String name) {
+        verifyMethodCalledFromDelegate("moveDatabaseFrom(Context, String)");
+        return ((CallFun2<Boolean, Context, String>) mSuperListeners.pop())
+                .call(sourceContext, name);
+    }
+
+    public boolean moveSharedPreferencesFrom(final Context sourceContext, final String name) {
+        verifyMethodCalledFromDelegate("moveSharedPreferencesFrom(Context, String)");
+        return ((CallFun2<Boolean, Context, String>) mSuperListeners.pop())
+                .call(sourceContext, name);
     }
 
     public boolean moveTaskToBack(final boolean nonRoot) {
@@ -759,14 +815,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
                 .call(theme, resid, first);
     }
 
-    public void onAttachFragment(final Fragment fragment) {
-        verifyMethodCalledFromDelegate("onAttachFragment(Fragment)");
-        ((CallVoid1<Fragment>) mSuperListeners.pop()).call(fragment);
-    }
-
     public void onAttachFragment(final android.app.Fragment fragment) {
         verifyMethodCalledFromDelegate("onAttachFragment(android.app.Fragment)");
         ((CallVoid1<android.app.Fragment>) mSuperListeners.pop()).call(fragment);
+    }
+
+    public void onAttachFragment(final Fragment fragment) {
+        verifyMethodCalledFromDelegate("onAttachFragment(Fragment)");
+        ((CallVoid1<Fragment>) mSuperListeners.pop()).call(fragment);
     }
 
     public void onAttachedToWindow() {
@@ -929,6 +985,16 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         return ((CallFun2<Boolean, Integer, KeyEvent>) mSuperListeners.pop()).call(keyCode, event);
     }
 
+    public void onLocalVoiceInteractionStarted() {
+        verifyMethodCalledFromDelegate("onLocalVoiceInteractionStarted()");
+        ((CallVoid0) mSuperListeners.pop()).call();
+    }
+
+    public void onLocalVoiceInteractionStopped() {
+        verifyMethodCalledFromDelegate("onLocalVoiceInteractionStopped()");
+        ((CallVoid0) mSuperListeners.pop()).call();
+    }
+
     public void onLowMemory() {
         verifyMethodCalledFromDelegate("onLowMemory()");
         ((CallVoid0) mSuperListeners.pop()).call();
@@ -1047,6 +1113,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     public void onProvideAssistData(final Bundle data) {
         verifyMethodCalledFromDelegate("onProvideAssistData(Bundle)");
         ((CallVoid1<Bundle>) mSuperListeners.pop()).call(data);
+    }
+
+    public void onProvideKeyboardShortcuts(final List<KeyboardShortcutGroup> data, final Menu menu,
+            final int deviceId) {
+        verifyMethodCalledFromDelegate(
+                "onProvideKeyboardShortcuts(List<KeyboardShortcutGroup>, Menu, Integer)");
+        ((CallVoid3<List<KeyboardShortcutGroup>, Menu, Integer>) mSuperListeners.pop())
+                .call(data, menu, deviceId);
     }
 
     public Uri onProvideReferrer() {
@@ -1318,6 +1392,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         ((CallVoid0) mSuperListeners.pop()).call();
     }
 
+    public DragAndDropPermissions requestDragAndDropPermissions(final DragEvent event) {
+        verifyMethodCalledFromDelegate("requestDragAndDropPermissions(DragEvent)");
+        return ((CallFun1<DragAndDropPermissions, DragEvent>) mSuperListeners.pop()).call(event);
+    }
+
     public boolean requestVisibleBehind(final boolean visible) {
         verifyMethodCalledFromDelegate("requestVisibleBehind(Boolean)");
         return ((CallFun1<Boolean, Boolean>) mSuperListeners.pop()).call(visible);
@@ -1529,6 +1608,13 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(visible);
     }
 
+    public void setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+            throws PackageManager.NameNotFoundException {
+        verifyMethodCalledFromDelegate("setVrModeEnabled(Boolean, ComponentName)");
+        ((CallVoid2<Boolean, ComponentName>) mSuperListeners.pop())
+                .call(enabled, requestedComponent);
+    }
+
     public void setWallpaper(final Bitmap bitmap) throws IOException {
         verifyMethodCalledFromDelegate("setWallpaper(Bitmap)");
         ((CallVoid1<Bitmap>) mSuperListeners.pop()).call(bitmap);
@@ -1594,16 +1680,16 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         ((CallVoid2<Intent, Bundle>) mSuperListeners.pop()).call(intent, options);
     }
 
-    public void startActivityForResult(final Intent intent, final int requestCode) {
-        verifyMethodCalledFromDelegate("startActivityForResult(Intent, Integer)");
-        ((CallVoid2<Intent, Integer>) mSuperListeners.pop()).call(intent, requestCode);
-    }
-
     public void startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options) {
         verifyMethodCalledFromDelegate("startActivityForResult(Intent, Integer, Bundle)");
         ((CallVoid3<Intent, Integer, Bundle>) mSuperListeners.pop())
                 .call(intent, requestCode, options);
+    }
+
+    public void startActivityForResult(final Intent intent, final int requestCode) {
+        verifyMethodCalledFromDelegate("startActivityForResult(Intent, Integer)");
+        ((CallVoid2<Intent, Integer>) mSuperListeners.pop()).call(intent, requestCode);
     }
 
     public void startActivityFromChild(final Activity child, final Intent intent,
@@ -1620,21 +1706,6 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
                 .call(child, intent, requestCode, options);
     }
 
-    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode) {
-        verifyMethodCalledFromDelegate("startActivityFromFragment(Fragment, Intent, Integer)");
-        ((CallVoid3<Fragment, Intent, Integer>) mSuperListeners.pop())
-                .call(fragment, intent, requestCode);
-    }
-
-    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode, @Nullable final Bundle options) {
-        verifyMethodCalledFromDelegate(
-                "startActivityFromFragment(Fragment, Intent, Integer, Bundle)");
-        ((CallVoid4<Fragment, Intent, Integer, Bundle>) mSuperListeners.pop())
-                .call(fragment, intent, requestCode, options);
-    }
-
     public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
             final int requestCode) {
         verifyMethodCalledFromDelegate(
@@ -1648,6 +1719,21 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         verifyMethodCalledFromDelegate(
                 "startActivityFromFragment(android.app.Fragment, Intent, Integer, Bundle)");
         ((CallVoid4<android.app.Fragment, Intent, Integer, Bundle>) mSuperListeners.pop())
+                .call(fragment, intent, requestCode, options);
+    }
+
+    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
+            final int requestCode) {
+        verifyMethodCalledFromDelegate("startActivityFromFragment(Fragment, Intent, Integer)");
+        ((CallVoid3<Fragment, Intent, Integer>) mSuperListeners.pop())
+                .call(fragment, intent, requestCode);
+    }
+
+    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
+            final int requestCode, @Nullable final Bundle options) {
+        verifyMethodCalledFromDelegate(
+                "startActivityFromFragment(Fragment, Intent, Integer, Bundle)");
+        ((CallVoid4<Fragment, Intent, Integer, Bundle>) mSuperListeners.pop())
                 .call(fragment, intent, requestCode, options);
     }
 
@@ -1741,6 +1827,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
                 extraFlags, options);
     }
 
+    public void startLocalVoiceInteraction(final Bundle privateOptions) {
+        verifyMethodCalledFromDelegate("startLocalVoiceInteraction(Bundle)");
+        ((CallVoid1<Bundle>) mSuperListeners.pop()).call(privateOptions);
+    }
+
     public void startLockTask() {
         verifyMethodCalledFromDelegate("startLockTask()");
         ((CallVoid0) mSuperListeners.pop()).call();
@@ -1781,6 +1872,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
         verifyMethodCalledFromDelegate("startSupportActionMode(ActionMode.Callback)");
         return ((CallFun1<ActionMode, ActionMode.Callback>) mSuperListeners.pop()).call(callback);
+    }
+
+    public void stopLocalVoiceInteraction() {
+        verifyMethodCalledFromDelegate("stopLocalVoiceInteraction()");
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public void stopLockTask() {
@@ -1987,6 +2083,13 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
+    Context createDeviceProtectedStorageContext(final CallFun0<Context> superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return createDeviceProtectedStorageContext();
+        }
+    }
+
     Context createDisplayContext(final CallFun1<Context, Display> superCall,
             final Display display) {
         synchronized (mSuperListeners) {
@@ -2030,6 +2133,13 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return deleteFile(name);
+        }
+    }
+
+    boolean deleteSharedPreferences(final CallFun1<Boolean, String> superCall, final String name) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return deleteSharedPreferences(name);
         }
     }
 
@@ -2146,6 +2256,13 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
             mSuperListeners.push(superCall);
             enforceUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags,
                     message);
+        }
+    }
+
+    void enterPictureInPictureMode(final CallVoid0 superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            enterPictureInPictureMode();
         }
     }
 
@@ -2322,6 +2439,13 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getCurrentFocus();
+        }
+    }
+
+    File getDataDir(final CallFun0<File> superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return getDataDir();
         }
     }
 
@@ -2684,6 +2808,13 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
+    boolean isDeviceProtectedStorage(final CallFun0<Boolean> superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return isDeviceProtectedStorage();
+        }
+    }
+
     boolean isFinishing(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -2695,6 +2826,27 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isImmersive();
+        }
+    }
+
+    boolean isInMultiWindowMode(final CallFun0<Boolean> superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return isInMultiWindowMode();
+        }
+    }
+
+    boolean isInPictureInPictureMode(final CallFun0<Boolean> superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return isInPictureInPictureMode();
+        }
+    }
+
+    boolean isLocalVoiceInteractionSupported(final CallFun0<Boolean> superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return isLocalVoiceInteractionSupported();
         }
     }
 
@@ -2723,6 +2875,22 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return isVoiceInteractionRoot();
+        }
+    }
+
+    boolean moveDatabaseFrom(final CallFun2<Boolean, Context, String> superCall,
+            final Context sourceContext, final String name) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return moveDatabaseFrom(sourceContext, name);
+        }
+    }
+
+    boolean moveSharedPreferencesFrom(final CallFun2<Boolean, Context, String> superCall,
+            final Context sourceContext, final String name) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return moveSharedPreferencesFrom(sourceContext, name);
         }
     }
 
@@ -2788,15 +2956,15 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void onAttachFragment(final CallVoid1<Fragment> superCall, final Fragment fragment) {
+    void onAttachFragment(final CallVoid1<android.app.Fragment> superCall,
+            final android.app.Fragment fragment) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onAttachFragment(fragment);
         }
     }
 
-    void onAttachFragment(final CallVoid1<android.app.Fragment> superCall,
-            final android.app.Fragment fragment) {
+    void onAttachFragment(final CallVoid1<Fragment> superCall, final Fragment fragment) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onAttachFragment(fragment);
@@ -3033,6 +3201,20 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
+    void onLocalVoiceInteractionStarted(final CallVoid0 superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onLocalVoiceInteractionStarted();
+        }
+    }
+
+    void onLocalVoiceInteractionStopped(final CallVoid0 superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onLocalVoiceInteractionStopped();
+        }
+    }
+
     void onLowMemory(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3207,6 +3389,15 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onProvideAssistData(data);
+        }
+    }
+
+    void onProvideKeyboardShortcuts(
+            final CallVoid3<List<KeyboardShortcutGroup>, Menu, Integer> superCall,
+            final List<KeyboardShortcutGroup> data, final Menu menu, final int deviceId) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            onProvideKeyboardShortcuts(data, menu, deviceId);
         }
     }
 
@@ -3577,6 +3768,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
+    DragAndDropPermissions requestDragAndDropPermissions(
+            final CallFun1<DragAndDropPermissions, DragEvent> superCall, final DragEvent event) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return requestDragAndDropPermissions(event);
+        }
+    }
+
     boolean requestVisibleBehind(final CallFun1<Boolean, Boolean> superCall,
             final boolean visible) {
         synchronized (mSuperListeners) {
@@ -3874,6 +4073,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
+    void setVrModeEnabled(final CallVoid2<Boolean, ComponentName> superCall, final boolean enabled,
+            final ComponentName requestedComponent) throws PackageManager.NameNotFoundException {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            setVrModeEnabled(enabled, requestedComponent);
+        }
+    }
+
     void setWallpaper(final CallVoid1<Bitmap> superCall, final Bitmap bitmap) throws IOException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -3967,19 +4174,19 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startActivityForResult(final CallVoid2<Intent, Integer> superCall, final Intent intent,
-            final int requestCode) {
-        synchronized (mSuperListeners) {
-            mSuperListeners.push(superCall);
-            startActivityForResult(intent, requestCode);
-        }
-    }
-
     void startActivityForResult(final CallVoid3<Intent, Integer, Bundle> superCall,
             final Intent intent, final int requestCode, @Nullable final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityForResult(intent, requestCode, options);
+        }
+    }
+
+    void startActivityForResult(final CallVoid2<Intent, Integer> superCall, final Intent intent,
+            final int requestCode) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            startActivityForResult(intent, requestCode);
         }
     }
 
@@ -4000,23 +4207,6 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void startActivityFromFragment(final CallVoid3<Fragment, Intent, Integer> superCall,
-            final Fragment fragment, final Intent intent, final int requestCode) {
-        synchronized (mSuperListeners) {
-            mSuperListeners.push(superCall);
-            startActivityFromFragment(fragment, intent, requestCode);
-        }
-    }
-
-    void startActivityFromFragment(final CallVoid4<Fragment, Intent, Integer, Bundle> superCall,
-            final Fragment fragment, final Intent intent, final int requestCode,
-            @Nullable final Bundle options) {
-        synchronized (mSuperListeners) {
-            mSuperListeners.push(superCall);
-            startActivityFromFragment(fragment, intent, requestCode, options);
-        }
-    }
-
     void startActivityFromFragment(final CallVoid3<android.app.Fragment, Intent, Integer> superCall,
             final android.app.Fragment fragment, final Intent intent, final int requestCode) {
         synchronized (mSuperListeners) {
@@ -4029,6 +4219,23 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
             final CallVoid4<android.app.Fragment, Intent, Integer, Bundle> superCall,
             final android.app.Fragment fragment, final Intent intent, final int requestCode,
             final Bundle options) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            startActivityFromFragment(fragment, intent, requestCode, options);
+        }
+    }
+
+    void startActivityFromFragment(final CallVoid3<Fragment, Intent, Integer> superCall,
+            final Fragment fragment, final Intent intent, final int requestCode) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            startActivityFromFragment(fragment, intent, requestCode);
+        }
+    }
+
+    void startActivityFromFragment(final CallVoid4<Fragment, Intent, Integer, Bundle> superCall,
+            final Fragment fragment, final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromFragment(fragment, intent, requestCode, options);
@@ -4140,6 +4347,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
+    void startLocalVoiceInteraction(final CallVoid1<Bundle> superCall,
+            final Bundle privateOptions) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            startLocalVoiceInteraction(privateOptions);
+        }
+    }
+
     void startLockTask(final CallVoid0 superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -4199,6 +4414,13 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startSupportActionMode(callback);
+        }
+    }
+
+    void stopLocalVoiceInteraction(final CallVoid0 superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            stopLocalVoiceInteraction();
         }
     }
 
