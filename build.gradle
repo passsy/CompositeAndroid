@@ -22,14 +22,25 @@ allprojects {
     }
 }
 
+// major version is the SDK version
+def versionMajor = 24
+// minor version of the support library
+def versionMinor = 2
+// patch version of the support library
+def versionPatch = 1
+
+// composite android build version for the given support library version.
+// increases when composite android receives updates but the support lib doesn't update
+def versionBuild = 0
+
 ext {
-    supportLibraryVersion = '24.2.0'
+    supportLibraryVersion = "$versionMajor.$versionMinor.$versionPatch"
     VERSION_NAME = "$supportLibraryVersion"
-    VERSION_CODE = 7
+    VERSION_CODE = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
     MIN_SDK_VERSION = 14
-    TARGET_SDK_VERSION = 24
-    COMPILE_SDK_VERSION = 24
-    BUILD_TOOLS_VERSION = '24.0.1'
+    TARGET_SDK_VERSION = versionMajor
+    COMPILE_SDK_VERSION = versionMajor
+    BUILD_TOOLS_VERSION = "$versionMajor.0.1"
 
 
     ciBuild = System.getenv("TRAVIS") == "true"
