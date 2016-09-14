@@ -129,7 +129,7 @@ CompositeAndroid is available via [jcenter](http://blog.bintray.com/2015/02/09/a
 ```gradle
 dependencies {
     // it's very important to use the same version as the support library
-    def supportLibraryVersion = "24.2.0"
+    def supportLibraryVersion = "24.2.1"
     
     // contains CompositeActivity
     compile "com.pascalwelsch.compositeandroid:activity:$supportLibraryVersion"
