@@ -69,7 +69,10 @@ import android.transition.TransitionManager;
 import android.util.AttributeSet;
 import android.view.ContextMenu;
 import android.view.Display;
+import android.view.DragAndDropPermissions;
+import android.view.DragEvent;
 import android.view.KeyEvent;
+import android.view.KeyboardShortcutGroup;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -91,6 +94,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.ListIterator;
 
 public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, ActivityPlugin> {
@@ -488,6 +492,28 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call(overrideConfiguration);
     }
 
+    public Context createDeviceProtectedStorageContext() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_createDeviceProtectedStorageContext();
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun0<Context> superCall = new CallFun0<Context>(
+                "createDeviceProtectedStorageContext()") {
+
+            @Override
+            public Context call() {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().createDeviceProtectedStorageContext(this);
+                } else {
+                    return getOriginal().super_createDeviceProtectedStorageContext();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
     public Context createDisplayContext(final Display display) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_createDisplayContext(display);
@@ -629,6 +655,28 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     return iterator.previous().deleteFile(this, name);
                 } else {
                     return getOriginal().super_deleteFile(name);
+                }
+            }
+        };
+        return superCall.call(name);
+    }
+
+    public boolean deleteSharedPreferences(final String name) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_deleteSharedPreferences(name);
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun1<Boolean, String> superCall = new CallFun1<Boolean, String>(
+                "deleteSharedPreferences(String)") {
+
+            @Override
+            public Boolean call(final String name) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().deleteSharedPreferences(this, name);
+                } else {
+                    return getOriginal().super_deleteSharedPreferences(name);
                 }
             }
         };
@@ -973,6 +1021,28 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call(uri, readPermission, writePermission, pid, uid, modeFlags, message);
+    }
+
+    public void enterPictureInPictureMode() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_enterPictureInPictureMode();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid0 superCall = new CallVoid0("enterPictureInPictureMode()") {
+
+            @Override
+            public void call() {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().enterPictureInPictureMode(this);
+                } else {
+                    getOriginal().super_enterPictureInPictureMode();
+                }
+            }
+        };
+        superCall.call();
     }
 
     public String[] fileList() {
@@ -1509,6 +1579,27 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     return iterator.previous().getCurrentFocus(this);
                 } else {
                     return getOriginal().super_getCurrentFocus();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public File getDataDir() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getDataDir();
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun0<File> superCall = new CallFun0<File>("getDataDir()") {
+
+            @Override
+            public File call() {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getDataDir(this);
+                } else {
+                    return getOriginal().super_getDataDir();
                 }
             }
         };
@@ -2609,6 +2700,27 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call();
     }
 
+    public boolean isDeviceProtectedStorage() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isDeviceProtectedStorage();
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isDeviceProtectedStorage()") {
+
+            @Override
+            public Boolean call() {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isDeviceProtectedStorage(this);
+                } else {
+                    return getOriginal().super_isDeviceProtectedStorage();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
     public boolean isFinishing() {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_isFinishing();
@@ -2645,6 +2757,70 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                     return iterator.previous().isImmersive(this);
                 } else {
                     return getOriginal().super_isImmersive();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public boolean isInMultiWindowMode() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isInMultiWindowMode();
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isInMultiWindowMode()") {
+
+            @Override
+            public Boolean call() {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isInMultiWindowMode(this);
+                } else {
+                    return getOriginal().super_isInMultiWindowMode();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public boolean isInPictureInPictureMode() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isInPictureInPictureMode();
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isInPictureInPictureMode()") {
+
+            @Override
+            public Boolean call() {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isInPictureInPictureMode(this);
+                } else {
+                    return getOriginal().super_isInPictureInPictureMode();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public boolean isLocalVoiceInteractionSupported() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isLocalVoiceInteractionSupported();
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>(
+                "isLocalVoiceInteractionSupported()") {
+
+            @Override
+            public Boolean call() {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isLocalVoiceInteractionSupported(this);
+                } else {
+                    return getOriginal().super_isLocalVoiceInteractionSupported();
                 }
             }
         };
@@ -2733,6 +2909,50 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         return superCall.call();
+    }
+
+    public boolean moveDatabaseFrom(final Context sourceContext, final String name) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_moveDatabaseFrom(sourceContext, name);
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun2<Boolean, Context, String> superCall = new CallFun2<Boolean, Context, String>(
+                "moveDatabaseFrom(Context, String)") {
+
+            @Override
+            public Boolean call(final Context sourceContext, final String name) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().moveDatabaseFrom(this, sourceContext, name);
+                } else {
+                    return getOriginal().super_moveDatabaseFrom(sourceContext, name);
+                }
+            }
+        };
+        return superCall.call(sourceContext, name);
+    }
+
+    public boolean moveSharedPreferencesFrom(final Context sourceContext, final String name) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_moveSharedPreferencesFrom(sourceContext, name);
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun2<Boolean, Context, String> superCall = new CallFun2<Boolean, Context, String>(
+                "moveSharedPreferencesFrom(Context, String)") {
+
+            @Override
+            public Boolean call(final Context sourceContext, final String name) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().moveSharedPreferencesFrom(this, sourceContext, name);
+                } else {
+                    return getOriginal().super_moveSharedPreferencesFrom(sourceContext, name);
+                }
+            }
+        };
+        return superCall.call(sourceContext, name);
     }
 
     public boolean moveTaskToBack(final boolean nonRoot) {
@@ -2922,29 +3142,6 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(theme, resid, first);
     }
 
-    public void onAttachFragment(final Fragment fragment) {
-        if (mPlugins.isEmpty()) {
-            getOriginal().super_onAttachFragment(fragment);
-            return;
-        }
-
-        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
-
-        final CallVoid1<Fragment> superCall = new CallVoid1<Fragment>(
-                "onAttachFragment(Fragment)") {
-
-            @Override
-            public void call(final Fragment fragment) {
-                if (iterator.hasPrevious()) {
-                    iterator.previous().onAttachFragment(this, fragment);
-                } else {
-                    getOriginal().super_onAttachFragment(fragment);
-                }
-            }
-        };
-        superCall.call(fragment);
-    }
-
     public void onAttachFragment(final android.app.Fragment fragment) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onAttachFragment(fragment);
@@ -2958,6 +3155,29 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
             @Override
             public void call(final android.app.Fragment fragment) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onAttachFragment(this, fragment);
+                } else {
+                    getOriginal().super_onAttachFragment(fragment);
+                }
+            }
+        };
+        superCall.call(fragment);
+    }
+
+    public void onAttachFragment(final Fragment fragment) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onAttachFragment(fragment);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid1<Fragment> superCall = new CallVoid1<Fragment>(
+                "onAttachFragment(Fragment)") {
+
+            @Override
+            public void call(final Fragment fragment) {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onAttachFragment(this, fragment);
                 } else {
@@ -3646,6 +3866,50 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call(keyCode, event);
     }
 
+    public void onLocalVoiceInteractionStarted() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onLocalVoiceInteractionStarted();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid0 superCall = new CallVoid0("onLocalVoiceInteractionStarted()") {
+
+            @Override
+            public void call() {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onLocalVoiceInteractionStarted(this);
+                } else {
+                    getOriginal().super_onLocalVoiceInteractionStarted();
+                }
+            }
+        };
+        superCall.call();
+    }
+
+    public void onLocalVoiceInteractionStopped() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onLocalVoiceInteractionStopped();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid0 superCall = new CallVoid0("onLocalVoiceInteractionStopped()") {
+
+            @Override
+            public void call() {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onLocalVoiceInteractionStopped(this);
+                } else {
+                    getOriginal().super_onLocalVoiceInteractionStopped();
+                }
+            }
+        };
+        superCall.call();
+    }
+
     public void onLowMemory() {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onLowMemory();
@@ -4165,6 +4429,32 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call(data);
+    }
+
+    public void onProvideKeyboardShortcuts(final List<KeyboardShortcutGroup> data, final Menu menu,
+            final int deviceId) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onProvideKeyboardShortcuts(data, menu, deviceId);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid3<List<KeyboardShortcutGroup>, Menu, Integer> superCall
+                = new CallVoid3<List<KeyboardShortcutGroup>, Menu, Integer>(
+                "onProvideKeyboardShortcuts(List<KeyboardShortcutGroup>, Menu, Integer)") {
+
+            @Override
+            public void call(final List<KeyboardShortcutGroup> data, final Menu menu,
+                    final Integer deviceId) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().onProvideKeyboardShortcuts(this, data, menu, deviceId);
+                } else {
+                    getOriginal().super_onProvideKeyboardShortcuts(data, menu, deviceId);
+                }
+            }
+        };
+        superCall.call(data, menu, deviceId);
     }
 
     public Uri onProvideReferrer() {
@@ -5307,6 +5597,29 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call();
     }
 
+    public DragAndDropPermissions requestDragAndDropPermissions(final DragEvent event) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_requestDragAndDropPermissions(event);
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun1<DragAndDropPermissions, DragEvent> superCall
+                = new CallFun1<DragAndDropPermissions, DragEvent>(
+                "requestDragAndDropPermissions(DragEvent)") {
+
+            @Override
+            public DragAndDropPermissions call(final DragEvent event) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().requestDragAndDropPermissions(this, event);
+                } else {
+                    return getOriginal().super_requestDragAndDropPermissions(event);
+                }
+            }
+        };
+        return superCall.call(event);
+    }
+
     public boolean requestVisibleBehind(final boolean visible) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_requestVisibleBehind(visible);
@@ -6204,6 +6517,42 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(visible);
     }
 
+    public void setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+            throws PackageManager.NameNotFoundException {
+        if (mPlugins.isEmpty()) {
+            try {
+                getOriginal().super_setVrModeEnabled(enabled, requestedComponent);
+            } catch (PackageManager.NameNotFoundException e) {
+                throw new SuppressedException(e);
+            }
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid2<Boolean, ComponentName> superCall = new CallVoid2<Boolean, ComponentName>(
+                "setVrModeEnabled(Boolean, ComponentName)") {
+
+            @Override
+            public void call(final Boolean enabled, final ComponentName requestedComponent) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        iterator.previous().setVrModeEnabled(this, enabled, requestedComponent);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        throw new SuppressedException(e);
+                    }
+                } else {
+                    try {
+                        getOriginal().super_setVrModeEnabled(enabled, requestedComponent);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        throw new SuppressedException(e);
+                    }
+                }
+            }
+        };
+        superCall.call(enabled, requestedComponent);
+    }
+
     public void setWallpaper(final Bitmap bitmap) throws IOException {
         if (mPlugins.isEmpty()) {
             try {
@@ -6501,29 +6850,6 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(intent, options);
     }
 
-    public void startActivityForResult(final Intent intent, final int requestCode) {
-        if (mPlugins.isEmpty()) {
-            getOriginal().super_startActivityForResult(intent, requestCode);
-            return;
-        }
-
-        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
-
-        final CallVoid2<Intent, Integer> superCall = new CallVoid2<Intent, Integer>(
-                "startActivityForResult(Intent, Integer)") {
-
-            @Override
-            public void call(final Intent intent, final Integer requestCode) {
-                if (iterator.hasPrevious()) {
-                    iterator.previous().startActivityForResult(this, intent, requestCode);
-                } else {
-                    getOriginal().super_startActivityForResult(intent, requestCode);
-                }
-            }
-        };
-        superCall.call(intent, requestCode);
-    }
-
     public void startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options) {
         if (mPlugins.isEmpty()) {
@@ -6546,6 +6872,29 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call(intent, requestCode, options);
+    }
+
+    public void startActivityForResult(final Intent intent, final int requestCode) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityForResult(intent, requestCode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid2<Intent, Integer> superCall = new CallVoid2<Intent, Integer>(
+                "startActivityForResult(Intent, Integer)") {
+
+            @Override
+            public void call(final Intent intent, final Integer requestCode) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startActivityForResult(this, intent, requestCode);
+                } else {
+                    getOriginal().super_startActivityForResult(intent, requestCode);
+                }
+            }
+        };
+        superCall.call(intent, requestCode);
     }
 
     public void startActivityFromChild(final Activity child, final Intent intent,
@@ -6600,62 +6949,6 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(child, intent, requestCode, options);
     }
 
-    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode) {
-        if (mPlugins.isEmpty()) {
-            getOriginal().super_startActivityFromFragment(fragment, intent, requestCode);
-            return;
-        }
-
-        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
-
-        final CallVoid3<Fragment, Intent, Integer> superCall
-                = new CallVoid3<Fragment, Intent, Integer>(
-                "startActivityFromFragment(Fragment, Intent, Integer)") {
-
-            @Override
-            public void call(final Fragment fragment, final Intent intent,
-                    final Integer requestCode) {
-                if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .startActivityFromFragment(this, fragment, intent, requestCode);
-                } else {
-                    getOriginal().super_startActivityFromFragment(fragment, intent, requestCode);
-                }
-            }
-        };
-        superCall.call(fragment, intent, requestCode);
-    }
-
-    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode, @Nullable final Bundle options) {
-        if (mPlugins.isEmpty()) {
-            getOriginal().super_startActivityFromFragment(fragment, intent, requestCode, options);
-            return;
-        }
-
-        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
-
-        final CallVoid4<Fragment, Intent, Integer, Bundle> superCall
-                = new CallVoid4<Fragment, Intent, Integer, Bundle>(
-                "startActivityFromFragment(Fragment, Intent, Integer, Bundle)") {
-
-            @Override
-            public void call(final Fragment fragment, final Intent intent,
-                    final Integer requestCode, final Bundle options) {
-                if (iterator.hasPrevious()) {
-                    iterator.previous()
-                            .startActivityFromFragment(this, fragment, intent, requestCode,
-                                    options);
-                } else {
-                    getOriginal().super_startActivityFromFragment(fragment, intent, requestCode,
-                            options);
-                }
-            }
-        };
-        superCall.call(fragment, intent, requestCode, options);
-    }
-
     public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
             final int requestCode) {
         if (mPlugins.isEmpty()) {
@@ -6698,6 +6991,62 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
             @Override
             public void call(final android.app.Fragment fragment, final Intent intent,
+                    final Integer requestCode, final Bundle options) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityFromFragment(this, fragment, intent, requestCode,
+                                    options);
+                } else {
+                    getOriginal().super_startActivityFromFragment(fragment, intent, requestCode,
+                            options);
+                }
+            }
+        };
+        superCall.call(fragment, intent, requestCode, options);
+    }
+
+    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
+            final int requestCode) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityFromFragment(fragment, intent, requestCode);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid3<Fragment, Intent, Integer> superCall
+                = new CallVoid3<Fragment, Intent, Integer>(
+                "startActivityFromFragment(Fragment, Intent, Integer)") {
+
+            @Override
+            public void call(final Fragment fragment, final Intent intent,
+                    final Integer requestCode) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .startActivityFromFragment(this, fragment, intent, requestCode);
+                } else {
+                    getOriginal().super_startActivityFromFragment(fragment, intent, requestCode);
+                }
+            }
+        };
+        superCall.call(fragment, intent, requestCode);
+    }
+
+    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
+            final int requestCode, @Nullable final Bundle options) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startActivityFromFragment(fragment, intent, requestCode, options);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid4<Fragment, Intent, Integer, Bundle> superCall
+                = new CallVoid4<Fragment, Intent, Integer, Bundle>(
+                "startActivityFromFragment(Fragment, Intent, Integer, Bundle)") {
+
+            @Override
+            public void call(final Fragment fragment, final Intent intent,
                     final Integer requestCode, final Bundle options) {
                 if (iterator.hasPrevious()) {
                     iterator.previous()
@@ -7106,6 +7455,29 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 extraFlags, options);
     }
 
+    public void startLocalVoiceInteraction(final Bundle privateOptions) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startLocalVoiceInteraction(privateOptions);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid1<Bundle> superCall = new CallVoid1<Bundle>(
+                "startLocalVoiceInteraction(Bundle)") {
+
+            @Override
+            public void call(final Bundle privateOptions) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startLocalVoiceInteraction(this, privateOptions);
+                } else {
+                    getOriginal().super_startLocalVoiceInteraction(privateOptions);
+                }
+            }
+        };
+        superCall.call(privateOptions);
+    }
+
     public void startLockTask() {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startLockTask();
@@ -7289,6 +7661,28 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         return superCall.call(callback);
+    }
+
+    public void stopLocalVoiceInteraction() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_stopLocalVoiceInteraction();
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid0 superCall = new CallVoid0("stopLocalVoiceInteraction()") {
+
+            @Override
+            public void call() {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().stopLocalVoiceInteraction(this);
+                } else {
+                    getOriginal().super_stopLocalVoiceInteraction();
+                }
+            }
+        };
+        superCall.call();
     }
 
     public void stopLockTask() {
