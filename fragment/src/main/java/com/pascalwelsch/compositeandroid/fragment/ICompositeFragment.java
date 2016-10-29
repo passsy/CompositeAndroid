@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.Fragment.SavedState;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
 import android.util.AttributeSet;
@@ -24,12 +25,10 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-
 public interface ICompositeFragment {
 
 
-    void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args);
+    void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args);
 
     boolean getAllowEnterTransitionOverlap();
 
@@ -41,7 +40,7 @@ public interface ICompositeFragment {
 
     Object getExitTransition();
 
-    LayoutInflater getLayoutInflater(final Bundle savedInstanceState);
+    LayoutInflater getLayoutInflater(Bundle savedInstanceState);
 
     LoaderManager getLoaderManager();
 
@@ -57,31 +56,30 @@ public interface ICompositeFragment {
 
     View getView();
 
-    void onActivityCreated(@Nullable final Bundle savedInstanceState);
+    void onActivityCreated(@Nullable Bundle savedInstanceState);
 
-    void onActivityResult(final int requestCode, final int resultCode, final Intent data);
+    void onActivityResult(int requestCode, int resultCode, Intent data);
 
-    void onAttach(final Context context);
+    void onAttach(Context context);
 
-    void onAttach(final Activity activity);
+    void onAttach(Activity activity);
 
-    void onAttachFragment(final Fragment childFragment);
+    void onAttachFragment(Fragment childFragment);
 
-    void onConfigurationChanged(final Configuration newConfig);
+    void onConfigurationChanged(Configuration newConfig);
 
-    boolean onContextItemSelected(final MenuItem item);
+    boolean onContextItemSelected(MenuItem item);
 
-    void onCreate(@Nullable final Bundle savedInstanceState);
+    void onCreate(@Nullable Bundle savedInstanceState);
 
-    Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim);
+    Animation onCreateAnimation(int transit, boolean enter, int nextAnim);
 
-    void onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo);
+    void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo);
 
-    void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater);
+    void onCreateOptionsMenu(Menu menu, MenuInflater inflater);
 
-    View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState);
+    View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState);
 
     void onDestroy();
 
@@ -91,96 +89,92 @@ public interface ICompositeFragment {
 
     void onDetach();
 
-    void onHiddenChanged(final boolean hidden);
+    void onHiddenChanged(boolean hidden);
 
-    void onInflate(final Context context, final AttributeSet attrs,
-            final Bundle savedInstanceState);
+    void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState);
 
-    void onInflate(final Activity activity, final AttributeSet attrs,
-            final Bundle savedInstanceState);
+    void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState);
 
     void onLowMemory();
 
-    void onMultiWindowModeChanged(final boolean isInMultiWindowMode);
+    void onMultiWindowModeChanged(boolean isInMultiWindowMode);
 
-    boolean onOptionsItemSelected(final MenuItem item);
+    boolean onOptionsItemSelected(MenuItem item);
 
-    void onOptionsMenuClosed(final Menu menu);
+    void onOptionsMenuClosed(Menu menu);
 
     void onPause();
 
-    void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
+    void onPictureInPictureModeChanged(boolean isInPictureInPictureMode);
 
-    void onPrepareOptionsMenu(final Menu menu);
+    void onPrepareOptionsMenu(Menu menu);
 
-    void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions,
-            @NonNull final int[] grantResults);
+    void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults);
 
     void onResume();
 
-    void onSaveInstanceState(final Bundle outState);
+    void onSaveInstanceState(Bundle outState);
 
     void onStart();
 
     void onStop();
 
-    void onViewCreated(final View view, @Nullable final Bundle savedInstanceState);
+    void onViewCreated(View view, @Nullable Bundle savedInstanceState);
 
-    void onViewStateRestored(@Nullable final Bundle savedInstanceState);
+    void onViewStateRestored(@Nullable Bundle savedInstanceState);
 
-    void registerForContextMenu(final View view);
+    void registerForContextMenu(View view);
 
-    void setAllowEnterTransitionOverlap(final boolean allow);
+    void setAllowEnterTransitionOverlap(boolean allow);
 
-    void setAllowReturnTransitionOverlap(final boolean allow);
+    void setAllowReturnTransitionOverlap(boolean allow);
 
-    void setArguments(final Bundle args);
+    void setArguments(Bundle args);
 
-    void setEnterSharedElementCallback(final SharedElementCallback callback);
+    void setEnterSharedElementCallback(SharedElementCallback callback);
 
-    void setEnterTransition(final Object transition);
+    void setEnterTransition(Object transition);
 
-    void setExitSharedElementCallback(final SharedElementCallback callback);
+    void setExitSharedElementCallback(SharedElementCallback callback);
 
-    void setExitTransition(final Object transition);
+    void setExitTransition(Object transition);
 
-    void setHasOptionsMenu(final boolean hasMenu);
+    void setHasOptionsMenu(boolean hasMenu);
 
-    void setInitialSavedState(final Fragment.SavedState state);
+    void setInitialSavedState(SavedState state);
 
-    void setMenuVisibility(final boolean menuVisible);
+    void setMenuVisibility(boolean menuVisible);
 
-    void setReenterTransition(final Object transition);
+    void setReenterTransition(Object transition);
 
-    void setRetainInstance(final boolean retain);
+    void setRetainInstance(boolean retain);
 
-    void setReturnTransition(final Object transition);
+    void setReturnTransition(Object transition);
 
-    void setSharedElementEnterTransition(final Object transition);
+    void setSharedElementEnterTransition(Object transition);
 
-    void setSharedElementReturnTransition(final Object transition);
+    void setSharedElementReturnTransition(Object transition);
 
-    void setTargetFragment(final Fragment fragment, final int requestCode);
+    void setTargetFragment(Fragment fragment, int requestCode);
 
-    void setUserVisibleHint(final boolean isVisibleToUser);
+    void setUserVisibleHint(boolean isVisibleToUser);
 
-    boolean shouldShowRequestPermissionRationale(@NonNull final String permission);
+    boolean shouldShowRequestPermissionRationale(@NonNull String permission);
 
-    void startActivity(final Intent intent);
+    void startActivity(Intent intent);
 
-    void startActivity(final Intent intent, @Nullable final Bundle options);
+    void startActivity(Intent intent, @Nullable Bundle options);
 
-    void startActivityForResult(final Intent intent, final int requestCode);
+    void startActivityForResult(Intent intent, int requestCode);
 
-    void startActivityForResult(final Intent intent, final int requestCode,
-            @Nullable final Bundle options);
+    void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options);
 
-    void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
+    void startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException;
 
-    void super_dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args);
+    void super_dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args);
 
     boolean super_getAllowEnterTransitionOverlap();
 
@@ -192,7 +186,7 @@ public interface ICompositeFragment {
 
     Object super_getExitTransition();
 
-    LayoutInflater super_getLayoutInflater(final Bundle savedInstanceState);
+    LayoutInflater super_getLayoutInflater(Bundle savedInstanceState);
 
     LoaderManager super_getLoaderManager();
 
@@ -208,31 +202,30 @@ public interface ICompositeFragment {
 
     View super_getView();
 
-    void super_onActivityCreated(@Nullable final Bundle savedInstanceState);
+    void super_onActivityCreated(@Nullable Bundle savedInstanceState);
 
-    void super_onActivityResult(final int requestCode, final int resultCode, final Intent data);
+    void super_onActivityResult(int requestCode, int resultCode, Intent data);
 
-    void super_onAttach(final Context context);
+    void super_onAttach(Context context);
 
-    void super_onAttach(final Activity activity);
+    void super_onAttach(Activity activity);
 
-    void super_onAttachFragment(final Fragment childFragment);
+    void super_onAttachFragment(Fragment childFragment);
 
-    void super_onConfigurationChanged(final Configuration newConfig);
+    void super_onConfigurationChanged(Configuration newConfig);
 
-    boolean super_onContextItemSelected(final MenuItem item);
+    boolean super_onContextItemSelected(MenuItem item);
 
-    void super_onCreate(@Nullable final Bundle savedInstanceState);
+    void super_onCreate(@Nullable Bundle savedInstanceState);
 
-    Animation super_onCreateAnimation(final int transit, final boolean enter, final int nextAnim);
+    Animation super_onCreateAnimation(int transit, boolean enter, int nextAnim);
 
-    void super_onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo);
+    void super_onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo);
 
-    void super_onCreateOptionsMenu(final Menu menu, final MenuInflater inflater);
+    void super_onCreateOptionsMenu(Menu menu, MenuInflater inflater);
 
-    View super_onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState);
+    View super_onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState);
 
     void super_onDestroy();
 
@@ -242,99 +235,96 @@ public interface ICompositeFragment {
 
     void super_onDetach();
 
-    void super_onHiddenChanged(final boolean hidden);
+    void super_onHiddenChanged(boolean hidden);
 
-    void super_onInflate(final Context context, final AttributeSet attrs,
-            final Bundle savedInstanceState);
+    void super_onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState);
 
-    void super_onInflate(final Activity activity, final AttributeSet attrs,
-            final Bundle savedInstanceState);
+    void super_onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState);
 
     void super_onLowMemory();
 
-    void super_onMultiWindowModeChanged(final boolean isInMultiWindowMode);
+    void super_onMultiWindowModeChanged(boolean isInMultiWindowMode);
 
-    boolean super_onOptionsItemSelected(final MenuItem item);
+    boolean super_onOptionsItemSelected(MenuItem item);
 
-    void super_onOptionsMenuClosed(final Menu menu);
+    void super_onOptionsMenuClosed(Menu menu);
 
     void super_onPause();
 
-    void super_onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
+    void super_onPictureInPictureModeChanged(boolean isInPictureInPictureMode);
 
-    void super_onPrepareOptionsMenu(final Menu menu);
+    void super_onPrepareOptionsMenu(Menu menu);
 
-    void super_onRequestPermissionsResult(final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults);
+    void super_onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults);
 
     void super_onResume();
 
-    void super_onSaveInstanceState(final Bundle outState);
+    void super_onSaveInstanceState(Bundle outState);
 
     void super_onStart();
 
     void super_onStop();
 
-    void super_onViewCreated(final View view, @Nullable final Bundle savedInstanceState);
+    void super_onViewCreated(View view, @Nullable Bundle savedInstanceState);
 
-    void super_onViewStateRestored(@Nullable final Bundle savedInstanceState);
+    void super_onViewStateRestored(@Nullable Bundle savedInstanceState);
 
-    void super_registerForContextMenu(final View view);
+    void super_registerForContextMenu(View view);
 
-    void super_setAllowEnterTransitionOverlap(final boolean allow);
+    void super_setAllowEnterTransitionOverlap(boolean allow);
 
-    void super_setAllowReturnTransitionOverlap(final boolean allow);
+    void super_setAllowReturnTransitionOverlap(boolean allow);
 
-    void super_setArguments(final Bundle args);
+    void super_setArguments(Bundle args);
 
-    void super_setEnterSharedElementCallback(final SharedElementCallback callback);
+    void super_setEnterSharedElementCallback(SharedElementCallback callback);
 
-    void super_setEnterTransition(final Object transition);
+    void super_setEnterTransition(Object transition);
 
-    void super_setExitSharedElementCallback(final SharedElementCallback callback);
+    void super_setExitSharedElementCallback(SharedElementCallback callback);
 
-    void super_setExitTransition(final Object transition);
+    void super_setExitTransition(Object transition);
 
-    void super_setHasOptionsMenu(final boolean hasMenu);
+    void super_setHasOptionsMenu(boolean hasMenu);
 
-    void super_setInitialSavedState(final Fragment.SavedState state);
+    void super_setInitialSavedState(SavedState state);
 
-    void super_setMenuVisibility(final boolean menuVisible);
+    void super_setMenuVisibility(boolean menuVisible);
 
-    void super_setReenterTransition(final Object transition);
+    void super_setReenterTransition(Object transition);
 
-    void super_setRetainInstance(final boolean retain);
+    void super_setRetainInstance(boolean retain);
 
-    void super_setReturnTransition(final Object transition);
+    void super_setReturnTransition(Object transition);
 
-    void super_setSharedElementEnterTransition(final Object transition);
+    void super_setSharedElementEnterTransition(Object transition);
 
-    void super_setSharedElementReturnTransition(final Object transition);
+    void super_setSharedElementReturnTransition(Object transition);
 
-    void super_setTargetFragment(final Fragment fragment, final int requestCode);
+    void super_setTargetFragment(Fragment fragment, int requestCode);
 
-    void super_setUserVisibleHint(final boolean isVisibleToUser);
+    void super_setUserVisibleHint(boolean isVisibleToUser);
 
-    boolean super_shouldShowRequestPermissionRationale(@NonNull final String permission);
+    boolean super_shouldShowRequestPermissionRationale(@NonNull String permission);
 
-    void super_startActivity(final Intent intent);
+    void super_startActivity(Intent intent);
 
-    void super_startActivity(final Intent intent, @Nullable final Bundle options);
+    void super_startActivity(Intent intent, @Nullable Bundle options);
 
-    void super_startActivityForResult(final Intent intent, final int requestCode);
+    void super_startActivityForResult(Intent intent, int requestCode);
 
-    void super_startActivityForResult(final Intent intent, final int requestCode,
-            @Nullable final Bundle options);
+    void super_startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options);
 
-    void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
+    void super_startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException;
 
     String super_toString();
 
-    void super_unregisterForContextMenu(final View view);
+    void super_unregisterForContextMenu(View view);
 
     String toString();
 
-    void unregisterForContextMenu(final View view);
+    void unregisterForContextMenu(View view);
 }

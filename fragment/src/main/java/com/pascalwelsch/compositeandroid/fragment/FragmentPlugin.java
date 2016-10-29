@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.Fragment.SavedState;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
 import android.util.AttributeSet;
@@ -38,8 +39,7 @@ import java.io.PrintWriter;
 @SuppressWarnings("unused")
 public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
 
-    public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args) {
+    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
         verifyMethodCalledFromDelegate("dump(String, FileDescriptor, PrintWriter, String[])");
         ((CallVoid4<String, FileDescriptor, PrintWriter, String[]>) mSuperListeners.pop())
                 .call(prefix, fd, writer, args);
@@ -74,7 +74,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         return (Fragment) getOriginal();
     }
 
-    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
+    public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("getLayoutInflater(Bundle)");
         return ((CallFun1<LayoutInflater, Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
@@ -114,68 +114,68 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         return ((CallFun0<View>) mSuperListeners.pop()).call();
     }
 
-    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onActivityCreated(Bundle)");
         ((CallVoid1<Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         verifyMethodCalledFromDelegate("onActivityResult(Integer, Integer, Intent)");
         ((CallVoid3<Integer, Integer, Intent>) mSuperListeners.pop())
                 .call(requestCode, resultCode, data);
     }
 
-    public void onAttach(final Context context) {
+    public void onAttach(Context context) {
         verifyMethodCalledFromDelegate("onAttach(Context)");
         ((CallVoid1<Context>) mSuperListeners.pop()).call(context);
     }
 
-    public void onAttach(final Activity activity) {
+    public void onAttach(Activity activity) {
         verifyMethodCalledFromDelegate("onAttach(Activity)");
         ((CallVoid1<Activity>) mSuperListeners.pop()).call(activity);
     }
 
-    public void onAttachFragment(final Fragment childFragment) {
+    public void onAttachFragment(Fragment childFragment) {
         verifyMethodCalledFromDelegate("onAttachFragment(Fragment)");
         ((CallVoid1<Fragment>) mSuperListeners.pop()).call(childFragment);
     }
 
-    public void onConfigurationChanged(final Configuration newConfig) {
+    public void onConfigurationChanged(Configuration newConfig) {
         verifyMethodCalledFromDelegate("onConfigurationChanged(Configuration)");
         ((CallVoid1<Configuration>) mSuperListeners.pop()).call(newConfig);
     }
 
-    public boolean onContextItemSelected(final MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
         verifyMethodCalledFromDelegate("onContextItemSelected(MenuItem)");
         return ((CallFun1<Boolean, MenuItem>) mSuperListeners.pop()).call(item);
     }
 
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onCreate(Bundle)");
         ((CallVoid1<Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
-    public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         verifyMethodCalledFromDelegate("onCreateAnimation(Integer, Boolean, Integer)");
         return ((CallFun3<Animation, Integer, Boolean, Integer>) mSuperListeners.pop())
                 .call(transit, enter, nextAnim);
     }
 
-    public void onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenu.ContextMenuInfo menuInfo) {
         verifyMethodCalledFromDelegate(
                 "onCreateContextMenu(ContextMenu, View, ContextMenu.ContextMenuInfo)");
         ((CallVoid3<ContextMenu, View, ContextMenu.ContextMenuInfo>) mSuperListeners.pop())
                 .call(menu, v, menuInfo);
     }
 
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         verifyMethodCalledFromDelegate("onCreateOptionsMenu(Menu, MenuInflater)");
         ((CallVoid2<Menu, MenuInflater>) mSuperListeners.pop()).call(menu, inflater);
     }
 
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onCreateView(LayoutInflater, ViewGroup, Bundle)");
         return ((CallFun3<View, LayoutInflater, ViewGroup, Bundle>) mSuperListeners.pop())
                 .call(inflater, container, savedInstanceState);
@@ -201,20 +201,18 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid0) mSuperListeners.pop()).call();
     }
 
-    public void onHiddenChanged(final boolean hidden) {
+    public void onHiddenChanged(boolean hidden) {
         verifyMethodCalledFromDelegate("onHiddenChanged(Boolean)");
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(hidden);
     }
 
-    public void onInflate(final Context context, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
+    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onInflate(Context, AttributeSet, Bundle)");
         ((CallVoid3<Context, AttributeSet, Bundle>) mSuperListeners.pop())
                 .call(context, attrs, savedInstanceState);
     }
 
-    public void onInflate(final Activity activity, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
+    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onInflate(Activity, AttributeSet, Bundle)");
         ((CallVoid3<Activity, AttributeSet, Bundle>) mSuperListeners.pop())
                 .call(activity, attrs, savedInstanceState);
@@ -225,17 +223,17 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid0) mSuperListeners.pop()).call();
     }
 
-    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
         verifyMethodCalledFromDelegate("onMultiWindowModeChanged(Boolean)");
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(isInMultiWindowMode);
     }
 
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         verifyMethodCalledFromDelegate("onOptionsItemSelected(MenuItem)");
         return ((CallFun1<Boolean, MenuItem>) mSuperListeners.pop()).call(item);
     }
 
-    public void onOptionsMenuClosed(final Menu menu) {
+    public void onOptionsMenuClosed(Menu menu) {
         verifyMethodCalledFromDelegate("onOptionsMenuClosed(Menu)");
         ((CallVoid1<Menu>) mSuperListeners.pop()).call(menu);
     }
@@ -245,18 +243,18 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid0) mSuperListeners.pop()).call();
     }
 
-    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
         verifyMethodCalledFromDelegate("onPictureInPictureModeChanged(Boolean)");
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(isInPictureInPictureMode);
     }
 
-    public void onPrepareOptionsMenu(final Menu menu) {
+    public void onPrepareOptionsMenu(Menu menu) {
         verifyMethodCalledFromDelegate("onPrepareOptionsMenu(Menu)");
         ((CallVoid1<Menu>) mSuperListeners.pop()).call(menu);
     }
 
-    public void onRequestPermissionsResult(final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         verifyMethodCalledFromDelegate("onRequestPermissionsResult(Integer, String[], int[])");
         ((CallVoid3<Integer, String[], int[]>) mSuperListeners.pop())
                 .call(requestCode, permissions, grantResults);
@@ -267,7 +265,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid0) mSuperListeners.pop()).call();
     }
 
-    public void onSaveInstanceState(final Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         verifyMethodCalledFromDelegate("onSaveInstanceState(Bundle)");
         ((CallVoid1<Bundle>) mSuperListeners.pop()).call(outState);
     }
@@ -282,136 +280,135 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid0) mSuperListeners.pop()).call();
     }
 
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onViewCreated(View, Bundle)");
         ((CallVoid2<View, Bundle>) mSuperListeners.pop()).call(view, savedInstanceState);
     }
 
-    public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onViewStateRestored(Bundle)");
         ((CallVoid1<Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
-    public void registerForContextMenu(final View view) {
+    public void registerForContextMenu(View view) {
         verifyMethodCalledFromDelegate("registerForContextMenu(View)");
         ((CallVoid1<View>) mSuperListeners.pop()).call(view);
     }
 
-    public void setAllowEnterTransitionOverlap(final boolean allow) {
+    public void setAllowEnterTransitionOverlap(boolean allow) {
         verifyMethodCalledFromDelegate("setAllowEnterTransitionOverlap(Boolean)");
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(allow);
     }
 
-    public void setAllowReturnTransitionOverlap(final boolean allow) {
+    public void setAllowReturnTransitionOverlap(boolean allow) {
         verifyMethodCalledFromDelegate("setAllowReturnTransitionOverlap(Boolean)");
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(allow);
     }
 
-    public void setArguments(final Bundle args) {
+    public void setArguments(Bundle args) {
         verifyMethodCalledFromDelegate("setArguments(Bundle)");
         ((CallVoid1<Bundle>) mSuperListeners.pop()).call(args);
     }
 
-    public void setEnterSharedElementCallback(final SharedElementCallback callback) {
+    public void setEnterSharedElementCallback(SharedElementCallback callback) {
         verifyMethodCalledFromDelegate("setEnterSharedElementCallback(SharedElementCallback)");
         ((CallVoid1<SharedElementCallback>) mSuperListeners.pop()).call(callback);
     }
 
-    public void setEnterTransition(final Object transition) {
+    public void setEnterTransition(Object transition) {
         verifyMethodCalledFromDelegate("setEnterTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
 
-    public void setExitSharedElementCallback(final SharedElementCallback callback) {
+    public void setExitSharedElementCallback(SharedElementCallback callback) {
         verifyMethodCalledFromDelegate("setExitSharedElementCallback(SharedElementCallback)");
         ((CallVoid1<SharedElementCallback>) mSuperListeners.pop()).call(callback);
     }
 
-    public void setExitTransition(final Object transition) {
+    public void setExitTransition(Object transition) {
         verifyMethodCalledFromDelegate("setExitTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
 
-    public void setHasOptionsMenu(final boolean hasMenu) {
+    public void setHasOptionsMenu(boolean hasMenu) {
         verifyMethodCalledFromDelegate("setHasOptionsMenu(Boolean)");
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(hasMenu);
     }
 
-    public void setInitialSavedState(final Fragment.SavedState state) {
+    public void setInitialSavedState(SavedState state) {
         verifyMethodCalledFromDelegate("setInitialSavedState(Fragment.SavedState)");
         ((CallVoid1<Fragment.SavedState>) mSuperListeners.pop()).call(state);
     }
 
-    public void setMenuVisibility(final boolean menuVisible) {
+    public void setMenuVisibility(boolean menuVisible) {
         verifyMethodCalledFromDelegate("setMenuVisibility(Boolean)");
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(menuVisible);
     }
 
-    public void setReenterTransition(final Object transition) {
+    public void setReenterTransition(Object transition) {
         verifyMethodCalledFromDelegate("setReenterTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
 
-    public void setRetainInstance(final boolean retain) {
+    public void setRetainInstance(boolean retain) {
         verifyMethodCalledFromDelegate("setRetainInstance(Boolean)");
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(retain);
     }
 
-    public void setReturnTransition(final Object transition) {
+    public void setReturnTransition(Object transition) {
         verifyMethodCalledFromDelegate("setReturnTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
 
-    public void setSharedElementEnterTransition(final Object transition) {
+    public void setSharedElementEnterTransition(Object transition) {
         verifyMethodCalledFromDelegate("setSharedElementEnterTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
 
-    public void setSharedElementReturnTransition(final Object transition) {
+    public void setSharedElementReturnTransition(Object transition) {
         verifyMethodCalledFromDelegate("setSharedElementReturnTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
 
-    public void setTargetFragment(final Fragment fragment, final int requestCode) {
+    public void setTargetFragment(Fragment fragment, int requestCode) {
         verifyMethodCalledFromDelegate("setTargetFragment(Fragment, Integer)");
         ((CallVoid2<Fragment, Integer>) mSuperListeners.pop()).call(fragment, requestCode);
     }
 
-    public void setUserVisibleHint(final boolean isVisibleToUser) {
+    public void setUserVisibleHint(boolean isVisibleToUser) {
         verifyMethodCalledFromDelegate("setUserVisibleHint(Boolean)");
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(isVisibleToUser);
     }
 
-    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
+    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
         verifyMethodCalledFromDelegate("shouldShowRequestPermissionRationale(String)");
         return ((CallFun1<Boolean, String>) mSuperListeners.pop()).call(permission);
     }
 
-    public void startActivity(final Intent intent) {
+    public void startActivity(Intent intent) {
         verifyMethodCalledFromDelegate("startActivity(Intent)");
         ((CallVoid1<Intent>) mSuperListeners.pop()).call(intent);
     }
 
-    public void startActivity(final Intent intent, @Nullable final Bundle options) {
+    public void startActivity(Intent intent, @Nullable Bundle options) {
         verifyMethodCalledFromDelegate("startActivity(Intent, Bundle)");
         ((CallVoid2<Intent, Bundle>) mSuperListeners.pop()).call(intent, options);
     }
 
-    public void startActivityForResult(final Intent intent, final int requestCode) {
+    public void startActivityForResult(Intent intent, int requestCode) {
         verifyMethodCalledFromDelegate("startActivityForResult(Intent, Integer)");
         ((CallVoid2<Intent, Integer>) mSuperListeners.pop()).call(intent, requestCode);
     }
 
-    public void startActivityForResult(final Intent intent, final int requestCode,
-            @Nullable final Bundle options) {
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
         verifyMethodCalledFromDelegate("startActivityForResult(Intent, Integer, Bundle)");
         ((CallVoid3<Intent, Integer, Bundle>) mSuperListeners.pop())
                 .call(intent, requestCode, options);
     }
 
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+    public void startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException {
         verifyMethodCalledFromDelegate(
                 "startIntentSenderForResult(IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)");
         ((CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>) mSuperListeners
@@ -424,14 +421,13 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         return ((CallFun0<String>) mSuperListeners.pop()).call();
     }
 
-    public void unregisterForContextMenu(final View view) {
+    public void unregisterForContextMenu(View view) {
         verifyMethodCalledFromDelegate("unregisterForContextMenu(View)");
         ((CallVoid1<View>) mSuperListeners.pop()).call(view);
     }
 
     void dump(final CallVoid4<String, FileDescriptor, PrintWriter, String[]> superCall,
-            final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args) {
+            String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             dump(prefix, fd, writer, args);
@@ -474,7 +470,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     LayoutInflater getLayoutInflater(final CallFun1<LayoutInflater, Bundle> superCall,
-            final Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getLayoutInflater(savedInstanceState);
@@ -530,60 +526,57 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void onActivityCreated(final CallVoid1<Bundle> superCall,
-            @Nullable final Bundle savedInstanceState) {
+    void onActivityCreated(final CallVoid1<Bundle> superCall, @Nullable Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onActivityCreated(savedInstanceState);
         }
     }
 
-    void onActivityResult(final CallVoid3<Integer, Integer, Intent> superCall,
-            final int requestCode, final int resultCode, final Intent data) {
+    void onActivityResult(final CallVoid3<Integer, Integer, Intent> superCall, int requestCode,
+            int resultCode, Intent data) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    void onAttach(final CallVoid1<Context> superCall, final Context context) {
+    void onAttach(final CallVoid1<Context> superCall, Context context) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onAttach(context);
         }
     }
 
-    void onAttach(final CallVoid1<Activity> superCall, final Activity activity) {
+    void onAttach(final CallVoid1<Activity> superCall, Activity activity) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onAttach(activity);
         }
     }
 
-    void onAttachFragment(final CallVoid1<Fragment> superCall, final Fragment childFragment) {
+    void onAttachFragment(final CallVoid1<Fragment> superCall, Fragment childFragment) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onAttachFragment(childFragment);
         }
     }
 
-    void onConfigurationChanged(final CallVoid1<Configuration> superCall,
-            final Configuration newConfig) {
+    void onConfigurationChanged(final CallVoid1<Configuration> superCall, Configuration newConfig) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onConfigurationChanged(newConfig);
         }
     }
 
-    boolean onContextItemSelected(final CallFun1<Boolean, MenuItem> superCall,
-            final MenuItem item) {
+    boolean onContextItemSelected(final CallFun1<Boolean, MenuItem> superCall, MenuItem item) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onContextItemSelected(item);
         }
     }
 
-    void onCreate(final CallVoid1<Bundle> superCall, @Nullable final Bundle savedInstanceState) {
+    void onCreate(final CallVoid1<Bundle> superCall, @Nullable Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onCreate(savedInstanceState);
@@ -591,7 +584,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     Animation onCreateAnimation(final CallFun3<Animation, Integer, Boolean, Integer> superCall,
-            final int transit, final boolean enter, final int nextAnim) {
+            int transit, boolean enter, int nextAnim) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateAnimation(transit, enter, nextAnim);
@@ -600,15 +593,15 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
 
     void onCreateContextMenu(
             final CallVoid3<ContextMenu, View, ContextMenu.ContextMenuInfo> superCall,
-            final ContextMenu menu, final View v, final ContextMenu.ContextMenuInfo menuInfo) {
+            ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onCreateContextMenu(menu, v, menuInfo);
         }
     }
 
-    void onCreateOptionsMenu(final CallVoid2<Menu, MenuInflater> superCall, final Menu menu,
-            final MenuInflater inflater) {
+    void onCreateOptionsMenu(final CallVoid2<Menu, MenuInflater> superCall, Menu menu,
+            MenuInflater inflater) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onCreateOptionsMenu(menu, inflater);
@@ -616,8 +609,8 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     View onCreateView(final CallFun3<View, LayoutInflater, ViewGroup, Bundle> superCall,
-            final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState) {
+            LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateView(inflater, container, savedInstanceState);
@@ -652,23 +645,23 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void onHiddenChanged(final CallVoid1<Boolean> superCall, final boolean hidden) {
+    void onHiddenChanged(final CallVoid1<Boolean> superCall, boolean hidden) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onHiddenChanged(hidden);
         }
     }
 
-    void onInflate(final CallVoid3<Context, AttributeSet, Bundle> superCall, final Context context,
-            final AttributeSet attrs, final Bundle savedInstanceState) {
+    void onInflate(final CallVoid3<Context, AttributeSet, Bundle> superCall, Context context,
+            AttributeSet attrs, Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onInflate(context, attrs, savedInstanceState);
         }
     }
 
-    void onInflate(final CallVoid3<Activity, AttributeSet, Bundle> superCall,
-            final Activity activity, final AttributeSet attrs, final Bundle savedInstanceState) {
+    void onInflate(final CallVoid3<Activity, AttributeSet, Bundle> superCall, Activity activity,
+            AttributeSet attrs, Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onInflate(activity, attrs, savedInstanceState);
@@ -682,23 +675,21 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void onMultiWindowModeChanged(final CallVoid1<Boolean> superCall,
-            final boolean isInMultiWindowMode) {
+    void onMultiWindowModeChanged(final CallVoid1<Boolean> superCall, boolean isInMultiWindowMode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onMultiWindowModeChanged(isInMultiWindowMode);
         }
     }
 
-    boolean onOptionsItemSelected(final CallFun1<Boolean, MenuItem> superCall,
-            final MenuItem item) {
+    boolean onOptionsItemSelected(final CallFun1<Boolean, MenuItem> superCall, MenuItem item) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onOptionsItemSelected(item);
         }
     }
 
-    void onOptionsMenuClosed(final CallVoid1<Menu> superCall, final Menu menu) {
+    void onOptionsMenuClosed(final CallVoid1<Menu> superCall, Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onOptionsMenuClosed(menu);
@@ -713,14 +704,14 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     void onPictureInPictureModeChanged(final CallVoid1<Boolean> superCall,
-            final boolean isInPictureInPictureMode) {
+            boolean isInPictureInPictureMode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPictureInPictureModeChanged(isInPictureInPictureMode);
         }
     }
 
-    void onPrepareOptionsMenu(final CallVoid1<Menu> superCall, final Menu menu) {
+    void onPrepareOptionsMenu(final CallVoid1<Menu> superCall, Menu menu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPrepareOptionsMenu(menu);
@@ -728,8 +719,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     void onRequestPermissionsResult(final CallVoid3<Integer, String[], int[]> superCall,
-            final int requestCode, @NonNull final String[] permissions,
-            @NonNull final int[] grantResults) {
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -743,7 +733,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void onSaveInstanceState(final CallVoid1<Bundle> superCall, final Bundle outState) {
+    void onSaveInstanceState(final CallVoid1<Bundle> superCall, Bundle outState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onSaveInstanceState(outState);
@@ -764,8 +754,8 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void onViewCreated(final CallVoid2<View, Bundle> superCall, final View view,
-            @Nullable final Bundle savedInstanceState) {
+    void onViewCreated(final CallVoid2<View, Bundle> superCall, View view,
+            @Nullable Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onViewCreated(view, savedInstanceState);
@@ -773,35 +763,35 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     void onViewStateRestored(final CallVoid1<Bundle> superCall,
-            @Nullable final Bundle savedInstanceState) {
+            @Nullable Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onViewStateRestored(savedInstanceState);
         }
     }
 
-    void registerForContextMenu(final CallVoid1<View> superCall, final View view) {
+    void registerForContextMenu(final CallVoid1<View> superCall, View view) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             registerForContextMenu(view);
         }
     }
 
-    void setAllowEnterTransitionOverlap(final CallVoid1<Boolean> superCall, final boolean allow) {
+    void setAllowEnterTransitionOverlap(final CallVoid1<Boolean> superCall, boolean allow) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setAllowEnterTransitionOverlap(allow);
         }
     }
 
-    void setAllowReturnTransitionOverlap(final CallVoid1<Boolean> superCall, final boolean allow) {
+    void setAllowReturnTransitionOverlap(final CallVoid1<Boolean> superCall, boolean allow) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setAllowReturnTransitionOverlap(allow);
         }
     }
 
-    void setArguments(final CallVoid1<Bundle> superCall, final Bundle args) {
+    void setArguments(final CallVoid1<Bundle> superCall, Bundle args) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setArguments(args);
@@ -809,14 +799,14 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     void setEnterSharedElementCallback(final CallVoid1<SharedElementCallback> superCall,
-            final SharedElementCallback callback) {
+            SharedElementCallback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setEnterSharedElementCallback(callback);
         }
     }
 
-    void setEnterTransition(final CallVoid1<Object> superCall, final Object transition) {
+    void setEnterTransition(final CallVoid1<Object> superCall, Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setEnterTransition(transition);
@@ -824,21 +814,21 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     void setExitSharedElementCallback(final CallVoid1<SharedElementCallback> superCall,
-            final SharedElementCallback callback) {
+            SharedElementCallback callback) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setExitSharedElementCallback(callback);
         }
     }
 
-    void setExitTransition(final CallVoid1<Object> superCall, final Object transition) {
+    void setExitTransition(final CallVoid1<Object> superCall, Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setExitTransition(transition);
         }
     }
 
-    void setHasOptionsMenu(final CallVoid1<Boolean> superCall, final boolean hasMenu) {
+    void setHasOptionsMenu(final CallVoid1<Boolean> superCall, boolean hasMenu) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setHasOptionsMenu(hasMenu);
@@ -846,66 +836,64 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     void setInitialSavedState(final CallVoid1<Fragment.SavedState> superCall,
-            final Fragment.SavedState state) {
+            Fragment.SavedState state) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setInitialSavedState(state);
         }
     }
 
-    void setMenuVisibility(final CallVoid1<Boolean> superCall, final boolean menuVisible) {
+    void setMenuVisibility(final CallVoid1<Boolean> superCall, boolean menuVisible) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setMenuVisibility(menuVisible);
         }
     }
 
-    void setReenterTransition(final CallVoid1<Object> superCall, final Object transition) {
+    void setReenterTransition(final CallVoid1<Object> superCall, Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setReenterTransition(transition);
         }
     }
 
-    void setRetainInstance(final CallVoid1<Boolean> superCall, final boolean retain) {
+    void setRetainInstance(final CallVoid1<Boolean> superCall, boolean retain) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setRetainInstance(retain);
         }
     }
 
-    void setReturnTransition(final CallVoid1<Object> superCall, final Object transition) {
+    void setReturnTransition(final CallVoid1<Object> superCall, Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setReturnTransition(transition);
         }
     }
 
-    void setSharedElementEnterTransition(final CallVoid1<Object> superCall,
-            final Object transition) {
+    void setSharedElementEnterTransition(final CallVoid1<Object> superCall, Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setSharedElementEnterTransition(transition);
         }
     }
 
-    void setSharedElementReturnTransition(final CallVoid1<Object> superCall,
-            final Object transition) {
+    void setSharedElementReturnTransition(final CallVoid1<Object> superCall, Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setSharedElementReturnTransition(transition);
         }
     }
 
-    void setTargetFragment(final CallVoid2<Fragment, Integer> superCall, final Fragment fragment,
-            final int requestCode) {
+    void setTargetFragment(final CallVoid2<Fragment, Integer> superCall, Fragment fragment,
+            int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setTargetFragment(fragment, requestCode);
         }
     }
 
-    void setUserVisibleHint(final CallVoid1<Boolean> superCall, final boolean isVisibleToUser) {
+    void setUserVisibleHint(final CallVoid1<Boolean> superCall, boolean isVisibleToUser) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setUserVisibleHint(isVisibleToUser);
@@ -913,38 +901,38 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     boolean shouldShowRequestPermissionRationale(final CallFun1<Boolean, String> superCall,
-            @NonNull final String permission) {
+            @NonNull String permission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return shouldShowRequestPermissionRationale(permission);
         }
     }
 
-    void startActivity(final CallVoid1<Intent> superCall, final Intent intent) {
+    void startActivity(final CallVoid1<Intent> superCall, Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivity(intent);
         }
     }
 
-    void startActivity(final CallVoid2<Intent, Bundle> superCall, final Intent intent,
-            @Nullable final Bundle options) {
+    void startActivity(final CallVoid2<Intent, Bundle> superCall, Intent intent,
+            @Nullable Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivity(intent, options);
         }
     }
 
-    void startActivityForResult(final CallVoid2<Intent, Integer> superCall, final Intent intent,
-            final int requestCode) {
+    void startActivityForResult(final CallVoid2<Intent, Integer> superCall, Intent intent,
+            int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityForResult(intent, requestCode);
         }
     }
 
-    void startActivityForResult(final CallVoid3<Intent, Integer, Bundle> superCall,
-            final Intent intent, final int requestCode, @Nullable final Bundle options) {
+    void startActivityForResult(final CallVoid3<Intent, Integer, Bundle> superCall, Intent intent,
+            int requestCode, @Nullable Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityForResult(intent, requestCode, options);
@@ -953,8 +941,8 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
 
     void startIntentSenderForResult(
             final CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle> superCall,
-            final IntentSender intent, final int requestCode, @Nullable final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
+            IntentSender intent, int requestCode, @Nullable Intent fillInIntent, int flagsMask,
+            int flagsValues, int extraFlags, Bundle options)
             throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -970,7 +958,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void unregisterForContextMenu(final CallVoid1<View> superCall, final View view) {
+    void unregisterForContextMenu(final CallVoid1<View> superCall, View view) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             unregisterForContextMenu(view);

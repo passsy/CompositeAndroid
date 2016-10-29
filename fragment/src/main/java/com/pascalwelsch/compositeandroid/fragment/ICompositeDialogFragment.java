@@ -20,7 +20,7 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
 
     Dialog getDialog();
 
-    LayoutInflater getLayoutInflater(final Bundle savedInstanceState);
+    LayoutInflater getLayoutInflater(Bundle savedInstanceState);
 
     boolean getShowsDialog();
 
@@ -28,39 +28,39 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
 
     boolean isCancelable();
 
-    void onActivityCreated(final Bundle savedInstanceState);
+    void onActivityCreated(Bundle savedInstanceState);
 
-    void onAttach(final Context context);
+    void onAttach(Context context);
 
-    void onCancel(final DialogInterface dialog);
+    void onCancel(DialogInterface dialog);
 
-    void onCreate(@Nullable final Bundle savedInstanceState);
+    void onCreate(@Nullable Bundle savedInstanceState);
 
-    Dialog onCreateDialog(final Bundle savedInstanceState);
+    Dialog onCreateDialog(Bundle savedInstanceState);
 
     void onDestroyView();
 
     void onDetach();
 
-    void onDismiss(final DialogInterface dialog);
+    void onDismiss(DialogInterface dialog);
 
-    void onSaveInstanceState(final Bundle outState);
+    void onSaveInstanceState(Bundle outState);
 
     void onStart();
 
     void onStop();
 
-    void setCancelable(final boolean cancelable);
+    void setCancelable(boolean cancelable);
 
-    void setShowsDialog(final boolean showsDialog);
+    void setShowsDialog(boolean showsDialog);
 
-    void setStyle(final int style, @StyleRes final int theme);
+    void setStyle(int style, @StyleRes int theme);
 
-    void setupDialog(final Dialog dialog, final int style);
+    void setupDialog(Dialog dialog, int style);
 
-    void show(final FragmentManager manager, final String tag);
+    void show(FragmentManager manager, String tag);
 
-    int show(final FragmentTransaction transaction, final String tag);
+    int show(FragmentTransaction transaction, String tag);
 
     void super_dismiss();
 
@@ -68,7 +68,7 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
 
     Dialog super_getDialog();
 
-    LayoutInflater super_getLayoutInflater(final Bundle savedInstanceState);
+    LayoutInflater super_getLayoutInflater(Bundle savedInstanceState);
 
     boolean super_getShowsDialog();
 
@@ -76,37 +76,37 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
 
     boolean super_isCancelable();
 
-    void super_onActivityCreated(final Bundle savedInstanceState);
+    void super_onActivityCreated(Bundle savedInstanceState);
 
-    void super_onAttach(final Context context);
+    void super_onAttach(Context context);
 
-    void super_onCancel(final DialogInterface dialog);
+    void super_onCancel(DialogInterface dialog);
 
-    void super_onCreate(@Nullable final Bundle savedInstanceState);
+    void super_onCreate(@Nullable Bundle savedInstanceState);
 
-    Dialog super_onCreateDialog(final Bundle savedInstanceState);
+    Dialog super_onCreateDialog(Bundle savedInstanceState);
 
     void super_onDestroyView();
 
     void super_onDetach();
 
-    void super_onDismiss(final DialogInterface dialog);
+    void super_onDismiss(DialogInterface dialog);
 
-    void super_onSaveInstanceState(final Bundle outState);
+    void super_onSaveInstanceState(Bundle outState);
 
     void super_onStart();
 
     void super_onStop();
 
-    void super_setCancelable(final boolean cancelable);
+    void super_setCancelable(boolean cancelable);
 
-    void super_setShowsDialog(final boolean showsDialog);
+    void super_setShowsDialog(boolean showsDialog);
 
-    void super_setStyle(final int style, @StyleRes final int theme);
+    void super_setStyle(int style, @StyleRes int theme);
 
-    void super_setupDialog(final Dialog dialog, final int style);
+    void super_setupDialog(Dialog dialog, int style);
 
-    void super_show(final FragmentManager manager, final String tag);
+    void super_show(FragmentManager manager, String tag);
 
-    int super_show(final FragmentTransaction transaction, final String tag);
+    int super_show(FragmentTransaction transaction, String tag);
 }

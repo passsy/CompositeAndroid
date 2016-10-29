@@ -74,6 +74,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import android.util.*;
             |import android.content.res.*;
             |import java.util.ListIterator;
+            |import android.support.v4.app.Fragment.SavedState;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             extends = "AbstractDelegate<ICompositeDialogFragment, DialogFragmentPlugin>",
@@ -104,8 +105,9 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             outPackage,
             "CompositeFragment",
             "Fragment implements ICompositeFragment",
-            """
+            additionalImports = """
             |import android.support.v4.app.*;
+            |import android.support.v4.app.Fragment.SavedState;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             delegateClassName = "FragmentDelegate",
@@ -117,10 +119,10 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             "FragmentDelegate",
             "ICompositeFragment",
             "FragmentPlugin",
-            additionalImports =
-            """
+            additionalImports = """
             |import android.support.v4.app.*;
             |import java.util.ListIterator;
+            |import android.support.v4.app.Fragment.SavedState;
             """.replaceIndentByMargin(),
             extends = "AbstractDelegate<ICompositeFragment, FragmentPlugin>",
             transform = replaceSavedState)
@@ -130,9 +132,9 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             fragment,
             outPackage,
             "FragmentPlugin",
-            additionalImports =
-            """
+            additionalImports = """
             |import android.support.v4.app.*;
+            |import android.support.v4.app.Fragment.SavedState;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             superClassInputFile = fragment,
@@ -142,5 +144,8 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             fragment,
             outPackage,
             "ICompositeFragment",
+            additionalImports = """
+            |import android.support.v4.app.Fragment.SavedState;
+            """.replaceIndentByMargin(),
             transform = replaceSavedState)
 }
