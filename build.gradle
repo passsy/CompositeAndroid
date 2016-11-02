@@ -40,7 +40,7 @@ ext {
     MIN_SDK_VERSION = 14
     TARGET_SDK_VERSION = versionMajor
     COMPILE_SDK_VERSION = versionMajor
-    BUILD_TOOLS_VERSION = '25.0.1'
+    BUILD_TOOLS_VERSION = '25.0.0' // also update in .travis.yml
 
 
     ciBuild = System.getenv("TRAVIS") == "true"
