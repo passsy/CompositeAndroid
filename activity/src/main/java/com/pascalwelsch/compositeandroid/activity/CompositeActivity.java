@@ -95,7 +95,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     protected ActivityDelegate delegate = new ActivityDelegate(this);
 
     @Override
-    public void addContentView(final View view, final ViewGroup.LayoutParams params) {
+    public void addContentView(View view, ViewGroup.LayoutParams params) {
         delegate.addContentView(view, params);
     }
 
@@ -104,60 +104,58 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void applyOverrideConfiguration(final Configuration overrideConfiguration) {
+    public void applyOverrideConfiguration(Configuration overrideConfiguration) {
         delegate.applyOverrideConfiguration(overrideConfiguration);
     }
 
     @Override
-    public void attachBaseContext(final Context newBase) {
+    public void attachBaseContext(Context newBase) {
         delegate.attachBaseContext(newBase);
     }
 
     @Override
-    public boolean bindService(final Intent service, final ServiceConnection conn,
-            final int flags) {
+    public boolean bindService(Intent service, ServiceConnection conn, int flags) {
         return delegate.bindService(service, conn, flags);
     }
 
     @Override
-    public int checkCallingOrSelfPermission(final String permission) {
+    public int checkCallingOrSelfPermission(String permission) {
         return delegate.checkCallingOrSelfPermission(permission);
     }
 
     @Override
-    public int checkCallingOrSelfUriPermission(final Uri uri, final int modeFlags) {
+    public int checkCallingOrSelfUriPermission(Uri uri, int modeFlags) {
         return delegate.checkCallingOrSelfUriPermission(uri, modeFlags);
     }
 
     @Override
-    public int checkCallingPermission(final String permission) {
+    public int checkCallingPermission(String permission) {
         return delegate.checkCallingPermission(permission);
     }
 
     @Override
-    public int checkCallingUriPermission(final Uri uri, final int modeFlags) {
+    public int checkCallingUriPermission(Uri uri, int modeFlags) {
         return delegate.checkCallingUriPermission(uri, modeFlags);
     }
 
     @Override
-    public int checkPermission(final String permission, final int pid, final int uid) {
+    public int checkPermission(String permission, int pid, int uid) {
         return delegate.checkPermission(permission, pid, uid);
     }
 
     @Override
-    public int checkSelfPermission(final String permission) {
+    public int checkSelfPermission(String permission) {
         return delegate.checkSelfPermission(permission);
     }
 
     @Override
-    public int checkUriPermission(final Uri uri, final int pid, final int uid,
-            final int modeFlags) {
+    public int checkUriPermission(Uri uri, int pid, int uid, int modeFlags) {
         return delegate.checkUriPermission(uri, pid, uid, modeFlags);
     }
 
     @Override
-    public int checkUriPermission(final Uri uri, final String readPermission,
-            final String writePermission, final int pid, final int uid, final int modeFlags) {
+    public int checkUriPermission(Uri uri, String readPermission, String writePermission, int pid,
+            int uid, int modeFlags) {
         return delegate
                 .checkUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags);
     }
@@ -185,7 +183,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public Context createConfigurationContext(final Configuration overrideConfiguration) {
+    public Context createConfigurationContext(Configuration overrideConfiguration) {
         return delegate.createConfigurationContext(overrideConfiguration);
     }
 
@@ -195,12 +193,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public Context createDisplayContext(final Display display) {
+    public Context createDisplayContext(Display display) {
         return delegate.createDisplayContext(display);
     }
 
     @Override
-    public Context createPackageContext(final String packageName, final int flags)
+    public Context createPackageContext(String packageName, int flags)
             throws PackageManager.NameNotFoundException {
         try {
             return delegate.createPackageContext(packageName, flags);
@@ -210,8 +208,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public PendingIntent createPendingResult(final int requestCode, final Intent data,
-            final int flags) {
+    public PendingIntent createPendingResult(int requestCode, Intent data, int flags) {
         return delegate.createPendingResult(requestCode, data, flags);
     }
 
@@ -221,47 +218,47 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean deleteDatabase(final String name) {
+    public boolean deleteDatabase(String name) {
         return delegate.deleteDatabase(name);
     }
 
     @Override
-    public boolean deleteFile(final String name) {
+    public boolean deleteFile(String name) {
         return delegate.deleteFile(name);
     }
 
     @Override
-    public boolean deleteSharedPreferences(final String name) {
+    public boolean deleteSharedPreferences(String name) {
         return delegate.deleteSharedPreferences(name);
     }
 
     @Override
-    public boolean dispatchGenericMotionEvent(final MotionEvent ev) {
+    public boolean dispatchGenericMotionEvent(MotionEvent ev) {
         return delegate.dispatchGenericMotionEvent(ev);
     }
 
     @Override
-    public boolean dispatchKeyEvent(final KeyEvent event) {
+    public boolean dispatchKeyEvent(KeyEvent event) {
         return delegate.dispatchKeyEvent(event);
     }
 
     @Override
-    public boolean dispatchKeyShortcutEvent(final KeyEvent event) {
+    public boolean dispatchKeyShortcutEvent(KeyEvent event) {
         return delegate.dispatchKeyShortcutEvent(event);
     }
 
     @Override
-    public boolean dispatchPopulateAccessibilityEvent(final AccessibilityEvent event) {
+    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
         return delegate.dispatchPopulateAccessibilityEvent(event);
     }
 
     @Override
-    public boolean dispatchTouchEvent(final MotionEvent ev) {
+    public boolean dispatchTouchEvent(MotionEvent ev) {
         return delegate.dispatchTouchEvent(ev);
     }
 
     @Override
-    public boolean dispatchTrackballEvent(final MotionEvent ev) {
+    public boolean dispatchTrackballEvent(MotionEvent ev) {
         return delegate.dispatchTrackballEvent(ev);
     }
 
@@ -276,49 +273,43 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param args   additional arguments to the dump request.
      */
     @Override
-    public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args) {
+    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
         delegate.dump(prefix, fd, writer, args);
     }
 
     @Override
-    public void enforceCallingOrSelfPermission(final String permission, final String message) {
+    public void enforceCallingOrSelfPermission(String permission, String message) {
         delegate.enforceCallingOrSelfPermission(permission, message);
     }
 
     @Override
-    public void enforceCallingOrSelfUriPermission(final Uri uri, final int modeFlags,
-            final String message) {
+    public void enforceCallingOrSelfUriPermission(Uri uri, int modeFlags, String message) {
         delegate.enforceCallingOrSelfUriPermission(uri, modeFlags, message);
     }
 
     @Override
-    public void enforceCallingPermission(final String permission, final String message) {
+    public void enforceCallingPermission(String permission, String message) {
         delegate.enforceCallingPermission(permission, message);
     }
 
     @Override
-    public void enforceCallingUriPermission(final Uri uri, final int modeFlags,
-            final String message) {
+    public void enforceCallingUriPermission(Uri uri, int modeFlags, String message) {
         delegate.enforceCallingUriPermission(uri, modeFlags, message);
     }
 
     @Override
-    public void enforcePermission(final String permission, final int pid, final int uid,
-            final String message) {
+    public void enforcePermission(String permission, int pid, int uid, String message) {
         delegate.enforcePermission(permission, pid, uid, message);
     }
 
     @Override
-    public void enforceUriPermission(final Uri uri, final int pid, final int uid,
-            final int modeFlags, final String message) {
+    public void enforceUriPermission(Uri uri, int pid, int uid, int modeFlags, String message) {
         delegate.enforceUriPermission(uri, pid, uid, modeFlags, message);
     }
 
     @Override
-    public void enforceUriPermission(final Uri uri, final String readPermission,
-            final String writePermission, final int pid, final int uid, final int modeFlags,
-            final String message) {
+    public void enforceUriPermission(Uri uri, String readPermission, String writePermission,
+            int pid, int uid, int modeFlags, String message) {
         delegate.enforceUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags,
                 message);
     }
@@ -334,7 +325,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public View findViewById(@IdRes final int id) {
+    public View findViewById(@IdRes int id) {
         return delegate.findViewById(id);
     }
 
@@ -344,12 +335,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void finishActivity(final int requestCode) {
+    public void finishActivity(int requestCode) {
         delegate.finishActivity(requestCode);
     }
 
     @Override
-    public void finishActivityFromChild(final Activity child, final int requestCode) {
+    public void finishActivityFromChild(Activity child, int requestCode) {
         delegate.finishActivityFromChild(child, requestCode);
     }
 
@@ -369,7 +360,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void finishFromChild(final Activity child) {
+    public void finishFromChild(Activity child) {
         delegate.finishFromChild(child);
     }
 
@@ -463,7 +454,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public File getDatabasePath(final String name) {
+    public File getDatabasePath(String name) {
         return delegate.getDatabasePath(name);
     }
 
@@ -477,7 +468,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public File getDir(final String name, final int mode) {
+    public File getDir(String name, int mode) {
         return delegate.getDir(name, mode);
     }
 
@@ -498,12 +489,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public File getExternalFilesDir(final String type) {
+    public File getExternalFilesDir(String type) {
         return delegate.getExternalFilesDir(type);
     }
 
     @Override
-    public File[] getExternalFilesDirs(final String type) {
+    public File[] getExternalFilesDirs(String type) {
         return delegate.getExternalFilesDirs(type);
     }
 
@@ -513,7 +504,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public File getFileStreamPath(final String name) {
+    public File getFileStreamPath(String name) {
         return delegate.getFileStreamPath(name);
     }
 
@@ -631,7 +622,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public SharedPreferences getPreferences(final int mode) {
+    public SharedPreferences getPreferences(int mode) {
         return delegate.getPreferences(mode);
     }
 
@@ -652,13 +643,13 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public SharedPreferences getSharedPreferences(final String name, final int mode) {
+    public SharedPreferences getSharedPreferences(String name, int mode) {
         return delegate.getSharedPreferences(name, mode);
     }
 
     /**
      * Support library version of {@link Activity#getActionBar}.
-     *
+     * <p>
      * <p>Retrieve a reference to this activity's ActionBar.
      *
      * @return The Activity's ActionBar, or null if it does not have one.
@@ -699,12 +690,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public Object getSystemService(final String name) {
+    public Object getSystemService(String name) {
         return delegate.getSystemService(name);
     }
 
     @Override
-    public String getSystemServiceName(final Class<?> serviceClass) {
+    public String getSystemServiceName(Class<?> serviceClass) {
         return delegate.getSystemServiceName(serviceClass);
     }
 
@@ -758,7 +749,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void grantUriPermission(final String toPackage, final Uri uri, final int modeFlags) {
+    public void grantUriPermission(String toPackage, Uri uri, int modeFlags) {
         delegate.grantUriPermission(toPackage, uri, modeFlags);
     }
 
@@ -836,42 +827,42 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean moveDatabaseFrom(final Context sourceContext, final String name) {
+    public boolean moveDatabaseFrom(Context sourceContext, String name) {
         return delegate.moveDatabaseFrom(sourceContext, name);
     }
 
     @Override
-    public boolean moveSharedPreferencesFrom(final Context sourceContext, final String name) {
+    public boolean moveSharedPreferencesFrom(Context sourceContext, String name) {
         return delegate.moveSharedPreferencesFrom(sourceContext, name);
     }
 
     @Override
-    public boolean moveTaskToBack(final boolean nonRoot) {
+    public boolean moveTaskToBack(boolean nonRoot) {
         return delegate.moveTaskToBack(nonRoot);
     }
 
     @Override
-    public boolean navigateUpTo(final Intent upIntent) {
+    public boolean navigateUpTo(Intent upIntent) {
         return delegate.navigateUpTo(upIntent);
     }
 
     @Override
-    public boolean navigateUpToFromChild(final Activity child, final Intent upIntent) {
+    public boolean navigateUpToFromChild(Activity child, Intent upIntent) {
         return delegate.navigateUpToFromChild(child, upIntent);
     }
 
     @Override
-    public void onActionModeFinished(final android.view.ActionMode mode) {
+    public void onActionModeFinished(android.view.ActionMode mode) {
         delegate.onActionModeFinished(mode);
     }
 
     @Override
-    public void onActionModeStarted(final android.view.ActionMode mode) {
+    public void onActionModeStarted(android.view.ActionMode mode) {
         delegate.onActionModeStarted(mode);
     }
 
     @Override
-    public void onActivityReenter(final int resultCode, final Intent data) {
+    public void onActivityReenter(int resultCode, Intent data) {
         delegate.onActivityReenter(resultCode, data);
     }
 
@@ -879,30 +870,29 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * Dispatch incoming result to the correct fragment.
      */
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         delegate.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
-    public void onApplyThemeResource(final Resources.Theme theme, final int resid,
-            final boolean first) {
+    public void onApplyThemeResource(Resources.Theme theme, int resid, boolean first) {
         delegate.onApplyThemeResource(theme, resid, first);
-    }
-
-    @Override
-    public void onAttachFragment(final android.app.Fragment fragment) {
-        delegate.onAttachFragment(fragment);
     }
 
     /**
      * Called when a fragment is attached to the activity.
-     *
+     * <p>
      * <p>This is called after the attached fragment's <code>onAttach</code> and before
      * the attached fragment's <code>onCreate</code> if the fragment has not yet had a previous
      * call to <code>onCreate</code>.</p>
      */
     @Override
-    public void onAttachFragment(final Fragment fragment) {
+    public void onAttachFragment(Fragment fragment) {
+        delegate.onAttachFragment(fragment);
+    }
+
+    @Override
+    public void onAttachFragment(android.app.Fragment fragment) {
         delegate.onAttachFragment(fragment);
     }
 
@@ -921,12 +911,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void onChildTitleChanged(final Activity childActivity, final CharSequence title) {
+    public void onChildTitleChanged(Activity childActivity, CharSequence title) {
         delegate.onChildTitleChanged(childActivity, title);
     }
 
     @Override
-    public void onConfigurationChanged(final Configuration newConfig) {
+    public void onConfigurationChanged(Configuration newConfig) {
         delegate.onConfigurationChanged(newConfig);
     }
 
@@ -936,28 +926,28 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean onContextItemSelected(final MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
         return delegate.onContextItemSelected(item);
     }
 
     @Override
-    public void onContextMenuClosed(final Menu menu) {
+    public void onContextMenuClosed(Menu menu) {
         delegate.onContextMenuClosed(menu);
     }
 
     @Override
-    public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         delegate.onCreate(savedInstanceState, persistentState);
     }
 
     @Override
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         delegate.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenu.ContextMenuInfo menuInfo) {
         delegate.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -971,7 +961,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public Dialog onCreateDialog(final int id) {
+    public Dialog onCreateDialog(int id) {
         return delegate.onCreateDialog(id);
     }
 
@@ -980,17 +970,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
     @Nullable
     @Override
-    public Dialog onCreateDialog(final int id, final Bundle args) {
+    public Dialog onCreateDialog(int id, Bundle args) {
         return delegate.onCreateDialog(id, args);
     }
 
     @Override
-    public void onCreateNavigateUpTaskStack(final TaskStackBuilder builder) {
+    public void onCreateNavigateUpTaskStack(TaskStackBuilder builder) {
         delegate.onCreateNavigateUpTaskStack(builder);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         return delegate.onCreateOptionsMenu(menu);
     }
 
@@ -998,33 +988,33 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * Dispatch to Fragment.onCreateOptionsMenu().
      */
     @Override
-    public boolean onCreatePanelMenu(final int featureId, final Menu menu) {
+    public boolean onCreatePanelMenu(int featureId, Menu menu) {
         return delegate.onCreatePanelMenu(featureId, menu);
     }
 
     @Nullable
     @Override
-    public View onCreatePanelView(final int featureId) {
+    public View onCreatePanelView(int featureId) {
         return delegate.onCreatePanelView(featureId);
     }
 
     /**
      * Support version of {@link #onCreateNavigateUpTaskStack(TaskStackBuilder)}.
      * This method will be called on all platform versions.
-     *
+     * <p>
      * Define the synthetic task stack that will be generated during Up navigation from
      * a different task.
-     *
+     * <p>
      * <p>The default implementation of this method adds the parent chain of this activity
      * as specified in the manifest to the supplied {@link android.support.v4.app.TaskStackBuilder}.
      * Applications
      * may choose to override this method to construct the desired task stack in a different
      * way.</p>
-     *
+     * <p>
      * <p>This method will be invoked by the default implementation of {@link #onNavigateUp()}
      * if {@link #shouldUpRecreateTask(Intent)} returns true when supplied with the intent
      * returned by {@link #getParentActivityIntent()}.</p>
-     *
+     * <p>
      * <p>Applications that wish to supply extra Intent parameters to the parent stack defined
      * by the manifest should override
      * {@link #onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}.</p>
@@ -1034,23 +1024,22 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
     @Override
     public void onCreateSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+            @NonNull android.support.v4.app.TaskStackBuilder builder) {
         delegate.onCreateSupportNavigateUpTaskStack(builder);
     }
 
     @Override
-    public boolean onCreateThumbnail(final Bitmap outBitmap, final Canvas canvas) {
+    public boolean onCreateThumbnail(Bitmap outBitmap, Canvas canvas) {
         return delegate.onCreateThumbnail(outBitmap, canvas);
     }
 
     @Override
-    public View onCreateView(final View parent, final String name, final Context context,
-            final AttributeSet attrs) {
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         return delegate.onCreateView(parent, name, context, attrs);
     }
 
     @Override
-    public View onCreateView(final String name, final Context context, final AttributeSet attrs) {
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
         return delegate.onCreateView(name, context, attrs);
     }
 
@@ -1070,32 +1059,32 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean onGenericMotionEvent(final MotionEvent event) {
+    public boolean onGenericMotionEvent(MotionEvent event) {
         return delegate.onGenericMotionEvent(event);
     }
 
     @Override
-    public boolean onKeyDown(final int keyCode, final KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         return delegate.onKeyDown(keyCode, event);
     }
 
     @Override
-    public boolean onKeyLongPress(final int keyCode, final KeyEvent event) {
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
         return delegate.onKeyLongPress(keyCode, event);
     }
 
     @Override
-    public boolean onKeyMultiple(final int keyCode, final int repeatCount, final KeyEvent event) {
+    public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
         return delegate.onKeyMultiple(keyCode, repeatCount, event);
     }
 
     @Override
-    public boolean onKeyShortcut(final int keyCode, final KeyEvent event) {
+    public boolean onKeyShortcut(int keyCode, KeyEvent event) {
         return delegate.onKeyShortcut(keyCode, event);
     }
 
     @Override
-    public boolean onKeyUp(final int keyCode, final KeyEvent event) {
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
         return delegate.onKeyUp(keyCode, event);
     }
 
@@ -1119,18 +1108,18 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * <p>Please note: AppCompat uses it's own feature id for the action bar:
      * {@link AppCompatDelegate#FEATURE_SUPPORT_ACTION_BAR FEATURE_SUPPORT_ACTION_BAR}.</p>
      */
     @Override
-    public boolean onMenuOpened(final int featureId, final Menu menu) {
+    public boolean onMenuOpened(int featureId, Menu menu) {
         return delegate.onMenuOpened(featureId, menu);
     }
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * <p><strong>Note:</strong> If you override this method you must call
      * <code>super.onMultiWindowModeChanged</code> to correctly dispatch the event
      * to support fragments attached to this activity.</p>
@@ -1138,7 +1127,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param isInMultiWindowMode True if the activity is in multi-window mode.
      */
     @Override
-    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
         delegate.onMultiWindowModeChanged(isInMultiWindowMode);
     }
 
@@ -1148,7 +1137,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean onNavigateUpFromChild(final Activity child) {
+    public boolean onNavigateUpFromChild(Activity child) {
         return delegate.onNavigateUpFromChild(child);
     }
 
@@ -1163,28 +1152,28 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * because the fragment manager thinks the state is still saved.
      */
     @Override
-    public void onNewIntent(final Intent intent) {
+    public void onNewIntent(Intent intent) {
         delegate.onNewIntent(intent);
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         return delegate.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onOptionsMenuClosed(final Menu menu) {
+    public void onOptionsMenuClosed(Menu menu) {
         delegate.onOptionsMenuClosed(menu);
     }
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * <p>Please note: AppCompat uses it's own feature id for the action bar:
      * {@link AppCompatDelegate#FEATURE_SUPPORT_ACTION_BAR FEATURE_SUPPORT_ACTION_BAR}.</p>
      */
     @Override
-    public void onPanelClosed(final int featureId, final Menu menu) {
+    public void onPanelClosed(int featureId, Menu menu) {
         delegate.onPanelClosed(featureId, menu);
     }
 
@@ -1198,7 +1187,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * <p><strong>Note:</strong> If you override this method you must call
      * <code>super.onPictureInPictureModeChanged</code> to correctly dispatch the event
      * to support fragments attached to this activity.</p>
@@ -1206,18 +1195,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param isInPictureInPictureMode True if the activity is in picture-in-picture mode.
      */
     @Override
-    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
         delegate.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
     @Override
-    public void onPostCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         delegate.onPostCreate(savedInstanceState, persistentState);
     }
 
     @Override
-    public void onPostCreate(@Nullable final Bundle savedInstanceState) {
+    public void onPostCreate(@Nullable Bundle savedInstanceState) {
         delegate.onPostCreate(savedInstanceState);
     }
 
@@ -1230,7 +1218,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void onPrepareDialog(final int id, final Dialog dialog) {
+    public void onPrepareDialog(int id, Dialog dialog) {
         delegate.onPrepareDialog(id, dialog);
     }
 
@@ -1238,17 +1226,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void onPrepareDialog(final int id, final Dialog dialog, final Bundle args) {
+    public void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         delegate.onPrepareDialog(id, dialog, args);
     }
 
     @Override
-    public void onPrepareNavigateUpTaskStack(final TaskStackBuilder builder) {
+    public void onPrepareNavigateUpTaskStack(TaskStackBuilder builder) {
         delegate.onPrepareNavigateUpTaskStack(builder);
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(final Menu menu) {
+    public boolean onPrepareOptionsMenu(Menu menu) {
         return delegate.onPrepareOptionsMenu(menu);
     }
 
@@ -1256,7 +1244,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @hide
      */
     @Override
-    public boolean onPrepareOptionsPanel(final View view, final Menu menu) {
+    public boolean onPrepareOptionsPanel(View view, Menu menu) {
         return delegate.onPrepareOptionsPanel(view, menu);
     }
 
@@ -1264,17 +1252,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * Dispatch onPrepareOptionsMenu() to fragments.
      */
     @Override
-    public boolean onPreparePanel(final int featureId, final View view, final Menu menu) {
+    public boolean onPreparePanel(int featureId, View view, Menu menu) {
         return delegate.onPreparePanel(featureId, view, menu);
     }
 
     /**
      * Support version of {@link #onPrepareNavigateUpTaskStack(TaskStackBuilder)}.
      * This method will be called on all platform versions.
-     *
+     * <p>
      * Prepare the synthetic task stack that will be generated during Up navigation
      * from a different task.
-     *
+     * <p>
      * <p>This method receives the {@link android.support.v4.app.TaskStackBuilder} with the
      * constructed series of
      * Intents as generated by {@link #onCreateSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}.
@@ -1286,23 +1274,23 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
     @Override
     public void onPrepareSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+            @NonNull android.support.v4.app.TaskStackBuilder builder) {
         delegate.onPrepareSupportNavigateUpTaskStack(builder);
     }
 
     @Override
-    public void onProvideAssistContent(final AssistContent outContent) {
+    public void onProvideAssistContent(AssistContent outContent) {
         delegate.onProvideAssistContent(outContent);
     }
 
     @Override
-    public void onProvideAssistData(final Bundle data) {
+    public void onProvideAssistData(Bundle data) {
         delegate.onProvideAssistData(data);
     }
 
     @Override
-    public void onProvideKeyboardShortcuts(final List<KeyboardShortcutGroup> data, final Menu menu,
-            final int deviceId) {
+    public void onProvideKeyboardShortcuts(List<KeyboardShortcutGroup> data, Menu menu,
+            int deviceId) {
         delegate.onProvideKeyboardShortcuts(data, menu, deviceId);
     }
 
@@ -1328,8 +1316,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #requestPermissions(String[], int)
      */
     @Override
-    public void onRequestPermissionsResult(final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         delegate.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -1339,13 +1327,13 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void onRestoreInstanceState(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void onRestoreInstanceState(Bundle savedInstanceState,
+            PersistableBundle persistentState) {
         delegate.onRestoreInstanceState(savedInstanceState, persistentState);
     }
 
     @Override
-    public void onRestoreInstanceState(final Bundle savedInstanceState) {
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
         delegate.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -1393,18 +1381,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void onSaveInstanceState(final Bundle outState,
-            final PersistableBundle outPersistentState) {
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         delegate.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
-    public void onSaveInstanceState(final Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         delegate.onSaveInstanceState(outState);
     }
 
     @Override
-    public boolean onSearchRequested(final SearchEvent searchEvent) {
+    public boolean onSearchRequested(SearchEvent searchEvent) {
         return delegate.onSearchRequested(searchEvent);
     }
 
@@ -1438,7 +1425,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param mode The action mode that just finished.
      */
     @Override
-    public void onSupportActionModeFinished(@NonNull final ActionMode mode) {
+    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
         delegate.onSupportActionModeFinished(mode);
     }
 
@@ -1449,7 +1436,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param mode The new action mode.
      */
     @Override
-    public void onSupportActionModeStarted(@NonNull final ActionMode mode) {
+    public void onSupportActionModeStarted(@NonNull ActionMode mode) {
         delegate.onSupportActionModeStarted(mode);
     }
 
@@ -1464,22 +1451,21 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     /**
      * This method is called whenever the user chooses to navigate Up within your application's
      * activity hierarchy from the action bar.
-     *
+     * <p>
      * <p>If a parent was specified in the manifest for this activity or an activity-alias to it,
      * default Up navigation will be handled automatically. See
      * {@link #getSupportParentActivityIntent()} for how to specify the parent. If any activity
      * along the parent chain requires extra Intent arguments, the Activity subclass
      * should override the method {@link #onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}
      * to supply those arguments.</p>
-     *
+     * <p>
      * <p>See <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and
      * Back Stack</a> from the developer guide and
      * <a href="{@docRoot}design/patterns/navigation.html">Navigation</a> from the design guide
      * for more information about navigating within your app.</p>
-     *
+     * <p>
      * <p>See the {@link android.support.v4.app.TaskStackBuilder} class and the Activity methods
-     * {@link #getSupportParentActivityIntent()}, {@link #supportShouldUpRecreateTask(Intent)},
-     * and
+     * {@link #getSupportParentActivityIntent()}, {@link #supportShouldUpRecreateTask(Intent)}, and
      * {@link #supportNavigateUpTo(Intent)} for help implementing custom Up navigation.</p>
      *
      * @return true if Up navigation completed successfully and this Activity was finished,
@@ -1491,22 +1477,22 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void onTitleChanged(final CharSequence title, final int color) {
+    public void onTitleChanged(CharSequence title, int color) {
         delegate.onTitleChanged(title, color);
     }
 
     @Override
-    public boolean onTouchEvent(final MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {
         return delegate.onTouchEvent(event);
     }
 
     @Override
-    public boolean onTrackballEvent(final MotionEvent event) {
+    public boolean onTrackballEvent(MotionEvent event) {
         return delegate.onTrackballEvent(event);
     }
 
     @Override
-    public void onTrimMemory(final int level) {
+    public void onTrimMemory(int level) {
         delegate.onTrimMemory(level);
     }
 
@@ -1526,26 +1512,26 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void onWindowAttributesChanged(final WindowManager.LayoutParams params) {
+    public void onWindowAttributesChanged(WindowManager.LayoutParams params) {
         delegate.onWindowAttributesChanged(params);
     }
 
     @Override
-    public void onWindowFocusChanged(final boolean hasFocus) {
+    public void onWindowFocusChanged(boolean hasFocus) {
         delegate.onWindowFocusChanged(hasFocus);
     }
 
     @Nullable
     @Override
     public android.view.ActionMode onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback) {
+            android.view.ActionMode.Callback callback) {
         return delegate.onWindowStartingActionMode(callback);
     }
 
     @Nullable
     @Override
     public android.view.ActionMode onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback, final int type) {
+            android.view.ActionMode.Callback callback, int type) {
         return delegate.onWindowStartingActionMode(callback, type);
     }
 
@@ -1560,18 +1546,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
     @Nullable
     @Override
-    public ActionMode onWindowStartingSupportActionMode(
-            @NonNull final ActionMode.Callback callback) {
+    public ActionMode onWindowStartingSupportActionMode(@NonNull ActionMode.Callback callback) {
         return delegate.onWindowStartingSupportActionMode(callback);
     }
 
     @Override
-    public void openContextMenu(final View view) {
+    public void openContextMenu(View view) {
         delegate.openContextMenu(view);
     }
 
     @Override
-    public FileInputStream openFileInput(final String name) throws FileNotFoundException {
+    public FileInputStream openFileInput(String name) throws FileNotFoundException {
         try {
             return delegate.openFileInput(name);
         } catch (SuppressedException e) {
@@ -1580,8 +1565,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public FileOutputStream openFileOutput(final String name, final int mode)
-            throws FileNotFoundException {
+    public FileOutputStream openFileOutput(String name, int mode) throws FileNotFoundException {
         try {
             return delegate.openFileOutput(name, mode);
         } catch (SuppressedException e) {
@@ -1595,19 +1579,19 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory) {
+    public SQLiteDatabase openOrCreateDatabase(String name, int mode,
+            SQLiteDatabase.CursorFactory factory) {
         return delegate.openOrCreateDatabase(name, mode, factory);
     }
 
     @Override
-    public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler) {
+    public SQLiteDatabase openOrCreateDatabase(String name, int mode,
+            SQLiteDatabase.CursorFactory factory, DatabaseErrorHandler errorHandler) {
         return delegate.openOrCreateDatabase(name, mode, factory, errorHandler);
     }
 
     @Override
-    public void overridePendingTransition(final int enterAnim, final int exitAnim) {
+    public void overridePendingTransition(int enterAnim, int exitAnim) {
         delegate.overridePendingTransition(enterAnim, exitAnim);
     }
 
@@ -1630,23 +1614,23 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void registerComponentCallbacks(final ComponentCallbacks callback) {
+    public void registerComponentCallbacks(ComponentCallbacks callback) {
         delegate.registerComponentCallbacks(callback);
     }
 
     @Override
-    public void registerForContextMenu(final View view) {
+    public void registerForContextMenu(View view) {
         delegate.registerForContextMenu(view);
     }
 
     @Override
-    public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter) {
+    public Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
         return delegate.registerReceiver(receiver, filter);
     }
 
     @Override
-    public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
-            final String broadcastPermission, final Handler scheduler) {
+    public Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter,
+            String broadcastPermission, Handler scheduler) {
         return delegate.registerReceiver(receiver, filter, broadcastPermission, scheduler);
     }
 
@@ -1659,7 +1643,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void removeStickyBroadcast(final Intent intent) {
+    public void removeStickyBroadcast(Intent intent) {
         delegate.removeStickyBroadcast(intent);
     }
 
@@ -1667,7 +1651,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void removeStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
+    public void removeStickyBroadcastAsUser(Intent intent, UserHandle user) {
         delegate.removeStickyBroadcastAsUser(intent, user);
     }
 
@@ -1677,59 +1661,57 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public DragAndDropPermissions requestDragAndDropPermissions(final DragEvent event) {
+    public DragAndDropPermissions requestDragAndDropPermissions(DragEvent event) {
         return delegate.requestDragAndDropPermissions(event);
     }
 
     @Override
-    public boolean requestVisibleBehind(final boolean visible) {
+    public boolean requestVisibleBehind(boolean visible) {
         return delegate.requestVisibleBehind(visible);
     }
 
     @Override
-    public void revokeUriPermission(final Uri uri, final int modeFlags) {
+    public void revokeUriPermission(Uri uri, int modeFlags) {
         delegate.revokeUriPermission(uri, modeFlags);
     }
 
     @Override
-    public void sendBroadcast(final Intent intent) {
+    public void sendBroadcast(Intent intent) {
         delegate.sendBroadcast(intent);
     }
 
     @Override
-    public void sendBroadcast(final Intent intent, final String receiverPermission) {
+    public void sendBroadcast(Intent intent, String receiverPermission) {
         delegate.sendBroadcast(intent, receiverPermission);
     }
 
     @Override
-    public void sendBroadcastAsUser(final Intent intent, final UserHandle user) {
+    public void sendBroadcastAsUser(Intent intent, UserHandle user) {
         delegate.sendBroadcastAsUser(intent, user);
     }
 
     @Override
-    public void sendBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission) {
+    public void sendBroadcastAsUser(Intent intent, UserHandle user, String receiverPermission) {
         delegate.sendBroadcastAsUser(intent, user, receiverPermission);
     }
 
     @Override
-    public void sendOrderedBroadcast(final Intent intent, final String receiverPermission) {
+    public void sendOrderedBroadcast(Intent intent, String receiverPermission) {
         delegate.sendOrderedBroadcast(intent, receiverPermission);
     }
 
     @Override
-    public void sendOrderedBroadcast(final Intent intent, final String receiverPermission,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
+    public void sendOrderedBroadcast(Intent intent, String receiverPermission,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras) {
         delegate.sendOrderedBroadcast(intent, receiverPermission, resultReceiver, scheduler,
                 initialCode, initialData, initialExtras);
     }
 
     @Override
-    public void sendOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission, final BroadcastReceiver resultReceiver,
-            final Handler scheduler, final int initialCode, final String initialData,
-            final Bundle initialExtras) {
+    public void sendOrderedBroadcastAsUser(Intent intent, UserHandle user,
+            String receiverPermission, BroadcastReceiver resultReceiver, Handler scheduler,
+            int initialCode, String initialData, Bundle initialExtras) {
         delegate.sendOrderedBroadcastAsUser(intent, user, receiverPermission, resultReceiver,
                 scheduler, initialCode, initialData, initialExtras);
     }
@@ -1738,7 +1720,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void sendStickyBroadcast(final Intent intent) {
+    public void sendStickyBroadcast(Intent intent) {
         delegate.sendStickyBroadcast(intent);
     }
 
@@ -1746,7 +1728,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void sendStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
+    public void sendStickyBroadcastAsUser(Intent intent, UserHandle user) {
         delegate.sendStickyBroadcastAsUser(intent, user);
     }
 
@@ -1754,9 +1736,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void sendStickyOrderedBroadcast(final Intent intent,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
+    public void sendStickyOrderedBroadcast(Intent intent, BroadcastReceiver resultReceiver,
+            Handler scheduler, int initialCode, String initialData, Bundle initialExtras) {
         delegate.sendStickyOrderedBroadcast(intent, resultReceiver, scheduler, initialCode,
                 initialData, initialExtras);
     }
@@ -1765,35 +1746,35 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void sendStickyOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
+    public void sendStickyOrderedBroadcastAsUser(Intent intent, UserHandle user,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras) {
         delegate.sendStickyOrderedBroadcastAsUser(intent, user, resultReceiver, scheduler,
                 initialCode, initialData, initialExtras);
     }
 
     @Override
-    public void setActionBar(final Toolbar toolbar) {
+    public void setActionBar(Toolbar toolbar) {
         delegate.setActionBar(toolbar);
     }
 
     @Override
-    public void setContentTransitionManager(final TransitionManager tm) {
+    public void setContentTransitionManager(TransitionManager tm) {
         delegate.setContentTransitionManager(tm);
     }
 
     @Override
-    public void setContentView(@LayoutRes final int layoutResID) {
+    public void setContentView(@LayoutRes int layoutResID) {
         delegate.setContentView(layoutResID);
     }
 
     @Override
-    public void setContentView(final View view) {
+    public void setContentView(View view) {
         delegate.setContentView(view);
     }
 
     @Override
-    public void setContentView(final View view, final ViewGroup.LayoutParams params) {
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
         delegate.setContentView(view, params);
     }
 
@@ -1806,12 +1787,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param callback Used to manipulate shared element transitions on the launched Activity.
      */
     @Override
-    public void setEnterSharedElementCallback(final SharedElementCallback callback) {
+    public void setEnterSharedElementCallback(SharedElementCallback callback) {
         delegate.setEnterSharedElementCallback(callback);
     }
 
     @Override
-    public void setEnterSharedElementCallback(final android.app.SharedElementCallback callback) {
+    public void setEnterSharedElementCallback(android.app.SharedElementCallback callback) {
         delegate.setEnterSharedElementCallback(callback);
     }
 
@@ -1825,45 +1806,45 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param listener Used to manipulate shared element transitions on the launching Activity.
      */
     @Override
-    public void setExitSharedElementCallback(final SharedElementCallback listener) {
+    public void setExitSharedElementCallback(SharedElementCallback listener) {
         delegate.setExitSharedElementCallback(listener);
     }
 
     @Override
-    public void setExitSharedElementCallback(final android.app.SharedElementCallback callback) {
+    public void setExitSharedElementCallback(android.app.SharedElementCallback callback) {
         delegate.setExitSharedElementCallback(callback);
     }
 
     @Override
-    public void setFinishOnTouchOutside(final boolean finish) {
+    public void setFinishOnTouchOutside(boolean finish) {
         delegate.setFinishOnTouchOutside(finish);
     }
 
     @Override
-    public void setImmersive(final boolean i) {
+    public void setImmersive(boolean i) {
         delegate.setImmersive(i);
     }
 
     @Override
-    public void setIntent(final Intent newIntent) {
+    public void setIntent(Intent newIntent) {
         delegate.setIntent(newIntent);
     }
 
     @Override
-    public void setRequestedOrientation(final int requestedOrientation) {
+    public void setRequestedOrientation(int requestedOrientation) {
         delegate.setRequestedOrientation(requestedOrientation);
     }
 
     /**
      * Set a {@link Toolbar Toolbar} to act as the
      * {@link ActionBar} for this Activity window.
-     *
+     * <p>
      * <p>When set to a non-null value the {@link #getActionBar()} method will return
      * an {@link ActionBar} object that can be used to control the given
      * toolbar as if it were a traditional window decor action bar. The toolbar's menu will be
      * populated with the Activity's options menu and the navigation button will be wired through
      * the standard {@link android.R.id#home home} menu select action.</p>
-     *
+     * <p>
      * <p>In order to use a Toolbar within the Activity's window content the application
      * must not request the window feature
      * {@link Window#FEATURE_ACTION_BAR FEATURE_SUPPORT_ACTION_BAR}.</p>
@@ -1871,7 +1852,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param toolbar Toolbar to set as the Activity's action bar, or {@code null} to clear it
      */
     @Override
-    public void setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar) {
+    public void setSupportActionBar(@Nullable android.support.v7.widget.Toolbar toolbar) {
         delegate.setSupportActionBar(toolbar);
     }
 
@@ -1879,7 +1860,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated Progress bars are no longer provided in AppCompat.
      */
     @Override
-    public void setSupportProgress(final int progress) {
+    public void setSupportProgress(int progress) {
         delegate.setSupportProgress(progress);
     }
 
@@ -1887,7 +1868,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated Progress bars are no longer provided in AppCompat.
      */
     @Override
-    public void setSupportProgressBarIndeterminate(final boolean indeterminate) {
+    public void setSupportProgressBarIndeterminate(boolean indeterminate) {
         delegate.setSupportProgressBarIndeterminate(indeterminate);
     }
 
@@ -1895,7 +1876,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated Progress bars are no longer provided in AppCompat.
      */
     @Override
-    public void setSupportProgressBarIndeterminateVisibility(final boolean visible) {
+    public void setSupportProgressBarIndeterminateVisibility(boolean visible) {
         delegate.setSupportProgressBarIndeterminateVisibility(visible);
     }
 
@@ -1903,27 +1884,27 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated Progress bars are no longer provided in AppCompat.
      */
     @Override
-    public void setSupportProgressBarVisibility(final boolean visible) {
+    public void setSupportProgressBarVisibility(boolean visible) {
         delegate.setSupportProgressBarVisibility(visible);
     }
 
     @Override
-    public void setTaskDescription(final ActivityManager.TaskDescription taskDescription) {
+    public void setTaskDescription(ActivityManager.TaskDescription taskDescription) {
         delegate.setTaskDescription(taskDescription);
     }
 
     @Override
-    public void setTheme(@StyleRes final int resid) {
+    public void setTheme(@StyleRes int resid) {
         delegate.setTheme(resid);
     }
 
     @Override
-    public void setTitle(final CharSequence title) {
+    public void setTitle(CharSequence title) {
         delegate.setTitle(title);
     }
 
     @Override
-    public void setTitle(final int titleId) {
+    public void setTitle(int titleId) {
         delegate.setTitle(titleId);
     }
 
@@ -1931,17 +1912,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void setTitleColor(final int textColor) {
+    public void setTitleColor(int textColor) {
         delegate.setTitleColor(textColor);
     }
 
     @Override
-    public void setVisible(final boolean visible) {
+    public void setVisible(boolean visible) {
         delegate.setVisible(visible);
     }
 
     @Override
-    public void setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+    public void setVrModeEnabled(boolean enabled, ComponentName requestedComponent)
             throws PackageManager.NameNotFoundException {
         try {
             delegate.setVrModeEnabled(enabled, requestedComponent);
@@ -1954,7 +1935,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void setWallpaper(final Bitmap bitmap) throws IOException {
+    public void setWallpaper(Bitmap bitmap) throws IOException {
         try {
             delegate.setWallpaper(bitmap);
         } catch (SuppressedException e) {
@@ -1966,7 +1947,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void setWallpaper(final InputStream data) throws IOException {
+    public void setWallpaper(InputStream data) throws IOException {
         try {
             delegate.setWallpaper(data);
         } catch (SuppressedException e) {
@@ -1975,17 +1956,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean shouldShowRequestPermissionRationale(final String permission) {
+    public boolean shouldShowRequestPermissionRationale(String permission) {
         return delegate.shouldShowRequestPermissionRationale(permission);
     }
 
     @Override
-    public boolean shouldUpRecreateTask(final Intent targetIntent) {
+    public boolean shouldUpRecreateTask(Intent targetIntent) {
         return delegate.shouldUpRecreateTask(targetIntent);
     }
 
     @Override
-    public boolean showAssist(final Bundle args) {
+    public boolean showAssist(Bundle args) {
         return delegate.showAssist(args);
     }
 
@@ -1996,42 +1977,35 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     @Nullable
     @Override
-    public android.view.ActionMode startActionMode(
-            final android.view.ActionMode.Callback callback) {
+    public android.view.ActionMode startActionMode(android.view.ActionMode.Callback callback) {
         return delegate.startActionMode(callback);
     }
 
     @Nullable
     @Override
-    public android.view.ActionMode startActionMode(final android.view.ActionMode.Callback callback,
-            final int type) {
+    public android.view.ActionMode startActionMode(android.view.ActionMode.Callback callback,
+            int type) {
         return delegate.startActionMode(callback, type);
     }
 
     @Override
-    public void startActivities(final Intent[] intents) {
+    public void startActivities(Intent[] intents) {
         delegate.startActivities(intents);
     }
 
     @Override
-    public void startActivities(final Intent[] intents, final Bundle options) {
+    public void startActivities(Intent[] intents, Bundle options) {
         delegate.startActivities(intents, options);
     }
 
     @Override
-    public void startActivity(final Intent intent) {
+    public void startActivity(Intent intent) {
         delegate.startActivity(intent);
     }
 
     @Override
-    public void startActivity(final Intent intent, final Bundle options) {
+    public void startActivity(Intent intent, Bundle options) {
         delegate.startActivity(intent, options);
-    }
-
-    @Override
-    public void startActivityForResult(final Intent intent, final int requestCode,
-            @Nullable final Bundle options) {
-        delegate.startActivityForResult(intent, requestCode, options);
     }
 
     /**
@@ -2039,40 +2013,31 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * This imposes a restriction that requestCode be <= 0xffff.
      */
     @Override
-    public void startActivityForResult(final Intent intent, final int requestCode) {
+    public void startActivityForResult(Intent intent, int requestCode) {
         delegate.startActivityForResult(intent, requestCode);
     }
 
     @Override
-    public void startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode) {
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+        delegate.startActivityForResult(intent, requestCode, options);
+    }
+
+    @Override
+    public void startActivityFromChild(Activity child, Intent intent, int requestCode) {
         delegate.startActivityFromChild(child, intent, requestCode);
     }
 
     @Override
-    public void startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode, final Bundle options) {
+    public void startActivityFromChild(Activity child, Intent intent, int requestCode,
+            Bundle options) {
         delegate.startActivityFromChild(child, intent, requestCode, options);
     }
 
-    @Override
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode) {
-        delegate.startActivityFromFragment(fragment, intent, requestCode);
-    }
-
-    @Override
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode, final Bundle options) {
-        delegate.startActivityFromFragment(fragment, intent, requestCode, options);
-    }
-
     /**
      * Called by Fragment.startActivityForResult() to implement its behavior.
      */
     @Override
-    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode) {
+    public void startActivityFromFragment(Fragment fragment, Intent intent, int requestCode) {
         delegate.startActivityFromFragment(fragment, intent, requestCode);
     }
 
@@ -2080,32 +2045,42 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * Called by Fragment.startActivityForResult() to implement its behavior.
      */
     @Override
-    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode, @Nullable final Bundle options) {
+    public void startActivityFromFragment(Fragment fragment, Intent intent, int requestCode,
+            @Nullable Bundle options) {
         delegate.startActivityFromFragment(fragment, intent, requestCode, options);
     }
 
     @Override
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode) {
+    public void startActivityFromFragment(android.app.Fragment fragment, Intent intent,
+            int requestCode) {
+        delegate.startActivityFromFragment(fragment, intent, requestCode);
+    }
+
+    @Override
+    public void startActivityFromFragment(android.app.Fragment fragment, Intent intent,
+            int requestCode, Bundle options) {
+        delegate.startActivityFromFragment(fragment, intent, requestCode, options);
+    }
+
+    @Override
+    public boolean startActivityIfNeeded(Intent intent, int requestCode) {
         return delegate.startActivityIfNeeded(intent, requestCode);
     }
 
     @Override
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode,
-            final Bundle options) {
+    public boolean startActivityIfNeeded(Intent intent, int requestCode, Bundle options) {
         return delegate.startActivityIfNeeded(intent, requestCode, options);
     }
 
     @Override
-    public boolean startInstrumentation(final ComponentName className, final String profileFile,
-            final Bundle arguments) {
+    public boolean startInstrumentation(ComponentName className, String profileFile,
+            Bundle arguments) {
         return delegate.startInstrumentation(className, profileFile, arguments);
     }
 
     @Override
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags)
-            throws IntentSender.SendIntentException {
+    public void startIntentSender(IntentSender intent, Intent fillInIntent, int flagsMask,
+            int flagsValues, int extraFlags) throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
         } catch (SuppressedException e) {
@@ -2114,8 +2089,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
+    public void startIntentSender(IntentSender intent, Intent fillInIntent, int flagsMask,
+            int flagsValues, int extraFlags, Bundle options)
             throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags,
@@ -2126,9 +2101,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+    public void startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
                     flagsValues, extraFlags, options);
@@ -2138,9 +2113,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException {
+    public void startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags)
+            throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
                     flagsValues, extraFlags);
@@ -2150,9 +2125,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
+    public void startIntentSenderFromChild(Activity child, IntentSender intent, int requestCode,
+            Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags)
+            throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
                     flagsValues, extraFlags);
@@ -2162,9 +2137,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+    public void startIntentSenderFromChild(Activity child, IntentSender intent, int requestCode,
+            Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags, Bundle options)
             throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
@@ -2178,10 +2152,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * Called by Fragment.startIntentSenderForResult() to implement its behavior.
      */
     @Override
-    public void startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
-            final int requestCode, @Nullable final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
-            throws IntentSender.SendIntentException {
+    public void startIntentSenderFromFragment(Fragment fragment, IntentSender intent,
+            int requestCode, @Nullable Intent fillInIntent, int flagsMask, int flagsValues,
+            int extraFlags, Bundle options) throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSenderFromFragment(fragment, intent, requestCode, fillInIntent,
                     flagsMask, flagsValues, extraFlags, options);
@@ -2191,7 +2164,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void startLocalVoiceInteraction(final Bundle privateOptions) {
+    public void startLocalVoiceInteraction(Bundle privateOptions) {
         delegate.startLocalVoiceInteraction(privateOptions);
     }
 
@@ -2204,17 +2177,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void startManagingCursor(final Cursor c) {
+    public void startManagingCursor(Cursor c) {
         delegate.startManagingCursor(c);
     }
 
     @Override
-    public boolean startNextMatchingActivity(final Intent intent) {
+    public boolean startNextMatchingActivity(Intent intent) {
         return delegate.startNextMatchingActivity(intent);
     }
 
     @Override
-    public boolean startNextMatchingActivity(final Intent intent, final Bundle options) {
+    public boolean startNextMatchingActivity(Intent intent, Bundle options) {
         return delegate.startNextMatchingActivity(intent, options);
     }
 
@@ -2224,13 +2197,13 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch) {
+    public void startSearch(String initialQuery, boolean selectInitialQuery, Bundle appSearchData,
+            boolean globalSearch) {
         delegate.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
 
     @Override
-    public ComponentName startService(final Intent service) {
+    public ComponentName startService(Intent service) {
         return delegate.startService(service);
     }
 
@@ -2242,7 +2215,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
     @Nullable
     @Override
-    public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
+    public ActionMode startSupportActionMode(@NonNull ActionMode.Callback callback) {
         return delegate.startSupportActionMode(callback);
     }
 
@@ -2260,75 +2233,73 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @deprecated
      */
     @Override
-    public void stopManagingCursor(final Cursor c) {
+    public void stopManagingCursor(Cursor c) {
         delegate.stopManagingCursor(c);
     }
 
     @Override
-    public boolean stopService(final Intent name) {
+    public boolean stopService(Intent name) {
         return delegate.stopService(name);
     }
 
     @Override
-    public void super_addContentView(final View view, final ViewGroup.LayoutParams params) {
+    public void super_addContentView(View view, ViewGroup.LayoutParams params) {
         super.addContentView(view, params);
     }
 
     @Override
-    public void super_applyOverrideConfiguration(final Configuration overrideConfiguration) {
+    public void super_applyOverrideConfiguration(Configuration overrideConfiguration) {
         super.applyOverrideConfiguration(overrideConfiguration);
     }
 
     @Override
-    public void super_attachBaseContext(final Context newBase) {
+    public void super_attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
     }
 
     @Override
-    public boolean super_bindService(final Intent service, final ServiceConnection conn,
-            final int flags) {
+    public boolean super_bindService(Intent service, ServiceConnection conn, int flags) {
         return super.bindService(service, conn, flags);
     }
 
     @Override
-    public int super_checkCallingOrSelfPermission(final String permission) {
+    public int super_checkCallingOrSelfPermission(String permission) {
         return super.checkCallingOrSelfPermission(permission);
     }
 
     @Override
-    public int super_checkCallingOrSelfUriPermission(final Uri uri, final int modeFlags) {
+    public int super_checkCallingOrSelfUriPermission(Uri uri, int modeFlags) {
         return super.checkCallingOrSelfUriPermission(uri, modeFlags);
     }
 
     @Override
-    public int super_checkCallingPermission(final String permission) {
+    public int super_checkCallingPermission(String permission) {
         return super.checkCallingPermission(permission);
     }
 
     @Override
-    public int super_checkCallingUriPermission(final Uri uri, final int modeFlags) {
+    public int super_checkCallingUriPermission(Uri uri, int modeFlags) {
         return super.checkCallingUriPermission(uri, modeFlags);
     }
 
     @Override
-    public int super_checkPermission(final String permission, final int pid, final int uid) {
+    public int super_checkPermission(String permission, int pid, int uid) {
         return super.checkPermission(permission, pid, uid);
     }
 
     @Override
-    public int super_checkSelfPermission(final String permission) {
+    public int super_checkSelfPermission(String permission) {
         return super.checkSelfPermission(permission);
     }
 
     @Override
-    public int super_checkUriPermission(final Uri uri, final int pid, final int uid,
-            final int modeFlags) {
+    public int super_checkUriPermission(Uri uri, int pid, int uid, int modeFlags) {
         return super.checkUriPermission(uri, pid, uid, modeFlags);
     }
 
     @Override
-    public int super_checkUriPermission(final Uri uri, final String readPermission,
-            final String writePermission, final int pid, final int uid, final int modeFlags) {
+    public int super_checkUriPermission(Uri uri, String readPermission, String writePermission,
+            int pid, int uid, int modeFlags) {
         return super.checkUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags);
     }
 
@@ -2348,7 +2319,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public Context super_createConfigurationContext(final Configuration overrideConfiguration) {
+    public Context super_createConfigurationContext(Configuration overrideConfiguration) {
         return super.createConfigurationContext(overrideConfiguration);
     }
 
@@ -2358,19 +2329,18 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public Context super_createDisplayContext(final Display display) {
+    public Context super_createDisplayContext(Display display) {
         return super.createDisplayContext(display);
     }
 
     @Override
-    public Context super_createPackageContext(final String packageName, final int flags)
+    public Context super_createPackageContext(String packageName, int flags)
             throws PackageManager.NameNotFoundException {
         return super.createPackageContext(packageName, flags);
     }
 
     @Override
-    public PendingIntent super_createPendingResult(final int requestCode, final Intent data,
-            final int flags) {
+    public PendingIntent super_createPendingResult(int requestCode, Intent data, int flags) {
         return super.createPendingResult(requestCode, data, flags);
     }
 
@@ -2380,95 +2350,89 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean super_deleteDatabase(final String name) {
+    public boolean super_deleteDatabase(String name) {
         return super.deleteDatabase(name);
     }
 
     @Override
-    public boolean super_deleteFile(final String name) {
+    public boolean super_deleteFile(String name) {
         return super.deleteFile(name);
     }
 
     @Override
-    public boolean super_deleteSharedPreferences(final String name) {
+    public boolean super_deleteSharedPreferences(String name) {
         return super.deleteSharedPreferences(name);
     }
 
     @Override
-    public boolean super_dispatchGenericMotionEvent(final MotionEvent ev) {
+    public boolean super_dispatchGenericMotionEvent(MotionEvent ev) {
         return super.dispatchGenericMotionEvent(ev);
     }
 
     @Override
-    public boolean super_dispatchKeyEvent(final KeyEvent event) {
+    public boolean super_dispatchKeyEvent(KeyEvent event) {
         return super.dispatchKeyEvent(event);
     }
 
     @Override
-    public boolean super_dispatchKeyShortcutEvent(final KeyEvent event) {
+    public boolean super_dispatchKeyShortcutEvent(KeyEvent event) {
         return super.dispatchKeyShortcutEvent(event);
     }
 
     @Override
-    public boolean super_dispatchPopulateAccessibilityEvent(final AccessibilityEvent event) {
+    public boolean super_dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
         return super.dispatchPopulateAccessibilityEvent(event);
     }
 
     @Override
-    public boolean super_dispatchTouchEvent(final MotionEvent ev) {
+    public boolean super_dispatchTouchEvent(MotionEvent ev) {
         return super.dispatchTouchEvent(ev);
     }
 
     @Override
-    public boolean super_dispatchTrackballEvent(final MotionEvent ev) {
+    public boolean super_dispatchTrackballEvent(MotionEvent ev) {
         return super.dispatchTrackballEvent(ev);
     }
 
     @Override
-    public void super_dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args) {
+    public void super_dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
         super.dump(prefix, fd, writer, args);
     }
 
     @Override
-    public void super_enforceCallingOrSelfPermission(final String permission,
-            final String message) {
+    public void super_enforceCallingOrSelfPermission(String permission, String message) {
         super.enforceCallingOrSelfPermission(permission, message);
     }
 
     @Override
-    public void super_enforceCallingOrSelfUriPermission(final Uri uri, final int modeFlags,
-            final String message) {
+    public void super_enforceCallingOrSelfUriPermission(Uri uri, int modeFlags, String message) {
         super.enforceCallingOrSelfUriPermission(uri, modeFlags, message);
     }
 
     @Override
-    public void super_enforceCallingPermission(final String permission, final String message) {
+    public void super_enforceCallingPermission(String permission, String message) {
         super.enforceCallingPermission(permission, message);
     }
 
     @Override
-    public void super_enforceCallingUriPermission(final Uri uri, final int modeFlags,
-            final String message) {
+    public void super_enforceCallingUriPermission(Uri uri, int modeFlags, String message) {
         super.enforceCallingUriPermission(uri, modeFlags, message);
     }
 
     @Override
-    public void super_enforcePermission(final String permission, final int pid, final int uid,
-            final String message) {
+    public void super_enforcePermission(String permission, int pid, int uid, String message) {
         super.enforcePermission(permission, pid, uid, message);
     }
 
     @Override
-    public void super_enforceUriPermission(final Uri uri, final int pid, final int uid,
-            final int modeFlags, final String message) {
+    public void super_enforceUriPermission(Uri uri, int pid, int uid, int modeFlags,
+            String message) {
         super.enforceUriPermission(uri, pid, uid, modeFlags, message);
     }
 
     @Override
-    public void super_enforceUriPermission(final Uri uri, final String readPermission,
-            final String writePermission, final int pid, final int uid, final int modeFlags,
-            final String message) {
+    public void super_enforceUriPermission(Uri uri, String readPermission, String writePermission,
+            int pid, int uid, int modeFlags, String message) {
         super.enforceUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags,
                 message);
     }
@@ -2484,7 +2448,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public View super_findViewById(@IdRes final int id) {
+    public View super_findViewById(@IdRes int id) {
         return super.findViewById(id);
     }
 
@@ -2494,12 +2458,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_finishActivity(final int requestCode) {
+    public void super_finishActivity(int requestCode) {
         super.finishActivity(requestCode);
     }
 
     @Override
-    public void super_finishActivityFromChild(final Activity child, final int requestCode) {
+    public void super_finishActivityFromChild(Activity child, int requestCode) {
         super.finishActivityFromChild(child, requestCode);
     }
 
@@ -2519,7 +2483,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_finishFromChild(final Activity child) {
+    public void super_finishFromChild(Activity child) {
         super.finishFromChild(child);
     }
 
@@ -2613,7 +2577,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public File super_getDatabasePath(final String name) {
+    public File super_getDatabasePath(String name) {
         return super.getDatabasePath(name);
     }
 
@@ -2624,7 +2588,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public File super_getDir(final String name, final int mode) {
+    public File super_getDir(String name, int mode) {
         return super.getDir(name, mode);
     }
 
@@ -2645,12 +2609,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public File super_getExternalFilesDir(final String type) {
+    public File super_getExternalFilesDir(String type) {
         return super.getExternalFilesDir(type);
     }
 
     @Override
-    public File[] super_getExternalFilesDirs(final String type) {
+    public File[] super_getExternalFilesDirs(String type) {
         return super.getExternalFilesDirs(type);
     }
 
@@ -2660,7 +2624,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public File super_getFileStreamPath(final String name) {
+    public File super_getFileStreamPath(String name) {
         return super.getFileStreamPath(name);
     }
 
@@ -2748,7 +2712,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public SharedPreferences super_getPreferences(final int mode) {
+    public SharedPreferences super_getPreferences(int mode) {
         return super.getPreferences(mode);
     }
 
@@ -2769,7 +2733,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public SharedPreferences super_getSharedPreferences(final String name, final int mode) {
+    public SharedPreferences super_getSharedPreferences(String name, int mode) {
         return super.getSharedPreferences(name, mode);
     }
 
@@ -2796,12 +2760,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public Object super_getSystemService(final String name) {
+    public Object super_getSystemService(String name) {
         return super.getSystemService(name);
     }
 
     @Override
-    public String super_getSystemServiceName(final Class<?> serviceClass) {
+    public String super_getSystemServiceName(Class<?> serviceClass) {
         return super.getSystemServiceName(serviceClass);
     }
 
@@ -2846,8 +2810,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_grantUriPermission(final String toPackage, final Uri uri,
-            final int modeFlags) {
+    public void super_grantUriPermission(String toPackage, Uri uri, int modeFlags) {
         super.grantUriPermission(toPackage, uri, modeFlags);
     }
 
@@ -2922,64 +2885,62 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean super_moveDatabaseFrom(final Context sourceContext, final String name) {
+    public boolean super_moveDatabaseFrom(Context sourceContext, String name) {
         return super.moveDatabaseFrom(sourceContext, name);
     }
 
     @Override
-    public boolean super_moveSharedPreferencesFrom(final Context sourceContext, final String name) {
+    public boolean super_moveSharedPreferencesFrom(Context sourceContext, String name) {
         return super.moveSharedPreferencesFrom(sourceContext, name);
     }
 
     @Override
-    public boolean super_moveTaskToBack(final boolean nonRoot) {
+    public boolean super_moveTaskToBack(boolean nonRoot) {
         return super.moveTaskToBack(nonRoot);
     }
 
     @Override
-    public boolean super_navigateUpTo(final Intent upIntent) {
+    public boolean super_navigateUpTo(Intent upIntent) {
         return super.navigateUpTo(upIntent);
     }
 
     @Override
-    public boolean super_navigateUpToFromChild(final Activity child, final Intent upIntent) {
+    public boolean super_navigateUpToFromChild(Activity child, Intent upIntent) {
         return super.navigateUpToFromChild(child, upIntent);
     }
 
     @Override
-    public void super_onActionModeFinished(final android.view.ActionMode mode) {
+    public void super_onActionModeFinished(android.view.ActionMode mode) {
         super.onActionModeFinished(mode);
     }
 
     @Override
-    public void super_onActionModeStarted(final android.view.ActionMode mode) {
+    public void super_onActionModeStarted(android.view.ActionMode mode) {
         super.onActionModeStarted(mode);
     }
 
     @Override
-    public void super_onActivityReenter(final int resultCode, final Intent data) {
+    public void super_onActivityReenter(int resultCode, Intent data) {
         super.onActivityReenter(resultCode, data);
     }
 
     @Override
-    public void super_onActivityResult(final int requestCode, final int resultCode,
-            final Intent data) {
+    public void super_onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
-    public void super_onApplyThemeResource(final Resources.Theme theme, final int resid,
-            final boolean first) {
+    public void super_onApplyThemeResource(Resources.Theme theme, int resid, boolean first) {
         super.onApplyThemeResource(theme, resid, first);
     }
 
     @Override
-    public void super_onAttachFragment(final android.app.Fragment fragment) {
+    public void super_onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
     }
 
     @Override
-    public void super_onAttachFragment(final Fragment fragment) {
+    public void super_onAttachFragment(android.app.Fragment fragment) {
         super.onAttachFragment(fragment);
     }
 
@@ -2994,12 +2955,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_onChildTitleChanged(final Activity childActivity, final CharSequence title) {
+    public void super_onChildTitleChanged(Activity childActivity, CharSequence title) {
         super.onChildTitleChanged(childActivity, title);
     }
 
     @Override
-    public void super_onConfigurationChanged(final Configuration newConfig) {
+    public void super_onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 
@@ -3009,29 +2970,28 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean super_onContextItemSelected(final MenuItem item) {
+    public boolean super_onContextItemSelected(MenuItem item) {
         return super.onContextItemSelected(item);
     }
 
     @Override
-    public void super_onContextMenuClosed(final Menu menu) {
+    public void super_onContextMenuClosed(Menu menu) {
         super.onContextMenuClosed(menu);
     }
 
     @Override
-    public void super_onCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void super_onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
     }
 
     @Override
-    public void super_onCreate(@Nullable final Bundle savedInstanceState) {
+    public void super_onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void super_onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo) {
+    public void super_onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -3042,57 +3002,55 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public Dialog super_onCreateDialog(final int id) {
+    public Dialog super_onCreateDialog(int id) {
         return super.onCreateDialog(id);
     }
 
     @Nullable
     @Override
-    public Dialog super_onCreateDialog(final int id, final Bundle args) {
+    public Dialog super_onCreateDialog(int id, Bundle args) {
         return super.onCreateDialog(id, args);
     }
 
     @Override
-    public void super_onCreateNavigateUpTaskStack(final TaskStackBuilder builder) {
+    public void super_onCreateNavigateUpTaskStack(TaskStackBuilder builder) {
         super.onCreateNavigateUpTaskStack(builder);
     }
 
     @Override
-    public boolean super_onCreateOptionsMenu(final Menu menu) {
+    public boolean super_onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean super_onCreatePanelMenu(final int featureId, final Menu menu) {
+    public boolean super_onCreatePanelMenu(int featureId, Menu menu) {
         return super.onCreatePanelMenu(featureId, menu);
     }
 
     @Nullable
     @Override
-    public View super_onCreatePanelView(final int featureId) {
+    public View super_onCreatePanelView(int featureId) {
         return super.onCreatePanelView(featureId);
     }
 
     @Override
     public void super_onCreateSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+            @NonNull android.support.v4.app.TaskStackBuilder builder) {
         super.onCreateSupportNavigateUpTaskStack(builder);
     }
 
     @Override
-    public boolean super_onCreateThumbnail(final Bitmap outBitmap, final Canvas canvas) {
+    public boolean super_onCreateThumbnail(Bitmap outBitmap, Canvas canvas) {
         return super.onCreateThumbnail(outBitmap, canvas);
     }
 
     @Override
-    public View super_onCreateView(final View parent, final String name, final Context context,
-            final AttributeSet attrs) {
+    public View super_onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         return super.onCreateView(parent, name, context, attrs);
     }
 
     @Override
-    public View super_onCreateView(final String name, final Context context,
-            final AttributeSet attrs) {
+    public View super_onCreateView(String name, Context context, AttributeSet attrs) {
         return super.onCreateView(name, context, attrs);
     }
 
@@ -3112,33 +3070,32 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean super_onGenericMotionEvent(final MotionEvent event) {
+    public boolean super_onGenericMotionEvent(MotionEvent event) {
         return super.onGenericMotionEvent(event);
     }
 
     @Override
-    public boolean super_onKeyDown(final int keyCode, final KeyEvent event) {
+    public boolean super_onKeyDown(int keyCode, KeyEvent event) {
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
-    public boolean super_onKeyLongPress(final int keyCode, final KeyEvent event) {
+    public boolean super_onKeyLongPress(int keyCode, KeyEvent event) {
         return super.onKeyLongPress(keyCode, event);
     }
 
     @Override
-    public boolean super_onKeyMultiple(final int keyCode, final int repeatCount,
-            final KeyEvent event) {
+    public boolean super_onKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
         return super.onKeyMultiple(keyCode, repeatCount, event);
     }
 
     @Override
-    public boolean super_onKeyShortcut(final int keyCode, final KeyEvent event) {
+    public boolean super_onKeyShortcut(int keyCode, KeyEvent event) {
         return super.onKeyShortcut(keyCode, event);
     }
 
     @Override
-    public boolean super_onKeyUp(final int keyCode, final KeyEvent event) {
+    public boolean super_onKeyUp(int keyCode, KeyEvent event) {
         return super.onKeyUp(keyCode, event);
     }
 
@@ -3158,12 +3115,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean super_onMenuOpened(final int featureId, final Menu menu) {
+    public boolean super_onMenuOpened(int featureId, Menu menu) {
         return super.onMenuOpened(featureId, menu);
     }
 
     @Override
-    public void super_onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+    public void super_onMultiWindowModeChanged(boolean isInMultiWindowMode) {
         super.onMultiWindowModeChanged(isInMultiWindowMode);
     }
 
@@ -3173,27 +3130,27 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean super_onNavigateUpFromChild(final Activity child) {
+    public boolean super_onNavigateUpFromChild(Activity child) {
         return super.onNavigateUpFromChild(child);
     }
 
     @Override
-    public void super_onNewIntent(final Intent intent) {
+    public void super_onNewIntent(Intent intent) {
         super.onNewIntent(intent);
     }
 
     @Override
-    public boolean super_onOptionsItemSelected(final MenuItem item) {
+    public boolean super_onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void super_onOptionsMenuClosed(final Menu menu) {
+    public void super_onOptionsMenuClosed(Menu menu) {
         super.onOptionsMenuClosed(menu);
     }
 
     @Override
-    public void super_onPanelClosed(final int featureId, final Menu menu) {
+    public void super_onPanelClosed(int featureId, Menu menu) {
         super.onPanelClosed(featureId, menu);
     }
 
@@ -3203,18 +3160,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+    public void super_onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
     @Override
-    public void super_onPostCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void super_onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
     }
 
     @Override
-    public void super_onPostCreate(@Nullable final Bundle savedInstanceState) {
+    public void super_onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
     }
 
@@ -3224,54 +3180,54 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_onPrepareDialog(final int id, final Dialog dialog) {
+    public void super_onPrepareDialog(int id, Dialog dialog) {
         super.onPrepareDialog(id, dialog);
     }
 
     @Override
-    public void super_onPrepareDialog(final int id, final Dialog dialog, final Bundle args) {
+    public void super_onPrepareDialog(int id, Dialog dialog, Bundle args) {
         super.onPrepareDialog(id, dialog, args);
     }
 
     @Override
-    public void super_onPrepareNavigateUpTaskStack(final TaskStackBuilder builder) {
+    public void super_onPrepareNavigateUpTaskStack(TaskStackBuilder builder) {
         super.onPrepareNavigateUpTaskStack(builder);
     }
 
     @Override
-    public boolean super_onPrepareOptionsMenu(final Menu menu) {
+    public boolean super_onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
-    public boolean super_onPrepareOptionsPanel(final View view, final Menu menu) {
+    public boolean super_onPrepareOptionsPanel(View view, Menu menu) {
         return super.onPrepareOptionsPanel(view, menu);
     }
 
     @Override
-    public boolean super_onPreparePanel(final int featureId, final View view, final Menu menu) {
+    public boolean super_onPreparePanel(int featureId, View view, Menu menu) {
         return super.onPreparePanel(featureId, view, menu);
     }
 
     @Override
     public void super_onPrepareSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+            @NonNull android.support.v4.app.TaskStackBuilder builder) {
         super.onPrepareSupportNavigateUpTaskStack(builder);
     }
 
     @Override
-    public void super_onProvideAssistContent(final AssistContent outContent) {
+    public void super_onProvideAssistContent(AssistContent outContent) {
         super.onProvideAssistContent(outContent);
     }
 
     @Override
-    public void super_onProvideAssistData(final Bundle data) {
+    public void super_onProvideAssistData(Bundle data) {
         super.onProvideAssistData(data);
     }
 
     @Override
-    public void super_onProvideKeyboardShortcuts(final List<KeyboardShortcutGroup> data,
-            final Menu menu, final int deviceId) {
+    public void super_onProvideKeyboardShortcuts(List<KeyboardShortcutGroup> data, Menu menu,
+            int deviceId) {
         super.onProvideKeyboardShortcuts(data, menu, deviceId);
     }
 
@@ -3281,8 +3237,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_onRequestPermissionsResult(final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+    public void super_onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -3292,13 +3248,13 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_onRestoreInstanceState(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void super_onRestoreInstanceState(Bundle savedInstanceState,
+            PersistableBundle persistentState) {
         super.onRestoreInstanceState(savedInstanceState, persistentState);
     }
 
     @Override
-    public void super_onRestoreInstanceState(final Bundle savedInstanceState) {
+    public void super_onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -3313,18 +3269,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_onSaveInstanceState(final Bundle outState,
-            final PersistableBundle outPersistentState) {
+    public void super_onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
-    public void super_onSaveInstanceState(final Bundle outState) {
+    public void super_onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    public boolean super_onSearchRequested(final SearchEvent searchEvent) {
+    public boolean super_onSearchRequested(SearchEvent searchEvent) {
         return super.onSearchRequested(searchEvent);
     }
 
@@ -3349,12 +3304,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_onSupportActionModeFinished(@NonNull final ActionMode mode) {
+    public void super_onSupportActionModeFinished(@NonNull ActionMode mode) {
         super.onSupportActionModeFinished(mode);
     }
 
     @Override
-    public void super_onSupportActionModeStarted(@NonNull final ActionMode mode) {
+    public void super_onSupportActionModeStarted(@NonNull ActionMode mode) {
         super.onSupportActionModeStarted(mode);
     }
 
@@ -3369,22 +3324,22 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_onTitleChanged(final CharSequence title, final int color) {
+    public void super_onTitleChanged(CharSequence title, int color) {
         super.onTitleChanged(title, color);
     }
 
     @Override
-    public boolean super_onTouchEvent(final MotionEvent event) {
+    public boolean super_onTouchEvent(MotionEvent event) {
         return super.onTouchEvent(event);
     }
 
     @Override
-    public boolean super_onTrackballEvent(final MotionEvent event) {
+    public boolean super_onTrackballEvent(MotionEvent event) {
         return super.onTrackballEvent(event);
     }
 
     @Override
-    public void super_onTrimMemory(final int level) {
+    public void super_onTrimMemory(int level) {
         super.onTrimMemory(level);
     }
 
@@ -3404,48 +3359,48 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_onWindowAttributesChanged(final WindowManager.LayoutParams params) {
+    public void super_onWindowAttributesChanged(WindowManager.LayoutParams params) {
         super.onWindowAttributesChanged(params);
     }
 
     @Override
-    public void super_onWindowFocusChanged(final boolean hasFocus) {
+    public void super_onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
     }
 
     @Nullable
     @Override
     public android.view.ActionMode super_onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback) {
+            android.view.ActionMode.Callback callback) {
         return super.onWindowStartingActionMode(callback);
     }
 
     @Nullable
     @Override
     public android.view.ActionMode super_onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback, final int type) {
+            android.view.ActionMode.Callback callback, int type) {
         return super.onWindowStartingActionMode(callback, type);
     }
 
     @Nullable
     @Override
     public ActionMode super_onWindowStartingSupportActionMode(
-            @NonNull final ActionMode.Callback callback) {
+            @NonNull ActionMode.Callback callback) {
         return super.onWindowStartingSupportActionMode(callback);
     }
 
     @Override
-    public void super_openContextMenu(final View view) {
+    public void super_openContextMenu(View view) {
         super.openContextMenu(view);
     }
 
     @Override
-    public FileInputStream super_openFileInput(final String name) throws FileNotFoundException {
+    public FileInputStream super_openFileInput(String name) throws FileNotFoundException {
         return super.openFileInput(name);
     }
 
     @Override
-    public FileOutputStream super_openFileOutput(final String name, final int mode)
+    public FileOutputStream super_openFileOutput(String name, int mode)
             throws FileNotFoundException {
         return super.openFileOutput(name, mode);
     }
@@ -3456,19 +3411,19 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public SQLiteDatabase super_openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory) {
+    public SQLiteDatabase super_openOrCreateDatabase(String name, int mode,
+            SQLiteDatabase.CursorFactory factory) {
         return super.openOrCreateDatabase(name, mode, factory);
     }
 
     @Override
-    public SQLiteDatabase super_openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler) {
+    public SQLiteDatabase super_openOrCreateDatabase(String name, int mode,
+            SQLiteDatabase.CursorFactory factory, DatabaseErrorHandler errorHandler) {
         return super.openOrCreateDatabase(name, mode, factory, errorHandler);
     }
 
     @Override
-    public void super_overridePendingTransition(final int enterAnim, final int exitAnim) {
+    public void super_overridePendingTransition(int enterAnim, int exitAnim) {
         super.overridePendingTransition(enterAnim, exitAnim);
     }
 
@@ -3488,24 +3443,23 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_registerComponentCallbacks(final ComponentCallbacks callback) {
+    public void super_registerComponentCallbacks(ComponentCallbacks callback) {
         super.registerComponentCallbacks(callback);
     }
 
     @Override
-    public void super_registerForContextMenu(final View view) {
+    public void super_registerForContextMenu(View view) {
         super.registerForContextMenu(view);
     }
 
     @Override
-    public Intent super_registerReceiver(final BroadcastReceiver receiver,
-            final IntentFilter filter) {
+    public Intent super_registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
         return super.registerReceiver(receiver, filter);
     }
 
     @Override
-    public Intent super_registerReceiver(final BroadcastReceiver receiver,
-            final IntentFilter filter, final String broadcastPermission, final Handler scheduler) {
+    public Intent super_registerReceiver(BroadcastReceiver receiver, IntentFilter filter,
+            String broadcastPermission, Handler scheduler) {
         return super.registerReceiver(receiver, filter, broadcastPermission, scheduler);
     }
 
@@ -3515,12 +3469,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_removeStickyBroadcast(final Intent intent) {
+    public void super_removeStickyBroadcast(Intent intent) {
         super.removeStickyBroadcast(intent);
     }
 
     @Override
-    public void super_removeStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
+    public void super_removeStickyBroadcastAsUser(Intent intent, UserHandle user) {
         super.removeStickyBroadcastAsUser(intent, user);
     }
 
@@ -3530,240 +3484,235 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public DragAndDropPermissions super_requestDragAndDropPermissions(final DragEvent event) {
+    public DragAndDropPermissions super_requestDragAndDropPermissions(DragEvent event) {
         return super.requestDragAndDropPermissions(event);
     }
 
     @Override
-    public boolean super_requestVisibleBehind(final boolean visible) {
+    public boolean super_requestVisibleBehind(boolean visible) {
         return super.requestVisibleBehind(visible);
     }
 
     @Override
-    public void super_revokeUriPermission(final Uri uri, final int modeFlags) {
+    public void super_revokeUriPermission(Uri uri, int modeFlags) {
         super.revokeUriPermission(uri, modeFlags);
     }
 
     @Override
-    public void super_sendBroadcast(final Intent intent) {
+    public void super_sendBroadcast(Intent intent) {
         super.sendBroadcast(intent);
     }
 
     @Override
-    public void super_sendBroadcast(final Intent intent, final String receiverPermission) {
+    public void super_sendBroadcast(Intent intent, String receiverPermission) {
         super.sendBroadcast(intent, receiverPermission);
     }
 
     @Override
-    public void super_sendBroadcastAsUser(final Intent intent, final UserHandle user) {
+    public void super_sendBroadcastAsUser(Intent intent, UserHandle user) {
         super.sendBroadcastAsUser(intent, user);
     }
 
     @Override
-    public void super_sendBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission) {
+    public void super_sendBroadcastAsUser(Intent intent, UserHandle user,
+            String receiverPermission) {
         super.sendBroadcastAsUser(intent, user, receiverPermission);
     }
 
     @Override
-    public void super_sendOrderedBroadcast(final Intent intent, final String receiverPermission) {
+    public void super_sendOrderedBroadcast(Intent intent, String receiverPermission) {
         super.sendOrderedBroadcast(intent, receiverPermission);
     }
 
     @Override
-    public void super_sendOrderedBroadcast(final Intent intent, final String receiverPermission,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
+    public void super_sendOrderedBroadcast(Intent intent, String receiverPermission,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras) {
         super.sendOrderedBroadcast(intent, receiverPermission, resultReceiver, scheduler,
                 initialCode, initialData, initialExtras);
     }
 
     @Override
-    public void super_sendOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission, final BroadcastReceiver resultReceiver,
-            final Handler scheduler, final int initialCode, final String initialData,
-            final Bundle initialExtras) {
+    public void super_sendOrderedBroadcastAsUser(Intent intent, UserHandle user,
+            String receiverPermission, BroadcastReceiver resultReceiver, Handler scheduler,
+            int initialCode, String initialData, Bundle initialExtras) {
         super.sendOrderedBroadcastAsUser(intent, user, receiverPermission, resultReceiver,
                 scheduler, initialCode, initialData, initialExtras);
     }
 
     @Override
-    public void super_sendStickyBroadcast(final Intent intent) {
+    public void super_sendStickyBroadcast(Intent intent) {
         super.sendStickyBroadcast(intent);
     }
 
     @Override
-    public void super_sendStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
+    public void super_sendStickyBroadcastAsUser(Intent intent, UserHandle user) {
         super.sendStickyBroadcastAsUser(intent, user);
     }
 
     @Override
-    public void super_sendStickyOrderedBroadcast(final Intent intent,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
+    public void super_sendStickyOrderedBroadcast(Intent intent, BroadcastReceiver resultReceiver,
+            Handler scheduler, int initialCode, String initialData, Bundle initialExtras) {
         super.sendStickyOrderedBroadcast(intent, resultReceiver, scheduler, initialCode,
                 initialData, initialExtras);
     }
 
     @Override
-    public void super_sendStickyOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
+    public void super_sendStickyOrderedBroadcastAsUser(Intent intent, UserHandle user,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras) {
         super.sendStickyOrderedBroadcastAsUser(intent, user, resultReceiver, scheduler, initialCode,
                 initialData, initialExtras);
     }
 
     @Override
-    public void super_setActionBar(final Toolbar toolbar) {
+    public void super_setActionBar(Toolbar toolbar) {
         super.setActionBar(toolbar);
     }
 
     @Override
-    public void super_setContentTransitionManager(final TransitionManager tm) {
+    public void super_setContentTransitionManager(TransitionManager tm) {
         super.setContentTransitionManager(tm);
     }
 
     @Override
-    public void super_setContentView(@LayoutRes final int layoutResID) {
+    public void super_setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
     }
 
     @Override
-    public void super_setContentView(final View view) {
+    public void super_setContentView(View view) {
         super.setContentView(view);
     }
 
     @Override
-    public void super_setContentView(final View view, final ViewGroup.LayoutParams params) {
+    public void super_setContentView(View view, ViewGroup.LayoutParams params) {
         super.setContentView(view, params);
     }
 
     @Override
-    public void super_setEnterSharedElementCallback(final SharedElementCallback callback) {
+    public void super_setEnterSharedElementCallback(SharedElementCallback callback) {
         super.setEnterSharedElementCallback(callback);
     }
 
     @Override
-    public void super_setEnterSharedElementCallback(
-            final android.app.SharedElementCallback callback) {
+    public void super_setEnterSharedElementCallback(android.app.SharedElementCallback callback) {
         super.setEnterSharedElementCallback(callback);
     }
 
     @Override
-    public void super_setExitSharedElementCallback(final SharedElementCallback listener) {
+    public void super_setExitSharedElementCallback(SharedElementCallback listener) {
         super.setExitSharedElementCallback(listener);
     }
 
     @Override
-    public void super_setExitSharedElementCallback(
-            final android.app.SharedElementCallback callback) {
+    public void super_setExitSharedElementCallback(android.app.SharedElementCallback callback) {
         super.setExitSharedElementCallback(callback);
     }
 
     @Override
-    public void super_setFinishOnTouchOutside(final boolean finish) {
+    public void super_setFinishOnTouchOutside(boolean finish) {
         super.setFinishOnTouchOutside(finish);
     }
 
     @Override
-    public void super_setImmersive(final boolean i) {
+    public void super_setImmersive(boolean i) {
         super.setImmersive(i);
     }
 
     @Override
-    public void super_setIntent(final Intent newIntent) {
+    public void super_setIntent(Intent newIntent) {
         super.setIntent(newIntent);
     }
 
     @Override
-    public void super_setRequestedOrientation(final int requestedOrientation) {
+    public void super_setRequestedOrientation(int requestedOrientation) {
         super.setRequestedOrientation(requestedOrientation);
     }
 
     @Override
-    public void super_setSupportActionBar(
-            @Nullable final android.support.v7.widget.Toolbar toolbar) {
+    public void super_setSupportActionBar(@Nullable android.support.v7.widget.Toolbar toolbar) {
         super.setSupportActionBar(toolbar);
     }
 
     @Override
-    public void super_setSupportProgress(final int progress) {
+    public void super_setSupportProgress(int progress) {
         super.setSupportProgress(progress);
     }
 
     @Override
-    public void super_setSupportProgressBarIndeterminate(final boolean indeterminate) {
+    public void super_setSupportProgressBarIndeterminate(boolean indeterminate) {
         super.setSupportProgressBarIndeterminate(indeterminate);
     }
 
     @Override
-    public void super_setSupportProgressBarIndeterminateVisibility(final boolean visible) {
+    public void super_setSupportProgressBarIndeterminateVisibility(boolean visible) {
         super.setSupportProgressBarIndeterminateVisibility(visible);
     }
 
     @Override
-    public void super_setSupportProgressBarVisibility(final boolean visible) {
+    public void super_setSupportProgressBarVisibility(boolean visible) {
         super.setSupportProgressBarVisibility(visible);
     }
 
     @Override
-    public void super_setTaskDescription(final ActivityManager.TaskDescription taskDescription) {
+    public void super_setTaskDescription(ActivityManager.TaskDescription taskDescription) {
         super.setTaskDescription(taskDescription);
     }
 
     @Override
-    public void super_setTheme(@StyleRes final int resid) {
+    public void super_setTheme(@StyleRes int resid) {
         super.setTheme(resid);
     }
 
     @Override
-    public void super_setTitle(final CharSequence title) {
+    public void super_setTitle(CharSequence title) {
         super.setTitle(title);
     }
 
     @Override
-    public void super_setTitle(final int titleId) {
+    public void super_setTitle(int titleId) {
         super.setTitle(titleId);
     }
 
     @Override
-    public void super_setTitleColor(final int textColor) {
+    public void super_setTitleColor(int textColor) {
         super.setTitleColor(textColor);
     }
 
     @Override
-    public void super_setVisible(final boolean visible) {
+    public void super_setVisible(boolean visible) {
         super.setVisible(visible);
     }
 
     @Override
-    public void super_setVrModeEnabled(final boolean enabled,
-            final ComponentName requestedComponent) throws PackageManager.NameNotFoundException {
+    public void super_setVrModeEnabled(boolean enabled, ComponentName requestedComponent)
+            throws PackageManager.NameNotFoundException {
         super.setVrModeEnabled(enabled, requestedComponent);
     }
 
     @Override
-    public void super_setWallpaper(final Bitmap bitmap) throws IOException {
+    public void super_setWallpaper(Bitmap bitmap) throws IOException {
         super.setWallpaper(bitmap);
     }
 
     @Override
-    public void super_setWallpaper(final InputStream data) throws IOException {
+    public void super_setWallpaper(InputStream data) throws IOException {
         super.setWallpaper(data);
     }
 
     @Override
-    public boolean super_shouldShowRequestPermissionRationale(final String permission) {
+    public boolean super_shouldShowRequestPermissionRationale(String permission) {
         return super.shouldShowRequestPermissionRationale(permission);
     }
 
     @Override
-    public boolean super_shouldUpRecreateTask(final Intent targetIntent) {
+    public boolean super_shouldUpRecreateTask(Intent targetIntent) {
         return super.shouldUpRecreateTask(targetIntent);
     }
 
     @Override
-    public boolean super_showAssist(final Bundle args) {
+    public boolean super_showAssist(Bundle args) {
         return super.showAssist(args);
     }
 
@@ -3775,159 +3724,153 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     @Nullable
     @Override
     public android.view.ActionMode super_startActionMode(
-            final android.view.ActionMode.Callback callback) {
+            android.view.ActionMode.Callback callback) {
         return super.startActionMode(callback);
     }
 
     @Nullable
     @Override
-    public android.view.ActionMode super_startActionMode(
-            final android.view.ActionMode.Callback callback, final int type) {
+    public android.view.ActionMode super_startActionMode(android.view.ActionMode.Callback callback,
+            int type) {
         return super.startActionMode(callback, type);
     }
 
     @Override
-    public void super_startActivities(final Intent[] intents) {
+    public void super_startActivities(Intent[] intents) {
         super.startActivities(intents);
     }
 
     @Override
-    public void super_startActivities(final Intent[] intents, final Bundle options) {
+    public void super_startActivities(Intent[] intents, Bundle options) {
         super.startActivities(intents, options);
     }
 
     @Override
-    public void super_startActivity(final Intent intent) {
+    public void super_startActivity(Intent intent) {
         super.startActivity(intent);
     }
 
     @Override
-    public void super_startActivity(final Intent intent, final Bundle options) {
+    public void super_startActivity(Intent intent, Bundle options) {
         super.startActivity(intent, options);
     }
 
     @Override
-    public void super_startActivityForResult(final Intent intent, final int requestCode,
-            @Nullable final Bundle options) {
-        super.startActivityForResult(intent, requestCode, options);
-    }
-
-    @Override
-    public void super_startActivityForResult(final Intent intent, final int requestCode) {
+    public void super_startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
     }
 
     @Override
-    public void super_startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode) {
+    public void super_startActivityForResult(Intent intent, int requestCode,
+            @Nullable Bundle options) {
+        super.startActivityForResult(intent, requestCode, options);
+    }
+
+    @Override
+    public void super_startActivityFromChild(Activity child, Intent intent, int requestCode) {
         super.startActivityFromChild(child, intent, requestCode);
     }
 
     @Override
-    public void super_startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode, final Bundle options) {
+    public void super_startActivityFromChild(Activity child, Intent intent, int requestCode,
+            Bundle options) {
         super.startActivityFromChild(child, intent, requestCode, options);
     }
 
     @Override
-    public void super_startActivityFromFragment(final android.app.Fragment fragment,
-            final Intent intent, final int requestCode) {
+    public void super_startActivityFromFragment(Fragment fragment, Intent intent, int requestCode) {
         super.startActivityFromFragment(fragment, intent, requestCode);
     }
 
     @Override
-    public void super_startActivityFromFragment(final android.app.Fragment fragment,
-            final Intent intent, final int requestCode, final Bundle options) {
+    public void super_startActivityFromFragment(Fragment fragment, Intent intent, int requestCode,
+            @Nullable Bundle options) {
         super.startActivityFromFragment(fragment, intent, requestCode, options);
     }
 
     @Override
-    public void super_startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode) {
+    public void super_startActivityFromFragment(android.app.Fragment fragment, Intent intent,
+            int requestCode) {
         super.startActivityFromFragment(fragment, intent, requestCode);
     }
 
     @Override
-    public void super_startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode, @Nullable final Bundle options) {
+    public void super_startActivityFromFragment(android.app.Fragment fragment, Intent intent,
+            int requestCode, Bundle options) {
         super.startActivityFromFragment(fragment, intent, requestCode, options);
     }
 
     @Override
-    public boolean super_startActivityIfNeeded(final Intent intent, final int requestCode) {
+    public boolean super_startActivityIfNeeded(Intent intent, int requestCode) {
         return super.startActivityIfNeeded(intent, requestCode);
     }
 
     @Override
-    public boolean super_startActivityIfNeeded(final Intent intent, final int requestCode,
-            final Bundle options) {
+    public boolean super_startActivityIfNeeded(Intent intent, int requestCode, Bundle options) {
         return super.startActivityIfNeeded(intent, requestCode, options);
     }
 
     @Override
-    public boolean super_startInstrumentation(final ComponentName className,
-            final String profileFile, final Bundle arguments) {
+    public boolean super_startInstrumentation(ComponentName className, String profileFile,
+            Bundle arguments) {
         return super.startInstrumentation(className, profileFile, arguments);
     }
 
     @Override
-    public void super_startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags)
-            throws IntentSender.SendIntentException {
+    public void super_startIntentSender(IntentSender intent, Intent fillInIntent, int flagsMask,
+            int flagsValues, int extraFlags) throws IntentSender.SendIntentException {
         super.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
     @Override
-    public void super_startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
+    public void super_startIntentSender(IntentSender intent, Intent fillInIntent, int flagsMask,
+            int flagsValues, int extraFlags, Bundle options)
             throws IntentSender.SendIntentException {
         super.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags, options);
     }
 
     @Override
-    public void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+    public void super_startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
                 extraFlags, options);
     }
 
     @Override
-    public void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException {
+    public void super_startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags)
+            throws IntentSender.SendIntentException {
         super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
                 extraFlags);
     }
 
     @Override
-    public void super_startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
+    public void super_startIntentSenderFromChild(Activity child, IntentSender intent,
+            int requestCode, Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags)
+            throws IntentSender.SendIntentException {
         super.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
                 flagsValues, extraFlags);
     }
 
     @Override
-    public void super_startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
-            throws IntentSender.SendIntentException {
+    public void super_startIntentSenderFromChild(Activity child, IntentSender intent,
+            int requestCode, Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
                 flagsValues, extraFlags, options);
     }
 
     @Override
-    public void super_startIntentSenderFromFragment(final Fragment fragment,
-            final IntentSender intent, final int requestCode, @Nullable final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
-            throws IntentSender.SendIntentException {
+    public void super_startIntentSenderFromFragment(Fragment fragment, IntentSender intent,
+            int requestCode, @Nullable Intent fillInIntent, int flagsMask, int flagsValues,
+            int extraFlags, Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderFromFragment(fragment, intent, requestCode, fillInIntent, flagsMask,
                 flagsValues, extraFlags, options);
     }
 
     @Override
-    public void super_startLocalVoiceInteraction(final Bundle privateOptions) {
+    public void super_startLocalVoiceInteraction(Bundle privateOptions) {
         super.startLocalVoiceInteraction(privateOptions);
     }
 
@@ -3937,17 +3880,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_startManagingCursor(final Cursor c) {
+    public void super_startManagingCursor(Cursor c) {
         super.startManagingCursor(c);
     }
 
     @Override
-    public boolean super_startNextMatchingActivity(final Intent intent) {
+    public boolean super_startNextMatchingActivity(Intent intent) {
         return super.startNextMatchingActivity(intent);
     }
 
     @Override
-    public boolean super_startNextMatchingActivity(final Intent intent, final Bundle options) {
+    public boolean super_startNextMatchingActivity(Intent intent, Bundle options) {
         return super.startNextMatchingActivity(intent, options);
     }
 
@@ -3957,19 +3900,19 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch) {
+    public void super_startSearch(String initialQuery, boolean selectInitialQuery,
+            Bundle appSearchData, boolean globalSearch) {
         super.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
 
     @Override
-    public ComponentName super_startService(final Intent service) {
+    public ComponentName super_startService(Intent service) {
         return super.startService(service);
     }
 
     @Nullable
     @Override
-    public ActionMode super_startSupportActionMode(@NonNull final ActionMode.Callback callback) {
+    public ActionMode super_startSupportActionMode(@NonNull ActionMode.Callback callback) {
         return super.startSupportActionMode(callback);
     }
 
@@ -3984,12 +3927,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_stopManagingCursor(final Cursor c) {
+    public void super_stopManagingCursor(Cursor c) {
         super.stopManagingCursor(c);
     }
 
     @Override
-    public boolean super_stopService(final Intent name) {
+    public boolean super_stopService(Intent name) {
         return super.stopService(name);
     }
 
@@ -4004,7 +3947,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_supportNavigateUpTo(@NonNull final Intent upIntent) {
+    public void super_supportNavigateUpTo(@NonNull Intent upIntent) {
         super.supportNavigateUpTo(upIntent);
     }
 
@@ -4014,12 +3957,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public boolean super_supportRequestWindowFeature(final int featureId) {
+    public boolean super_supportRequestWindowFeature(int featureId) {
         return super.supportRequestWindowFeature(featureId);
     }
 
     @Override
-    public boolean super_supportShouldUpRecreateTask(@NonNull final Intent targetIntent) {
+    public boolean super_supportShouldUpRecreateTask(@NonNull Intent targetIntent) {
         return super.supportShouldUpRecreateTask(targetIntent);
     }
 
@@ -4029,32 +3972,32 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_takeKeyEvents(final boolean get) {
+    public void super_takeKeyEvents(boolean get) {
         super.takeKeyEvents(get);
     }
 
     @Override
-    public void super_triggerSearch(final String query, final Bundle appSearchData) {
+    public void super_triggerSearch(String query, Bundle appSearchData) {
         super.triggerSearch(query, appSearchData);
     }
 
     @Override
-    public void super_unbindService(final ServiceConnection conn) {
+    public void super_unbindService(ServiceConnection conn) {
         super.unbindService(conn);
     }
 
     @Override
-    public void super_unregisterComponentCallbacks(final ComponentCallbacks callback) {
+    public void super_unregisterComponentCallbacks(ComponentCallbacks callback) {
         super.unregisterComponentCallbacks(callback);
     }
 
     @Override
-    public void super_unregisterForContextMenu(final View view) {
+    public void super_unregisterForContextMenu(View view) {
         super.unregisterForContextMenu(view);
     }
 
     @Override
-    public void super_unregisterReceiver(final BroadcastReceiver receiver) {
+    public void super_unregisterReceiver(BroadcastReceiver receiver) {
         super.unregisterReceiver(receiver);
     }
 
@@ -4063,7 +4006,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * to reverse its exit Transition. When the exit Transition completes,
      * {@link #finish()} is called. If no entry Transition was used, finish() is called
      * immediately and the Activity exit Transition is run.
-     *
+     * <p>
      * <p>On Android 4.4 or lower, this method only finishes the Activity with no
      * special exit transition.</p>
      */
@@ -4082,7 +4025,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * in the process. upIntent will have the flag {@link Intent#FLAG_ACTIVITY_CLEAR_TOP} set
      * by this method, along with any others required for proper up navigation as outlined
      * in the Android Design Guide.
-     *
+     * <p>
      * <p>This method should be used when performing up navigation from within the same task
      * as the destination. If up navigation should cross tasks in some cases, see
      * {@link #supportShouldUpRecreateTask(Intent)}.</p>
@@ -4090,7 +4033,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param upIntent An intent representing the target destination for up navigation
      */
     @Override
-    public void supportNavigateUpTo(@NonNull final Intent upIntent) {
+    public void supportNavigateUpTo(@NonNull Intent upIntent) {
         delegate.supportNavigateUpTo(upIntent);
     }
 
@@ -4117,14 +4060,14 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see Window#requestFeature
      */
     @Override
-    public boolean supportRequestWindowFeature(final int featureId) {
+    public boolean supportRequestWindowFeature(int featureId) {
         return delegate.supportRequestWindowFeature(featureId);
     }
 
     /**
      * Returns true if sourceActivity should recreate the task when navigating 'up'
      * by using targetIntent.
-     *
+     * <p>
      * <p>If this method returns false the app can trivially call
      * {@link #supportNavigateUpTo(Intent)} using the same parameters to correctly perform
      * up navigation. If this method returns false, the app should synthesize a new task stack
@@ -4136,7 +4079,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * should be used for the destination
      */
     @Override
-    public boolean supportShouldUpRecreateTask(@NonNull final Intent targetIntent) {
+    public boolean supportShouldUpRecreateTask(@NonNull Intent targetIntent) {
         return delegate.supportShouldUpRecreateTask(targetIntent);
     }
 
@@ -4150,32 +4093,32 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void takeKeyEvents(final boolean get) {
+    public void takeKeyEvents(boolean get) {
         delegate.takeKeyEvents(get);
     }
 
     @Override
-    public void triggerSearch(final String query, final Bundle appSearchData) {
+    public void triggerSearch(String query, Bundle appSearchData) {
         delegate.triggerSearch(query, appSearchData);
     }
 
     @Override
-    public void unbindService(final ServiceConnection conn) {
+    public void unbindService(ServiceConnection conn) {
         delegate.unbindService(conn);
     }
 
     @Override
-    public void unregisterComponentCallbacks(final ComponentCallbacks callback) {
+    public void unregisterComponentCallbacks(ComponentCallbacks callback) {
         delegate.unregisterComponentCallbacks(callback);
     }
 
     @Override
-    public void unregisterForContextMenu(final View view) {
+    public void unregisterForContextMenu(View view) {
         delegate.unregisterForContextMenu(view);
     }
 
     @Override
-    public void unregisterReceiver(final BroadcastReceiver receiver) {
+    public void unregisterReceiver(BroadcastReceiver receiver) {
         delegate.unregisterReceiver(receiver);
     }
 }

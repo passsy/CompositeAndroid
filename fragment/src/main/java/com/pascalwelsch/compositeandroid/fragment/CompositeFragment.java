@@ -54,8 +54,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param args   additional arguments to the dump request.
      */
     @Override
-    public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args) {
+    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
         delegate.dump(prefix, fd, writer, args);
     }
 
@@ -125,12 +124,14 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     /**
-     * @hide Hack so that DialogFragment can make its Dialog before creating
+     * Hack so that DialogFragment can make its Dialog before creating
      * its views, and the view construction can use the dialog's context for
      * inflation.  Maybe this should become a public API. Note sure.
+     *
+     * @hide
      */
     @Override
-    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
+    public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
         return delegate.getLayoutInflater(savedInstanceState);
     }
 
@@ -242,7 +243,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                           a previous saved state, this is the state.
      */
     @Override
-    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         delegate.onActivityCreated(savedInstanceState);
     }
 
@@ -260,7 +261,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param data        An Intent, which can return result data to the caller
      */
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         delegate.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -269,7 +270,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * {@link #onCreate(Bundle)} will be called after this.
      */
     @Override
-    public void onAttach(final Context context) {
+    public void onAttach(Context context) {
         delegate.onAttach(context);
     }
 
@@ -280,13 +281,13 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @deprecated See {@link #onAttach(Context)}.
      */
     @Override
-    public void onAttach(final Activity activity) {
+    public void onAttach(Activity activity) {
         delegate.onAttach(activity);
     }
 
     /**
      * Called when a fragment is attached as a child of this fragment.
-     *
+     * <p>
      * <p>This is called after the attached fragment's <code>onAttach</code> and before
      * the attached fragment's <code>onCreate</code> if the fragment has not yet had a previous
      * call to <code>onCreate</code>.</p>
@@ -294,12 +295,12 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param childFragment child fragment being attached
      */
     @Override
-    public void onAttachFragment(final Fragment childFragment) {
+    public void onAttachFragment(Fragment childFragment) {
         delegate.onAttachFragment(childFragment);
     }
 
     @Override
-    public void onConfigurationChanged(final Configuration newConfig) {
+    public void onConfigurationChanged(Configuration newConfig) {
         delegate.onConfigurationChanged(newConfig);
     }
 
@@ -321,7 +322,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * proceed, true to consume it here.
      */
     @Override
-    public boolean onContextItemSelected(final MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
         return delegate.onContextItemSelected(item);
     }
 
@@ -329,13 +330,13 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * Called to do initial creation of a fragment.  This is called after
      * {@link #onAttach(Activity)} and before
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     *
+     * <p>
      * <p>Note that this can be called while the fragment's activity is
      * still in the process of being created.  As such, you can not rely
      * on things like the activity's content view hierarchy being initialized
      * at this point.  If you want to do work once the activity itself is
      * created, see {@link #onActivityCreated(Bundle)}.
-     *
+     * <p>
      * <p>Any restored child fragments will be created before the base
      * <code>Fragment.onCreate</code> method returns.</p>
      *
@@ -343,7 +344,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                           a previous saved state, this is the state.
      */
     @Override
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         delegate.onCreate(savedInstanceState);
     }
 
@@ -351,7 +352,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * Called when a fragment loads an animation.
      */
     @Override
-    public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         return delegate.onCreateAnimation(transit, enter, nextAnim);
     }
 
@@ -373,8 +374,8 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * {@inheritDoc}
      */
     @Override
-    public void onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenu.ContextMenuInfo menuInfo) {
         delegate.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -391,7 +392,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @see #onOptionsItemSelected
      */
     @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         delegate.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -400,7 +401,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * This is optional, and non-graphical fragments can return null (which
      * is the default implementation).  This will be called between
      * {@link #onCreate(Bundle)} and {@link #onActivityCreated(Bundle)}.
-     *
+     * <p>
      * <p>If you return a View from here, you will later be called in
      * {@link #onDestroyView} when the view is being released.
      *
@@ -416,8 +417,8 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         return delegate.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -473,7 +474,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param hidden True if the fragment is now hidden, false otherwise.
      */
     @Override
-    public void onHiddenChanged(final boolean hidden) {
+    public void onHiddenChanged(boolean hidden) {
         delegate.onHiddenChanged(hidden);
     }
 
@@ -484,33 +485,33 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * tag in a layout file.  Note this is <em>before</em> the fragment's
      * {@link #onAttach(Activity)} has been called; all you should do here is
      * parse the attributes and save them away.
-     *
+     * <p>
      * <p>This is called every time the fragment is inflated, even if it is
      * being inflated into a new instance with saved state.  It typically makes
      * sense to re-parse the parameters each time, to allow them to change with
      * different configurations.</p>
-     *
+     * <p>
      * <p>Here is a typical implementation of a fragment that can take parameters
      * both through attributes supplied here as well from {@link #getArguments()}:</p>
-     *
+     * <p>
      * {@sample frameworks/support/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentArgumentsSupport.java
      * fragment}
-     *
+     * <p>
      * <p>Note that parsing the XML attributes uses a "styleable" resource.  The
      * declaration for the styleable used here is:</p>
-     *
+     * <p>
      * {@sample frameworks/support/samples/Support4Demos/res/values/attrs.xml fragment_arguments}
-     *
+     * <p>
      * <p>The fragment can then be declared within its activity's content layout
      * through a tag like this:</p>
-     *
+     * <p>
      * {@sample frameworks/support/samples/Support4Demos/res/layout/fragment_arguments_support.xml
      * from_attributes}
-     *
+     * <p>
      * <p>This fragment can also be created dynamically from arguments given
      * at runtime in the arguments Bundle; here is an example of doing so at
      * creation of the containing activity:</p>
-     *
+     * <p>
      * {@sample frameworks/support/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentArgumentsSupport.java
      * create}
      *
@@ -520,8 +521,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param savedInstanceState If the fragment is being re-created from
      */
     @Override
-    public void onInflate(final Context context, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
+    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
         delegate.onInflate(context, attrs, savedInstanceState);
     }
 
@@ -532,8 +532,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @deprecated See {@link #onInflate(Context, AttributeSet, Bundle)}.
      */
     @Override
-    public void onInflate(final Activity activity, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
+    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
         delegate.onInflate(activity, attrs, savedInstanceState);
     }
 
@@ -550,7 +549,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param isInMultiWindowMode True if the activity is in multi-window mode.
      */
     @Override
-    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
         delegate.onMultiWindowModeChanged(isInMultiWindowMode);
     }
 
@@ -561,7 +560,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * its Handler as appropriate).  You can use this method for any items
      * for which you would like to do processing without those other
      * facilities.
-     *
+     * <p>
      * <p>Derived classes should call through to the base class for it to
      * perform the default menu handling.
      *
@@ -571,7 +570,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @see #onCreateOptionsMenu
      */
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         return delegate.onOptionsItemSelected(item);
     }
 
@@ -583,7 +582,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *             onCreateOptionsMenu().
      */
     @Override
-    public void onOptionsMenuClosed(final Menu menu) {
+    public void onOptionsMenuClosed(Menu menu) {
         delegate.onOptionsMenuClosed(menu);
     }
 
@@ -604,7 +603,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param isInPictureInPictureMode True if the activity is in picture-in-picture mode.
      */
     @Override
-    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
         delegate.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
@@ -622,7 +621,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @see #onCreateOptionsMenu
      */
     @Override
-    public void onPrepareOptionsMenu(final Menu menu) {
+    public void onPrepareOptionsMenu(Menu menu) {
         delegate.onPrepareOptionsMenu(menu);
     }
 
@@ -643,8 +642,8 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @see #requestPermissions(String[], int)
      */
     @Override
-    public void onRequestPermissionsResult(final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         delegate.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -667,7 +666,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * in the Bundle given to {@link #onCreate(Bundle)},
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
      * {@link #onActivityCreated(Bundle)}.
-     *
+     * <p>
      * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
      * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
      * applies here as well.  Note however: <em>this method may be called
@@ -679,7 +678,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param outState Bundle in which to place your saved state.
      */
     @Override
-    public void onSaveInstanceState(final Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         delegate.onSaveInstanceState(outState);
     }
 
@@ -715,7 +714,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      */
     @Override
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         delegate.onViewCreated(view, savedInstanceState);
     }
 
@@ -731,7 +730,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                           a previous saved state, this is the state.
      */
     @Override
-    public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         delegate.onViewStateRestored(savedInstanceState);
     }
 
@@ -746,7 +745,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @see #unregisterForContextMenu(View)
      */
     @Override
-    public void registerForContextMenu(final View view) {
+    public void registerForContextMenu(View view) {
         delegate.registerForContextMenu(view);
     }
 
@@ -759,7 +758,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *              wait until the exiting transition completes.
      */
     @Override
-    public void setAllowEnterTransitionOverlap(final boolean allow) {
+    public void setAllowEnterTransitionOverlap(boolean allow) {
         delegate.setAllowEnterTransitionOverlap(allow);
     }
 
@@ -772,7 +771,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *              return transition completes.
      */
     @Override
-    public void setAllowReturnTransitionOverlap(final boolean allow) {
+    public void setAllowReturnTransitionOverlap(boolean allow) {
         delegate.setAllowReturnTransitionOverlap(allow);
     }
 
@@ -784,7 +783,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * creation.
      */
     @Override
-    public void setArguments(final Bundle args) {
+    public void setArguments(Bundle args) {
         delegate.setArguments(args);
     }
 
@@ -796,7 +795,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                 when added not as a pop from the back stack.
      */
     @Override
-    public void setEnterSharedElementCallback(final SharedElementCallback callback) {
+    public void setEnterSharedElementCallback(SharedElementCallback callback) {
         delegate.setEnterSharedElementCallback(callback);
     }
 
@@ -811,7 +810,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param transition The Transition to use to move Views into the initial Scene.
      */
     @Override
-    public void setEnterTransition(final Object transition) {
+    public void setEnterTransition(Object transition) {
         delegate.setEnterTransition(transition);
     }
 
@@ -823,7 +822,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                 when added as a pop from the back stack.
      */
     @Override
-    public void setExitSharedElementCallback(final SharedElementCallback callback) {
+    public void setExitSharedElementCallback(SharedElementCallback callback) {
         delegate.setExitSharedElementCallback(callback);
     }
 
@@ -841,7 +840,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                   must be an android.transition.Transition.
      */
     @Override
-    public void setExitTransition(final Object transition) {
+    public void setExitTransition(Object transition) {
         delegate.setExitTransition(transition);
     }
 
@@ -853,7 +852,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param hasMenu If true, the fragment has menu items to contribute.
      */
     @Override
-    public void setHasOptionsMenu(final boolean hasMenu) {
+    public void setHasOptionsMenu(boolean hasMenu) {
         delegate.setHasOptionsMenu(hasMenu);
     }
 
@@ -866,7 +865,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @param state The state the fragment should be restored from.
      */
     @Override
-    public void setInitialSavedState(final Fragment.SavedState state) {
+    public void setInitialSavedState(SavedState state) {
         delegate.setInitialSavedState(state);
     }
 
@@ -880,7 +879,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                    be shown as usual.  If false, the user will not see the menu.
      */
     @Override
-    public void setMenuVisibility(final boolean menuVisible) {
+    public void setMenuVisibility(boolean menuVisible) {
         delegate.setMenuVisibility(menuVisible);
     }
 
@@ -898,7 +897,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                   must be an android.transition.Transition.
      */
     @Override
-    public void setReenterTransition(final Object transition) {
+    public void setReenterTransition(Object transition) {
         delegate.setReenterTransition(transition);
     }
 
@@ -917,7 +916,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * </ul>
      */
     @Override
-    public void setRetainInstance(final boolean retain) {
+    public void setRetainInstance(boolean retain) {
         delegate.setRetainInstance(retain);
     }
 
@@ -936,7 +935,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                   android.transition.Transition.
      */
     @Override
-    public void setReturnTransition(final Object transition) {
+    public void setReturnTransition(Object transition) {
         delegate.setReturnTransition(transition);
     }
 
@@ -950,7 +949,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                   Scene.  <code>transition</code> must be an android.transition.Transition.
      */
     @Override
-    public void setSharedElementEnterTransition(final Object transition) {
+    public void setSharedElementEnterTransition(Object transition) {
         delegate.setSharedElementEnterTransition(transition);
     }
 
@@ -967,7 +966,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                   Scene. <code>transition</code> must be an android.transition.Transition.
      */
     @Override
-    public void setSharedElementReturnTransition(final Object transition) {
+    public void setSharedElementReturnTransition(Object transition) {
         delegate.setSharedElementReturnTransition(transition);
     }
 
@@ -983,7 +982,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                    are going to call back with {@link #onActivityResult(int, int, Intent)}.
      */
     @Override
-    public void setTargetFragment(final Fragment fragment, final int requestCode) {
+    public void setTargetFragment(Fragment fragment, int requestCode) {
         delegate.setTargetFragment(fragment, requestCode);
     }
 
@@ -991,12 +990,12 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * Set a hint to the system about whether this fragment's UI is currently visible
      * to the user. This hint defaults to true and is persistent across fragment instance
      * state save and restore.
-     *
+     * <p>
      * <p>An app may set this to false to indicate that the fragment's UI is
      * scrolled out of visibility or is otherwise not directly visible to the user.
      * This may be used by the system to prioritize operations such as fragment lifecycle updates
      * or loader ordering behavior.</p>
-     *
+     * <p>
      * <p><strong>Note:</strong> This method may be called outside of the fragment lifecycle.
      * and thus has no ordering guarantees with regard to fragment lifecycle method calls.</p>
      *
@@ -1005,7 +1004,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *                        false if it is not.
      */
     @Override
-    public void setUserVisibleHint(final boolean isVisibleToUser) {
+    public void setUserVisibleHint(boolean isVisibleToUser) {
         delegate.setUserVisibleHint(isVisibleToUser);
     }
 
@@ -1029,7 +1028,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @see #onRequestPermissionsResult(int, String[], int[])
      */
     @Override
-    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
+    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
         return delegate.shouldShowRequestPermissionRationale(permission);
     }
 
@@ -1038,7 +1037,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * containing Activity.
      */
     @Override
-    public void startActivity(final Intent intent) {
+    public void startActivity(Intent intent) {
         delegate.startActivity(intent);
     }
 
@@ -1047,7 +1046,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * containing Activity.
      */
     @Override
-    public void startActivity(final Intent intent, @Nullable final Bundle options) {
+    public void startActivity(Intent intent, @Nullable Bundle options) {
         delegate.startActivity(intent, options);
     }
 
@@ -1056,7 +1055,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * containing Activity.
      */
     @Override
-    public void startActivityForResult(final Intent intent, final int requestCode) {
+    public void startActivityForResult(Intent intent, int requestCode) {
         delegate.startActivityForResult(intent, requestCode);
     }
 
@@ -1065,8 +1064,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * containing Activity.
      */
     @Override
-    public void startActivityForResult(final Intent intent, final int requestCode,
-            @Nullable final Bundle options) {
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
         delegate.startActivityForResult(intent, requestCode, options);
     }
 
@@ -1075,9 +1073,9 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * Bundle)} from the fragment's containing Activity.
      */
     @Override
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+    public void startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
                     flagsValues, extraFlags, options);
@@ -1087,8 +1085,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
-    public void super_dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args) {
+    public void super_dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
         super.dump(prefix, fd, writer, args);
     }
 
@@ -1118,7 +1115,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
-    public LayoutInflater super_getLayoutInflater(final Bundle savedInstanceState) {
+    public LayoutInflater super_getLayoutInflater(Bundle savedInstanceState) {
         return super.getLayoutInflater(savedInstanceState);
     }
 
@@ -1159,67 +1156,65 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
-    public void super_onActivityCreated(@Nullable final Bundle savedInstanceState) {
+    public void super_onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
     @Override
-    public void super_onActivityResult(final int requestCode, final int resultCode,
-            final Intent data) {
+    public void super_onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
-    public void super_onAttach(final Context context) {
+    public void super_onAttach(Context context) {
         super.onAttach(context);
     }
 
     @Override
-    public void super_onAttach(final Activity activity) {
+    public void super_onAttach(Activity activity) {
         super.onAttach(activity);
     }
 
     @Override
-    public void super_onAttachFragment(final Fragment childFragment) {
+    public void super_onAttachFragment(Fragment childFragment) {
         super.onAttachFragment(childFragment);
     }
 
     @Override
-    public void super_onConfigurationChanged(final Configuration newConfig) {
+    public void super_onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 
     @Override
-    public boolean super_onContextItemSelected(final MenuItem item) {
+    public boolean super_onContextItemSelected(MenuItem item) {
         return super.onContextItemSelected(item);
     }
 
     @Override
-    public void super_onCreate(@Nullable final Bundle savedInstanceState) {
+    public void super_onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public Animation super_onCreateAnimation(final int transit, final boolean enter,
-            final int nextAnim) {
+    public Animation super_onCreateAnimation(int transit, boolean enter, int nextAnim) {
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
     @Override
-    public void super_onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo) {
+    public void super_onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
     @Override
-    public void super_onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+    public void super_onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Nullable
     @Override
-    public View super_onCreateView(final LayoutInflater inflater,
-            @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
+    public View super_onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -1244,19 +1239,17 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
-    public void super_onHiddenChanged(final boolean hidden) {
+    public void super_onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
     }
 
     @Override
-    public void super_onInflate(final Context context, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
+    public void super_onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
         super.onInflate(context, attrs, savedInstanceState);
     }
 
     @Override
-    public void super_onInflate(final Activity activity, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
+    public void super_onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
         super.onInflate(activity, attrs, savedInstanceState);
     }
 
@@ -1266,17 +1259,17 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
-    public void super_onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+    public void super_onMultiWindowModeChanged(boolean isInMultiWindowMode) {
         super.onMultiWindowModeChanged(isInMultiWindowMode);
     }
 
     @Override
-    public boolean super_onOptionsItemSelected(final MenuItem item) {
+    public boolean super_onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void super_onOptionsMenuClosed(final Menu menu) {
+    public void super_onOptionsMenuClosed(Menu menu) {
         super.onOptionsMenuClosed(menu);
     }
 
@@ -1286,18 +1279,18 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
-    public void super_onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+    public void super_onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
     @Override
-    public void super_onPrepareOptionsMenu(final Menu menu) {
+    public void super_onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
     }
 
     @Override
-    public void super_onRequestPermissionsResult(final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+    public void super_onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -1307,7 +1300,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
-    public void super_onSaveInstanceState(final Bundle outState) {
+    public void super_onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
@@ -1322,135 +1315,135 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
-    public void super_onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+    public void super_onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
-    public void super_onViewStateRestored(@Nullable final Bundle savedInstanceState) {
+    public void super_onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
     }
 
     @Override
-    public void super_registerForContextMenu(final View view) {
+    public void super_registerForContextMenu(View view) {
         super.registerForContextMenu(view);
     }
 
     @Override
-    public void super_setAllowEnterTransitionOverlap(final boolean allow) {
+    public void super_setAllowEnterTransitionOverlap(boolean allow) {
         super.setAllowEnterTransitionOverlap(allow);
     }
 
     @Override
-    public void super_setAllowReturnTransitionOverlap(final boolean allow) {
+    public void super_setAllowReturnTransitionOverlap(boolean allow) {
         super.setAllowReturnTransitionOverlap(allow);
     }
 
     @Override
-    public void super_setArguments(final Bundle args) {
+    public void super_setArguments(Bundle args) {
         super.setArguments(args);
     }
 
     @Override
-    public void super_setEnterSharedElementCallback(final SharedElementCallback callback) {
+    public void super_setEnterSharedElementCallback(SharedElementCallback callback) {
         super.setEnterSharedElementCallback(callback);
     }
 
     @Override
-    public void super_setEnterTransition(final Object transition) {
+    public void super_setEnterTransition(Object transition) {
         super.setEnterTransition(transition);
     }
 
     @Override
-    public void super_setExitSharedElementCallback(final SharedElementCallback callback) {
+    public void super_setExitSharedElementCallback(SharedElementCallback callback) {
         super.setExitSharedElementCallback(callback);
     }
 
     @Override
-    public void super_setExitTransition(final Object transition) {
+    public void super_setExitTransition(Object transition) {
         super.setExitTransition(transition);
     }
 
     @Override
-    public void super_setHasOptionsMenu(final boolean hasMenu) {
+    public void super_setHasOptionsMenu(boolean hasMenu) {
         super.setHasOptionsMenu(hasMenu);
     }
 
     @Override
-    public void super_setInitialSavedState(final Fragment.SavedState state) {
+    public void super_setInitialSavedState(SavedState state) {
         super.setInitialSavedState(state);
     }
 
     @Override
-    public void super_setMenuVisibility(final boolean menuVisible) {
+    public void super_setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
     }
 
     @Override
-    public void super_setReenterTransition(final Object transition) {
+    public void super_setReenterTransition(Object transition) {
         super.setReenterTransition(transition);
     }
 
     @Override
-    public void super_setRetainInstance(final boolean retain) {
+    public void super_setRetainInstance(boolean retain) {
         super.setRetainInstance(retain);
     }
 
     @Override
-    public void super_setReturnTransition(final Object transition) {
+    public void super_setReturnTransition(Object transition) {
         super.setReturnTransition(transition);
     }
 
     @Override
-    public void super_setSharedElementEnterTransition(final Object transition) {
+    public void super_setSharedElementEnterTransition(Object transition) {
         super.setSharedElementEnterTransition(transition);
     }
 
     @Override
-    public void super_setSharedElementReturnTransition(final Object transition) {
+    public void super_setSharedElementReturnTransition(Object transition) {
         super.setSharedElementReturnTransition(transition);
     }
 
     @Override
-    public void super_setTargetFragment(final Fragment fragment, final int requestCode) {
+    public void super_setTargetFragment(Fragment fragment, int requestCode) {
         super.setTargetFragment(fragment, requestCode);
     }
 
     @Override
-    public void super_setUserVisibleHint(final boolean isVisibleToUser) {
+    public void super_setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override
-    public boolean super_shouldShowRequestPermissionRationale(@NonNull final String permission) {
+    public boolean super_shouldShowRequestPermissionRationale(@NonNull String permission) {
         return super.shouldShowRequestPermissionRationale(permission);
     }
 
     @Override
-    public void super_startActivity(final Intent intent) {
+    public void super_startActivity(Intent intent) {
         super.startActivity(intent);
     }
 
     @Override
-    public void super_startActivity(final Intent intent, @Nullable final Bundle options) {
+    public void super_startActivity(Intent intent, @Nullable Bundle options) {
         super.startActivity(intent, options);
     }
 
     @Override
-    public void super_startActivityForResult(final Intent intent, final int requestCode) {
+    public void super_startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
     }
 
     @Override
-    public void super_startActivityForResult(final Intent intent, final int requestCode,
-            @Nullable final Bundle options) {
+    public void super_startActivityForResult(Intent intent, int requestCode,
+            @Nullable Bundle options) {
         super.startActivityForResult(intent, requestCode, options);
     }
 
     @Override
-    public void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+    public void super_startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
                 extraFlags, options);
     }
@@ -1461,7 +1454,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
-    public void super_unregisterForContextMenu(final View view) {
+    public void super_unregisterForContextMenu(View view) {
         super.unregisterForContextMenu(view);
     }
 
@@ -1478,7 +1471,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * @see #registerForContextMenu(View)
      */
     @Override
-    public void unregisterForContextMenu(final View view) {
+    public void unregisterForContextMenu(View view) {
         delegate.unregisterForContextMenu(view);
     }
 }

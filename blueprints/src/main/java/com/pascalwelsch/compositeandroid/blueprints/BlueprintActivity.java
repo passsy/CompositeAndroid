@@ -83,66 +83,63 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-// 24.2.1
-@SuppressWarnings("JavadocReference")
+// 25.0.0
+@SuppressWarnings("ALL")
 public class BlueprintActivity extends AppCompatActivity {
 
     @Override
-    public void addContentView(final View view, final ViewGroup.LayoutParams params) {
+    public void addContentView(View view, ViewGroup.LayoutParams params) {
         super.addContentView(view, params);
     }
 
     @Override
-    public void applyOverrideConfiguration(final Configuration overrideConfiguration) {
+    public void applyOverrideConfiguration(Configuration overrideConfiguration) {
         super.applyOverrideConfiguration(overrideConfiguration);
     }
 
     @Override
-    public boolean bindService(final Intent service, final ServiceConnection conn,
-            final int flags) {
+    public boolean bindService(Intent service, ServiceConnection conn, int flags) {
         return super.bindService(service, conn, flags);
     }
 
     @Override
-    public int checkCallingOrSelfPermission(final String permission) {
+    public int checkCallingOrSelfPermission(String permission) {
         return super.checkCallingOrSelfPermission(permission);
     }
 
     @Override
-    public int checkCallingOrSelfUriPermission(final Uri uri, final int modeFlags) {
+    public int checkCallingOrSelfUriPermission(Uri uri, int modeFlags) {
         return super.checkCallingOrSelfUriPermission(uri, modeFlags);
     }
 
     @Override
-    public int checkCallingPermission(final String permission) {
+    public int checkCallingPermission(String permission) {
         return super.checkCallingPermission(permission);
     }
 
     @Override
-    public int checkCallingUriPermission(final Uri uri, final int modeFlags) {
+    public int checkCallingUriPermission(Uri uri, int modeFlags) {
         return super.checkCallingUriPermission(uri, modeFlags);
     }
 
     @Override
-    public int checkPermission(final String permission, final int pid, final int uid) {
+    public int checkPermission(String permission, int pid, int uid) {
         return super.checkPermission(permission, pid, uid);
     }
 
     @Override
-    public int checkSelfPermission(final String permission) {
+    public int checkSelfPermission(String permission) {
         return super.checkSelfPermission(permission);
     }
 
     @Override
-    public int checkUriPermission(final Uri uri, final int pid, final int uid,
-            final int modeFlags) {
+    public int checkUriPermission(Uri uri, int pid, int uid, int modeFlags) {
         return super.checkUriPermission(uri, pid, uid, modeFlags);
     }
 
     @Override
-    public int checkUriPermission(final Uri uri, final String readPermission,
-            final String writePermission, final int pid,
-            final int uid, final int modeFlags) {
+    public int checkUriPermission(Uri uri, String readPermission, String writePermission, int pid,
+            int uid, int modeFlags) {
         return super.checkUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags);
     }
 
@@ -165,7 +162,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public Context createConfigurationContext(final Configuration overrideConfiguration) {
+    public Context createConfigurationContext(Configuration overrideConfiguration) {
         return super.createConfigurationContext(overrideConfiguration);
     }
 
@@ -175,19 +172,18 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public Context createDisplayContext(final Display display) {
+    public Context createDisplayContext(Display display) {
         return super.createDisplayContext(display);
     }
 
     @Override
-    public Context createPackageContext(final String packageName, final int flags)
+    public Context createPackageContext(String packageName, int flags)
             throws PackageManager.NameNotFoundException {
         return super.createPackageContext(packageName, flags);
     }
 
     @Override
-    public PendingIntent createPendingResult(final int requestCode, final Intent data,
-            final int flags) {
+    public PendingIntent createPendingResult(int requestCode, Intent data, int flags) {
         return super.createPendingResult(requestCode, data, flags);
     }
 
@@ -197,47 +193,47 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean deleteDatabase(final String name) {
+    public boolean deleteDatabase(String name) {
         return super.deleteDatabase(name);
     }
 
     @Override
-    public boolean deleteFile(final String name) {
+    public boolean deleteFile(String name) {
         return super.deleteFile(name);
     }
 
     @Override
-    public boolean deleteSharedPreferences(final String name) {
+    public boolean deleteSharedPreferences(String name) {
         return super.deleteSharedPreferences(name);
     }
 
     @Override
-    public boolean dispatchGenericMotionEvent(final MotionEvent ev) {
+    public boolean dispatchGenericMotionEvent(MotionEvent ev) {
         return super.dispatchGenericMotionEvent(ev);
     }
 
     @Override
-    public boolean dispatchKeyEvent(final KeyEvent event) {
+    public boolean dispatchKeyEvent(KeyEvent event) {
         return super.dispatchKeyEvent(event);
     }
 
     @Override
-    public boolean dispatchKeyShortcutEvent(final KeyEvent event) {
+    public boolean dispatchKeyShortcutEvent(KeyEvent event) {
         return super.dispatchKeyShortcutEvent(event);
     }
 
     @Override
-    public boolean dispatchPopulateAccessibilityEvent(final AccessibilityEvent event) {
+    public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
         return super.dispatchPopulateAccessibilityEvent(event);
     }
 
     @Override
-    public boolean dispatchTouchEvent(final MotionEvent ev) {
+    public boolean dispatchTouchEvent(MotionEvent ev) {
         return super.dispatchTouchEvent(ev);
     }
 
     @Override
-    public boolean dispatchTrackballEvent(final MotionEvent ev) {
+    public boolean dispatchTrackballEvent(MotionEvent ev) {
         return super.dispatchTrackballEvent(ev);
     }
 
@@ -252,49 +248,43 @@ public class BlueprintActivity extends AppCompatActivity {
      * @param args   additional arguments to the dump request.
      */
     @Override
-    public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args) {
+    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
         super.dump(prefix, fd, writer, args);
     }
 
     @Override
-    public void enforceCallingOrSelfPermission(final String permission, final String message) {
+    public void enforceCallingOrSelfPermission(String permission, String message) {
         super.enforceCallingOrSelfPermission(permission, message);
     }
 
     @Override
-    public void enforceCallingOrSelfUriPermission(final Uri uri, final int modeFlags,
-            final String message) {
+    public void enforceCallingOrSelfUriPermission(Uri uri, int modeFlags, String message) {
         super.enforceCallingOrSelfUriPermission(uri, modeFlags, message);
     }
 
     @Override
-    public void enforceCallingPermission(final String permission, final String message) {
+    public void enforceCallingPermission(String permission, String message) {
         super.enforceCallingPermission(permission, message);
     }
 
     @Override
-    public void enforceCallingUriPermission(final Uri uri, final int modeFlags,
-            final String message) {
+    public void enforceCallingUriPermission(Uri uri, int modeFlags, String message) {
         super.enforceCallingUriPermission(uri, modeFlags, message);
     }
 
     @Override
-    public void enforcePermission(final String permission, final int pid, final int uid,
-            final String message) {
+    public void enforcePermission(String permission, int pid, int uid, String message) {
         super.enforcePermission(permission, pid, uid, message);
     }
 
     @Override
-    public void enforceUriPermission(final Uri uri, final int pid, final int uid,
-            final int modeFlags, final String message) {
+    public void enforceUriPermission(Uri uri, int pid, int uid, int modeFlags, String message) {
         super.enforceUriPermission(uri, pid, uid, modeFlags, message);
     }
 
     @Override
-    public void enforceUriPermission(final Uri uri, final String readPermission,
-            final String writePermission,
-            final int pid, final int uid, final int modeFlags, final String message) {
+    public void enforceUriPermission(Uri uri, String readPermission, String writePermission,
+            int pid, int uid, int modeFlags, String message) {
         super.enforceUriPermission(uri, readPermission, writePermission, pid, uid, modeFlags,
                 message);
     }
@@ -310,7 +300,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public View findViewById(@IdRes final int id) {
+    public View findViewById(@IdRes int id) {
         return super.findViewById(id);
     }
 
@@ -320,12 +310,12 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public void finishActivity(final int requestCode) {
+    public void finishActivity(int requestCode) {
         super.finishActivity(requestCode);
     }
 
     @Override
-    public void finishActivityFromChild(final Activity child, final int requestCode) {
+    public void finishActivityFromChild(Activity child, int requestCode) {
         super.finishActivityFromChild(child, requestCode);
     }
 
@@ -345,7 +335,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public void finishFromChild(final Activity child) {
+    public void finishFromChild(Activity child) {
         super.finishFromChild(child);
     }
 
@@ -439,7 +429,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public File getDatabasePath(final String name) {
+    public File getDatabasePath(String name) {
         return super.getDatabasePath(name);
     }
 
@@ -453,7 +443,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public File getDir(final String name, final int mode) {
+    public File getDir(String name, int mode) {
         return super.getDir(name, mode);
     }
 
@@ -474,12 +464,12 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public File getExternalFilesDir(final String type) {
+    public File getExternalFilesDir(String type) {
         return super.getExternalFilesDir(type);
     }
 
     @Override
-    public File[] getExternalFilesDirs(final String type) {
+    public File[] getExternalFilesDirs(String type) {
         return super.getExternalFilesDirs(type);
     }
 
@@ -489,7 +479,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public File getFileStreamPath(final String name) {
+    public File getFileStreamPath(String name) {
         return super.getFileStreamPath(name);
     }
 
@@ -592,7 +582,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public SharedPreferences getPreferences(final int mode) {
+    public SharedPreferences getPreferences(int mode) {
         return super.getPreferences(mode);
     }
 
@@ -613,13 +603,13 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public SharedPreferences getSharedPreferences(final String name, final int mode) {
+    public SharedPreferences getSharedPreferences(String name, int mode) {
         return super.getSharedPreferences(name, mode);
     }
 
     /**
      * Support library version of {@link Activity#getActionBar}.
-     *
+     * <p>
      * <p>Retrieve a reference to this activity's ActionBar.
      *
      * @return The Activity's ActionBar, or null if it does not have one.
@@ -660,12 +650,12 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public Object getSystemService(final String name) {
+    public Object getSystemService(String name) {
         return super.getSystemService(name);
     }
 
     @Override
-    public String getSystemServiceName(final Class<?> serviceClass) {
+    public String getSystemServiceName(Class<?> serviceClass) {
         return super.getSystemServiceName(serviceClass);
     }
 
@@ -719,7 +709,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public void grantUriPermission(final String toPackage, final Uri uri, final int modeFlags) {
+    public void grantUriPermission(String toPackage, Uri uri, int modeFlags) {
         super.grantUriPermission(toPackage, uri, modeFlags);
     }
 
@@ -797,59 +787,59 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean moveDatabaseFrom(final Context sourceContext, final String name) {
+    public boolean moveDatabaseFrom(Context sourceContext, String name) {
         return super.moveDatabaseFrom(sourceContext, name);
     }
 
     @Override
-    public boolean moveSharedPreferencesFrom(final Context sourceContext, final String name) {
+    public boolean moveSharedPreferencesFrom(Context sourceContext, String name) {
         return super.moveSharedPreferencesFrom(sourceContext, name);
     }
 
     @Override
-    public boolean moveTaskToBack(final boolean nonRoot) {
+    public boolean moveTaskToBack(boolean nonRoot) {
         return super.moveTaskToBack(nonRoot);
     }
 
     @Override
-    public boolean navigateUpTo(final Intent upIntent) {
+    public boolean navigateUpTo(Intent upIntent) {
         return super.navigateUpTo(upIntent);
     }
 
     @Override
-    public boolean navigateUpToFromChild(final Activity child, final Intent upIntent) {
+    public boolean navigateUpToFromChild(Activity child, Intent upIntent) {
         return super.navigateUpToFromChild(child, upIntent);
     }
 
     @Override
-    public void onActionModeFinished(final android.view.ActionMode mode) {
+    public void onActionModeFinished(android.view.ActionMode mode) {
         super.onActionModeFinished(mode);
     }
 
     @Override
-    public void onActionModeStarted(final android.view.ActionMode mode) {
+    public void onActionModeStarted(android.view.ActionMode mode) {
         super.onActionModeStarted(mode);
     }
 
     @Override
-    public void onActivityReenter(final int resultCode, final Intent data) {
+    public void onActivityReenter(int resultCode, Intent data) {
         super.onActivityReenter(resultCode, data);
-    }
-
-    @Override
-    public void onAttachFragment(final android.app.Fragment fragment) {
-        super.onAttachFragment(fragment);
     }
 
     /**
      * Called when a fragment is attached to the activity.
-     *
+     * <p>
      * <p>This is called after the attached fragment's <code>onAttach</code> and before
      * the attached fragment's <code>onCreate</code> if the fragment has not yet had a previous
      * call to <code>onCreate</code>.</p>
      */
     @Override
-    public void onAttachFragment(final Fragment fragment) {
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+    }
+
+    @Override
+    public void onAttachFragment(android.app.Fragment fragment) {
         super.onAttachFragment(fragment);
     }
 
@@ -868,7 +858,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onConfigurationChanged(final Configuration newConfig) {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 
@@ -878,23 +868,23 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onContextItemSelected(final MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
         return super.onContextItemSelected(item);
     }
 
     @Override
-    public void onContextMenuClosed(final Menu menu) {
+    public void onContextMenuClosed(Menu menu) {
         super.onContextMenuClosed(menu);
     }
 
     @Override
-    public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
     }
 
     @Override
-    public void onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -905,12 +895,12 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onCreateNavigateUpTaskStack(final TaskStackBuilder builder) {
+    public void onCreateNavigateUpTaskStack(TaskStackBuilder builder) {
         super.onCreateNavigateUpTaskStack(builder);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -918,33 +908,33 @@ public class BlueprintActivity extends AppCompatActivity {
      * Dispatch to Fragment.onCreateOptionsMenu().
      */
     @Override
-    public boolean onCreatePanelMenu(final int featureId, final Menu menu) {
+    public boolean onCreatePanelMenu(int featureId, Menu menu) {
         return super.onCreatePanelMenu(featureId, menu);
     }
 
     @Nullable
     @Override
-    public View onCreatePanelView(final int featureId) {
+    public View onCreatePanelView(int featureId) {
         return super.onCreatePanelView(featureId);
     }
 
     /**
      * Support version of {@link #onCreateNavigateUpTaskStack(TaskStackBuilder)}.
      * This method will be called on all platform versions.
-     *
+     * <p>
      * Define the synthetic task stack that will be generated during Up navigation from
      * a different task.
-     *
+     * <p>
      * <p>The default implementation of this method adds the parent chain of this activity
      * as specified in the manifest to the supplied {@link android.support.v4.app.TaskStackBuilder}.
      * Applications
      * may choose to override this method to construct the desired task stack in a different
      * way.</p>
-     *
+     * <p>
      * <p>This method will be invoked by the default implementation of {@link #onNavigateUp()}
      * if {@link #shouldUpRecreateTask(Intent)} returns true when supplied with the intent
      * returned by {@link #getParentActivityIntent()}.</p>
-     *
+     * <p>
      * <p>Applications that wish to supply extra Intent parameters to the parent stack defined
      * by the manifest should override
      * {@link #onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}.</p>
@@ -954,23 +944,22 @@ public class BlueprintActivity extends AppCompatActivity {
      */
     @Override
     public void onCreateSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+            @NonNull android.support.v4.app.TaskStackBuilder builder) {
         super.onCreateSupportNavigateUpTaskStack(builder);
     }
 
     @Override
-    public boolean onCreateThumbnail(final Bitmap outBitmap, final Canvas canvas) {
+    public boolean onCreateThumbnail(Bitmap outBitmap, Canvas canvas) {
         return super.onCreateThumbnail(outBitmap, canvas);
     }
 
     @Override
-    public View onCreateView(final View parent, final String name, final Context context,
-            final AttributeSet attrs) {
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         return super.onCreateView(parent, name, context, attrs);
     }
 
     @Override
-    public View onCreateView(final String name, final Context context, final AttributeSet attrs) {
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
         return super.onCreateView(name, context, attrs);
     }
 
@@ -985,32 +974,32 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onGenericMotionEvent(final MotionEvent event) {
+    public boolean onGenericMotionEvent(MotionEvent event) {
         return super.onGenericMotionEvent(event);
     }
 
     @Override
-    public boolean onKeyDown(final int keyCode, final KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         return super.onKeyDown(keyCode, event);
     }
 
     @Override
-    public boolean onKeyLongPress(final int keyCode, final KeyEvent event) {
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
         return super.onKeyLongPress(keyCode, event);
     }
 
     @Override
-    public boolean onKeyMultiple(final int keyCode, final int repeatCount, final KeyEvent event) {
+    public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
         return super.onKeyMultiple(keyCode, repeatCount, event);
     }
 
     @Override
-    public boolean onKeyShortcut(final int keyCode, final KeyEvent event) {
+    public boolean onKeyShortcut(int keyCode, KeyEvent event) {
         return super.onKeyShortcut(keyCode, event);
     }
 
     @Override
-    public boolean onKeyUp(final int keyCode, final KeyEvent event) {
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
         return super.onKeyUp(keyCode, event);
     }
 
@@ -1034,18 +1023,18 @@ public class BlueprintActivity extends AppCompatActivity {
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * <p>Please note: AppCompat uses it's own feature id for the action bar:
      * {@link AppCompatDelegate#FEATURE_SUPPORT_ACTION_BAR FEATURE_SUPPORT_ACTION_BAR}.</p>
      */
     @Override
-    public boolean onMenuOpened(final int featureId, final Menu menu) {
+    public boolean onMenuOpened(int featureId, Menu menu) {
         return super.onMenuOpened(featureId, menu);
     }
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * <p><strong>Note:</strong> If you override this method you must call
      * <code>super.onMultiWindowModeChanged</code> to correctly dispatch the event
      * to support fragments attached to this activity.</p>
@@ -1053,7 +1042,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @param isInMultiWindowMode True if the activity is in multi-window mode.
      */
     @Override
-    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
         super.onMultiWindowModeChanged(isInMultiWindowMode);
     }
 
@@ -1063,34 +1052,34 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onNavigateUpFromChild(final Activity child) {
+    public boolean onNavigateUpFromChild(Activity child) {
         return super.onNavigateUpFromChild(child);
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onOptionsMenuClosed(final Menu menu) {
+    public void onOptionsMenuClosed(Menu menu) {
         super.onOptionsMenuClosed(menu);
     }
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * <p>Please note: AppCompat uses it's own feature id for the action bar:
      * {@link AppCompatDelegate#FEATURE_SUPPORT_ACTION_BAR FEATURE_SUPPORT_ACTION_BAR}.</p>
      */
     @Override
-    public void onPanelClosed(final int featureId, final Menu menu) {
+    public void onPanelClosed(int featureId, Menu menu) {
         super.onPanelClosed(featureId, menu);
     }
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * <p><strong>Note:</strong> If you override this method you must call
      * <code>super.onPictureInPictureModeChanged</code> to correctly dispatch the event
      * to support fragments attached to this activity.</p>
@@ -1098,23 +1087,22 @@ public class BlueprintActivity extends AppCompatActivity {
      * @param isInPictureInPictureMode True if the activity is in picture-in-picture mode.
      */
     @Override
-    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
     @Override
-    public void onPostCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
     }
 
     @Override
-    public void onPrepareNavigateUpTaskStack(final TaskStackBuilder builder) {
+    public void onPrepareNavigateUpTaskStack(TaskStackBuilder builder) {
         super.onPrepareNavigateUpTaskStack(builder);
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(final Menu menu) {
+    public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -1122,17 +1110,17 @@ public class BlueprintActivity extends AppCompatActivity {
      * Dispatch onPrepareOptionsMenu() to fragments.
      */
     @Override
-    public boolean onPreparePanel(final int featureId, final View view, final Menu menu) {
+    public boolean onPreparePanel(int featureId, View view, Menu menu) {
         return super.onPreparePanel(featureId, view, menu);
     }
 
     /**
      * Support version of {@link #onPrepareNavigateUpTaskStack(TaskStackBuilder)}.
      * This method will be called on all platform versions.
-     *
+     * <p>
      * Prepare the synthetic task stack that will be generated during Up navigation
      * from a different task.
-     *
+     * <p>
      * <p>This method receives the {@link android.support.v4.app.TaskStackBuilder} with the
      * constructed series of
      * Intents as generated by {@link #onCreateSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}.
@@ -1144,23 +1132,23 @@ public class BlueprintActivity extends AppCompatActivity {
      */
     @Override
     public void onPrepareSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+            @NonNull android.support.v4.app.TaskStackBuilder builder) {
         super.onPrepareSupportNavigateUpTaskStack(builder);
     }
 
     @Override
-    public void onProvideAssistContent(final AssistContent outContent) {
+    public void onProvideAssistContent(AssistContent outContent) {
         super.onProvideAssistContent(outContent);
     }
 
     @Override
-    public void onProvideAssistData(final Bundle data) {
+    public void onProvideAssistData(Bundle data) {
         super.onProvideAssistData(data);
     }
 
     @Override
-    public void onProvideKeyboardShortcuts(final List<KeyboardShortcutGroup> data, final Menu menu,
-            final int deviceId) {
+    public void onProvideKeyboardShortcuts(List<KeyboardShortcutGroup> data, Menu menu,
+            int deviceId) {
         super.onProvideKeyboardShortcuts(data, menu, deviceId);
     }
 
@@ -1186,15 +1174,14 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see #requestPermissions(String[], int)
      */
     @Override
-    public void onRequestPermissionsResult(final int requestCode,
-            @NonNull final String[] permissions,
-            @NonNull final int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
-    public void onRestoreInstanceState(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void onRestoreInstanceState(Bundle savedInstanceState,
+            PersistableBundle persistentState) {
         super.onRestoreInstanceState(savedInstanceState, persistentState);
     }
 
@@ -1208,13 +1195,12 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(final Bundle outState,
-            final PersistableBundle outPersistentState) {
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
-    public boolean onSearchRequested(final SearchEvent searchEvent) {
+    public boolean onSearchRequested(SearchEvent searchEvent) {
         return super.onSearchRequested(searchEvent);
     }
 
@@ -1238,7 +1224,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @param mode The action mode that just finished.
      */
     @Override
-    public void onSupportActionModeFinished(@NonNull final ActionMode mode) {
+    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
         super.onSupportActionModeFinished(mode);
     }
 
@@ -1249,7 +1235,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @param mode The new action mode.
      */
     @Override
-    public void onSupportActionModeStarted(@NonNull final ActionMode mode) {
+    public void onSupportActionModeStarted(@NonNull ActionMode mode) {
         super.onSupportActionModeStarted(mode);
     }
 
@@ -1264,22 +1250,21 @@ public class BlueprintActivity extends AppCompatActivity {
     /**
      * This method is called whenever the user chooses to navigate Up within your application's
      * activity hierarchy from the action bar.
-     *
+     * <p>
      * <p>If a parent was specified in the manifest for this activity or an activity-alias to it,
      * default Up navigation will be handled automatically. See
      * {@link #getSupportParentActivityIntent()} for how to specify the parent. If any activity
      * along the parent chain requires extra Intent arguments, the Activity subclass
      * should override the method {@link #onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}
      * to supply those arguments.</p>
-     *
+     * <p>
      * <p>See <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and
      * Back Stack</a> from the developer guide and
      * <a href="{@docRoot}design/patterns/navigation.html">Navigation</a> from the design guide
      * for more information about navigating within your app.</p>
-     *
+     * <p>
      * <p>See the {@link android.support.v4.app.TaskStackBuilder} class and the Activity methods
-     * {@link #getSupportParentActivityIntent()}, {@link #supportShouldUpRecreateTask(Intent)},
-     * and
+     * {@link #getSupportParentActivityIntent()}, {@link #supportShouldUpRecreateTask(Intent)}, and
      * {@link #supportNavigateUpTo(Intent)} for help implementing custom Up navigation.</p>
      *
      * @return true if Up navigation completed successfully and this Activity was finished,
@@ -1291,17 +1276,17 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onTouchEvent(final MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {
         return super.onTouchEvent(event);
     }
 
     @Override
-    public boolean onTrackballEvent(final MotionEvent event) {
+    public boolean onTrackballEvent(MotionEvent event) {
         return super.onTrackballEvent(event);
     }
 
     @Override
-    public void onTrimMemory(final int level) {
+    public void onTrimMemory(int level) {
         super.onTrimMemory(level);
     }
 
@@ -1316,26 +1301,26 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onWindowAttributesChanged(final WindowManager.LayoutParams params) {
+    public void onWindowAttributesChanged(WindowManager.LayoutParams params) {
         super.onWindowAttributesChanged(params);
     }
 
     @Override
-    public void onWindowFocusChanged(final boolean hasFocus) {
+    public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
     }
 
     @Nullable
     @Override
     public android.view.ActionMode onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback) {
+            android.view.ActionMode.Callback callback) {
         return super.onWindowStartingActionMode(callback);
     }
 
     @Nullable
     @Override
     public android.view.ActionMode onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback, final int type) {
+            android.view.ActionMode.Callback callback, int type) {
         return super.onWindowStartingActionMode(callback, type);
     }
 
@@ -1350,24 +1335,22 @@ public class BlueprintActivity extends AppCompatActivity {
      */
     @Nullable
     @Override
-    public ActionMode onWindowStartingSupportActionMode(
-            @NonNull final ActionMode.Callback callback) {
+    public ActionMode onWindowStartingSupportActionMode(@NonNull ActionMode.Callback callback) {
         return super.onWindowStartingSupportActionMode(callback);
     }
 
     @Override
-    public void openContextMenu(final View view) {
+    public void openContextMenu(View view) {
         super.openContextMenu(view);
     }
 
     @Override
-    public FileInputStream openFileInput(final String name) throws FileNotFoundException {
+    public FileInputStream openFileInput(String name) throws FileNotFoundException {
         return super.openFileInput(name);
     }
 
     @Override
-    public FileOutputStream openFileOutput(final String name, final int mode)
-            throws FileNotFoundException {
+    public FileOutputStream openFileOutput(String name, int mode) throws FileNotFoundException {
         return super.openFileOutput(name, mode);
     }
 
@@ -1377,19 +1360,19 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory) {
+    public SQLiteDatabase openOrCreateDatabase(String name, int mode,
+            SQLiteDatabase.CursorFactory factory) {
         return super.openOrCreateDatabase(name, mode, factory);
     }
 
     @Override
-    public SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler) {
+    public SQLiteDatabase openOrCreateDatabase(String name, int mode,
+            SQLiteDatabase.CursorFactory factory, DatabaseErrorHandler errorHandler) {
         return super.openOrCreateDatabase(name, mode, factory, errorHandler);
     }
 
     @Override
-    public void overridePendingTransition(final int enterAnim, final int exitAnim) {
+    public void overridePendingTransition(int enterAnim, int exitAnim) {
         super.overridePendingTransition(enterAnim, exitAnim);
     }
 
@@ -1412,23 +1395,23 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public void registerComponentCallbacks(final ComponentCallbacks callback) {
+    public void registerComponentCallbacks(ComponentCallbacks callback) {
         super.registerComponentCallbacks(callback);
     }
 
     @Override
-    public void registerForContextMenu(final View view) {
+    public void registerForContextMenu(View view) {
         super.registerForContextMenu(view);
     }
 
     @Override
-    public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter) {
+    public Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
         return super.registerReceiver(receiver, filter);
     }
 
     @Override
-    public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
-            final String broadcastPermission, final Handler scheduler) {
+    public Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter,
+            String broadcastPermission, Handler scheduler) {
         return super.registerReceiver(receiver, filter, broadcastPermission, scheduler);
     }
 
@@ -1441,7 +1424,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    public void removeStickyBroadcast(final Intent intent) {
+    public void removeStickyBroadcast(Intent intent) {
         super.removeStickyBroadcast(intent);
     }
 
@@ -1449,7 +1432,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    public void removeStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
+    public void removeStickyBroadcastAsUser(Intent intent, UserHandle user) {
         super.removeStickyBroadcastAsUser(intent, user);
     }
 
@@ -1459,59 +1442,57 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public DragAndDropPermissions requestDragAndDropPermissions(final DragEvent event) {
+    public DragAndDropPermissions requestDragAndDropPermissions(DragEvent event) {
         return super.requestDragAndDropPermissions(event);
     }
 
     @Override
-    public boolean requestVisibleBehind(final boolean visible) {
+    public boolean requestVisibleBehind(boolean visible) {
         return super.requestVisibleBehind(visible);
     }
 
     @Override
-    public void revokeUriPermission(final Uri uri, final int modeFlags) {
+    public void revokeUriPermission(Uri uri, int modeFlags) {
         super.revokeUriPermission(uri, modeFlags);
     }
 
     @Override
-    public void sendBroadcast(final Intent intent) {
+    public void sendBroadcast(Intent intent) {
         super.sendBroadcast(intent);
     }
 
     @Override
-    public void sendBroadcast(final Intent intent, final String receiverPermission) {
+    public void sendBroadcast(Intent intent, String receiverPermission) {
         super.sendBroadcast(intent, receiverPermission);
     }
 
     @Override
-    public void sendBroadcastAsUser(final Intent intent, final UserHandle user) {
+    public void sendBroadcastAsUser(Intent intent, UserHandle user) {
         super.sendBroadcastAsUser(intent, user);
     }
 
     @Override
-    public void sendBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission) {
+    public void sendBroadcastAsUser(Intent intent, UserHandle user, String receiverPermission) {
         super.sendBroadcastAsUser(intent, user, receiverPermission);
     }
 
     @Override
-    public void sendOrderedBroadcast(final Intent intent, final String receiverPermission) {
+    public void sendOrderedBroadcast(Intent intent, String receiverPermission) {
         super.sendOrderedBroadcast(intent, receiverPermission);
     }
 
     @Override
-    public void sendOrderedBroadcast(final Intent intent, final String receiverPermission,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
+    public void sendOrderedBroadcast(Intent intent, String receiverPermission,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras) {
         super.sendOrderedBroadcast(intent, receiverPermission, resultReceiver, scheduler,
                 initialCode, initialData, initialExtras);
     }
 
     @Override
-    public void sendOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission, final BroadcastReceiver resultReceiver,
-            final Handler scheduler,
-            final int initialCode, final String initialData, final Bundle initialExtras) {
+    public void sendOrderedBroadcastAsUser(Intent intent, UserHandle user,
+            String receiverPermission, BroadcastReceiver resultReceiver, Handler scheduler,
+            int initialCode, String initialData, Bundle initialExtras) {
         super.sendOrderedBroadcastAsUser(intent, user, receiverPermission, resultReceiver,
                 scheduler, initialCode, initialData, initialExtras);
     }
@@ -1520,7 +1501,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    public void sendStickyBroadcast(final Intent intent) {
+    public void sendStickyBroadcast(Intent intent) {
         super.sendStickyBroadcast(intent);
     }
 
@@ -1528,7 +1509,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    public void sendStickyBroadcastAsUser(final Intent intent, final UserHandle user) {
+    public void sendStickyBroadcastAsUser(Intent intent, UserHandle user) {
         super.sendStickyBroadcastAsUser(intent, user);
     }
 
@@ -1536,10 +1517,8 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    public void sendStickyOrderedBroadcast(final Intent intent,
-            final BroadcastReceiver resultReceiver,
-            final Handler scheduler, final int initialCode, final String initialData,
-            final Bundle initialExtras) {
+    public void sendStickyOrderedBroadcast(Intent intent, BroadcastReceiver resultReceiver,
+            Handler scheduler, int initialCode, String initialData, Bundle initialExtras) {
         super.sendStickyOrderedBroadcast(intent, resultReceiver, scheduler, initialCode,
                 initialData, initialExtras);
     }
@@ -1548,35 +1527,35 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    public void sendStickyOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras) {
+    public void sendStickyOrderedBroadcastAsUser(Intent intent, UserHandle user,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras) {
         super.sendStickyOrderedBroadcastAsUser(intent, user, resultReceiver, scheduler, initialCode,
                 initialData, initialExtras);
     }
 
     @Override
-    public void setActionBar(final Toolbar toolbar) {
+    public void setActionBar(Toolbar toolbar) {
         super.setActionBar(toolbar);
     }
 
     @Override
-    public void setContentTransitionManager(final TransitionManager tm) {
+    public void setContentTransitionManager(TransitionManager tm) {
         super.setContentTransitionManager(tm);
     }
 
     @Override
-    public void setContentView(@LayoutRes final int layoutResID) {
+    public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
     }
 
     @Override
-    public void setContentView(final View view) {
+    public void setContentView(View view) {
         super.setContentView(view);
     }
 
     @Override
-    public void setContentView(final View view, final ViewGroup.LayoutParams params) {
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
         super.setContentView(view, params);
     }
 
@@ -1589,12 +1568,12 @@ public class BlueprintActivity extends AppCompatActivity {
      * @param callback Used to manipulate shared element transitions on the launched Activity.
      */
     @Override
-    public void setEnterSharedElementCallback(final SharedElementCallback callback) {
+    public void setEnterSharedElementCallback(SharedElementCallback callback) {
         super.setEnterSharedElementCallback(callback);
     }
 
     @Override
-    public void setEnterSharedElementCallback(final android.app.SharedElementCallback callback) {
+    public void setEnterSharedElementCallback(android.app.SharedElementCallback callback) {
         super.setEnterSharedElementCallback(callback);
     }
 
@@ -1608,45 +1587,45 @@ public class BlueprintActivity extends AppCompatActivity {
      * @param listener Used to manipulate shared element transitions on the launching Activity.
      */
     @Override
-    public void setExitSharedElementCallback(final SharedElementCallback listener) {
+    public void setExitSharedElementCallback(SharedElementCallback listener) {
         super.setExitSharedElementCallback(listener);
     }
 
     @Override
-    public void setExitSharedElementCallback(final android.app.SharedElementCallback callback) {
+    public void setExitSharedElementCallback(android.app.SharedElementCallback callback) {
         super.setExitSharedElementCallback(callback);
     }
 
     @Override
-    public void setFinishOnTouchOutside(final boolean finish) {
+    public void setFinishOnTouchOutside(boolean finish) {
         super.setFinishOnTouchOutside(finish);
     }
 
     @Override
-    public void setImmersive(final boolean i) {
+    public void setImmersive(boolean i) {
         super.setImmersive(i);
     }
 
     @Override
-    public void setIntent(final Intent newIntent) {
+    public void setIntent(Intent newIntent) {
         super.setIntent(newIntent);
     }
 
     @Override
-    public void setRequestedOrientation(final int requestedOrientation) {
+    public void setRequestedOrientation(int requestedOrientation) {
         super.setRequestedOrientation(requestedOrientation);
     }
 
     /**
      * Set a {@link Toolbar Toolbar} to act as the
      * {@link ActionBar} for this Activity window.
-     *
+     * <p>
      * <p>When set to a non-null value the {@link #getActionBar()} method will return
      * an {@link ActionBar} object that can be used to control the given
      * toolbar as if it were a traditional window decor action bar. The toolbar's menu will be
      * populated with the Activity's options menu and the navigation button will be wired through
      * the standard {@link android.R.id#home home} menu select action.</p>
-     *
+     * <p>
      * <p>In order to use a Toolbar within the Activity's window content the application
      * must not request the window feature
      * {@link Window#FEATURE_ACTION_BAR FEATURE_SUPPORT_ACTION_BAR}.</p>
@@ -1654,7 +1633,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @param toolbar Toolbar to set as the Activity's action bar, or {@code null} to clear it
      */
     @Override
-    public void setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar) {
+    public void setSupportActionBar(@Nullable android.support.v7.widget.Toolbar toolbar) {
         super.setSupportActionBar(toolbar);
     }
 
@@ -1662,7 +1641,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated Progress bars are no longer provided in AppCompat.
      */
     @Override
-    public void setSupportProgress(final int progress) {
+    public void setSupportProgress(int progress) {
         super.setSupportProgress(progress);
     }
 
@@ -1670,7 +1649,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated Progress bars are no longer provided in AppCompat.
      */
     @Override
-    public void setSupportProgressBarIndeterminate(final boolean indeterminate) {
+    public void setSupportProgressBarIndeterminate(boolean indeterminate) {
         super.setSupportProgressBarIndeterminate(indeterminate);
     }
 
@@ -1678,7 +1657,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated Progress bars are no longer provided in AppCompat.
      */
     @Override
-    public void setSupportProgressBarIndeterminateVisibility(final boolean visible) {
+    public void setSupportProgressBarIndeterminateVisibility(boolean visible) {
         super.setSupportProgressBarIndeterminateVisibility(visible);
     }
 
@@ -1686,27 +1665,27 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated Progress bars are no longer provided in AppCompat.
      */
     @Override
-    public void setSupportProgressBarVisibility(final boolean visible) {
+    public void setSupportProgressBarVisibility(boolean visible) {
         super.setSupportProgressBarVisibility(visible);
     }
 
     @Override
-    public void setTaskDescription(final ActivityManager.TaskDescription taskDescription) {
+    public void setTaskDescription(ActivityManager.TaskDescription taskDescription) {
         super.setTaskDescription(taskDescription);
     }
 
     @Override
-    public void setTheme(@StyleRes final int resid) {
+    public void setTheme(@StyleRes int resid) {
         super.setTheme(resid);
     }
 
     @Override
-    public void setTitle(final CharSequence title) {
+    public void setTitle(CharSequence title) {
         super.setTitle(title);
     }
 
     @Override
-    public void setTitle(final int titleId) {
+    public void setTitle(int titleId) {
         super.setTitle(titleId);
     }
 
@@ -1714,17 +1693,17 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    public void setTitleColor(final int textColor) {
+    public void setTitleColor(int textColor) {
         super.setTitleColor(textColor);
     }
 
     @Override
-    public void setVisible(final boolean visible) {
+    public void setVisible(boolean visible) {
         super.setVisible(visible);
     }
 
     @Override
-    public void setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+    public void setVrModeEnabled(boolean enabled, ComponentName requestedComponent)
             throws PackageManager.NameNotFoundException {
         super.setVrModeEnabled(enabled, requestedComponent);
     }
@@ -1733,7 +1712,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    public void setWallpaper(final Bitmap bitmap) throws IOException {
+    public void setWallpaper(Bitmap bitmap) throws IOException {
         super.setWallpaper(bitmap);
     }
 
@@ -1741,22 +1720,22 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    public void setWallpaper(final InputStream data) throws IOException {
+    public void setWallpaper(InputStream data) throws IOException {
         super.setWallpaper(data);
     }
 
     @Override
-    public boolean shouldShowRequestPermissionRationale(final String permission) {
+    public boolean shouldShowRequestPermissionRationale(String permission) {
         return super.shouldShowRequestPermissionRationale(permission);
     }
 
     @Override
-    public boolean shouldUpRecreateTask(final Intent targetIntent) {
+    public boolean shouldUpRecreateTask(Intent targetIntent) {
         return super.shouldUpRecreateTask(targetIntent);
     }
 
     @Override
-    public boolean showAssist(final Bundle args) {
+    public boolean showAssist(Bundle args) {
         return super.showAssist(args);
     }
 
@@ -1767,42 +1746,35 @@ public class BlueprintActivity extends AppCompatActivity {
 
     @Nullable
     @Override
-    public android.view.ActionMode startActionMode(
-            final android.view.ActionMode.Callback callback) {
+    public android.view.ActionMode startActionMode(android.view.ActionMode.Callback callback) {
         return super.startActionMode(callback);
     }
 
     @Nullable
     @Override
-    public android.view.ActionMode startActionMode(final android.view.ActionMode.Callback callback,
-            final int type) {
+    public android.view.ActionMode startActionMode(android.view.ActionMode.Callback callback,
+            int type) {
         return super.startActionMode(callback, type);
     }
 
     @Override
-    public void startActivities(final Intent[] intents) {
+    public void startActivities(Intent[] intents) {
         super.startActivities(intents);
     }
 
     @Override
-    public void startActivities(final Intent[] intents, final Bundle options) {
+    public void startActivities(Intent[] intents, Bundle options) {
         super.startActivities(intents, options);
     }
 
     @Override
-    public void startActivity(final Intent intent) {
+    public void startActivity(Intent intent) {
         super.startActivity(intent);
     }
 
     @Override
-    public void startActivity(final Intent intent, final Bundle options) {
+    public void startActivity(Intent intent, Bundle options) {
         super.startActivity(intent, options);
-    }
-
-    @Override
-    public void startActivityForResult(final Intent intent, final int requestCode,
-            @Nullable final Bundle options) {
-        super.startActivityForResult(intent, requestCode, options);
     }
 
     /**
@@ -1810,42 +1782,31 @@ public class BlueprintActivity extends AppCompatActivity {
      * This imposes a restriction that requestCode be <= 0xffff.
      */
     @Override
-    public void startActivityForResult(final Intent intent, final int requestCode) {
+    public void startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
     }
 
     @Override
-    public void startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode) {
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+        super.startActivityForResult(intent, requestCode, options);
+    }
+
+    @Override
+    public void startActivityFromChild(Activity child, Intent intent, int requestCode) {
         super.startActivityFromChild(child, intent, requestCode);
     }
 
     @Override
-    public void startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode,
-            final Bundle options) {
+    public void startActivityFromChild(Activity child, Intent intent, int requestCode,
+            Bundle options) {
         super.startActivityFromChild(child, intent, requestCode, options);
     }
 
-    @Override
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode) {
-        super.startActivityFromFragment(fragment, intent, requestCode);
-    }
-
-    @Override
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode,
-            final Bundle options) {
-        super.startActivityFromFragment(fragment, intent, requestCode, options);
-    }
-
     /**
      * Called by Fragment.startActivityForResult() to implement its behavior.
      */
     @Override
-    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode) {
+    public void startActivityFromFragment(Fragment fragment, Intent intent, int requestCode) {
         super.startActivityFromFragment(fragment, intent, requestCode);
     }
 
@@ -1853,77 +1814,79 @@ public class BlueprintActivity extends AppCompatActivity {
      * Called by Fragment.startActivityForResult() to implement its behavior.
      */
     @Override
-    public void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode,
-            @Nullable final Bundle options) {
+    public void startActivityFromFragment(Fragment fragment, Intent intent, int requestCode,
+            @Nullable Bundle options) {
         super.startActivityFromFragment(fragment, intent, requestCode, options);
     }
 
     @Override
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode) {
+    public void startActivityFromFragment(android.app.Fragment fragment, Intent intent,
+            int requestCode) {
+        super.startActivityFromFragment(fragment, intent, requestCode);
+    }
+
+    @Override
+    public void startActivityFromFragment(android.app.Fragment fragment, Intent intent,
+            int requestCode, Bundle options) {
+        super.startActivityFromFragment(fragment, intent, requestCode, options);
+    }
+
+    @Override
+    public boolean startActivityIfNeeded(Intent intent, int requestCode) {
         return super.startActivityIfNeeded(intent, requestCode);
     }
 
     @Override
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode,
-            final Bundle options) {
+    public boolean startActivityIfNeeded(Intent intent, int requestCode, Bundle options) {
         return super.startActivityIfNeeded(intent, requestCode, options);
     }
 
     @Override
-    public boolean startInstrumentation(final ComponentName className, final String profileFile,
-            final Bundle arguments) {
+    public boolean startInstrumentation(ComponentName className, String profileFile,
+            Bundle arguments) {
         return super.startInstrumentation(className, profileFile, arguments);
     }
 
     @Override
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask,
-            final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
+    public void startIntentSender(IntentSender intent, Intent fillInIntent, int flagsMask,
+            int flagsValues, int extraFlags) throws IntentSender.SendIntentException {
         super.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
     @Override
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+    public void startIntentSender(IntentSender intent, Intent fillInIntent, int flagsMask,
+            int flagsValues, int extraFlags, Bundle options)
             throws IntentSender.SendIntentException {
         super.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags, options);
     }
 
     @Override
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags,
-            final Bundle options) throws IntentSender.SendIntentException {
+    public void startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
                 extraFlags, options);
     }
 
     @Override
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags)
+    public void startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags)
             throws IntentSender.SendIntentException {
         super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
                 extraFlags);
     }
 
     @Override
-    public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags)
+    public void startIntentSenderFromChild(Activity child, IntentSender intent, int requestCode,
+            Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags)
             throws IntentSender.SendIntentException {
         super.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
                 flagsValues, extraFlags);
     }
 
     @Override
-    public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode,
-            final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options)
+    public void startIntentSenderFromChild(Activity child, IntentSender intent, int requestCode,
+            Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags, Bundle options)
             throws IntentSender.SendIntentException {
         super.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
                 flagsValues, extraFlags, options);
@@ -1933,16 +1896,15 @@ public class BlueprintActivity extends AppCompatActivity {
      * Called by Fragment.startIntentSenderForResult() to implement its behavior.
      */
     @Override
-    public void startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
-            final int requestCode, @Nullable final Intent fillInIntent, final int flagsMask,
-            final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+    public void startIntentSenderFromFragment(Fragment fragment, IntentSender intent,
+            int requestCode, @Nullable Intent fillInIntent, int flagsMask, int flagsValues,
+            int extraFlags, Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderFromFragment(fragment, intent, requestCode, fillInIntent, flagsMask,
                 flagsValues, extraFlags, options);
     }
 
     @Override
-    public void startLocalVoiceInteraction(final Bundle privateOptions) {
+    public void startLocalVoiceInteraction(Bundle privateOptions) {
         super.startLocalVoiceInteraction(privateOptions);
     }
 
@@ -1955,17 +1917,17 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    public void startManagingCursor(final Cursor c) {
+    public void startManagingCursor(Cursor c) {
         super.startManagingCursor(c);
     }
 
     @Override
-    public boolean startNextMatchingActivity(final Intent intent) {
+    public boolean startNextMatchingActivity(Intent intent) {
         return super.startNextMatchingActivity(intent);
     }
 
     @Override
-    public boolean startNextMatchingActivity(final Intent intent, final Bundle options) {
+    public boolean startNextMatchingActivity(Intent intent, Bundle options) {
         return super.startNextMatchingActivity(intent, options);
     }
 
@@ -1975,14 +1937,13 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public void startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData,
-            final boolean globalSearch) {
+    public void startSearch(String initialQuery, boolean selectInitialQuery, Bundle appSearchData,
+            boolean globalSearch) {
         super.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
 
     @Override
-    public ComponentName startService(final Intent service) {
+    public ComponentName startService(Intent service) {
         return super.startService(service);
     }
 
@@ -1994,7 +1955,7 @@ public class BlueprintActivity extends AppCompatActivity {
      */
     @Nullable
     @Override
-    public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
+    public ActionMode startSupportActionMode(@NonNull ActionMode.Callback callback) {
         return super.startSupportActionMode(callback);
     }
 
@@ -2012,12 +1973,12 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    public void stopManagingCursor(final Cursor c) {
+    public void stopManagingCursor(Cursor c) {
         super.stopManagingCursor(c);
     }
 
     @Override
-    public boolean stopService(final Intent name) {
+    public boolean stopService(Intent name) {
         return super.stopService(name);
     }
 
@@ -2026,7 +1987,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * to reverse its exit Transition. When the exit Transition completes,
      * {@link #finish()} is called. If no entry Transition was used, finish() is called
      * immediately and the Activity exit Transition is run.
-     *
+     * <p>
      * <p>On Android 4.4 or lower, this method only finishes the Activity with no
      * special exit transition.</p>
      */
@@ -2045,7 +2006,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * in the process. upIntent will have the flag {@link Intent#FLAG_ACTIVITY_CLEAR_TOP} set
      * by this method, along with any others required for proper up navigation as outlined
      * in the Android Design Guide.
-     *
+     * <p>
      * <p>This method should be used when performing up navigation from within the same task
      * as the destination. If up navigation should cross tasks in some cases, see
      * {@link #supportShouldUpRecreateTask(Intent)}.</p>
@@ -2053,7 +2014,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @param upIntent An intent representing the target destination for up navigation
      */
     @Override
-    public void supportNavigateUpTo(@NonNull final Intent upIntent) {
+    public void supportNavigateUpTo(@NonNull Intent upIntent) {
         super.supportNavigateUpTo(upIntent);
     }
 
@@ -2080,14 +2041,14 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see Window#requestFeature
      */
     @Override
-    public boolean supportRequestWindowFeature(final int featureId) {
+    public boolean supportRequestWindowFeature(int featureId) {
         return super.supportRequestWindowFeature(featureId);
     }
 
     /**
      * Returns true if sourceActivity should recreate the task when navigating 'up'
      * by using targetIntent.
-     *
+     * <p>
      * <p>If this method returns false the app can trivially call
      * {@link #supportNavigateUpTo(Intent)} using the same parameters to correctly perform
      * up navigation. If this method returns false, the app should synthesize a new task stack
@@ -2099,7 +2060,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * should be used for the destination
      */
     @Override
-    public boolean supportShouldUpRecreateTask(@NonNull final Intent targetIntent) {
+    public boolean supportShouldUpRecreateTask(@NonNull Intent targetIntent) {
         return super.supportShouldUpRecreateTask(targetIntent);
     }
 
@@ -2113,37 +2074,37 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public void takeKeyEvents(final boolean get) {
+    public void takeKeyEvents(boolean get) {
         super.takeKeyEvents(get);
     }
 
     @Override
-    public void triggerSearch(final String query, final Bundle appSearchData) {
+    public void triggerSearch(String query, Bundle appSearchData) {
         super.triggerSearch(query, appSearchData);
     }
 
     @Override
-    public void unbindService(final ServiceConnection conn) {
+    public void unbindService(ServiceConnection conn) {
         super.unbindService(conn);
     }
 
     @Override
-    public void unregisterComponentCallbacks(final ComponentCallbacks callback) {
+    public void unregisterComponentCallbacks(ComponentCallbacks callback) {
         super.unregisterComponentCallbacks(callback);
     }
 
     @Override
-    public void unregisterForContextMenu(final View view) {
+    public void unregisterForContextMenu(View view) {
         super.unregisterForContextMenu(view);
     }
 
     @Override
-    public void unregisterReceiver(final BroadcastReceiver receiver) {
+    public void unregisterReceiver(BroadcastReceiver receiver) {
         super.unregisterReceiver(receiver);
     }
 
     @Override
-    protected void attachBaseContext(final Context newBase) {
+    protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
     }
 
@@ -2151,24 +2112,22 @@ public class BlueprintActivity extends AppCompatActivity {
      * Dispatch incoming result to the correct fragment.
      */
     @Override
-    protected void onActivityResult(final int requestCode, final int resultCode,
-            final Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
-    protected void onApplyThemeResource(final Resources.Theme theme, final int resid,
-            final boolean first) {
+    protected void onApplyThemeResource(Resources.Theme theme, int resid, boolean first) {
         super.onApplyThemeResource(theme, resid, first);
     }
 
     @Override
-    protected void onChildTitleChanged(final Activity childActivity, final CharSequence title) {
+    protected void onChildTitleChanged(Activity childActivity, CharSequence title) {
         super.onChildTitleChanged(childActivity, title);
     }
 
     @Override
-    protected void onCreate(@Nullable final Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
@@ -2176,7 +2135,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    protected Dialog onCreateDialog(final int id) {
+    protected Dialog onCreateDialog(int id) {
         return super.onCreateDialog(id);
     }
 
@@ -2185,7 +2144,7 @@ public class BlueprintActivity extends AppCompatActivity {
      */
     @Nullable
     @Override
-    protected Dialog onCreateDialog(final int id, final Bundle args) {
+    protected Dialog onCreateDialog(int id, Bundle args) {
         return super.onCreateDialog(id, args);
     }
 
@@ -2205,7 +2164,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * because the fragment manager thinks the state is still saved.
      */
     @Override
-    protected void onNewIntent(final Intent intent) {
+    protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
     }
 
@@ -2218,7 +2177,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostCreate(@Nullable final Bundle savedInstanceState) {
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
     }
 
@@ -2231,7 +2190,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    protected void onPrepareDialog(final int id, final Dialog dialog) {
+    protected void onPrepareDialog(int id, Dialog dialog) {
         super.onPrepareDialog(id, dialog);
     }
 
@@ -2239,7 +2198,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @deprecated
      */
     @Override
-    protected void onPrepareDialog(final int id, final Dialog dialog, final Bundle args) {
+    protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
         super.onPrepareDialog(id, dialog, args);
     }
 
@@ -2247,7 +2206,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @hide
      */
     @Override
-    protected boolean onPrepareOptionsPanel(final View view, final Menu menu) {
+    protected boolean onPrepareOptionsPanel(View view, Menu menu) {
         return super.onPrepareOptionsPanel(view, menu);
     }
 
@@ -2257,7 +2216,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestoreInstanceState(final Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -2287,7 +2246,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(final Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
@@ -2302,7 +2261,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onTitleChanged(final CharSequence title, final int color) {
+    protected void onTitleChanged(CharSequence title, int color) {
         super.onTitleChanged(title, color);
     }
 

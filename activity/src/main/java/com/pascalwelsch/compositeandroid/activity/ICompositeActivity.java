@@ -89,30 +89,30 @@ public interface ICompositeActivity
         ActionBarDrawerToggle.DelegateProvider {
 
 
-    void addContentView(final View view, final ViewGroup.LayoutParams params);
+    void addContentView(View view, ViewGroup.LayoutParams params);
 
-    void applyOverrideConfiguration(final Configuration overrideConfiguration);
+    void applyOverrideConfiguration(Configuration overrideConfiguration);
 
-    void attachBaseContext(final Context newBase);
+    void attachBaseContext(Context newBase);
 
-    boolean bindService(final Intent service, final ServiceConnection conn, final int flags);
+    boolean bindService(Intent service, ServiceConnection conn, int flags);
 
-    int checkCallingOrSelfPermission(final String permission);
+    int checkCallingOrSelfPermission(String permission);
 
-    int checkCallingOrSelfUriPermission(final Uri uri, final int modeFlags);
+    int checkCallingOrSelfUriPermission(Uri uri, int modeFlags);
 
-    int checkCallingPermission(final String permission);
+    int checkCallingPermission(String permission);
 
-    int checkCallingUriPermission(final Uri uri, final int modeFlags);
+    int checkCallingUriPermission(Uri uri, int modeFlags);
 
-    int checkPermission(final String permission, final int pid, final int uid);
+    int checkPermission(String permission, int pid, int uid);
 
-    int checkSelfPermission(final String permission);
+    int checkSelfPermission(String permission);
 
-    int checkUriPermission(final Uri uri, final int pid, final int uid, final int modeFlags);
+    int checkUriPermission(Uri uri, int pid, int uid, int modeFlags);
 
-    int checkUriPermission(final Uri uri, final String readPermission, final String writePermission,
-            final int pid, final int uid, final int modeFlags);
+    int checkUriPermission(Uri uri, String readPermission, String writePermission, int pid, int uid,
+            int modeFlags);
 
     void clearWallpaper() throws IOException;
 
@@ -120,70 +120,65 @@ public interface ICompositeActivity
 
     void closeOptionsMenu();
 
-    Context createConfigurationContext(final Configuration overrideConfiguration);
+    Context createConfigurationContext(Configuration overrideConfiguration);
 
     Context createDeviceProtectedStorageContext();
 
-    Context createDisplayContext(final Display display);
+    Context createDisplayContext(Display display);
 
-    Context createPackageContext(final String packageName, final int flags)
+    Context createPackageContext(String packageName, int flags)
             throws PackageManager.NameNotFoundException;
 
-    PendingIntent createPendingResult(final int requestCode, final Intent data, final int flags);
+    PendingIntent createPendingResult(int requestCode, Intent data, int flags);
 
     String[] databaseList();
 
-    boolean deleteDatabase(final String name);
+    boolean deleteDatabase(String name);
 
-    boolean deleteFile(final String name);
+    boolean deleteFile(String name);
 
-    boolean deleteSharedPreferences(final String name);
+    boolean deleteSharedPreferences(String name);
 
-    boolean dispatchGenericMotionEvent(final MotionEvent ev);
+    boolean dispatchGenericMotionEvent(MotionEvent ev);
 
-    boolean dispatchKeyEvent(final KeyEvent event);
+    boolean dispatchKeyEvent(KeyEvent event);
 
-    boolean dispatchKeyShortcutEvent(final KeyEvent event);
+    boolean dispatchKeyShortcutEvent(KeyEvent event);
 
-    boolean dispatchPopulateAccessibilityEvent(final AccessibilityEvent event);
+    boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event);
 
-    boolean dispatchTouchEvent(final MotionEvent ev);
+    boolean dispatchTouchEvent(MotionEvent ev);
 
-    boolean dispatchTrackballEvent(final MotionEvent ev);
+    boolean dispatchTrackballEvent(MotionEvent ev);
 
-    void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args);
+    void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args);
 
-    void enforceCallingOrSelfPermission(final String permission, final String message);
+    void enforceCallingOrSelfPermission(String permission, String message);
 
-    void enforceCallingOrSelfUriPermission(final Uri uri, final int modeFlags,
-            final String message);
+    void enforceCallingOrSelfUriPermission(Uri uri, int modeFlags, String message);
 
-    void enforceCallingPermission(final String permission, final String message);
+    void enforceCallingPermission(String permission, String message);
 
-    void enforceCallingUriPermission(final Uri uri, final int modeFlags, final String message);
+    void enforceCallingUriPermission(Uri uri, int modeFlags, String message);
 
-    void enforcePermission(final String permission, final int pid, final int uid,
-            final String message);
+    void enforcePermission(String permission, int pid, int uid, String message);
 
-    void enforceUriPermission(final Uri uri, final int pid, final int uid, final int modeFlags,
-            final String message);
+    void enforceUriPermission(Uri uri, int pid, int uid, int modeFlags, String message);
 
-    void enforceUriPermission(final Uri uri, final String readPermission,
-            final String writePermission, final int pid, final int uid, final int modeFlags,
-            final String message);
+    void enforceUriPermission(Uri uri, String readPermission, String writePermission, int pid,
+            int uid, int modeFlags, String message);
 
     void enterPictureInPictureMode();
 
     String[] fileList();
 
-    View findViewById(@IdRes final int id);
+    View findViewById(@IdRes int id);
 
     void finish();
 
-    void finishActivity(final int requestCode);
+    void finishActivity(int requestCode);
 
-    void finishActivityFromChild(final Activity child, final int requestCode);
+    void finishActivityFromChild(Activity child, int requestCode);
 
     void finishAffinity();
 
@@ -191,7 +186,7 @@ public interface ICompositeActivity
 
     void finishAndRemoveTask();
 
-    void finishFromChild(final Activity child);
+    void finishFromChild(Activity child);
 
     android.app.ActionBar getActionBar();
 
@@ -227,11 +222,11 @@ public interface ICompositeActivity
 
     File getDataDir();
 
-    File getDatabasePath(final String name);
+    File getDatabasePath(String name);
 
     AppCompatDelegate getDelegate();
 
-    File getDir(final String name, final int mode);
+    File getDir(String name, int mode);
 
     ActionBarDrawerToggle.Delegate getDrawerToggleDelegate();
 
@@ -239,13 +234,13 @@ public interface ICompositeActivity
 
     File[] getExternalCacheDirs();
 
-    File getExternalFilesDir(final String type);
+    File getExternalFilesDir(String type);
 
-    File[] getExternalFilesDirs(final String type);
+    File[] getExternalFilesDirs(String type);
 
     File[] getExternalMediaDirs();
 
-    File getFileStreamPath(final String name);
+    File getFileStreamPath(String name);
 
     File getFilesDir();
 
@@ -285,7 +280,7 @@ public interface ICompositeActivity
 
     Intent getParentActivityIntent();
 
-    SharedPreferences getPreferences(final int mode);
+    SharedPreferences getPreferences(int mode);
 
     Uri getReferrer();
 
@@ -293,7 +288,7 @@ public interface ICompositeActivity
 
     Resources getResources();
 
-    SharedPreferences getSharedPreferences(final String name, final int mode);
+    SharedPreferences getSharedPreferences(String name, int mode);
 
     ActionBar getSupportActionBar();
 
@@ -303,9 +298,9 @@ public interface ICompositeActivity
 
     Intent getSupportParentActivityIntent();
 
-    Object getSystemService(final String name);
+    Object getSystemService(String name);
 
-    String getSystemServiceName(final Class<?> serviceClass);
+    String getSystemServiceName(Class<?> serviceClass);
 
     int getTaskId();
 
@@ -323,7 +318,7 @@ public interface ICompositeActivity
 
     WindowManager getWindowManager();
 
-    void grantUriPermission(final String toPackage, final Uri uri, final int modeFlags);
+    void grantUriPermission(String toPackage, Uri uri, int modeFlags);
 
     boolean hasWindowFocus();
 
@@ -353,74 +348,72 @@ public interface ICompositeActivity
 
     boolean isVoiceInteractionRoot();
 
-    boolean moveDatabaseFrom(final Context sourceContext, final String name);
+    boolean moveDatabaseFrom(Context sourceContext, String name);
 
-    boolean moveSharedPreferencesFrom(final Context sourceContext, final String name);
+    boolean moveSharedPreferencesFrom(Context sourceContext, String name);
 
-    boolean moveTaskToBack(final boolean nonRoot);
+    boolean moveTaskToBack(boolean nonRoot);
 
-    boolean navigateUpTo(final Intent upIntent);
+    boolean navigateUpTo(Intent upIntent);
 
-    boolean navigateUpToFromChild(final Activity child, final Intent upIntent);
+    boolean navigateUpToFromChild(Activity child, Intent upIntent);
 
-    void onActionModeFinished(final android.view.ActionMode mode);
+    void onActionModeFinished(android.view.ActionMode mode);
 
-    void onActionModeStarted(final android.view.ActionMode mode);
+    void onActionModeStarted(android.view.ActionMode mode);
 
-    void onActivityReenter(final int resultCode, final Intent data);
+    void onActivityReenter(int resultCode, Intent data);
 
-    void onActivityResult(final int requestCode, final int resultCode, final Intent data);
+    void onActivityResult(int requestCode, int resultCode, Intent data);
 
-    void onApplyThemeResource(final Resources.Theme theme, final int resid, final boolean first);
+    void onApplyThemeResource(Resources.Theme theme, int resid, boolean first);
 
-    void onAttachFragment(final android.app.Fragment fragment);
+    void onAttachFragment(Fragment fragment);
 
-    void onAttachFragment(final Fragment fragment);
+    void onAttachFragment(android.app.Fragment fragment);
 
     void onAttachedToWindow();
 
     void onBackPressed();
 
-    void onChildTitleChanged(final Activity childActivity, final CharSequence title);
+    void onChildTitleChanged(Activity childActivity, CharSequence title);
 
-    void onConfigurationChanged(final Configuration newConfig);
+    void onConfigurationChanged(Configuration newConfig);
 
     void onContentChanged();
 
-    boolean onContextItemSelected(final MenuItem item);
+    boolean onContextItemSelected(MenuItem item);
 
-    void onContextMenuClosed(final Menu menu);
+    void onContextMenuClosed(Menu menu);
 
-    void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState);
+    void onCreate(Bundle savedInstanceState, PersistableBundle persistentState);
 
-    void onCreate(@Nullable final Bundle savedInstanceState);
+    void onCreate(@Nullable Bundle savedInstanceState);
 
-    void onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo);
+    void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo);
 
     CharSequence onCreateDescription();
 
-    Dialog onCreateDialog(final int id);
+    Dialog onCreateDialog(int id);
 
-    Dialog onCreateDialog(final int id, final Bundle args);
+    Dialog onCreateDialog(int id, Bundle args);
 
-    void onCreateNavigateUpTaskStack(final TaskStackBuilder builder);
+    void onCreateNavigateUpTaskStack(TaskStackBuilder builder);
 
-    boolean onCreateOptionsMenu(final Menu menu);
+    boolean onCreateOptionsMenu(Menu menu);
 
-    boolean onCreatePanelMenu(final int featureId, final Menu menu);
+    boolean onCreatePanelMenu(int featureId, Menu menu);
 
-    View onCreatePanelView(final int featureId);
+    View onCreatePanelView(int featureId);
 
     void onCreateSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder);
+            @NonNull android.support.v4.app.TaskStackBuilder builder);
 
-    boolean onCreateThumbnail(final Bitmap outBitmap, final Canvas canvas);
+    boolean onCreateThumbnail(Bitmap outBitmap, Canvas canvas);
 
-    View onCreateView(final View parent, final String name, final Context context,
-            final AttributeSet attrs);
+    View onCreateView(View parent, String name, Context context, AttributeSet attrs);
 
-    View onCreateView(final String name, final Context context, final AttributeSet attrs);
+    View onCreateView(String name, Context context, AttributeSet attrs);
 
     void onDestroy();
 
@@ -428,17 +421,17 @@ public interface ICompositeActivity
 
     void onEnterAnimationComplete();
 
-    boolean onGenericMotionEvent(final MotionEvent event);
+    boolean onGenericMotionEvent(MotionEvent event);
 
-    boolean onKeyDown(final int keyCode, final KeyEvent event);
+    boolean onKeyDown(int keyCode, KeyEvent event);
 
-    boolean onKeyLongPress(final int keyCode, final KeyEvent event);
+    boolean onKeyLongPress(int keyCode, KeyEvent event);
 
-    boolean onKeyMultiple(final int keyCode, final int repeatCount, final KeyEvent event);
+    boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event);
 
-    boolean onKeyShortcut(final int keyCode, final KeyEvent event);
+    boolean onKeyShortcut(int keyCode, KeyEvent event);
 
-    boolean onKeyUp(final int keyCode, final KeyEvent event);
+    boolean onKeyUp(int keyCode, KeyEvent event);
 
     void onLocalVoiceInteractionStarted();
 
@@ -446,65 +439,63 @@ public interface ICompositeActivity
 
     void onLowMemory();
 
-    boolean onMenuOpened(final int featureId, final Menu menu);
+    boolean onMenuOpened(int featureId, Menu menu);
 
-    void onMultiWindowModeChanged(final boolean isInMultiWindowMode);
+    void onMultiWindowModeChanged(boolean isInMultiWindowMode);
 
     boolean onNavigateUp();
 
-    boolean onNavigateUpFromChild(final Activity child);
+    boolean onNavigateUpFromChild(Activity child);
 
-    void onNewIntent(final Intent intent);
+    void onNewIntent(Intent intent);
 
-    boolean onOptionsItemSelected(final MenuItem item);
+    boolean onOptionsItemSelected(MenuItem item);
 
-    void onOptionsMenuClosed(final Menu menu);
+    void onOptionsMenuClosed(Menu menu);
 
-    void onPanelClosed(final int featureId, final Menu menu);
+    void onPanelClosed(int featureId, Menu menu);
 
     void onPause();
 
-    void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
+    void onPictureInPictureModeChanged(boolean isInPictureInPictureMode);
 
-    void onPostCreate(final Bundle savedInstanceState, final PersistableBundle persistentState);
+    void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState);
 
-    void onPostCreate(@Nullable final Bundle savedInstanceState);
+    void onPostCreate(@Nullable Bundle savedInstanceState);
 
     void onPostResume();
 
-    void onPrepareDialog(final int id, final Dialog dialog);
+    void onPrepareDialog(int id, Dialog dialog);
 
-    void onPrepareDialog(final int id, final Dialog dialog, final Bundle args);
+    void onPrepareDialog(int id, Dialog dialog, Bundle args);
 
-    void onPrepareNavigateUpTaskStack(final TaskStackBuilder builder);
+    void onPrepareNavigateUpTaskStack(TaskStackBuilder builder);
 
-    boolean onPrepareOptionsMenu(final Menu menu);
+    boolean onPrepareOptionsMenu(Menu menu);
 
-    boolean onPrepareOptionsPanel(final View view, final Menu menu);
+    boolean onPrepareOptionsPanel(View view, Menu menu);
 
-    boolean onPreparePanel(final int featureId, final View view, final Menu menu);
+    boolean onPreparePanel(int featureId, View view, Menu menu);
 
     void onPrepareSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder);
+            @NonNull android.support.v4.app.TaskStackBuilder builder);
 
-    void onProvideAssistContent(final AssistContent outContent);
+    void onProvideAssistContent(AssistContent outContent);
 
-    void onProvideAssistData(final Bundle data);
+    void onProvideAssistData(Bundle data);
 
-    void onProvideKeyboardShortcuts(final List<KeyboardShortcutGroup> data, final Menu menu,
-            final int deviceId);
+    void onProvideKeyboardShortcuts(List<KeyboardShortcutGroup> data, Menu menu, int deviceId);
 
     Uri onProvideReferrer();
 
-    void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions,
-            @NonNull final int[] grantResults);
+    void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults);
 
     void onRestart();
 
-    void onRestoreInstanceState(final Bundle savedInstanceState,
-            final PersistableBundle persistentState);
+    void onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState);
 
-    void onRestoreInstanceState(final Bundle savedInstanceState);
+    void onRestoreInstanceState(Bundle savedInstanceState);
 
     void onResume();
 
@@ -514,11 +505,11 @@ public interface ICompositeActivity
 
     Object onRetainCustomNonConfigurationInstance();
 
-    void onSaveInstanceState(final Bundle outState, final PersistableBundle outPersistentState);
+    void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState);
 
-    void onSaveInstanceState(final Bundle outState);
+    void onSaveInstanceState(Bundle outState);
 
-    boolean onSearchRequested(final SearchEvent searchEvent);
+    boolean onSearchRequested(SearchEvent searchEvent);
 
     boolean onSearchRequested();
 
@@ -528,21 +519,21 @@ public interface ICompositeActivity
 
     void onStop();
 
-    void onSupportActionModeFinished(@NonNull final ActionMode mode);
+    void onSupportActionModeFinished(@NonNull ActionMode mode);
 
-    void onSupportActionModeStarted(@NonNull final ActionMode mode);
+    void onSupportActionModeStarted(@NonNull ActionMode mode);
 
     void onSupportContentChanged();
 
     boolean onSupportNavigateUp();
 
-    void onTitleChanged(final CharSequence title, final int color);
+    void onTitleChanged(CharSequence title, int color);
 
-    boolean onTouchEvent(final MotionEvent event);
+    boolean onTouchEvent(MotionEvent event);
 
-    boolean onTrackballEvent(final MotionEvent event);
+    boolean onTrackballEvent(MotionEvent event);
 
-    void onTrimMemory(final int level);
+    void onTrimMemory(int level);
 
     void onUserInteraction();
 
@@ -550,33 +541,32 @@ public interface ICompositeActivity
 
     void onVisibleBehindCanceled();
 
-    void onWindowAttributesChanged(final WindowManager.LayoutParams params);
+    void onWindowAttributesChanged(WindowManager.LayoutParams params);
 
-    void onWindowFocusChanged(final boolean hasFocus);
+    void onWindowFocusChanged(boolean hasFocus);
 
-    android.view.ActionMode onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback);
+    android.view.ActionMode onWindowStartingActionMode(android.view.ActionMode.Callback callback);
 
-    android.view.ActionMode onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback, final int type);
+    android.view.ActionMode onWindowStartingActionMode(android.view.ActionMode.Callback callback,
+            int type);
 
-    ActionMode onWindowStartingSupportActionMode(@NonNull final ActionMode.Callback callback);
+    ActionMode onWindowStartingSupportActionMode(@NonNull ActionMode.Callback callback);
 
-    void openContextMenu(final View view);
+    void openContextMenu(View view);
 
-    FileInputStream openFileInput(final String name) throws FileNotFoundException;
+    FileInputStream openFileInput(String name) throws FileNotFoundException;
 
-    FileOutputStream openFileOutput(final String name, final int mode) throws FileNotFoundException;
+    FileOutputStream openFileOutput(String name, int mode) throws FileNotFoundException;
 
     void openOptionsMenu();
 
-    SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory);
+    SQLiteDatabase openOrCreateDatabase(String name, int mode,
+            SQLiteDatabase.CursorFactory factory);
 
-    SQLiteDatabase openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler);
+    SQLiteDatabase openOrCreateDatabase(String name, int mode, SQLiteDatabase.CursorFactory factory,
+            DatabaseErrorHandler errorHandler);
 
-    void overridePendingTransition(final int enterAnim, final int exitAnim);
+    void overridePendingTransition(int enterAnim, int exitAnim);
 
     Drawable peekWallpaper();
 
@@ -584,247 +574,234 @@ public interface ICompositeActivity
 
     void recreate();
 
-    void registerComponentCallbacks(final ComponentCallbacks callback);
+    void registerComponentCallbacks(ComponentCallbacks callback);
 
-    void registerForContextMenu(final View view);
+    void registerForContextMenu(View view);
 
-    Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter);
+    Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter);
 
-    Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
-            final String broadcastPermission, final Handler scheduler);
+    Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter,
+            String broadcastPermission, Handler scheduler);
 
     boolean releaseInstance();
 
-    void removeStickyBroadcast(final Intent intent);
+    void removeStickyBroadcast(Intent intent);
 
-    void removeStickyBroadcastAsUser(final Intent intent, final UserHandle user);
+    void removeStickyBroadcastAsUser(Intent intent, UserHandle user);
 
     void reportFullyDrawn();
 
-    DragAndDropPermissions requestDragAndDropPermissions(final DragEvent event);
+    DragAndDropPermissions requestDragAndDropPermissions(DragEvent event);
 
-    boolean requestVisibleBehind(final boolean visible);
+    boolean requestVisibleBehind(boolean visible);
 
-    void revokeUriPermission(final Uri uri, final int modeFlags);
+    void revokeUriPermission(Uri uri, int modeFlags);
 
-    void sendBroadcast(final Intent intent);
+    void sendBroadcast(Intent intent);
 
-    void sendBroadcast(final Intent intent, final String receiverPermission);
+    void sendBroadcast(Intent intent, String receiverPermission);
 
-    void sendBroadcastAsUser(final Intent intent, final UserHandle user);
+    void sendBroadcastAsUser(Intent intent, UserHandle user);
 
-    void sendBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission);
+    void sendBroadcastAsUser(Intent intent, UserHandle user, String receiverPermission);
 
-    void sendOrderedBroadcast(final Intent intent, final String receiverPermission);
+    void sendOrderedBroadcast(Intent intent, String receiverPermission);
 
-    void sendOrderedBroadcast(final Intent intent, final String receiverPermission,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras);
+    void sendOrderedBroadcast(Intent intent, String receiverPermission,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras);
 
-    void sendOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission, final BroadcastReceiver resultReceiver,
-            final Handler scheduler, final int initialCode, final String initialData,
-            final Bundle initialExtras);
+    void sendOrderedBroadcastAsUser(Intent intent, UserHandle user, String receiverPermission,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras);
 
-    void sendStickyBroadcast(final Intent intent);
+    void sendStickyBroadcast(Intent intent);
 
-    void sendStickyBroadcastAsUser(final Intent intent, final UserHandle user);
+    void sendStickyBroadcastAsUser(Intent intent, UserHandle user);
 
-    void sendStickyOrderedBroadcast(final Intent intent, final BroadcastReceiver resultReceiver,
-            final Handler scheduler, final int initialCode, final String initialData,
-            final Bundle initialExtras);
+    void sendStickyOrderedBroadcast(Intent intent, BroadcastReceiver resultReceiver,
+            Handler scheduler, int initialCode, String initialData, Bundle initialExtras);
 
-    void sendStickyOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras);
+    void sendStickyOrderedBroadcastAsUser(Intent intent, UserHandle user,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras);
 
-    void setActionBar(final Toolbar toolbar);
+    void setActionBar(Toolbar toolbar);
 
-    void setContentTransitionManager(final TransitionManager tm);
+    void setContentTransitionManager(TransitionManager tm);
 
-    void setContentView(@LayoutRes final int layoutResID);
+    void setContentView(@LayoutRes int layoutResID);
 
-    void setContentView(final View view);
+    void setContentView(View view);
 
-    void setContentView(final View view, final ViewGroup.LayoutParams params);
+    void setContentView(View view, ViewGroup.LayoutParams params);
 
-    void setEnterSharedElementCallback(final SharedElementCallback callback);
+    void setEnterSharedElementCallback(SharedElementCallback callback);
 
-    void setEnterSharedElementCallback(final android.app.SharedElementCallback callback);
+    void setEnterSharedElementCallback(android.app.SharedElementCallback callback);
 
-    void setExitSharedElementCallback(final SharedElementCallback listener);
+    void setExitSharedElementCallback(SharedElementCallback listener);
 
-    void setExitSharedElementCallback(final android.app.SharedElementCallback callback);
+    void setExitSharedElementCallback(android.app.SharedElementCallback callback);
 
-    void setFinishOnTouchOutside(final boolean finish);
+    void setFinishOnTouchOutside(boolean finish);
 
-    void setImmersive(final boolean i);
+    void setImmersive(boolean i);
 
-    void setIntent(final Intent newIntent);
+    void setIntent(Intent newIntent);
 
-    void setRequestedOrientation(final int requestedOrientation);
+    void setRequestedOrientation(int requestedOrientation);
 
-    void setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar);
+    void setSupportActionBar(@Nullable android.support.v7.widget.Toolbar toolbar);
 
-    void setSupportProgress(final int progress);
+    void setSupportProgress(int progress);
 
-    void setSupportProgressBarIndeterminate(final boolean indeterminate);
+    void setSupportProgressBarIndeterminate(boolean indeterminate);
 
-    void setSupportProgressBarIndeterminateVisibility(final boolean visible);
+    void setSupportProgressBarIndeterminateVisibility(boolean visible);
 
-    void setSupportProgressBarVisibility(final boolean visible);
+    void setSupportProgressBarVisibility(boolean visible);
 
-    void setTaskDescription(final ActivityManager.TaskDescription taskDescription);
+    void setTaskDescription(ActivityManager.TaskDescription taskDescription);
 
-    void setTheme(@StyleRes final int resid);
+    void setTheme(@StyleRes int resid);
 
-    void setTitle(final CharSequence title);
+    void setTitle(CharSequence title);
 
-    void setTitle(final int titleId);
+    void setTitle(int titleId);
 
-    void setTitleColor(final int textColor);
+    void setTitleColor(int textColor);
 
-    void setVisible(final boolean visible);
+    void setVisible(boolean visible);
 
-    void setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+    void setVrModeEnabled(boolean enabled, ComponentName requestedComponent)
             throws PackageManager.NameNotFoundException;
 
-    void setWallpaper(final Bitmap bitmap) throws IOException;
+    void setWallpaper(Bitmap bitmap) throws IOException;
 
-    void setWallpaper(final InputStream data) throws IOException;
+    void setWallpaper(InputStream data) throws IOException;
 
-    boolean shouldShowRequestPermissionRationale(final String permission);
+    boolean shouldShowRequestPermissionRationale(String permission);
 
-    boolean shouldUpRecreateTask(final Intent targetIntent);
+    boolean shouldUpRecreateTask(Intent targetIntent);
 
-    boolean showAssist(final Bundle args);
+    boolean showAssist(Bundle args);
 
     void showLockTaskEscapeMessage();
 
-    android.view.ActionMode startActionMode(final android.view.ActionMode.Callback callback);
+    android.view.ActionMode startActionMode(android.view.ActionMode.Callback callback);
 
-    android.view.ActionMode startActionMode(final android.view.ActionMode.Callback callback,
-            final int type);
+    android.view.ActionMode startActionMode(android.view.ActionMode.Callback callback, int type);
 
-    void startActivities(final Intent[] intents);
+    void startActivities(Intent[] intents);
 
-    void startActivities(final Intent[] intents, final Bundle options);
+    void startActivities(Intent[] intents, Bundle options);
 
-    void startActivity(final Intent intent);
+    void startActivity(Intent intent);
 
-    void startActivity(final Intent intent, final Bundle options);
+    void startActivity(Intent intent, Bundle options);
 
-    void startActivityForResult(final Intent intent, final int requestCode,
-            @Nullable final Bundle options);
+    void startActivityForResult(Intent intent, int requestCode);
 
-    void startActivityForResult(final Intent intent, final int requestCode);
+    void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options);
 
-    void startActivityFromChild(final Activity child, final Intent intent, final int requestCode);
+    void startActivityFromChild(Activity child, Intent intent, int requestCode);
 
-    void startActivityFromChild(final Activity child, final Intent intent, final int requestCode,
-            final Bundle options);
+    void startActivityFromChild(Activity child, Intent intent, int requestCode, Bundle options);
 
-    void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode);
+    void startActivityFromFragment(Fragment fragment, Intent intent, int requestCode);
 
-    void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode, final Bundle options);
+    void startActivityFromFragment(Fragment fragment, Intent intent, int requestCode,
+            @Nullable Bundle options);
 
-    void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode);
+    void startActivityFromFragment(android.app.Fragment fragment, Intent intent, int requestCode);
 
-    void startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode, @Nullable final Bundle options);
+    void startActivityFromFragment(android.app.Fragment fragment, Intent intent, int requestCode,
+            Bundle options);
 
-    boolean startActivityIfNeeded(final Intent intent, final int requestCode);
+    boolean startActivityIfNeeded(Intent intent, int requestCode);
 
-    boolean startActivityIfNeeded(final Intent intent, final int requestCode, final Bundle options);
+    boolean startActivityIfNeeded(Intent intent, int requestCode, Bundle options);
 
-    boolean startInstrumentation(final ComponentName className, final String profileFile,
-            final Bundle arguments);
+    boolean startInstrumentation(ComponentName className, String profileFile, Bundle arguments);
 
-    void startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags)
+    void startIntentSender(IntentSender intent, Intent fillInIntent, int flagsMask, int flagsValues,
+            int extraFlags) throws IntentSender.SendIntentException;
+
+    void startIntentSender(IntentSender intent, Intent fillInIntent, int flagsMask, int flagsValues,
+            int extraFlags, Bundle options) throws IntentSender.SendIntentException;
+
+    void startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException;
+
+    void startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags)
             throws IntentSender.SendIntentException;
 
-    void startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
+    void startIntentSenderFromChild(Activity child, IntentSender intent, int requestCode,
+            Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags)
             throws IntentSender.SendIntentException;
 
-    void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
-
-    void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException;
-
-    void startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException;
-
-    void startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+    void startIntentSenderFromChild(Activity child, IntentSender intent, int requestCode,
+            Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags, Bundle options)
             throws IntentSender.SendIntentException;
 
-    void startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
-            final int requestCode, @Nullable final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
-            throws IntentSender.SendIntentException;
+    void startIntentSenderFromFragment(Fragment fragment, IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException;
 
-    void startLocalVoiceInteraction(final Bundle privateOptions);
+    void startLocalVoiceInteraction(Bundle privateOptions);
 
     void startLockTask();
 
-    void startManagingCursor(final Cursor c);
+    void startManagingCursor(Cursor c);
 
-    boolean startNextMatchingActivity(final Intent intent);
+    boolean startNextMatchingActivity(Intent intent);
 
-    boolean startNextMatchingActivity(final Intent intent, final Bundle options);
+    boolean startNextMatchingActivity(Intent intent, Bundle options);
 
     void startPostponedEnterTransition();
 
-    void startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch);
+    void startSearch(String initialQuery, boolean selectInitialQuery, Bundle appSearchData,
+            boolean globalSearch);
 
-    ComponentName startService(final Intent service);
+    ComponentName startService(Intent service);
 
-    ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback);
+    ActionMode startSupportActionMode(@NonNull ActionMode.Callback callback);
 
     void stopLocalVoiceInteraction();
 
     void stopLockTask();
 
-    void stopManagingCursor(final Cursor c);
+    void stopManagingCursor(Cursor c);
 
-    boolean stopService(final Intent name);
+    boolean stopService(Intent name);
 
-    void super_addContentView(final View view, final ViewGroup.LayoutParams params);
+    void super_addContentView(View view, ViewGroup.LayoutParams params);
 
-    void super_applyOverrideConfiguration(final Configuration overrideConfiguration);
+    void super_applyOverrideConfiguration(Configuration overrideConfiguration);
 
-    void super_attachBaseContext(final Context newBase);
+    void super_attachBaseContext(Context newBase);
 
-    boolean super_bindService(final Intent service, final ServiceConnection conn, final int flags);
+    boolean super_bindService(Intent service, ServiceConnection conn, int flags);
 
-    int super_checkCallingOrSelfPermission(final String permission);
+    int super_checkCallingOrSelfPermission(String permission);
 
-    int super_checkCallingOrSelfUriPermission(final Uri uri, final int modeFlags);
+    int super_checkCallingOrSelfUriPermission(Uri uri, int modeFlags);
 
-    int super_checkCallingPermission(final String permission);
+    int super_checkCallingPermission(String permission);
 
-    int super_checkCallingUriPermission(final Uri uri, final int modeFlags);
+    int super_checkCallingUriPermission(Uri uri, int modeFlags);
 
-    int super_checkPermission(final String permission, final int pid, final int uid);
+    int super_checkPermission(String permission, int pid, int uid);
 
-    int super_checkSelfPermission(final String permission);
+    int super_checkSelfPermission(String permission);
 
-    int super_checkUriPermission(final Uri uri, final int pid, final int uid, final int modeFlags);
+    int super_checkUriPermission(Uri uri, int pid, int uid, int modeFlags);
 
-    int super_checkUriPermission(final Uri uri, final String readPermission,
-            final String writePermission, final int pid, final int uid, final int modeFlags);
+    int super_checkUriPermission(Uri uri, String readPermission, String writePermission, int pid,
+            int uid, int modeFlags);
 
     void super_clearWallpaper() throws IOException;
 
@@ -832,72 +809,65 @@ public interface ICompositeActivity
 
     void super_closeOptionsMenu();
 
-    Context super_createConfigurationContext(final Configuration overrideConfiguration);
+    Context super_createConfigurationContext(Configuration overrideConfiguration);
 
     Context super_createDeviceProtectedStorageContext();
 
-    Context super_createDisplayContext(final Display display);
+    Context super_createDisplayContext(Display display);
 
-    Context super_createPackageContext(final String packageName, final int flags)
+    Context super_createPackageContext(String packageName, int flags)
             throws PackageManager.NameNotFoundException;
 
-    PendingIntent super_createPendingResult(final int requestCode, final Intent data,
-            final int flags);
+    PendingIntent super_createPendingResult(int requestCode, Intent data, int flags);
 
     String[] super_databaseList();
 
-    boolean super_deleteDatabase(final String name);
+    boolean super_deleteDatabase(String name);
 
-    boolean super_deleteFile(final String name);
+    boolean super_deleteFile(String name);
 
-    boolean super_deleteSharedPreferences(final String name);
+    boolean super_deleteSharedPreferences(String name);
 
-    boolean super_dispatchGenericMotionEvent(final MotionEvent ev);
+    boolean super_dispatchGenericMotionEvent(MotionEvent ev);
 
-    boolean super_dispatchKeyEvent(final KeyEvent event);
+    boolean super_dispatchKeyEvent(KeyEvent event);
 
-    boolean super_dispatchKeyShortcutEvent(final KeyEvent event);
+    boolean super_dispatchKeyShortcutEvent(KeyEvent event);
 
-    boolean super_dispatchPopulateAccessibilityEvent(final AccessibilityEvent event);
+    boolean super_dispatchPopulateAccessibilityEvent(AccessibilityEvent event);
 
-    boolean super_dispatchTouchEvent(final MotionEvent ev);
+    boolean super_dispatchTouchEvent(MotionEvent ev);
 
-    boolean super_dispatchTrackballEvent(final MotionEvent ev);
+    boolean super_dispatchTrackballEvent(MotionEvent ev);
 
-    void super_dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args);
+    void super_dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args);
 
-    void super_enforceCallingOrSelfPermission(final String permission, final String message);
+    void super_enforceCallingOrSelfPermission(String permission, String message);
 
-    void super_enforceCallingOrSelfUriPermission(final Uri uri, final int modeFlags,
-            final String message);
+    void super_enforceCallingOrSelfUriPermission(Uri uri, int modeFlags, String message);
 
-    void super_enforceCallingPermission(final String permission, final String message);
+    void super_enforceCallingPermission(String permission, String message);
 
-    void super_enforceCallingUriPermission(final Uri uri, final int modeFlags,
-            final String message);
+    void super_enforceCallingUriPermission(Uri uri, int modeFlags, String message);
 
-    void super_enforcePermission(final String permission, final int pid, final int uid,
-            final String message);
+    void super_enforcePermission(String permission, int pid, int uid, String message);
 
-    void super_enforceUriPermission(final Uri uri, final int pid, final int uid,
-            final int modeFlags, final String message);
+    void super_enforceUriPermission(Uri uri, int pid, int uid, int modeFlags, String message);
 
-    void super_enforceUriPermission(final Uri uri, final String readPermission,
-            final String writePermission, final int pid, final int uid, final int modeFlags,
-            final String message);
+    void super_enforceUriPermission(Uri uri, String readPermission, String writePermission, int pid,
+            int uid, int modeFlags, String message);
 
     void super_enterPictureInPictureMode();
 
     String[] super_fileList();
 
-    View super_findViewById(@IdRes final int id);
+    View super_findViewById(@IdRes int id);
 
     void super_finish();
 
-    void super_finishActivity(final int requestCode);
+    void super_finishActivity(int requestCode);
 
-    void super_finishActivityFromChild(final Activity child, final int requestCode);
+    void super_finishActivityFromChild(Activity child, int requestCode);
 
     void super_finishAffinity();
 
@@ -905,7 +875,7 @@ public interface ICompositeActivity
 
     void super_finishAndRemoveTask();
 
-    void super_finishFromChild(final Activity child);
+    void super_finishFromChild(Activity child);
 
     android.app.ActionBar super_getActionBar();
 
@@ -941,11 +911,11 @@ public interface ICompositeActivity
 
     File super_getDataDir();
 
-    File super_getDatabasePath(final String name);
+    File super_getDatabasePath(String name);
 
     AppCompatDelegate super_getDelegate();
 
-    File super_getDir(final String name, final int mode);
+    File super_getDir(String name, int mode);
 
     ActionBarDrawerToggle.Delegate super_getDrawerToggleDelegate();
 
@@ -953,13 +923,13 @@ public interface ICompositeActivity
 
     File[] super_getExternalCacheDirs();
 
-    File super_getExternalFilesDir(final String type);
+    File super_getExternalFilesDir(String type);
 
-    File[] super_getExternalFilesDirs(final String type);
+    File[] super_getExternalFilesDirs(String type);
 
     File[] super_getExternalMediaDirs();
 
-    File super_getFileStreamPath(final String name);
+    File super_getFileStreamPath(String name);
 
     File super_getFilesDir();
 
@@ -993,7 +963,7 @@ public interface ICompositeActivity
 
     Intent super_getParentActivityIntent();
 
-    SharedPreferences super_getPreferences(final int mode);
+    SharedPreferences super_getPreferences(int mode);
 
     Uri super_getReferrer();
 
@@ -1001,7 +971,7 @@ public interface ICompositeActivity
 
     Resources super_getResources();
 
-    SharedPreferences super_getSharedPreferences(final String name, final int mode);
+    SharedPreferences super_getSharedPreferences(String name, int mode);
 
     ActionBar super_getSupportActionBar();
 
@@ -1011,9 +981,9 @@ public interface ICompositeActivity
 
     Intent super_getSupportParentActivityIntent();
 
-    Object super_getSystemService(final String name);
+    Object super_getSystemService(String name);
 
-    String super_getSystemServiceName(final Class<?> serviceClass);
+    String super_getSystemServiceName(Class<?> serviceClass);
 
     int super_getTaskId();
 
@@ -1031,7 +1001,7 @@ public interface ICompositeActivity
 
     WindowManager super_getWindowManager();
 
-    void super_grantUriPermission(final String toPackage, final Uri uri, final int modeFlags);
+    void super_grantUriPermission(String toPackage, Uri uri, int modeFlags);
 
     boolean super_hasWindowFocus();
 
@@ -1061,75 +1031,72 @@ public interface ICompositeActivity
 
     boolean super_isVoiceInteractionRoot();
 
-    boolean super_moveDatabaseFrom(final Context sourceContext, final String name);
+    boolean super_moveDatabaseFrom(Context sourceContext, String name);
 
-    boolean super_moveSharedPreferencesFrom(final Context sourceContext, final String name);
+    boolean super_moveSharedPreferencesFrom(Context sourceContext, String name);
 
-    boolean super_moveTaskToBack(final boolean nonRoot);
+    boolean super_moveTaskToBack(boolean nonRoot);
 
-    boolean super_navigateUpTo(final Intent upIntent);
+    boolean super_navigateUpTo(Intent upIntent);
 
-    boolean super_navigateUpToFromChild(final Activity child, final Intent upIntent);
+    boolean super_navigateUpToFromChild(Activity child, Intent upIntent);
 
-    void super_onActionModeFinished(final android.view.ActionMode mode);
+    void super_onActionModeFinished(android.view.ActionMode mode);
 
-    void super_onActionModeStarted(final android.view.ActionMode mode);
+    void super_onActionModeStarted(android.view.ActionMode mode);
 
-    void super_onActivityReenter(final int resultCode, final Intent data);
+    void super_onActivityReenter(int resultCode, Intent data);
 
-    void super_onActivityResult(final int requestCode, final int resultCode, final Intent data);
+    void super_onActivityResult(int requestCode, int resultCode, Intent data);
 
-    void super_onApplyThemeResource(final Resources.Theme theme, final int resid,
-            final boolean first);
+    void super_onApplyThemeResource(Resources.Theme theme, int resid, boolean first);
 
-    void super_onAttachFragment(final android.app.Fragment fragment);
+    void super_onAttachFragment(Fragment fragment);
 
-    void super_onAttachFragment(final Fragment fragment);
+    void super_onAttachFragment(android.app.Fragment fragment);
 
     void super_onAttachedToWindow();
 
     void super_onBackPressed();
 
-    void super_onChildTitleChanged(final Activity childActivity, final CharSequence title);
+    void super_onChildTitleChanged(Activity childActivity, CharSequence title);
 
-    void super_onConfigurationChanged(final Configuration newConfig);
+    void super_onConfigurationChanged(Configuration newConfig);
 
     void super_onContentChanged();
 
-    boolean super_onContextItemSelected(final MenuItem item);
+    boolean super_onContextItemSelected(MenuItem item);
 
-    void super_onContextMenuClosed(final Menu menu);
+    void super_onContextMenuClosed(Menu menu);
 
-    void super_onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState);
+    void super_onCreate(Bundle savedInstanceState, PersistableBundle persistentState);
 
-    void super_onCreate(@Nullable final Bundle savedInstanceState);
+    void super_onCreate(@Nullable Bundle savedInstanceState);
 
-    void super_onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo);
+    void super_onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo);
 
     CharSequence super_onCreateDescription();
 
-    Dialog super_onCreateDialog(final int id);
+    Dialog super_onCreateDialog(int id);
 
-    Dialog super_onCreateDialog(final int id, final Bundle args);
+    Dialog super_onCreateDialog(int id, Bundle args);
 
-    void super_onCreateNavigateUpTaskStack(final TaskStackBuilder builder);
+    void super_onCreateNavigateUpTaskStack(TaskStackBuilder builder);
 
-    boolean super_onCreateOptionsMenu(final Menu menu);
+    boolean super_onCreateOptionsMenu(Menu menu);
 
-    boolean super_onCreatePanelMenu(final int featureId, final Menu menu);
+    boolean super_onCreatePanelMenu(int featureId, Menu menu);
 
-    View super_onCreatePanelView(final int featureId);
+    View super_onCreatePanelView(int featureId);
 
     void super_onCreateSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder);
+            @NonNull android.support.v4.app.TaskStackBuilder builder);
 
-    boolean super_onCreateThumbnail(final Bitmap outBitmap, final Canvas canvas);
+    boolean super_onCreateThumbnail(Bitmap outBitmap, Canvas canvas);
 
-    View super_onCreateView(final View parent, final String name, final Context context,
-            final AttributeSet attrs);
+    View super_onCreateView(View parent, String name, Context context, AttributeSet attrs);
 
-    View super_onCreateView(final String name, final Context context, final AttributeSet attrs);
+    View super_onCreateView(String name, Context context, AttributeSet attrs);
 
     void super_onDestroy();
 
@@ -1137,17 +1104,17 @@ public interface ICompositeActivity
 
     void super_onEnterAnimationComplete();
 
-    boolean super_onGenericMotionEvent(final MotionEvent event);
+    boolean super_onGenericMotionEvent(MotionEvent event);
 
-    boolean super_onKeyDown(final int keyCode, final KeyEvent event);
+    boolean super_onKeyDown(int keyCode, KeyEvent event);
 
-    boolean super_onKeyLongPress(final int keyCode, final KeyEvent event);
+    boolean super_onKeyLongPress(int keyCode, KeyEvent event);
 
-    boolean super_onKeyMultiple(final int keyCode, final int repeatCount, final KeyEvent event);
+    boolean super_onKeyMultiple(int keyCode, int repeatCount, KeyEvent event);
 
-    boolean super_onKeyShortcut(final int keyCode, final KeyEvent event);
+    boolean super_onKeyShortcut(int keyCode, KeyEvent event);
 
-    boolean super_onKeyUp(final int keyCode, final KeyEvent event);
+    boolean super_onKeyUp(int keyCode, KeyEvent event);
 
     void super_onLocalVoiceInteractionStarted();
 
@@ -1155,77 +1122,74 @@ public interface ICompositeActivity
 
     void super_onLowMemory();
 
-    boolean super_onMenuOpened(final int featureId, final Menu menu);
+    boolean super_onMenuOpened(int featureId, Menu menu);
 
-    void super_onMultiWindowModeChanged(final boolean isInMultiWindowMode);
+    void super_onMultiWindowModeChanged(boolean isInMultiWindowMode);
 
     boolean super_onNavigateUp();
 
-    boolean super_onNavigateUpFromChild(final Activity child);
+    boolean super_onNavigateUpFromChild(Activity child);
 
-    void super_onNewIntent(final Intent intent);
+    void super_onNewIntent(Intent intent);
 
-    boolean super_onOptionsItemSelected(final MenuItem item);
+    boolean super_onOptionsItemSelected(MenuItem item);
 
-    void super_onOptionsMenuClosed(final Menu menu);
+    void super_onOptionsMenuClosed(Menu menu);
 
-    void super_onPanelClosed(final int featureId, final Menu menu);
+    void super_onPanelClosed(int featureId, Menu menu);
 
     void super_onPause();
 
-    void super_onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
+    void super_onPictureInPictureModeChanged(boolean isInPictureInPictureMode);
 
-    void super_onPostCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState);
+    void super_onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState);
 
-    void super_onPostCreate(@Nullable final Bundle savedInstanceState);
+    void super_onPostCreate(@Nullable Bundle savedInstanceState);
 
     void super_onPostResume();
 
-    void super_onPrepareDialog(final int id, final Dialog dialog);
+    void super_onPrepareDialog(int id, Dialog dialog);
 
-    void super_onPrepareDialog(final int id, final Dialog dialog, final Bundle args);
+    void super_onPrepareDialog(int id, Dialog dialog, Bundle args);
 
-    void super_onPrepareNavigateUpTaskStack(final TaskStackBuilder builder);
+    void super_onPrepareNavigateUpTaskStack(TaskStackBuilder builder);
 
-    boolean super_onPrepareOptionsMenu(final Menu menu);
+    boolean super_onPrepareOptionsMenu(Menu menu);
 
-    boolean super_onPrepareOptionsPanel(final View view, final Menu menu);
+    boolean super_onPrepareOptionsPanel(View view, Menu menu);
 
-    boolean super_onPreparePanel(final int featureId, final View view, final Menu menu);
+    boolean super_onPreparePanel(int featureId, View view, Menu menu);
 
     void super_onPrepareSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder);
+            @NonNull android.support.v4.app.TaskStackBuilder builder);
 
-    void super_onProvideAssistContent(final AssistContent outContent);
+    void super_onProvideAssistContent(AssistContent outContent);
 
-    void super_onProvideAssistData(final Bundle data);
+    void super_onProvideAssistData(Bundle data);
 
-    void super_onProvideKeyboardShortcuts(final List<KeyboardShortcutGroup> data, final Menu menu,
-            final int deviceId);
+    void super_onProvideKeyboardShortcuts(List<KeyboardShortcutGroup> data, Menu menu,
+            int deviceId);
 
     Uri super_onProvideReferrer();
 
-    void super_onRequestPermissionsResult(final int requestCode,
-            @NonNull final String[] permissions, @NonNull final int[] grantResults);
+    void super_onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults);
 
     void super_onRestart();
 
-    void super_onRestoreInstanceState(final Bundle savedInstanceState,
-            final PersistableBundle persistentState);
+    void super_onRestoreInstanceState(Bundle savedInstanceState, PersistableBundle persistentState);
 
-    void super_onRestoreInstanceState(final Bundle savedInstanceState);
+    void super_onRestoreInstanceState(Bundle savedInstanceState);
 
     void super_onResume();
 
     void super_onResumeFragments();
 
-    void super_onSaveInstanceState(final Bundle outState,
-            final PersistableBundle outPersistentState);
+    void super_onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState);
 
-    void super_onSaveInstanceState(final Bundle outState);
+    void super_onSaveInstanceState(Bundle outState);
 
-    boolean super_onSearchRequested(final SearchEvent searchEvent);
+    boolean super_onSearchRequested(SearchEvent searchEvent);
 
     boolean super_onSearchRequested();
 
@@ -1235,21 +1199,21 @@ public interface ICompositeActivity
 
     void super_onStop();
 
-    void super_onSupportActionModeFinished(@NonNull final ActionMode mode);
+    void super_onSupportActionModeFinished(@NonNull ActionMode mode);
 
-    void super_onSupportActionModeStarted(@NonNull final ActionMode mode);
+    void super_onSupportActionModeStarted(@NonNull ActionMode mode);
 
     void super_onSupportContentChanged();
 
     boolean super_onSupportNavigateUp();
 
-    void super_onTitleChanged(final CharSequence title, final int color);
+    void super_onTitleChanged(CharSequence title, int color);
 
-    boolean super_onTouchEvent(final MotionEvent event);
+    boolean super_onTouchEvent(MotionEvent event);
 
-    boolean super_onTrackballEvent(final MotionEvent event);
+    boolean super_onTrackballEvent(MotionEvent event);
 
-    void super_onTrimMemory(final int level);
+    void super_onTrimMemory(int level);
 
     void super_onUserInteraction();
 
@@ -1257,34 +1221,33 @@ public interface ICompositeActivity
 
     void super_onVisibleBehindCanceled();
 
-    void super_onWindowAttributesChanged(final WindowManager.LayoutParams params);
+    void super_onWindowAttributesChanged(WindowManager.LayoutParams params);
 
-    void super_onWindowFocusChanged(final boolean hasFocus);
-
-    android.view.ActionMode super_onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback);
+    void super_onWindowFocusChanged(boolean hasFocus);
 
     android.view.ActionMode super_onWindowStartingActionMode(
-            final android.view.ActionMode.Callback callback, final int type);
+            android.view.ActionMode.Callback callback);
 
-    ActionMode super_onWindowStartingSupportActionMode(@NonNull final ActionMode.Callback callback);
+    android.view.ActionMode super_onWindowStartingActionMode(
+            android.view.ActionMode.Callback callback, int type);
 
-    void super_openContextMenu(final View view);
+    ActionMode super_onWindowStartingSupportActionMode(@NonNull ActionMode.Callback callback);
 
-    FileInputStream super_openFileInput(final String name) throws FileNotFoundException;
+    void super_openContextMenu(View view);
 
-    FileOutputStream super_openFileOutput(final String name, final int mode)
-            throws FileNotFoundException;
+    FileInputStream super_openFileInput(String name) throws FileNotFoundException;
+
+    FileOutputStream super_openFileOutput(String name, int mode) throws FileNotFoundException;
 
     void super_openOptionsMenu();
 
-    SQLiteDatabase super_openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory);
+    SQLiteDatabase super_openOrCreateDatabase(String name, int mode,
+            SQLiteDatabase.CursorFactory factory);
 
-    SQLiteDatabase super_openOrCreateDatabase(final String name, final int mode,
-            final SQLiteDatabase.CursorFactory factory, final DatabaseErrorHandler errorHandler);
+    SQLiteDatabase super_openOrCreateDatabase(String name, int mode,
+            SQLiteDatabase.CursorFactory factory, DatabaseErrorHandler errorHandler);
 
-    void super_overridePendingTransition(final int enterAnim, final int exitAnim);
+    void super_overridePendingTransition(int enterAnim, int exitAnim);
 
     Drawable super_peekWallpaper();
 
@@ -1292,274 +1255,264 @@ public interface ICompositeActivity
 
     void super_recreate();
 
-    void super_registerComponentCallbacks(final ComponentCallbacks callback);
+    void super_registerComponentCallbacks(ComponentCallbacks callback);
 
-    void super_registerForContextMenu(final View view);
+    void super_registerForContextMenu(View view);
 
-    Intent super_registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter);
+    Intent super_registerReceiver(BroadcastReceiver receiver, IntentFilter filter);
 
-    Intent super_registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
-            final String broadcastPermission, final Handler scheduler);
+    Intent super_registerReceiver(BroadcastReceiver receiver, IntentFilter filter,
+            String broadcastPermission, Handler scheduler);
 
     boolean super_releaseInstance();
 
-    void super_removeStickyBroadcast(final Intent intent);
+    void super_removeStickyBroadcast(Intent intent);
 
-    void super_removeStickyBroadcastAsUser(final Intent intent, final UserHandle user);
+    void super_removeStickyBroadcastAsUser(Intent intent, UserHandle user);
 
     void super_reportFullyDrawn();
 
-    DragAndDropPermissions super_requestDragAndDropPermissions(final DragEvent event);
+    DragAndDropPermissions super_requestDragAndDropPermissions(DragEvent event);
 
-    boolean super_requestVisibleBehind(final boolean visible);
+    boolean super_requestVisibleBehind(boolean visible);
 
-    void super_revokeUriPermission(final Uri uri, final int modeFlags);
+    void super_revokeUriPermission(Uri uri, int modeFlags);
 
-    void super_sendBroadcast(final Intent intent);
+    void super_sendBroadcast(Intent intent);
 
-    void super_sendBroadcast(final Intent intent, final String receiverPermission);
+    void super_sendBroadcast(Intent intent, String receiverPermission);
 
-    void super_sendBroadcastAsUser(final Intent intent, final UserHandle user);
+    void super_sendBroadcastAsUser(Intent intent, UserHandle user);
 
-    void super_sendBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission);
+    void super_sendBroadcastAsUser(Intent intent, UserHandle user, String receiverPermission);
 
-    void super_sendOrderedBroadcast(final Intent intent, final String receiverPermission);
+    void super_sendOrderedBroadcast(Intent intent, String receiverPermission);
 
-    void super_sendOrderedBroadcast(final Intent intent, final String receiverPermission,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras);
+    void super_sendOrderedBroadcast(Intent intent, String receiverPermission,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras);
 
-    void super_sendOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final String receiverPermission, final BroadcastReceiver resultReceiver,
-            final Handler scheduler, final int initialCode, final String initialData,
-            final Bundle initialExtras);
+    void super_sendOrderedBroadcastAsUser(Intent intent, UserHandle user, String receiverPermission,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras);
 
-    void super_sendStickyBroadcast(final Intent intent);
+    void super_sendStickyBroadcast(Intent intent);
 
-    void super_sendStickyBroadcastAsUser(final Intent intent, final UserHandle user);
+    void super_sendStickyBroadcastAsUser(Intent intent, UserHandle user);
 
-    void super_sendStickyOrderedBroadcast(final Intent intent,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras);
+    void super_sendStickyOrderedBroadcast(Intent intent, BroadcastReceiver resultReceiver,
+            Handler scheduler, int initialCode, String initialData, Bundle initialExtras);
 
-    void super_sendStickyOrderedBroadcastAsUser(final Intent intent, final UserHandle user,
-            final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
-            final String initialData, final Bundle initialExtras);
+    void super_sendStickyOrderedBroadcastAsUser(Intent intent, UserHandle user,
+            BroadcastReceiver resultReceiver, Handler scheduler, int initialCode,
+            String initialData, Bundle initialExtras);
 
-    void super_setActionBar(final Toolbar toolbar);
+    void super_setActionBar(Toolbar toolbar);
 
-    void super_setContentTransitionManager(final TransitionManager tm);
+    void super_setContentTransitionManager(TransitionManager tm);
 
-    void super_setContentView(@LayoutRes final int layoutResID);
+    void super_setContentView(@LayoutRes int layoutResID);
 
-    void super_setContentView(final View view);
+    void super_setContentView(View view);
 
-    void super_setContentView(final View view, final ViewGroup.LayoutParams params);
+    void super_setContentView(View view, ViewGroup.LayoutParams params);
 
-    void super_setEnterSharedElementCallback(final SharedElementCallback callback);
+    void super_setEnterSharedElementCallback(SharedElementCallback callback);
 
-    void super_setEnterSharedElementCallback(final android.app.SharedElementCallback callback);
+    void super_setEnterSharedElementCallback(android.app.SharedElementCallback callback);
 
-    void super_setExitSharedElementCallback(final SharedElementCallback listener);
+    void super_setExitSharedElementCallback(SharedElementCallback listener);
 
-    void super_setExitSharedElementCallback(final android.app.SharedElementCallback callback);
+    void super_setExitSharedElementCallback(android.app.SharedElementCallback callback);
 
-    void super_setFinishOnTouchOutside(final boolean finish);
+    void super_setFinishOnTouchOutside(boolean finish);
 
-    void super_setImmersive(final boolean i);
+    void super_setImmersive(boolean i);
 
-    void super_setIntent(final Intent newIntent);
+    void super_setIntent(Intent newIntent);
 
-    void super_setRequestedOrientation(final int requestedOrientation);
+    void super_setRequestedOrientation(int requestedOrientation);
 
-    void super_setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar);
+    void super_setSupportActionBar(@Nullable android.support.v7.widget.Toolbar toolbar);
 
-    void super_setSupportProgress(final int progress);
+    void super_setSupportProgress(int progress);
 
-    void super_setSupportProgressBarIndeterminate(final boolean indeterminate);
+    void super_setSupportProgressBarIndeterminate(boolean indeterminate);
 
-    void super_setSupportProgressBarIndeterminateVisibility(final boolean visible);
+    void super_setSupportProgressBarIndeterminateVisibility(boolean visible);
 
-    void super_setSupportProgressBarVisibility(final boolean visible);
+    void super_setSupportProgressBarVisibility(boolean visible);
 
-    void super_setTaskDescription(final ActivityManager.TaskDescription taskDescription);
+    void super_setTaskDescription(ActivityManager.TaskDescription taskDescription);
 
-    void super_setTheme(@StyleRes final int resid);
+    void super_setTheme(@StyleRes int resid);
 
-    void super_setTitle(final CharSequence title);
+    void super_setTitle(CharSequence title);
 
-    void super_setTitle(final int titleId);
+    void super_setTitle(int titleId);
 
-    void super_setTitleColor(final int textColor);
+    void super_setTitleColor(int textColor);
 
-    void super_setVisible(final boolean visible);
+    void super_setVisible(boolean visible);
 
-    void super_setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+    void super_setVrModeEnabled(boolean enabled, ComponentName requestedComponent)
             throws PackageManager.NameNotFoundException;
 
-    void super_setWallpaper(final Bitmap bitmap) throws IOException;
+    void super_setWallpaper(Bitmap bitmap) throws IOException;
 
-    void super_setWallpaper(final InputStream data) throws IOException;
+    void super_setWallpaper(InputStream data) throws IOException;
 
-    boolean super_shouldShowRequestPermissionRationale(final String permission);
+    boolean super_shouldShowRequestPermissionRationale(String permission);
 
-    boolean super_shouldUpRecreateTask(final Intent targetIntent);
+    boolean super_shouldUpRecreateTask(Intent targetIntent);
 
-    boolean super_showAssist(final Bundle args);
+    boolean super_showAssist(Bundle args);
 
     void super_showLockTaskEscapeMessage();
 
-    android.view.ActionMode super_startActionMode(final android.view.ActionMode.Callback callback);
+    android.view.ActionMode super_startActionMode(android.view.ActionMode.Callback callback);
 
-    android.view.ActionMode super_startActionMode(final android.view.ActionMode.Callback callback,
-            final int type);
+    android.view.ActionMode super_startActionMode(android.view.ActionMode.Callback callback,
+            int type);
 
-    void super_startActivities(final Intent[] intents);
+    void super_startActivities(Intent[] intents);
 
-    void super_startActivities(final Intent[] intents, final Bundle options);
+    void super_startActivities(Intent[] intents, Bundle options);
 
-    void super_startActivity(final Intent intent);
+    void super_startActivity(Intent intent);
 
-    void super_startActivity(final Intent intent, final Bundle options);
+    void super_startActivity(Intent intent, Bundle options);
 
-    void super_startActivityForResult(final Intent intent, final int requestCode,
-            @Nullable final Bundle options);
+    void super_startActivityForResult(Intent intent, int requestCode);
 
-    void super_startActivityForResult(final Intent intent, final int requestCode);
+    void super_startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options);
 
-    void super_startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode);
+    void super_startActivityFromChild(Activity child, Intent intent, int requestCode);
 
-    void super_startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode, final Bundle options);
+    void super_startActivityFromChild(Activity child, Intent intent, int requestCode,
+            Bundle options);
 
-    void super_startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode);
+    void super_startActivityFromFragment(Fragment fragment, Intent intent, int requestCode);
 
-    void super_startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode, final Bundle options);
+    void super_startActivityFromFragment(Fragment fragment, Intent intent, int requestCode,
+            @Nullable Bundle options);
 
-    void super_startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode);
+    void super_startActivityFromFragment(android.app.Fragment fragment, Intent intent,
+            int requestCode);
 
-    void super_startActivityFromFragment(final Fragment fragment, final Intent intent,
-            final int requestCode, @Nullable final Bundle options);
+    void super_startActivityFromFragment(android.app.Fragment fragment, Intent intent,
+            int requestCode, Bundle options);
 
-    boolean super_startActivityIfNeeded(final Intent intent, final int requestCode);
+    boolean super_startActivityIfNeeded(Intent intent, int requestCode);
 
-    boolean super_startActivityIfNeeded(final Intent intent, final int requestCode,
-            final Bundle options);
+    boolean super_startActivityIfNeeded(Intent intent, int requestCode, Bundle options);
 
-    boolean super_startInstrumentation(final ComponentName className, final String profileFile,
-            final Bundle arguments);
+    boolean super_startInstrumentation(ComponentName className, String profileFile,
+            Bundle arguments);
 
-    void super_startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags)
+    void super_startIntentSender(IntentSender intent, Intent fillInIntent, int flagsMask,
+            int flagsValues, int extraFlags) throws IntentSender.SendIntentException;
+
+    void super_startIntentSender(IntentSender intent, Intent fillInIntent, int flagsMask,
+            int flagsValues, int extraFlags, Bundle options)
             throws IntentSender.SendIntentException;
 
-    void super_startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
+    void super_startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException;
+
+    void super_startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags)
             throws IntentSender.SendIntentException;
 
-    void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
-
-    void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags) throws IntentSender.SendIntentException;
-
-    void super_startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException;
-
-    void super_startIntentSenderFromChild(final Activity child, final IntentSender intent,
-            final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+    void super_startIntentSenderFromChild(Activity child, IntentSender intent, int requestCode,
+            Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags)
             throws IntentSender.SendIntentException;
 
-    void super_startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
-            final int requestCode, @Nullable final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+    void super_startIntentSenderFromChild(Activity child, IntentSender intent, int requestCode,
+            Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags, Bundle options)
             throws IntentSender.SendIntentException;
 
-    void super_startLocalVoiceInteraction(final Bundle privateOptions);
+    void super_startIntentSenderFromFragment(Fragment fragment, IntentSender intent,
+            int requestCode, @Nullable Intent fillInIntent, int flagsMask, int flagsValues,
+            int extraFlags, Bundle options) throws IntentSender.SendIntentException;
+
+    void super_startLocalVoiceInteraction(Bundle privateOptions);
 
     void super_startLockTask();
 
-    void super_startManagingCursor(final Cursor c);
+    void super_startManagingCursor(Cursor c);
 
-    boolean super_startNextMatchingActivity(final Intent intent);
+    boolean super_startNextMatchingActivity(Intent intent);
 
-    boolean super_startNextMatchingActivity(final Intent intent, final Bundle options);
+    boolean super_startNextMatchingActivity(Intent intent, Bundle options);
 
     void super_startPostponedEnterTransition();
 
-    void super_startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch);
+    void super_startSearch(String initialQuery, boolean selectInitialQuery, Bundle appSearchData,
+            boolean globalSearch);
 
-    ComponentName super_startService(final Intent service);
+    ComponentName super_startService(Intent service);
 
-    ActionMode super_startSupportActionMode(@NonNull final ActionMode.Callback callback);
+    ActionMode super_startSupportActionMode(@NonNull ActionMode.Callback callback);
 
     void super_stopLocalVoiceInteraction();
 
     void super_stopLockTask();
 
-    void super_stopManagingCursor(final Cursor c);
+    void super_stopManagingCursor(Cursor c);
 
-    boolean super_stopService(final Intent name);
+    boolean super_stopService(Intent name);
 
     void super_supportFinishAfterTransition();
 
     void super_supportInvalidateOptionsMenu();
 
-    void super_supportNavigateUpTo(@NonNull final Intent upIntent);
+    void super_supportNavigateUpTo(@NonNull Intent upIntent);
 
     void super_supportPostponeEnterTransition();
 
-    boolean super_supportRequestWindowFeature(final int featureId);
+    boolean super_supportRequestWindowFeature(int featureId);
 
-    boolean super_supportShouldUpRecreateTask(@NonNull final Intent targetIntent);
+    boolean super_supportShouldUpRecreateTask(@NonNull Intent targetIntent);
 
     void super_supportStartPostponedEnterTransition();
 
-    void super_takeKeyEvents(final boolean get);
+    void super_takeKeyEvents(boolean get);
 
-    void super_triggerSearch(final String query, final Bundle appSearchData);
+    void super_triggerSearch(String query, Bundle appSearchData);
 
-    void super_unbindService(final ServiceConnection conn);
+    void super_unbindService(ServiceConnection conn);
 
-    void super_unregisterComponentCallbacks(final ComponentCallbacks callback);
+    void super_unregisterComponentCallbacks(ComponentCallbacks callback);
 
-    void super_unregisterForContextMenu(final View view);
+    void super_unregisterForContextMenu(View view);
 
-    void super_unregisterReceiver(final BroadcastReceiver receiver);
+    void super_unregisterReceiver(BroadcastReceiver receiver);
 
     void supportFinishAfterTransition();
 
     void supportInvalidateOptionsMenu();
 
-    void supportNavigateUpTo(@NonNull final Intent upIntent);
+    void supportNavigateUpTo(@NonNull Intent upIntent);
 
     void supportPostponeEnterTransition();
 
-    boolean supportRequestWindowFeature(final int featureId);
+    boolean supportRequestWindowFeature(int featureId);
 
-    boolean supportShouldUpRecreateTask(@NonNull final Intent targetIntent);
+    boolean supportShouldUpRecreateTask(@NonNull Intent targetIntent);
 
     void supportStartPostponedEnterTransition();
 
-    void takeKeyEvents(final boolean get);
+    void takeKeyEvents(boolean get);
 
-    void triggerSearch(final String query, final Bundle appSearchData);
+    void triggerSearch(String query, Bundle appSearchData);
 
-    void unbindService(final ServiceConnection conn);
+    void unbindService(ServiceConnection conn);
 
-    void unregisterComponentCallbacks(final ComponentCallbacks callback);
+    void unregisterComponentCallbacks(ComponentCallbacks callback);
 
-    void unregisterForContextMenu(final View view);
+    void unregisterForContextMenu(View view);
 
-    void unregisterReceiver(final BroadcastReceiver receiver);
+    void unregisterReceiver(BroadcastReceiver receiver);
 }

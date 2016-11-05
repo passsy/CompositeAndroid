@@ -27,8 +27,8 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-// 24.2.1
-@SuppressWarnings("JavadocReference")
+// 25.0.0
+@SuppressWarnings("ALL")
 public class BlueprintFragment extends Fragment {
 
     /**
@@ -41,8 +41,7 @@ public class BlueprintFragment extends Fragment {
      * @param args   additional arguments to the dump request.
      */
     @Override
-    public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
-            final String[] args) {
+    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
         super.dump(prefix, fd, writer, args);
     }
 
@@ -112,12 +111,14 @@ public class BlueprintFragment extends Fragment {
     }
 
     /**
-     * @hide Hack so that DialogFragment can make its Dialog before creating
+     * Hack so that DialogFragment can make its Dialog before creating
      * its views, and the view construction can use the dialog's context for
      * inflation.  Maybe this should become a public API. Note sure.
+     *
+     * @hide
      */
     @Override
-    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
+    public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
         return super.getLayoutInflater(savedInstanceState);
     }
 
@@ -229,7 +230,7 @@ public class BlueprintFragment extends Fragment {
      *                           a previous saved state, this is the state.
      */
     @Override
-    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -247,7 +248,7 @@ public class BlueprintFragment extends Fragment {
      * @param data        An Intent, which can return result data to the caller
      */
     @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -256,7 +257,7 @@ public class BlueprintFragment extends Fragment {
      * {@link #onCreate(Bundle)} will be called after this.
      */
     @Override
-    public void onAttach(final Context context) {
+    public void onAttach(Context context) {
         super.onAttach(context);
     }
 
@@ -267,13 +268,13 @@ public class BlueprintFragment extends Fragment {
      * @deprecated See {@link #onAttach(Context)}.
      */
     @Override
-    public void onAttach(final Activity activity) {
+    public void onAttach(Activity activity) {
         super.onAttach(activity);
     }
 
     /**
      * Called when a fragment is attached as a child of this fragment.
-     *
+     * <p>
      * <p>This is called after the attached fragment's <code>onAttach</code> and before
      * the attached fragment's <code>onCreate</code> if the fragment has not yet had a previous
      * call to <code>onCreate</code>.</p>
@@ -281,12 +282,12 @@ public class BlueprintFragment extends Fragment {
      * @param childFragment child fragment being attached
      */
     @Override
-    public void onAttachFragment(final Fragment childFragment) {
+    public void onAttachFragment(Fragment childFragment) {
         super.onAttachFragment(childFragment);
     }
 
     @Override
-    public void onConfigurationChanged(final Configuration newConfig) {
+    public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 
@@ -308,7 +309,7 @@ public class BlueprintFragment extends Fragment {
      * proceed, true to consume it here.
      */
     @Override
-    public boolean onContextItemSelected(final MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
         return super.onContextItemSelected(item);
     }
 
@@ -316,13 +317,13 @@ public class BlueprintFragment extends Fragment {
      * Called to do initial creation of a fragment.  This is called after
      * {@link #onAttach(Activity)} and before
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     *
+     * <p>
      * <p>Note that this can be called while the fragment's activity is
      * still in the process of being created.  As such, you can not rely
      * on things like the activity's content view hierarchy being initialized
      * at this point.  If you want to do work once the activity itself is
      * created, see {@link #onActivityCreated(Bundle)}.
-     *
+     * <p>
      * <p>Any restored child fragments will be created before the base
      * <code>Fragment.onCreate</code> method returns.</p>
      *
@@ -330,7 +331,7 @@ public class BlueprintFragment extends Fragment {
      *                           a previous saved state, this is the state.
      */
     @Override
-    public void onCreate(@Nullable final Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
@@ -338,7 +339,7 @@ public class BlueprintFragment extends Fragment {
      * Called when a fragment loads an animation.
      */
     @Override
-    public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
@@ -360,8 +361,8 @@ public class BlueprintFragment extends Fragment {
      * {@inheritDoc}
      */
     @Override
-    public void onCreateContextMenu(final ContextMenu menu, final View v,
-            final ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -378,7 +379,7 @@ public class BlueprintFragment extends Fragment {
      * @see #onOptionsItemSelected
      */
     @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -387,7 +388,7 @@ public class BlueprintFragment extends Fragment {
      * This is optional, and non-graphical fragments can return null (which
      * is the default implementation).  This will be called between
      * {@link #onCreate(Bundle)} and {@link #onActivityCreated(Bundle)}.
-     *
+     * <p>
      * <p>If you return a View from here, you will later be called in
      * {@link #onDestroyView} when the view is being released.
      *
@@ -403,8 +404,8 @@ public class BlueprintFragment extends Fragment {
      */
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -460,7 +461,7 @@ public class BlueprintFragment extends Fragment {
      * @param hidden True if the fragment is now hidden, false otherwise.
      */
     @Override
-    public void onHiddenChanged(final boolean hidden) {
+    public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
     }
 
@@ -471,33 +472,33 @@ public class BlueprintFragment extends Fragment {
      * tag in a layout file.  Note this is <em>before</em> the fragment's
      * {@link #onAttach(Activity)} has been called; all you should do here is
      * parse the attributes and save them away.
-     *
+     * <p>
      * <p>This is called every time the fragment is inflated, even if it is
      * being inflated into a new instance with saved state.  It typically makes
      * sense to re-parse the parameters each time, to allow them to change with
      * different configurations.</p>
-     *
+     * <p>
      * <p>Here is a typical implementation of a fragment that can take parameters
      * both through attributes supplied here as well from {@link #getArguments()}:</p>
-     *
+     * <p>
      * {@sample frameworks/support/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentArgumentsSupport.java
      * fragment}
-     *
+     * <p>
      * <p>Note that parsing the XML attributes uses a "styleable" resource.  The
      * declaration for the styleable used here is:</p>
-     *
+     * <p>
      * {@sample frameworks/support/samples/Support4Demos/res/values/attrs.xml fragment_arguments}
-     *
+     * <p>
      * <p>The fragment can then be declared within its activity's content layout
      * through a tag like this:</p>
-     *
+     * <p>
      * {@sample frameworks/support/samples/Support4Demos/res/layout/fragment_arguments_support.xml
      * from_attributes}
-     *
+     * <p>
      * <p>This fragment can also be created dynamically from arguments given
      * at runtime in the arguments Bundle; here is an example of doing so at
      * creation of the containing activity:</p>
-     *
+     * <p>
      * {@sample frameworks/support/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentArgumentsSupport.java
      * create}
      *
@@ -507,8 +508,7 @@ public class BlueprintFragment extends Fragment {
      * @param savedInstanceState If the fragment is being re-created from
      */
     @Override
-    public void onInflate(final Context context, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
+    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
         super.onInflate(context, attrs, savedInstanceState);
     }
 
@@ -519,8 +519,7 @@ public class BlueprintFragment extends Fragment {
      * @deprecated See {@link #onInflate(Context, AttributeSet, Bundle)}.
      */
     @Override
-    public void onInflate(final Activity activity, final AttributeSet attrs,
-            final Bundle savedInstanceState) {
+    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
         super.onInflate(activity, attrs, savedInstanceState);
     }
 
@@ -537,7 +536,7 @@ public class BlueprintFragment extends Fragment {
      * @param isInMultiWindowMode True if the activity is in multi-window mode.
      */
     @Override
-    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
         super.onMultiWindowModeChanged(isInMultiWindowMode);
     }
 
@@ -548,7 +547,7 @@ public class BlueprintFragment extends Fragment {
      * its Handler as appropriate).  You can use this method for any items
      * for which you would like to do processing without those other
      * facilities.
-     *
+     * <p>
      * <p>Derived classes should call through to the base class for it to
      * perform the default menu handling.
      *
@@ -558,7 +557,7 @@ public class BlueprintFragment extends Fragment {
      * @see #onCreateOptionsMenu
      */
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
@@ -570,7 +569,7 @@ public class BlueprintFragment extends Fragment {
      *             onCreateOptionsMenu().
      */
     @Override
-    public void onOptionsMenuClosed(final Menu menu) {
+    public void onOptionsMenuClosed(Menu menu) {
         super.onOptionsMenuClosed(menu);
     }
 
@@ -591,7 +590,7 @@ public class BlueprintFragment extends Fragment {
      * @param isInPictureInPictureMode True if the activity is in picture-in-picture mode.
      */
     @Override
-    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
@@ -609,7 +608,7 @@ public class BlueprintFragment extends Fragment {
      * @see #onCreateOptionsMenu
      */
     @Override
-    public void onPrepareOptionsMenu(final Menu menu) {
+    public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
     }
 
@@ -630,9 +629,8 @@ public class BlueprintFragment extends Fragment {
      * @see #requestPermissions(String[], int)
      */
     @Override
-    public void onRequestPermissionsResult(final int requestCode,
-            @NonNull final String[] permissions,
-            @NonNull final int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -655,7 +653,7 @@ public class BlueprintFragment extends Fragment {
      * in the Bundle given to {@link #onCreate(Bundle)},
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
      * {@link #onActivityCreated(Bundle)}.
-     *
+     * <p>
      * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
      * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
      * applies here as well.  Note however: <em>this method may be called
@@ -667,7 +665,7 @@ public class BlueprintFragment extends Fragment {
      * @param outState Bundle in which to place your saved state.
      */
     @Override
-    public void onSaveInstanceState(final Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
@@ -703,7 +701,7 @@ public class BlueprintFragment extends Fragment {
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      */
     @Override
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -719,7 +717,7 @@ public class BlueprintFragment extends Fragment {
      *                           a previous saved state, this is the state.
      */
     @Override
-    public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
     }
 
@@ -734,7 +732,7 @@ public class BlueprintFragment extends Fragment {
      * @see #unregisterForContextMenu(View)
      */
     @Override
-    public void registerForContextMenu(final View view) {
+    public void registerForContextMenu(View view) {
         super.registerForContextMenu(view);
     }
 
@@ -747,7 +745,7 @@ public class BlueprintFragment extends Fragment {
      *              wait until the exiting transition completes.
      */
     @Override
-    public void setAllowEnterTransitionOverlap(final boolean allow) {
+    public void setAllowEnterTransitionOverlap(boolean allow) {
         super.setAllowEnterTransitionOverlap(allow);
     }
 
@@ -760,7 +758,7 @@ public class BlueprintFragment extends Fragment {
      *              return transition completes.
      */
     @Override
-    public void setAllowReturnTransitionOverlap(final boolean allow) {
+    public void setAllowReturnTransitionOverlap(boolean allow) {
         super.setAllowReturnTransitionOverlap(allow);
     }
 
@@ -772,7 +770,7 @@ public class BlueprintFragment extends Fragment {
      * creation.
      */
     @Override
-    public void setArguments(final Bundle args) {
+    public void setArguments(Bundle args) {
         super.setArguments(args);
     }
 
@@ -784,7 +782,7 @@ public class BlueprintFragment extends Fragment {
      *                 when added not as a pop from the back stack.
      */
     @Override
-    public void setEnterSharedElementCallback(final SharedElementCallback callback) {
+    public void setEnterSharedElementCallback(SharedElementCallback callback) {
         super.setEnterSharedElementCallback(callback);
     }
 
@@ -799,7 +797,7 @@ public class BlueprintFragment extends Fragment {
      * @param transition The Transition to use to move Views into the initial Scene.
      */
     @Override
-    public void setEnterTransition(final Object transition) {
+    public void setEnterTransition(Object transition) {
         super.setEnterTransition(transition);
     }
 
@@ -811,7 +809,7 @@ public class BlueprintFragment extends Fragment {
      *                 when added as a pop from the back stack.
      */
     @Override
-    public void setExitSharedElementCallback(final SharedElementCallback callback) {
+    public void setExitSharedElementCallback(SharedElementCallback callback) {
         super.setExitSharedElementCallback(callback);
     }
 
@@ -829,7 +827,7 @@ public class BlueprintFragment extends Fragment {
      *                   must be an android.transition.Transition.
      */
     @Override
-    public void setExitTransition(final Object transition) {
+    public void setExitTransition(Object transition) {
         super.setExitTransition(transition);
     }
 
@@ -841,7 +839,7 @@ public class BlueprintFragment extends Fragment {
      * @param hasMenu If true, the fragment has menu items to contribute.
      */
     @Override
-    public void setHasOptionsMenu(final boolean hasMenu) {
+    public void setHasOptionsMenu(boolean hasMenu) {
         super.setHasOptionsMenu(hasMenu);
     }
 
@@ -854,7 +852,7 @@ public class BlueprintFragment extends Fragment {
      * @param state The state the fragment should be restored from.
      */
     @Override
-    public void setInitialSavedState(final SavedState state) {
+    public void setInitialSavedState(SavedState state) {
         super.setInitialSavedState(state);
     }
 
@@ -868,7 +866,7 @@ public class BlueprintFragment extends Fragment {
      *                    be shown as usual.  If false, the user will not see the menu.
      */
     @Override
-    public void setMenuVisibility(final boolean menuVisible) {
+    public void setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
     }
 
@@ -886,7 +884,7 @@ public class BlueprintFragment extends Fragment {
      *                   must be an android.transition.Transition.
      */
     @Override
-    public void setReenterTransition(final Object transition) {
+    public void setReenterTransition(Object transition) {
         super.setReenterTransition(transition);
     }
 
@@ -905,7 +903,7 @@ public class BlueprintFragment extends Fragment {
      * </ul>
      */
     @Override
-    public void setRetainInstance(final boolean retain) {
+    public void setRetainInstance(boolean retain) {
         super.setRetainInstance(retain);
     }
 
@@ -924,7 +922,7 @@ public class BlueprintFragment extends Fragment {
      *                   android.transition.Transition.
      */
     @Override
-    public void setReturnTransition(final Object transition) {
+    public void setReturnTransition(Object transition) {
         super.setReturnTransition(transition);
     }
 
@@ -938,7 +936,7 @@ public class BlueprintFragment extends Fragment {
      *                   Scene.  <code>transition</code> must be an android.transition.Transition.
      */
     @Override
-    public void setSharedElementEnterTransition(final Object transition) {
+    public void setSharedElementEnterTransition(Object transition) {
         super.setSharedElementEnterTransition(transition);
     }
 
@@ -955,7 +953,7 @@ public class BlueprintFragment extends Fragment {
      *                   Scene. <code>transition</code> must be an android.transition.Transition.
      */
     @Override
-    public void setSharedElementReturnTransition(final Object transition) {
+    public void setSharedElementReturnTransition(Object transition) {
         super.setSharedElementReturnTransition(transition);
     }
 
@@ -971,7 +969,7 @@ public class BlueprintFragment extends Fragment {
      *                    are going to call back with {@link #onActivityResult(int, int, Intent)}.
      */
     @Override
-    public void setTargetFragment(final Fragment fragment, final int requestCode) {
+    public void setTargetFragment(Fragment fragment, int requestCode) {
         super.setTargetFragment(fragment, requestCode);
     }
 
@@ -979,12 +977,12 @@ public class BlueprintFragment extends Fragment {
      * Set a hint to the system about whether this fragment's UI is currently visible
      * to the user. This hint defaults to true and is persistent across fragment instance
      * state save and restore.
-     *
+     * <p>
      * <p>An app may set this to false to indicate that the fragment's UI is
      * scrolled out of visibility or is otherwise not directly visible to the user.
      * This may be used by the system to prioritize operations such as fragment lifecycle updates
      * or loader ordering behavior.</p>
-     *
+     * <p>
      * <p><strong>Note:</strong> This method may be called outside of the fragment lifecycle.
      * and thus has no ordering guarantees with regard to fragment lifecycle method calls.</p>
      *
@@ -993,7 +991,7 @@ public class BlueprintFragment extends Fragment {
      *                        false if it is not.
      */
     @Override
-    public void setUserVisibleHint(final boolean isVisibleToUser) {
+    public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
     }
 
@@ -1017,7 +1015,7 @@ public class BlueprintFragment extends Fragment {
      * @see #onRequestPermissionsResult(int, String[], int[])
      */
     @Override
-    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
+    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
         return super.shouldShowRequestPermissionRationale(permission);
     }
 
@@ -1026,7 +1024,7 @@ public class BlueprintFragment extends Fragment {
      * containing Activity.
      */
     @Override
-    public void startActivity(final Intent intent) {
+    public void startActivity(Intent intent) {
         super.startActivity(intent);
     }
 
@@ -1035,7 +1033,7 @@ public class BlueprintFragment extends Fragment {
      * containing Activity.
      */
     @Override
-    public void startActivity(final Intent intent, @Nullable final Bundle options) {
+    public void startActivity(Intent intent, @Nullable Bundle options) {
         super.startActivity(intent, options);
     }
 
@@ -1044,7 +1042,7 @@ public class BlueprintFragment extends Fragment {
      * containing Activity.
      */
     @Override
-    public void startActivityForResult(final Intent intent, final int requestCode) {
+    public void startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
     }
 
@@ -1053,8 +1051,7 @@ public class BlueprintFragment extends Fragment {
      * containing Activity.
      */
     @Override
-    public void startActivityForResult(final Intent intent, final int requestCode,
-            @Nullable final Bundle options) {
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
         super.startActivityForResult(intent, requestCode, options);
     }
 
@@ -1063,10 +1060,9 @@ public class BlueprintFragment extends Fragment {
      * Bundle)} from the fragment's containing Activity.
      */
     @Override
-    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
-            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags,
-            final Bundle options) throws IntentSender.SendIntentException {
+    public void startIntentSenderForResult(IntentSender intent, int requestCode,
+            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
+            Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
                 extraFlags, options);
     }
@@ -1084,7 +1080,7 @@ public class BlueprintFragment extends Fragment {
      * @see #registerForContextMenu(View)
      */
     @Override
-    public void unregisterForContextMenu(final View view) {
+    public void unregisterForContextMenu(View view) {
         super.unregisterForContextMenu(view);
     }
 }
