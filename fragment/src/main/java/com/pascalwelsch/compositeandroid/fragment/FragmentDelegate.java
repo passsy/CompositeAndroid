@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.Fragment.SavedState;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
 import android.util.AttributeSet;
@@ -47,7 +46,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
     }
 
 
-    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
+    public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
+            final String[] args) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_dump(prefix, fd, writer, args);
             return;
@@ -179,7 +179,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         return superCall.call();
     }
 
-    public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
+    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_getLayoutInflater(savedInstanceState);
         }
@@ -351,7 +351,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         return superCall.call();
     }
 
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onActivityCreated(savedInstanceState);
             return;
@@ -373,7 +373,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(savedInstanceState);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onActivityResult(requestCode, resultCode, data);
             return;
@@ -398,7 +398,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(requestCode, resultCode, data);
     }
 
-    public void onAttach(Context context) {
+    public void onAttach(final Context context) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onAttach(context);
             return;
@@ -420,7 +420,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(context);
     }
 
-    public void onAttach(Activity activity) {
+    public void onAttach(final Activity activity) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onAttach(activity);
             return;
@@ -442,7 +442,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(activity);
     }
 
-    public void onAttachFragment(Fragment childFragment) {
+    public void onAttachFragment(final Fragment childFragment) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onAttachFragment(childFragment);
             return;
@@ -465,7 +465,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(childFragment);
     }
 
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(final Configuration newConfig) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onConfigurationChanged(newConfig);
             return;
@@ -488,7 +488,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(newConfig);
     }
 
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(final MenuItem item) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_onContextItemSelected(item);
         }
@@ -510,7 +510,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         return superCall.call(item);
     }
 
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onCreate(savedInstanceState);
             return;
@@ -532,7 +532,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(savedInstanceState);
     }
 
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+    public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_onCreateAnimation(transit, enter, nextAnim);
         }
@@ -556,8 +556,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         return superCall.call(transit, enter, nextAnim);
     }
 
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(final ContextMenu menu, final View v,
+            final ContextMenu.ContextMenuInfo menuInfo) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onCreateContextMenu(menu, v, menuInfo);
             return;
@@ -582,7 +582,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(menu, v, menuInfo);
     }
 
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onCreateOptionsMenu(menu, inflater);
             return;
@@ -605,8 +605,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(menu, inflater);
     }
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
+            @Nullable final Bundle savedInstanceState) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_onCreateView(inflater, container, savedInstanceState);
         }
@@ -720,7 +720,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call();
     }
 
-    public void onHiddenChanged(boolean hidden) {
+    public void onHiddenChanged(final boolean hidden) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onHiddenChanged(hidden);
             return;
@@ -742,7 +742,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(hidden);
     }
 
-    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
+    public void onInflate(final Context context, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onInflate(context, attrs, savedInstanceState);
             return;
@@ -767,7 +768,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(context, attrs, savedInstanceState);
     }
 
-    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
+    public void onInflate(final Activity activity, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onInflate(activity, attrs, savedInstanceState);
             return;
@@ -814,7 +816,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call();
     }
 
-    public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode);
             return;
@@ -837,7 +839,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(isInMultiWindowMode);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_onOptionsItemSelected(item);
         }
@@ -859,7 +861,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         return superCall.call(item);
     }
 
-    public void onOptionsMenuClosed(Menu menu) {
+    public void onOptionsMenuClosed(final Menu menu) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onOptionsMenuClosed(menu);
             return;
@@ -903,7 +905,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call();
     }
 
-    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode);
             return;
@@ -927,7 +929,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(isInPictureInPictureMode);
     }
 
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(final Menu menu) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onPrepareOptionsMenu(menu);
             return;
@@ -949,8 +951,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(menu);
     }
 
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(final int requestCode,
+            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onRequestPermissionsResult(requestCode, permissions, grantResults);
             return;
@@ -999,7 +1001,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call();
     }
 
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(final Bundle outState) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onSaveInstanceState(outState);
             return;
@@ -1065,7 +1067,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call();
     }
 
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onViewCreated(view, savedInstanceState);
             return;
@@ -1088,7 +1090,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(view, savedInstanceState);
     }
 
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+    public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onViewStateRestored(savedInstanceState);
             return;
@@ -1110,7 +1112,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(savedInstanceState);
     }
 
-    public void registerForContextMenu(View view) {
+    public void registerForContextMenu(final View view) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_registerForContextMenu(view);
             return;
@@ -1132,7 +1134,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(view);
     }
 
-    public void setAllowEnterTransitionOverlap(boolean allow) {
+    public void setAllowEnterTransitionOverlap(final boolean allow) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setAllowEnterTransitionOverlap(allow);
             return;
@@ -1155,7 +1157,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(allow);
     }
 
-    public void setAllowReturnTransitionOverlap(boolean allow) {
+    public void setAllowReturnTransitionOverlap(final boolean allow) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setAllowReturnTransitionOverlap(allow);
             return;
@@ -1178,7 +1180,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(allow);
     }
 
-    public void setArguments(Bundle args) {
+    public void setArguments(final Bundle args) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setArguments(args);
             return;
@@ -1200,7 +1202,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(args);
     }
 
-    public void setEnterSharedElementCallback(SharedElementCallback callback) {
+    public void setEnterSharedElementCallback(final SharedElementCallback callback) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setEnterSharedElementCallback(callback);
             return;
@@ -1223,7 +1225,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(callback);
     }
 
-    public void setEnterTransition(Object transition) {
+    public void setEnterTransition(final Object transition) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setEnterTransition(transition);
             return;
@@ -1245,7 +1247,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(transition);
     }
 
-    public void setExitSharedElementCallback(SharedElementCallback callback) {
+    public void setExitSharedElementCallback(final SharedElementCallback callback) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setExitSharedElementCallback(callback);
             return;
@@ -1268,7 +1270,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(callback);
     }
 
-    public void setExitTransition(Object transition) {
+    public void setExitTransition(final Object transition) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setExitTransition(transition);
             return;
@@ -1290,7 +1292,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(transition);
     }
 
-    public void setHasOptionsMenu(boolean hasMenu) {
+    public void setHasOptionsMenu(final boolean hasMenu) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setHasOptionsMenu(hasMenu);
             return;
@@ -1312,7 +1314,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(hasMenu);
     }
 
-    public void setInitialSavedState(SavedState state) {
+    public void setInitialSavedState(final Fragment.SavedState state) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setInitialSavedState(state);
             return;
@@ -1335,7 +1337,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(state);
     }
 
-    public void setMenuVisibility(boolean menuVisible) {
+    public void setMenuVisibility(final boolean menuVisible) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setMenuVisibility(menuVisible);
             return;
@@ -1357,7 +1359,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(menuVisible);
     }
 
-    public void setReenterTransition(Object transition) {
+    public void setReenterTransition(final Object transition) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setReenterTransition(transition);
             return;
@@ -1379,7 +1381,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(transition);
     }
 
-    public void setRetainInstance(boolean retain) {
+    public void setRetainInstance(final boolean retain) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setRetainInstance(retain);
             return;
@@ -1401,7 +1403,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(retain);
     }
 
-    public void setReturnTransition(Object transition) {
+    public void setReturnTransition(final Object transition) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setReturnTransition(transition);
             return;
@@ -1423,7 +1425,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(transition);
     }
 
-    public void setSharedElementEnterTransition(Object transition) {
+    public void setSharedElementEnterTransition(final Object transition) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setSharedElementEnterTransition(transition);
             return;
@@ -1446,7 +1448,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(transition);
     }
 
-    public void setSharedElementReturnTransition(Object transition) {
+    public void setSharedElementReturnTransition(final Object transition) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setSharedElementReturnTransition(transition);
             return;
@@ -1469,7 +1471,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(transition);
     }
 
-    public void setTargetFragment(Fragment fragment, int requestCode) {
+    public void setTargetFragment(final Fragment fragment, final int requestCode) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setTargetFragment(fragment, requestCode);
             return;
@@ -1492,7 +1494,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(fragment, requestCode);
     }
 
-    public void setUserVisibleHint(boolean isVisibleToUser) {
+    public void setUserVisibleHint(final boolean isVisibleToUser) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setUserVisibleHint(isVisibleToUser);
             return;
@@ -1514,7 +1516,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(isVisibleToUser);
     }
 
-    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
+    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_shouldShowRequestPermissionRationale(permission);
         }
@@ -1537,7 +1539,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         return superCall.call(permission);
     }
 
-    public void startActivity(Intent intent) {
+    public void startActivity(final Intent intent) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startActivity(intent);
             return;
@@ -1559,7 +1561,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(intent);
     }
 
-    public void startActivity(Intent intent, @Nullable Bundle options) {
+    public void startActivity(final Intent intent, @Nullable final Bundle options) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startActivity(intent, options);
             return;
@@ -1582,7 +1584,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(intent, options);
     }
 
-    public void startActivityForResult(Intent intent, int requestCode) {
+    public void startActivityForResult(final Intent intent, final int requestCode) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startActivityForResult(intent, requestCode);
             return;
@@ -1605,7 +1607,8 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(intent, requestCode);
     }
 
-    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+    public void startActivityForResult(final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startActivityForResult(intent, requestCode, options);
             return;
@@ -1628,9 +1631,9 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(intent, requestCode, options);
     }
 
-    public void startIntentSenderForResult(IntentSender intent, int requestCode,
-            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
-            Bundle options) throws IntentSender.SendIntentException {
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         if (mPlugins.isEmpty()) {
             try {
                 getOriginal().super_startIntentSenderForResult(intent, requestCode, fillInIntent,
@@ -1695,7 +1698,7 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         return superCall.call();
     }
 
-    public void unregisterForContextMenu(View view) {
+    public void unregisterForContextMenu(final View view) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_unregisterForContextMenu(view);
             return;

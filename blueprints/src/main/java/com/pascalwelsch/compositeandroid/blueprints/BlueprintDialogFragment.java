@@ -12,7 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 
-// 25.0.0
+// 25.0.1
 @SuppressWarnings("ALL")
 public class BlueprintDialogFragment extends DialogFragment {
 
@@ -47,7 +47,7 @@ public class BlueprintDialogFragment extends DialogFragment {
      * @hide
      */
     @Override
-    public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
+    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
         return super.getLayoutInflater(savedInstanceState);
     }
 
@@ -73,22 +73,22 @@ public class BlueprintDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(final Context context) {
         super.onAttach(context);
     }
 
     @Override
-    public void onCancel(DialogInterface dialog) {
+    public void onCancel(final DialogInterface dialog) {
         super.onCancel(dialog);
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
@@ -97,12 +97,12 @@ public class BlueprintDialogFragment extends DialogFragment {
      * used to show an AlertDialog instead of a generic Dialog; when doing so,
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} does not need
      * to be implemented since the AlertDialog takes care of its own content.
-     * <p>
+     *
      * <p>This method will be called after {@link #onCreate(Bundle)} and
      * before {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.  The
      * default implementation simply instantiates and returns a {@link Dialog}
      * class.
-     * <p>
+     *
      * <p><em>Note: DialogFragment own the {@link Dialog#setOnCancelListener
      * Dialog.setOnCancelListener} and {@link Dialog#setOnDismissListener
      * Dialog.setOnDismissListener} callbacks.  You must not set them yourself.</em>
@@ -115,7 +115,7 @@ public class BlueprintDialogFragment extends DialogFragment {
      */
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(final Bundle savedInstanceState) {
         return super.onCreateDialog(savedInstanceState);
     }
 
@@ -133,12 +133,12 @@ public class BlueprintDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(final DialogInterface dialog) {
         super.onDismiss(dialog);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
@@ -162,7 +162,7 @@ public class BlueprintDialogFragment extends DialogFragment {
      *                   is true.
      */
     @Override
-    public void setCancelable(boolean cancelable) {
+    public void setCancelable(final boolean cancelable) {
         super.setCancelable(cancelable);
     }
 
@@ -172,7 +172,7 @@ public class BlueprintDialogFragment extends DialogFragment {
      * and the fragment's view hierarchy will thus not be added to it.  This
      * allows you to instead use it as a normal fragment (embedded inside of
      * its activity).
-     * <p>
+     *
      * <p>This is normally set for you based on whether the fragment is
      * associated with a container view ID passed to
      * {@link FragmentTransaction#add(int, Fragment) FragmentTransaction.add(int, Fragment)}.
@@ -184,7 +184,7 @@ public class BlueprintDialogFragment extends DialogFragment {
      *                    left undisturbed.
      */
     @Override
-    public void setShowsDialog(boolean showsDialog) {
+    public void setShowsDialog(final boolean showsDialog) {
         super.setShowsDialog(showsDialog);
     }
 
@@ -202,7 +202,7 @@ public class BlueprintDialogFragment extends DialogFragment {
      * @param theme Optional custom theme.  If 0, an appropriate theme (based
      */
     @Override
-    public void setStyle(int style, @StyleRes int theme) {
+    public void setStyle(final int style, @StyleRes final int theme) {
         super.setStyle(style, theme);
     }
 
@@ -210,7 +210,7 @@ public class BlueprintDialogFragment extends DialogFragment {
      * @hide
      */
     @Override
-    public void setupDialog(Dialog dialog, int style) {
+    public void setupDialog(final Dialog dialog, final int style) {
         super.setupDialog(dialog, style);
     }
 
@@ -227,7 +227,7 @@ public class BlueprintDialogFragment extends DialogFragment {
      *                {@link FragmentTransaction#add(Fragment, String) FragmentTransaction.add}.
      */
     @Override
-    public void show(FragmentManager manager, String tag) {
+    public void show(final FragmentManager manager, final String tag) {
         super.show(manager, tag);
     }
 
@@ -242,7 +242,7 @@ public class BlueprintDialogFragment extends DialogFragment {
      * {@link FragmentTransaction#commit() FragmentTransaction.commit()}.
      */
     @Override
-    public int show(FragmentTransaction transaction, String tag) {
+    public int show(final FragmentTransaction transaction, final String tag) {
         return super.show(transaction, tag);
     }
 }
