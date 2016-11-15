@@ -82,7 +82,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param args   additional arguments to the dump request.
      */
     @Override
-    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
+    public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
+            final String[] args) {
         delegate.dump(prefix, fd, writer, args);
     }
 
@@ -164,7 +165,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @hide
      */
     @Override
-    public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
+    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
         return delegate.getLayoutInflater(savedInstanceState);
     }
 
@@ -297,7 +298,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                           a previous saved state, this is the state.
      */
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         delegate.onActivityCreated(savedInstanceState);
     }
 
@@ -315,7 +316,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param data        An Intent, which can return result data to the caller
      */
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         delegate.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -324,7 +325,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * {@link #onCreate(Bundle)} will be called after this.
      */
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(final Context context) {
         delegate.onAttach(context);
     }
 
@@ -335,13 +336,13 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @deprecated See {@link #onAttach(Context)}.
      */
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(final Activity activity) {
         delegate.onAttach(activity);
     }
 
     /**
      * Called when a fragment is attached as a child of this fragment.
-     * <p>
+     *
      * <p>This is called after the attached fragment's <code>onAttach</code> and before
      * the attached fragment's <code>onCreate</code> if the fragment has not yet had a previous
      * call to <code>onCreate</code>.</p>
@@ -349,17 +350,17 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param childFragment child fragment being attached
      */
     @Override
-    public void onAttachFragment(Fragment childFragment) {
+    public void onAttachFragment(final Fragment childFragment) {
         delegate.onAttachFragment(childFragment);
     }
 
     @Override
-    public void onCancel(DialogInterface dialog) {
+    public void onCancel(final DialogInterface dialog) {
         delegate.onCancel(dialog);
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(final Configuration newConfig) {
         delegate.onConfigurationChanged(newConfig);
     }
 
@@ -381,7 +382,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * proceed, true to consume it here.
      */
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(final MenuItem item) {
         return delegate.onContextItemSelected(item);
     }
 
@@ -389,13 +390,13 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * Called to do initial creation of a fragment.  This is called after
      * {@link #onAttach(Activity)} and before
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     * <p>
+     *
      * <p>Note that this can be called while the fragment's activity is
      * still in the process of being created.  As such, you can not rely
      * on things like the activity's content view hierarchy being initialized
      * at this point.  If you want to do work once the activity itself is
      * created, see {@link #onActivityCreated(Bundle)}.
-     * <p>
+     *
      * <p>Any restored child fragments will be created before the base
      * <code>Fragment.onCreate</code> method returns.</p>
      *
@@ -403,7 +404,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                           a previous saved state, this is the state.
      */
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
         delegate.onCreate(savedInstanceState);
     }
 
@@ -411,7 +412,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * Called when a fragment loads an animation.
      */
     @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+    public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
         return delegate.onCreateAnimation(transit, enter, nextAnim);
     }
 
@@ -433,8 +434,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * {@inheritDoc}
      */
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(final ContextMenu menu, final View v,
+            final ContextMenu.ContextMenuInfo menuInfo) {
         delegate.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -443,12 +444,12 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * used to show an AlertDialog instead of a generic Dialog; when doing so,
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} does not need
      * to be implemented since the AlertDialog takes care of its own content.
-     * <p>
+     *
      * <p>This method will be called after {@link #onCreate(Bundle)} and
      * before {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.  The
      * default implementation simply instantiates and returns a {@link Dialog}
      * class.
-     * <p>
+     *
      * <p><em>Note: DialogFragment own the {@link Dialog#setOnCancelListener
      * Dialog.setOnCancelListener} and {@link Dialog#setOnDismissListener
      * Dialog.setOnDismissListener} callbacks.  You must not set them yourself.</em>
@@ -461,7 +462,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      */
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(final Bundle savedInstanceState) {
         return delegate.onCreateDialog(savedInstanceState);
     }
 
@@ -478,7 +479,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @see #onOptionsItemSelected
      */
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         delegate.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -487,7 +488,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * This is optional, and non-graphical fragments can return null (which
      * is the default implementation).  This will be called between
      * {@link #onCreate(Bundle)} and {@link #onActivityCreated(Bundle)}.
-     * <p>
+     *
      * <p>If you return a View from here, you will later be called in
      * {@link #onDestroyView} when the view is being released.
      *
@@ -503,8 +504,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      */
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
+            @Nullable final Bundle savedInstanceState) {
         return delegate.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -553,7 +554,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(final DialogInterface dialog) {
         delegate.onDismiss(dialog);
     }
 
@@ -565,7 +566,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param hidden True if the fragment is now hidden, false otherwise.
      */
     @Override
-    public void onHiddenChanged(boolean hidden) {
+    public void onHiddenChanged(final boolean hidden) {
         delegate.onHiddenChanged(hidden);
     }
 
@@ -576,33 +577,33 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * tag in a layout file.  Note this is <em>before</em> the fragment's
      * {@link #onAttach(Activity)} has been called; all you should do here is
      * parse the attributes and save them away.
-     * <p>
+     *
      * <p>This is called every time the fragment is inflated, even if it is
      * being inflated into a new instance with saved state.  It typically makes
      * sense to re-parse the parameters each time, to allow them to change with
      * different configurations.</p>
-     * <p>
+     *
      * <p>Here is a typical implementation of a fragment that can take parameters
      * both through attributes supplied here as well from {@link #getArguments()}:</p>
-     * <p>
+     *
      * {@sample frameworks/support/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentArgumentsSupport.java
      * fragment}
-     * <p>
+     *
      * <p>Note that parsing the XML attributes uses a "styleable" resource.  The
      * declaration for the styleable used here is:</p>
-     * <p>
+     *
      * {@sample frameworks/support/samples/Support4Demos/res/values/attrs.xml fragment_arguments}
-     * <p>
+     *
      * <p>The fragment can then be declared within its activity's content layout
      * through a tag like this:</p>
-     * <p>
+     *
      * {@sample frameworks/support/samples/Support4Demos/res/layout/fragment_arguments_support.xml
      * from_attributes}
-     * <p>
+     *
      * <p>This fragment can also be created dynamically from arguments given
      * at runtime in the arguments Bundle; here is an example of doing so at
      * creation of the containing activity:</p>
-     * <p>
+     *
      * {@sample frameworks/support/samples/Support4Demos/src/com/example/android/supportv4/app/FragmentArgumentsSupport.java
      * create}
      *
@@ -612,7 +613,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param savedInstanceState If the fragment is being re-created from
      */
     @Override
-    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
+    public void onInflate(final Context context, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
         delegate.onInflate(context, attrs, savedInstanceState);
     }
 
@@ -623,7 +625,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @deprecated See {@link #onInflate(Context, AttributeSet, Bundle)}.
      */
     @Override
-    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
+    public void onInflate(final Activity activity, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
         delegate.onInflate(activity, attrs, savedInstanceState);
     }
 
@@ -640,7 +643,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param isInMultiWindowMode True if the activity is in multi-window mode.
      */
     @Override
-    public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
         delegate.onMultiWindowModeChanged(isInMultiWindowMode);
     }
 
@@ -651,7 +654,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * its Handler as appropriate).  You can use this method for any items
      * for which you would like to do processing without those other
      * facilities.
-     * <p>
+     *
      * <p>Derived classes should call through to the base class for it to
      * perform the default menu handling.
      *
@@ -661,7 +664,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @see #onCreateOptionsMenu
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         return delegate.onOptionsItemSelected(item);
     }
 
@@ -673,7 +676,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *             onCreateOptionsMenu().
      */
     @Override
-    public void onOptionsMenuClosed(Menu menu) {
+    public void onOptionsMenuClosed(final Menu menu) {
         delegate.onOptionsMenuClosed(menu);
     }
 
@@ -694,7 +697,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param isInPictureInPictureMode True if the activity is in picture-in-picture mode.
      */
     @Override
-    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
         delegate.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
@@ -712,7 +715,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @see #onCreateOptionsMenu
      */
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(final Menu menu) {
         delegate.onPrepareOptionsMenu(menu);
     }
 
@@ -733,8 +736,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @see #requestPermissions(String[], int)
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(final int requestCode,
+            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         delegate.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -757,7 +760,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * in the Bundle given to {@link #onCreate(Bundle)},
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
      * {@link #onActivityCreated(Bundle)}.
-     * <p>
+     *
      * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
      * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
      * applies here as well.  Note however: <em>this method may be called
@@ -769,7 +772,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param outState Bundle in which to place your saved state.
      */
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(final Bundle outState) {
         delegate.onSaveInstanceState(outState);
     }
 
@@ -805,7 +808,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      */
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         delegate.onViewCreated(view, savedInstanceState);
     }
 
@@ -821,7 +824,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                           a previous saved state, this is the state.
      */
     @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+    public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
         delegate.onViewStateRestored(savedInstanceState);
     }
 
@@ -836,7 +839,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @see #unregisterForContextMenu(View)
      */
     @Override
-    public void registerForContextMenu(View view) {
+    public void registerForContextMenu(final View view) {
         delegate.registerForContextMenu(view);
     }
 
@@ -849,7 +852,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *              wait until the exiting transition completes.
      */
     @Override
-    public void setAllowEnterTransitionOverlap(boolean allow) {
+    public void setAllowEnterTransitionOverlap(final boolean allow) {
         delegate.setAllowEnterTransitionOverlap(allow);
     }
 
@@ -862,7 +865,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *              return transition completes.
      */
     @Override
-    public void setAllowReturnTransitionOverlap(boolean allow) {
+    public void setAllowReturnTransitionOverlap(final boolean allow) {
         delegate.setAllowReturnTransitionOverlap(allow);
     }
 
@@ -874,7 +877,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * creation.
      */
     @Override
-    public void setArguments(Bundle args) {
+    public void setArguments(final Bundle args) {
         delegate.setArguments(args);
     }
 
@@ -888,7 +891,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                   is true.
      */
     @Override
-    public void setCancelable(boolean cancelable) {
+    public void setCancelable(final boolean cancelable) {
         delegate.setCancelable(cancelable);
     }
 
@@ -900,7 +903,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                 when added not as a pop from the back stack.
      */
     @Override
-    public void setEnterSharedElementCallback(SharedElementCallback callback) {
+    public void setEnterSharedElementCallback(final SharedElementCallback callback) {
         delegate.setEnterSharedElementCallback(callback);
     }
 
@@ -915,7 +918,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param transition The Transition to use to move Views into the initial Scene.
      */
     @Override
-    public void setEnterTransition(Object transition) {
+    public void setEnterTransition(final Object transition) {
         delegate.setEnterTransition(transition);
     }
 
@@ -927,7 +930,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                 when added as a pop from the back stack.
      */
     @Override
-    public void setExitSharedElementCallback(SharedElementCallback callback) {
+    public void setExitSharedElementCallback(final SharedElementCallback callback) {
         delegate.setExitSharedElementCallback(callback);
     }
 
@@ -945,7 +948,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                   must be an android.transition.Transition.
      */
     @Override
-    public void setExitTransition(Object transition) {
+    public void setExitTransition(final Object transition) {
         delegate.setExitTransition(transition);
     }
 
@@ -957,7 +960,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param hasMenu If true, the fragment has menu items to contribute.
      */
     @Override
-    public void setHasOptionsMenu(boolean hasMenu) {
+    public void setHasOptionsMenu(final boolean hasMenu) {
         delegate.setHasOptionsMenu(hasMenu);
     }
 
@@ -970,7 +973,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param state The state the fragment should be restored from.
      */
     @Override
-    public void setInitialSavedState(SavedState state) {
+    public void setInitialSavedState(final Fragment.SavedState state) {
         delegate.setInitialSavedState(state);
     }
 
@@ -984,7 +987,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                    be shown as usual.  If false, the user will not see the menu.
      */
     @Override
-    public void setMenuVisibility(boolean menuVisible) {
+    public void setMenuVisibility(final boolean menuVisible) {
         delegate.setMenuVisibility(menuVisible);
     }
 
@@ -1002,7 +1005,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                   must be an android.transition.Transition.
      */
     @Override
-    public void setReenterTransition(Object transition) {
+    public void setReenterTransition(final Object transition) {
         delegate.setReenterTransition(transition);
     }
 
@@ -1021,7 +1024,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * </ul>
      */
     @Override
-    public void setRetainInstance(boolean retain) {
+    public void setRetainInstance(final boolean retain) {
         delegate.setRetainInstance(retain);
     }
 
@@ -1040,7 +1043,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                   android.transition.Transition.
      */
     @Override
-    public void setReturnTransition(Object transition) {
+    public void setReturnTransition(final Object transition) {
         delegate.setReturnTransition(transition);
     }
 
@@ -1054,7 +1057,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                   Scene.  <code>transition</code> must be an android.transition.Transition.
      */
     @Override
-    public void setSharedElementEnterTransition(Object transition) {
+    public void setSharedElementEnterTransition(final Object transition) {
         delegate.setSharedElementEnterTransition(transition);
     }
 
@@ -1071,7 +1074,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                   Scene. <code>transition</code> must be an android.transition.Transition.
      */
     @Override
-    public void setSharedElementReturnTransition(Object transition) {
+    public void setSharedElementReturnTransition(final Object transition) {
         delegate.setSharedElementReturnTransition(transition);
     }
 
@@ -1081,7 +1084,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * and the fragment's view hierarchy will thus not be added to it.  This
      * allows you to instead use it as a normal fragment (embedded inside of
      * its activity).
-     * <p>
+     *
      * <p>This is normally set for you based on whether the fragment is
      * associated with a container view ID passed to
      * {@link FragmentTransaction#add(int, Fragment) FragmentTransaction.add(int, Fragment)}.
@@ -1093,7 +1096,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                    left undisturbed.
      */
     @Override
-    public void setShowsDialog(boolean showsDialog) {
+    public void setShowsDialog(final boolean showsDialog) {
         delegate.setShowsDialog(showsDialog);
     }
 
@@ -1111,7 +1114,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @param theme Optional custom theme.  If 0, an appropriate theme (based
      */
     @Override
-    public void setStyle(int style, @StyleRes int theme) {
+    public void setStyle(final int style, @StyleRes final int theme) {
         delegate.setStyle(style, theme);
     }
 
@@ -1127,7 +1130,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                    are going to call back with {@link #onActivityResult(int, int, Intent)}.
      */
     @Override
-    public void setTargetFragment(Fragment fragment, int requestCode) {
+    public void setTargetFragment(final Fragment fragment, final int requestCode) {
         delegate.setTargetFragment(fragment, requestCode);
     }
 
@@ -1135,12 +1138,12 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * Set a hint to the system about whether this fragment's UI is currently visible
      * to the user. This hint defaults to true and is persistent across fragment instance
      * state save and restore.
-     * <p>
+     *
      * <p>An app may set this to false to indicate that the fragment's UI is
      * scrolled out of visibility or is otherwise not directly visible to the user.
      * This may be used by the system to prioritize operations such as fragment lifecycle updates
      * or loader ordering behavior.</p>
-     * <p>
+     *
      * <p><strong>Note:</strong> This method may be called outside of the fragment lifecycle.
      * and thus has no ordering guarantees with regard to fragment lifecycle method calls.</p>
      *
@@ -1149,7 +1152,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                        false if it is not.
      */
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
+    public void setUserVisibleHint(final boolean isVisibleToUser) {
         delegate.setUserVisibleHint(isVisibleToUser);
     }
 
@@ -1157,7 +1160,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @hide
      */
     @Override
-    public void setupDialog(Dialog dialog, int style) {
+    public void setupDialog(final Dialog dialog, final int style) {
         delegate.setupDialog(dialog, style);
     }
 
@@ -1181,7 +1184,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @see #onRequestPermissionsResult(int, String[], int[])
      */
     @Override
-    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
+    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
         return delegate.shouldShowRequestPermissionRationale(permission);
     }
 
@@ -1198,7 +1201,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *                {@link FragmentTransaction#add(Fragment, String) FragmentTransaction.add}.
      */
     @Override
-    public void show(FragmentManager manager, String tag) {
+    public void show(final FragmentManager manager, final String tag) {
         delegate.show(manager, tag);
     }
 
@@ -1213,7 +1216,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * {@link FragmentTransaction#commit() FragmentTransaction.commit()}.
      */
     @Override
-    public int show(FragmentTransaction transaction, String tag) {
+    public int show(final FragmentTransaction transaction, final String tag) {
         return delegate.show(transaction, tag);
     }
 
@@ -1222,7 +1225,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * containing Activity.
      */
     @Override
-    public void startActivity(Intent intent) {
+    public void startActivity(final Intent intent) {
         delegate.startActivity(intent);
     }
 
@@ -1231,7 +1234,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * containing Activity.
      */
     @Override
-    public void startActivity(Intent intent, @Nullable Bundle options) {
+    public void startActivity(final Intent intent, @Nullable final Bundle options) {
         delegate.startActivity(intent, options);
     }
 
@@ -1240,7 +1243,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * containing Activity.
      */
     @Override
-    public void startActivityForResult(Intent intent, int requestCode) {
+    public void startActivityForResult(final Intent intent, final int requestCode) {
         delegate.startActivityForResult(intent, requestCode);
     }
 
@@ -1249,7 +1252,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * containing Activity.
      */
     @Override
-    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+    public void startActivityForResult(final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         delegate.startActivityForResult(intent, requestCode, options);
     }
 
@@ -1258,9 +1262,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * Bundle)} from the fragment's containing Activity.
      */
     @Override
-    public void startIntentSenderForResult(IntentSender intent, int requestCode,
-            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
-            Bundle options) throws IntentSender.SendIntentException {
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
                     flagsValues, extraFlags, options);
@@ -1280,7 +1284,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
+    public void super_dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
+            final String[] args) {
         super.dump(prefix, fd, writer, args);
     }
 
@@ -1315,7 +1320,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public LayoutInflater super_getLayoutInflater(Bundle savedInstanceState) {
+    public LayoutInflater super_getLayoutInflater(final Bundle savedInstanceState) {
         return super.getLayoutInflater(savedInstanceState);
     }
 
@@ -1371,76 +1376,78 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void super_onActivityCreated(@Nullable final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
     @Override
-    public void super_onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void super_onActivityResult(final int requestCode, final int resultCode,
+            final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
-    public void super_onAttach(Context context) {
+    public void super_onAttach(final Context context) {
         super.onAttach(context);
     }
 
     @Override
-    public void super_onAttach(Activity activity) {
+    public void super_onAttach(final Activity activity) {
         super.onAttach(activity);
     }
 
     @Override
-    public void super_onAttachFragment(Fragment childFragment) {
+    public void super_onAttachFragment(final Fragment childFragment) {
         super.onAttachFragment(childFragment);
     }
 
     @Override
-    public void super_onCancel(DialogInterface dialog) {
+    public void super_onCancel(final DialogInterface dialog) {
         super.onCancel(dialog);
     }
 
     @Override
-    public void super_onConfigurationChanged(Configuration newConfig) {
+    public void super_onConfigurationChanged(final Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 
     @Override
-    public boolean super_onContextItemSelected(MenuItem item) {
+    public boolean super_onContextItemSelected(final MenuItem item) {
         return super.onContextItemSelected(item);
     }
 
     @Override
-    public void super_onCreate(@Nullable Bundle savedInstanceState) {
+    public void super_onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public Animation super_onCreateAnimation(int transit, boolean enter, int nextAnim) {
+    public Animation super_onCreateAnimation(final int transit, final boolean enter,
+            final int nextAnim) {
         return super.onCreateAnimation(transit, enter, nextAnim);
     }
 
     @Override
-    public void super_onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenu.ContextMenuInfo menuInfo) {
+    public void super_onCreateContextMenu(final ContextMenu menu, final View v,
+            final ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
     @NonNull
     @Override
-    public Dialog super_onCreateDialog(Bundle savedInstanceState) {
+    public Dialog super_onCreateDialog(final Bundle savedInstanceState) {
         return super.onCreateDialog(savedInstanceState);
     }
 
     @Override
-    public void super_onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void super_onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Nullable
     @Override
-    public View super_onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    public View super_onCreateView(final LayoutInflater inflater,
+            @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -1465,22 +1472,24 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_onDismiss(DialogInterface dialog) {
+    public void super_onDismiss(final DialogInterface dialog) {
         super.onDismiss(dialog);
     }
 
     @Override
-    public void super_onHiddenChanged(boolean hidden) {
+    public void super_onHiddenChanged(final boolean hidden) {
         super.onHiddenChanged(hidden);
     }
 
     @Override
-    public void super_onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
+    public void super_onInflate(final Context context, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
         super.onInflate(context, attrs, savedInstanceState);
     }
 
     @Override
-    public void super_onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
+    public void super_onInflate(final Activity activity, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
         super.onInflate(activity, attrs, savedInstanceState);
     }
 
@@ -1490,17 +1499,17 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_onMultiWindowModeChanged(boolean isInMultiWindowMode) {
+    public void super_onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
         super.onMultiWindowModeChanged(isInMultiWindowMode);
     }
 
     @Override
-    public boolean super_onOptionsItemSelected(MenuItem item) {
+    public boolean super_onOptionsItemSelected(final MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void super_onOptionsMenuClosed(Menu menu) {
+    public void super_onOptionsMenuClosed(final Menu menu) {
         super.onOptionsMenuClosed(menu);
     }
 
@@ -1510,18 +1519,18 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
+    public void super_onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
     @Override
-    public void super_onPrepareOptionsMenu(Menu menu) {
+    public void super_onPrepareOptionsMenu(final Menu menu) {
         super.onPrepareOptionsMenu(menu);
     }
 
     @Override
-    public void super_onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+    public void super_onRequestPermissionsResult(final int requestCode,
+            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -1531,7 +1540,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_onSaveInstanceState(Bundle outState) {
+    public void super_onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
@@ -1546,165 +1555,165 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void super_onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
-    public void super_onViewStateRestored(@Nullable Bundle savedInstanceState) {
+    public void super_onViewStateRestored(@Nullable final Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
     }
 
     @Override
-    public void super_registerForContextMenu(View view) {
+    public void super_registerForContextMenu(final View view) {
         super.registerForContextMenu(view);
     }
 
     @Override
-    public void super_setAllowEnterTransitionOverlap(boolean allow) {
+    public void super_setAllowEnterTransitionOverlap(final boolean allow) {
         super.setAllowEnterTransitionOverlap(allow);
     }
 
     @Override
-    public void super_setAllowReturnTransitionOverlap(boolean allow) {
+    public void super_setAllowReturnTransitionOverlap(final boolean allow) {
         super.setAllowReturnTransitionOverlap(allow);
     }
 
     @Override
-    public void super_setArguments(Bundle args) {
+    public void super_setArguments(final Bundle args) {
         super.setArguments(args);
     }
 
     @Override
-    public void super_setCancelable(boolean cancelable) {
+    public void super_setCancelable(final boolean cancelable) {
         super.setCancelable(cancelable);
     }
 
     @Override
-    public void super_setEnterSharedElementCallback(SharedElementCallback callback) {
+    public void super_setEnterSharedElementCallback(final SharedElementCallback callback) {
         super.setEnterSharedElementCallback(callback);
     }
 
     @Override
-    public void super_setEnterTransition(Object transition) {
+    public void super_setEnterTransition(final Object transition) {
         super.setEnterTransition(transition);
     }
 
     @Override
-    public void super_setExitSharedElementCallback(SharedElementCallback callback) {
+    public void super_setExitSharedElementCallback(final SharedElementCallback callback) {
         super.setExitSharedElementCallback(callback);
     }
 
     @Override
-    public void super_setExitTransition(Object transition) {
+    public void super_setExitTransition(final Object transition) {
         super.setExitTransition(transition);
     }
 
     @Override
-    public void super_setHasOptionsMenu(boolean hasMenu) {
+    public void super_setHasOptionsMenu(final boolean hasMenu) {
         super.setHasOptionsMenu(hasMenu);
     }
 
     @Override
-    public void super_setInitialSavedState(SavedState state) {
+    public void super_setInitialSavedState(final Fragment.SavedState state) {
         super.setInitialSavedState(state);
     }
 
     @Override
-    public void super_setMenuVisibility(boolean menuVisible) {
+    public void super_setMenuVisibility(final boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
     }
 
     @Override
-    public void super_setReenterTransition(Object transition) {
+    public void super_setReenterTransition(final Object transition) {
         super.setReenterTransition(transition);
     }
 
     @Override
-    public void super_setRetainInstance(boolean retain) {
+    public void super_setRetainInstance(final boolean retain) {
         super.setRetainInstance(retain);
     }
 
     @Override
-    public void super_setReturnTransition(Object transition) {
+    public void super_setReturnTransition(final Object transition) {
         super.setReturnTransition(transition);
     }
 
     @Override
-    public void super_setSharedElementEnterTransition(Object transition) {
+    public void super_setSharedElementEnterTransition(final Object transition) {
         super.setSharedElementEnterTransition(transition);
     }
 
     @Override
-    public void super_setSharedElementReturnTransition(Object transition) {
+    public void super_setSharedElementReturnTransition(final Object transition) {
         super.setSharedElementReturnTransition(transition);
     }
 
     @Override
-    public void super_setShowsDialog(boolean showsDialog) {
+    public void super_setShowsDialog(final boolean showsDialog) {
         super.setShowsDialog(showsDialog);
     }
 
     @Override
-    public void super_setStyle(int style, @StyleRes int theme) {
+    public void super_setStyle(final int style, @StyleRes final int theme) {
         super.setStyle(style, theme);
     }
 
     @Override
-    public void super_setTargetFragment(Fragment fragment, int requestCode) {
+    public void super_setTargetFragment(final Fragment fragment, final int requestCode) {
         super.setTargetFragment(fragment, requestCode);
     }
 
     @Override
-    public void super_setUserVisibleHint(boolean isVisibleToUser) {
+    public void super_setUserVisibleHint(final boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override
-    public void super_setupDialog(Dialog dialog, int style) {
+    public void super_setupDialog(final Dialog dialog, final int style) {
         super.setupDialog(dialog, style);
     }
 
     @Override
-    public boolean super_shouldShowRequestPermissionRationale(@NonNull String permission) {
+    public boolean super_shouldShowRequestPermissionRationale(@NonNull final String permission) {
         return super.shouldShowRequestPermissionRationale(permission);
     }
 
     @Override
-    public void super_show(FragmentManager manager, String tag) {
+    public void super_show(final FragmentManager manager, final String tag) {
         super.show(manager, tag);
     }
 
     @Override
-    public int super_show(FragmentTransaction transaction, String tag) {
+    public int super_show(final FragmentTransaction transaction, final String tag) {
         return super.show(transaction, tag);
     }
 
     @Override
-    public void super_startActivity(Intent intent) {
+    public void super_startActivity(final Intent intent) {
         super.startActivity(intent);
     }
 
     @Override
-    public void super_startActivity(Intent intent, @Nullable Bundle options) {
+    public void super_startActivity(final Intent intent, @Nullable final Bundle options) {
         super.startActivity(intent, options);
     }
 
     @Override
-    public void super_startActivityForResult(Intent intent, int requestCode) {
+    public void super_startActivityForResult(final Intent intent, final int requestCode) {
         super.startActivityForResult(intent, requestCode);
     }
 
     @Override
-    public void super_startActivityForResult(Intent intent, int requestCode,
-            @Nullable Bundle options) {
+    public void super_startActivityForResult(final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         super.startActivityForResult(intent, requestCode, options);
     }
 
     @Override
-    public void super_startIntentSenderForResult(IntentSender intent, int requestCode,
-            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
-            Bundle options) throws IntentSender.SendIntentException {
+    public void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
                 extraFlags, options);
     }
@@ -1715,7 +1724,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_unregisterForContextMenu(View view) {
+    public void super_unregisterForContextMenu(final View view) {
         super.unregisterForContextMenu(view);
     }
 
@@ -1732,7 +1741,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * @see #registerForContextMenu(View)
      */
     @Override
-    public void unregisterForContextMenu(View view) {
+    public void unregisterForContextMenu(final View view) {
         delegate.unregisterForContextMenu(view);
     }
 }

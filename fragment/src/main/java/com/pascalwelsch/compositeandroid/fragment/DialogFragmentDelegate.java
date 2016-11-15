@@ -21,7 +21,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.Fragment.SavedState;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
@@ -111,7 +110,8 @@ public class DialogFragmentDelegate
         superCall.call();
     }
 
-    public void dump(String prefix, FileDescriptor fd, PrintWriter writer, String[] args) {
+    public void dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
+            final String[] args) {
         mFragmentDelegate.dump(prefix, fd, writer, args);
     }
 
@@ -156,7 +156,7 @@ public class DialogFragmentDelegate
         return mFragmentDelegate.getExitTransition();
     }
 
-    public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
+    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
         return mFragmentDelegate.getLayoutInflater(savedInstanceState);
     }
 
@@ -251,27 +251,27 @@ public class DialogFragmentDelegate
         return superCall.call();
     }
 
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         mFragmentDelegate.onActivityCreated(savedInstanceState);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         mFragmentDelegate.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void onAttach(Context context) {
+    public void onAttach(final Context context) {
         mFragmentDelegate.onAttach(context);
     }
 
-    public void onAttach(Activity activity) {
+    public void onAttach(final Activity activity) {
         mFragmentDelegate.onAttach(activity);
     }
 
-    public void onAttachFragment(Fragment childFragment) {
+    public void onAttachFragment(final Fragment childFragment) {
         mFragmentDelegate.onAttachFragment(childFragment);
     }
 
-    public void onCancel(DialogInterface dialog) {
+    public void onCancel(final DialogInterface dialog) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onCancel(dialog);
             return;
@@ -294,28 +294,28 @@ public class DialogFragmentDelegate
         superCall.call(dialog);
     }
 
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(final Configuration newConfig) {
         mFragmentDelegate.onConfigurationChanged(newConfig);
     }
 
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(final MenuItem item) {
         return mFragmentDelegate.onContextItemSelected(item);
     }
 
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
         mFragmentDelegate.onCreate(savedInstanceState);
     }
 
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+    public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
         return mFragmentDelegate.onCreateAnimation(transit, enter, nextAnim);
     }
 
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(final ContextMenu menu, final View v,
+            final ContextMenu.ContextMenuInfo menuInfo) {
         mFragmentDelegate.onCreateContextMenu(menu, v, menuInfo);
     }
 
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(final Bundle savedInstanceState) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_onCreateDialog(savedInstanceState);
         }
@@ -337,12 +337,12 @@ public class DialogFragmentDelegate
         return superCall.call(savedInstanceState);
     }
 
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         mFragmentDelegate.onCreateOptionsMenu(menu, inflater);
     }
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
+            @Nullable final Bundle savedInstanceState) {
         return mFragmentDelegate.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -362,7 +362,7 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onDetach();
     }
 
-    public void onDismiss(DialogInterface dialog) {
+    public void onDismiss(final DialogInterface dialog) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onDismiss(dialog);
             return;
@@ -385,15 +385,17 @@ public class DialogFragmentDelegate
         superCall.call(dialog);
     }
 
-    public void onHiddenChanged(boolean hidden) {
+    public void onHiddenChanged(final boolean hidden) {
         mFragmentDelegate.onHiddenChanged(hidden);
     }
 
-    public void onInflate(Context context, AttributeSet attrs, Bundle savedInstanceState) {
+    public void onInflate(final Context context, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
         mFragmentDelegate.onInflate(context, attrs, savedInstanceState);
     }
 
-    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
+    public void onInflate(final Activity activity, final AttributeSet attrs,
+            final Bundle savedInstanceState) {
         mFragmentDelegate.onInflate(activity, attrs, savedInstanceState);
     }
 
@@ -401,15 +403,15 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onLowMemory();
     }
 
-    public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode) {
         mFragmentDelegate.onMultiWindowModeChanged(isInMultiWindowMode);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         return mFragmentDelegate.onOptionsItemSelected(item);
     }
 
-    public void onOptionsMenuClosed(Menu menu) {
+    public void onOptionsMenuClosed(final Menu menu) {
         mFragmentDelegate.onOptionsMenuClosed(menu);
     }
 
@@ -417,16 +419,16 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onPause();
     }
 
-    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode) {
         mFragmentDelegate.onPictureInPictureModeChanged(isInPictureInPictureMode);
     }
 
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(final Menu menu) {
         mFragmentDelegate.onPrepareOptionsMenu(menu);
     }
 
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(final int requestCode,
+            @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         mFragmentDelegate.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -434,7 +436,7 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onResume();
     }
 
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(final Bundle outState) {
         mFragmentDelegate.onSaveInstanceState(outState);
     }
 
@@ -446,31 +448,31 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onStop();
     }
 
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         mFragmentDelegate.onViewCreated(view, savedInstanceState);
     }
 
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+    public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
         mFragmentDelegate.onViewStateRestored(savedInstanceState);
     }
 
-    public void registerForContextMenu(View view) {
+    public void registerForContextMenu(final View view) {
         mFragmentDelegate.registerForContextMenu(view);
     }
 
-    public void setAllowEnterTransitionOverlap(boolean allow) {
+    public void setAllowEnterTransitionOverlap(final boolean allow) {
         mFragmentDelegate.setAllowEnterTransitionOverlap(allow);
     }
 
-    public void setAllowReturnTransitionOverlap(boolean allow) {
+    public void setAllowReturnTransitionOverlap(final boolean allow) {
         mFragmentDelegate.setAllowReturnTransitionOverlap(allow);
     }
 
-    public void setArguments(Bundle args) {
+    public void setArguments(final Bundle args) {
         mFragmentDelegate.setArguments(args);
     }
 
-    public void setCancelable(boolean cancelable) {
+    public void setCancelable(final boolean cancelable) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setCancelable(cancelable);
             return;
@@ -492,55 +494,55 @@ public class DialogFragmentDelegate
         superCall.call(cancelable);
     }
 
-    public void setEnterSharedElementCallback(SharedElementCallback callback) {
+    public void setEnterSharedElementCallback(final SharedElementCallback callback) {
         mFragmentDelegate.setEnterSharedElementCallback(callback);
     }
 
-    public void setEnterTransition(Object transition) {
+    public void setEnterTransition(final Object transition) {
         mFragmentDelegate.setEnterTransition(transition);
     }
 
-    public void setExitSharedElementCallback(SharedElementCallback callback) {
+    public void setExitSharedElementCallback(final SharedElementCallback callback) {
         mFragmentDelegate.setExitSharedElementCallback(callback);
     }
 
-    public void setExitTransition(Object transition) {
+    public void setExitTransition(final Object transition) {
         mFragmentDelegate.setExitTransition(transition);
     }
 
-    public void setHasOptionsMenu(boolean hasMenu) {
+    public void setHasOptionsMenu(final boolean hasMenu) {
         mFragmentDelegate.setHasOptionsMenu(hasMenu);
     }
 
-    public void setInitialSavedState(SavedState state) {
+    public void setInitialSavedState(final Fragment.SavedState state) {
         mFragmentDelegate.setInitialSavedState(state);
     }
 
-    public void setMenuVisibility(boolean menuVisible) {
+    public void setMenuVisibility(final boolean menuVisible) {
         mFragmentDelegate.setMenuVisibility(menuVisible);
     }
 
-    public void setReenterTransition(Object transition) {
+    public void setReenterTransition(final Object transition) {
         mFragmentDelegate.setReenterTransition(transition);
     }
 
-    public void setRetainInstance(boolean retain) {
+    public void setRetainInstance(final boolean retain) {
         mFragmentDelegate.setRetainInstance(retain);
     }
 
-    public void setReturnTransition(Object transition) {
+    public void setReturnTransition(final Object transition) {
         mFragmentDelegate.setReturnTransition(transition);
     }
 
-    public void setSharedElementEnterTransition(Object transition) {
+    public void setSharedElementEnterTransition(final Object transition) {
         mFragmentDelegate.setSharedElementEnterTransition(transition);
     }
 
-    public void setSharedElementReturnTransition(Object transition) {
+    public void setSharedElementReturnTransition(final Object transition) {
         mFragmentDelegate.setSharedElementReturnTransition(transition);
     }
 
-    public void setShowsDialog(boolean showsDialog) {
+    public void setShowsDialog(final boolean showsDialog) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setShowsDialog(showsDialog);
             return;
@@ -562,7 +564,7 @@ public class DialogFragmentDelegate
         superCall.call(showsDialog);
     }
 
-    public void setStyle(int style, @StyleRes int theme) {
+    public void setStyle(final int style, @StyleRes final int theme) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setStyle(style, theme);
             return;
@@ -585,15 +587,15 @@ public class DialogFragmentDelegate
         superCall.call(style, theme);
     }
 
-    public void setTargetFragment(Fragment fragment, int requestCode) {
+    public void setTargetFragment(final Fragment fragment, final int requestCode) {
         mFragmentDelegate.setTargetFragment(fragment, requestCode);
     }
 
-    public void setUserVisibleHint(boolean isVisibleToUser) {
+    public void setUserVisibleHint(final boolean isVisibleToUser) {
         mFragmentDelegate.setUserVisibleHint(isVisibleToUser);
     }
 
-    public void setupDialog(Dialog dialog, int style) {
+    public void setupDialog(final Dialog dialog, final int style) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setupDialog(dialog, style);
             return;
@@ -616,11 +618,11 @@ public class DialogFragmentDelegate
         superCall.call(dialog, style);
     }
 
-    public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
+    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
         return mFragmentDelegate.shouldShowRequestPermissionRationale(permission);
     }
 
-    public void show(FragmentManager manager, String tag) {
+    public void show(final FragmentManager manager, final String tag) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_show(manager, tag);
             return;
@@ -643,7 +645,7 @@ public class DialogFragmentDelegate
         superCall.call(manager, tag);
     }
 
-    public int show(FragmentTransaction transaction, String tag) {
+    public int show(final FragmentTransaction transaction, final String tag) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_show(transaction, tag);
         }
@@ -666,25 +668,26 @@ public class DialogFragmentDelegate
         return superCall.call(transaction, tag);
     }
 
-    public void startActivity(Intent intent) {
+    public void startActivity(final Intent intent) {
         mFragmentDelegate.startActivity(intent);
     }
 
-    public void startActivity(Intent intent, @Nullable Bundle options) {
+    public void startActivity(final Intent intent, @Nullable final Bundle options) {
         mFragmentDelegate.startActivity(intent, options);
     }
 
-    public void startActivityForResult(Intent intent, int requestCode) {
+    public void startActivityForResult(final Intent intent, final int requestCode) {
         mFragmentDelegate.startActivityForResult(intent, requestCode);
     }
 
-    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+    public void startActivityForResult(final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         mFragmentDelegate.startActivityForResult(intent, requestCode, options);
     }
 
-    public void startIntentSenderForResult(IntentSender intent, int requestCode,
-            @Nullable Intent fillInIntent, int flagsMask, int flagsValues, int extraFlags,
-            Bundle options) throws IntentSender.SendIntentException {
+    public void startIntentSenderForResult(final IntentSender intent, final int requestCode,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         mFragmentDelegate.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
                 flagsValues, extraFlags, options);
     }
@@ -693,7 +696,7 @@ public class DialogFragmentDelegate
         return mFragmentDelegate.toString();
     }
 
-    public void unregisterForContextMenu(View view) {
+    public void unregisterForContextMenu(final View view) {
         mFragmentDelegate.unregisterForContextMenu(view);
     }
 
