@@ -142,7 +142,7 @@ fun AnalyzedJavaMethod.forwardToDelegate(delegateName: String): String {
 fun AnalyzedJavaMethod.forwardToDelegateWithReturn(delegateName: String): String {
     return """
     |
-    |public $returnType $name($rawParameters) $exceptions {
+    |public $genericReturnType$returnType $name($rawParameters) $exceptions {
     |    return m$delegateName.$name(${parameterNames.joinToString()});
     |}
     """.replaceIndentByMargin("    ")
@@ -201,7 +201,7 @@ fun AnalyzedJavaMethod.hook(pluginType: String = "Plugin"): String {
         "new Object[]{${parameterNames[0]}}"
     } else parameterNames.joinToString()
 
-    val genericTypeCallType = if (parameterTypes.size == 0) "" else "<${parameterTypes.joinToString()}>"
+    val genericTypeCallType = if (parameterTypes.isEmpty()) "" else "<${parameterTypes.joinToString()}>"
 
     return """
     |public void $name($rawParameters) $exceptions {
@@ -245,7 +245,7 @@ fun AnalyzedJavaMethod.callFunction(pluginType: String = "Plugin"): String {
     val genericTypeCallType = "<${genericTypes.joinToString()}>"
 
     return """
-    |public $returnType $name($rawParameters) $exceptions {
+    |public $genericReturnType$returnType $name($rawParameters) $exceptions {
     |    if (mPlugins.isEmpty()) {
     |${"return getOriginal().super_$name($varargs);"
             .wrapWithTryCatch(exceptionType).prependIndent("            ")}
@@ -283,7 +283,7 @@ fun String.wrapWithTryCatch(exceptionType: String?): String =
 
 fun AnalyzedJavaMethod.notImplemented(): String {
     val sb = StringBuilder()
-    sb.appendln("    public $returnType $name($rawParameters) {")
+    sb.appendln("    public $genericReturnType$returnType $name($rawParameters) {")
     sb.appendln("        //TODO not implemented")
     sb.appendln("        return null;")
     sb.appendln("    }")
