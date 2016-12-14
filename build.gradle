@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'com.android.tools.build:gradle:2.2.3'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -40,7 +40,7 @@ ext {
     MIN_SDK_VERSION = 14
     TARGET_SDK_VERSION = versionMajor
     COMPILE_SDK_VERSION = versionMajor
-    BUILD_TOOLS_VERSION = '25.0.0' // also update in .travis.yml
+    BUILD_TOOLS_VERSION = '25.0.2' // also update in .travis.yml
 
 
     ciBuild = System.getenv("TRAVIS") == "true"
