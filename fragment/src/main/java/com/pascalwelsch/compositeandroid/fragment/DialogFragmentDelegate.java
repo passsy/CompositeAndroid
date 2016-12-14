@@ -456,6 +456,10 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onViewStateRestored(savedInstanceState);
     }
 
+    public void postponeEnterTransition() {
+        mFragmentDelegate.postponeEnterTransition();
+    }
+
     public void registerForContextMenu(final View view) {
         mFragmentDelegate.registerForContextMenu(view);
     }
@@ -690,6 +694,10 @@ public class DialogFragmentDelegate
             final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         mFragmentDelegate.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask,
                 flagsValues, extraFlags, options);
+    }
+
+    public void startPostponedEnterTransition() {
+        mFragmentDelegate.startPostponedEnterTransition();
     }
 
     public String toString() {

@@ -60,6 +60,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
+import android.support.v4.app.SupportActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatDelegate;
@@ -1799,6 +1800,28 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         return superCall.call();
+    }
+
+    public <T extends SupportActivity.ExtraData> T getExtraData(final Class<T> extraDataClass) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getExtraData(extraDataClass);
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun1<T, Class<T>> superCall = new CallFun1<T, Class<T>>(
+                "getExtraData(Class<T>)") {
+
+            @Override
+            public T call(final Class<T> extraDataClass) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getExtraData(this, extraDataClass);
+                } else {
+                    return getOriginal().super_getExtraData(extraDataClass);
+                }
+            }
+        };
+        return superCall.call(extraDataClass);
     }
 
     public File getFileStreamPath(final String name) {
@@ -5387,6 +5410,30 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call();
+    }
+
+    public void putExtraData(final SupportActivity.ExtraData extraData) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_putExtraData(extraData);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid1<SupportActivity.ExtraData> superCall
+                = new CallVoid1<SupportActivity.ExtraData>(
+                "putExtraData(SupportActivity.ExtraData)") {
+
+            @Override
+            public void call(final SupportActivity.ExtraData extraData) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().putExtraData(this, extraData);
+                } else {
+                    getOriginal().super_putExtraData(extraData);
+                }
+            }
+        };
+        superCall.call(extraData);
     }
 
     public void recreate() {

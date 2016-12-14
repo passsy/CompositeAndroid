@@ -60,6 +60,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
+import android.support.v4.app.SupportActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatDelegate;
@@ -95,7 +96,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
-
 
 @SuppressWarnings("unused")
 public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDelegate> {
@@ -498,6 +498,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     public File[] getExternalMediaDirs() {
         verifyMethodCalledFromDelegate("getExternalMediaDirs()");
         return ((CallFun0<File[]>) mSuperListeners.pop()).call();
+    }
+
+    public <T extends SupportActivity.ExtraData> T getExtraData(final Class<T> extraDataClass) {
+        verifyMethodCalledFromDelegate("getExtraData(Class<T>)");
+        return ((CallFun1<T, Class<T>>) mSuperListeners.pop()).call(extraDataClass);
     }
 
     public File getFileStreamPath(final String name) {
@@ -1341,6 +1346,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     public void postponeEnterTransition() {
         verifyMethodCalledFromDelegate("postponeEnterTransition()");
         ((CallVoid0) mSuperListeners.pop()).call();
+    }
+
+    public void putExtraData(final SupportActivity.ExtraData extraData) {
+        verifyMethodCalledFromDelegate("putExtraData(SupportActivity.ExtraData)");
+        ((CallVoid1<SupportActivity.ExtraData>) mSuperListeners.pop()).call(extraData);
     }
 
     public void recreate() {
@@ -2511,6 +2521,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getExternalMediaDirs();
+        }
+    }
+
+    <T extends SupportActivity.ExtraData> T getExtraData(final CallFun1<T, Class<T>> superCall,
+            final Class<T> extraDataClass) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return getExtraData(extraDataClass);
         }
     }
 
@@ -3696,6 +3714,14 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             postponeEnterTransition();
+        }
+    }
+
+    void putExtraData(final CallVoid1<SupportActivity.ExtraData> superCall,
+            final SupportActivity.ExtraData extraData) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            putExtraData(extraData);
         }
     }
 

@@ -45,6 +45,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
+import android.support.v4.app.SupportActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatCallback;
@@ -244,6 +245,8 @@ public interface ICompositeActivity
     File[] getExternalFilesDirs(final String type);
 
     File[] getExternalMediaDirs();
+
+    <T extends SupportActivity.ExtraData> T getExtraData(final Class<T> extraDataClass);
 
     File getFileStreamPath(final String name);
 
@@ -581,6 +584,8 @@ public interface ICompositeActivity
     Drawable peekWallpaper();
 
     void postponeEnterTransition();
+
+    void putExtraData(final SupportActivity.ExtraData extraData);
 
     void recreate();
 
@@ -959,6 +964,8 @@ public interface ICompositeActivity
 
     File[] super_getExternalMediaDirs();
 
+    <T extends SupportActivity.ExtraData> T super_getExtraData(final Class<T> extraDataClass);
+
     File super_getFileStreamPath(final String name);
 
     File super_getFilesDir();
@@ -1289,6 +1296,8 @@ public interface ICompositeActivity
     Drawable super_peekWallpaper();
 
     void super_postponeEnterTransition();
+
+    void super_putExtraData(final SupportActivity.ExtraData extraData);
 
     void super_recreate();
 

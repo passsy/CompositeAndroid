@@ -48,6 +48,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.SharedElementCallback;
+import android.support.v4.app.SupportActivity;
 import android.support.v4.view.WindowCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -85,7 +86,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
-
 
 @SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant"})
 @SuppressLint({"MissingSuperCall", "NewApi"})
@@ -510,6 +510,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     @Override
     public File[] getExternalMediaDirs() {
         return delegate.getExternalMediaDirs();
+    }
+
+    /**
+     * Retrieves a previously set {@link SupportActivity.ExtraData} by class name.
+     *
+     * @hide
+     * @see #putExtraData
+     */
+    @Override
+    public <T extends SupportActivity.ExtraData> T getExtraData(final Class<T> extraDataClass) {
+        return delegate.getExtraData(extraDataClass);
     }
 
     @Override
@@ -1623,6 +1634,20 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
         delegate.postponeEnterTransition();
     }
 
+    /**
+     * Store an instance of {@link SupportActivity.ExtraData} for later retrieval by class name
+     * via {@link #getExtraData}.
+     *
+     * <p>Note that these objects are not retained across configuration changes</p>
+     *
+     * @hide
+     * @see #getExtraData
+     */
+    @Override
+    public void putExtraData(final SupportActivity.ExtraData extraData) {
+        delegate.putExtraData(extraData);
+    }
+
     @Override
     public void recreate() {
         delegate.recreate();
@@ -2659,6 +2684,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
+    public <T extends SupportActivity.ExtraData> T super_getExtraData(
+            final Class<T> extraDataClass) {
+        return super.getExtraData(extraDataClass);
+    }
+
+    @Override
     public File super_getFileStreamPath(final String name) {
         return super.getFileStreamPath(name);
     }
@@ -3479,6 +3510,11 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     @Override
     public void super_postponeEnterTransition() {
         super.postponeEnterTransition();
+    }
+
+    @Override
+    public void super_putExtraData(final SupportActivity.ExtraData extraData) {
+        super.putExtraData(extraData);
     }
 
     @Override
