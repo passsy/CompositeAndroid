@@ -68,12 +68,12 @@ fun AnalyzedJavaMethod.returnSuperListener(): String {
     }
 
     return """
-    public $returnType $name($rawParameters) $exceptions{
+    public $genericReturnType$returnType $name($rawParameters) $exceptions{
         verifyMethodCalledFromDelegate("$name(${parameterTypes.joinToString()})");
         return ((CallFun${parameterNames.size}<${genericTypes.joinToString()}>) mSuperListeners.pop()).call(${parameterNames.joinToString()});
     }
 
-    $returnType $name(final CallFun${parameterNames.size}<${genericTypes.joinToString()}> superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
+    $genericReturnType$returnType $name(final CallFun${parameterNames.size}<${genericTypes.joinToString()}> superCall ${if (parameterNames.isNotEmpty()) ", " else ""}$rawParameters) $exceptions{
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return $name(${parameterNames.joinToString()});

@@ -55,13 +55,13 @@ fun writeInterface(outPath: String,
 private fun AnalyzedJavaMethod.toInterface(): String {
     return """
             |
-            |$returnType $name($rawParameters) $exceptions;
+            |$genericReturnType$returnType $name($rawParameters) $exceptions;
             """.replaceIndentByMargin("    ")
 }
 
 private fun AnalyzedJavaMethod.toSuperInterface(): String {
     return """
             |
-            |$returnType super_$name($rawParameters) $exceptions;
+            |$genericReturnType$returnType super_$name($rawParameters) $exceptions;
             """.replaceIndentByMargin("    ")
 }

@@ -292,6 +292,11 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid1<Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
+    public void postponeEnterTransition() {
+        verifyMethodCalledFromDelegate("postponeEnterTransition()");
+        ((CallVoid0) mSuperListeners.pop()).call();
+    }
+
     public void registerForContextMenu(final View view) {
         verifyMethodCalledFromDelegate("registerForContextMenu(View)");
         ((CallVoid1<View>) mSuperListeners.pop()).call(view);
@@ -417,6 +422,11 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid7<IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle>) mSuperListeners
                 .pop()).call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
                 options);
+    }
+
+    public void startPostponedEnterTransition() {
+        verifyMethodCalledFromDelegate("startPostponedEnterTransition()");
+        ((CallVoid0) mSuperListeners.pop()).call();
     }
 
     public String toString() {
@@ -780,6 +790,13 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
+    void postponeEnterTransition(final CallVoid0 superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            postponeEnterTransition();
+        }
+    }
+
     void registerForContextMenu(final CallVoid1<View> superCall, final View view) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -960,6 +977,13 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
             mSuperListeners.push(superCall);
             startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
                     extraFlags, options);
+        }
+    }
+
+    void startPostponedEnterTransition(final CallVoid0 superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            startPostponedEnterTransition();
         }
     }
 

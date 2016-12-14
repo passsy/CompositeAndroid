@@ -1112,6 +1112,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         superCall.call(savedInstanceState);
     }
 
+    public void postponeEnterTransition() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_postponeEnterTransition();
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid0 superCall = new CallVoid0("postponeEnterTransition()") {
+
+            @Override
+            public void call() {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().postponeEnterTransition(this);
+                } else {
+                    getOriginal().super_postponeEnterTransition();
+                }
+            }
+        };
+        superCall.call();
+    }
+
     public void registerForContextMenu(final View view) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_registerForContextMenu(view);
@@ -1675,6 +1697,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         };
         superCall.call(intent, requestCode, fillInIntent, flagsMask, flagsValues, extraFlags,
                 options);
+    }
+
+    public void startPostponedEnterTransition() {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_startPostponedEnterTransition();
+            return;
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid0 superCall = new CallVoid0("startPostponedEnterTransition()") {
+
+            @Override
+            public void call() {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().startPostponedEnterTransition(this);
+                } else {
+                    getOriginal().super_startPostponedEnterTransition();
+                }
+            }
+        };
+        superCall.call();
     }
 
     public String toString() {

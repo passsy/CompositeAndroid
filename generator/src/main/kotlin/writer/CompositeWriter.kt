@@ -76,7 +76,7 @@ fun writeComposite(outPath: String,
 
     sb.appendln("}")
 
-    var output = sb.toString();
+    var output = sb.toString()
     if (transform != null) {
         output = transform(output)
     }
@@ -97,7 +97,7 @@ private fun AnalyzedJavaMethod.callSuper(): String {
     return """
             |$formattedAnnotations
             |@Override
-            |public $returnType super_$name($rawParameters) $exceptions{
+            |public $genericReturnType$returnType super_$name($rawParameters) $exceptions{
             |    ${returnWhenNotVoid}super.$name(${parameterNames.joinToString()});
             |}
             """.replaceIndentByMargin("    ")
@@ -110,7 +110,7 @@ private fun AnalyzedJavaMethod.callDelegate(): String {
             |
             |${javadoc?.trim() ?: ""}
             |${annotations.joinToString("\n")}
-            |public $returnType $name($rawParameters) $exceptions{
+            |public $genericReturnType$returnType $name($rawParameters) $exceptions{
             |${"""
             |    ${returnWhenNotVoid}delegate.$name(${parameterNames.joinToString()});
             """.replaceIndentByMargin().let { it: String ->

@@ -8,6 +8,7 @@ data class AnalyzedJavaFile(
 data class AnalyzedJavaMethod(
         val name: String,
         val visibility: String,
+        val genericReturnType: String?,
         val returnType: String,
         val javadoc: String? = null,
         private val rawAnnotations: String? = null,

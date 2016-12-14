@@ -30,6 +30,10 @@ fun generateActivity() {
             "AppCompatActivity implements ICompositeActivity",
             delegateClassName = "ActivityDelegate",
             pluginClassName = "ActivityPlugin",
+            transform = replaceExtraData,
+            additionalImports = """
+            |import android.support.v4.app.SupportActivity;
+            """.replaceIndentByMargin(),
             addCodeToClass = activity_custom_nonConfigurationInstance_handling)
 
     writeDelegate(outPath,
@@ -39,7 +43,11 @@ fun generateActivity() {
             "ICompositeActivity",
             "ActivityPlugin",
             extends = "AbstractDelegate<ICompositeActivity, ActivityPlugin>",
-            additionalImports = "import java.util.ListIterator;",
+            transform = replaceExtraData,
+            additionalImports = """
+            |import java.util.ListIterator;
+            |import android.support.v4.app.SupportActivity;
+            """.replaceIndentByMargin(),
             addCodeToClass = delegate_custom_nonConfigurationInstance_handling)
 
     writePlugin(outPath,
@@ -48,6 +56,10 @@ fun generateActivity() {
             "activity",
             "ActivityPlugin",
             extends = "AbstractPlugin<CompositeActivity, ActivityDelegate>",
+            transform = replaceExtraData,
+            additionalImports = """
+            |import android.support.v4.app.SupportActivity;
+            """.replaceIndentByMargin(),
             addCodeToClass = plugin_custom_nonConfigurationInstance_handling)
 
     writeInterface(outPath,
@@ -56,13 +68,19 @@ fun generateActivity() {
             "ICompositeActivity",
             "LayoutInflater.Factory2, Window.Callback, KeyEvent.Callback, View.OnCreateContextMenuListener, ComponentCallbacks2, ActivityCompat.OnRequestPermissionsResultCallback, AppCompatCallback, ActionBarDrawerToggle.DelegateProvider",
             addCodeToClass = interface_custom_nonConfigurationInstance_handling,
+            transform = replaceExtraData,
             additionalImports = """
             |import android.content.*;
             |import android.support.v4.app.*;
             |import android.support.v7.app.*;
+            |import android.support.v4.app.SupportActivity;
             """.replaceIndentByMargin())
 }
-
+val replaceExtraData: (String) -> String = {
+    it.replace(" ExtraData", " SupportActivity.ExtraData")
+            .replace("(ExtraData)", "(SupportActivity.ExtraData)")
+            .replace("<ExtraData", "<SupportActivity.ExtraData")
+}
 
 val interface_custom_nonConfigurationInstance_handling = """
         |Object getLastNonConfigurationInstance();

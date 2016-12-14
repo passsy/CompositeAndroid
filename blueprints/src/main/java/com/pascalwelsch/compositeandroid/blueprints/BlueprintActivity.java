@@ -83,7 +83,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-// 25.0.1
+// 25.1.0
 @SuppressWarnings("ALL")
 public class BlueprintActivity extends AppCompatActivity {
 
@@ -486,6 +486,17 @@ public class BlueprintActivity extends AppCompatActivity {
     @Override
     public File[] getExternalMediaDirs() {
         return super.getExternalMediaDirs();
+    }
+
+    /**
+     * Retrieves a previously set {@link ExtraData} by class name.
+     *
+     * @hide
+     * @see #putExtraData
+     */
+    @Override
+    public <T extends ExtraData> T getExtraData(final Class<T> extraDataClass) {
+        return super.getExtraData(extraDataClass);
     }
 
     @Override
@@ -1403,6 +1414,20 @@ public class BlueprintActivity extends AppCompatActivity {
     @Override
     public void postponeEnterTransition() {
         super.postponeEnterTransition();
+    }
+
+    /**
+     * Store an instance of {@link ExtraData} for later retrieval by class name
+     * via {@link #getExtraData}.
+     *
+     * <p>Note that these objects are not retained across configuration changes</p>
+     *
+     * @hide
+     * @see #getExtraData
+     */
+    @Override
+    public void putExtraData(final ExtraData extraData) {
+        super.putExtraData(extraData);
     }
 
     @Override

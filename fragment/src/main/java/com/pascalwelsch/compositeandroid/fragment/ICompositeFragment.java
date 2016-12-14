@@ -127,6 +127,8 @@ public interface ICompositeFragment {
 
     void onViewStateRestored(@Nullable final Bundle savedInstanceState);
 
+    void postponeEnterTransition();
+
     void registerForContextMenu(final View view);
 
     void setAllowEnterTransitionOverlap(final boolean allow);
@@ -177,6 +179,8 @@ public interface ICompositeFragment {
     void startIntentSenderForResult(final IntentSender intent, final int requestCode,
             @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
+
+    void startPostponedEnterTransition();
 
     void super_dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
             final String[] args);
@@ -278,6 +282,8 @@ public interface ICompositeFragment {
 
     void super_onViewStateRestored(@Nullable final Bundle savedInstanceState);
 
+    void super_postponeEnterTransition();
+
     void super_registerForContextMenu(final View view);
 
     void super_setAllowEnterTransitionOverlap(final boolean allow);
@@ -328,6 +334,8 @@ public interface ICompositeFragment {
     void super_startIntentSenderForResult(final IntentSender intent, final int requestCode,
             @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
             final int extraFlags, final Bundle options) throws IntentSender.SendIntentException;
+
+    void super_startPostponedEnterTransition();
 
     String super_toString();
 

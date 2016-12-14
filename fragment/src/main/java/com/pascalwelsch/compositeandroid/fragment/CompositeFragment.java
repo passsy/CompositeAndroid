@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
 import android.transition.ChangeBounds;
@@ -738,6 +739,40 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     /**
+     * Postpone the entering Fragment transition until {@link #startPostponedEnterTransition()}
+     * or {@link FragmentManager#executePendingTransactions()} has been called.
+     * <p>
+     * This method gives the Fragment the ability to delay Fragment animations
+     * until all data is loaded. Until then, the added, shown, and
+     * attached Fragments will be INVISIBLE and removed, hidden, and detached Fragments won't
+     * be have their Views removed. The transaction runs when all postponed added Fragments in the
+     * transaction have called {@link #startPostponedEnterTransition()}.
+     * <p>
+     * This method should be called before being added to the FragmentTransaction or
+     * in {@link #onCreate(Bundle), {@link #onAttach(Context)}, or
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}}.
+     * {@link #startPostponedEnterTransition()} must be called to allow the Fragment to
+     * start the transitions.
+     * <p>
+     * When a FragmentTransaction is started that may affect a postponed FragmentTransaction,
+     * based on which containers are in their operations, the postponed FragmentTransaction
+     * will have its start triggered. The early triggering may result in faulty or nonexistent
+     * animations in the postponed transaction. FragmentTransactions that operate only on
+     * independent containers will not interfere with each other's postponement.
+     * <p>
+     * Calling postponeEnterTransition on Fragments with a null View will not postpone the
+     * transition. Likewise, postponement only works if FragmentTransaction optimizations are
+     * enabled.
+     *
+     * @see Activity#postponeEnterTransition()
+     * @see FragmentTransaction#setAllowOptimization(boolean)
+     */
+    @Override
+    public void postponeEnterTransition() {
+        delegate.postponeEnterTransition();
+    }
+
+    /**
      * Registers a context menu to be shown for the given view (multiple views
      * can show the context menu). This method will set the
      * {@link OnCreateContextMenuListener} on the view to this fragment, so
@@ -1088,6 +1123,21 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
         }
     }
 
+    /**
+     * Begin postponed transitions after {@link #postponeEnterTransition()} was called.
+     * If postponeEnterTransition() was called, you must call startPostponedEnterTransition()
+     * or {@link FragmentManager#executePendingTransactions()} to complete the FragmentTransaction.
+     * If postponement was interrupted with {@link FragmentManager#executePendingTransactions()},
+     * before {@code startPostponedEnterTransition()}, animations may not run or may execute
+     * improperly.
+     *
+     * @see Activity#startPostponedEnterTransition()
+     */
+    @Override
+    public void startPostponedEnterTransition() {
+        delegate.startPostponedEnterTransition();
+    }
+
     @Override
     public void super_dump(final String prefix, final FileDescriptor fd, final PrintWriter writer,
             final String[] args) {
@@ -1334,6 +1384,11 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
+    public void super_postponeEnterTransition() {
+        super.postponeEnterTransition();
+    }
+
+    @Override
     public void super_registerForContextMenu(final View view) {
         super.registerForContextMenu(view);
     }
@@ -1455,6 +1510,11 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
             final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
                 extraFlags, options);
+    }
+
+    @Override
+    public void super_startPostponedEnterTransition() {
+        super.startPostponedEnterTransition();
     }
 
     @Override

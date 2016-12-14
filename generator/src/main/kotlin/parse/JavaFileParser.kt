@@ -22,22 +22,24 @@ fun parseJavaFile(file: File): AnalyzedJavaFile {
 
 
     // findAll runs out of memory
-    val methodMatches = mutableListOf<MatchResult>();
+    val methodMatches = mutableListOf<MatchResult>()
     var pos = 0
     while (true) {
-        val methodsMatch = "(?:\n*?((?:\\h*?\\/\\*\\*\\h*[\\w@]*\n*){1}(?:\\h*\\*.*\n*)*?(?:\\h*\\*\\/){1})\n)*((?:^\\h*\\@.*\n)*?)?\\h*((?:\\w* )*)([\\w\\.]*(?:\\[\\])?) (\\w*)\\(((?:\n*[^\\)]*)*)\\)([^\\{]*)\\{((?:.*\n)(?:\n*(?:        .*\n))*)\\    \\}\n*"
+        // for regex101 https://regex101.com/r/D7gTv3/1
+        // (?:\n*?((?:\h*?\/\*\*\h*[\w@]*\n*){1}(?:\h*\*.*\n*)*?(?:\h*\*\/){1})\n)*((?:^\h*\@.*\n)*?)?\h*((?:\w* )*)(.* )?([\w\.]*(?:\[\])?) (\w*)\(((?:\n*[^\)]*)*)\)([^\{]*)\{((?:.*\n)(?:\n*(?:        .*\n))*)\    \}\n*
+        val methodsMatch = "(?:\n*?((?:\\h*?\\/\\*\\*\\h*[\\w@]*\n*){1}(?:\\h*\\*.*\n*)*?(?:\\h*\\*\\/){1})\n)*((?:^\\h*\\@.*\n)*?)?\\h*((?:\\w* )*)(.* )?([\\w\\.]*(?:\\[\\])?) (\\w*)\\(((?:\n*[^\\)]*)*)\\)([^\\{]*)\\{((?:.*\n)(?:\n*(?:        .*\n))*)\\    \\}\n*"
                 .toRegex(RegexOption.MULTILINE)
-                .find(source, pos);
+                .find(source, pos)
 
         if (methodsMatch == null) {
-            break;
+            break
         }
-        methodMatches.add(methodsMatch);
+        methodMatches.add(methodsMatch)
         pos = methodsMatch.range.last
     }
 
 
-    val methods = mutableListOf<AnalyzedJavaMethod>();
+    val methods = mutableListOf<AnalyzedJavaMethod>()
 
     for (match in methodMatches) {
         val groups = match.groups
@@ -45,10 +47,11 @@ fun parseJavaFile(file: File): AnalyzedJavaFile {
         val javadoc = groups[1]?.value
         val annotations = groups[2]?.value
         val visibility = groups[3]?.value ?: ""
-        val returnType = groups[4]?.value!!
-        val name = groups[5]?.value!!
-        val parameters = groups[6]?.value?.replace("\n", " ")?.replace(",\\h+".toRegex(), ", ")
-        val throws = groups[7]?.value?.replace("\n", " ")?.replace(",\\h+".toRegex(), ", ")?.trim()
+        val genericTypeDefinition = groups[4]?.value ?: ""
+        val returnType = groups[5]?.value!!
+        val name = groups[6]?.value!!
+        val parameters = groups[7]?.value?.replace("\n", " ")?.replace(",\\h+".toRegex(), ", ")
+        val throws = groups[8]?.value?.replace("\n", " ")?.replace(",\\h+".toRegex(), ", ")?.trim()
 
         val paramNames = mutableListOf<String>()
         val paramType = mutableListOf<String>()
@@ -63,10 +66,10 @@ fun parseJavaFile(file: File): AnalyzedJavaFile {
             }
         }
 
-        methods.add(AnalyzedJavaMethod(name, visibility, returnType,
+        methods.add(AnalyzedJavaMethod(name, visibility, genericTypeDefinition, returnType,
                 javadoc, annotations, parameters, throws))
     }
 
 
-    return AnalyzedJavaFile(imports, methods);
+    return AnalyzedJavaFile(imports, methods)
 }
