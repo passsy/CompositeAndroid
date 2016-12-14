@@ -27,7 +27,7 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-// 25.0.1
+// 25.1.0
 @SuppressWarnings("ALL")
 public class BlueprintFragment extends Fragment {
 
@@ -726,6 +726,40 @@ public class BlueprintFragment extends Fragment {
     }
 
     /**
+     * Postpone the entering Fragment transition until {@link #startPostponedEnterTransition()}
+     * or {@link FragmentManager#executePendingTransactions()} has been called.
+     * <p>
+     * This method gives the Fragment the ability to delay Fragment animations
+     * until all data is loaded. Until then, the added, shown, and
+     * attached Fragments will be INVISIBLE and removed, hidden, and detached Fragments won't
+     * be have their Views removed. The transaction runs when all postponed added Fragments in the
+     * transaction have called {@link #startPostponedEnterTransition()}.
+     * <p>
+     * This method should be called before being added to the FragmentTransaction or
+     * in {@link #onCreate(Bundle), {@link #onAttach(Context)}, or
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}}.
+     * {@link #startPostponedEnterTransition()} must be called to allow the Fragment to
+     * start the transitions.
+     * <p>
+     * When a FragmentTransaction is started that may affect a postponed FragmentTransaction,
+     * based on which containers are in their operations, the postponed FragmentTransaction
+     * will have its start triggered. The early triggering may result in faulty or nonexistent
+     * animations in the postponed transaction. FragmentTransactions that operate only on
+     * independent containers will not interfere with each other's postponement.
+     * <p>
+     * Calling postponeEnterTransition on Fragments with a null View will not postpone the
+     * transition. Likewise, postponement only works if FragmentTransaction optimizations are
+     * enabled.
+     *
+     * @see Activity#postponeEnterTransition()
+     * @see FragmentTransaction#setAllowOptimization(boolean)
+     */
+    @Override
+    public void postponeEnterTransition() {
+        super.postponeEnterTransition();
+    }
+
+    /**
      * Registers a context menu to be shown for the given view (multiple views
      * can show the context menu). This method will set the
      * {@link OnCreateContextMenuListener} on the view to this fragment, so
@@ -1071,6 +1105,21 @@ public class BlueprintFragment extends Fragment {
             final Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderForResult(intent, requestCode, fillInIntent, flagsMask, flagsValues,
                 extraFlags, options);
+    }
+
+    /**
+     * Begin postponed transitions after {@link #postponeEnterTransition()} was called.
+     * If postponeEnterTransition() was called, you must call startPostponedEnterTransition()
+     * or {@link FragmentManager#executePendingTransactions()} to complete the FragmentTransaction.
+     * If postponement was interrupted with {@link FragmentManager#executePendingTransactions()},
+     * before {@code startPostponedEnterTransition()}, animations may not run or may execute
+     * improperly.
+     *
+     * @see Activity#startPostponedEnterTransition()
+     */
+    @Override
+    public void startPostponedEnterTransition() {
+        super.startPostponedEnterTransition();
     }
 
     @Override
