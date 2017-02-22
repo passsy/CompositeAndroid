@@ -35,7 +35,7 @@ def versionBuild = 0
 
 ext {
     supportLibraryVersion = "$versionMajor.$versionMinor.$versionPatch"
-    VERSION_NAME = "$supportLibraryVersion"
+    VERSION_NAME = "$supportLibraryVersion" + (versionBuild != 0 ? "-$versionBuild" : "")
     VERSION_CODE = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
     MIN_SDK_VERSION = 14
     TARGET_SDK_VERSION = versionMajor
