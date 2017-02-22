@@ -12,7 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 
-// 25.1.1
+// 25.2.0
 @SuppressWarnings("ALL")
 public class BlueprintDialogFragment extends DialogFragment {
 
