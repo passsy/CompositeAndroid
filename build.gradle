@@ -27,7 +27,7 @@ def versionMajor = 25
 // minor version of the support library
 def versionMinor = 1
 // patch version of the support library
-def versionPatch = 0
+def versionPatch = 1
 
 // composite android build version for the given support library version.
 // increases when composite android receives updates but the support lib doesn't update
