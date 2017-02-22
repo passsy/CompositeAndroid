@@ -94,7 +94,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-// 25.1.1
+// 25.2.0
 @SuppressWarnings("ALL")
 public class BlueprintActivity extends AppCompatActivity {
 
