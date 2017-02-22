@@ -27,7 +27,7 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-// 25.1.0
+// 25.1.1
 @SuppressWarnings("ALL")
 public class BlueprintFragment extends Fragment {
 
