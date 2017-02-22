@@ -31,7 +31,7 @@ def versionPatch = 0
 
 // composite android build version for the given support library version.
 // increases when composite android receives updates but the support lib doesn't update
-def versionBuild = 0
+def versionBuild = 1
 
 ext {
     supportLibraryVersion = "$versionMajor.$versionMinor.$versionPatch"
