@@ -68,6 +68,7 @@ fun AnalyzedJavaMethod.returnSuperListener(): String {
     }
 
     return """
+    ${javadoc?.trim() ?: ""}
     public $genericReturnType$returnType $name($rawParameters) $exceptions{
         verifyMethodCalledFromDelegate("$name(${parameterTypes.joinToString()})");
         return ((CallFun${parameterNames.size}<${genericTypes.joinToString()}>) mSuperListeners.pop()).call(${parameterNames.joinToString()});
@@ -86,6 +87,7 @@ fun AnalyzedJavaMethod.callListener(): String {
     val genericTypeCallType = if(parameterTypes.isEmpty()) "" else "<${parameterTypes.joinToString()}>"
 
     return """
+    ${javadoc?.trim() ?: ""}
     public void $name($rawParameters) $exceptions{
         verifyMethodCalledFromDelegate("$name(${parameterTypes.joinToString()})");
         ((CallVoid${parameterNames.size}$genericTypeCallType) mSuperListeners.pop()).call(${parameterNames.joinToString()});

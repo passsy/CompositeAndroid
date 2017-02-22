@@ -95,6 +95,7 @@ private fun AnalyzedJavaMethod.callSuper(): String {
             .joinToString("\n")
 
     return """
+            |${javadoc?.trim() ?: ""}
             |$formattedAnnotations
             |@Override
             |public $genericReturnType$returnType super_$name($rawParameters) $exceptions{
