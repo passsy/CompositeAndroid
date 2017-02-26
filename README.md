@@ -247,12 +247,15 @@ Not everything works exactly like you'd use inheritance. Here is a small list of
 
 ## Project stage
 
-*Early alpha*. Nothing breaks when you extend `CompositeActivity`. Getting simple callbacks is safe. Overriding methods and changing parameters is tested. Sound good?
-Well, I already found edgecases (`getLastNonConfigurationInstance()` and `onRetainCustomNonConfigurationInstance()`) and I'm sure there are more I haven't discovered yet.
+`CompositeAndroid` gets used in productions without major problems. There could be more performance related improvements but it works reliably right now.
 
-I successfully replaced a `BaseActivity` in a big grown project with a `CompositeActivity`. It works without problems, so far. This means it's kind of stable if you don't try to break it.
+Minor problems are:
+- Support lib updates **sometimes** require and update of `CompositeAndroid`. I didn't expect this because the API should be really stable, but it happened in the past (upgrading from `24.1.0` to `24.2.0`). That's why `CompositeAndroid` has the same version name as the support library. Yes, the support library can be used with and older `CompositeAndroid` version. But it can break, as it happened already. Then again all upgrades from `24.2.1` where 100% backwards compatible. We'll see what the future brings.
+- Generating a new release cannot be fully automated right now. It requires some steps in Android Studio to generate overrides and format the generated sources.
+- Some methods are edge cases like `getLastNonConfigurationInstance()` and `onRetainCustomNonConfigurationInstance()` did require manual written code.
 
-The documentation is currently not existing. I'm sorry, but right now it's more like a proof of concept which works well.
+It was a proof of conecpt and it turned out to work great. So great I haven't touched it a lot after the initial draft. Things like the documentation are still missing.
+I'm still keeping this project up to date but I don't invest much time in performance improvements. I don't need it, it works at it is for me.
 
 ## Inspiration and other Android Composition Libraries
 
