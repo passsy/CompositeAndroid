@@ -50,7 +50,7 @@ public abstract class TrackedActivity extends AppCompatActivity {
 ```
 
 ```java
-public class TrackedTweetStreamActivity extends TweetStreamActivity {
+public class TrackedTweetStreamActivity extends TrackedActivity {
 
     @Override
     public String getTrackingName() {
