@@ -25,7 +25,7 @@ allprojects {
 // major version is the SDK version
 def versionMajor = 25
 // minor version of the support library
-def versionMinor = 2
+def versionMinor = 3
 // patch version of the support library
 def versionPatch = 0
 

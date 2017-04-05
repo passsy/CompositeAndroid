@@ -27,7 +27,7 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-// 25.2.0
+// 25.3.0
 @SuppressWarnings("ALL")
 public class BlueprintFragment extends Fragment {
 
@@ -700,7 +700,7 @@ public class BlueprintFragment extends Fragment {
      * they know their view hierarchy has been completely created.  The fragment's
      * view hierarchy is not however attached to its parent at this point.
      *
-     * @param view               The View returned by {@link #onCreateView(LayoutInflater,
+     * @param view               The View returned by {@link #onCreateView(LayoutInflater, *
      *                           ViewGroup, Bundle)}.
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      */
@@ -1095,7 +1095,7 @@ public class BlueprintFragment extends Fragment {
     }
 
     /**
-     * Call {@link Activity#startIntentSenderForResult(IntentSender, int, Intent, int, int, int,
+     * Call {@link Activity#startIntentSenderForResult(IntentSender, int, Intent, int, int, int, *
      * Bundle)} from the fragment's containing Activity.
      */
     @Override

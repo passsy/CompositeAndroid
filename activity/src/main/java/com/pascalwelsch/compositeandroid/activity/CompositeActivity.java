@@ -51,6 +51,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -265,7 +266,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see PendingIntent
      */
     @Override
-    public PendingIntent createPendingResult(final int requestCode, final Intent data,
+    public PendingIntent createPendingResult(final int requestCode, @NonNull final Intent data,
             final int flags) {
         return delegate.createPendingResult(requestCode, data, flags);
     }
@@ -466,7 +467,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param requestCode Request code that had been used to start the
      */
     @Override
-    public void finishActivityFromChild(final Activity child, final int requestCode) {
+    public void finishActivityFromChild(@NonNull final Activity child, final int requestCode) {
         delegate.finishActivityFromChild(child, requestCode);
     }
 
@@ -1014,7 +1015,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public Object getSystemService(final String name) {
+    public Object getSystemService(@NonNull final String name) {
         return delegate.getSystemService(name);
     }
 
@@ -1357,7 +1358,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void onApplyThemeResource(final Resources.Theme theme, final int resid,
+    public void onApplyThemeResource(final Resources.Theme theme, @StyleRes final int resid,
             final boolean first) {
         delegate.onApplyThemeResource(theme, resid, first);
     }
@@ -1479,7 +1480,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #onPostCreate
      */
     @Override
-    public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         delegate.onCreate(savedInstanceState, persistentState);
     }
 
@@ -2042,8 +2044,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #onCreate
      */
     @Override
-    public void onPostCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void onPostCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         delegate.onPostCreate(savedInstanceState, persistentState);
     }
 
@@ -2415,7 +2417,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see SearchManager
      */
     @Override
-    public boolean onSearchRequested(final SearchEvent searchEvent) {
+    public boolean onSearchRequested(@Nullable final SearchEvent searchEvent) {
         return delegate.onSearchRequested(searchEvent);
     }
 
@@ -2767,8 +2769,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     /**
      * Postpone the entering activity transition when Activity was started with
-     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * Pair[])}.
+     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * Pair[])}.
      * <p>This method gives the Activity the ability to delay starting the entering and
      * shared element transitions until all data is loaded. Until then, the Activity won't
      * draw into its window, leaving the window transparent. This may also cause the
@@ -2777,8 +2778,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * {@link #onActivityReenter(int, Intent)}.
      * {@link #startPostponedEnterTransition()} must be called to allow the Activity to
      * start the transitions. If the Activity did not use
-     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * Pair[])}, then this method does nothing.</p>
+     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * Pair[])}, then this method
+     * does nothing.</p>
      */
     @Override
     public void postponeEnterTransition() {
@@ -3030,13 +3031,12 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * {@link android.R.id#home home} menu select action.</p>
      *
      * <p>In order to use a Toolbar within the Activity's window content the application
-     * must not request the window feature {@link Window#FEATURE_ACTION_BAR
-     * FEATURE_ACTION_BAR}.</p>
+     * must not request the window feature {@link Window#FEATURE_ACTION_BAR FEATURE_ACTION_BAR}.</p>
      *
      * @param toolbar Toolbar to set as the Activity's action bar, or {@code null} to clear it
      */
     @Override
-    public void setActionBar(final Toolbar toolbar) {
+    public void setActionBar(@Nullable final Toolbar toolbar) {
         delegate.setActionBar(toolbar);
     }
 
@@ -3067,8 +3067,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launched</i> Activity. This requires
      * {@link Window#FEATURE_CONTENT_TRANSITIONS}.
      *
@@ -3080,8 +3080,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launched</i> Activity. This requires
      * {@link Window#FEATURE_ACTIVITY_TRANSITIONS}.
      *
@@ -3093,8 +3093,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>listener</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>listener</var>
      * will be called to handle shared elements on the <i>launching</i> Activity. Most
      * calls will only come when returning from the started Activity.
      * This requires {@link Window#FEATURE_CONTENT_TRANSITIONS}.
@@ -3107,8 +3107,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launching</i> Activity. Most
      * calls will only come when returning from the started Activity.
      * This requires {@link Window#FEATURE_ACTIVITY_TRANSITIONS}.
@@ -3232,8 +3232,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     /**
      * Sets information describing the task with this activity for presentation inside the Recents
-     * System UI. When {@link ActivityManager#getRecentTasks} is called, the activities of each
-     * task
+     * System UI. When {@link ActivityManager#getRecentTasks} is called, the activities of each task
      * are traversed in order from the topmost activity to the bottommost. The traversal continues
      * for each property until a suitable value is found. For each task the taskDescription will be
      * returned in {@link ActivityManager.TaskDescription}.
@@ -3360,7 +3359,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see android.R.attr#enableVrMode
      */
     @Override
-    public void setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+    public void setVrModeEnabled(final boolean enabled,
+            @NonNull final ComponentName requestedComponent)
             throws PackageManager.NameNotFoundException {
         try {
             delegate.setVrModeEnabled(enabled, requestedComponent);
@@ -3407,7 +3407,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #onRequestPermissionsResult(int, String[], int[])
      */
     @Override
-    public boolean shouldShowRequestPermissionRationale(final String permission) {
+    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
         return delegate.shouldShowRequestPermissionRationale(permission);
     }
 
@@ -3518,7 +3518,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #startActivityForResult
      */
     @Override
-    public void startActivities(final Intent[] intents, final Bundle options) {
+    public void startActivities(final Intent[] intents, @Nullable final Bundle options) {
         delegate.startActivities(intents, options);
     }
 
@@ -3555,7 +3555,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #startActivityForResult
      */
     @Override
-    public void startActivity(final Intent intent, final Bundle options) {
+    public void startActivity(final Intent intent, @Nullable final Bundle options) {
         delegate.startActivity(intent, options);
     }
 
@@ -3585,8 +3585,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #startActivityForResult
      */
     @Override
-    public void startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode) {
+    public void startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode) {
         delegate.startActivityFromChild(child, intent, requestCode);
     }
 
@@ -3607,8 +3607,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #startActivityForResult
      */
     @Override
-    public void startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode, final Bundle options) {
+    public void startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         delegate.startActivityFromChild(child, intent, requestCode, options);
     }
 
@@ -3631,8 +3632,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * Same as calling {@link #startActivityFromFragment(android.app.Fragment, Intent, int,
-     * Bundle)}
+     * Same as calling {@link #startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)}
      * with no options.
      *
      * @param fragment    The fragment making the call.
@@ -3642,8 +3642,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see android.app.Fragment#startActivityForResult
      */
     @Override
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode) {
+    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode) {
         delegate.startActivityFromFragment(fragment, intent, requestCode);
     }
 
@@ -3665,8 +3665,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see android.app.Fragment#startActivityForResult
      */
     @Override
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode, final Bundle options) {
+    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         delegate.startActivityFromFragment(fragment, intent, requestCode, options);
     }
 
@@ -3684,7 +3685,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #startActivityForResult
      */
     @Override
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode) {
+    public boolean startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode) {
         return delegate.startActivityIfNeeded(intent, requestCode);
     }
 
@@ -3717,8 +3719,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #startActivityForResult
      */
     @Override
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode,
-            final Bundle options) {
+    public boolean startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode, @Nullable final Bundle options) {
         return delegate.startActivityIfNeeded(intent, requestCode, options);
     }
 
@@ -3742,7 +3744,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param extraFlags   Always set to 0.
      */
     @Override
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    public void startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags)
             throws IntentSender.SendIntentException {
         try {
@@ -3772,7 +3774,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      *                     have also been supplied by the IntentSender, options given here will
      */
     @Override
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    public void startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
         try {
@@ -3808,8 +3810,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * Same as calling {@link #startIntentSenderFromChild(Activity, IntentSender,
-     * int, Intent, int, int, int, Bundle)} with no options.
+     * Same as calling {@link #startIntentSenderFromChild(Activity, IntentSender, * int, Intent,
+     * int, int, int, Bundle)} with no options.
      */
     @Override
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
@@ -3832,7 +3834,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     @Override
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+            final int flagsValues, final int extraFlags, @Nullable final Bundle options)
             throws IntentSender.SendIntentException {
         try {
             delegate.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
@@ -3860,8 +3862,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     /**
      * Starts a local voice interaction session. When ready,
-     * {@link #onLocalVoiceInteractionStarted()} is called. You can pass a bundle of private
-     * options
+     * {@link #onLocalVoiceInteractionStarted()} is called. You can pass a bundle of private options
      * to the registered voice interaction service.
      *
      * @param privateOptions a Bundle of private arguments to the current voice interaction service
@@ -3911,8 +3912,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      *
      * <p><strong>Warning:</strong> Do not call {@link Cursor#close()} on cursor obtained from
      * {@link #managedQuery}, because the activity will do that for you at the appropriate time.
-     * However, if you call {@link #stopManagingCursor} on a cursor from a managed query, the
-     * system
+     * However, if you call {@link #stopManagingCursor} on a cursor from a managed query, the system
      * <em>will not</em> automatically close the cursor and, in that case, you must call
      * {@link Cursor#close()}.</p>
      *
@@ -3942,7 +3942,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * finish() on yourself.
      */
     @Override
-    public boolean startNextMatchingActivity(final Intent intent) {
+    public boolean startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent) {
         return delegate.startNextMatchingActivity(intent);
     }
 
@@ -3965,7 +3965,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * finish() on yourself.
      */
     @Override
-    public boolean startNextMatchingActivity(final Intent intent, final Bundle options) {
+    public boolean startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent,
+            @Nullable final Bundle options) {
         return delegate.startNextMatchingActivity(intent, options);
     }
 
@@ -3985,8 +3986,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * <p>It is typically called from onSearchRequested(), either directly from
      * Activity.onSearchRequested() or from an overridden version in any given
      * Activity.  If your goal is simply to activate search, it is preferred to call
-     * onSearchRequested(), which may have been overridden elsewhere in your Activity.  If your
-     * goal
+     * onSearchRequested(), which may have been overridden elsewhere in your Activity.  If your goal
      * is to inject specific data such as context data, it is preferred to <i>override</i>
      * onSearchRequested(), so that any callers to it will benefit from the override.
      *
@@ -4022,8 +4022,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #onSearchRequested
      */
     @Override
-    public void startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch) {
+    public void startSearch(@Nullable final String initialQuery, final boolean selectInitialQuery,
+            @Nullable final Bundle appSearchData, final boolean globalSearch) {
         delegate.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
 
@@ -4247,8 +4247,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public PendingIntent super_createPendingResult(final int requestCode, final Intent data,
-            final int flags) {
+    public PendingIntent super_createPendingResult(final int requestCode,
+            @NonNull final Intent data, final int flags) {
         return super.createPendingResult(requestCode, data, flags);
     }
 
@@ -4458,7 +4458,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_finishActivityFromChild(final Activity child, final int requestCode) {
+    public void super_finishActivityFromChild(@NonNull final Activity child,
+            final int requestCode) {
         super.finishActivityFromChild(child, requestCode);
     }
 
@@ -4993,7 +4994,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public Object super_getSystemService(final String name) {
+    public Object super_getSystemService(@NonNull final String name) {
         return super.getSystemService(name);
     }
 
@@ -5360,7 +5361,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_onApplyThemeResource(final Resources.Theme theme, final int resid,
+    public void super_onApplyThemeResource(final Resources.Theme theme, @StyleRes final int resid,
             final boolean first) {
         super.onApplyThemeResource(theme, resid, first);
     }
@@ -5489,8 +5490,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_onCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void super_onCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
     }
 
@@ -6084,8 +6085,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_onPostCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void super_onPostCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
     }
 
@@ -6457,7 +6458,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public boolean super_onSearchRequested(final SearchEvent searchEvent) {
+    public boolean super_onSearchRequested(@Nullable final SearchEvent searchEvent) {
         return super.onSearchRequested(searchEvent);
     }
 
@@ -6816,8 +6817,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     /**
      * Postpone the entering activity transition when Activity was started with
-     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * Pair[])}.
+     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * Pair[])}.
      * <p>This method gives the Activity the ability to delay starting the entering and
      * shared element transitions until all data is loaded. Until then, the Activity won't
      * draw into its window, leaving the window transparent. This may also cause the
@@ -6826,8 +6826,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * {@link #onActivityReenter(int, Intent)}.
      * {@link #startPostponedEnterTransition()} must be called to allow the Activity to
      * start the transitions. If the Activity did not use
-     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * Pair[])}, then this method does nothing.</p>
+     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * Pair[])}, then this method
+     * does nothing.</p>
      */
 
     @Override
@@ -7089,14 +7089,13 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * {@link android.R.id#home home} menu select action.</p>
      *
      * <p>In order to use a Toolbar within the Activity's window content the application
-     * must not request the window feature {@link Window#FEATURE_ACTION_BAR
-     * FEATURE_ACTION_BAR}.</p>
+     * must not request the window feature {@link Window#FEATURE_ACTION_BAR FEATURE_ACTION_BAR}.</p>
      *
      * @param toolbar Toolbar to set as the Activity's action bar, or {@code null} to clear it
      */
 
     @Override
-    public void super_setActionBar(final Toolbar toolbar) {
+    public void super_setActionBar(@Nullable final Toolbar toolbar) {
         super.setActionBar(toolbar);
     }
 
@@ -7128,8 +7127,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launched</i> Activity. This requires
      * {@link Window#FEATURE_CONTENT_TRANSITIONS}.
      *
@@ -7142,8 +7141,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launched</i> Activity. This requires
      * {@link Window#FEATURE_ACTIVITY_TRANSITIONS}.
      *
@@ -7157,8 +7156,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>listener</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>listener</var>
      * will be called to handle shared elements on the <i>launching</i> Activity. Most
      * calls will only come when returning from the started Activity.
      * This requires {@link Window#FEATURE_CONTENT_TRANSITIONS}.
@@ -7172,8 +7171,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launching</i> Activity. Most
      * calls will only come when returning from the started Activity.
      * This requires {@link Window#FEATURE_ACTIVITY_TRANSITIONS}.
@@ -7309,8 +7308,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     /**
      * Sets information describing the task with this activity for presentation inside the Recents
-     * System UI. When {@link ActivityManager#getRecentTasks} is called, the activities of each
-     * task
+     * System UI. When {@link ActivityManager#getRecentTasks} is called, the activities of each task
      * are traversed in order from the topmost activity to the bottommost. The traversal continues
      * for each property until a suitable value is found. For each task the taskDescription will be
      * returned in {@link ActivityManager.TaskDescription}.
@@ -7444,7 +7442,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     @Override
     public void super_setVrModeEnabled(final boolean enabled,
-            final ComponentName requestedComponent) throws PackageManager.NameNotFoundException {
+            @NonNull final ComponentName requestedComponent)
+            throws PackageManager.NameNotFoundException {
         super.setVrModeEnabled(enabled, requestedComponent);
     }
 
@@ -7479,7 +7478,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public boolean super_shouldShowRequestPermissionRationale(final String permission) {
+    public boolean super_shouldShowRequestPermissionRationale(@NonNull final String permission) {
         return super.shouldShowRequestPermissionRationale(permission);
     }
 
@@ -7595,7 +7594,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_startActivities(final Intent[] intents, final Bundle options) {
+    public void super_startActivities(final Intent[] intents, @Nullable final Bundle options) {
         super.startActivities(intents, options);
     }
 
@@ -7634,7 +7633,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_startActivity(final Intent intent, final Bundle options) {
+    public void super_startActivity(final Intent intent, @Nullable final Bundle options) {
         super.startActivity(intent, options);
     }
 
@@ -7666,8 +7665,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode) {
+    public void super_startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode) {
         super.startActivityFromChild(child, intent, requestCode);
     }
 
@@ -7689,8 +7688,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode, final Bundle options) {
+    public void super_startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         super.startActivityFromChild(child, intent, requestCode, options);
     }
 
@@ -7715,8 +7715,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * Same as calling {@link #startActivityFromFragment(android.app.Fragment, Intent, int,
-     * Bundle)}
+     * Same as calling {@link #startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)}
      * with no options.
      *
      * @param fragment    The fragment making the call.
@@ -7727,8 +7726,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_startActivityFromFragment(final android.app.Fragment fragment,
-            final Intent intent, final int requestCode) {
+    public void super_startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode) {
         super.startActivityFromFragment(fragment, intent, requestCode);
     }
 
@@ -7751,8 +7750,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_startActivityFromFragment(final android.app.Fragment fragment,
-            final Intent intent, final int requestCode, final Bundle options) {
+    public void super_startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         super.startActivityFromFragment(fragment, intent, requestCode, options);
     }
 
@@ -7771,7 +7771,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public boolean super_startActivityIfNeeded(final Intent intent, final int requestCode) {
+    public boolean super_startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode) {
         return super.startActivityIfNeeded(intent, requestCode);
     }
 
@@ -7805,8 +7806,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public boolean super_startActivityIfNeeded(final Intent intent, final int requestCode,
-            final Bundle options) {
+    public boolean super_startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode, @Nullable final Bundle options) {
         return super.startActivityIfNeeded(intent, requestCode, options);
     }
 
@@ -7831,9 +7832,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags)
-            throws IntentSender.SendIntentException {
+    public void super_startIntentSender(final IntentSender intent,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags) throws IntentSender.SendIntentException {
         super.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
@@ -7858,9 +7859,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_startIntentSender(final IntentSender intent, final Intent fillInIntent,
-            final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
-            throws IntentSender.SendIntentException {
+    public void super_startIntentSender(final IntentSender intent,
+            @Nullable final Intent fillInIntent, final int flagsMask, final int flagsValues,
+            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags, options);
     }
 
@@ -7881,8 +7882,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * Same as calling {@link #startIntentSenderFromChild(Activity, IntentSender,
-     * int, Intent, int, int, int, Bundle)} with no options.
+     * Same as calling {@link #startIntentSenderFromChild(Activity, IntentSender, * int, Intent,
+     * int, int, int, Bundle)} with no options.
      */
 
     @Override
@@ -7903,7 +7904,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     @Override
     public void super_startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+            final int flagsValues, final int extraFlags, @Nullable final Bundle options)
             throws IntentSender.SendIntentException {
         super.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
                 flagsValues, extraFlags, options);
@@ -7924,8 +7925,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     /**
      * Starts a local voice interaction session. When ready,
-     * {@link #onLocalVoiceInteractionStarted()} is called. You can pass a bundle of private
-     * options
+     * {@link #onLocalVoiceInteractionStarted()} is called. You can pass a bundle of private options
      * to the registered voice interaction service.
      *
      * @param privateOptions a Bundle of private arguments to the current voice interaction service
@@ -7977,8 +7977,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      *
      * <p><strong>Warning:</strong> Do not call {@link Cursor#close()} on cursor obtained from
      * {@link #managedQuery}, because the activity will do that for you at the appropriate time.
-     * However, if you call {@link #stopManagingCursor} on a cursor from a managed query, the
-     * system
+     * However, if you call {@link #stopManagingCursor} on a cursor from a managed query, the system
      * <em>will not</em> automatically close the cursor and, in that case, you must call
      * {@link Cursor#close()}.</p>
      *
@@ -8010,7 +8009,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public boolean super_startNextMatchingActivity(final Intent intent) {
+    public boolean super_startNextMatchingActivity(
+            @RequiresPermission @NonNull final Intent intent) {
         return super.startNextMatchingActivity(intent);
     }
 
@@ -8034,7 +8034,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public boolean super_startNextMatchingActivity(final Intent intent, final Bundle options) {
+    public boolean super_startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent,
+            @Nullable final Bundle options) {
         return super.startNextMatchingActivity(intent, options);
     }
 
@@ -8055,8 +8056,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * <p>It is typically called from onSearchRequested(), either directly from
      * Activity.onSearchRequested() or from an overridden version in any given
      * Activity.  If your goal is simply to activate search, it is preferred to call
-     * onSearchRequested(), which may have been overridden elsewhere in your Activity.  If your
-     * goal
+     * onSearchRequested(), which may have been overridden elsewhere in your Activity.  If your goal
      * is to inject specific data such as context data, it is preferred to <i>override</i>
      * onSearchRequested(), so that any callers to it will benefit from the override.
      *
@@ -8093,8 +8093,9 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch) {
+    public void super_startSearch(@Nullable final String initialQuery,
+            final boolean selectInitialQuery, @Nullable final Bundle appSearchData,
+            final boolean globalSearch) {
         super.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
 
@@ -8296,7 +8297,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_triggerSearch(final String query, final Bundle appSearchData) {
+    public void super_triggerSearch(final String query, @Nullable final Bundle appSearchData) {
         super.triggerSearch(query, appSearchData);
     }
 
@@ -8446,7 +8447,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      *                      searches.  This data will be returned with SEARCH intent(s).  Null if
      */
     @Override
-    public void triggerSearch(final String query, final Bundle appSearchData) {
+    public void triggerSearch(final String query, @Nullable final Bundle appSearchData) {
         delegate.triggerSearch(query, appSearchData);
     }
 
