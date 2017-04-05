@@ -55,6 +55,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -578,7 +579,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call(packageName, flags);
     }
 
-    public PendingIntent createPendingResult(final int requestCode, final Intent data,
+    public PendingIntent createPendingResult(final int requestCode, @NonNull final Intent data,
             final int flags) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_createPendingResult(requestCode, data, flags);
@@ -1139,7 +1140,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(requestCode);
     }
 
-    public void finishActivityFromChild(final Activity child, final int requestCode) {
+    public void finishActivityFromChild(@NonNull final Activity child, final int requestCode) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_finishActivityFromChild(child, requestCode);
             return;
@@ -2405,7 +2406,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call();
     }
 
-    public Object getSystemService(final String name) {
+    public Object getSystemService(@NonNull final String name) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_getSystemService(name);
         }
@@ -3145,7 +3146,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(requestCode, resultCode, data);
     }
 
-    public void onApplyThemeResource(final Resources.Theme theme, final int resid,
+    public void onApplyThemeResource(final Resources.Theme theme, @StyleRes final int resid,
             final boolean first) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onApplyThemeResource(theme, resid, first);
@@ -3373,7 +3374,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(menu);
     }
 
-    public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onCreate(savedInstanceState, persistentState);
             return;
@@ -4184,8 +4186,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(isInPictureInPictureMode);
     }
 
-    public void onPostCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void onPostCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onPostCreate(savedInstanceState, persistentState);
             return;
@@ -4711,7 +4713,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(outState);
     }
 
-    public boolean onSearchRequested(final SearchEvent searchEvent) {
+    public boolean onSearchRequested(@Nullable final SearchEvent searchEvent) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_onSearchRequested(searchEvent);
         }
@@ -6023,7 +6025,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 initialExtras);
     }
 
-    public void setActionBar(final Toolbar toolbar) {
+    public void setActionBar(@Nullable final Toolbar toolbar) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setActionBar(toolbar);
             return;
@@ -6570,7 +6572,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(visible);
     }
 
-    public void setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+    public void setVrModeEnabled(final boolean enabled,
+            @NonNull final ComponentName requestedComponent)
             throws PackageManager.NameNotFoundException {
         if (mPlugins.isEmpty()) {
             try {
@@ -6675,7 +6678,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(data);
     }
 
-    public boolean shouldShowRequestPermissionRationale(final String permission) {
+    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_shouldShowRequestPermissionRationale(permission);
         }
@@ -6835,7 +6838,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(intents);
     }
 
-    public void startActivities(final Intent[] intents, final Bundle options) {
+    public void startActivities(final Intent[] intents, @Nullable final Bundle options) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startActivities(intents, options);
             return;
@@ -6880,7 +6883,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(intent);
     }
 
-    public void startActivity(final Intent intent, final Bundle options) {
+    public void startActivity(final Intent intent, @Nullable final Bundle options) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startActivity(intent, options);
             return;
@@ -6950,8 +6953,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(intent, requestCode, options);
     }
 
-    public void startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode) {
+    public void startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startActivityFromChild(child, intent, requestCode);
             return;
@@ -6975,8 +6978,9 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(child, intent, requestCode);
     }
 
-    public void startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode, final Bundle options) {
+    public void startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startActivityFromChild(child, intent, requestCode, options);
             return;
@@ -7058,8 +7062,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(fragment, intent, requestCode, options);
     }
 
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode) {
+    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startActivityFromFragment(fragment, intent, requestCode);
             return;
@@ -7085,8 +7089,9 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(fragment, intent, requestCode);
     }
 
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode, final Bundle options) {
+    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startActivityFromFragment(fragment, intent, requestCode, options);
             return;
@@ -7114,7 +7119,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(fragment, intent, requestCode, options);
     }
 
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode) {
+    public boolean startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_startActivityIfNeeded(intent, requestCode);
         }
@@ -7136,8 +7142,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call(intent, requestCode);
     }
 
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode,
-            final Bundle options) {
+    public boolean startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode, @Nullable final Bundle options) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_startActivityIfNeeded(intent, requestCode, options);
         }
@@ -7189,7 +7195,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call(className, profileFile, arguments);
     }
 
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    public void startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags)
             throws IntentSender.SendIntentException {
         if (mPlugins.isEmpty()) {
@@ -7231,7 +7237,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
     }
 
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    public void startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
         if (mPlugins.isEmpty()) {
@@ -7414,7 +7420,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+            final int flagsValues, final int extraFlags, @Nullable final Bundle options)
             throws IntentSender.SendIntentException {
         if (mPlugins.isEmpty()) {
             try {
@@ -7575,7 +7581,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(c);
     }
 
-    public boolean startNextMatchingActivity(final Intent intent) {
+    public boolean startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_startNextMatchingActivity(intent);
         }
@@ -7597,7 +7603,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call(intent);
     }
 
-    public boolean startNextMatchingActivity(final Intent intent, final Bundle options) {
+    public boolean startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent,
+            @Nullable final Bundle options) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_startNextMatchingActivity(intent, options);
         }
@@ -7641,8 +7648,8 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call();
     }
 
-    public void startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch) {
+    public void startSearch(@Nullable final String initialQuery, final boolean selectInitialQuery,
+            @Nullable final Bundle appSearchData, final boolean globalSearch) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_startSearch(initialQuery, selectInitialQuery, appSearchData,
                     globalSearch);
@@ -7980,7 +7987,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(get);
     }
 
-    public void triggerSearch(final String query, final Bundle appSearchData) {
+    public void triggerSearch(final String query, @Nullable final Bundle appSearchData) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_triggerSearch(query, appSearchData);
             return;

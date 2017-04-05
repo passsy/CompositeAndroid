@@ -728,7 +728,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
      * they know their view hierarchy has been completely created.  The fragment's
      * view hierarchy is not however attached to its parent at this point.
      *
-     * @param view               The View returned by {@link #onCreateView(LayoutInflater,
+     * @param view               The View returned by {@link #onCreateView(LayoutInflater, *
      *                           ViewGroup, Bundle)}.
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      */
@@ -1124,7 +1124,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     /**
-     * Call {@link Activity#startIntentSenderForResult(IntentSender, int, Intent, int, int, int,
+     * Call {@link Activity#startIntentSenderForResult(IntentSender, int, Intent, int, int, int, *
      * Bundle)} from the fragment's containing Activity.
      */
     public void startIntentSenderForResult(final IntentSender intent, final int requestCode,

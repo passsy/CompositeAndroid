@@ -25,13 +25,13 @@ allprojects {
 // major version is the SDK version
 def versionMajor = 25
 // minor version of the support library
-def versionMinor = 2
+def versionMinor = 3
 // patch version of the support library
 def versionPatch = 0
 
 // composite android build version for the given support library version.
 // increases when composite android receives updates but the support lib doesn't update
-def versionBuild = 1
+def versionBuild = 0
 
 ext {
     supportLibraryVersion = "$versionMajor.$versionMinor.$versionPatch"

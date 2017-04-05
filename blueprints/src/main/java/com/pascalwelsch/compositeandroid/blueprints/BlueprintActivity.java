@@ -48,6 +48,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -94,7 +95,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-// 25.2.0
+// 25.3.0
 @SuppressWarnings("ALL")
 public class BlueprintActivity extends AppCompatActivity {
 
@@ -236,7 +237,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see PendingIntent
      */
     @Override
-    public PendingIntent createPendingResult(final int requestCode, final Intent data,
+    public PendingIntent createPendingResult(final int requestCode, @NonNull final Intent data,
             final int flags) {
         return super.createPendingResult(requestCode, data, flags);
     }
@@ -437,7 +438,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @param requestCode Request code that had been used to start the
      */
     @Override
-    public void finishActivityFromChild(final Activity child, final int requestCode) {
+    public void finishActivityFromChild(@NonNull final Activity child, final int requestCode) {
         super.finishActivityFromChild(child, requestCode);
     }
 
@@ -990,7 +991,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    public Object getSystemService(final String name) {
+    public Object getSystemService(@NonNull final String name) {
         return super.getSystemService(name);
     }
 
@@ -1436,7 +1437,8 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see #onPostCreate
      */
     @Override
-    public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
     }
 
@@ -1921,8 +1923,8 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see #onCreate
      */
     @Override
-    public void onPostCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void onPostCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
     }
 
@@ -2152,7 +2154,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see SearchManager
      */
     @Override
-    public boolean onSearchRequested(final SearchEvent searchEvent) {
+    public boolean onSearchRequested(@Nullable final SearchEvent searchEvent) {
         return super.onSearchRequested(searchEvent);
     }
 
@@ -2461,8 +2463,7 @@ public class BlueprintActivity extends AppCompatActivity {
 
     /**
      * Postpone the entering activity transition when Activity was started with
-     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * Pair[])}.
+     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * Pair[])}.
      * <p>This method gives the Activity the ability to delay starting the entering and
      * shared element transitions until all data is loaded. Until then, the Activity won't
      * draw into its window, leaving the window transparent. This may also cause the
@@ -2471,8 +2472,8 @@ public class BlueprintActivity extends AppCompatActivity {
      * {@link #onActivityReenter(int, Intent)}.
      * {@link #startPostponedEnterTransition()} must be called to allow the Activity to
      * start the transitions. If the Activity did not use
-     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * Pair[])}, then this method does nothing.</p>
+     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * Pair[])}, then this method
+     * does nothing.</p>
      */
     @Override
     public void postponeEnterTransition() {
@@ -2725,13 +2726,12 @@ public class BlueprintActivity extends AppCompatActivity {
      * {@link android.R.id#home home} menu select action.</p>
      *
      * <p>In order to use a Toolbar within the Activity's window content the application
-     * must not request the window feature {@link Window#FEATURE_ACTION_BAR
-     * FEATURE_ACTION_BAR}.</p>
+     * must not request the window feature {@link Window#FEATURE_ACTION_BAR FEATURE_ACTION_BAR}.</p>
      *
      * @param toolbar Toolbar to set as the Activity's action bar, or {@code null} to clear it
      */
     @Override
-    public void setActionBar(final Toolbar toolbar) {
+    public void setActionBar(@Nullable final Toolbar toolbar) {
         super.setActionBar(toolbar);
     }
 
@@ -2762,8 +2762,8 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launched</i> Activity. This requires
      * {@link Window#FEATURE_CONTENT_TRANSITIONS}.
      *
@@ -2775,8 +2775,8 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launched</i> Activity. This requires
      * {@link Window#FEATURE_ACTIVITY_TRANSITIONS}.
      *
@@ -2788,8 +2788,8 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>listener</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>listener</var>
      * will be called to handle shared elements on the <i>launching</i> Activity. Most
      * calls will only come when returning from the started Activity.
      * This requires {@link Window#FEATURE_CONTENT_TRANSITIONS}.
@@ -2802,8 +2802,8 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launching</i> Activity. Most
      * calls will only come when returning from the started Activity.
      * This requires {@link Window#FEATURE_ACTIVITY_TRANSITIONS}.
@@ -2927,8 +2927,7 @@ public class BlueprintActivity extends AppCompatActivity {
 
     /**
      * Sets information describing the task with this activity for presentation inside the Recents
-     * System UI. When {@link ActivityManager#getRecentTasks} is called, the activities of each
-     * task
+     * System UI. When {@link ActivityManager#getRecentTasks} is called, the activities of each task
      * are traversed in order from the topmost activity to the bottommost. The traversal continues
      * for each property until a suitable value is found. For each task the taskDescription will be
      * returned in {@link ActivityManager.TaskDescription}.
@@ -3055,7 +3054,8 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see android.R.attr#enableVrMode
      */
     @Override
-    public void setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+    public void setVrModeEnabled(final boolean enabled,
+            @NonNull final ComponentName requestedComponent)
             throws PackageManager.NameNotFoundException {
         super.setVrModeEnabled(enabled, requestedComponent);
     }
@@ -3090,7 +3090,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see #onRequestPermissionsResult(int, String[], int[])
      */
     @Override
-    public boolean shouldShowRequestPermissionRationale(final String permission) {
+    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
         return super.shouldShowRequestPermissionRationale(permission);
     }
 
@@ -3201,7 +3201,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see #startActivityForResult
      */
     @Override
-    public void startActivities(final Intent[] intents, final Bundle options) {
+    public void startActivities(final Intent[] intents, @Nullable final Bundle options) {
         super.startActivities(intents, options);
     }
 
@@ -3238,7 +3238,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see #startActivityForResult
      */
     @Override
-    public void startActivity(final Intent intent, final Bundle options) {
+    public void startActivity(final Intent intent, @Nullable final Bundle options) {
         super.startActivity(intent, options);
     }
 
@@ -3268,7 +3268,8 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see #startActivityForResult
      */
     @Override
-    public void startActivityFromChild(final Activity child, final Intent intent,
+    public void startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent,
             final int requestCode) {
         super.startActivityFromChild(child, intent, requestCode);
     }
@@ -3290,9 +3291,9 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see #startActivityForResult
      */
     @Override
-    public void startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode,
-            final Bundle options) {
+    public void startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent,
+            final int requestCode, @Nullable final Bundle options) {
         super.startActivityFromChild(child, intent, requestCode, options);
     }
 
@@ -3316,8 +3317,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     /**
-     * Same as calling {@link #startActivityFromFragment(android.app.Fragment, Intent, int,
-     * Bundle)}
+     * Same as calling {@link #startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)}
      * with no options.
      *
      * @param fragment    The fragment making the call.
@@ -3327,8 +3327,8 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see android.app.Fragment#startActivityForResult
      */
     @Override
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode) {
+    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode) {
         super.startActivityFromFragment(fragment, intent, requestCode);
     }
 
@@ -3350,9 +3350,9 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see android.app.Fragment#startActivityForResult
      */
     @Override
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode,
-            final Bundle options) {
+    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         super.startActivityFromFragment(fragment, intent, requestCode, options);
     }
 
@@ -3370,7 +3370,8 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see #startActivityForResult
      */
     @Override
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode) {
+    public boolean startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode) {
         return super.startActivityIfNeeded(intent, requestCode);
     }
 
@@ -3403,8 +3404,8 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see #startActivityForResult
      */
     @Override
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode,
-            final Bundle options) {
+    public boolean startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode, @Nullable final Bundle options) {
         return super.startActivityIfNeeded(intent, requestCode, options);
     }
 
@@ -3428,7 +3429,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * @param extraFlags   Always set to 0.
      */
     @Override
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    public void startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask,
             final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
         super.startIntentSender(intent, fillInIntent, flagsMask, flagsValues, extraFlags);
@@ -3454,7 +3455,7 @@ public class BlueprintActivity extends AppCompatActivity {
      *                     have also been supplied by the IntentSender, options given here will
      */
     @Override
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    public void startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask,
             final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
@@ -3480,8 +3481,8 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     /**
-     * Same as calling {@link #startIntentSenderFromChild(Activity, IntentSender,
-     * int, Intent, int, int, int, Bundle)} with no options.
+     * Same as calling {@link #startIntentSenderFromChild(Activity, IntentSender, * int, Intent,
+     * int, int, int, Bundle)} with no options.
      */
     @Override
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
@@ -3503,8 +3504,8 @@ public class BlueprintActivity extends AppCompatActivity {
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode,
             final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options)
-            throws IntentSender.SendIntentException {
+            final int extraFlags,
+            @Nullable final Bundle options) throws IntentSender.SendIntentException {
         super.startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
                 flagsValues, extraFlags, options);
     }
@@ -3523,8 +3524,7 @@ public class BlueprintActivity extends AppCompatActivity {
 
     /**
      * Starts a local voice interaction session. When ready,
-     * {@link #onLocalVoiceInteractionStarted()} is called. You can pass a bundle of private
-     * options
+     * {@link #onLocalVoiceInteractionStarted()} is called. You can pass a bundle of private options
      * to the registered voice interaction service.
      *
      * @param privateOptions a Bundle of private arguments to the current voice interaction service
@@ -3574,8 +3574,7 @@ public class BlueprintActivity extends AppCompatActivity {
      *
      * <p><strong>Warning:</strong> Do not call {@link Cursor#close()} on cursor obtained from
      * {@link #managedQuery}, because the activity will do that for you at the appropriate time.
-     * However, if you call {@link #stopManagingCursor} on a cursor from a managed query, the
-     * system
+     * However, if you call {@link #stopManagingCursor} on a cursor from a managed query, the system
      * <em>will not</em> automatically close the cursor and, in that case, you must call
      * {@link Cursor#close()}.</p>
      *
@@ -3605,7 +3604,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * finish() on yourself.
      */
     @Override
-    public boolean startNextMatchingActivity(final Intent intent) {
+    public boolean startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent) {
         return super.startNextMatchingActivity(intent);
     }
 
@@ -3628,7 +3627,8 @@ public class BlueprintActivity extends AppCompatActivity {
      * finish() on yourself.
      */
     @Override
-    public boolean startNextMatchingActivity(final Intent intent, final Bundle options) {
+    public boolean startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent,
+            @Nullable final Bundle options) {
         return super.startNextMatchingActivity(intent, options);
     }
 
@@ -3648,8 +3648,7 @@ public class BlueprintActivity extends AppCompatActivity {
      * <p>It is typically called from onSearchRequested(), either directly from
      * Activity.onSearchRequested() or from an overridden version in any given
      * Activity.  If your goal is simply to activate search, it is preferred to call
-     * onSearchRequested(), which may have been overridden elsewhere in your Activity.  If your
-     * goal
+     * onSearchRequested(), which may have been overridden elsewhere in your Activity.  If your goal
      * is to inject specific data such as context data, it is preferred to <i>override</i>
      * onSearchRequested(), so that any callers to it will benefit from the override.
      *
@@ -3685,9 +3684,8 @@ public class BlueprintActivity extends AppCompatActivity {
      * @see #onSearchRequested
      */
     @Override
-    public void startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData,
-            final boolean globalSearch) {
+    public void startSearch(@Nullable final String initialQuery, final boolean selectInitialQuery,
+            @Nullable final Bundle appSearchData, final boolean globalSearch) {
         super.startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
     }
 
@@ -3878,7 +3876,7 @@ public class BlueprintActivity extends AppCompatActivity {
      *                      searches.  This data will be returned with SEARCH intent(s).  Null if
      */
     @Override
-    public void triggerSearch(final String query, final Bundle appSearchData) {
+    public void triggerSearch(final String query, @Nullable final Bundle appSearchData) {
         super.triggerSearch(query, appSearchData);
     }
 
@@ -3928,7 +3926,7 @@ public class BlueprintActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onApplyThemeResource(final Resources.Theme theme, final int resid,
+    protected void onApplyThemeResource(final Resources.Theme theme, @StyleRes final int resid,
             final boolean first) {
         super.onApplyThemeResource(theme, resid, first);
     }

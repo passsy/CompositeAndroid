@@ -39,6 +39,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -136,7 +137,8 @@ public interface ICompositeActivity
     Context createPackageContext(final String packageName, final int flags)
             throws PackageManager.NameNotFoundException;
 
-    PendingIntent createPendingResult(final int requestCode, final Intent data, final int flags);
+    PendingIntent createPendingResult(final int requestCode, @NonNull final Intent data,
+            final int flags);
 
     String[] databaseList();
 
@@ -190,7 +192,7 @@ public interface ICompositeActivity
 
     void finishActivity(final int requestCode);
 
-    void finishActivityFromChild(final Activity child, final int requestCode);
+    void finishActivityFromChild(@NonNull final Activity child, final int requestCode);
 
     void finishAffinity();
 
@@ -312,7 +314,7 @@ public interface ICompositeActivity
 
     Intent getSupportParentActivityIntent();
 
-    Object getSystemService(final String name);
+    Object getSystemService(@NonNull final String name);
 
     String getSystemServiceName(final Class<?> serviceClass);
 
@@ -380,7 +382,8 @@ public interface ICompositeActivity
 
     void onActivityResult(final int requestCode, final int resultCode, final Intent data);
 
-    void onApplyThemeResource(final Resources.Theme theme, final int resid, final boolean first);
+    void onApplyThemeResource(final Resources.Theme theme, @StyleRes final int resid,
+            final boolean first);
 
     void onAttachFragment(final Fragment fragment);
 
@@ -400,7 +403,8 @@ public interface ICompositeActivity
 
     void onContextMenuClosed(final Menu menu);
 
-    void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState);
+    void onCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState);
 
     void onCreate(@Nullable final Bundle savedInstanceState);
 
@@ -475,7 +479,8 @@ public interface ICompositeActivity
 
     void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
 
-    void onPostCreate(final Bundle savedInstanceState, final PersistableBundle persistentState);
+    void onPostCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState);
 
     void onPostCreate(@Nullable final Bundle savedInstanceState);
 
@@ -527,7 +532,7 @@ public interface ICompositeActivity
 
     void onSaveInstanceState(final Bundle outState);
 
-    boolean onSearchRequested(final SearchEvent searchEvent);
+    boolean onSearchRequested(@Nullable final SearchEvent searchEvent);
 
     boolean onSearchRequested();
 
@@ -650,7 +655,7 @@ public interface ICompositeActivity
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras);
 
-    void setActionBar(final Toolbar toolbar);
+    void setActionBar(@Nullable final Toolbar toolbar);
 
     void setContentTransitionManager(final TransitionManager tm);
 
@@ -698,14 +703,14 @@ public interface ICompositeActivity
 
     void setVisible(final boolean visible);
 
-    void setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+    void setVrModeEnabled(final boolean enabled, @NonNull final ComponentName requestedComponent)
             throws PackageManager.NameNotFoundException;
 
     void setWallpaper(final Bitmap bitmap) throws IOException;
 
     void setWallpaper(final InputStream data) throws IOException;
 
-    boolean shouldShowRequestPermissionRationale(final String permission);
+    boolean shouldShowRequestPermissionRationale(@NonNull final String permission);
 
     boolean shouldUpRecreateTask(final Intent targetIntent);
 
@@ -720,21 +725,23 @@ public interface ICompositeActivity
 
     void startActivities(final Intent[] intents);
 
-    void startActivities(final Intent[] intents, final Bundle options);
+    void startActivities(final Intent[] intents, @Nullable final Bundle options);
 
     void startActivity(final Intent intent);
 
-    void startActivity(final Intent intent, final Bundle options);
+    void startActivity(final Intent intent, @Nullable final Bundle options);
 
     void startActivityForResult(final Intent intent, final int requestCode);
 
     void startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options);
 
-    void startActivityFromChild(final Activity child, final Intent intent, final int requestCode);
+    void startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode);
 
-    void startActivityFromChild(final Activity child, final Intent intent, final int requestCode,
-            final Bundle options);
+    void startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options);
 
     void startActivityFromFragment(final Fragment fragment, final Intent intent,
             final int requestCode);
@@ -742,24 +749,27 @@ public interface ICompositeActivity
     void startActivityFromFragment(final Fragment fragment, final Intent intent,
             final int requestCode, @Nullable final Bundle options);
 
-    void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
+    void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode);
+
+    void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options);
+
+    boolean startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
             final int requestCode);
 
-    void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode, final Bundle options);
-
-    boolean startActivityIfNeeded(final Intent intent, final int requestCode);
-
-    boolean startActivityIfNeeded(final Intent intent, final int requestCode, final Bundle options);
+    boolean startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode, @Nullable final Bundle options);
 
     boolean startInstrumentation(final ComponentName className, final String profileFile,
             final Bundle arguments);
 
-    void startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    void startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags)
             throws IntentSender.SendIntentException;
 
-    void startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    void startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException;
 
@@ -777,7 +787,7 @@ public interface ICompositeActivity
 
     void startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+            final int flagsValues, final int extraFlags, @Nullable final Bundle options)
             throws IntentSender.SendIntentException;
 
     void startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
@@ -791,14 +801,15 @@ public interface ICompositeActivity
 
     void startManagingCursor(final Cursor c);
 
-    boolean startNextMatchingActivity(final Intent intent);
+    boolean startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent);
 
-    boolean startNextMatchingActivity(final Intent intent, final Bundle options);
+    boolean startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent,
+            @Nullable final Bundle options);
 
     void startPostponedEnterTransition();
 
-    void startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch);
+    void startSearch(@Nullable final String initialQuery, final boolean selectInitialQuery,
+            @Nullable final Bundle appSearchData, final boolean globalSearch);
 
     ComponentName startService(final Intent service);
 
@@ -852,7 +863,7 @@ public interface ICompositeActivity
     Context super_createPackageContext(final String packageName, final int flags)
             throws PackageManager.NameNotFoundException;
 
-    PendingIntent super_createPendingResult(final int requestCode, final Intent data,
+    PendingIntent super_createPendingResult(final int requestCode, @NonNull final Intent data,
             final int flags);
 
     String[] super_databaseList();
@@ -908,7 +919,7 @@ public interface ICompositeActivity
 
     void super_finishActivity(final int requestCode);
 
-    void super_finishActivityFromChild(final Activity child, final int requestCode);
+    void super_finishActivityFromChild(@NonNull final Activity child, final int requestCode);
 
     void super_finishAffinity();
 
@@ -1024,7 +1035,7 @@ public interface ICompositeActivity
 
     Intent super_getSupportParentActivityIntent();
 
-    Object super_getSystemService(final String name);
+    Object super_getSystemService(@NonNull final String name);
 
     String super_getSystemServiceName(final Class<?> serviceClass);
 
@@ -1092,7 +1103,7 @@ public interface ICompositeActivity
 
     void super_onActivityResult(final int requestCode, final int resultCode, final Intent data);
 
-    void super_onApplyThemeResource(final Resources.Theme theme, final int resid,
+    void super_onApplyThemeResource(final Resources.Theme theme, @StyleRes final int resid,
             final boolean first);
 
     void super_onAttachFragment(final Fragment fragment);
@@ -1113,7 +1124,8 @@ public interface ICompositeActivity
 
     void super_onContextMenuClosed(final Menu menu);
 
-    void super_onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState);
+    void super_onCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState);
 
     void super_onCreate(@Nullable final Bundle savedInstanceState);
 
@@ -1188,8 +1200,8 @@ public interface ICompositeActivity
 
     void super_onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
 
-    void super_onPostCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState);
+    void super_onPostCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState);
 
     void super_onPostCreate(@Nullable final Bundle savedInstanceState);
 
@@ -1238,7 +1250,7 @@ public interface ICompositeActivity
 
     void super_onSaveInstanceState(final Bundle outState);
 
-    boolean super_onSearchRequested(final SearchEvent searchEvent);
+    boolean super_onSearchRequested(@Nullable final SearchEvent searchEvent);
 
     boolean super_onSearchRequested();
 
@@ -1362,7 +1374,7 @@ public interface ICompositeActivity
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras);
 
-    void super_setActionBar(final Toolbar toolbar);
+    void super_setActionBar(@Nullable final Toolbar toolbar);
 
     void super_setContentTransitionManager(final TransitionManager tm);
 
@@ -1410,14 +1422,15 @@ public interface ICompositeActivity
 
     void super_setVisible(final boolean visible);
 
-    void super_setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+    void super_setVrModeEnabled(final boolean enabled,
+            @NonNull final ComponentName requestedComponent)
             throws PackageManager.NameNotFoundException;
 
     void super_setWallpaper(final Bitmap bitmap) throws IOException;
 
     void super_setWallpaper(final InputStream data) throws IOException;
 
-    boolean super_shouldShowRequestPermissionRationale(final String permission);
+    boolean super_shouldShowRequestPermissionRationale(@NonNull final String permission);
 
     boolean super_shouldUpRecreateTask(final Intent targetIntent);
 
@@ -1432,22 +1445,23 @@ public interface ICompositeActivity
 
     void super_startActivities(final Intent[] intents);
 
-    void super_startActivities(final Intent[] intents, final Bundle options);
+    void super_startActivities(final Intent[] intents, @Nullable final Bundle options);
 
     void super_startActivity(final Intent intent);
 
-    void super_startActivity(final Intent intent, final Bundle options);
+    void super_startActivity(final Intent intent, @Nullable final Bundle options);
 
     void super_startActivityForResult(final Intent intent, final int requestCode);
 
     void super_startActivityForResult(final Intent intent, final int requestCode,
             @Nullable final Bundle options);
 
-    void super_startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode);
+    void super_startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode);
 
-    void super_startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode, final Bundle options);
+    void super_startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options);
 
     void super_startActivityFromFragment(final Fragment fragment, final Intent intent,
             final int requestCode);
@@ -1455,25 +1469,27 @@ public interface ICompositeActivity
     void super_startActivityFromFragment(final Fragment fragment, final Intent intent,
             final int requestCode, @Nullable final Bundle options);
 
-    void super_startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
+    void super_startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode);
+
+    void super_startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options);
+
+    boolean super_startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
             final int requestCode);
 
-    void super_startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode, final Bundle options);
-
-    boolean super_startActivityIfNeeded(final Intent intent, final int requestCode);
-
-    boolean super_startActivityIfNeeded(final Intent intent, final int requestCode,
-            final Bundle options);
+    boolean super_startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode, @Nullable final Bundle options);
 
     boolean super_startInstrumentation(final ComponentName className, final String profileFile,
             final Bundle arguments);
 
-    void super_startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    void super_startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags)
             throws IntentSender.SendIntentException;
 
-    void super_startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    void super_startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException;
 
@@ -1491,7 +1507,7 @@ public interface ICompositeActivity
 
     void super_startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+            final int flagsValues, final int extraFlags, @Nullable final Bundle options)
             throws IntentSender.SendIntentException;
 
     void super_startIntentSenderFromFragment(final Fragment fragment, final IntentSender intent,
@@ -1505,14 +1521,15 @@ public interface ICompositeActivity
 
     void super_startManagingCursor(final Cursor c);
 
-    boolean super_startNextMatchingActivity(final Intent intent);
+    boolean super_startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent);
 
-    boolean super_startNextMatchingActivity(final Intent intent, final Bundle options);
+    boolean super_startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent,
+            @Nullable final Bundle options);
 
     void super_startPostponedEnterTransition();
 
-    void super_startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch);
+    void super_startSearch(@Nullable final String initialQuery, final boolean selectInitialQuery,
+            @Nullable final Bundle appSearchData, final boolean globalSearch);
 
     ComponentName super_startService(final Intent service);
 
@@ -1542,7 +1559,7 @@ public interface ICompositeActivity
 
     void super_takeKeyEvents(final boolean get);
 
-    void super_triggerSearch(final String query, final Bundle appSearchData);
+    void super_triggerSearch(final String query, @Nullable final Bundle appSearchData);
 
     void super_unbindService(final ServiceConnection conn);
 
@@ -1568,7 +1585,7 @@ public interface ICompositeActivity
 
     void takeKeyEvents(final boolean get);
 
-    void triggerSearch(final String query, final Bundle appSearchData);
+    void triggerSearch(final String query, @Nullable final Bundle appSearchData);
 
     void unbindService(final ServiceConnection conn);
 

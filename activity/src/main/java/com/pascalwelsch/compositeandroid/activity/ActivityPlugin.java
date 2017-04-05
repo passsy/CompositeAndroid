@@ -65,6 +65,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -269,7 +270,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * supplied.
      * @see PendingIntent
      */
-    public PendingIntent createPendingResult(final int requestCode, final Intent data,
+    public PendingIntent createPendingResult(final int requestCode, @NonNull final Intent data,
             final int flags) {
         verifyMethodCalledFromDelegate("createPendingResult(Integer, Intent, Integer)");
         return ((CallFun3<PendingIntent, Integer, Intent, Integer>) mSuperListeners.pop())
@@ -476,7 +477,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @param child       The activity making the call.
      * @param requestCode Request code that had been used to start the
      */
-    public void finishActivityFromChild(final Activity child, final int requestCode) {
+    public void finishActivityFromChild(@NonNull final Activity child, final int requestCode) {
         verifyMethodCalledFromDelegate("finishActivityFromChild(Activity, Integer)");
         ((CallVoid2<Activity, Integer>) mSuperListeners.pop()).call(child, requestCode);
     }
@@ -991,7 +992,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         return ((CallFun0<Intent>) mSuperListeners.pop()).call();
     }
 
-    public Object getSystemService(final String name) {
+    public Object getSystemService(@NonNull final String name) {
         verifyMethodCalledFromDelegate("getSystemService(String)");
         return ((CallFun1<Object, String>) mSuperListeners.pop()).call(name);
     }
@@ -1337,7 +1338,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
                 .call(requestCode, resultCode, data);
     }
 
-    public void onApplyThemeResource(final Resources.Theme theme, final int resid,
+    public void onApplyThemeResource(final Resources.Theme theme, @StyleRes final int resid,
             final boolean first) {
         verifyMethodCalledFromDelegate("onApplyThemeResource(Resources.Theme, Integer, Boolean)");
         ((CallVoid3<Resources.Theme, Integer, Boolean>) mSuperListeners.pop())
@@ -1460,7 +1461,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see #onRestoreInstanceState
      * @see #onPostCreate
      */
-    public void onCreate(final Bundle savedInstanceState, final PersistableBundle persistentState) {
+    public void onCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         verifyMethodCalledFromDelegate("onCreate(Bundle, PersistableBundle)");
         ((CallVoid2<Bundle, PersistableBundle>) mSuperListeners.pop())
                 .call(savedInstanceState, persistentState);
@@ -2027,8 +2029,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      *                           saved in {@link #onSaveInstanceState(Bundle, PersistableBundle)}.
      * @see #onCreate
      */
-    public void onPostCreate(final Bundle savedInstanceState,
-            final PersistableBundle persistentState) {
+    public void onPostCreate(@Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         verifyMethodCalledFromDelegate("onPostCreate(Bundle, PersistableBundle)");
         ((CallVoid2<Bundle, PersistableBundle>) mSuperListeners.pop())
                 .call(savedInstanceState, persistentState);
@@ -2394,7 +2396,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * when in {@link Configuration#UI_MODE_TYPE_TELEVISION} mode where it returns false.
      * @see SearchManager
      */
-    public boolean onSearchRequested(final SearchEvent searchEvent) {
+    public boolean onSearchRequested(@Nullable final SearchEvent searchEvent) {
         verifyMethodCalledFromDelegate("onSearchRequested(SearchEvent)");
         return ((CallFun1<Boolean, SearchEvent>) mSuperListeners.pop()).call(searchEvent);
     }
@@ -2745,8 +2747,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     /**
      * Postpone the entering activity transition when Activity was started with
-     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * Pair[])}.
+     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * Pair[])}.
      * <p>This method gives the Activity the ability to delay starting the entering and
      * shared element transitions until all data is loaded. Until then, the Activity won't
      * draw into its window, leaving the window transparent. This may also cause the
@@ -2755,8 +2756,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * {@link #onActivityReenter(int, Intent)}.
      * {@link #startPostponedEnterTransition()} must be called to allow the Activity to
      * start the transitions. If the Activity did not use
-     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * Pair[])}, then this method does nothing.</p>
+     * {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * Pair[])}, then this method
+     * does nothing.</p>
      */
     public void postponeEnterTransition() {
         verifyMethodCalledFromDelegate("postponeEnterTransition()");
@@ -3021,12 +3022,11 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * {@link android.R.id#home home} menu select action.</p>
      *
      * <p>In order to use a Toolbar within the Activity's window content the application
-     * must not request the window feature {@link Window#FEATURE_ACTION_BAR
-     * FEATURE_ACTION_BAR}.</p>
+     * must not request the window feature {@link Window#FEATURE_ACTION_BAR FEATURE_ACTION_BAR}.</p>
      *
      * @param toolbar Toolbar to set as the Activity's action bar, or {@code null} to clear it
      */
-    public void setActionBar(final Toolbar toolbar) {
+    public void setActionBar(@Nullable final Toolbar toolbar) {
         verifyMethodCalledFromDelegate("setActionBar(Toolbar)");
         ((CallVoid1<Toolbar>) mSuperListeners.pop()).call(toolbar);
     }
@@ -3058,8 +3058,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launched</i> Activity. This requires
      * {@link Window#FEATURE_CONTENT_TRANSITIONS}.
      *
@@ -3071,8 +3071,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launched</i> Activity. This requires
      * {@link Window#FEATURE_ACTIVITY_TRANSITIONS}.
      *
@@ -3085,8 +3085,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>listener</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>listener</var>
      * will be called to handle shared elements on the <i>launching</i> Activity. Most
      * calls will only come when returning from the started Activity.
      * This requires {@link Window#FEATURE_CONTENT_TRANSITIONS}.
@@ -3099,8 +3099,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     /**
-     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity,
-     * View, String)} was used to start an Activity, <var>callback</var>
+     * When {@link ActivityOptions#makeSceneTransitionAnimation(Activity, * View, String)} was used
+     * to start an Activity, <var>callback</var>
      * will be called to handle shared elements on the <i>launching</i> Activity. Most
      * calls will only come when returning from the started Activity.
      * This requires {@link Window#FEATURE_ACTIVITY_TRANSITIONS}.
@@ -3225,8 +3225,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     /**
      * Sets information describing the task with this activity for presentation inside the Recents
-     * System UI. When {@link ActivityManager#getRecentTasks} is called, the activities of each
-     * task
+     * System UI. When {@link ActivityManager#getRecentTasks} is called, the activities of each task
      * are traversed in order from the topmost activity to the bottommost. The traversal continues
      * for each property until a suitable value is found. For each task the taskDescription will be
      * returned in {@link ActivityManager.TaskDescription}.
@@ -3352,7 +3351,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see Settings#ACTION_VR_LISTENER_SETTINGS
      * @see android.R.attr#enableVrMode
      */
-    public void setVrModeEnabled(final boolean enabled, final ComponentName requestedComponent)
+    public void setVrModeEnabled(final boolean enabled,
+            @NonNull final ComponentName requestedComponent)
             throws PackageManager.NameNotFoundException {
         verifyMethodCalledFromDelegate("setVrModeEnabled(Boolean, ComponentName)");
         ((CallVoid2<Boolean, ComponentName>) mSuperListeners.pop())
@@ -3388,7 +3388,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see #requestPermissions(String[], int)
      * @see #onRequestPermissionsResult(int, String[], int[])
      */
-    public boolean shouldShowRequestPermissionRationale(final String permission) {
+    public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
         verifyMethodCalledFromDelegate("shouldShowRequestPermissionRationale(String)");
         return ((CallFun1<Boolean, String>) mSuperListeners.pop()).call(permission);
     }
@@ -3500,7 +3500,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see #startActivities(Intent[])
      * @see #startActivityForResult
      */
-    public void startActivities(final Intent[] intents, final Bundle options) {
+    public void startActivities(final Intent[] intents, @Nullable final Bundle options) {
         verifyMethodCalledFromDelegate("startActivities(Intent[], Bundle)");
         ((CallVoid2<Intent[], Bundle>) mSuperListeners.pop()).call(intents, options);
     }
@@ -3537,7 +3537,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see #startActivity(Intent)
      * @see #startActivityForResult
      */
-    public void startActivity(final Intent intent, final Bundle options) {
+    public void startActivity(final Intent intent, @Nullable final Bundle options) {
         verifyMethodCalledFromDelegate("startActivity(Intent, Bundle)");
         ((CallVoid2<Intent, Bundle>) mSuperListeners.pop()).call(intent, options);
     }
@@ -3568,8 +3568,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see #startActivity
      * @see #startActivityForResult
      */
-    public void startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode) {
+    public void startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode) {
         verifyMethodCalledFromDelegate("startActivityFromChild(Activity, Intent, Integer)");
         ((CallVoid3<Activity, Intent, Integer>) mSuperListeners.pop())
                 .call(child, intent, requestCode);
@@ -3591,8 +3591,9 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see #startActivity
      * @see #startActivityForResult
      */
-    public void startActivityFromChild(final Activity child, final Intent intent,
-            final int requestCode, final Bundle options) {
+    public void startActivityFromChild(@NonNull final Activity child,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         verifyMethodCalledFromDelegate("startActivityFromChild(Activity, Intent, Integer, Bundle)");
         ((CallVoid4<Activity, Intent, Integer, Bundle>) mSuperListeners.pop())
                 .call(child, intent, requestCode, options);
@@ -3620,8 +3621,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     /**
-     * Same as calling {@link #startActivityFromFragment(android.app.Fragment, Intent, int,
-     * Bundle)}
+     * Same as calling {@link #startActivityFromFragment(android.app.Fragment, Intent, int, Bundle)}
      * with no options.
      *
      * @param fragment    The fragment making the call.
@@ -3630,8 +3630,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see android.app.Fragment#startActivity
      * @see android.app.Fragment#startActivityForResult
      */
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode) {
+    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode) {
         verifyMethodCalledFromDelegate(
                 "startActivityFromFragment(android.app.Fragment, Intent, Integer)");
         ((CallVoid3<android.app.Fragment, Intent, Integer>) mSuperListeners.pop())
@@ -3655,8 +3655,9 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see android.app.Fragment#startActivity
      * @see android.app.Fragment#startActivityForResult
      */
-    public void startActivityFromFragment(final android.app.Fragment fragment, final Intent intent,
-            final int requestCode, final Bundle options) {
+    public void startActivityFromFragment(@NonNull final android.app.Fragment fragment,
+            @RequiresPermission final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         verifyMethodCalledFromDelegate(
                 "startActivityFromFragment(android.app.Fragment, Intent, Integer, Bundle)");
         ((CallVoid4<android.app.Fragment, Intent, Integer, Bundle>) mSuperListeners.pop())
@@ -3676,7 +3677,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see #startActivity
      * @see #startActivityForResult
      */
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode) {
+    public boolean startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode) {
         verifyMethodCalledFromDelegate("startActivityIfNeeded(Intent, Integer)");
         return ((CallFun2<Boolean, Intent, Integer>) mSuperListeners.pop())
                 .call(intent, requestCode);
@@ -3710,8 +3712,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see #startActivity
      * @see #startActivityForResult
      */
-    public boolean startActivityIfNeeded(final Intent intent, final int requestCode,
-            final Bundle options) {
+    public boolean startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
+            final int requestCode, @Nullable final Bundle options) {
         verifyMethodCalledFromDelegate("startActivityIfNeeded(Intent, Integer, Bundle)");
         return ((CallFun3<Boolean, Intent, Integer, Bundle>) mSuperListeners.pop())
                 .call(intent, requestCode, options);
@@ -3737,7 +3739,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      *                     <var>flagsMask</var>
      * @param extraFlags   Always set to 0.
      */
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    public void startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags)
             throws IntentSender.SendIntentException {
         verifyMethodCalledFromDelegate(
@@ -3765,7 +3767,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      *                     Context.startActivity(Intent, Bundle)} for more details.  If options
      *                     have also been supplied by the IntentSender, options given here will
      */
-    public void startIntentSender(final IntentSender intent, final Intent fillInIntent,
+    public void startIntentSender(final IntentSender intent, @Nullable final Intent fillInIntent,
             final int flagsMask, final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
         verifyMethodCalledFromDelegate(
@@ -3794,8 +3796,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     /**
-     * Same as calling {@link #startIntentSenderFromChild(Activity, IntentSender,
-     * int, Intent, int, int, int, Bundle)} with no options.
+     * Same as calling {@link #startIntentSenderFromChild(Activity, IntentSender, * int, Intent,
+     * int, int, int, Bundle)} with no options.
      */
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
@@ -3815,7 +3817,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      */
     public void startIntentSenderFromChild(final Activity child, final IntentSender intent,
             final int requestCode, final Intent fillInIntent, final int flagsMask,
-            final int flagsValues, final int extraFlags, final Bundle options)
+            final int flagsValues, final int extraFlags, @Nullable final Bundle options)
             throws IntentSender.SendIntentException {
         verifyMethodCalledFromDelegate(
                 "startIntentSenderFromChild(Activity, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle)");
@@ -3841,8 +3843,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     /**
      * Starts a local voice interaction session. When ready,
-     * {@link #onLocalVoiceInteractionStarted()} is called. You can pass a bundle of private
-     * options
+     * {@link #onLocalVoiceInteractionStarted()} is called. You can pass a bundle of private options
      * to the registered voice interaction service.
      *
      * @param privateOptions a Bundle of private arguments to the current voice interaction service
@@ -3892,8 +3893,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      *
      * <p><strong>Warning:</strong> Do not call {@link Cursor#close()} on cursor obtained from
      * {@link #managedQuery}, because the activity will do that for you at the appropriate time.
-     * However, if you call {@link #stopManagingCursor} on a cursor from a managed query, the
-     * system
+     * However, if you call {@link #stopManagingCursor} on a cursor from a managed query, the system
      * <em>will not</em> automatically close the cursor and, in that case, you must call
      * {@link Cursor#close()}.</p>
      *
@@ -3922,7 +3922,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * wasn't.  In general, if true is returned you will then want to call
      * finish() on yourself.
      */
-    public boolean startNextMatchingActivity(final Intent intent) {
+    public boolean startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent) {
         verifyMethodCalledFromDelegate("startNextMatchingActivity(Intent)");
         return ((CallFun1<Boolean, Intent>) mSuperListeners.pop()).call(intent);
     }
@@ -3945,7 +3945,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * wasn't.  In general, if true is returned you will then want to call
      * finish() on yourself.
      */
-    public boolean startNextMatchingActivity(final Intent intent, final Bundle options) {
+    public boolean startNextMatchingActivity(@RequiresPermission @NonNull final Intent intent,
+            @Nullable final Bundle options) {
         verifyMethodCalledFromDelegate("startNextMatchingActivity(Intent, Bundle)");
         return ((CallFun2<Boolean, Intent, Bundle>) mSuperListeners.pop()).call(intent, options);
     }
@@ -3966,8 +3967,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * <p>It is typically called from onSearchRequested(), either directly from
      * Activity.onSearchRequested() or from an overridden version in any given
      * Activity.  If your goal is simply to activate search, it is preferred to call
-     * onSearchRequested(), which may have been overridden elsewhere in your Activity.  If your
-     * goal
+     * onSearchRequested(), which may have been overridden elsewhere in your Activity.  If your goal
      * is to inject specific data such as context data, it is preferred to <i>override</i>
      * onSearchRequested(), so that any callers to it will benefit from the override.
      *
@@ -4002,8 +4002,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      * @see SearchManager
      * @see #onSearchRequested
      */
-    public void startSearch(final String initialQuery, final boolean selectInitialQuery,
-            final Bundle appSearchData, final boolean globalSearch) {
+    public void startSearch(@Nullable final String initialQuery, final boolean selectInitialQuery,
+            @Nullable final Bundle appSearchData, final boolean globalSearch) {
         verifyMethodCalledFromDelegate("startSearch(String, Boolean, Bundle, Boolean)");
         ((CallVoid4<String, Boolean, Bundle, Boolean>) mSuperListeners.pop())
                 .call(initialQuery, selectInitialQuery, appSearchData, globalSearch);
@@ -4194,7 +4194,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
      *                      context here, in order to improve quality or specificity of its own
      *                      searches.  This data will be returned with SEARCH intent(s).  Null if
      */
-    public void triggerSearch(final String query, final Bundle appSearchData) {
+    public void triggerSearch(final String query, @Nullable final Bundle appSearchData) {
         verifyMethodCalledFromDelegate("triggerSearch(String, Bundle)");
         ((CallVoid2<String, Bundle>) mSuperListeners.pop()).call(query, appSearchData);
     }
@@ -4379,7 +4379,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     PendingIntent createPendingResult(
             final CallFun3<PendingIntent, Integer, Intent, Integer> superCall,
-            final int requestCode, final Intent data, final int flags) {
+            final int requestCode, @NonNull final Intent data, final int flags) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return createPendingResult(requestCode, data, flags);
@@ -4565,8 +4565,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void finishActivityFromChild(final CallVoid2<Activity, Integer> superCall, final Activity child,
-            final int requestCode) {
+    void finishActivityFromChild(final CallVoid2<Activity, Integer> superCall,
+            @NonNull final Activity child, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             finishActivityFromChild(child, requestCode);
@@ -4980,7 +4980,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    Object getSystemService(final CallFun1<Object, String> superCall, final String name) {
+    Object getSystemService(final CallFun1<Object, String> superCall, @NonNull final String name) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getSystemService(name);
@@ -5228,7 +5228,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void onApplyThemeResource(final CallVoid3<Resources.Theme, Integer, Boolean> superCall,
-            final Resources.Theme theme, final int resid, final boolean first) {
+            final Resources.Theme theme, @StyleRes final int resid, final boolean first) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onApplyThemeResource(theme, resid, first);
@@ -5303,7 +5303,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void onCreate(final CallVoid2<Bundle, PersistableBundle> superCall,
-            final Bundle savedInstanceState, final PersistableBundle persistentState) {
+            @Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onCreate(savedInstanceState, persistentState);
@@ -5578,7 +5579,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void onPostCreate(final CallVoid2<Bundle, PersistableBundle> superCall,
-            final Bundle savedInstanceState, final PersistableBundle persistentState) {
+            @Nullable final Bundle savedInstanceState,
+            @Nullable final PersistableBundle persistentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onPostCreate(savedInstanceState, persistentState);
@@ -5749,7 +5751,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     boolean onSearchRequested(final CallFun1<Boolean, SearchEvent> superCall,
-            final SearchEvent searchEvent) {
+            @Nullable final SearchEvent searchEvent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onSearchRequested(searchEvent);
@@ -6180,7 +6182,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         }
     }
 
-    void setActionBar(final CallVoid1<Toolbar> superCall, final Toolbar toolbar) {
+    void setActionBar(final CallVoid1<Toolbar> superCall, @Nullable final Toolbar toolbar) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setActionBar(toolbar);
@@ -6361,7 +6363,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void setVrModeEnabled(final CallVoid2<Boolean, ComponentName> superCall, final boolean enabled,
-            final ComponentName requestedComponent) throws PackageManager.NameNotFoundException {
+            @NonNull final ComponentName requestedComponent)
+            throws PackageManager.NameNotFoundException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setVrModeEnabled(enabled, requestedComponent);
@@ -6384,7 +6387,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     boolean shouldShowRequestPermissionRationale(final CallFun1<Boolean, String> superCall,
-            final String permission) {
+            @NonNull final String permission) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return shouldShowRequestPermissionRationale(permission);
@@ -6439,7 +6442,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void startActivities(final CallVoid2<Intent[], Bundle> superCall, final Intent[] intents,
-            final Bundle options) {
+            @Nullable final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivities(intents, options);
@@ -6454,7 +6457,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void startActivity(final CallVoid2<Intent, Bundle> superCall, final Intent intent,
-            final Bundle options) {
+            @Nullable final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivity(intent, options);
@@ -6478,7 +6481,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void startActivityFromChild(final CallVoid3<Activity, Intent, Integer> superCall,
-            final Activity child, final Intent intent, final int requestCode) {
+            @NonNull final Activity child, @RequiresPermission final Intent intent,
+            final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromChild(child, intent, requestCode);
@@ -6486,8 +6490,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void startActivityFromChild(final CallVoid4<Activity, Intent, Integer, Bundle> superCall,
-            final Activity child, final Intent intent, final int requestCode,
-            final Bundle options) {
+            @NonNull final Activity child, @RequiresPermission final Intent intent,
+            final int requestCode, @Nullable final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromChild(child, intent, requestCode, options);
@@ -6512,7 +6516,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void startActivityFromFragment(final CallVoid3<android.app.Fragment, Intent, Integer> superCall,
-            final android.app.Fragment fragment, final Intent intent, final int requestCode) {
+            @NonNull final android.app.Fragment fragment, @RequiresPermission final Intent intent,
+            final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromFragment(fragment, intent, requestCode);
@@ -6521,8 +6526,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     void startActivityFromFragment(
             final CallVoid4<android.app.Fragment, Intent, Integer, Bundle> superCall,
-            final android.app.Fragment fragment, final Intent intent, final int requestCode,
-            final Bundle options) {
+            @NonNull final android.app.Fragment fragment, @RequiresPermission final Intent intent,
+            final int requestCode, @Nullable final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startActivityFromFragment(fragment, intent, requestCode, options);
@@ -6530,7 +6535,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     boolean startActivityIfNeeded(final CallFun2<Boolean, Intent, Integer> superCall,
-            final Intent intent, final int requestCode) {
+            @RequiresPermission @NonNull final Intent intent, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startActivityIfNeeded(intent, requestCode);
@@ -6538,7 +6543,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     boolean startActivityIfNeeded(final CallFun3<Boolean, Intent, Integer, Bundle> superCall,
-            final Intent intent, final int requestCode, final Bundle options) {
+            @RequiresPermission @NonNull final Intent intent, final int requestCode,
+            @Nullable final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startActivityIfNeeded(intent, requestCode, options);
@@ -6555,7 +6561,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     void startIntentSender(
             final CallVoid5<IntentSender, Intent, Integer, Integer, Integer> superCall,
-            final IntentSender intent, final Intent fillInIntent, final int flagsMask,
+            final IntentSender intent, @Nullable final Intent fillInIntent, final int flagsMask,
             final int flagsValues, final int extraFlags) throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -6565,7 +6571,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
 
     void startIntentSender(
             final CallVoid6<IntentSender, Intent, Integer, Integer, Integer, Bundle> superCall,
-            final IntentSender intent, final Intent fillInIntent, final int flagsMask,
+            final IntentSender intent, @Nullable final Intent fillInIntent, final int flagsMask,
             final int flagsValues, final int extraFlags, final Bundle options)
             throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
@@ -6614,7 +6620,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
             final CallVoid8<Activity, IntentSender, Integer, Intent, Integer, Integer, Integer, Bundle> superCall,
             final Activity child, final IntentSender intent, final int requestCode,
             final Intent fillInIntent, final int flagsMask, final int flagsValues,
-            final int extraFlags, final Bundle options) throws IntentSender.SendIntentException {
+            final int extraFlags, @Nullable final Bundle options)
+            throws IntentSender.SendIntentException {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startIntentSenderFromChild(child, intent, requestCode, fillInIntent, flagsMask,
@@ -6657,7 +6664,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     boolean startNextMatchingActivity(final CallFun1<Boolean, Intent> superCall,
-            final Intent intent) {
+            @RequiresPermission @NonNull final Intent intent) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startNextMatchingActivity(intent);
@@ -6665,7 +6672,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     boolean startNextMatchingActivity(final CallFun2<Boolean, Intent, Bundle> superCall,
-            final Intent intent, final Bundle options) {
+            @RequiresPermission @NonNull final Intent intent, @Nullable final Bundle options) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return startNextMatchingActivity(intent, options);
@@ -6680,8 +6687,8 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void startSearch(final CallVoid4<String, Boolean, Bundle, Boolean> superCall,
-            final String initialQuery, final boolean selectInitialQuery, final Bundle appSearchData,
-            final boolean globalSearch) {
+            @Nullable final String initialQuery, final boolean selectInitialQuery,
+            @Nullable final Bundle appSearchData, final boolean globalSearch) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             startSearch(initialQuery, selectInitialQuery, appSearchData, globalSearch);
@@ -6791,7 +6798,7 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     }
 
     void triggerSearch(final CallVoid2<String, Bundle> superCall, final String query,
-            final Bundle appSearchData) {
+            @Nullable final Bundle appSearchData) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             triggerSearch(query, appSearchData);
