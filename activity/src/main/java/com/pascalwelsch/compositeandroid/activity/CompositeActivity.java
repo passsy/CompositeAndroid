@@ -1,7 +1,5 @@
 package com.pascalwelsch.compositeandroid.activity;
 
-import com.pascalwelsch.compositeandroid.core.Removable;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -89,6 +87,8 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toolbar;
 
+import com.pascalwelsch.compositeandroid.core.Removable;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -97,6 +97,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant"})
@@ -116,8 +117,24 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
         delegate.addContentView(view, params);
     }
 
-    public Removable addPlugin(final ActivityPlugin plugin) {
+    public Removable addPlugin(@NonNull final ActivityPlugin plugin) {
         return delegate.addPlugin(plugin);
+    }
+
+    public List<Removable> addPlugin(@NonNull final ActivityPlugin... plugins) {
+        final List<Removable> removables = new ArrayList<>(plugins.length);
+        for (final ActivityPlugin plugin : plugins) {
+            removables.add(delegate.addPlugin(plugin));
+        }
+        return removables;
+    }
+
+    public List<Removable> addPlugin(@NonNull final Iterable<? extends ActivityPlugin> plugins) {
+        final List<Removable> removables = new ArrayList<>();
+        for (final ActivityPlugin plugin : plugins) {
+            removables.add(delegate.addPlugin(plugin));
+        }
+        return removables;
     }
 
     /**
