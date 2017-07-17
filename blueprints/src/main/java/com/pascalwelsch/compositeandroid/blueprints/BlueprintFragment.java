@@ -27,7 +27,7 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-// 25.3.1
+// 25.4.0
 @SuppressWarnings("ALL")
 public class BlueprintFragment extends Fragment {
 
@@ -112,15 +112,17 @@ public class BlueprintFragment extends Fragment {
     }
 
     /**
-     * Hack so that DialogFragment can make its Dialog before creating
-     * its views, and the view construction can use the dialog's context for
-     * inflation.  Maybe this should become a public API. Note sure.
+     * Override {@link #onGetLayoutInflater(Bundle)} when you need to change the
+     * LayoutInflater or call {@link #getLayoutInflater()} when you want to
+     * retrieve the current LayoutInflater.
      *
      * @hide
+     * @deprecated Override {@link #onGetLayoutInflater(Bundle)} or call
+     * {@link #getLayoutInflater()} instead of this method.
      */
     @Override
-    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
-        return super.getLayoutInflater(savedInstanceState);
+    public LayoutInflater getLayoutInflater(final Bundle savedFragmentState) {
+        return super.getLayoutInflater(savedFragmentState);
     }
 
     /**
@@ -452,6 +454,19 @@ public class BlueprintFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    /**
+     * Returns the LayoutInflater used to inflate Views of this Fragment. The default
+     * implementation will throw an exception if the Fragment is not attached.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     * @return The LayoutInflater used to inflate Views of this Fragment.
+     */
+    @Override
+    public LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState) {
+        return super.onGetLayoutInflater(savedInstanceState);
     }
 
     /**

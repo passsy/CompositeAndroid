@@ -15,6 +15,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://maven.google.com" }
     }
     tasks.withType(Javadoc) {
         options.addStringOption('Xdoclint:none', '-quiet')
@@ -25,9 +26,9 @@ allprojects {
 // major version is the SDK version
 def versionMajor = 25
 // minor version of the support library
-def versionMinor = 3
+def versionMinor = 4
 // patch version of the support library
-def versionPatch = 1
+def versionPatch = 0
 
 // composite android build version for the given support library version.
 // increases when composite android receives updates but the support lib doesn't update
@@ -41,7 +42,6 @@ ext {
     TARGET_SDK_VERSION = versionMajor
     COMPILE_SDK_VERSION = versionMajor
     BUILD_TOOLS_VERSION = '25.0.2' // also update in .travis.yml
-
 
     ciBuild = System.getenv("TRAVIS") == "true"
 }

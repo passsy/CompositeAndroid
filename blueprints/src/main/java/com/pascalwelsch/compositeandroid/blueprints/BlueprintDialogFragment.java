@@ -12,7 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 
-// 25.3.1
+// 25.4.0
 @SuppressWarnings("ALL")
 public class BlueprintDialogFragment extends DialogFragment {
 
@@ -41,14 +41,6 @@ public class BlueprintDialogFragment extends DialogFragment {
     @Override
     public Dialog getDialog() {
         return super.getDialog();
-    }
-
-    /**
-     * @hide
-     */
-    @Override
-    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
-        return super.getLayoutInflater(savedInstanceState);
     }
 
     /**
@@ -135,6 +127,11 @@ public class BlueprintDialogFragment extends DialogFragment {
     @Override
     public void onDismiss(final DialogInterface dialog) {
         super.onDismiss(dialog);
+    }
+
+    @Override
+    public LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState) {
+        return super.onGetLayoutInflater(savedInstanceState);
     }
 
     @Override
