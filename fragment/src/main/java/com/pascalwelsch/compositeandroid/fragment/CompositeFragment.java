@@ -32,8 +32,10 @@ import android.view.animation.Animation;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
-@SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant"})
+@SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant", "RestrictedApi"})
 @SuppressLint({"MissingSuperCall", "NewApi"})
 
 /**
@@ -45,6 +47,22 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
 
     protected FragmentDelegate delegate = new FragmentDelegate(this);
 
+    public List<Removable> addFragmentPlugins(@NonNull final FragmentPlugin... plugins) {
+        final List<Removable> removables = new ArrayList<>(plugins.length);
+        for (final FragmentPlugin plugin : plugins) {
+            removables.add(delegate.addPlugin(plugin));
+        }
+        return removables;
+    }
+
+    public List<Removable> addFragmentPlugins(
+            @NonNull final Iterable<? extends FragmentPlugin> plugins) {
+        final List<Removable> removables = new ArrayList<>();
+        for (final FragmentPlugin plugin : plugins) {
+            removables.add(delegate.addPlugin(plugin));
+        }
+        return removables;
+    }
 
     public Removable addPlugin(final FragmentPlugin plugin) {
         return delegate.addPlugin(plugin);

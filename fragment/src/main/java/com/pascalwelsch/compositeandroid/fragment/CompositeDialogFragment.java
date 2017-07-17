@@ -33,8 +33,10 @@ import android.view.animation.Animation;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
-@SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant"})
+@SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant", "RestrictedApi"})
 @SuppressLint({"MissingSuperCall", "NewApi"})
 
 /**
@@ -46,6 +48,40 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
 
     protected DialogFragmentDelegate delegate = new DialogFragmentDelegate(this);
 
+    public List<Removable> addDialogFragmentPlugins(
+            @NonNull final DialogFragmentPlugin... plugins) {
+        final List<Removable> removables = new ArrayList<>(plugins.length);
+        for (final DialogFragmentPlugin plugin : plugins) {
+            removables.add(delegate.addPlugin(plugin));
+        }
+        return removables;
+    }
+
+    public List<Removable> addDialogFragmentPlugins(
+            @NonNull final Iterable<? extends DialogFragmentPlugin> plugins) {
+        final List<Removable> removables = new ArrayList<>();
+        for (final DialogFragmentPlugin plugin : plugins) {
+            removables.add(delegate.addPlugin(plugin));
+        }
+        return removables;
+    }
+
+    public List<Removable> addFragmentPlugins(@NonNull final FragmentPlugin... plugins) {
+        final List<Removable> removables = new ArrayList<>(plugins.length);
+        for (final FragmentPlugin plugin : plugins) {
+            removables.add(delegate.addPlugin(plugin));
+        }
+        return removables;
+    }
+
+    public List<Removable> addFragmentPlugins(
+            @NonNull final Iterable<? extends FragmentPlugin> plugins) {
+        final List<Removable> removables = new ArrayList<>();
+        for (final FragmentPlugin plugin : plugins) {
+            removables.add(delegate.addPlugin(plugin));
+        }
+        return removables;
+    }
 
     public Removable addPlugin(final DialogFragmentPlugin plugin) {
         return delegate.addPlugin(plugin);
