@@ -185,9 +185,9 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         return superCall.call();
     }
 
-    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
+    public LayoutInflater getLayoutInflater(final Bundle savedFragmentState) {
         if (mPlugins.isEmpty()) {
-            return getOriginal().super_getLayoutInflater(savedInstanceState);
+            return getOriginal().super_getLayoutInflater(savedFragmentState);
         }
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
@@ -196,15 +196,15 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                 "getLayoutInflater(Bundle)") {
 
             @Override
-            public LayoutInflater call(final Bundle savedInstanceState) {
+            public LayoutInflater call(final Bundle savedFragmentState) {
                 if (iterator.hasPrevious()) {
-                    return iterator.previous().getLayoutInflater(this, savedInstanceState);
+                    return iterator.previous().getLayoutInflater(this, savedFragmentState);
                 } else {
-                    return getOriginal().super_getLayoutInflater(savedInstanceState);
+                    return getOriginal().super_getLayoutInflater(savedFragmentState);
                 }
             }
         };
-        return superCall.call(savedInstanceState);
+        return superCall.call(savedFragmentState);
     }
 
     public LoaderManager getLoaderManager() {
@@ -724,6 +724,28 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
             }
         };
         superCall.call();
+    }
+
+    public LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onGetLayoutInflater(savedInstanceState);
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun1<LayoutInflater, Bundle> superCall = new CallFun1<LayoutInflater, Bundle>(
+                "onGetLayoutInflater(Bundle)") {
+
+            @Override
+            public LayoutInflater call(final Bundle savedInstanceState) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onGetLayoutInflater(this, savedInstanceState);
+                } else {
+                    return getOriginal().super_onGetLayoutInflater(savedInstanceState);
+                }
+            }
+        };
+        return superCall.call(savedInstanceState);
     }
 
     public void onHiddenChanged(final boolean hidden) {

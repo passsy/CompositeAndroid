@@ -135,15 +135,17 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     /**
-     * Hack so that DialogFragment can make its Dialog before creating
-     * its views, and the view construction can use the dialog's context for
-     * inflation.  Maybe this should become a public API. Note sure.
+     * Override {@link #onGetLayoutInflater(Bundle)} when you need to change the
+     * LayoutInflater or call {@link #getLayoutInflater()} when you want to
+     * retrieve the current LayoutInflater.
      *
      * @hide
+     * @deprecated Override {@link #onGetLayoutInflater(Bundle)} or call
+     * {@link #getLayoutInflater()} instead of this method.
      */
-    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
+    public LayoutInflater getLayoutInflater(final Bundle savedFragmentState) {
         verifyMethodCalledFromDelegate("getLayoutInflater(Bundle)");
-        return ((CallFun1<LayoutInflater, Bundle>) mSuperListeners.pop()).call(savedInstanceState);
+        return ((CallFun1<LayoutInflater, Bundle>) mSuperListeners.pop()).call(savedFragmentState);
     }
 
     /**
@@ -478,6 +480,19 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     public void onDetach() {
         verifyMethodCalledFromDelegate("onDetach()");
         ((CallVoid0) mSuperListeners.pop()).call();
+    }
+
+    /**
+     * Returns the LayoutInflater used to inflate Views of this Fragment. The default
+     * implementation will throw an exception if the Fragment is not attached.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     * @return The LayoutInflater used to inflate Views of this Fragment.
+     */
+    public LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState) {
+        verifyMethodCalledFromDelegate("onGetLayoutInflater(Bundle)");
+        return ((CallFun1<LayoutInflater, Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
     /**
@@ -1214,10 +1229,10 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     LayoutInflater getLayoutInflater(final CallFun1<LayoutInflater, Bundle> superCall,
-            final Bundle savedInstanceState) {
+            final Bundle savedFragmentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
-            return getLayoutInflater(savedInstanceState);
+            return getLayoutInflater(savedFragmentState);
         }
     }
 
@@ -1389,6 +1404,14 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onDetach();
+        }
+    }
+
+    LayoutInflater onGetLayoutInflater(final CallFun1<LayoutInflater, Bundle> superCall,
+            final Bundle savedInstanceState) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return onGetLayoutInflater(savedInstanceState);
         }
     }
 

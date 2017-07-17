@@ -60,14 +60,6 @@ public class DialogFragmentPlugin extends FragmentPlugin {
     }
 
     /**
-     * @hide
-     */
-    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
-        verifyMethodCalledFromDelegate("getLayoutInflater(Bundle)");
-        return ((CallFun1<LayoutInflater, Bundle>) mSuperListeners.pop()).call(savedInstanceState);
-    }
-
-    /**
      * Return the current value of {@link #setShowsDialog(boolean)}.
      */
     public boolean getShowsDialog() {
@@ -150,6 +142,11 @@ public class DialogFragmentPlugin extends FragmentPlugin {
     public void onDismiss(final DialogInterface dialog) {
         verifyMethodCalledFromDelegate("onDismiss(DialogInterface)");
         ((CallVoid1<DialogInterface>) mSuperListeners.pop()).call(dialog);
+    }
+
+    public LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState) {
+        verifyMethodCalledFromDelegate("onGetLayoutInflater(Bundle)");
+        return ((CallFun1<LayoutInflater, Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
 
     public void onSaveInstanceState(final Bundle outState) {
@@ -283,14 +280,6 @@ public class DialogFragmentPlugin extends FragmentPlugin {
         }
     }
 
-    LayoutInflater getLayoutInflater(final CallFun1<LayoutInflater, Bundle> superCall,
-            final Bundle savedInstanceState) {
-        synchronized (mSuperListeners) {
-            mSuperListeners.push(superCall);
-            return getLayoutInflater(savedInstanceState);
-        }
-    }
-
     boolean getShowsDialog(final CallFun0<Boolean> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -366,6 +355,14 @@ public class DialogFragmentPlugin extends FragmentPlugin {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onDismiss(dialog);
+        }
+    }
+
+    LayoutInflater onGetLayoutInflater(final CallFun1<LayoutInflater, Bundle> superCall,
+            final Bundle savedInstanceState) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return onGetLayoutInflater(savedInstanceState);
         }
     }
 

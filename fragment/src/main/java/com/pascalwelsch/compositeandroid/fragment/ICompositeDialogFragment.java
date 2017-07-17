@@ -26,8 +26,6 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
 
     Dialog getDialog();
 
-    LayoutInflater getLayoutInflater(final Bundle savedInstanceState);
-
     boolean getShowsDialog();
 
     int getTheme();
@@ -49,6 +47,8 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
     void onDetach();
 
     void onDismiss(final DialogInterface dialog);
+
+    LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState);
 
     void onSaveInstanceState(final Bundle outState);
 
@@ -74,8 +74,6 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
 
     Dialog super_getDialog();
 
-    LayoutInflater super_getLayoutInflater(final Bundle savedInstanceState);
-
     boolean super_getShowsDialog();
 
     int super_getTheme();
@@ -97,6 +95,8 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
     void super_onDetach();
 
     void super_onDismiss(final DialogInterface dialog);
+
+    LayoutInflater super_onGetLayoutInflater(final Bundle savedInstanceState);
 
     void super_onSaveInstanceState(final Bundle outState);
 

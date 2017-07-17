@@ -199,15 +199,17 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     /**
-     * Hack so that DialogFragment can make its Dialog before creating
-     * its views, and the view construction can use the dialog's context for
-     * inflation.  Maybe this should become a public API. Note sure.
+     * Override {@link #onGetLayoutInflater(Bundle)} when you need to change the
+     * LayoutInflater or call {@link #getLayoutInflater()} when you want to
+     * retrieve the current LayoutInflater.
      *
      * @hide
+     * @deprecated Override {@link #onGetLayoutInflater(Bundle)} or call
+     * {@link #getLayoutInflater()} instead of this method.
      */
     @Override
-    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
-        return delegate.getLayoutInflater(savedInstanceState);
+    public LayoutInflater getLayoutInflater(final Bundle savedFragmentState) {
+        return delegate.getLayoutInflater(savedFragmentState);
     }
 
     /**
@@ -597,6 +599,19 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     @Override
     public void onDismiss(final DialogInterface dialog) {
         delegate.onDismiss(dialog);
+    }
+
+    /**
+     * Returns the LayoutInflater used to inflate Views of this Fragment. The default
+     * implementation will throw an exception if the Fragment is not attached.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     * @return The LayoutInflater used to inflate Views of this Fragment.
+     */
+    @Override
+    public LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState) {
+        return delegate.onGetLayoutInflater(savedInstanceState);
     }
 
     /**
@@ -1479,16 +1494,18 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     /**
-     * Hack so that DialogFragment can make its Dialog before creating
-     * its views, and the view construction can use the dialog's context for
-     * inflation.  Maybe this should become a public API. Note sure.
+     * Override {@link #onGetLayoutInflater(Bundle)} when you need to change the
+     * LayoutInflater or call {@link #getLayoutInflater()} when you want to
+     * retrieve the current LayoutInflater.
      *
      * @hide
+     * @deprecated Override {@link #onGetLayoutInflater(Bundle)} or call
+     * {@link #getLayoutInflater()} instead of this method.
      */
 
     @Override
-    public LayoutInflater super_getLayoutInflater(final Bundle savedInstanceState) {
-        return super.getLayoutInflater(savedInstanceState);
+    public LayoutInflater super_getLayoutInflater(final Bundle savedFragmentState) {
+        return super.getLayoutInflater(savedFragmentState);
     }
 
     /**
@@ -1902,6 +1919,20 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     @Override
     public void super_onDismiss(final DialogInterface dialog) {
         super.onDismiss(dialog);
+    }
+
+    /**
+     * Returns the LayoutInflater used to inflate Views of this Fragment. The default
+     * implementation will throw an exception if the Fragment is not attached.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     * @return The LayoutInflater used to inflate Views of this Fragment.
+     */
+
+    @Override
+    public LayoutInflater super_onGetLayoutInflater(final Bundle savedInstanceState) {
+        return super.onGetLayoutInflater(savedInstanceState);
     }
 
     /**

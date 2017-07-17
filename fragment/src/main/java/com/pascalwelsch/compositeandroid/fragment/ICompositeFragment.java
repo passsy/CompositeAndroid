@@ -46,7 +46,7 @@ public interface ICompositeFragment {
 
     Object getExitTransition();
 
-    LayoutInflater getLayoutInflater(final Bundle savedInstanceState);
+    LayoutInflater getLayoutInflater(final Bundle savedFragmentState);
 
     LoaderManager getLoaderManager();
 
@@ -95,6 +95,8 @@ public interface ICompositeFragment {
     void onDestroyView();
 
     void onDetach();
+
+    LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState);
 
     void onHiddenChanged(final boolean hidden);
 
@@ -201,7 +203,7 @@ public interface ICompositeFragment {
 
     Object super_getExitTransition();
 
-    LayoutInflater super_getLayoutInflater(final Bundle savedInstanceState);
+    LayoutInflater super_getLayoutInflater(final Bundle savedFragmentState);
 
     LoaderManager super_getLoaderManager();
 
@@ -250,6 +252,8 @@ public interface ICompositeFragment {
     void super_onDestroyView();
 
     void super_onDetach();
+
+    LayoutInflater super_onGetLayoutInflater(final Bundle savedInstanceState);
 
     void super_onHiddenChanged(final boolean hidden);
 

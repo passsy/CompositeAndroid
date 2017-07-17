@@ -162,8 +162,8 @@ public class DialogFragmentDelegate
         return mFragmentDelegate.getExitTransition();
     }
 
-    public LayoutInflater getLayoutInflater(final Bundle savedInstanceState) {
-        return mFragmentDelegate.getLayoutInflater(savedInstanceState);
+    public LayoutInflater getLayoutInflater(final Bundle savedFragmentState) {
+        return mFragmentDelegate.getLayoutInflater(savedFragmentState);
     }
 
     public LoaderManager getLoaderManager() {
@@ -389,6 +389,10 @@ public class DialogFragmentDelegate
             }
         };
         superCall.call(dialog);
+    }
+
+    public LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState) {
+        return mFragmentDelegate.onGetLayoutInflater(savedInstanceState);
     }
 
     public void onHiddenChanged(final boolean hidden) {
