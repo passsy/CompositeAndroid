@@ -97,9 +97,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant"})
+@SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant", "RestrictedApi"})
 @SuppressLint({"MissingSuperCall", "NewApi"})
 
 /**
@@ -110,6 +111,23 @@ import java.util.List;
 public class CompositeActivity extends AppCompatActivity implements ICompositeActivity {
 
     protected ActivityDelegate delegate = new ActivityDelegate(this);
+
+    public List<Removable> addActivityPlugins(@NonNull final ActivityPlugin... plugins) {
+        final List<Removable> removables = new ArrayList<>(plugins.length);
+        for (final ActivityPlugin plugin : plugins) {
+            removables.add(delegate.addPlugin(plugin));
+        }
+        return removables;
+    }
+
+    public List<Removable> addActivityPlugins(
+            @NonNull final Iterable<? extends ActivityPlugin> plugins) {
+        final List<Removable> removables = new ArrayList<>();
+        for (final ActivityPlugin plugin : plugins) {
+            removables.add(delegate.addPlugin(plugin));
+        }
+        return removables;
+    }
 
     @Override
     public void addContentView(final View view, final ViewGroup.LayoutParams params) {

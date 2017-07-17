@@ -11,7 +11,12 @@ public class TestFragment extends CompositeDialogFragment {
 
     public TestFragment() {
         addPlugin(new FragmentTracking());
-        addPlugin(new DialogTracking());
+        addPlugin(new DialogTracking("single added"));
+
+        addDialogFragmentPlugins(
+                new DialogTracking("multiple dialog plugins #1"),
+                new DialogTracking("multiple dialog plugins #2"));
+        addFragmentPlugins(new FragmentTracking(), new DialogTracking("multiple fragment plugins"));
     }
 
     @Nullable
