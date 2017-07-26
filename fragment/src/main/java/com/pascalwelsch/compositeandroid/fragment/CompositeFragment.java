@@ -3,6 +3,7 @@ package com.pascalwelsch.compositeandroid.fragment;
 import com.pascalwelsch.compositeandroid.core.Removable;
 import com.pascalwelsch.compositeandroid.core.SuppressedException;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -376,11 +377,42 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     /**
-     * Called when a fragment loads an animation.
+     * Called when a fragment loads an animation. Note that if
+     * {@link FragmentTransaction#setCustomAnimations(int, int)} was called with
+     * {@link Animator} resources instead of {@link Animation} resources, {@code nextAnim}
+     * will be an animator resource.
+     *
+     * @param transit  The value set in {@link FragmentTransaction#setTransition(int)} or 0 if not
+     *                 set.
+     * @param enter    {@code true} when the fragment is added/attached/shown or {@code false} when
+     *                 the fragment is removed/detached/hidden.
+     * @param nextAnim The resource set in
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int)},
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int, int, int)}, or
      */
     @Override
     public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
         return delegate.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    /**
+     * Called when a fragment loads an animator. This will be called when
+     * {@link #onCreateAnimation(int, boolean, int)} returns null. Note that if
+     * {@link FragmentTransaction#setCustomAnimations(int, int)} was called with
+     * {@link Animation} resources instead of {@link Animator} resources, {@code nextAnim}
+     * will be an animation resource.
+     *
+     * @param transit  The value set in {@link FragmentTransaction#setTransition(int)} or 0 if not
+     *                 set.
+     * @param enter    {@code true} when the fragment is added/attached/shown or {@code false} when
+     *                 the fragment is removed/detached/hidden.
+     * @param nextAnim The resource set in
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int)},
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int, int, int)}, or
+     */
+    @Override
+    public Animator onCreateAnimator(final int transit, final boolean enter, final int nextAnim) {
+        return delegate.onCreateAnimator(transit, enter, nextAnim);
     }
 
     /**
@@ -799,11 +831,12 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * independent containers will not interfere with each other's postponement.
      * <p>
      * Calling postponeEnterTransition on Fragments with a null View will not postpone the
-     * transition. Likewise, postponement only works if FragmentTransaction optimizations are
+     * transition. Likewise, postponement only works if
+     * {@link FragmentTransaction#setReorderingAllowed(boolean) FragmentTransaction reordering} is
      * enabled.
      *
      * @see Activity#postponeEnterTransition()
-     * @see FragmentTransaction#setAllowOptimization(boolean)
+     * @see FragmentTransaction#setReorderingAllowed(boolean)
      */
     @Override
     public void postponeEnterTransition() {
@@ -852,11 +885,11 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     /**
-     * Supply the construction arguments for this fragment.  This can only
-     * be called before the fragment has been attached to its activity; that
-     * is, you should call it immediately after constructing the fragment.  The
-     * arguments supplied here will be retained across fragment destroy and
+     * Supply the construction arguments for this fragment.
+     * The arguments supplied here will be retained across fragment destroy and
      * creation.
+     * <p>This method cannot be called if the fragment is added to a FragmentManager and
+     * if {@link #isStateSaved()} would return true.</p>
      */
     @Override
     public void setArguments(final Bundle args) {
@@ -1505,13 +1538,46 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     /**
-     * Called when a fragment loads an animation.
+     * Called when a fragment loads an animation. Note that if
+     * {@link FragmentTransaction#setCustomAnimations(int, int)} was called with
+     * {@link Animator} resources instead of {@link Animation} resources, {@code nextAnim}
+     * will be an animator resource.
+     *
+     * @param transit  The value set in {@link FragmentTransaction#setTransition(int)} or 0 if not
+     *                 set.
+     * @param enter    {@code true} when the fragment is added/attached/shown or {@code false} when
+     *                 the fragment is removed/detached/hidden.
+     * @param nextAnim The resource set in
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int)},
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int, int, int)}, or
      */
 
     @Override
     public Animation super_onCreateAnimation(final int transit, final boolean enter,
             final int nextAnim) {
         return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    /**
+     * Called when a fragment loads an animator. This will be called when
+     * {@link #onCreateAnimation(int, boolean, int)} returns null. Note that if
+     * {@link FragmentTransaction#setCustomAnimations(int, int)} was called with
+     * {@link Animation} resources instead of {@link Animator} resources, {@code nextAnim}
+     * will be an animation resource.
+     *
+     * @param transit  The value set in {@link FragmentTransaction#setTransition(int)} or 0 if not
+     *                 set.
+     * @param enter    {@code true} when the fragment is added/attached/shown or {@code false} when
+     *                 the fragment is removed/detached/hidden.
+     * @param nextAnim The resource set in
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int)},
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int, int, int)}, or
+     */
+
+    @Override
+    public Animator super_onCreateAnimator(final int transit, final boolean enter,
+            final int nextAnim) {
+        return super.onCreateAnimator(transit, enter, nextAnim);
     }
 
     /**
@@ -1953,11 +2019,12 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * independent containers will not interfere with each other's postponement.
      * <p>
      * Calling postponeEnterTransition on Fragments with a null View will not postpone the
-     * transition. Likewise, postponement only works if FragmentTransaction optimizations are
+     * transition. Likewise, postponement only works if
+     * {@link FragmentTransaction#setReorderingAllowed(boolean) FragmentTransaction reordering} is
      * enabled.
      *
      * @see Activity#postponeEnterTransition()
-     * @see FragmentTransaction#setAllowOptimization(boolean)
+     * @see FragmentTransaction#setReorderingAllowed(boolean)
      */
 
     @Override
@@ -2010,11 +2077,11 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     /**
-     * Supply the construction arguments for this fragment.  This can only
-     * be called before the fragment has been attached to its activity; that
-     * is, you should call it immediately after constructing the fragment.  The
-     * arguments supplied here will be retained across fragment destroy and
+     * Supply the construction arguments for this fragment.
+     * The arguments supplied here will be retained across fragment destroy and
      * creation.
+     * <p>This method cannot be called if the fragment is added to a FragmentManager and
+     * if {@link #isStateSaved()} would return true.</p>
      */
 
     @Override

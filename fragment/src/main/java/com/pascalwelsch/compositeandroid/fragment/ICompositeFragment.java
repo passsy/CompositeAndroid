@@ -1,5 +1,6 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -79,6 +80,8 @@ public interface ICompositeFragment {
     void onCreate(@Nullable final Bundle savedInstanceState);
 
     Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim);
+
+    Animator onCreateAnimator(final int transit, final boolean enter, final int nextAnim);
 
     void onCreateContextMenu(final ContextMenu menu, final View v,
             final ContextMenu.ContextMenuInfo menuInfo);
@@ -236,6 +239,8 @@ public interface ICompositeFragment {
     void super_onCreate(@Nullable final Bundle savedInstanceState);
 
     Animation super_onCreateAnimation(final int transit, final boolean enter, final int nextAnim);
+
+    Animator super_onCreateAnimator(final int transit, final boolean enter, final int nextAnim);
 
     void super_onCreateContextMenu(final ContextMenu menu, final View v,
             final ContextMenu.ContextMenuInfo menuInfo);

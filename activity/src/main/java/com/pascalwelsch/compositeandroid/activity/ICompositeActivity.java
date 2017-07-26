@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.app.PictureInPictureParams;
 import android.app.TaskStackBuilder;
 import android.app.VoiceInteractor;
 import android.app.assist.AssistContent;
@@ -130,6 +131,9 @@ public interface ICompositeActivity
 
     Context createConfigurationContext(final Configuration overrideConfiguration);
 
+    Context createContextForSplit(final String splitName)
+            throws PackageManager.NameNotFoundException;
+
     Context createDeviceProtectedStorageContext();
 
     Context createDisplayContext(final Display display);
@@ -184,9 +188,11 @@ public interface ICompositeActivity
 
     void enterPictureInPictureMode();
 
+    boolean enterPictureInPictureMode(final PictureInPictureParams params);
+
     String[] fileList();
 
-    View findViewById(@IdRes final int id);
+    <T extends View> T findViewById(@IdRes final int id);
 
     void finish();
 
@@ -278,6 +284,8 @@ public interface ICompositeActivity
 
     Looper getMainLooper();
 
+    int getMaxNumPictureInPictureActions();
+
     MenuInflater getMenuInflater();
 
     File getNoBackupFilesDir();
@@ -339,6 +347,8 @@ public interface ICompositeActivity
     boolean hasWindowFocus();
 
     void invalidateOptionsMenu();
+
+    boolean isActivityTransitionRunning();
 
     boolean isChangingConfigurations();
 
@@ -463,6 +473,8 @@ public interface ICompositeActivity
 
     void onMultiWindowModeChanged(final boolean isInMultiWindowMode);
 
+    void onMultiWindowModeChanged(final boolean isInMultiWindowMode, final Configuration newConfig);
+
     boolean onNavigateUp();
 
     boolean onNavigateUpFromChild(final Activity child);
@@ -478,6 +490,9 @@ public interface ICompositeActivity
     void onPause();
 
     void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
+
+    void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode,
+            final Configuration newConfig);
 
     void onPostCreate(@Nullable final Bundle savedInstanceState,
             @Nullable final PersistableBundle persistentState);
@@ -607,7 +622,13 @@ public interface ICompositeActivity
     Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter);
 
     Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
+            final int flags);
+
+    Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
             final String broadcastPermission, final Handler scheduler);
+
+    Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
+            final String broadcastPermission, final Handler scheduler, final int flags);
 
     boolean releaseInstance();
 
@@ -622,6 +643,8 @@ public interface ICompositeActivity
     boolean requestVisibleBehind(final boolean visible);
 
     void revokeUriPermission(final Uri uri, final int modeFlags);
+
+    void revokeUriPermission(final String targetPackage, final Uri uri, final int modeFlags);
 
     void sendBroadcast(final Intent intent);
 
@@ -678,6 +701,8 @@ public interface ICompositeActivity
     void setImmersive(final boolean i);
 
     void setIntent(final Intent newIntent);
+
+    void setPictureInPictureParams(final PictureInPictureParams params);
 
     void setRequestedOrientation(final int requestedOrientation);
 
@@ -761,6 +786,8 @@ public interface ICompositeActivity
 
     boolean startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
             final int requestCode, @Nullable final Bundle options);
+
+    ComponentName startForegroundService(final Intent service);
 
     boolean startInstrumentation(final ComponentName className, final String profileFile,
             final Bundle arguments);
@@ -856,6 +883,9 @@ public interface ICompositeActivity
 
     Context super_createConfigurationContext(final Configuration overrideConfiguration);
 
+    Context super_createContextForSplit(final String splitName)
+            throws PackageManager.NameNotFoundException;
+
     Context super_createDeviceProtectedStorageContext();
 
     Context super_createDisplayContext(final Display display);
@@ -911,9 +941,11 @@ public interface ICompositeActivity
 
     void super_enterPictureInPictureMode();
 
+    boolean super_enterPictureInPictureMode(final PictureInPictureParams params);
+
     String[] super_fileList();
 
-    View super_findViewById(@IdRes final int id);
+    <T extends View> T super_findViewById(@IdRes final int id);
 
     void super_finish();
 
@@ -999,6 +1031,8 @@ public interface ICompositeActivity
 
     Looper super_getMainLooper();
 
+    int super_getMaxNumPictureInPictureActions();
+
     MenuInflater super_getMenuInflater();
 
     File super_getNoBackupFilesDir();
@@ -1060,6 +1094,8 @@ public interface ICompositeActivity
     boolean super_hasWindowFocus();
 
     void super_invalidateOptionsMenu();
+
+    boolean super_isActivityTransitionRunning();
 
     boolean super_isChangingConfigurations();
 
@@ -1184,6 +1220,9 @@ public interface ICompositeActivity
 
     void super_onMultiWindowModeChanged(final boolean isInMultiWindowMode);
 
+    void super_onMultiWindowModeChanged(final boolean isInMultiWindowMode,
+            final Configuration newConfig);
+
     boolean super_onNavigateUp();
 
     boolean super_onNavigateUpFromChild(final Activity child);
@@ -1199,6 +1238,9 @@ public interface ICompositeActivity
     void super_onPause();
 
     void super_onPictureInPictureModeChanged(final boolean isInPictureInPictureMode);
+
+    void super_onPictureInPictureModeChanged(final boolean isInPictureInPictureMode,
+            final Configuration newConfig);
 
     void super_onPostCreate(@Nullable final Bundle savedInstanceState,
             @Nullable final PersistableBundle persistentState);
@@ -1326,7 +1368,13 @@ public interface ICompositeActivity
     Intent super_registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter);
 
     Intent super_registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
+            final int flags);
+
+    Intent super_registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
             final String broadcastPermission, final Handler scheduler);
+
+    Intent super_registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
+            final String broadcastPermission, final Handler scheduler, final int flags);
 
     boolean super_releaseInstance();
 
@@ -1341,6 +1389,8 @@ public interface ICompositeActivity
     boolean super_requestVisibleBehind(final boolean visible);
 
     void super_revokeUriPermission(final Uri uri, final int modeFlags);
+
+    void super_revokeUriPermission(final String targetPackage, final Uri uri, final int modeFlags);
 
     void super_sendBroadcast(final Intent intent);
 
@@ -1397,6 +1447,8 @@ public interface ICompositeActivity
     void super_setImmersive(final boolean i);
 
     void super_setIntent(final Intent newIntent);
+
+    void super_setPictureInPictureParams(final PictureInPictureParams params);
 
     void super_setRequestedOrientation(final int requestedOrientation);
 
@@ -1481,6 +1533,8 @@ public interface ICompositeActivity
 
     boolean super_startActivityIfNeeded(@RequiresPermission @NonNull final Intent intent,
             final int requestCode, @Nullable final Bundle options);
+
+    ComponentName super_startForegroundService(final Intent service);
 
     boolean super_startInstrumentation(final ComponentName className, final String profileFile,
             final Bundle arguments);

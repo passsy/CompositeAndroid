@@ -6,6 +6,7 @@ import com.pascalwelsch.compositeandroid.core.CallFun1;
 import com.pascalwelsch.compositeandroid.core.CallFun2;
 import com.pascalwelsch.compositeandroid.core.CallFun3;
 import com.pascalwelsch.compositeandroid.core.CallFun4;
+import com.pascalwelsch.compositeandroid.core.CallFun5;
 import com.pascalwelsch.compositeandroid.core.CallFun6;
 import com.pascalwelsch.compositeandroid.core.CallVoid0;
 import com.pascalwelsch.compositeandroid.core.CallVoid1;
@@ -21,6 +22,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.app.PictureInPictureParams;
 import android.app.TaskStackBuilder;
 import android.app.VoiceInteractor;
 import android.app.assist.AssistContent;
@@ -498,6 +500,41 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         return superCall.call(overrideConfiguration);
+    }
+
+    public Context createContextForSplit(final String splitName)
+            throws PackageManager.NameNotFoundException {
+        if (mPlugins.isEmpty()) {
+            try {
+                return getOriginal().super_createContextForSplit(splitName);
+            } catch (PackageManager.NameNotFoundException e) {
+                throw new SuppressedException(e);
+            }
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun1<Context, String> superCall = new CallFun1<Context, String>(
+                "createContextForSplit(String)") {
+
+            @Override
+            public Context call(final String splitName) {
+                if (iterator.hasPrevious()) {
+                    try {
+                        return iterator.previous().createContextForSplit(this, splitName);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        throw new SuppressedException(e);
+                    }
+                } else {
+                    try {
+                        return getOriginal().super_createContextForSplit(splitName);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        throw new SuppressedException(e);
+                    }
+                }
+            }
+        };
+        return superCall.call(splitName);
     }
 
     public Context createDeviceProtectedStorageContext() {
@@ -1053,6 +1090,29 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call();
     }
 
+    public boolean enterPictureInPictureMode(final PictureInPictureParams params) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_enterPictureInPictureMode(params);
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun1<Boolean, PictureInPictureParams> superCall
+                = new CallFun1<Boolean, PictureInPictureParams>(
+                "enterPictureInPictureMode(PictureInPictureParams)") {
+
+            @Override
+            public Boolean call(final PictureInPictureParams params) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().enterPictureInPictureMode(this, params);
+                } else {
+                    return getOriginal().super_enterPictureInPictureMode(params);
+                }
+            }
+        };
+        return superCall.call(params);
+    }
+
     public String[] fileList() {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_fileList();
@@ -1074,18 +1134,17 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call();
     }
 
-    public View findViewById(@IdRes final int id) {
+    public <T extends View> T findViewById(@IdRes final int id) {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_findViewById(id);
         }
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final CallFun1<View, Integer> superCall = new CallFun1<View, Integer>(
-                "findViewById(Integer)") {
+        final CallFun1<T, Integer> superCall = new CallFun1<T, Integer>("findViewById(Integer)") {
 
             @Override
-            public View call(final Integer id) {
+            public T call(final Integer id) {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().findViewById(this, id);
                 } else {
@@ -2021,6 +2080,28 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call();
     }
 
+    public int getMaxNumPictureInPictureActions() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getMaxNumPictureInPictureActions();
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun0<Integer> superCall = new CallFun0<Integer>(
+                "getMaxNumPictureInPictureActions()") {
+
+            @Override
+            public Integer call() {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getMaxNumPictureInPictureActions(this);
+                } else {
+                    return getOriginal().super_getMaxNumPictureInPictureActions();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
     public MenuInflater getMenuInflater() {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_getMenuInflater();
@@ -2686,6 +2767,27 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call();
+    }
+
+    public boolean isActivityTransitionRunning() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_isActivityTransitionRunning();
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun0<Boolean> superCall = new CallFun0<Boolean>("isActivityTransitionRunning()") {
+
+            @Override
+            public Boolean call() {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().isActivityTransitionRunning(this);
+                } else {
+                    return getOriginal().super_isActivityTransitionRunning();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public boolean isChangingConfigurations() {
@@ -4008,6 +4110,31 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(isInMultiWindowMode);
     }
 
+    public void onMultiWindowModeChanged(final boolean isInMultiWindowMode,
+            final Configuration newConfig) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid2<Boolean, Configuration> superCall = new CallVoid2<Boolean, Configuration>(
+                "onMultiWindowModeChanged(Boolean, Configuration)") {
+
+            @Override
+            public void call(final Boolean isInMultiWindowMode, final Configuration newConfig) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onMultiWindowModeChanged(this, isInMultiWindowMode, newConfig);
+                } else {
+                    getOriginal().super_onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
+                }
+            }
+        };
+        superCall.call(isInMultiWindowMode, newConfig);
+    }
+
     public boolean onNavigateUp() {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_onNavigateUp();
@@ -4184,6 +4311,34 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call(isInPictureInPictureMode);
+    }
+
+    public void onPictureInPictureModeChanged(final boolean isInPictureInPictureMode,
+            final Configuration newConfig) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid2<Boolean, Configuration> superCall = new CallVoid2<Boolean, Configuration>(
+                "onPictureInPictureModeChanged(Boolean, Configuration)") {
+
+            @Override
+            public void call(final Boolean isInPictureInPictureMode,
+                    final Configuration newConfig) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous()
+                            .onPictureInPictureModeChanged(this, isInPictureInPictureMode,
+                                    newConfig);
+                } else {
+                    getOriginal().super_onPictureInPictureModeChanged(isInPictureInPictureMode,
+                            newConfig);
+                }
+            }
+        };
+        superCall.call(isInPictureInPictureMode, newConfig);
     }
 
     public void onPostCreate(@Nullable final Bundle savedInstanceState,
@@ -5535,6 +5690,31 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
     }
 
     public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
+            final int flags) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_registerReceiver(receiver, filter, flags);
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun3<Intent, BroadcastReceiver, IntentFilter, Integer> superCall
+                = new CallFun3<Intent, BroadcastReceiver, IntentFilter, Integer>(
+                "registerReceiver(BroadcastReceiver, IntentFilter, Integer)") {
+
+            @Override
+            public Intent call(final BroadcastReceiver receiver, final IntentFilter filter,
+                    final Integer flags) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().registerReceiver(this, receiver, filter, flags);
+                } else {
+                    return getOriginal().super_registerReceiver(receiver, filter, flags);
+                }
+            }
+        };
+        return superCall.call(receiver, filter, flags);
+    }
+
+    public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
             final String broadcastPermission, final Handler scheduler) {
         if (mPlugins.isEmpty()) {
             return getOriginal()
@@ -5562,6 +5742,38 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         return superCall.call(receiver, filter, broadcastPermission, scheduler);
+    }
+
+    public Intent registerReceiver(final BroadcastReceiver receiver, final IntentFilter filter,
+            final String broadcastPermission, final Handler scheduler, final int flags) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal()
+                    .super_registerReceiver(receiver, filter, broadcastPermission, scheduler,
+                            flags);
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun5<Intent, BroadcastReceiver, IntentFilter, String, Handler, Integer> superCall
+                = new CallFun5<Intent, BroadcastReceiver, IntentFilter, String, Handler, Integer>(
+                "registerReceiver(BroadcastReceiver, IntentFilter, String, Handler, Integer)") {
+
+            @Override
+            public Intent call(final BroadcastReceiver receiver, final IntentFilter filter,
+                    final String broadcastPermission, final Handler scheduler,
+                    final Integer flags) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous()
+                            .registerReceiver(this, receiver, filter, broadcastPermission,
+                                    scheduler, flags);
+                } else {
+                    return getOriginal()
+                            .super_registerReceiver(receiver, filter, broadcastPermission,
+                                    scheduler, flags);
+                }
+            }
+        };
+        return superCall.call(receiver, filter, broadcastPermission, scheduler, flags);
     }
 
     public boolean releaseInstance() {
@@ -5718,6 +5930,30 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call(uri, modeFlags);
+    }
+
+    public void revokeUriPermission(final String targetPackage, final Uri uri,
+            final int modeFlags) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_revokeUriPermission(targetPackage, uri, modeFlags);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid3<String, Uri, Integer> superCall = new CallVoid3<String, Uri, Integer>(
+                "revokeUriPermission(String, Uri, Integer)") {
+
+            @Override
+            public void call(final String targetPackage, final Uri uri, final Integer modeFlags) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().revokeUriPermission(this, targetPackage, uri, modeFlags);
+                } else {
+                    getOriginal().super_revokeUriPermission(targetPackage, uri, modeFlags);
+                }
+            }
+        };
+        superCall.call(targetPackage, uri, modeFlags);
     }
 
     public void sendBroadcast(final Intent intent) {
@@ -6297,6 +6533,29 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call(newIntent);
+    }
+
+    public void setPictureInPictureParams(final PictureInPictureParams params) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setPictureInPictureParams(params);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid1<PictureInPictureParams> superCall = new CallVoid1<PictureInPictureParams>(
+                "setPictureInPictureParams(PictureInPictureParams)") {
+
+            @Override
+            public void call(final PictureInPictureParams params) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setPictureInPictureParams(this, params);
+                } else {
+                    getOriginal().super_setPictureInPictureParams(params);
+                }
+            }
+        };
+        superCall.call(params);
     }
 
     public void setRequestedOrientation(final int requestedOrientation) {
@@ -7166,6 +7425,28 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         return superCall.call(intent, requestCode, options);
+    }
+
+    public ComponentName startForegroundService(final Intent service) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_startForegroundService(service);
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun1<ComponentName, Intent> superCall = new CallFun1<ComponentName, Intent>(
+                "startForegroundService(Intent)") {
+
+            @Override
+            public ComponentName call(final Intent service) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().startForegroundService(this, service);
+                } else {
+                    return getOriginal().super_startForegroundService(service);
+                }
+            }
+        };
+        return superCall.call(service);
     }
 
     public boolean startInstrumentation(final ComponentName className, final String profileFile,

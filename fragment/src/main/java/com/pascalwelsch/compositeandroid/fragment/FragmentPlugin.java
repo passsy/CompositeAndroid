@@ -11,6 +11,7 @@ import com.pascalwelsch.compositeandroid.core.CallVoid3;
 import com.pascalwelsch.compositeandroid.core.CallVoid4;
 import com.pascalwelsch.compositeandroid.core.CallVoid7;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -362,11 +363,43 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     /**
-     * Called when a fragment loads an animation.
+     * Called when a fragment loads an animation. Note that if
+     * {@link FragmentTransaction#setCustomAnimations(int, int)} was called with
+     * {@link Animator} resources instead of {@link Animation} resources, {@code nextAnim}
+     * will be an animator resource.
+     *
+     * @param transit  The value set in {@link FragmentTransaction#setTransition(int)} or 0 if not
+     *                 set.
+     * @param enter    {@code true} when the fragment is added/attached/shown or {@code false} when
+     *                 the fragment is removed/detached/hidden.
+     * @param nextAnim The resource set in
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int)},
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int, int, int)}, or
      */
     public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
         verifyMethodCalledFromDelegate("onCreateAnimation(Integer, Boolean, Integer)");
         return ((CallFun3<Animation, Integer, Boolean, Integer>) mSuperListeners.pop())
+                .call(transit, enter, nextAnim);
+    }
+
+    /**
+     * Called when a fragment loads an animator. This will be called when
+     * {@link #onCreateAnimation(int, boolean, int)} returns null. Note that if
+     * {@link FragmentTransaction#setCustomAnimations(int, int)} was called with
+     * {@link Animation} resources instead of {@link Animator} resources, {@code nextAnim}
+     * will be an animation resource.
+     *
+     * @param transit  The value set in {@link FragmentTransaction#setTransition(int)} or 0 if not
+     *                 set.
+     * @param enter    {@code true} when the fragment is added/attached/shown or {@code false} when
+     *                 the fragment is removed/detached/hidden.
+     * @param nextAnim The resource set in
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int)},
+     *                 {@link FragmentTransaction#setCustomAnimations(int, int, int, int)}, or
+     */
+    public Animator onCreateAnimator(final int transit, final boolean enter, final int nextAnim) {
+        verifyMethodCalledFromDelegate("onCreateAnimator(Integer, Boolean, Integer)");
+        return ((CallFun3<Animator, Integer, Boolean, Integer>) mSuperListeners.pop())
                 .call(transit, enter, nextAnim);
     }
 
@@ -791,11 +824,12 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
      * independent containers will not interfere with each other's postponement.
      * <p>
      * Calling postponeEnterTransition on Fragments with a null View will not postpone the
-     * transition. Likewise, postponement only works if FragmentTransaction optimizations are
+     * transition. Likewise, postponement only works if
+     * {@link FragmentTransaction#setReorderingAllowed(boolean) FragmentTransaction reordering} is
      * enabled.
      *
      * @see Activity#postponeEnterTransition()
-     * @see FragmentTransaction#setAllowOptimization(boolean)
+     * @see FragmentTransaction#setReorderingAllowed(boolean)
      */
     public void postponeEnterTransition() {
         verifyMethodCalledFromDelegate("postponeEnterTransition()");
@@ -844,11 +878,11 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     /**
-     * Supply the construction arguments for this fragment.  This can only
-     * be called before the fragment has been attached to its activity; that
-     * is, you should call it immediately after constructing the fragment.  The
-     * arguments supplied here will be retained across fragment destroy and
+     * Supply the construction arguments for this fragment.
+     * The arguments supplied here will be retained across fragment destroy and
      * creation.
+     * <p>This method cannot be called if the fragment is added to a FragmentManager and
+     * if {@link #isStateSaved()} would return true.</p>
      */
     public void setArguments(final Bundle args) {
         verifyMethodCalledFromDelegate("setArguments(Bundle)");
@@ -1350,6 +1384,14 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onCreateAnimation(transit, enter, nextAnim);
+        }
+    }
+
+    Animator onCreateAnimator(final CallFun3<Animator, Integer, Boolean, Integer> superCall,
+            final int transit, final boolean enter, final int nextAnim) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return onCreateAnimator(transit, enter, nextAnim);
         }
     }
 

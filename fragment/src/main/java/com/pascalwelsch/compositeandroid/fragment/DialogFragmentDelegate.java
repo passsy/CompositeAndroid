@@ -316,6 +316,10 @@ public class DialogFragmentDelegate
         return mFragmentDelegate.onCreateAnimation(transit, enter, nextAnim);
     }
 
+    public Animator onCreateAnimator(final int transit, final boolean enter, final int nextAnim) {
+        return mFragmentDelegate.onCreateAnimator(transit, enter, nextAnim);
+    }
+
     public void onCreateContextMenu(final ContextMenu menu, final View v,
             final ContextMenu.ContextMenuInfo menuInfo) {
         mFragmentDelegate.onCreateContextMenu(menu, v, menuInfo);

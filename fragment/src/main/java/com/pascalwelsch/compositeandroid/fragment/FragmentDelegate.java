@@ -12,6 +12,7 @@ import com.pascalwelsch.compositeandroid.core.CallVoid4;
 import com.pascalwelsch.compositeandroid.core.CallVoid7;
 import com.pascalwelsch.compositeandroid.core.SuppressedException;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -556,6 +557,30 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                     return iterator.previous().onCreateAnimation(this, transit, enter, nextAnim);
                 } else {
                     return getOriginal().super_onCreateAnimation(transit, enter, nextAnim);
+                }
+            }
+        };
+        return superCall.call(transit, enter, nextAnim);
+    }
+
+    public Animator onCreateAnimator(final int transit, final boolean enter, final int nextAnim) {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_onCreateAnimator(transit, enter, nextAnim);
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun3<Animator, Integer, Boolean, Integer> superCall
+                = new CallFun3<Animator, Integer, Boolean, Integer>(
+                "onCreateAnimator(Integer, Boolean, Integer)") {
+
+            @Override
+            public Animator call(final Integer transit, final Boolean enter,
+                    final Integer nextAnim) {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().onCreateAnimator(this, transit, enter, nextAnim);
+                } else {
+                    return getOriginal().super_onCreateAnimator(transit, enter, nextAnim);
                 }
             }
         };
