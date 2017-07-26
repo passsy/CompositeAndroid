@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion MIN_SDK_VERSION
         targetSdkVersion TARGET_SDK_VERSION
-        versionCode 230400
-        versionName "23.4.0"
+        versionCode 260000
+        versionName "26.0.0"
     }
 
     dexOptions {
