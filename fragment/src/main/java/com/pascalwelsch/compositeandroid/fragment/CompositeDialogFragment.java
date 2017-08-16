@@ -3,6 +3,7 @@ package com.pascalwelsch.compositeandroid.fragment;
 import com.pascalwelsch.compositeandroid.core.Removable;
 import com.pascalwelsch.compositeandroid.core.SuppressedException;
 
+import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
