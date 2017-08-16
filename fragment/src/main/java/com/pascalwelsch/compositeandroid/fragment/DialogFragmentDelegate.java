@@ -9,6 +9,7 @@ import com.pascalwelsch.compositeandroid.core.CallVoid1;
 import com.pascalwelsch.compositeandroid.core.CallVoid2;
 import com.pascalwelsch.compositeandroid.core.Removable;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -314,6 +315,10 @@ public class DialogFragmentDelegate
 
     public Animation onCreateAnimation(final int transit, final boolean enter, final int nextAnim) {
         return mFragmentDelegate.onCreateAnimation(transit, enter, nextAnim);
+    }
+
+    public Animator onCreateAnimator(final int transit, final boolean enter, final int nextAnim) {
+        return mFragmentDelegate.onCreateAnimator(transit, enter, nextAnim);
     }
 
     public void onCreateContextMenu(final ContextMenu menu, final View v,

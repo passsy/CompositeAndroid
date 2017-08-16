@@ -50,6 +50,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import android.view.animation.*;
             |import android.util.*;
             |import android.content.res.*;
+            |import android.animation.Animator;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             superClassPluginNames = listOf("FragmentPlugin"),
@@ -75,6 +76,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import android.content.res.*;
             |import java.util.ListIterator;
             |import android.support.v4.app.Fragment.SavedState;
+            |import android.animation.Animator;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             extends = "AbstractDelegate<ICompositeDialogFragment, DialogFragmentPlugin>",
