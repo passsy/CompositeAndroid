@@ -51,6 +51,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import android.util.*;
             |import android.content.res.*;
             |import android.animation.Animator;
+            |import android.arch.lifecycle.Lifecycle;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             superClassPluginNames = listOf("FragmentPlugin"),
@@ -77,6 +78,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import java.util.ListIterator;
             |import android.support.v4.app.Fragment.SavedState;
             |import android.animation.Animator;
+            |import android.arch.lifecycle.Lifecycle;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             extends = "AbstractDelegate<ICompositeDialogFragment, DialogFragmentPlugin>",
@@ -110,6 +112,7 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             additionalImports = """
             |import android.support.v4.app.*;
             |import android.support.v4.app.Fragment.SavedState;
+            |import android.arch.lifecycle.Lifecycle;
             """.replaceIndentByMargin(),
             transform = replaceSavedState,
             delegateClassName = "FragmentDelegate",
@@ -125,6 +128,7 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             |import android.support.v4.app.*;
             |import java.util.ListIterator;
             |import android.support.v4.app.Fragment.SavedState;
+            |import android.arch.lifecycle.Lifecycle;
             """.replaceIndentByMargin(),
             extends = "AbstractDelegate<ICompositeFragment, FragmentPlugin>",
             transform = replaceSavedState)
