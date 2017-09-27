@@ -27,10 +27,13 @@ fun generateFragments() {
 }
 
 
-val replaceSavedState: (String) -> String = {
+val replaceAmbitiousTypesWithFullPackageNames: (String) -> String = {
     it.replace(" SavedState", " Fragment.SavedState")
             .replace("(SavedState)", "(Fragment.SavedState)")
             .replace("<SavedState", "<Fragment.SavedState")
+            .replace(" Lifecycle", " android.arch.lifecycle.Lifecycle")
+            .replace("(Lifecycle)", "(android.arch.lifecycle.Lifecycle)")
+            .replace("<Lifecycle", "<android.arch.lifecycle.Lifecycle")
 }
 
 private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
@@ -51,8 +54,9 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import android.util.*;
             |import android.content.res.*;
             |import android.animation.Animator;
+            |import android.arch.lifecycle.Lifecycle;
             """.replaceIndentByMargin(),
-            transform = replaceSavedState,
+            transform = replaceAmbitiousTypesWithFullPackageNames,
             superClassPluginNames = listOf("FragmentPlugin"),
             superClassDelegateName = "FragmentDelegate",
             pluginClassName = "DialogFragmentPlugin",
@@ -77,8 +81,9 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import java.util.ListIterator;
             |import android.support.v4.app.Fragment.SavedState;
             |import android.animation.Animator;
+            |import android.arch.lifecycle.Lifecycle;
             """.replaceIndentByMargin(),
-            transform = replaceSavedState,
+            transform = replaceAmbitiousTypesWithFullPackageNames,
             extends = "AbstractDelegate<ICompositeDialogFragment, DialogFragmentPlugin>",
             superClassPluginName = "FragmentPlugin",
             superClassDelegateName = "FragmentDelegate",
@@ -89,7 +94,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             dialogfragment,
             outPackage,
             "DialogFragmentPlugin",
-            transform = replaceSavedState,
+            transform = replaceAmbitiousTypesWithFullPackageNames,
             superClassInputFile = fragment,
             extends = "FragmentPlugin")
 
@@ -98,7 +103,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             outPackage,
             "ICompositeDialogFragment",
             "ICompositeFragment",
-            transform = replaceSavedState)
+            transform = replaceAmbitiousTypesWithFullPackageNames)
 }
 
 private fun generateFragment(fragment: AnalyzedJavaFile) {
@@ -110,8 +115,9 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             additionalImports = """
             |import android.support.v4.app.*;
             |import android.support.v4.app.Fragment.SavedState;
+            |import android.arch.lifecycle.Lifecycle;
             """.replaceIndentByMargin(),
-            transform = replaceSavedState,
+            transform = replaceAmbitiousTypesWithFullPackageNames,
             delegateClassName = "FragmentDelegate",
             pluginClassName = "FragmentPlugin", superClassInputFile = fragment)
 
@@ -125,9 +131,10 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             |import android.support.v4.app.*;
             |import java.util.ListIterator;
             |import android.support.v4.app.Fragment.SavedState;
+            |import android.arch.lifecycle.Lifecycle;
             """.replaceIndentByMargin(),
             extends = "AbstractDelegate<ICompositeFragment, FragmentPlugin>",
-            transform = replaceSavedState)
+            transform = replaceAmbitiousTypesWithFullPackageNames)
 
     writePlugin(outPath,
             "Fragment",
@@ -138,7 +145,7 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             |import android.support.v4.app.*;
             |import android.support.v4.app.Fragment.SavedState;
             """.replaceIndentByMargin(),
-            transform = replaceSavedState,
+            transform = replaceAmbitiousTypesWithFullPackageNames,
             superClassInputFile = fragment,
             extends = "AbstractPlugin<Fragment, FragmentDelegate>")
 
@@ -149,5 +156,5 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             additionalImports = """
             |import android.support.v4.app.Fragment.SavedState;
             """.replaceIndentByMargin(),
-            transform = replaceSavedState)
+            transform = replaceAmbitiousTypesWithFullPackageNames)
 }
