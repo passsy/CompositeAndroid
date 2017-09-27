@@ -208,17 +208,18 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
         return superCall.call(savedFragmentState);
     }
 
-    public Lifecycle getLifecycle() {
+    public android.arch.lifecycle.Lifecycle getLifecycle() {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_getLifecycle();
         }
 
         final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final CallFun0<Lifecycle> superCall = new CallFun0<Lifecycle>("getLifecycle()") {
+        final CallFun0<android.arch.lifecycle.Lifecycle> superCall
+                = new CallFun0<android.arch.lifecycle.Lifecycle>("getLifecycle()") {
 
             @Override
-            public Lifecycle call() {
+            public android.arch.lifecycle.Lifecycle call() {
                 if (iterator.hasPrevious()) {
                     return iterator.previous().getLifecycle(this);
                 } else {

@@ -167,7 +167,7 @@ public class DialogFragmentDelegate
         return mFragmentDelegate.getLayoutInflater(savedFragmentState);
     }
 
-    public Lifecycle getLifecycle() {
+    public android.arch.lifecycle.Lifecycle getLifecycle() {
         return mFragmentDelegate.getLifecycle();
     }
 

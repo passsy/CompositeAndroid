@@ -49,7 +49,7 @@ public interface ICompositeFragment {
 
     LayoutInflater getLayoutInflater(final Bundle savedFragmentState);
 
-    Lifecycle getLifecycle();
+    android.arch.lifecycle.Lifecycle getLifecycle();
 
     LoaderManager getLoaderManager();
 
@@ -210,7 +210,7 @@ public interface ICompositeFragment {
 
     LayoutInflater super_getLayoutInflater(final Bundle savedFragmentState);
 
-    Lifecycle super_getLifecycle();
+    android.arch.lifecycle.Lifecycle super_getLifecycle();
 
     LoaderManager super_getLoaderManager();
 

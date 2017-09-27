@@ -147,7 +147,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public Lifecycle getLifecycle() {
+    public android.arch.lifecycle.Lifecycle getLifecycle() {
         return delegate.getLifecycle();
     }
 
@@ -629,7 +629,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public Lifecycle super_getLifecycle() {
+    public android.arch.lifecycle.Lifecycle super_getLifecycle() {
         return super.getLifecycle();
     }
 

@@ -104,7 +104,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
-    public Lifecycle getLifecycle() {
+    public android.arch.lifecycle.Lifecycle getLifecycle() {
         return delegate.getLifecycle();
     }
 
@@ -510,7 +510,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     @Override
-    public Lifecycle super_getLifecycle() {
+    public android.arch.lifecycle.Lifecycle super_getLifecycle() {
         return super.getLifecycle();
     }
 

@@ -90,9 +90,9 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         return ((CallFun1<LayoutInflater, Bundle>) mSuperListeners.pop()).call(savedFragmentState);
     }
 
-    public Lifecycle getLifecycle() {
+    public android.arch.lifecycle.Lifecycle getLifecycle() {
         verifyMethodCalledFromDelegate("getLifecycle()");
-        return ((CallFun0<Lifecycle>) mSuperListeners.pop()).call();
+        return ((CallFun0<android.arch.lifecycle.Lifecycle>) mSuperListeners.pop()).call();
     }
 
     public LoaderManager getLoaderManager() {
@@ -524,7 +524,8 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    Lifecycle getLifecycle(final CallFun0<Lifecycle> superCall) {
+    android.arch.lifecycle.Lifecycle getLifecycle(
+            final CallFun0<android.arch.lifecycle.Lifecycle> superCall) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getLifecycle();
