@@ -167,6 +167,10 @@ public class DialogFragmentDelegate
         return mFragmentDelegate.getLayoutInflater(savedFragmentState);
     }
 
+    public Lifecycle getLifecycle() {
+        return mFragmentDelegate.getLifecycle();
+    }
+
     public LoaderManager getLoaderManager() {
         return mFragmentDelegate.getLoaderManager();
     }

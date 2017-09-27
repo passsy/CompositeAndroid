@@ -23,9 +23,9 @@ import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.PictureInPictureParams;
-import android.app.TaskStackBuilder;
 import android.app.VoiceInteractor;
 import android.app.assist.AssistContent;
+import android.arch.lifecycle.Lifecycle;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks;
 import android.content.ComponentName;
@@ -64,10 +64,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
 import android.support.v4.app.SupportActivity;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.Toolbar;
 import android.transition.Scene;
 import android.transition.TransitionManager;
 import android.util.AttributeSet;
@@ -88,7 +90,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.Toolbar;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -2016,6 +2017,27 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call();
     }
 
+    public Lifecycle getLifecycle() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getLifecycle();
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun0<Lifecycle> superCall = new CallFun0<Lifecycle>("getLifecycle()") {
+
+            @Override
+            public Lifecycle call() {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getLifecycle(this);
+                } else {
+                    return getOriginal().super_getLifecycle();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
     public android.app.LoaderManager getLoaderManager() {
         if (mPlugins.isEmpty()) {
             return getOriginal().super_getLoaderManager();
@@ -3615,7 +3637,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call(id, args);
     }
 
-    public void onCreateNavigateUpTaskStack(final TaskStackBuilder builder) {
+    public void onCreateNavigateUpTaskStack(final android.app.TaskStackBuilder builder) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onCreateNavigateUpTaskStack(builder);
             return;
@@ -3623,11 +3645,12 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final CallVoid1<TaskStackBuilder> superCall = new CallVoid1<TaskStackBuilder>(
-                "onCreateNavigateUpTaskStack(TaskStackBuilder)") {
+        final CallVoid1<android.app.TaskStackBuilder> superCall
+                = new CallVoid1<android.app.TaskStackBuilder>(
+                "onCreateNavigateUpTaskStack(android.app.TaskStackBuilder)") {
 
             @Override
-            public void call(final TaskStackBuilder builder) {
+            public void call(final android.app.TaskStackBuilder builder) {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onCreateNavigateUpTaskStack(this, builder);
                 } else {
@@ -3704,8 +3727,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call(featureId);
     }
 
-    public void onCreateSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+    public void onCreateSupportNavigateUpTaskStack(@NonNull final TaskStackBuilder builder) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onCreateSupportNavigateUpTaskStack(builder);
             return;
@@ -3713,12 +3735,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final CallVoid1<android.support.v4.app.TaskStackBuilder> superCall
-                = new CallVoid1<android.support.v4.app.TaskStackBuilder>(
-                "onCreateSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)") {
+        final CallVoid1<TaskStackBuilder> superCall = new CallVoid1<TaskStackBuilder>(
+                "onCreateSupportNavigateUpTaskStack(TaskStackBuilder)") {
 
             @Override
-            public void call(final android.support.v4.app.TaskStackBuilder builder) {
+            public void call(final TaskStackBuilder builder) {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onCreateSupportNavigateUpTaskStack(this, builder);
                 } else {
@@ -4457,7 +4478,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(id, dialog, args);
     }
 
-    public void onPrepareNavigateUpTaskStack(final TaskStackBuilder builder) {
+    public void onPrepareNavigateUpTaskStack(final android.app.TaskStackBuilder builder) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onPrepareNavigateUpTaskStack(builder);
             return;
@@ -4465,11 +4486,12 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final CallVoid1<TaskStackBuilder> superCall = new CallVoid1<TaskStackBuilder>(
-                "onPrepareNavigateUpTaskStack(TaskStackBuilder)") {
+        final CallVoid1<android.app.TaskStackBuilder> superCall
+                = new CallVoid1<android.app.TaskStackBuilder>(
+                "onPrepareNavigateUpTaskStack(android.app.TaskStackBuilder)") {
 
             @Override
-            public void call(final TaskStackBuilder builder) {
+            public void call(final android.app.TaskStackBuilder builder) {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onPrepareNavigateUpTaskStack(this, builder);
                 } else {
@@ -4547,8 +4569,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         return superCall.call(featureId, view, menu);
     }
 
-    public void onPrepareSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+    public void onPrepareSupportNavigateUpTaskStack(@NonNull final TaskStackBuilder builder) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_onPrepareSupportNavigateUpTaskStack(builder);
             return;
@@ -4556,12 +4577,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final CallVoid1<android.support.v4.app.TaskStackBuilder> superCall
-                = new CallVoid1<android.support.v4.app.TaskStackBuilder>(
-                "onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)") {
+        final CallVoid1<TaskStackBuilder> superCall = new CallVoid1<TaskStackBuilder>(
+                "onPrepareSupportNavigateUpTaskStack(TaskStackBuilder)") {
 
             @Override
-            public void call(final android.support.v4.app.TaskStackBuilder builder) {
+            public void call(final TaskStackBuilder builder) {
                 if (iterator.hasPrevious()) {
                     iterator.previous().onPrepareSupportNavigateUpTaskStack(this, builder);
                 } else {
@@ -6261,7 +6281,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
                 initialExtras);
     }
 
-    public void setActionBar(@Nullable final Toolbar toolbar) {
+    public void setActionBar(@Nullable final android.widget.Toolbar toolbar) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setActionBar(toolbar);
             return;
@@ -6269,10 +6289,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final CallVoid1<Toolbar> superCall = new CallVoid1<Toolbar>("setActionBar(Toolbar)") {
+        final CallVoid1<android.widget.Toolbar> superCall = new CallVoid1<android.widget.Toolbar>(
+                "setActionBar(android.widget.Toolbar)") {
 
             @Override
-            public void call(final Toolbar toolbar) {
+            public void call(final android.widget.Toolbar toolbar) {
                 if (iterator.hasPrevious()) {
                     iterator.previous().setActionBar(this, toolbar);
                 } else {
@@ -6581,7 +6602,7 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(requestedOrientation);
     }
 
-    public void setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar) {
+    public void setSupportActionBar(@Nullable final Toolbar toolbar) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setSupportActionBar(toolbar);
             return;
@@ -6589,12 +6610,11 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
 
         final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
 
-        final CallVoid1<android.support.v7.widget.Toolbar> superCall
-                = new CallVoid1<android.support.v7.widget.Toolbar>(
-                "setSupportActionBar(android.support.v7.widget.Toolbar)") {
+        final CallVoid1<Toolbar> superCall = new CallVoid1<Toolbar>(
+                "setSupportActionBar(Toolbar)") {
 
             @Override
-            public void call(final android.support.v7.widget.Toolbar toolbar) {
+            public void call(final Toolbar toolbar) {
                 if (iterator.hasPrevious()) {
                     iterator.previous().setSupportActionBar(this, toolbar);
                 } else {

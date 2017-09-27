@@ -5,9 +5,9 @@ import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.PictureInPictureParams;
-import android.app.TaskStackBuilder;
 import android.app.VoiceInteractor;
 import android.app.assist.AssistContent;
+import android.arch.lifecycle.Lifecycle;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks;
 import android.content.ComponentCallbacks2;
@@ -48,11 +48,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
 import android.support.v4.app.SupportActivity;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
+import android.support.v7.widget.Toolbar;
 import android.transition.Scene;
 import android.transition.TransitionManager;
 import android.util.AttributeSet;
@@ -73,7 +75,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.Toolbar;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -278,6 +279,8 @@ public interface ICompositeActivity
 
     LayoutInflater getLayoutInflater();
 
+    Lifecycle getLifecycle();
+
     android.app.LoaderManager getLoaderManager();
 
     String getLocalClassName();
@@ -427,7 +430,7 @@ public interface ICompositeActivity
 
     Dialog onCreateDialog(final int id, final Bundle args);
 
-    void onCreateNavigateUpTaskStack(final TaskStackBuilder builder);
+    void onCreateNavigateUpTaskStack(final android.app.TaskStackBuilder builder);
 
     boolean onCreateOptionsMenu(final Menu menu);
 
@@ -435,8 +438,7 @@ public interface ICompositeActivity
 
     View onCreatePanelView(final int featureId);
 
-    void onCreateSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder);
+    void onCreateSupportNavigateUpTaskStack(@NonNull final TaskStackBuilder builder);
 
     boolean onCreateThumbnail(final Bitmap outBitmap, final Canvas canvas);
 
@@ -505,7 +507,7 @@ public interface ICompositeActivity
 
     void onPrepareDialog(final int id, final Dialog dialog, final Bundle args);
 
-    void onPrepareNavigateUpTaskStack(final TaskStackBuilder builder);
+    void onPrepareNavigateUpTaskStack(final android.app.TaskStackBuilder builder);
 
     boolean onPrepareOptionsMenu(final Menu menu);
 
@@ -513,8 +515,7 @@ public interface ICompositeActivity
 
     boolean onPreparePanel(final int featureId, final View view, final Menu menu);
 
-    void onPrepareSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder);
+    void onPrepareSupportNavigateUpTaskStack(@NonNull final TaskStackBuilder builder);
 
     void onProvideAssistContent(final AssistContent outContent);
 
@@ -678,7 +679,7 @@ public interface ICompositeActivity
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras);
 
-    void setActionBar(@Nullable final Toolbar toolbar);
+    void setActionBar(@Nullable final android.widget.Toolbar toolbar);
 
     void setContentTransitionManager(final TransitionManager tm);
 
@@ -706,7 +707,7 @@ public interface ICompositeActivity
 
     void setRequestedOrientation(final int requestedOrientation);
 
-    void setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar);
+    void setSupportActionBar(@Nullable final Toolbar toolbar);
 
     void setSupportProgress(final int progress);
 
@@ -1025,6 +1026,8 @@ public interface ICompositeActivity
 
     LayoutInflater super_getLayoutInflater();
 
+    Lifecycle super_getLifecycle();
+
     android.app.LoaderManager super_getLoaderManager();
 
     String super_getLocalClassName();
@@ -1174,7 +1177,7 @@ public interface ICompositeActivity
 
     Dialog super_onCreateDialog(final int id, final Bundle args);
 
-    void super_onCreateNavigateUpTaskStack(final TaskStackBuilder builder);
+    void super_onCreateNavigateUpTaskStack(final android.app.TaskStackBuilder builder);
 
     boolean super_onCreateOptionsMenu(final Menu menu);
 
@@ -1182,8 +1185,7 @@ public interface ICompositeActivity
 
     View super_onCreatePanelView(final int featureId);
 
-    void super_onCreateSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder);
+    void super_onCreateSupportNavigateUpTaskStack(@NonNull final TaskStackBuilder builder);
 
     boolean super_onCreateThumbnail(final Bitmap outBitmap, final Canvas canvas);
 
@@ -1253,7 +1255,7 @@ public interface ICompositeActivity
 
     void super_onPrepareDialog(final int id, final Dialog dialog, final Bundle args);
 
-    void super_onPrepareNavigateUpTaskStack(final TaskStackBuilder builder);
+    void super_onPrepareNavigateUpTaskStack(final android.app.TaskStackBuilder builder);
 
     boolean super_onPrepareOptionsMenu(final Menu menu);
 
@@ -1261,8 +1263,7 @@ public interface ICompositeActivity
 
     boolean super_onPreparePanel(final int featureId, final View view, final Menu menu);
 
-    void super_onPrepareSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder);
+    void super_onPrepareSupportNavigateUpTaskStack(@NonNull final TaskStackBuilder builder);
 
     void super_onProvideAssistContent(final AssistContent outContent);
 
@@ -1424,7 +1425,7 @@ public interface ICompositeActivity
             final BroadcastReceiver resultReceiver, final Handler scheduler, final int initialCode,
             final String initialData, final Bundle initialExtras);
 
-    void super_setActionBar(@Nullable final Toolbar toolbar);
+    void super_setActionBar(@Nullable final android.widget.Toolbar toolbar);
 
     void super_setContentTransitionManager(final TransitionManager tm);
 
@@ -1452,7 +1453,7 @@ public interface ICompositeActivity
 
     void super_setRequestedOrientation(final int requestedOrientation);
 
-    void super_setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar);
+    void super_setSupportActionBar(@Nullable final Toolbar toolbar);
 
     void super_setSupportProgress(final int progress);
 

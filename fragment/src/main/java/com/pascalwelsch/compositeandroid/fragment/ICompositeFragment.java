@@ -49,6 +49,8 @@ public interface ICompositeFragment {
 
     LayoutInflater getLayoutInflater(final Bundle savedFragmentState);
 
+    Lifecycle getLifecycle();
+
     LoaderManager getLoaderManager();
 
     Object getReenterTransition();
@@ -207,6 +209,8 @@ public interface ICompositeFragment {
     Object super_getExitTransition();
 
     LayoutInflater super_getLayoutInflater(final Bundle savedFragmentState);
+
+    Lifecycle super_getLifecycle();
 
     LoaderManager super_getLoaderManager();
 
