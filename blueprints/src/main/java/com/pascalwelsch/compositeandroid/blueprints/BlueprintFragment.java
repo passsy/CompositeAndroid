@@ -26,7 +26,7 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-// 26.1.0
+// 27.0.0
 @SuppressWarnings("ALL")
 public class BlueprintFragment extends Fragment {
 
@@ -46,16 +46,19 @@ public class BlueprintFragment extends Fragment {
         return super.getAllowReturnTransitionOverlap();
     }
 
+    @Nullable
     @Override
     public Context getContext() {
         return super.getContext();
     }
 
+    @Nullable
     @Override
     public Object getEnterTransition() {
         return super.getEnterTransition();
     }
 
+    @Nullable
     @Override
     public Object getExitTransition() {
         return super.getExitTransition();
@@ -64,8 +67,9 @@ public class BlueprintFragment extends Fragment {
     /**
      * @deprecated
      */
+    @NonNull
     @Override
-    public LayoutInflater getLayoutInflater(final Bundle savedFragmentState) {
+    public LayoutInflater getLayoutInflater(@Nullable final Bundle savedFragmentState) {
         return super.getLayoutInflater(savedFragmentState);
     }
 
@@ -84,16 +88,19 @@ public class BlueprintFragment extends Fragment {
         return super.getReenterTransition();
     }
 
+    @Nullable
     @Override
     public Object getReturnTransition() {
         return super.getReturnTransition();
     }
 
+    @Nullable
     @Override
     public Object getSharedElementEnterTransition() {
         return super.getSharedElementEnterTransition();
     }
 
+    @Nullable
     @Override
     public Object getSharedElementReturnTransition() {
         return super.getSharedElementReturnTransition();
@@ -176,7 +183,8 @@ public class BlueprintFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
+    public View onCreateView(@NonNull final LayoutInflater inflater,
+            @Nullable final ViewGroup container,
             @Nullable final Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -201,8 +209,9 @@ public class BlueprintFragment extends Fragment {
         super.onDetach();
     }
 
+    @NonNull
     @Override
-    public LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState) {
+    public LayoutInflater onGetLayoutInflater(@Nullable final Bundle savedInstanceState) {
         return super.onGetLayoutInflater(savedInstanceState);
     }
 
@@ -274,7 +283,7 @@ public class BlueprintFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(final Bundle outState) {
+    public void onSaveInstanceState(@NonNull final Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
@@ -289,7 +298,7 @@ public class BlueprintFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -319,7 +328,7 @@ public class BlueprintFragment extends Fragment {
     }
 
     @Override
-    public void setArguments(final Bundle args) {
+    public void setArguments(@Nullable final Bundle args) {
         super.setArguments(args);
     }
 
@@ -329,7 +338,7 @@ public class BlueprintFragment extends Fragment {
     }
 
     @Override
-    public void setEnterTransition(final Object transition) {
+    public void setEnterTransition(@Nullable final Object transition) {
         super.setEnterTransition(transition);
     }
 
@@ -339,7 +348,7 @@ public class BlueprintFragment extends Fragment {
     }
 
     @Override
-    public void setExitTransition(final Object transition) {
+    public void setExitTransition(@Nullable final Object transition) {
         super.setExitTransition(transition);
     }
 
@@ -349,7 +358,7 @@ public class BlueprintFragment extends Fragment {
     }
 
     @Override
-    public void setInitialSavedState(final SavedState state) {
+    public void setInitialSavedState(@Nullable final SavedState state) {
         super.setInitialSavedState(state);
     }
 
@@ -359,7 +368,7 @@ public class BlueprintFragment extends Fragment {
     }
 
     @Override
-    public void setReenterTransition(final Object transition) {
+    public void setReenterTransition(@Nullable final Object transition) {
         super.setReenterTransition(transition);
     }
 
@@ -369,22 +378,22 @@ public class BlueprintFragment extends Fragment {
     }
 
     @Override
-    public void setReturnTransition(final Object transition) {
+    public void setReturnTransition(@Nullable final Object transition) {
         super.setReturnTransition(transition);
     }
 
     @Override
-    public void setSharedElementEnterTransition(final Object transition) {
+    public void setSharedElementEnterTransition(@Nullable final Object transition) {
         super.setSharedElementEnterTransition(transition);
     }
 
     @Override
-    public void setSharedElementReturnTransition(final Object transition) {
+    public void setSharedElementReturnTransition(@Nullable final Object transition) {
         super.setSharedElementReturnTransition(transition);
     }
 
     @Override
-    public void setTargetFragment(final Fragment fragment, final int requestCode) {
+    public void setTargetFragment(@Nullable final Fragment fragment, final int requestCode) {
         super.setTargetFragment(fragment, requestCode);
     }
 

@@ -118,6 +118,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
         return delegate.getAllowReturnTransitionOverlap();
     }
 
+    @Nullable
     @Override
     public Context getContext() {
         return delegate.getContext();
@@ -128,11 +129,13 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
         return delegate.getDialog();
     }
 
+    @Nullable
     @Override
     public Object getEnterTransition() {
         return delegate.getEnterTransition();
     }
 
+    @Nullable
     @Override
     public Object getExitTransition() {
         return delegate.getExitTransition();
@@ -141,8 +144,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     /**
      * @deprecated
      */
+    @NonNull
     @Override
-    public LayoutInflater getLayoutInflater(final Bundle savedFragmentState) {
+    public LayoutInflater getLayoutInflater(@Nullable final Bundle savedFragmentState) {
         return delegate.getLayoutInflater(savedFragmentState);
     }
 
@@ -161,16 +165,19 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
         return delegate.getReenterTransition();
     }
 
+    @Nullable
     @Override
     public Object getReturnTransition() {
         return delegate.getReturnTransition();
     }
 
+    @Nullable
     @Override
     public Object getSharedElementEnterTransition() {
         return delegate.getSharedElementEnterTransition();
     }
 
+    @Nullable
     @Override
     public Object getSharedElementReturnTransition() {
         return delegate.getSharedElementReturnTransition();
@@ -279,8 +286,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
 
     @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater,
+            @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         return delegate.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -309,8 +316,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
         delegate.onDismiss(dialog);
     }
 
+    @NonNull
     @Override
-    public LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState) {
+    public LayoutInflater onGetLayoutInflater(@Nullable final Bundle savedInstanceState) {
         return delegate.onGetLayoutInflater(savedInstanceState);
     }
 
@@ -381,7 +389,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void onSaveInstanceState(final Bundle outState) {
+    public void onSaveInstanceState(@NonNull final Bundle outState) {
         delegate.onSaveInstanceState(outState);
     }
 
@@ -396,7 +404,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         delegate.onViewCreated(view, savedInstanceState);
     }
 
@@ -426,7 +434,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void setArguments(final Bundle args) {
+    public void setArguments(@Nullable final Bundle args) {
         delegate.setArguments(args);
     }
 
@@ -441,7 +449,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void setEnterTransition(final Object transition) {
+    public void setEnterTransition(@Nullable final Object transition) {
         delegate.setEnterTransition(transition);
     }
 
@@ -451,7 +459,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void setExitTransition(final Object transition) {
+    public void setExitTransition(@Nullable final Object transition) {
         delegate.setExitTransition(transition);
     }
 
@@ -461,7 +469,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void setInitialSavedState(final Fragment.SavedState state) {
+    public void setInitialSavedState(@Nullable final Fragment.SavedState state) {
         delegate.setInitialSavedState(state);
     }
 
@@ -471,7 +479,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void setReenterTransition(final Object transition) {
+    public void setReenterTransition(@Nullable final Object transition) {
         delegate.setReenterTransition(transition);
     }
 
@@ -481,17 +489,17 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void setReturnTransition(final Object transition) {
+    public void setReturnTransition(@Nullable final Object transition) {
         delegate.setReturnTransition(transition);
     }
 
     @Override
-    public void setSharedElementEnterTransition(final Object transition) {
+    public void setSharedElementEnterTransition(@Nullable final Object transition) {
         delegate.setSharedElementEnterTransition(transition);
     }
 
     @Override
-    public void setSharedElementReturnTransition(final Object transition) {
+    public void setSharedElementReturnTransition(@Nullable final Object transition) {
         delegate.setSharedElementReturnTransition(transition);
     }
 
@@ -506,7 +514,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void setTargetFragment(final Fragment fragment, final int requestCode) {
+    public void setTargetFragment(@Nullable final Fragment fragment, final int requestCode) {
         delegate.setTargetFragment(fragment, requestCode);
     }
 
@@ -599,6 +607,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
         return super.getAllowReturnTransitionOverlap();
     }
 
+    @Nullable
     @Override
     public Context super_getContext() {
         return super.getContext();
@@ -609,11 +618,13 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
         return super.getDialog();
     }
 
+    @Nullable
     @Override
     public Object super_getEnterTransition() {
         return super.getEnterTransition();
     }
 
+    @Nullable
     @Override
     public Object super_getExitTransition() {
         return super.getExitTransition();
@@ -622,9 +633,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     /**
      * @deprecated
      */
-
+    @NonNull
     @Override
-    public LayoutInflater super_getLayoutInflater(final Bundle savedFragmentState) {
+    public LayoutInflater super_getLayoutInflater(@Nullable final Bundle savedFragmentState) {
         return super.getLayoutInflater(savedFragmentState);
     }
 
@@ -643,16 +654,19 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
         return super.getReenterTransition();
     }
 
+    @Nullable
     @Override
     public Object super_getReturnTransition() {
         return super.getReturnTransition();
     }
 
+    @Nullable
     @Override
     public Object super_getSharedElementEnterTransition() {
         return super.getSharedElementEnterTransition();
     }
 
+    @Nullable
     @Override
     public Object super_getSharedElementReturnTransition() {
         return super.getSharedElementReturnTransition();
@@ -765,7 +779,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
 
     @Nullable
     @Override
-    public View super_onCreateView(final LayoutInflater inflater,
+    public View super_onCreateView(@NonNull final LayoutInflater inflater,
             @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -795,8 +809,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
         super.onDismiss(dialog);
     }
 
+    @NonNull
     @Override
-    public LayoutInflater super_onGetLayoutInflater(final Bundle savedInstanceState) {
+    public LayoutInflater super_onGetLayoutInflater(@Nullable final Bundle savedInstanceState) {
         return super.onGetLayoutInflater(savedInstanceState);
     }
 
@@ -868,7 +883,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_onSaveInstanceState(final Bundle outState) {
+    public void super_onSaveInstanceState(@NonNull final Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
@@ -883,7 +898,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+    public void super_onViewCreated(@NonNull final View view,
+            @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -913,7 +929,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_setArguments(final Bundle args) {
+    public void super_setArguments(@Nullable final Bundle args) {
         super.setArguments(args);
     }
 
@@ -928,7 +944,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_setEnterTransition(final Object transition) {
+    public void super_setEnterTransition(@Nullable final Object transition) {
         super.setEnterTransition(transition);
     }
 
@@ -938,7 +954,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_setExitTransition(final Object transition) {
+    public void super_setExitTransition(@Nullable final Object transition) {
         super.setExitTransition(transition);
     }
 
@@ -948,7 +964,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_setInitialSavedState(final Fragment.SavedState state) {
+    public void super_setInitialSavedState(@Nullable final Fragment.SavedState state) {
         super.setInitialSavedState(state);
     }
 
@@ -958,7 +974,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_setReenterTransition(final Object transition) {
+    public void super_setReenterTransition(@Nullable final Object transition) {
         super.setReenterTransition(transition);
     }
 
@@ -968,17 +984,17 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_setReturnTransition(final Object transition) {
+    public void super_setReturnTransition(@Nullable final Object transition) {
         super.setReturnTransition(transition);
     }
 
     @Override
-    public void super_setSharedElementEnterTransition(final Object transition) {
+    public void super_setSharedElementEnterTransition(@Nullable final Object transition) {
         super.setSharedElementEnterTransition(transition);
     }
 
     @Override
-    public void super_setSharedElementReturnTransition(final Object transition) {
+    public void super_setSharedElementReturnTransition(@Nullable final Object transition) {
         super.setSharedElementReturnTransition(transition);
     }
 
@@ -993,7 +1009,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     @Override
-    public void super_setTargetFragment(final Fragment fragment, final int requestCode) {
+    public void super_setTargetFragment(@Nullable final Fragment fragment, final int requestCode) {
         super.setTargetFragment(fragment, requestCode);
     }
 

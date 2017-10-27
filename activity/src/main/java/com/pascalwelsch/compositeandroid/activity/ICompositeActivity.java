@@ -707,6 +707,8 @@ public interface ICompositeActivity
 
     void setRequestedOrientation(final int requestedOrientation);
 
+    void setShowWhenLocked(final boolean showWhenLocked);
+
     void setSupportActionBar(@Nullable final Toolbar toolbar);
 
     void setSupportProgress(final int progress);
@@ -726,6 +728,8 @@ public interface ICompositeActivity
     void setTitle(final int titleId);
 
     void setTitleColor(final int textColor);
+
+    void setTurnScreenOn(final boolean turnScreenOn);
 
     void setVisible(final boolean visible);
 
@@ -1453,6 +1457,8 @@ public interface ICompositeActivity
 
     void super_setRequestedOrientation(final int requestedOrientation);
 
+    void super_setShowWhenLocked(final boolean showWhenLocked);
+
     void super_setSupportActionBar(@Nullable final Toolbar toolbar);
 
     void super_setSupportProgress(final int progress);
@@ -1472,6 +1478,8 @@ public interface ICompositeActivity
     void super_setTitle(final int titleId);
 
     void super_setTitleColor(final int textColor);
+
+    void super_setTurnScreenOn(final boolean turnScreenOn);
 
     void super_setVisible(final boolean visible);
 

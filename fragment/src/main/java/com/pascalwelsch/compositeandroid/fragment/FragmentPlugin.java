@@ -85,7 +85,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     /**
      * @deprecated
      */
-    public LayoutInflater getLayoutInflater(final Bundle savedFragmentState) {
+    public LayoutInflater getLayoutInflater(@Nullable final Bundle savedFragmentState) {
         verifyMethodCalledFromDelegate("getLayoutInflater(Bundle)");
         return ((CallFun1<LayoutInflater, Bundle>) mSuperListeners.pop()).call(savedFragmentState);
     }
@@ -199,8 +199,8 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid2<Menu, MenuInflater>) mSuperListeners.pop()).call(menu, inflater);
     }
 
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater,
+            @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onCreateView(LayoutInflater, ViewGroup, Bundle)");
         return ((CallFun3<View, LayoutInflater, ViewGroup, Bundle>) mSuperListeners.pop())
                 .call(inflater, container, savedInstanceState);
@@ -226,7 +226,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid0) mSuperListeners.pop()).call();
     }
 
-    public LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState) {
+    public LayoutInflater onGetLayoutInflater(@Nullable final Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onGetLayoutInflater(Bundle)");
         return ((CallFun1<LayoutInflater, Bundle>) mSuperListeners.pop()).call(savedInstanceState);
     }
@@ -300,7 +300,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid0) mSuperListeners.pop()).call();
     }
 
-    public void onSaveInstanceState(final Bundle outState) {
+    public void onSaveInstanceState(@NonNull final Bundle outState) {
         verifyMethodCalledFromDelegate("onSaveInstanceState(Bundle)");
         ((CallVoid1<Bundle>) mSuperListeners.pop()).call(outState);
     }
@@ -315,7 +315,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid0) mSuperListeners.pop()).call();
     }
 
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         verifyMethodCalledFromDelegate("onViewCreated(View, Bundle)");
         ((CallVoid2<View, Bundle>) mSuperListeners.pop()).call(view, savedInstanceState);
     }
@@ -345,7 +345,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(allow);
     }
 
-    public void setArguments(final Bundle args) {
+    public void setArguments(@Nullable final Bundle args) {
         verifyMethodCalledFromDelegate("setArguments(Bundle)");
         ((CallVoid1<Bundle>) mSuperListeners.pop()).call(args);
     }
@@ -355,7 +355,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid1<SharedElementCallback>) mSuperListeners.pop()).call(callback);
     }
 
-    public void setEnterTransition(final Object transition) {
+    public void setEnterTransition(@Nullable final Object transition) {
         verifyMethodCalledFromDelegate("setEnterTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
@@ -365,7 +365,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid1<SharedElementCallback>) mSuperListeners.pop()).call(callback);
     }
 
-    public void setExitTransition(final Object transition) {
+    public void setExitTransition(@Nullable final Object transition) {
         verifyMethodCalledFromDelegate("setExitTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
@@ -375,7 +375,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(hasMenu);
     }
 
-    public void setInitialSavedState(final Fragment.SavedState state) {
+    public void setInitialSavedState(@Nullable final Fragment.SavedState state) {
         verifyMethodCalledFromDelegate("setInitialSavedState(Fragment.SavedState)");
         ((CallVoid1<Fragment.SavedState>) mSuperListeners.pop()).call(state);
     }
@@ -385,7 +385,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(menuVisible);
     }
 
-    public void setReenterTransition(final Object transition) {
+    public void setReenterTransition(@Nullable final Object transition) {
         verifyMethodCalledFromDelegate("setReenterTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
@@ -395,22 +395,22 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         ((CallVoid1<Boolean>) mSuperListeners.pop()).call(retain);
     }
 
-    public void setReturnTransition(final Object transition) {
+    public void setReturnTransition(@Nullable final Object transition) {
         verifyMethodCalledFromDelegate("setReturnTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
 
-    public void setSharedElementEnterTransition(final Object transition) {
+    public void setSharedElementEnterTransition(@Nullable final Object transition) {
         verifyMethodCalledFromDelegate("setSharedElementEnterTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
 
-    public void setSharedElementReturnTransition(final Object transition) {
+    public void setSharedElementReturnTransition(@Nullable final Object transition) {
         verifyMethodCalledFromDelegate("setSharedElementReturnTransition(Object)");
         ((CallVoid1<Object>) mSuperListeners.pop()).call(transition);
     }
 
-    public void setTargetFragment(final Fragment fragment, final int requestCode) {
+    public void setTargetFragment(@Nullable final Fragment fragment, final int requestCode) {
         verifyMethodCalledFromDelegate("setTargetFragment(Fragment, Integer)");
         ((CallVoid2<Fragment, Integer>) mSuperListeners.pop()).call(fragment, requestCode);
     }
@@ -517,7 +517,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     LayoutInflater getLayoutInflater(final CallFun1<LayoutInflater, Bundle> superCall,
-            final Bundle savedFragmentState) {
+            @Nullable final Bundle savedFragmentState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getLayoutInflater(savedFragmentState);
@@ -675,7 +675,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     View onCreateView(final CallFun3<View, LayoutInflater, ViewGroup, Bundle> superCall,
-            final LayoutInflater inflater, @Nullable final ViewGroup container,
+            @NonNull final LayoutInflater inflater, @Nullable final ViewGroup container,
             @Nullable final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -712,7 +712,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     LayoutInflater onGetLayoutInflater(final CallFun1<LayoutInflater, Bundle> superCall,
-            final Bundle savedInstanceState) {
+            @Nullable final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return onGetLayoutInflater(savedInstanceState);
@@ -810,7 +810,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void onSaveInstanceState(final CallVoid1<Bundle> superCall, final Bundle outState) {
+    void onSaveInstanceState(final CallVoid1<Bundle> superCall, @NonNull final Bundle outState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             onSaveInstanceState(outState);
@@ -831,7 +831,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void onViewCreated(final CallVoid2<View, Bundle> superCall, final View view,
+    void onViewCreated(final CallVoid2<View, Bundle> superCall, @NonNull final View view,
             @Nullable final Bundle savedInstanceState) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
@@ -875,7 +875,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void setArguments(final CallVoid1<Bundle> superCall, final Bundle args) {
+    void setArguments(final CallVoid1<Bundle> superCall, @Nullable final Bundle args) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setArguments(args);
@@ -890,7 +890,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void setEnterTransition(final CallVoid1<Object> superCall, final Object transition) {
+    void setEnterTransition(final CallVoid1<Object> superCall, @Nullable final Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setEnterTransition(transition);
@@ -905,7 +905,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void setExitTransition(final CallVoid1<Object> superCall, final Object transition) {
+    void setExitTransition(final CallVoid1<Object> superCall, @Nullable final Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setExitTransition(transition);
@@ -920,7 +920,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     void setInitialSavedState(final CallVoid1<Fragment.SavedState> superCall,
-            final Fragment.SavedState state) {
+            @Nullable final Fragment.SavedState state) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setInitialSavedState(state);
@@ -934,7 +934,8 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void setReenterTransition(final CallVoid1<Object> superCall, final Object transition) {
+    void setReenterTransition(final CallVoid1<Object> superCall,
+            @Nullable final Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setReenterTransition(transition);
@@ -948,7 +949,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         }
     }
 
-    void setReturnTransition(final CallVoid1<Object> superCall, final Object transition) {
+    void setReturnTransition(final CallVoid1<Object> superCall, @Nullable final Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setReturnTransition(transition);
@@ -956,7 +957,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     void setSharedElementEnterTransition(final CallVoid1<Object> superCall,
-            final Object transition) {
+            @Nullable final Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setSharedElementEnterTransition(transition);
@@ -964,15 +965,15 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     void setSharedElementReturnTransition(final CallVoid1<Object> superCall,
-            final Object transition) {
+            @Nullable final Object transition) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setSharedElementReturnTransition(transition);
         }
     }
 
-    void setTargetFragment(final CallVoid2<Fragment, Integer> superCall, final Fragment fragment,
-            final int requestCode) {
+    void setTargetFragment(final CallVoid2<Fragment, Integer> superCall,
+            @Nullable final Fragment fragment, final int requestCode) {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             setTargetFragment(fragment, requestCode);
