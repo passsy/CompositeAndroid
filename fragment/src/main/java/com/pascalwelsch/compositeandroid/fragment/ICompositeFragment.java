@@ -47,7 +47,7 @@ public interface ICompositeFragment {
 
     Object getExitTransition();
 
-    LayoutInflater getLayoutInflater(final Bundle savedFragmentState);
+    LayoutInflater getLayoutInflater(@Nullable final Bundle savedFragmentState);
 
     android.arch.lifecycle.Lifecycle getLifecycle();
 
@@ -90,7 +90,7 @@ public interface ICompositeFragment {
 
     void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater);
 
-    View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
+    View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container,
             @Nullable final Bundle savedInstanceState);
 
     void onDestroy();
@@ -101,7 +101,7 @@ public interface ICompositeFragment {
 
     void onDetach();
 
-    LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState);
+    LayoutInflater onGetLayoutInflater(@Nullable final Bundle savedInstanceState);
 
     void onHiddenChanged(final boolean hidden);
 
@@ -130,13 +130,13 @@ public interface ICompositeFragment {
 
     void onResume();
 
-    void onSaveInstanceState(final Bundle outState);
+    void onSaveInstanceState(@NonNull final Bundle outState);
 
     void onStart();
 
     void onStop();
 
-    void onViewCreated(final View view, @Nullable final Bundle savedInstanceState);
+    void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState);
 
     void onViewStateRestored(@Nullable final Bundle savedInstanceState);
 
@@ -148,33 +148,33 @@ public interface ICompositeFragment {
 
     void setAllowReturnTransitionOverlap(final boolean allow);
 
-    void setArguments(final Bundle args);
+    void setArguments(@Nullable final Bundle args);
 
     void setEnterSharedElementCallback(final SharedElementCallback callback);
 
-    void setEnterTransition(final Object transition);
+    void setEnterTransition(@Nullable final Object transition);
 
     void setExitSharedElementCallback(final SharedElementCallback callback);
 
-    void setExitTransition(final Object transition);
+    void setExitTransition(@Nullable final Object transition);
 
     void setHasOptionsMenu(final boolean hasMenu);
 
-    void setInitialSavedState(final Fragment.SavedState state);
+    void setInitialSavedState(@Nullable final Fragment.SavedState state);
 
     void setMenuVisibility(final boolean menuVisible);
 
-    void setReenterTransition(final Object transition);
+    void setReenterTransition(@Nullable final Object transition);
 
     void setRetainInstance(final boolean retain);
 
-    void setReturnTransition(final Object transition);
+    void setReturnTransition(@Nullable final Object transition);
 
-    void setSharedElementEnterTransition(final Object transition);
+    void setSharedElementEnterTransition(@Nullable final Object transition);
 
-    void setSharedElementReturnTransition(final Object transition);
+    void setSharedElementReturnTransition(@Nullable final Object transition);
 
-    void setTargetFragment(final Fragment fragment, final int requestCode);
+    void setTargetFragment(@Nullable final Fragment fragment, final int requestCode);
 
     void setUserVisibleHint(final boolean isVisibleToUser);
 
@@ -208,7 +208,7 @@ public interface ICompositeFragment {
 
     Object super_getExitTransition();
 
-    LayoutInflater super_getLayoutInflater(final Bundle savedFragmentState);
+    LayoutInflater super_getLayoutInflater(@Nullable final Bundle savedFragmentState);
 
     android.arch.lifecycle.Lifecycle super_getLifecycle();
 
@@ -251,8 +251,8 @@ public interface ICompositeFragment {
 
     void super_onCreateOptionsMenu(final Menu menu, final MenuInflater inflater);
 
-    View super_onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState);
+    View super_onCreateView(@NonNull final LayoutInflater inflater,
+            @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState);
 
     void super_onDestroy();
 
@@ -262,7 +262,7 @@ public interface ICompositeFragment {
 
     void super_onDetach();
 
-    LayoutInflater super_onGetLayoutInflater(final Bundle savedInstanceState);
+    LayoutInflater super_onGetLayoutInflater(@Nullable final Bundle savedInstanceState);
 
     void super_onHiddenChanged(final boolean hidden);
 
@@ -291,13 +291,13 @@ public interface ICompositeFragment {
 
     void super_onResume();
 
-    void super_onSaveInstanceState(final Bundle outState);
+    void super_onSaveInstanceState(@NonNull final Bundle outState);
 
     void super_onStart();
 
     void super_onStop();
 
-    void super_onViewCreated(final View view, @Nullable final Bundle savedInstanceState);
+    void super_onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState);
 
     void super_onViewStateRestored(@Nullable final Bundle savedInstanceState);
 
@@ -309,33 +309,33 @@ public interface ICompositeFragment {
 
     void super_setAllowReturnTransitionOverlap(final boolean allow);
 
-    void super_setArguments(final Bundle args);
+    void super_setArguments(@Nullable final Bundle args);
 
     void super_setEnterSharedElementCallback(final SharedElementCallback callback);
 
-    void super_setEnterTransition(final Object transition);
+    void super_setEnterTransition(@Nullable final Object transition);
 
     void super_setExitSharedElementCallback(final SharedElementCallback callback);
 
-    void super_setExitTransition(final Object transition);
+    void super_setExitTransition(@Nullable final Object transition);
 
     void super_setHasOptionsMenu(final boolean hasMenu);
 
-    void super_setInitialSavedState(final Fragment.SavedState state);
+    void super_setInitialSavedState(@Nullable final Fragment.SavedState state);
 
     void super_setMenuVisibility(final boolean menuVisible);
 
-    void super_setReenterTransition(final Object transition);
+    void super_setReenterTransition(@Nullable final Object transition);
 
     void super_setRetainInstance(final boolean retain);
 
-    void super_setReturnTransition(final Object transition);
+    void super_setReturnTransition(@Nullable final Object transition);
 
-    void super_setSharedElementEnterTransition(final Object transition);
+    void super_setSharedElementEnterTransition(@Nullable final Object transition);
 
-    void super_setSharedElementReturnTransition(final Object transition);
+    void super_setSharedElementReturnTransition(@Nullable final Object transition);
 
-    void super_setTargetFragment(final Fragment fragment, final int requestCode);
+    void super_setTargetFragment(@Nullable final Fragment fragment, final int requestCode);
 
     void super_setUserVisibleHint(final boolean isVisibleToUser);
 

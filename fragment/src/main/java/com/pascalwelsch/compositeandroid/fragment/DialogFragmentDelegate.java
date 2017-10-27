@@ -163,7 +163,7 @@ public class DialogFragmentDelegate
         return mFragmentDelegate.getExitTransition();
     }
 
-    public LayoutInflater getLayoutInflater(final Bundle savedFragmentState) {
+    public LayoutInflater getLayoutInflater(@Nullable final Bundle savedFragmentState) {
         return mFragmentDelegate.getLayoutInflater(savedFragmentState);
     }
 
@@ -356,8 +356,8 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onCreateOptionsMenu(menu, inflater);
     }
 
-    public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater,
+            @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         return mFragmentDelegate.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -400,7 +400,7 @@ public class DialogFragmentDelegate
         superCall.call(dialog);
     }
 
-    public LayoutInflater onGetLayoutInflater(final Bundle savedInstanceState) {
+    public LayoutInflater onGetLayoutInflater(@Nullable final Bundle savedInstanceState) {
         return mFragmentDelegate.onGetLayoutInflater(savedInstanceState);
     }
 
@@ -455,7 +455,7 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onResume();
     }
 
-    public void onSaveInstanceState(final Bundle outState) {
+    public void onSaveInstanceState(@NonNull final Bundle outState) {
         mFragmentDelegate.onSaveInstanceState(outState);
     }
 
@@ -467,7 +467,7 @@ public class DialogFragmentDelegate
         mFragmentDelegate.onStop();
     }
 
-    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         mFragmentDelegate.onViewCreated(view, savedInstanceState);
     }
 
@@ -491,7 +491,7 @@ public class DialogFragmentDelegate
         mFragmentDelegate.setAllowReturnTransitionOverlap(allow);
     }
 
-    public void setArguments(final Bundle args) {
+    public void setArguments(@Nullable final Bundle args) {
         mFragmentDelegate.setArguments(args);
     }
 
@@ -521,7 +521,7 @@ public class DialogFragmentDelegate
         mFragmentDelegate.setEnterSharedElementCallback(callback);
     }
 
-    public void setEnterTransition(final Object transition) {
+    public void setEnterTransition(@Nullable final Object transition) {
         mFragmentDelegate.setEnterTransition(transition);
     }
 
@@ -529,7 +529,7 @@ public class DialogFragmentDelegate
         mFragmentDelegate.setExitSharedElementCallback(callback);
     }
 
-    public void setExitTransition(final Object transition) {
+    public void setExitTransition(@Nullable final Object transition) {
         mFragmentDelegate.setExitTransition(transition);
     }
 
@@ -537,7 +537,7 @@ public class DialogFragmentDelegate
         mFragmentDelegate.setHasOptionsMenu(hasMenu);
     }
 
-    public void setInitialSavedState(final Fragment.SavedState state) {
+    public void setInitialSavedState(@Nullable final Fragment.SavedState state) {
         mFragmentDelegate.setInitialSavedState(state);
     }
 
@@ -545,7 +545,7 @@ public class DialogFragmentDelegate
         mFragmentDelegate.setMenuVisibility(menuVisible);
     }
 
-    public void setReenterTransition(final Object transition) {
+    public void setReenterTransition(@Nullable final Object transition) {
         mFragmentDelegate.setReenterTransition(transition);
     }
 
@@ -553,15 +553,15 @@ public class DialogFragmentDelegate
         mFragmentDelegate.setRetainInstance(retain);
     }
 
-    public void setReturnTransition(final Object transition) {
+    public void setReturnTransition(@Nullable final Object transition) {
         mFragmentDelegate.setReturnTransition(transition);
     }
 
-    public void setSharedElementEnterTransition(final Object transition) {
+    public void setSharedElementEnterTransition(@Nullable final Object transition) {
         mFragmentDelegate.setSharedElementEnterTransition(transition);
     }
 
-    public void setSharedElementReturnTransition(final Object transition) {
+    public void setSharedElementReturnTransition(@Nullable final Object transition) {
         mFragmentDelegate.setSharedElementReturnTransition(transition);
     }
 
@@ -610,7 +610,7 @@ public class DialogFragmentDelegate
         superCall.call(style, theme);
     }
 
-    public void setTargetFragment(final Fragment fragment, final int requestCode) {
+    public void setTargetFragment(@Nullable final Fragment fragment, final int requestCode) {
         mFragmentDelegate.setTargetFragment(fragment, requestCode);
     }
 

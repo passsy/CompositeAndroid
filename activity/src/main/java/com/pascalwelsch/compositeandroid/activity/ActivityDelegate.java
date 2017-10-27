@@ -6602,6 +6602,28 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
         superCall.call(requestedOrientation);
     }
 
+    public void setShowWhenLocked(final boolean showWhenLocked) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setShowWhenLocked(showWhenLocked);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setShowWhenLocked(Boolean)") {
+
+            @Override
+            public void call(final Boolean showWhenLocked) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setShowWhenLocked(this, showWhenLocked);
+                } else {
+                    getOriginal().super_setShowWhenLocked(showWhenLocked);
+                }
+            }
+        };
+        superCall.call(showWhenLocked);
+    }
+
     public void setSupportActionBar(@Nullable final Toolbar toolbar) {
         if (mPlugins.isEmpty()) {
             getOriginal().super_setSupportActionBar(toolbar);
@@ -6827,6 +6849,28 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call(textColor);
+    }
+
+    public void setTurnScreenOn(final boolean turnScreenOn) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_setTurnScreenOn(turnScreenOn);
+            return;
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid1<Boolean> superCall = new CallVoid1<Boolean>("setTurnScreenOn(Boolean)") {
+
+            @Override
+            public void call(final Boolean turnScreenOn) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().setTurnScreenOn(this, turnScreenOn);
+                } else {
+                    getOriginal().super_setTurnScreenOn(turnScreenOn);
+                }
+            }
+        };
+        superCall.call(turnScreenOn);
     }
 
     public void setVisible(final boolean visible) {
