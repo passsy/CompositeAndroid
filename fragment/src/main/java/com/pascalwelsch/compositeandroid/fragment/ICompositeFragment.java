@@ -2,6 +2,7 @@ package com.pascalwelsch.compositeandroid.fragment;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -81,6 +82,8 @@ public interface ICompositeFragment {
     void setUserVisibleHint(final boolean isVisibleToUser);
 
     View getView();
+
+    ViewModelStore getViewModelStore();
 
     void onActivityCreated(@Nullable final Bundle savedInstanceState);
 
@@ -219,6 +222,8 @@ public interface ICompositeFragment {
     boolean super_getUserVisibleHint();
 
     View super_getView();
+
+    ViewModelStore super_getViewModelStore();
 
     void super_onActivityCreated(@Nullable final Bundle savedInstanceState);
 

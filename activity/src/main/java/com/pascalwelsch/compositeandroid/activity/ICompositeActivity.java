@@ -9,6 +9,7 @@ import android.app.TaskStackBuilder;
 import android.app.VoiceInteractor;
 import android.app.assist.AssistContent;
 import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks;
 import android.content.ComponentCallbacks2;
@@ -343,6 +344,8 @@ public interface ICompositeActivity
     Theme getTheme();
 
     void setTheme(final int resid);
+
+    ViewModelStore getViewModelStore();
 
     VoiceInteractor getVoiceInteractor();
 
@@ -1040,6 +1043,8 @@ public interface ICompositeActivity
     int super_getTaskId();
 
     Theme super_getTheme();
+
+    ViewModelStore super_getViewModelStore();
 
     VoiceInteractor super_getVoiceInteractor();
 

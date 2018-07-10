@@ -11,6 +11,7 @@ import android.app.TaskStackBuilder;
 import android.app.VoiceInteractor;
 import android.app.assist.AssistContent;
 import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks;
@@ -1136,6 +1137,16 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
     public void setTheme(final int resid) {
         verifyMethodCalledFromDelegate("setTheme(Integer)");
         ((CallVoid1<Integer>) mSuperListeners.pop()).call(resid);
+    }
+
+    /**
+     * Returns the {@link ViewModelStore} associated with this activity
+     *
+     * @return a {@code ViewModelStore}
+     */
+    public ViewModelStore getViewModelStore() {
+        verifyMethodCalledFromDelegate("getViewModelStore()");
+        return ((CallFun0<ViewModelStore>) mSuperListeners.pop()).call();
     }
 
     /**
@@ -5038,6 +5049,13 @@ public class ActivityPlugin extends AbstractPlugin<CompositeActivity, ActivityDe
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getTheme();
+        }
+    }
+
+    ViewModelStore getViewModelStore(final CallFun0<ViewModelStore> superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return getViewModelStore();
         }
     }
 

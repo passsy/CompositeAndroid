@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -431,6 +432,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
 
     /**
      * Return the {@link Context} this fragment is currently associated with.
+     *
+     * @see #requireContext()
      */
     @Nullable
     @Override
@@ -502,7 +505,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is being closed not due to popping the back stack. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setExitTransition(@Nullable final Object transition) {
@@ -565,7 +570,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *
      * @param transition The Transition to use to move Views into the scene when reentering from a
      *                   previously-started Activity. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setReenterTransition(@Nullable final Object transition) {
@@ -602,7 +609,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is preparing to close. <code>transition</code> must be an
-     *                   android.transition.Transition.
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setReturnTransition(@Nullable final Object transition) {
@@ -631,7 +639,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * value will cause transferred shared elements to blink to the final position.
      *
      * @param transition The Transition to use for shared elements transferred into the content
-     *                   Scene.  <code>transition</code> must be an android.transition.Transition.
+     *                   Scene.  <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setSharedElementEnterTransition(@Nullable final Object transition) {
@@ -666,7 +676,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * {@link #setSharedElementEnterTransition(Object)}.
      *
      * @param transition The Transition to use for shared elements transferred out of the content
-     *                   Scene. <code>transition</code> must be an android.transition.Transition.
+     *                   Scene. <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setSharedElementReturnTransition(@Nullable final Object transition) {
@@ -748,6 +760,12 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     @Override
     public View getView() {
         return delegate.getView();
+    }
+
+    @NonNull
+    @Override
+    public ViewModelStore getViewModelStore() {
+        return delegate.getViewModelStore();
     }
 
     /**
@@ -1315,8 +1333,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     /**
      * Display the dialog, adding the fragment to the given FragmentManager.  This
      * is a convenience for explicitly creating a transaction, adding the
-     * fragment to it with the given tag, and committing it.  This does
-     * <em>not</em> add the transaction to the back stack.  When the fragment
+     * fragment to it with the given tag, and {@link FragmentTransaction#commit() committing} it.
+     * This does <em>not</em> add the transaction to the fragment back stack.  When the fragment
      * is dismissed, a new transaction will be executed to remove it from
      * the activity.
      *
@@ -1331,7 +1349,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
 
     /**
      * Display the dialog, adding the fragment using an existing transaction
-     * and then committing the transaction.
+     * and then {@link FragmentTransaction#commit() committing} the transaction.
      *
      * @param transaction An existing transaction in which to add the fragment.
      * @param tag         The tag for this fragment, as per
@@ -1342,6 +1360,23 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     @Override
     public int show(final FragmentTransaction transaction, final String tag) {
         return delegate.show(transaction, tag);
+    }
+
+    /**
+     * Display the dialog, immediately adding the fragment to the given FragmentManager.  This
+     * is a convenience for explicitly creating a transaction, adding the
+     * fragment to it with the given tag, and calling {@link FragmentTransaction#commitNow()}.
+     * This does <em>not</em> add the transaction to the fragment back stack.  When the fragment
+     * is dismissed, a new transaction will be executed to remove it from
+     * the activity.
+     *
+     * @param manager The FragmentManager this fragment will be added to.
+     * @param tag     The tag for this fragment, as per
+     *                {@link FragmentTransaction#add(Fragment, String) FragmentTransaction.add}.
+     */
+    @Override
+    public void showNow(final FragmentManager manager, final String tag) {
+        delegate.showNow(manager, tag);
     }
 
     /**
@@ -1480,6 +1515,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
 
     /**
      * Return the {@link Context} this fragment is currently associated with.
+     *
+     * @see #requireContext()
      */
     @Nullable
     @Override
@@ -1657,6 +1694,12 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     @Override
     public View super_getView() {
         return super.getView();
+    }
+
+    @NonNull
+    @Override
+    public ViewModelStore super_getViewModelStore() {
+        return super.getViewModelStore();
     }
 
     /**
@@ -2443,7 +2486,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is being closed not due to popping the back stack. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
 
     @Override
@@ -2504,7 +2549,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *
      * @param transition The Transition to use to move Views into the scene when reentering from a
      *                   previously-started Activity. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
 
     @Override
@@ -2544,7 +2591,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is preparing to close. <code>transition</code> must be an
-     *                   android.transition.Transition.
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
 
     @Override
@@ -2559,7 +2607,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * value will cause transferred shared elements to blink to the final position.
      *
      * @param transition The Transition to use for shared elements transferred into the content
-     *                   Scene.  <code>transition</code> must be an android.transition.Transition.
+     *                   Scene.  <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
 
     @Override
@@ -2577,7 +2627,9 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
      * {@link #setSharedElementEnterTransition(Object)}.
      *
      * @param transition The Transition to use for shared elements transferred out of the content
-     *                   Scene. <code>transition</code> must be an android.transition.Transition.
+     *                   Scene. <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
 
     @Override
@@ -2703,8 +2755,8 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     /**
      * Display the dialog, adding the fragment to the given FragmentManager.  This
      * is a convenience for explicitly creating a transaction, adding the
-     * fragment to it with the given tag, and committing it.  This does
-     * <em>not</em> add the transaction to the back stack.  When the fragment
+     * fragment to it with the given tag, and {@link FragmentTransaction#commit() committing} it.
+     * This does <em>not</em> add the transaction to the fragment back stack.  When the fragment
      * is dismissed, a new transaction will be executed to remove it from
      * the activity.
      *
@@ -2720,7 +2772,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
 
     /**
      * Display the dialog, adding the fragment using an existing transaction
-     * and then committing the transaction.
+     * and then {@link FragmentTransaction#commit() committing} the transaction.
      *
      * @param transaction An existing transaction in which to add the fragment.
      * @param tag         The tag for this fragment, as per
@@ -2732,6 +2784,24 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     @Override
     public int super_show(final FragmentTransaction transaction, final String tag) {
         return super.show(transaction, tag);
+    }
+
+    /**
+     * Display the dialog, immediately adding the fragment to the given FragmentManager.  This
+     * is a convenience for explicitly creating a transaction, adding the
+     * fragment to it with the given tag, and calling {@link FragmentTransaction#commitNow()}.
+     * This does <em>not</em> add the transaction to the fragment back stack.  When the fragment
+     * is dismissed, a new transaction will be executed to remove it from
+     * the activity.
+     *
+     * @param manager The FragmentManager this fragment will be added to.
+     * @param tag     The tag for this fragment, as per
+     *                {@link FragmentTransaction#add(Fragment, String) FragmentTransaction.add}.
+     */
+
+    @Override
+    public void super_showNow(final FragmentManager manager, final String tag) {
+        super.showNow(manager, tag);
     }
 
     /**

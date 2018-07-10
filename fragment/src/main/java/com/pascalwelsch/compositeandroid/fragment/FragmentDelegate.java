@@ -2,6 +2,7 @@ package com.pascalwelsch.compositeandroid.fragment;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -564,6 +565,27 @@ public class FragmentDelegate extends AbstractDelegate<ICompositeFragment, Fragm
                     return iterator.previous().getView(this);
                 } else {
                     return getOriginal().super_getView();
+                }
+            }
+        };
+        return superCall.call();
+    }
+
+    public ViewModelStore getViewModelStore() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getViewModelStore();
+        }
+
+        final ListIterator<FragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun0<ViewModelStore> superCall = new CallFun0<ViewModelStore>("getViewModelStore()") {
+
+            @Override
+            public ViewModelStore call() {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getViewModelStore(this);
+                } else {
+                    return getOriginal().super_getViewModelStore();
                 }
             }
         };

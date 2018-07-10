@@ -12,6 +12,7 @@ import android.app.TaskStackBuilder;
 import android.app.VoiceInteractor;
 import android.app.assist.AssistContent;
 import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks;
@@ -1428,6 +1429,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     @Override
     public void setTheme(final int resid) {
         delegate.setTheme(resid);
+    }
+
+    /**
+     * Returns the {@link ViewModelStore} associated with this activity
+     *
+     * @return a {@code ViewModelStore}
+     */
+    @NonNull
+    @Override
+    public ViewModelStore getViewModelStore() {
+        return delegate.getViewModelStore();
     }
 
     /**
@@ -5147,6 +5159,17 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     @Override
     public Theme super_getTheme() {
         return super.getTheme();
+    }
+
+    /**
+     * Returns the {@link ViewModelStore} associated with this activity
+     *
+     * @return a {@code ViewModelStore}
+     */
+    @NonNull
+    @Override
+    public ViewModelStore super_getViewModelStore() {
+        return super.getViewModelStore();
     }
 
     /**

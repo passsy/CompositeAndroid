@@ -55,6 +55,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import android.content.res.*;
             |import android.animation.Animator;
             |import android.view.ContextMenu.ContextMenuInfo;
+            |import android.arch.lifecycle.ViewModelStore;
             |import android.arch.lifecycle.Lifecycle;
             |import android.content.IntentSender.SendIntentException;
             """.replaceIndentByMargin(),
@@ -83,6 +84,7 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import java.util.ListIterator;
             |import android.content.IntentSender.SendIntentException;
             |import android.view.ContextMenu.ContextMenuInfo;
+            |import android.arch.lifecycle.ViewModelStore;
             |import android.support.v4.app.Fragment.SavedState;
             |import android.animation.Animator;
             |import android.arch.lifecycle.Lifecycle;
@@ -119,7 +121,7 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             additionalImports = """
             |import android.support.v4.app.*;
             |import android.support.v4.app.Fragment.SavedState;
-            |import android.arch.lifecycle.Lifecycle;
+            |import android.arch.lifecycle.ViewModelStore;
             """.replaceIndentByMargin(),
             transform = replaceAmbitiousTypesWithFullPackageNames,
             delegateClassName = "FragmentDelegate",

@@ -3,6 +3,7 @@ package com.pascalwelsch.compositeandroid.fragment;
 import android.animation.Animator;
 import android.app.Activity;
 import android.app.Dialog;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -293,6 +294,10 @@ public class DialogFragmentDelegate extends AbstractDelegate<ICompositeDialogFra
 
     public View getView() {
         return mFragmentDelegate.getView();
+    }
+
+    public ViewModelStore getViewModelStore() {
+        return mFragmentDelegate.getViewModelStore();
     }
 
     public boolean isCancelable() {
@@ -676,6 +681,29 @@ public class DialogFragmentDelegate extends AbstractDelegate<ICompositeDialogFra
             }
         };
         return superCall.call(transaction, tag);
+    }
+
+    public void showNow(final FragmentManager manager, final String tag) {
+        if (mPlugins.isEmpty()) {
+            getOriginal().super_showNow(manager, tag);
+            return;
+        }
+
+        final ListIterator<DialogFragmentPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallVoid2<FragmentManager, String> superCall = new CallVoid2<FragmentManager, String>(
+                "showNow(FragmentManager, String)") {
+
+            @Override
+            public void call(final FragmentManager manager, final String tag) {
+                if (iterator.hasPrevious()) {
+                    iterator.previous().showNow(this, manager, tag);
+                } else {
+                    getOriginal().super_showNow(manager, tag);
+                }
+            }
+        };
+        superCall.call(manager, tag);
     }
 
     public void startActivity(final Intent intent) {
