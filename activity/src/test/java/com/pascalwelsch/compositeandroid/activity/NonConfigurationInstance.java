@@ -1,24 +1,22 @@
 package com.pascalwelsch.compositeandroid.activity;
 
-import org.junit.Test;
+import static org.assertj.core.api.Java6Assertions.*;
+import static org.mockito.Mockito.*;
 
-import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
+import org.junit.*;
 
 public class NonConfigurationInstance {
 
     @Test
     public void testMultiplePlugins() throws Exception {
 
-        final ActivityPlugin a = spy(new ActivityPlugin(){
+        final ActivityPlugin a = spy(new ActivityPlugin() {
             @Override
             public CompositeNonConfigurationInstance onRetainNonConfigurationInstance() {
                 return new CompositeNonConfigurationInstance("A", "Thing");
             }
         });
-        final ActivityPlugin b = spy(new ActivityPlugin(){
+        final ActivityPlugin b = spy(new ActivityPlugin() {
             @Override
             public CompositeNonConfigurationInstance onRetainNonConfigurationInstance() {
                 return new CompositeNonConfigurationInstance("B", "Something else");

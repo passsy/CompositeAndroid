@@ -50,7 +50,6 @@ dependencies {
     testCompile 'org.assertj:assertj-core:2.4.1'
 }
 
-
 // usage:
 // ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=true
 publish {

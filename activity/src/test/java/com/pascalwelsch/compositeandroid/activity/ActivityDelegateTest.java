@@ -1,20 +1,14 @@
 package com.pascalwelsch.compositeandroid.activity;
 
-import org.junit.Test;
-import org.mockito.InOrder;
+import static junit.framework.Assert.fail;
+import static org.assertj.core.api.Java6Assertions.*;
+import static org.mockito.Mockito.*;
 
 import android.support.annotation.LayoutRes;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-
-import static junit.framework.Assert.fail;
-import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import org.junit.*;
+import org.mockito.*;
 
 public class ActivityDelegateTest {
 
@@ -92,7 +86,7 @@ public class ActivityDelegateTest {
         try {
             b.setContentView(layoutResID);
             fail("no exception thrown");
-        } catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             assertThat(e).hasMessageContaining("setContentView")
                     .hasMessageContaining("Delegate");
         }
@@ -121,7 +115,7 @@ public class ActivityDelegateTest {
         try {
             b.setContentView(layoutResID);
             fail("no exception thrown");
-        } catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             assertThat(e).hasMessageContaining("setContentView")
                     .hasMessageContaining("Delegate");
         }
@@ -303,7 +297,7 @@ public class ActivityDelegateTest {
                 return super.onKeyDown(keyCode, event);
             }
         });
-        final ActivityPlugin c = spy(new ActivityPlugin(){
+        final ActivityPlugin c = spy(new ActivityPlugin() {
             @Override
             public boolean onKeyDown(final int keyCode, final KeyEvent event) {
                 return super.onKeyDown(25, event);
@@ -316,7 +310,6 @@ public class ActivityDelegateTest {
         delegate.addPlugin(a);
         delegate.addPlugin(b);
         delegate.addPlugin(c);
-
 
         final KeyEvent event = mock(KeyEvent.class);
         delegate.onKeyDown(1, event);
