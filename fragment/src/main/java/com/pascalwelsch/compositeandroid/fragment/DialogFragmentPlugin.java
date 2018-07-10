@@ -289,8 +289,8 @@ public class DialogFragmentPlugin extends FragmentPlugin {
     /**
      * Display the dialog, adding the fragment to the given FragmentManager.  This
      * is a convenience for explicitly creating a transaction, adding the
-     * fragment to it with the given tag, and committing it.  This does
-     * <em>not</em> add the transaction to the back stack.  When the fragment
+     * fragment to it with the given tag, and {@link FragmentTransaction#commit() committing} it.
+     * This does <em>not</em> add the transaction to the fragment back stack.  When the fragment
      * is dismissed, a new transaction will be executed to remove it from
      * the activity.
      *
@@ -305,7 +305,7 @@ public class DialogFragmentPlugin extends FragmentPlugin {
 
     /**
      * Display the dialog, adding the fragment using an existing transaction
-     * and then committing the transaction.
+     * and then {@link FragmentTransaction#commit() committing} the transaction.
      *
      * @param transaction An existing transaction in which to add the fragment.
      * @param tag         The tag for this fragment, as per
@@ -316,6 +316,23 @@ public class DialogFragmentPlugin extends FragmentPlugin {
     public int show(final FragmentTransaction transaction, final String tag) {
         verifyMethodCalledFromDelegate("show(FragmentTransaction, String)");
         return ((CallFun2<Integer, FragmentTransaction, String>) mSuperListeners.pop()).call(transaction, tag);
+    }
+
+    /**
+     * Display the dialog, immediately adding the fragment to the given FragmentManager.  This
+     * is a convenience for explicitly creating a transaction, adding the
+     * fragment to it with the given tag, and calling {@link FragmentTransaction#commitNow()}.
+     * This does <em>not</em> add the transaction to the fragment back stack.  When the fragment
+     * is dismissed, a new transaction will be executed to remove it from
+     * the activity.
+     *
+     * @param manager The FragmentManager this fragment will be added to.
+     * @param tag     The tag for this fragment, as per
+     *                {@link FragmentTransaction#add(Fragment, String) FragmentTransaction.add}.
+     */
+    public void showNow(final FragmentManager manager, final String tag) {
+        verifyMethodCalledFromDelegate("showNow(FragmentManager, String)");
+        ((CallVoid2<FragmentManager, String>) mSuperListeners.pop()).call(manager, tag);
     }
 
     void dismiss(final CallVoid0 superCall) {
@@ -429,6 +446,14 @@ public class DialogFragmentPlugin extends FragmentPlugin {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return show(transaction, tag);
+        }
+    }
+
+    void showNow(final CallVoid2<FragmentManager, String> superCall, final FragmentManager manager,
+            final String tag) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            showNow(manager, tag);
         }
     }
 

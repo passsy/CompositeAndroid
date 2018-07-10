@@ -9,6 +9,7 @@ import android.app.TaskStackBuilder;
 import android.app.VoiceInteractor;
 import android.app.assist.AssistContent;
 import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks;
 import android.content.ComponentName;
@@ -2668,6 +2669,27 @@ public class ActivityDelegate extends AbstractDelegate<ICompositeActivity, Activ
             }
         };
         superCall.call(resid);
+    }
+
+    public ViewModelStore getViewModelStore() {
+        if (mPlugins.isEmpty()) {
+            return getOriginal().super_getViewModelStore();
+        }
+
+        final ListIterator<ActivityPlugin> iterator = mPlugins.listIterator(mPlugins.size());
+
+        final CallFun0<ViewModelStore> superCall = new CallFun0<ViewModelStore>("getViewModelStore()") {
+
+            @Override
+            public ViewModelStore call() {
+                if (iterator.hasPrevious()) {
+                    return iterator.previous().getViewModelStore(this);
+                } else {
+                    return getOriginal().super_getViewModelStore();
+                }
+            }
+        };
+        return superCall.call();
     }
 
     public VoiceInteractor getVoiceInteractor() {

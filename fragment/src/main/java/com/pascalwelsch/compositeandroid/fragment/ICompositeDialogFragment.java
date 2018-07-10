@@ -66,6 +66,8 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
 
     int show(final FragmentTransaction transaction, final String tag);
 
+    void showNow(final FragmentManager manager, final String tag);
+
     void super_dismiss();
 
     void super_dismissAllowingStateLoss();
@@ -113,4 +115,6 @@ public interface ICompositeDialogFragment extends ICompositeFragment {
     void super_show(final FragmentManager manager, final String tag);
 
     int super_show(final FragmentTransaction transaction, final String tag);
+
+    void super_showNow(final FragmentManager manager, final String tag);
 }

@@ -2,6 +2,7 @@ package com.pascalwelsch.compositeandroid.fragment;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -17,6 +18,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
 import android.transition.ChangeBounds;
+import android.transition.Transition;
 import android.transition.Visibility;
 import android.util.AttributeSet;
 import android.view.ContextMenu;
@@ -118,6 +120,8 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
 
     /**
      * Return the {@link Context} this fragment is currently associated with.
+     *
+     * @see #requireContext()
      */
     public Context getContext() {
         verifyMethodCalledFromDelegate("getContext()");
@@ -181,7 +185,9 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is being closed not due to popping the back stack. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     public void setExitTransition(@Nullable final Object transition) {
         verifyMethodCalledFromDelegate("setExitTransition(Object)");
@@ -247,7 +253,9 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
      *
      * @param transition The Transition to use to move Views into the scene when reentering from a
      *                   previously-started Activity. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     public void setReenterTransition(@Nullable final Object transition) {
         verifyMethodCalledFromDelegate("setReenterTransition(Object)");
@@ -283,7 +291,8 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is preparing to close. <code>transition</code> must be an
-     *                   android.transition.Transition.
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     public void setReturnTransition(@Nullable final Object transition) {
         verifyMethodCalledFromDelegate("setReturnTransition(Object)");
@@ -311,7 +320,9 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
      * value will cause transferred shared elements to blink to the final position.
      *
      * @param transition The Transition to use for shared elements transferred into the content
-     *                   Scene.  <code>transition</code> must be an android.transition.Transition.
+     *                   Scene.  <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     public void setSharedElementEnterTransition(@Nullable final Object transition) {
         verifyMethodCalledFromDelegate("setSharedElementEnterTransition(Object)");
@@ -345,7 +356,9 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
      * {@link #setSharedElementEnterTransition(Object)}.
      *
      * @param transition The Transition to use for shared elements transferred out of the content
-     *                   Scene. <code>transition</code> must be an android.transition.Transition.
+     *                   Scene. <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     public void setSharedElementReturnTransition(@Nullable final Object transition) {
         verifyMethodCalledFromDelegate("setSharedElementReturnTransition(Object)");
@@ -391,6 +404,11 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     public View getView() {
         verifyMethodCalledFromDelegate("getView()");
         return ((CallFun0<View>) mSuperListeners.pop()).call();
+    }
+
+    public ViewModelStore getViewModelStore() {
+        verifyMethodCalledFromDelegate("getViewModelStore()");
+        return ((CallFun0<ViewModelStore>) mSuperListeners.pop()).call();
     }
 
     /**
@@ -1307,6 +1325,13 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
         synchronized (mSuperListeners) {
             mSuperListeners.push(superCall);
             return getView();
+        }
+    }
+
+    ViewModelStore getViewModelStore(final CallFun0<ViewModelStore> superCall) {
+        synchronized (mSuperListeners) {
+            mSuperListeners.push(superCall);
+            return getViewModelStore();
         }
     }
 

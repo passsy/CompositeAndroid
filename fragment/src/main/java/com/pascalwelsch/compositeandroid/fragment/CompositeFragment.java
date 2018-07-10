@@ -3,6 +3,7 @@ package com.pascalwelsch.compositeandroid.fragment;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -18,6 +19,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
 import android.transition.ChangeBounds;
+import android.transition.Transition;
 import android.transition.Visibility;
 import android.util.AttributeSet;
 import android.view.ContextMenu;
@@ -389,6 +391,8 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
 
     /**
      * Return the {@link Context} this fragment is currently associated with.
+     *
+     * @see #requireContext()
      */
     @Nullable
     @Override
@@ -455,7 +459,9 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is being closed not due to popping the back stack. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setExitTransition(@Nullable final Object transition) {
@@ -518,7 +524,9 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *
      * @param transition The Transition to use to move Views into the scene when reentering from a
      *                   previously-started Activity. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setReenterTransition(@Nullable final Object transition) {
@@ -555,7 +563,8 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is preparing to close. <code>transition</code> must be an
-     *                   android.transition.Transition.
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setReturnTransition(@Nullable final Object transition) {
@@ -584,7 +593,9 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * value will cause transferred shared elements to blink to the final position.
      *
      * @param transition The Transition to use for shared elements transferred into the content
-     *                   Scene.  <code>transition</code> must be an android.transition.Transition.
+     *                   Scene.  <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setSharedElementEnterTransition(@Nullable final Object transition) {
@@ -619,7 +630,9 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * {@link #setSharedElementEnterTransition(Object)}.
      *
      * @param transition The Transition to use for shared elements transferred out of the content
-     *                   Scene. <code>transition</code> must be an android.transition.Transition.
+     *                   Scene. <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setSharedElementReturnTransition(@Nullable final Object transition) {
@@ -666,6 +679,12 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public View getView() {
         return delegate.getView();
+    }
+
+    @NonNull
+    @Override
+    public ViewModelStore getViewModelStore() {
+        return delegate.getViewModelStore();
     }
 
     /**
@@ -1257,6 +1276,8 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
 
     /**
      * Return the {@link Context} this fragment is currently associated with.
+     *
+     * @see #requireContext()
      */
     @Nullable
     @Override
@@ -1415,6 +1436,12 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     @Override
     public View super_getView() {
         return super.getView();
+    }
+
+    @NonNull
+    @Override
+    public ViewModelStore super_getViewModelStore() {
+        return super.getViewModelStore();
     }
 
     /**
@@ -2140,7 +2167,9 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is being closed not due to popping the back stack. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
 
     @Override
@@ -2201,7 +2230,9 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *
      * @param transition The Transition to use to move Views into the scene when reentering from a
      *                   previously-started Activity. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
 
     @Override
@@ -2241,7 +2272,8 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is preparing to close. <code>transition</code> must be an
-     *                   android.transition.Transition.
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
 
     @Override
@@ -2256,7 +2288,9 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * value will cause transferred shared elements to blink to the final position.
      *
      * @param transition The Transition to use for shared elements transferred into the content
-     *                   Scene.  <code>transition</code> must be an android.transition.Transition.
+     *                   Scene.  <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
 
     @Override
@@ -2274,7 +2308,9 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
      * {@link #setSharedElementEnterTransition(Object)}.
      *
      * @param transition The Transition to use for shared elements transferred out of the content
-     *                   Scene. <code>transition</code> must be an android.transition.Transition.
+     *                   Scene. <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
 
     @Override
