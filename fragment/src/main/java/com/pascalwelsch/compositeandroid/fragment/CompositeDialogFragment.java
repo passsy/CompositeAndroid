@@ -535,7 +535,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     /**
-     * Return the LoaderManager for this fragment, creating it if needed.
+     * Return the LoaderManager for this fragment.
      */
     @Override
     public LoaderManager getLoaderManager() {
@@ -1583,7 +1583,7 @@ public class CompositeDialogFragment extends DialogFragment implements IComposit
     }
 
     /**
-     * Return the LoaderManager for this fragment, creating it if needed.
+     * Return the LoaderManager for this fragment.
      */
 
     @Override

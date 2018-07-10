@@ -218,7 +218,7 @@ public class FragmentPlugin extends AbstractPlugin<Fragment, FragmentDelegate> {
     }
 
     /**
-     * Return the LoaderManager for this fragment, creating it if needed.
+     * Return the LoaderManager for this fragment.
      */
     public LoaderManager getLoaderManager() {
         verifyMethodCalledFromDelegate("getLoaderManager()");

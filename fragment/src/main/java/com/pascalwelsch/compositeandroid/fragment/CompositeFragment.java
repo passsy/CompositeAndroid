@@ -489,7 +489,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     /**
-     * Return the LoaderManager for this fragment, creating it if needed.
+     * Return the LoaderManager for this fragment.
      */
     @Override
     public LoaderManager getLoaderManager() {
@@ -1339,7 +1339,7 @@ public class CompositeFragment extends Fragment implements ICompositeFragment {
     }
 
     /**
-     * Return the LoaderManager for this fragment, creating it if needed.
+     * Return the LoaderManager for this fragment.
      */
 
     @Override
