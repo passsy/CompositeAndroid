@@ -11,6 +11,7 @@ import android.app.TaskStackBuilder;
 import android.app.VoiceInteractor;
 import android.app.assist.AssistContent;
 import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks;
@@ -98,7 +99,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-// 27.0.2
+// 27.1.0
 @SuppressWarnings("ALL")
 public class BlueprintActivity extends AppCompatActivity {
 
@@ -1388,6 +1389,17 @@ public class BlueprintActivity extends AppCompatActivity {
     @Override
     public void setTheme(final int resid) {
         super.setTheme(resid);
+    }
+
+    /**
+     * Returns the {@link ViewModelStore} associated with this activity
+     *
+     * @return a {@code ViewModelStore}
+     */
+    @NonNull
+    @Override
+    public ViewModelStore getViewModelStore() {
+        return super.getViewModelStore();
     }
 
     /**

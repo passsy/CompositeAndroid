@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 
-// 27.0.2
+// 27.1.0
 @SuppressWarnings("ALL")
 public class BlueprintDialogFragment extends DialogFragment {
 
@@ -213,8 +213,8 @@ public class BlueprintDialogFragment extends DialogFragment {
     /**
      * Display the dialog, adding the fragment to the given FragmentManager.  This
      * is a convenience for explicitly creating a transaction, adding the
-     * fragment to it with the given tag, and committing it.  This does
-     * <em>not</em> add the transaction to the back stack.  When the fragment
+     * fragment to it with the given tag, and {@link FragmentTransaction#commit() committing} it.
+     * This does <em>not</em> add the transaction to the fragment back stack.  When the fragment
      * is dismissed, a new transaction will be executed to remove it from
      * the activity.
      *
@@ -229,7 +229,7 @@ public class BlueprintDialogFragment extends DialogFragment {
 
     /**
      * Display the dialog, adding the fragment using an existing transaction
-     * and then committing the transaction.
+     * and then {@link FragmentTransaction#commit() committing} the transaction.
      *
      * @param transaction An existing transaction in which to add the fragment.
      * @param tag         The tag for this fragment, as per
@@ -240,5 +240,22 @@ public class BlueprintDialogFragment extends DialogFragment {
     @Override
     public int show(final FragmentTransaction transaction, final String tag) {
         return super.show(transaction, tag);
+    }
+
+    /**
+     * Display the dialog, immediately adding the fragment to the given FragmentManager.  This
+     * is a convenience for explicitly creating a transaction, adding the
+     * fragment to it with the given tag, and calling {@link FragmentTransaction#commitNow()}.
+     * This does <em>not</em> add the transaction to the fragment back stack.  When the fragment
+     * is dismissed, a new transaction will be executed to remove it from
+     * the activity.
+     *
+     * @param manager The FragmentManager this fragment will be added to.
+     * @param tag     The tag for this fragment, as per
+     *                {@link FragmentTransaction#add(Fragment, String) FragmentTransaction.add}.
+     */
+    @Override
+    public void showNow(final FragmentManager manager, final String tag) {
+        super.showNow(manager, tag);
     }
 }

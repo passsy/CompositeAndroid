@@ -3,6 +3,7 @@ package com.pascalwelsch.compositeandroid.blueprints;
 import android.animation.Animator;
 import android.app.Activity;
 import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.ViewModelStore;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -16,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.SharedElementCallback;
 import android.transition.ChangeBounds;
+import android.transition.Transition;
 import android.transition.Visibility;
 import android.util.AttributeSet;
 import android.view.ContextMenu;
@@ -30,7 +32,7 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-// 27.0.2
+// 27.1.0
 @SuppressWarnings("ALL")
 public class BlueprintFragment extends Fragment {
 
@@ -355,6 +357,8 @@ public class BlueprintFragment extends Fragment {
 
     /**
      * Return the {@link Context} this fragment is currently associated with.
+     *
+     * @see #requireContext()
      */
     @Nullable
     @Override
@@ -421,7 +425,9 @@ public class BlueprintFragment extends Fragment {
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is being closed not due to popping the back stack. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setExitTransition(@Nullable final Object transition) {
@@ -484,7 +490,9 @@ public class BlueprintFragment extends Fragment {
      *
      * @param transition The Transition to use to move Views into the scene when reentering from a
      *                   previously-started Activity. <code>transition</code>
-     *                   must be an android.transition.Transition.
+     *                   must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setReenterTransition(@Nullable final Object transition) {
@@ -521,7 +529,8 @@ public class BlueprintFragment extends Fragment {
      *
      * @param transition The Transition to use to move Views out of the Scene when the Fragment
      *                   is preparing to close. <code>transition</code> must be an
-     *                   android.transition.Transition.
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setReturnTransition(@Nullable final Object transition) {
@@ -550,7 +559,9 @@ public class BlueprintFragment extends Fragment {
      * value will cause transferred shared elements to blink to the final position.
      *
      * @param transition The Transition to use for shared elements transferred into the content
-     *                   Scene.  <code>transition</code> must be an android.transition.Transition.
+     *                   Scene.  <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setSharedElementEnterTransition(@Nullable final Object transition) {
@@ -585,7 +596,9 @@ public class BlueprintFragment extends Fragment {
      * {@link #setSharedElementEnterTransition(Object)}.
      *
      * @param transition The Transition to use for shared elements transferred out of the content
-     *                   Scene. <code>transition</code> must be an android.transition.Transition.
+     *                   Scene. <code>transition</code> must be an
+     *                   {@link Transition android.transition.Transition} or
+     *                   {@link android.support.transition.Transition android.support.transition.Transition}.
      */
     @Override
     public void setSharedElementReturnTransition(@Nullable final Object transition) {
@@ -632,6 +645,12 @@ public class BlueprintFragment extends Fragment {
     @Override
     public View getView() {
         return super.getView();
+    }
+
+    @NonNull
+    @Override
+    public ViewModelStore getViewModelStore() {
+        return super.getViewModelStore();
     }
 
     /**
