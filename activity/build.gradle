@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.novoda:bintray-release:0.5.0'
+        classpath 'com.novoda:bintray-release:0.8.1'
     }
 }
 
@@ -13,7 +13,6 @@ apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
-    buildToolsVersion BUILD_TOOLS_VERSION
 
     defaultConfig {
         minSdkVersion MIN_SDK_VERSION
@@ -62,6 +61,6 @@ publish {
     artifactId = 'activity'
     uploadName = 'CompositeActivity'
     publishVersion = VERSION_NAME
-    description = 'CompositeAndroid - Composition over inheritance for Android'
+    desc = 'CompositeAndroid - Composition over inheritance for Android'
     website = 'https://github.com/passsy/CompositeAndroid'
 }
