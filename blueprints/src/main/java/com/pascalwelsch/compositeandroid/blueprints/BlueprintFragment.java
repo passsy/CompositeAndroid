@@ -32,7 +32,7 @@ import android.view.animation.Animation;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
-// 27.1.1
+// 28.0.0-alpha1
 @SuppressWarnings("ALL")
 public class BlueprintFragment extends Fragment {
 
@@ -455,7 +455,7 @@ public class BlueprintFragment extends Fragment {
     }
 
     /**
-     * Return the LoaderManager for this fragment, creating it if needed.
+     * Return the LoaderManager for this fragment.
      */
     @Override
     public LoaderManager getLoaderManager() {
