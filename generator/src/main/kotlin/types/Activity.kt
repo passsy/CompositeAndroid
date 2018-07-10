@@ -33,6 +33,8 @@ fun generateActivity() {
             transform = replaceExtraData,
             additionalImports = """
             |import android.support.v4.app.SupportActivity;
+            |import android.support.v7.app.ActionBarDrawerToggle;
+            |import android.support.v7.app.ActionBarDrawerToggle.Delegate;
             """.replaceIndentByMargin(),
             addCodeToClass = activity_custom_nonConfigurationInstance_handling)
 
@@ -47,6 +49,8 @@ fun generateActivity() {
             additionalImports = """
             |import java.util.ListIterator;
             |import android.support.v4.app.SupportActivity;
+            |import android.support.v7.app.ActionBarDrawerToggle;
+            |import android.support.v7.app.ActionBarDrawerToggle.Delegate;
             """.replaceIndentByMargin(),
             addCodeToClass = delegate_custom_nonConfigurationInstance_handling)
 
@@ -71,9 +75,14 @@ fun generateActivity() {
             transform = replaceExtraData,
             additionalImports = """
             |import android.content.*;
-            |import android.support.v4.app.*;
-            |import android.support.v7.app.*;
+            |import android.support.v4.app.ActivityCompat;
+            |import android.support.v4.app.Fragment;
+            |import android.support.v4.app.FragmentManager;
+            |import android.support.v4.app.LoaderManager;
+            |import android.support.v4.app.SharedElementCallback;
             |import android.support.v4.app.SupportActivity;
+            |import android.support.v7.app.*;
+            |import android.support.v7.app.ActionBarDrawerToggle.Delegate;
             """.replaceIndentByMargin())
 }
 val replaceExtraData: (String) -> String = {

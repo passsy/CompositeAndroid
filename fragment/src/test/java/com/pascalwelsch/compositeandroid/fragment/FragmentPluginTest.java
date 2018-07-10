@@ -1,11 +1,10 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
-import org.junit.Test;
+import static org.assertj.core.api.Java6Assertions.*;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import org.junit.*;
 
 public class FragmentPluginTest {
 
@@ -27,16 +26,16 @@ public class FragmentPluginTest {
         private boolean mShowsCalled;
 
         @Override
+        public void onCreate(@Nullable final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            mGotCalled = true;
+        }
+
+        @Override
         public boolean getShowsDialog() {
             final boolean showsDialog = super.getShowsDialog();
             mShowsCalled = true;
             return showsDialog;
-        }
-
-        @Override
-        public void onCreate(@Nullable final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            mGotCalled = true;
         }
     }
 

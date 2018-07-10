@@ -1,7 +1,6 @@
 package com.pascalwelsch.compositeandroid.activity;
 
 import android.support.annotation.Nullable;
-
 import java.util.HashMap;
 
 class NonConfigurationInstanceWrapper {
