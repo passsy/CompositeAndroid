@@ -10,8 +10,6 @@ import android.app.PictureInPictureParams;
 import android.app.TaskStackBuilder;
 import android.app.VoiceInteractor;
 import android.app.assist.AssistContent;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.ViewModelStore;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks;
 import android.content.ComponentName;
@@ -43,21 +41,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.PersistableBundle;
 import android.os.UserHandle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.SharedElementCallback;
-import android.support.v4.app.SupportActivity;
-import android.support.v4.view.WindowCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle.Delegate;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.view.ActionMode;
-import android.support.v7.view.ActionMode.Callback;
 import android.transition.Scene;
 import android.transition.TransitionManager;
 import android.util.AttributeSet;
@@ -79,8 +62,9 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.Toolbar;
+
 import com.pascalwelsch.compositeandroid.core.Removable;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -92,6 +76,24 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ComponentActivity;
+import androidx.core.app.NavUtils;
+import androidx.core.app.SharedElementCallback;
+import androidx.core.view.WindowCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelStore;
+import androidx.loader.app.LoaderManager;
 
 @SuppressWarnings({"unused", "deprecation", "JavadocReference", "WrongConstant", "RestrictedApi"})
 @SuppressLint({"MissingSuperCall", "NewApi"})
@@ -557,7 +559,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void setActionBar(@Nullable final Toolbar toolbar) {
+    public void setActionBar(@Nullable final android.widget.Toolbar toolbar) {
         delegate.setActionBar(toolbar);
     }
 
@@ -670,7 +672,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     @Nullable
     @Override
-    public Delegate getDrawerToggleDelegate() {
+    public ActionBarDrawerToggle.Delegate getDrawerToggleDelegate() {
         return delegate.getDrawerToggleDelegate();
     }
 
@@ -706,7 +708,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #putExtraData
      */
     @Override
-    public <T extends SupportActivity.ExtraData> T getExtraData(final Class<T> extraDataClass) {
+    public <T extends ComponentActivity.ExtraData> T getExtraData(final Class<T> extraDataClass) {
         return delegate.getExtraData(extraDataClass);
     }
 
@@ -752,7 +754,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
     @Override
     final public Object getLastCustomNonConfigurationInstance() {
-        return super.getLastCustomNonConfigurationInstance();
+        return super.getLastNonConfigurationInstance();
     }
 
     /**
@@ -918,7 +920,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @param toolbar Toolbar to set as the Activity's action bar, or {@code null} to clear it
      */
     @Override
-    public void setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar) {
+    public void setSupportActionBar(@Nullable final Toolbar toolbar) {
         delegate.setSupportActionBar(toolbar);
     }
 
@@ -1287,7 +1289,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * a different task.
      *
      * <p>The default implementation of this method adds the parent chain of this activity
-     * as specified in the manifest to the supplied {@link android.support.v4.app.TaskStackBuilder}. Applications
+     * as specified in the manifest to the supplied {@link androidx.core.app.TaskStackBuilder}. Applications
      * may choose to override this method to construct the desired task stack in a different
      * way.</p>
      *
@@ -1297,13 +1299,13 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      *
      * <p>Applications that wish to supply extra Intent parameters to the parent stack defined
      * by the manifest should override
-     * {@link #onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}.</p>
+     * {@link #onPrepareSupportNavigateUpTaskStack(androidx.core.app.TaskStackBuilder)}.</p>
      *
      * @param builder An empty TaskStackBuilder - the application should add intents representing
      *                the desired task stack
      */
     @Override
-    public void onCreateSupportNavigateUpTaskStack(@NonNull final android.support.v4.app.TaskStackBuilder builder) {
+    public void onCreateSupportNavigateUpTaskStack(@NonNull final androidx.core.app.TaskStackBuilder builder) {
         delegate.onCreateSupportNavigateUpTaskStack(builder);
     }
 
@@ -1502,8 +1504,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * Prepare the synthetic task stack that will be generated during Up navigation
      * from a different task.
      *
-     * <p>This method receives the {@link android.support.v4.app.TaskStackBuilder} with the constructed series of
-     * Intents as generated by {@link #onCreateSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}.
+     * <p>This method receives the {@link androidx.core.app.TaskStackBuilder} with the constructed series of
+     * Intents as generated by {@link #onCreateSupportNavigateUpTaskStack(androidx.core.app.TaskStackBuilder)}.
      * If any extra data should be added to these intents before launching the new task,
      * the application should override this method and add that data here.</p>
      *
@@ -1511,7 +1513,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      *                onCreateNavigateUpTaskStack.
      */
     @Override
-    public void onPrepareSupportNavigateUpTaskStack(@NonNull final android.support.v4.app.TaskStackBuilder builder) {
+    public void onPrepareSupportNavigateUpTaskStack(@NonNull final androidx.core.app.TaskStackBuilder builder) {
         delegate.onPrepareSupportNavigateUpTaskStack(builder);
     }
 
@@ -1620,7 +1622,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * default Up navigation will be handled automatically. See
      * {@link #getSupportParentActivityIntent()} for how to specify the parent. If any activity
      * along the parent chain requires extra Intent arguments, the Activity subclass
-     * should override the method {@link #onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}
+     * should override the method {@link #onPrepareSupportNavigateUpTaskStack(androidx.core.app.TaskStackBuilder)}
      * to supply those arguments.</p>
      *
      * <p>See <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and
@@ -1628,7 +1630,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * <a href="{@docRoot}design/patterns/navigation.html">Navigation</a> from the design guide
      * for more information about navigating within your app.</p>
      *
-     * <p>See the {@link android.support.v4.app.TaskStackBuilder} class and the Activity methods
+     * <p>See the {@link androidx.core.app.TaskStackBuilder} class and the Activity methods
      * {@link #getSupportParentActivityIntent()}, {@link #supportShouldUpRecreateTask(Intent)}, and
      * {@link #supportNavigateUpTo(Intent)} for help implementing custom Up navigation.</p>
      *
@@ -1712,7 +1714,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
     @Nullable
     @Override
-    public ActionMode onWindowStartingSupportActionMode(@NonNull final Callback callback) {
+    public ActionMode onWindowStartingSupportActionMode(@NonNull final ActionMode.Callback callback) {
         return delegate.onWindowStartingSupportActionMode(callback);
     }
 
@@ -1783,7 +1785,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * @see #getExtraData
      */
     @Override
-    public void putExtraData(final SupportActivity.ExtraData extraData) {
+    public void putExtraData(final ComponentActivity.ExtraData extraData) {
         delegate.putExtraData(extraData);
     }
 
@@ -2372,7 +2374,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
     @Nullable
     @Override
-    public ActionMode startSupportActionMode(@NonNull final Callback callback) {
+    public ActionMode startSupportActionMode(@NonNull final ActionMode.Callback callback) {
         return delegate.startSupportActionMode(callback);
     }
 
@@ -2784,7 +2786,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     @Nullable
     @Override
-    public Delegate super_getDrawerToggleDelegate() {
+    public ActionBarDrawerToggle.Delegate super_getDrawerToggleDelegate() {
         return super.getDrawerToggleDelegate();
     }
 
@@ -2814,14 +2816,14 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * Retrieves a previously set {@link SupportActivity.ExtraData} by class name.
+     * Retrieves a previously set {@link ComponentActivity.ExtraData} by class name.
      *
      * @hide
      * @see #putExtraData
      */
 
     @Override
-    public <T extends SupportActivity.ExtraData> T super_getExtraData(final Class<T> extraDataClass) {
+    public <T extends ComponentActivity.ExtraData> T super_getExtraData(final Class<T> extraDataClass) {
         return super.getExtraData(extraDataClass);
     }
 
@@ -3353,7 +3355,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * a different task.
      *
      * <p>The default implementation of this method adds the parent chain of this activity
-     * as specified in the manifest to the supplied {@link android.support.v4.app.TaskStackBuilder}. Applications
+     * as specified in the manifest to the supplied {@link androidx.core.app.TaskStackBuilder}. Applications
      * may choose to override this method to construct the desired task stack in a different
      * way.</p>
      *
@@ -3363,7 +3365,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      *
      * <p>Applications that wish to supply extra Intent parameters to the parent stack defined
      * by the manifest should override
-     * {@link #onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}.</p>
+     * {@link #onPrepareSupportNavigateUpTaskStack(androidx.core.app.TaskStackBuilder)}.</p>
      *
      * @param builder An empty TaskStackBuilder - the application should add intents representing
      *                the desired task stack
@@ -3371,7 +3373,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     @Override
     public void super_onCreateSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+            @NonNull final androidx.core.app.TaskStackBuilder builder) {
         super.onCreateSupportNavigateUpTaskStack(builder);
     }
 
@@ -3638,8 +3640,8 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * Prepare the synthetic task stack that will be generated during Up navigation
      * from a different task.
      *
-     * <p>This method receives the {@link android.support.v4.app.TaskStackBuilder} with the constructed series of
-     * Intents as generated by {@link #onCreateSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}.
+     * <p>This method receives the {@link androidx.core.app.TaskStackBuilder} with the constructed series of
+     * Intents as generated by {@link #onCreateSupportNavigateUpTaskStack(androidx.core.app.TaskStackBuilder)}.
      * If any extra data should be added to these intents before launching the new task,
      * the application should override this method and add that data here.</p>
      *
@@ -3649,7 +3651,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
 
     @Override
     public void super_onPrepareSupportNavigateUpTaskStack(
-            @NonNull final android.support.v4.app.TaskStackBuilder builder) {
+            @NonNull final androidx.core.app.TaskStackBuilder builder) {
         super.onPrepareSupportNavigateUpTaskStack(builder);
     }
 
@@ -3820,7 +3822,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * default Up navigation will be handled automatically. See
      * {@link #getSupportParentActivityIntent()} for how to specify the parent. If any activity
      * along the parent chain requires extra Intent arguments, the Activity subclass
-     * should override the method {@link #onPrepareSupportNavigateUpTaskStack(android.support.v4.app.TaskStackBuilder)}
+     * should override the method {@link #onPrepareSupportNavigateUpTaskStack(androidx.core.app.TaskStackBuilder)}
      * to supply those arguments.</p>
      *
      * <p>See <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and
@@ -3828,7 +3830,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * <a href="{@docRoot}design/patterns/navigation.html">Navigation</a> from the design guide
      * for more information about navigating within your app.</p>
      *
-     * <p>See the {@link android.support.v4.app.TaskStackBuilder} class and the Activity methods
+     * <p>See the {@link androidx.core.app.TaskStackBuilder} class and the Activity methods
      * {@link #getSupportParentActivityIntent()}, {@link #supportShouldUpRecreateTask(Intent)}, and
      * {@link #supportNavigateUpTo(Intent)} for help implementing custom Up navigation.</p>
      *
@@ -3914,7 +3916,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
     @Nullable
     @Override
-    public ActionMode super_onWindowStartingSupportActionMode(@NonNull final Callback callback) {
+    public ActionMode super_onWindowStartingSupportActionMode(@NonNull final ActionMode.Callback callback) {
         return super.onWindowStartingSupportActionMode(callback);
     }
 
@@ -3969,7 +3971,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     /**
-     * Store an instance of {@link SupportActivity.ExtraData} for later retrieval by class name
+     * Store an instance of {@link ComponentActivity.ExtraData} for later retrieval by class name
      * via {@link #getExtraData}.
      *
      * <p>Note that these objects are not retained across configuration changes</p>
@@ -3979,7 +3981,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_putExtraData(final SupportActivity.ExtraData extraData) {
+    public void super_putExtraData(final ComponentActivity.ExtraData extraData) {
         super.putExtraData(extraData);
     }
 
@@ -4156,7 +4158,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
     }
 
     @Override
-    public void super_setActionBar(@Nullable final Toolbar toolbar) {
+    public void super_setActionBar(@Nullable final android.widget.Toolbar toolbar) {
         super.setActionBar(toolbar);
     }
 
@@ -4265,7 +4267,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
 
     @Override
-    public void super_setSupportActionBar(@Nullable final android.support.v7.widget.Toolbar toolbar) {
+    public void super_setSupportActionBar(@Nullable final Toolbar toolbar) {
         super.setSupportActionBar(toolbar);
     }
 
@@ -4619,7 +4621,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      */
     @Nullable
     @Override
-    public ActionMode super_startSupportActionMode(@NonNull final Callback callback) {
+    public ActionMode super_startSupportActionMode(@NonNull final ActionMode.Callback callback) {
         return super.startSupportActionMode(callback);
     }
 
@@ -4721,7 +4723,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * <p>If this method returns false the app can trivially call
      * {@link #supportNavigateUpTo(Intent)} using the same parameters to correctly perform
      * up navigation. If this method returns false, the app should synthesize a new task stack
-     * by using {@link android.support.v4.app.TaskStackBuilder} or another similar mechanism to perform up navigation.</p>
+     * by using {@link androidx.core.app.TaskStackBuilder} or another similar mechanism to perform up navigation.</p>
      *
      * @param targetIntent An intent representing the target destination for up navigation
      * @return true if navigating up should recreate a new task stack, false if the same task
@@ -4843,7 +4845,7 @@ public class CompositeActivity extends AppCompatActivity implements ICompositeAc
      * <p>If this method returns false the app can trivially call
      * {@link #supportNavigateUpTo(Intent)} using the same parameters to correctly perform
      * up navigation. If this method returns false, the app should synthesize a new task stack
-     * by using {@link android.support.v4.app.TaskStackBuilder} or another similar mechanism to perform up navigation.</p>
+     * by using {@link androidx.core.app.TaskStackBuilder} or another similar mechanism to perform up navigation.</p>
      *
      * @param targetIntent An intent representing the target destination for up navigation
      * @return true if navigating up should recreate a new task stack, false if the same task

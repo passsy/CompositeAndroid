@@ -132,14 +132,14 @@ dependencies {
     def supportLibraryVersion = "25.0.0"
     
     // contains CompositeActivity
-    compile "com.pascalwelsch.compositeandroid:activity:$supportLibraryVersion"
+    implementation "com.pascalwelsch.compositeandroid:activity:$supportLibraryVersion"
 
     // contains CompositeFragment and CompositeDialogFragment
-    compile "com.pascalwelsch.compositeandroid:fragment:$supportLibraryVersion"
+    implementation "com.pascalwelsch.compositeandroid:fragment:$supportLibraryVersion"
 
 
     // core module (not required, only abstract classes and utils)
-    compile "com.pascalwelsch.compositeandroid:core:$supportLibraryVersion"
+    implementation "com.pascalwelsch.compositeandroid:core:$supportLibraryVersion"
 }
 ```
 

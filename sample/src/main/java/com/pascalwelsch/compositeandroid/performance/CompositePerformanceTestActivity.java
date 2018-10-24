@@ -1,20 +1,21 @@
 package com.pascalwelsch.compositeandroid.performance;
 
+import android.annotation.SuppressLint;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import com.pascalwelsch.compositeandroid.R;
 import com.pascalwelsch.compositeandroid.activity.ActivityPlugin;
 import com.pascalwelsch.compositeandroid.activity.CompositeActivity;
 
-import android.annotation.SuppressLint;
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
-import android.view.View;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class CompositePerformanceTestActivity extends CompositeActivity {
 

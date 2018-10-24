@@ -29,9 +29,10 @@ android {
 }
 
 dependencies {
-    compile project(':activity')
-    compile project(':fragment')
+    implementation project(':activity')
+    implementation project(':fragment')
 
-    testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+
+    testImplementation 'junit:junit:4.12'
 }

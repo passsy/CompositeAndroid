@@ -1,10 +1,12 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
-import static org.assertj.core.api.Java6Assertions.*;
-
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import org.junit.*;
+
+import org.junit.Test;
+
+import androidx.annotation.Nullable;
+
+import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class FragmentPluginTest {
 

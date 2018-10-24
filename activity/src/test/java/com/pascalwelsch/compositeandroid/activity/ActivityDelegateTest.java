@@ -1,14 +1,21 @@
 package com.pascalwelsch.compositeandroid.activity;
 
-import static junit.framework.Assert.fail;
-import static org.assertj.core.api.Java6Assertions.*;
-import static org.mockito.Mockito.*;
-
-import android.support.annotation.LayoutRes;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import org.junit.*;
-import org.mockito.*;
+
+import org.junit.Test;
+import org.mockito.InOrder;
+
+import androidx.annotation.LayoutRes;
+
+import static junit.framework.Assert.fail;
+import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class ActivityDelegateTest {
 
