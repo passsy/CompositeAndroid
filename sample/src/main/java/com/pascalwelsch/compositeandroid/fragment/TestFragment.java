@@ -1,9 +1,10 @@
 package com.pascalwelsch.compositeandroid.fragment;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 public class TestFragment extends CompositeDialogFragment {
 

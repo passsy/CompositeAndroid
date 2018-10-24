@@ -2,8 +2,6 @@ package com.pascalwelsch.compositeandroid.blueprints;
 
 import android.animation.Animator;
 import android.app.Activity;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.ViewModelStore;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -11,11 +9,6 @@ import android.content.IntentSender.SendIntentException;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.SharedElementCallback;
 import android.transition.ChangeBounds;
 import android.transition.Transition;
 import android.transition.Visibility;
@@ -29,8 +22,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.SharedElementCallback;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.ViewModelStore;
+import androidx.loader.app.LoaderManager;
 
 // 28.0.0-alpha1
 @SuppressWarnings("ALL")
@@ -99,7 +101,7 @@ public class BlueprintFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container,
-            @Nullable final Bundle savedInstanceState) {
+                             @Nullable final Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

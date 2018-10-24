@@ -4,13 +4,13 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.novoda:bintray-release:0.8.1'
+        classpath 'guru.stefma.bintrayrelease:bintrayrelease:1.1.1'
     }
 }
 
 
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'guru.stefma.bintrayrelease'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
@@ -43,25 +43,25 @@ android {
 }
 
 dependencies {
-    compile project(':core')
-    testCompile 'junit:junit:4.12'
+    api project(':core')
+    api 'androidx.appcompat:appcompat:1.0.0'
 
-    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
-    compile "com.android.support:support-v4:$supportLibraryVersion"
-
-    testCompile 'org.mockito:mockito-core:1.10.19'
-    testCompile 'org.assertj:assertj-core:2.4.1'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'org.assertj:assertj-core:2.4.1'
 }
 
 
 // usage:
 // ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=true
+version = VERSION_NAME.toString()
+group = 'com.pascalwelsch.compositeandroid'
+androidArtifact {
+    artifactId = 'activity'
+}
 publish {
     userOrg = 'passsy'
-    groupId = 'com.pascalwelsch.compositeandroid'
-    artifactId = 'activity'
     uploadName = 'CompositeActivity'
-    publishVersion = VERSION_NAME
     desc = 'CompositeAndroid - Composition over inheritance for Android'
     website = 'https://github.com/passsy/CompositeAndroid'
 }
