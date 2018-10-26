@@ -35,6 +35,7 @@ fun generateActivity() {
             |import android.support.v4.app.SupportActivity;
             |import android.support.v7.app.ActionBarDrawerToggle;
             |import android.support.v7.app.ActionBarDrawerToggle.Delegate;
+            |import android.support.v4.app.SupportActivity.ExtraData;
             """.replaceIndentByMargin(),
             addCodeToClass = activity_custom_nonConfigurationInstance_handling)
 
@@ -51,6 +52,7 @@ fun generateActivity() {
             |import android.support.v4.app.SupportActivity;
             |import android.support.v7.app.ActionBarDrawerToggle;
             |import android.support.v7.app.ActionBarDrawerToggle.Delegate;
+            |import android.support.v4.app.SupportActivity.ExtraData;
             """.replaceIndentByMargin(),
             addCodeToClass = delegate_custom_nonConfigurationInstance_handling)
 
@@ -63,6 +65,7 @@ fun generateActivity() {
             transform = replaceExtraData,
             additionalImports = """
             |import android.support.v4.app.SupportActivity;
+            |import android.support.v4.app.SupportActivity.ExtraData;
             """.replaceIndentByMargin(),
             addCodeToClass = plugin_custom_nonConfigurationInstance_handling)
 
@@ -83,6 +86,7 @@ fun generateActivity() {
             |import android.support.v4.app.SupportActivity;
             |import android.support.v7.app.*;
             |import android.support.v7.app.ActionBarDrawerToggle.Delegate;
+            |import android.support.v4.app.SupportActivity.ExtraData;
             """.replaceIndentByMargin())
 }
 val replaceExtraData: (String) -> String = {
