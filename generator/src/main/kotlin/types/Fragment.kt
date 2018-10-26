@@ -58,6 +58,8 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import android.arch.lifecycle.ViewModelStore;
             |import android.arch.lifecycle.Lifecycle;
             |import android.content.IntentSender.SendIntentException;
+            |import android.support.v4.app.SupportActivity.ExtraData;
+            |import android.arch.lifecycle.LiveData;
             """.replaceIndentByMargin(),
             transform = replaceAmbitiousTypesWithFullPackageNames,
             superClassPluginNames = listOf("FragmentPlugin"),
@@ -88,6 +90,8 @@ private fun generateDialogFragment(fragment: AnalyzedJavaFile) {
             |import android.support.v4.app.Fragment.SavedState;
             |import android.animation.Animator;
             |import android.arch.lifecycle.Lifecycle;
+            |import android.support.v4.app.SupportActivity.ExtraData;
+            |import android.arch.lifecycle.LiveData;
             """.replaceIndentByMargin(),
             transform = replaceAmbitiousTypesWithFullPackageNames,
             extends = "AbstractDelegate<ICompositeDialogFragment, DialogFragmentPlugin>",
@@ -122,6 +126,8 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             |import android.support.v4.app.*;
             |import android.support.v4.app.Fragment.SavedState;
             |import android.arch.lifecycle.ViewModelStore;
+            |import android.support.v4.app.SupportActivity.ExtraData;
+            |import android.arch.lifecycle.LiveData;
             """.replaceIndentByMargin(),
             transform = replaceAmbitiousTypesWithFullPackageNames,
             delegateClassName = "FragmentDelegate",
@@ -138,6 +144,8 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             |import java.util.ListIterator;
             |import android.support.v4.app.Fragment.SavedState;
             |import android.arch.lifecycle.Lifecycle;
+            |import android.support.v4.app.SupportActivity.ExtraData;
+            |import android.arch.lifecycle.LiveData;
             """.replaceIndentByMargin(),
             extends = "AbstractDelegate<ICompositeFragment, FragmentPlugin>",
             transform = replaceAmbitiousTypesWithFullPackageNames)
@@ -150,6 +158,7 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             additionalImports = """
             |import android.support.v4.app.*;
             |import android.support.v4.app.Fragment.SavedState;
+            |import android.support.v4.app.SupportActivity.ExtraData;
             """.replaceIndentByMargin(),
             transform = replaceAmbitiousTypesWithFullPackageNames,
             superClassInputFile = fragment,
@@ -161,6 +170,7 @@ private fun generateFragment(fragment: AnalyzedJavaFile) {
             "ICompositeFragment",
             additionalImports = """
             |import android.support.v4.app.Fragment.SavedState;
+            |import android.support.v4.app.SupportActivity.ExtraData;
             """.replaceIndentByMargin(),
             transform = replaceAmbitiousTypesWithFullPackageNames)
 }
